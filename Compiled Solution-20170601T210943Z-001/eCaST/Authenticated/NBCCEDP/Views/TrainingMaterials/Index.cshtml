@@ -1,0 +1,204 @@
+﻿@model IEnumerable<eCaST.ViewModels.TrainingMaterialsViewModel>
+
+@{
+    ViewBag.Title = "Training Materials";
+}
+
+<style type="text/css">
+    table.dataTable td.sorting_1 {
+        background-color: white;
+        border-top: 1px #666;
+        border: 2px #666;
+    }
+
+    table.dataTable td {
+        background-color: white;
+        border-top: 1px #666;
+        border: 1px #666;
+    }
+
+    table.dataTable tr.odd {
+        background-color: white;
+        border-top: 1px #666;
+        border: 1px #666;
+    }
+
+    table.dataTable tr.even {
+        background-color: white;
+        border-top: 1px #666;
+        border: 1px #666;
+    }
+
+    .statusBlack {
+        color: black;
+    }
+
+    .statusRed {
+        color: red;
+    }
+
+    .statusBlue {
+        color: blue;
+    }
+
+    .statusGreen {
+        color: green;
+    }
+
+    .statusOrange {
+        color: darkred;
+    }
+</style>
+<br />
+<br />
+<br />
+<br />
+<div class="panel panel-default">
+    <div class="panel-heading">
+
+        <span><i class="fa fa-comments fa-fw"></i>eCaST Training Videos </span>
+
+        <div class="pull-right">
+
+            <div style="padding-bottom:25px"><button type="button" id="CloseVideoButton" class="btn btn-default btn-xs"> Close Videos</button></div>
+
+        </div>
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+
+
+        <div class="demo_jui">
+            <table style="width:100%" class="table table-striped table-bordered" id="TrainingMaterialsList">
+                <thead>
+                    <tr>
+
+
+                        @*<th>
+                            Video #
+                        </th>*@
+
+                        <th>
+                            Title
+                        </th>
+                      
+                        <th>
+                            Description
+                        </th>
+
+                         <th>
+                            Last Updated
+                            </th>
+
+
+                 
+
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        @*<td>
+
+                            @item.TrainingMaterialID
+
+                        </td>*@
+
+                        <td>
+
+                            <a class="btn btn-default" target="_blank" href="@item.TrainingMaterialURL" id="RequestButton_@item.TrainingMaterialID"><i class="fa fa-video-camera"></i>&nbsp;@item.TrainingMaterialTitle</a>
+
+                           
+                        </td>
+
+                        <td>
+
+                            @item.TrainingMaterialDesc
+
+                        </td>
+
+                        <td>
+                           
+
+                            @(((DateTime)item.DateUpdated).ToString("MM/dd/yyyy"))
+
+                        </td>
+
+                        
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" charset="utf-8">
+
+   
+    $(document).ready(function () {
+        oTable =
+           $('#TrainingMaterialsList').dataTable({
+               "aaSorting": [[0, "desc"]],
+               //"bJQueryUI": true,
+               "aLengthMenu": [[25, 50, 100, 250, 500, -1], [25, 50, 100, 250, 500, "All"]],
+               "bSortClasses": false,
+               //"sPaginationType": "full_numbers",
+               "bPaginate": false,
+               "bStateSave": true,
+               //"fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull)
+               //{ $('td', nRow).closest('tr').css('background', aData[5] == "Medium" ? '#ffd9cc' : '#d9ffff'); return nRow; },
+               "fnDrawCallback": function (oSettings) {
+                   //for (var i = 0, iLen = oSettings.aoData.length ; i < iLen ; i++) {
+                   //    var status = oSettings.aoData[i]._aData[5];
+                   //    var colorCSS;
+                   //    if (status == 'Low') {
+                   //        colorCSS = 'statusGreen';
+                   //    } else if (status === 'Medium') {
+                   //        colorCSS = 'statusBlue';
+                   //    } else if (status === 'High') {
+                   //        colorCSS = 'statusRed';
+                   //    } else if (status === 'Urgent') {
+                   //        colorCSS = 'statusOrange';
+                   //    } else {
+                   //        colorCSS = 'statusBlack';
+                   //    }
+                   //    oSettings.aoData[i].nTr.className += " " + colorCSS;
+                   //}
+
+
+                   $(".editLink").button();
+                   $(".detailsLink").button();
+                   $(".createLink").button();
+                   $(".deleteLink").button();
+
+               },
+               //"aoColumnDefs": [{
+               //    "bVisible": false,
+               //    "aTargets": [2]
+               //}],
+               "oLanguage": { "sSearch": "Filter: " }
+           }); $('#example_filter label input:text').focus();
+
+
+
+        oTable.fnSort([[2, 'desc']]); // Sort by first column descending
+
+    });
+
+
+    $('#CloseVideoButton').click(function () {
+
+
+        $('#HelpVideoContainer').css("display", "none");
+        $('#HelpVideoContainer').html("");
+
+
+
+    });
+
+
+
+</script>

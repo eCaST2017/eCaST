@@ -1,0 +1,767 @@
+﻿@model eCaST.ViewModels.ScreenProcedureViewModel
+
+<link href="@Url.Content("~/Content/slider.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/themes/base/jquery.ui.slider.css")" rel="stylesheet" type="text/css" />
+
+<script src="@Url.Content("~/Scripts/bootstrap-slider.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/app/patientinfo.js")" type="text/javascript"></script>
+
+@*<script type="text/javascript">
+    function checkIt(evt) {
+        evt = (evt) ? evt : window.event
+        var charCode = (evt.which) ? evt.which : evt.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            alert("Only Numbers allowed");
+            return false
+        }
+
+        document.getElementById("errorMessage").innerHTML = ""
+        return true
+    }
+</script>*@
+
+<style type="text/css">
+    .txtdiv {
+        /*width: 130px;
+        height: 50px;*/
+        -ms-transform: rotate(270deg); /* IE 9 */
+        -moz-transform: rotate(270deg); /* Firefox */
+        -webkit-transform: rotate(270deg); /* Safari and Chrome */
+        -o-transform: rotate(270deg); /* Opera */
+    }
+</style>
+
+<div id="CholSection">
+
+
+
+    <div style="padding:20px" align="center">
+
+        <div style="width:96%;text-align:left" class="alert alert-info">
+            @Html.Hidden("CLTestDate")
+            <span><i class="fa fa-heartbeat"></i> Cholesterol Test Date:&nbsp;<input style="color:#ccc;" type="text" id="CLTestDateHIDDEN" placeholder="Date Test Taken"></span>
+        </div>
+
+    </div>
+    <br />
+
+    <div style="padding-left:34px" class="row">
+
+        <div class="col-md-12">
+
+            <div>  Fasting? (at least 9 hrs.)   @Html.CheckBoxFor(model => model.FastingStatusBinID, new { @id = "FastingStatusBinID" })</div>
+
+        </div>
+
+
+    </div>
+    <br />
+    <div style="padding-left:34px" class="row">
+
+        <div class="col-md-6">
+
+            <div><input onkeypress="return checkIt(event)" class="requiredSelect" style="width:45px; border:none; color:#666; display:block;" type="text" id="TotalCholesterolBinIDHIDDEN"></div>
+            <br />
+            <div>Total Cholesterol mg/dL (fasting or nonfasting)</div>
+            <br />
+            <div>
+                @Html.Hidden("TotalCholesterolBinID")
+                <div style="color:#f5f5f5;"><input type="text" id="totalchol" class="span2" value="" data-slider-min="@ViewBag.TCMINSLIDERFIRST" data-slider-max="@ViewBag.TCMINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+            </div>
+            <br />
+            <div><input onkeypress="return checkIt(event)" class="requiredSelect" style="width:45px; border:none; color:#666; display:block;" type="text" id="HDLCholesterolBinIDHIDDEN"></div>
+            <br />
+            <div>HDL Cholesterol mg/dL (fasting or nonfasting)</div>
+            <br />
+            <div>
+                @Html.Hidden("HDLCholesterolBinID")
+                <div style="color:#f5f5f5;"><input type="text" id="hdlchol" class="span2" value="" data-slider-min="@ViewBag.HDLMINSLIDERFIRST" data-slider-max="@ViewBag.HDLMINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+
+
+            <div style="display:none" id="LDLSection">
+
+
+                <div><input onkeypress="return checkIt(event)" class="requiredSelect" style="width:45px; border:none; color:#666; display:block;" type="text" id="LDLCholesterolBinIDHIDDEN"></div>
+                <br />
+                <div id="LDLSliderLabelSection">LDL Cholesterol mg/dL (fasting)</div>
+                <br />
+                <div id="LDLSliderSection">
+                    @Html.Hidden("LDLCholesterolBinID")
+                    <div style="color:#f5f5f5;"><input style="width:173px" type="text" id="ldlchol" class="span2" value="" data-slider-min="@ViewBag.LDLMINSLIDERFIRST" data-slider-max="@ViewBag.LDLMINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+                </div>
+                <br />
+                <div>Inadequate blood sample?    @Html.CheckBoxFor(model => model.BloodSample, new { @id = "BloodSample" })</div>
+                <br />
+
+            </div>
+
+
+            <div style="display:none" id="TRISection">
+
+                <div><input onkeypress="return checkIt(event)" class="requiredSelect" style="width:45px; border:none; color:#666; display:block;" type="text" id="TriglyceridesBinIDHIDDEN"></div>
+                <br />
+                <div>Triglycerides mg/dL (fasting only)</div>
+                <br />
+                <div style="color:#f5f5f5;">
+                    @Html.Hidden("TriglyceridesBinID")
+                    <input style="width:173px" type="text" id="trichol" class="span2" value="" data-slider-min="@ViewBag.TRIMINSLIDERFIRST" data-slider-max="@ViewBag.TRIMINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+            @*<table style="width:100%; padding:2px">
+                    <tr>
+                        <td style="border:none" colspan="2"><h3>Cholesterol&nbsp;<i style="color:#ccc">Date:</i></h3></td>
+
+                        <td style="border:none">
+
+                            <div class="input-group">
+
+                                @Html.Hidden("CLTestDate")  <input style="color:#ccc" type="text" id="CLTestDateHIDDEN" placeholder="Date Test Taken">
+
+
+
+
+                            </div>
+
+
+
+
+                        </td>
+
+
+
+                    </tr>
+
+
+
+                </table>*@
+
+            @*<table style="width:100%; padding:2px">
+                <tr><td style="border:none" colspan="2"><hr class="style-two" /></td></tr>
+                <tr>
+
+                    <td style="border:none">
+
+                        Fasting? (at least 9 hrs.)   @Html.CheckBoxFor(model => model.FastingStatusBinID, new { @id = "FastingStatusBinID" })
+
+
+
+                    </td>
+                    <td style="border:none"> </td>
+                </tr>
+
+            </table>*@
+            @*<br />
+            <table style="width:100%; padding:2px">
+
+                <tr>
+                    <td colspan="2" style="border:none">
+
+                        <input onkeypress="return checkIt(event)" class="requiredSelect" style="width:45px; border:none; color:#666; display:block;" type="text" id="TotalCholesterolBinIDHIDDEN">
+
+
+                    </td>
+
+
+                </tr>
+
+                <tr>
+
+                    <td style="border:none">
+
+                        <div>Total Cholesterol mg/dL (fasting or nonfasting)</div>
+                        <div>  @Html.Hidden("TotalCholesterolBinID")<br /><br /></div>
+                        <div style="color:#f5f5f5;"><input type="text" id="totalchol" class="span2" value="" data-slider-min="@ViewBag.TCMINSLIDERFIRST" data-slider-max="@ViewBag.TCMINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+                      
+                        <br />
+                        <br />
+
+                    </td>
+
+                </tr>
+
+            </table>*@
+
+            @*<table style="width:100%; padding:2px">
+
+                <tr>
+                    <td colspan="2" style="border:none">
+
+                        <input onkeypress="return checkIt(event)" class="requiredSelect" style="width:45px; border:none; color:#666; display:block;" type="text" id="HDLCholesterolBinIDHIDDEN">
+
+
+                    </td>
+
+
+                </tr>
+
+
+                <tr>
+
+                    <td style="border:none">
+
+                        <div>HDL Cholesterol mg/dL (fasting or nonfasting)</div>
+                        <div>@Html.Hidden("HDLCholesterolBinID")<br /><br /></div>
+                        <div style="color:#f5f5f5;"><input type="text" id="hdlchol" class="span2" value="" data-slider-min="@ViewBag.HDLMINSLIDERFIRST" data-slider-max="@ViewBag.HDLMINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+
+                        <br />
+                        <br />
+
+                    </td>
+
+                </tr>
+
+            </table>*@
+
+            @*<div style="display:none" id="LDLSection">
+
+                <table style="width:100%; padding:2px">
+
+                    <tr>
+                        <td colspan="2" style="border:none">
+
+                            <input onkeypress="return checkIt(event)" class="requiredSelect" style="width:45px; border:none; color:#666; display:block;" type="text" id="LDLCholesterolBinIDHIDDEN">
+
+
+                        </td>
+
+
+                    </tr>
+
+
+
+                    <tr>
+
+                        <td style="border:none">
+
+                            <div id="LDLSliderLabelSection">LDL Cholesterol mg/dL (fasting)</div>
+
+                            <div id="LDLSliderSection">
+                                <div>
+                                    @Html.Hidden("LDLCholesterolBinID")<br /><br />
+                                </div>
+                                <div style="color:#f5f5f5;"><input style="width:173px" type="text" id="ldlchol" class="span2" value="" data-slider-min="@ViewBag.LDLMINSLIDERFIRST" data-slider-max="@ViewBag.LDLMINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+                            </div>
+
+                            <br />
+                            <br />
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td style="border:none">
+
+                            <div>Inadequate blood sample?    @Html.CheckBoxFor(model => model.BloodSample, new { @id = "BloodSample" })</div>
+
+                            <br />
+                            <br />
+
+                        </td>
+
+                    </tr>
+
+
+
+
+                </table>
+
+            </div>*@
+
+
+            @*<div style="display:none" id="TRISection">
+
+                <table style="width:100%; padding:2px">
+
+                    <tr>
+                        <td colspan="2" style="border:none">
+
+                            <input onkeypress="return checkIt(event)" class="requiredSelect" style="width:45px; border:none; color:#666; display:block;" type="text" id="TriglyceridesBinIDHIDDEN">
+
+
+                        </td>
+
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td style="border:none">
+
+                            <div>Triglycerides mg/dL (fasting only)</div>
+                            <div>@Html.Hidden("TriglyceridesBinID")<br /><br /></div>
+                            <div style="color:#f5f5f5;"><input style="width:173px" type="text" id="trichol" class="span2" value="" data-slider-min="@ViewBag.TRIMINSLIDERFIRST" data-slider-max="@ViewBag.TRIMINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+                        
+
+                        </td>
+
+                    </tr>
+
+
+                </table>
+
+            </div>
+
+        </div>*@
+
+        @*@Html.Hidden("TestDate")*@
+
+
+
+
+
+
+        <script type="text/javascript">
+
+
+            $(document).ready(function () {
+
+
+
+
+                $("input[type=checkbox]").bootstrapSwitch({
+
+                    onText: 'YES',
+                    offText: 'NO',
+                    offColor: 'default',
+                    onColor: 'success'
+
+
+                });
+
+
+
+
+                // Set default Systolic 1 Value
+                $("#TotalCholesterolBinIDHIDDEN").val('@ViewBag.TCMINSLIDERFIRST');
+
+                // Set default Systolic 1 Value
+                $("#HDLCholesterolBinIDHIDDEN").val('@ViewBag.HDLMINSLIDERFIRST');
+
+                // Set default Systolic 2 Value
+                $("#LDLCholesterolBinIDHIDDEN").val('@ViewBag.LDLMINSLIDERFIRST');
+
+                // Set default Systolic 1 Value
+                $("#TriglyceridesBinIDHIDDEN").val('@ViewBag.TRIMINSLIDERFIRST');
+
+
+                $("#CLTestDateHIDDEN").val('@(((DateTime)ViewBag.ClinicalCycleDate).ToString("MM/dd/yyyy"))');
+
+                $("#CLTestDateHIDDEN").kendoDatePicker({ max: new Date() });
+
+
+
+                if ('@ViewBag.ProcedureID' != null) {
+
+
+                    if ('@ViewBag.FastingStatus' == 1) {
+
+
+
+                        //  $('#FastingStatusBinID').attr("checked", "checked");
+                        $('#FastingStatusBinID').bootstrapSwitch('state', true);
+
+                    }
+
+                    @*if ('@ViewBag.BloodSample' == 1) {
+
+
+
+                $('#BloodSample').attr("checked", "checked");
+
+            }*@
+
+
+                    // Set Total Cholesterol
+                    $slider = $('#totalchol');
+                    $slider.slider('setValue', '@ViewBag.TC1MINSLIDERVALUE');
+                    $("#TotalCholesterolBinIDHIDDEN").val('@ViewBag.TC1MINSLIDERVALUE');
+
+
+                    // Set HDL Cholesterol
+                    $slider = $('#hdlchol');
+                    $slider.slider('setValue', '@ViewBag.HDL1MINSLIDERVALUE');
+                    $("#HDLCholesterolBinIDHIDDEN").val('@ViewBag.HDL1MINSLIDERVALUE');
+
+
+                    // Set LDL Cholesterol
+                    $slider = $('#ldlchol');
+                    $slider.slider('setValue', '@ViewBag.LDL1MINSLIDERVALUE');
+                    $("#LDLCholesterolBinIDHIDDEN").val('@ViewBag.LDL1MINSLIDERVALUE');
+
+
+                    // Set TRI Cholesterol
+                    $slider = $('#trichol');
+                    $slider.slider('setValue', '@ViewBag.TRI1MINSLIDERVALUE');
+                    $("#TriglyceridesBinIDHIDDEN").val('@ViewBag.TRI1MINSLIDERVALUE');
+
+
+
+                }
+
+
+
+                $("#TotalCholesterolBinIDHIDDEN").on("keyup", function () {
+                    var val = Math.abs(parseInt(this.value, 10) || 0);
+                    this.value = val > 700 ? 700 : val;
+                    $('#totalchol').slider('setValue', val);
+                });
+
+
+                $("#HDLCholesterolBinIDHIDDEN").on("keyup", function () {
+                    var val = Math.abs(parseInt(this.value, 10) || 0);
+                    this.value = val > 700 ? 700 : val;
+                    $('#hdlchol').slider('setValue', val);
+                });
+
+
+                $("#LDLCholesterolBinIDHIDDEN").on("keyup", function () {
+                    var val = Math.abs(parseInt(this.value, 10) || 0);
+                    this.value = val > 700 ? 700 : val;
+                    $('#ldlchol').slider('setValue', val);
+                });
+
+
+                $("#TriglyceridesBinIDHIDDEN").on("keyup", function () {
+                    var val = Math.abs(parseInt(this.value, 10) || 0);
+                    this.value = val > 3000 ? 3000 : val;
+                    $('#trichol').slider('setValue', val);
+                });
+
+
+
+
+
+
+            });
+
+
+
+            $(function () {
+
+
+                if ($('input[id="BloodSample"]').attr('checked')) {
+
+
+                    $("#LDLSliderSection").css("display", "none");
+                    $("#LDLSliderLabelSection").css("display", "none");
+                    $("#LDLCholesterolBinIDHIDDEN").css("display", "none");
+
+
+
+                }
+                else {
+
+
+                    $("#LDLSliderSection").css("display", "block");
+                    $("#LDLSliderLabelSection").css("display", "block");
+                    $("#LDLCholesterolBinIDHIDDEN").css("display", "block");
+
+
+                }
+
+
+                //$('input[id="BloodSample"]').bind('change', function () {
+
+
+                //    if ($('input[id="BloodSample"]').attr('checked')) {
+
+                $('#BloodSample').on('switchChange.bootstrapSwitch', function () {
+
+                    if ($("#BloodSample").is(':checked')) {
+
+
+                        $("#LDLCholesterolBinIDHIDDEN").val('');
+                        $("#LDLSliderSection").css("display", "none");
+                        $("#LDLSliderLabelSection").css("display", "none");
+                        $("#LDLCholesterolBinIDHIDDEN").css("display", "none");
+
+
+
+
+                    }
+                    else {
+
+                        $("#LDLCholesterolBinIDHIDDEN").val('');
+                        $("#LDLSliderSection").css("display", "block");
+                        $("#LDLSliderLabelSection").css("display", "block");
+                        $("#LDLCholesterolBinIDHIDDEN").css("display", "block");
+
+
+                    }
+
+
+                });
+
+            });
+
+
+
+
+            $(function () {
+
+
+                //if ($('input[id="FastingStatusBinID"]').attr('checked')) {
+
+
+                //    $("#LDLSection").css("display", "block");
+                //    $("#TRISection").css("display", "block");
+
+
+                //}
+                //else {
+
+
+                //    $("#LDLSection").css("display", "none");
+                //    $("#TRISection").css("display", "none");
+
+
+                //}
+
+
+                // $('input[id="FastingStatusBinID"]').bind('change', function () {
+
+
+                //    if ($('input[id="FastingStatusBinID"]').attr('checked')) {
+
+
+                if ($("#FastingStatusBinID").is(':checked')) {
+
+
+
+
+                    $("#LDLSection").css("display", "block");
+                    $("#TRISection").css("display", "block");
+
+
+
+
+                }
+                else {
+
+
+                    $("#LDLSection").css("display", "none");
+                    $("#TRISection").css("display", "none");
+
+
+                }
+
+
+
+                $('#FastingStatusBinID').on('switchChange.bootstrapSwitch', function () {
+
+                    if ($("#FastingStatusBinID").is(':checked')) {
+
+
+
+
+                        $("#LDLSection").css("display", "block");
+                        $("#TRISection").css("display", "block");
+
+
+
+
+
+
+                    }
+                    else {
+
+
+                        $("#LDLSection").css("display", "none");
+                        $("#TRISection").css("display", "none");
+
+
+                    }
+
+
+                });
+
+
+
+
+            });
+
+
+            $("#UpdateTestingButton").click(function (e) {
+
+
+                // Validation
+                var iCurDate = new Date();
+                var iStopSub = 0;
+                var sErr = "Please correct the following issues:\n\n";
+
+
+                if ('@ViewBag.ProcMethod' == 59) {
+
+
+                    // Cholesterol
+                    var hvSC1 = $("#TotalCholesterolBinIDHIDDEN").val();
+                    document.getElementById("TotalCholesterolBinID").value = hvSC1;
+
+                    var hvDC1 = $("#HDLCholesterolBinIDHIDDEN").val();
+                    document.getElementById("HDLCholesterolBinID").value = hvDC1;
+
+                    var hvS2C1 = $("#LDLCholesterolBinIDHIDDEN").val();
+                    document.getElementById("LDLCholesterolBinID").value = hvS2C1;
+
+                    var hvD2C1 = $("#TriglyceridesBinIDHIDDEN").val();
+                    document.getElementById("TriglyceridesBinID").value = hvD2C1;
+
+                    //Add Test Screen
+                    var hvCLDate1 = $("#CLTestDateHIDDEN").val();
+                    document.getElementById("CLTestDate").value = hvCLDate1;
+
+
+                    var iCLTestDateHIDDEN = $("#CLTestDateHIDDEN").val();
+                    iCLTestDateHIDDENLen = iCLTestDateHIDDEN.length;
+                    if (iCLTestDateHIDDENLen < 1) {
+                        iStopSub = 1;
+                        sErr += "You must enter a date for cholesterol test" + "\n";
+                    }
+
+                    if (new Date(iCLTestDateHIDDEN).getTime() > new Date(iCurDate).getTime()) {
+                        iStopSub = 1;
+                        sErr += "You cannot enter a date of cholesterol test in the future\n";
+                    }
+
+                    // Check for valid date
+                    var timestamp = kendo.parseDate(iCLTestDateHIDDEN, "mm/dd/yyyy");
+
+                    if (timestamp == null) {
+
+                        iStopSub = 1;
+                        sErr += "Please enter a valid date of cholesterol\n";
+
+                    }
+
+
+                    var iTotalCholesterolBinID = $("#TotalCholesterolBinID").val();
+                    if (iTotalCholesterolBinID == "") {
+
+                        iStopSub = 1;
+                        sErr += "You must enter a value for total cholesterol" + "\n";
+
+                    }
+
+                    var iHDLCholesterolBinID = $("#HDLCholesterolBinID").val();
+                    if (iHDLCholesterolBinID == "") {
+
+                        iStopSub = 1;
+                        sErr += "You must enter a value for hdl cholesterol" + "\n";
+
+                    }
+
+                    // If Adding Screening Information
+                    if ($("#FastingStatusBinID").is(':checked')) {
+
+
+                        // If Adding Screening Information
+                        if ($("#BloodSample").is(':checked')) {
+
+                            // Do Nothing
+
+                        }
+                        else {
+
+
+                            var iLDLCholesterolBinID = $("#LDLCholesterolBinID").val();
+                            if (iLDLCholesterolBinID == "") {
+
+                                iStopSub = 1;
+                                sErr += "You must enter a value for ldl cholesterol" + "\n";
+
+                            }
+
+                        }
+
+                        var iTriglyceridesBinID = $("#TriglyceridesBinID").val();
+                        if (iTriglyceridesBinID == "") {
+
+                            iStopSub = 1;
+                            sErr += "You must enter a value for trigilycerides" + "\n";
+
+                        }
+
+
+
+                    }
+
+
+
+
+
+
+
+                }
+
+                else if ('@ViewBag.ProcMethod' == 58) {
+
+                    // Blood Pressure
+                    var hvS1 = $("#SystolicBinID1HIDDEN").val();
+                    document.getElementById("SystolicBinID1").value = hvS1;
+
+                    var hvD1 = $("#DiastolicBinID1HIDDEN").val();
+                    document.getElementById("DiastolicBinID1").value = hvD1;
+
+                    var hvS21 = $("#SystolicBinID2HIDDEN").val();
+                    document.getElementById("SystolicBinID2").value = hvS21;
+
+                    var hvD21 = $("#DiastolicBinID2HIDDEN").val();
+                    document.getElementById("DiastolicBinID2").value = hvD21;
+
+                    //Add Test Screen
+                    var hvBPDate1 = $("#BPTestDateHIDDEN").val();
+                    document.getElementById("BPTestDate").value = hvBPDate1;
+
+                }
+
+                else {
+
+                    // Glucose
+                    var hvG1 = $("#GlucoseBinIDHIDDEN").val();
+                    document.getElementById("GlucoseBinID").value = hvG1;
+
+                    //var hvA = $("#A1CPercentageBinIDHIDDEN").val();
+                    //document.getElementById("A1CPercentageBinID").value = hvA;
+
+                    //Add Test Screen
+                    var hvGLUDate1 = $("#GLUTestDateHIDDEN").val();
+                    document.getElementById("GLUTestDate").value = hvGLUDate1;
+
+
+                }
+
+
+                if (iStopSub != 0) {
+                    alert(sErr);
+                    e.preventDefault();
+
+                }
+
+
+
+
+            });
+
+
+
+        </script>

@@ -1,0 +1,142 @@
+﻿@model eCaST.Models.Person
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+
+
+<div class="row">
+    <div class="col-lg-8">
+
+
+        <div id="TileContainer"></div>
+
+
+        <div class="row">
+
+
+         
+
+            <div class="col-lg-12">
+
+          <div id="ErrorsContainer"></div>
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+    <div class="col-lg-4">
+
+       
+     
+        <div class="row">
+
+
+            <div class="col-lg-12">
+
+            <div id="HistContainer"></div>
+
+                  
+            </div>
+
+
+        </div>
+       @* <br />
+        <div id="ScreeningBudgetTrackingContainer"></div> *@
+
+
+
+
+  
+
+
+
+
+
+    </div>
+</div>
+
+
+<br />
+<br />
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+    $(".se-pre-con").fadeIn("fast");
+    $(function () {
+
+      //  $('#OptionMenuBarContainer').html("");
+        $("#SearchContainer").css("display", "block");
+        $('#ToggleLabel').text("Menu");
+
+
+        $(document).ready(function () {
+           
+            $("#HistContainer").load("@Url.Action("Index", "Clients", new { id = true })",
+                                         function (response, status, xhr) {
+                                             if (status == "error") {
+
+                                             }
+                                         });
+
+
+
+            $("#TileContainer").load("@Url.Action("_TileBar", "Home")",
+                                       function (response, status, xhr) {
+                                           if (status == "error") {
+
+                                           }
+
+
+                                       });
+
+
+
+
+            $("#ScreeningBudgetTrackingContainer").load("@Url.Action("_ScreeningBudgetTracking", "Home")",
+                               function (response, status, xhr) {
+                                   if (status == "error") {
+
+                                   }
+
+
+
+                               });
+
+
+
+
+
+            @*$('#ErrorsContainer').load('@Url.Action("_ErrorScreen", "Screenings", new { id = 2, id2 = "Data Entry Errors", id3 = "fa fa-exclamation-triangle fa-fw", id4= "#ff6a00" })');*@
+
+            $("#ErrorsContainer").load("@Url.Action("_ErrorScreen", "Screenings")", { 'id': 2, 'id2': "Data Entry Errors", 'id3': "fa fa-exclamation-triangle fa-fw", 'id4': "#ff6a00" },
+              function (response, status, xhr) {
+                  if (status == "error") {
+
+                  }
+
+                 
+              });
+
+        });
+
+    });
+    $(".se-pre-con").fadeOut("slow");
+
+
+</script>
+
+

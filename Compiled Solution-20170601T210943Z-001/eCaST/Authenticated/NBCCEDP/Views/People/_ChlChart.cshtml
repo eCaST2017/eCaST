@@ -1,0 +1,114 @@
+﻿<div class="row">
+
+    <div class="col-md-12">
+
+        <div id="tableauViz" style="height:300px; width:100%" \></div>
+
+    </div>
+
+
+</div>
+
+
+<script type="text/javascript">
+
+    // Initialise the viz to hold the workbook
+    function initializeViz() {
+
+        var placeholderDiv = document.getElementById("tableauViz");
+
+
+
+        @*if ('@ViewBag.AgencyName' == '(All)') {
+
+
+
+            var url = "https://cohealthviz.dphe.state.co.us/trusted/" + '@ViewBag.Ticket' + "/t/HealthInformaticsSecure/views/CHLRATESALLAGENCY/Sheet1";
+
+        }
+        else {*@
+
+
+            var url = "https://cohealthviz.dphe.state.co.us/trusted/" + '@ViewBag.Ticket' + "/t/HealthInformaticsSecure/views/CHLRATESALLAGENCY/Dashboard1";
+
+        //}
+
+        var options = {
+
+            onFirstInteractive: function () {
+
+
+                var param_nameS = 'StartDate';
+                var valueS = "01/01/2015";
+
+                var param_nameE = 'EndDate';
+                var valueE = "12/31/2015";
+
+                var param_nameAID = 'AgencySiteID';
+                var valueAID = 113;
+
+                viz.getWorkbook().changeParameterValueAsync(param_nameS, valueS);
+                viz.getWorkbook().changeParameterValueAsync(param_nameE, valueE);
+                viz.getWorkbook().changeParameterValueAsync(param_nameAID, valueAID);
+
+
+
+
+                viz.refreshDataAsync();
+
+
+            }
+
+        };
+
+
+
+        // Visit
+
+        //     var options = {
+
+        //       onFirstInteractive: function () {
+
+        //       var param_nameS = 'SDate';
+        //       var valueS = "01/01/2011";
+
+        //      var param_nameE = 'EDate';
+        //      var valueE = "01/07/2011";
+
+        //      viz.getWorkbook().changeParameterValueAsync(param_nameS, valueS);
+        //      viz.getWorkbook().changeParameterValueAsync(param_nameE, valueE);
+
+        //      viz.refreshDataAsync();
+
+
+        // Person
+
+        @*var url = "https://cohealthviz.dphe.state.co.us/trusted/" + '@ViewBag.Ticket' + "/t/HealthInformaticsSecure/views/PersonParameterExperiment/Sheet1";
+
+
+        var options = {
+
+            onFirstInteractive: function () {
+
+                var param_nameS = 'ID';
+                var valueS = 3;
+
+
+                viz.getWorkbook().changeParameterValueAsync(param_nameS, valueS);
+
+
+                viz.refreshDataAsync();
+
+            }
+        };*@
+
+
+        viz = new tableauSoftware.Viz(placeholderDiv, url, options);
+
+
+    }
+
+    //Initialize the viz after the div is created
+    initializeViz();
+
+</script>

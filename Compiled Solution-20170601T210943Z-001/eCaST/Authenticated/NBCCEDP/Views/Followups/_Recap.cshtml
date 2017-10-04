@@ -1,0 +1,151 @@
+﻿@model eCaST.ViewModels.FollowupViewModel
+
+@{
+    ViewBag.Title = "Followup Details";
+}
+
+
+@if (ViewBag.FollowupID != null) { 
+
+<div class="btn-group" role="group" aria-label="...">
+
+
+    @if (ViewBag.DiagScreenProcedureCount > 0)
+    {
+
+        
+    <button style="background-color:#F5F5F5;cursor:text;opacity:0.5" type="button" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+        
+    }
+    else
+    {
+
+     <button style="background-color:#F5F5F5;" id="FollowupEditButton" type="button" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+
+    }
+   
+    
+    
+    <button style="background-color:#F5F5F5;cursor:text" type="button" class="btn btn-default"><i class="fa fa-random" aria-hidden="true"></i>&nbsp; Followup</button>
+    <button style="cursor:text" type="button" class="btn btn-default">@Model.FUProcedureBinName</button>
+    
+    @if (Model.FUProcedureBinID == 14 || Model.FUProcedureBinID == 15 || Model.FUProcedureBinID == 16 || Model.FUProcedureBinID == 9)
+    {
+
+        
+        <button style="cursor:text" type="button" class="btn btn-default">@Html.FormatValue(Model.DateClosed, "{0:MM/dd/yyyy}")</button>
+
+
+    }
+    else if (Model.FUProcedureBinID == 10)
+    {
+
+
+        <button style="cursor:text" type="button" class="btn btn-default">@Model.FUProcedureMonthsBinName Months</button>
+
+    }
+
+</div>
+
+
+}
+else
+{
+
+    <div class="btn-group" role="group" aria-label="...">
+
+        <button disabled="disabled" style="background-color:#F5F5F5;opacity:0.5" id="FollowupEditButton" type="button" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+        <button style="background-color:#F5F5F5;cursor:text;opacity:0.5" type="button" class="btn btn-default"><i class="fa fa-random" aria-hidden="true"></i>&nbsp; Followup</button>
+       
+
+    </div>
+
+
+}
+
+
+<script type="text/javascript">
+
+
+    if ('@ViewBag.FollowupID' != null) {
+
+
+        $('#FollowupEditButton').click(function () {
+
+            $('#AccordionContentContainer').load('@Url.Action("Edit", "Followups", new { id = ViewBag.FollowupID, id2 = ViewBag.ScreeningID })');
+            $('#AccGlowContainer').addClass("glowdiv");
+            // Lock Screen
+            $("#txtSearch").attr("disabled", "disabled");
+            $('#EditMessageContainer').css("display", "block");
+            $('#ScreeningToolbarContainer').css("display", "none");
+            $('#FooterMenuBarContainer').css("display", "none");
+            $('#ScreenProcedureListContainer').load('@Url.Action("_StaticScreenProcedureList", "ScreenProcedures", new { id = ViewBag.ScreeningID, id2 = ViewBag.CancerTypeBinID })');
+
+            $('#HomeLinkContainer').css("display", "none");
+            $('#HomeNoLinkContainer').css("display", "block");
+
+            $("#ClientButton").attr("disabled", "disabled");
+            $("#ClientButton").css("opacity", "0.5");
+
+            $("#ScreeningButton").attr("disabled", "disabled");
+            $("#ScreeningButton").css("opacity", "0.5");
+
+            // $("#ProfileButtonDown").attr("disabled", "disabled");
+            $('#ProfileButtonDown').css("display", "none");
+            $("#ProfileButtonDown").css("opacity", "0.5");
+
+            $("#ClientHistoryButton").attr("disabled", "disabled");
+            $("#ClientHistoryButton").css("opacity", "0.5");
+
+            $("#SmallProfileButton").attr("disabled", "disabled");
+            $("#SmallProfileButton").css("opacity", "0.5");
+
+            $("#SmallScreeningButton").attr("disabled", "disabled");
+            $("#SmallScreeningButton").css("opacity", "0.5");
+
+            $("#SmallEnrollmentButton").attr("disabled", "disabled");
+            $("#SmallEnrollmentButton").css("opacity", "0.5");
+
+            $("#SmallLocationButton").attr("disabled", "disabled");
+            $("#SmallLocationButton").css("opacity", "0.5");
+
+            $("#ClientEditButton").attr("disabled", "disabled");
+            $("#ClientEditButton").css("opacity", "0.5");
+
+            $("#EnrollmentEditButton").attr("disabled", "disabled");
+            $("#EnrollmentEditButton").css("opacity", "0.5");
+
+            $("#MedicalHistoryEditButton").attr("disabled", "disabled");
+            $("#MedicalHistoryEditButton").css("opacity", "0.5");
+
+        });
+
+
+    }
+
+    $(function () {
+
+
+        if ('@ViewBag.ExpiredScreenChecker' == 1) {
+
+
+
+            $("#FollowupEditButton").attr("disabled", "disabled");
+            $("#FollowupEditButton").css("opacity", "0.5");
+
+
+
+        }
+        else {
+
+            $("#FollowupEditButton").removeAttr("disabled", "disabled");
+            $("#FollowupEditButton").css("opacity", "1.0");
+
+        }
+
+    });
+
+
+
+
+</script>

@@ -1,0 +1,222 @@
+﻿@model IEnumerable<eCaST.ViewModels.LocationViewModel>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<style type="text/css">
+    table.dataTable td.sorting_1 {
+        background-color: white;
+        border-top: 1px #666;
+        border: 2px #666;
+    }
+
+    table.dataTable td {
+        background-color: white;
+        border-top: 1px #666;
+        border: 1px #666;
+    }
+
+    table.dataTable tr.odd {
+        background-color: white;
+        border-top: 1px #666;
+        border: 1px #666;
+    }
+
+    table.dataTable tr.even {
+        background-color: white;
+        border-top: 1px #666;
+        border: 1px #666;
+    }
+</style>
+
+
+
+<table style="width:100%" class="table table-striped table-bordered" id="LocationList">
+
+    <thead>
+        <tr>
+
+         
+            <th>
+                @Html.DisplayNameFor(model => model.Street)
+            </th>
+
+            <th>
+                City
+            </th>
+
+            <th>
+               State
+            </th>
+            <th>
+              Zipcode
+            </th>
+
+            <th>
+              County
+            </th>
+
+            <th>
+               Email Address
+            </th>
+            <th>
+               Primary?
+            </th>
+
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+
+        <tr>
+
+
+            <td>
+
+
+                <a class="btn btn-default" id="LocationButton_@item.LocationID" href="#anchor"><span class="glyphicon glyphicon-pencil"></span>&nbsp;@item.Street</a>
+
+
+                <script type="text/javascript">
+
+
+		    function goToAnchor(anchor) {
+                        var loc = document.location.toString().split('#')[0];
+                        document.location = loc + '#' + anchor;
+                        return false;
+                    }
+
+
+                    $('#LocationButton_@item.LocationID').click(function () {
+
+                        $('#LocationEditContainer').load('@Url.Action("Edit", "Locations", new { id = item.LocationID })');
+
+
+
+
+                       });
+
+
+                </script>
+
+
+                @if (ViewBag.LocationCount > 1) { 
+
+                <a class="btn btn-default" id="DeleteLocationButton_@item.LocationID" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+
+                <script type="text/javascript">
+
+
+                    $('#DeleteLocationButton_@item.LocationID').click(function () {
+
+
+                        $('#LocationEditContainer').load('@Url.Action("Delete", "Locations", new { id = item.LocationID })');
+
+
+
+                    });
+
+
+                </script>
+
+                }
+
+
+            </td>
+          
+            <td>
+                @Html.DisplayFor(modelItem => item.CityBinName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.StateBinName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ZipCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CountyBinName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailAddress)
+            </td>
+
+            <td>
+
+                @if (item.Primary == true)
+                {
+                    
+                    <span>Yes</span>
+                    
+                }
+                else
+                {
+                    
+                    
+                    <span>No</span>
+                    
+                }
+
+               
+            </td>
+
+        </tr>
+
+    }
+
+</table>
+
+
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        oTable = $('#LocationList').dataTable({
+            "sPaginationType": "full_numbers",
+            "bSortClasses": false,
+            // "aoColumnDefs": [{ "bVisible": false, "aTargets": [1] }],
+            "aLengthMenu": [[5, 10, 25, 50, 100, 250, 500, -1], [5, 10, 25, 50, 100, 250, 500, "All"]],
+            "bPaginate": true,
+            "bAutoWidth": false,
+            "bDestroy": true,
+            "iDisplayLength": 10,
+            dom: 'Bfrtip',
+
+            buttons: [
+
+            {
+                extend: 'excelHtml5',
+                title: 'eCaST - @ViewBag.TileLabel',
+                exportOptions: {
+                    columns: ':visible',
+                    columns: [1, 2, 3, 4, 5, 6]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                title: 'eCaST - @ViewBag.TileLabel',
+                exportOptions: {
+                    columns: ':visible',
+                    columns: [1, 2, 3, 4, 5, 6]
+                }
+            }
+            ],
+            "oLanguage": { "sSearch": "Filter: " }
+        });
+
+        oTable.fnSort([[1, 'desc']]); // Sort by first column descending
+
+
+    });
+
+
+
+</script>
+
+
+
+

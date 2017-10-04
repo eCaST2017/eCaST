@@ -1,0 +1,173 @@
+﻿@model eCaST.Models.Client
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div id="ErrorsContainer"></div>
+
+
+<div id="OptionMenuBarContainer"></div>
+
+
+    <div id="ProfileContainer"></div>
+
+    <div style="display:none" id="ExistingScreeningContainer">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+             <div class="alert alert-warning">
+                 
+                 
+                 <div><h3><span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;You have attempted to add a screening that already exists for this location and date:&nbsp;<button id="ExistingScreenButton" class="btn btn-success">View @ViewBag.CancerTypeBinName Screening #@ViewBag.ExistingScreeningID</button></h3></div>
+                
+              
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div id="ContentContainer"></div>
+
+
+@Html.Hidden("ClientIdentifier")
+@Html.Hidden("ScreeningIdentifier")
+@Html.Hidden("ScreeningCheckIdentifier")
+
+   @*<ol id="joyRideTipContent2">
+
+    <li data-id="ProfileContainer" data-button="Next" data-options="tipLocation:left">
+        <h2>Welcome to the Client Profile!</h2>
+        <p>You can now quickly view and edit a client's demographics,screening history,enrollment status and contact info all in one screen!</p>
+    </li>
+    <li data-id="ContentContainer" data-button="Next" data-options="tipLocation:top">
+        <h2>Screening and Billing History</h2>
+        <p>View client screening history and ADD NEW Screenings. </p>
+    </li>
+    <li data-id="FooterMenuBarContainer" data-button="Next" data-options="tipLocation:top">
+        <h2>Care Coordination Toolbar</h2>
+        <p>This toolbar allows you too view all Care Coordination cases WITHOUT leaving this screen!</p>
+    </li>
+    <li data-button="Close">
+        <h2>You are now ready to give great care!</h2>
+        <p>Start by adding a new screening or viewing existing screenings to determine next steps!</p>
+    </li>
+
+</ol>*@
+
+
+@*<script type="text/javascript">
+
+    $(function () {
+        
+        $('#joyRideTipContent2').joyride({
+            autoStart: true
+
+        });
+
+    });
+
+
+</script>*@
+
+
+    <script type="text/javascript">
+
+
+
+
+    
+    $(function () {
+
+
+        $('#ProfileContainer').load('@Url.Action("_Profile", "Clients", new { id = @Model.ClientID, id2 = ViewBag.ScreeningID, id3 = ViewBag.ExistingScreeningID, id4 = ViewBag.EnrollmentUpdateCheck })');
+
+
+        // Check for support tickets, if so, open Contact Container
+      
+            $(document).ready(function () {
+
+                if ('@ViewBag.RequestCheck' > 0) {
+
+
+                    $("#ContactButton").trigger('click');
+
+                }
+
+
+            });
+
+
+            //Add Client Identifier
+            var outCI = '@ViewBag.ClientID';
+            document.getElementById("ClientIdentifier").value = outCI;
+
+            if (outCI != "") {
+
+                $('#ContactButton').css("display", "block");
+
+            }
+
+
+            var outSCHH = 0;
+            document.getElementById("ScreeningCheckIdentifier").value = outSCHH;
+
+
+            $('#OptionMenuBarContainer').load('@Url.Action("_Search", "Home")');
+            $('#ContactContainer').css("display", "none");
+            $('#ContactContainer').html("");
+
+
+
+    });
+
+      
+
+        $(function () {
+
+            $('#NavBarContainer').html("");
+            $('#NavBarContainer').load('@Url.Action("_CycleBar", "ClinicalCycles", new { id = Model.ClientID })');
+
+        });
+
+
+
+
+
+        $(function () {
+
+            $('#ToggleLabel').text("Cycles");
+
+
+          
+            $('#FooterMenuBarContainer').load('@Url.Action("_FooterMenuBar", "Home")');
+            $("#SearchContainer").css("display", "none");
+            // $("#ProfileButtonDown").css("display", "block");
+            $(".ui-helper-hidden-accessible").css("display", "none");
+
+
+        });
+
+
+        $('#ExistingScreenButton').click(function () {
+
+            $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ExistingScreeningID })');
+            $("#ExistingScreeningContainer").css("display", "none");
+
+
+        });
+
+       
+
+      
+
+    </script>

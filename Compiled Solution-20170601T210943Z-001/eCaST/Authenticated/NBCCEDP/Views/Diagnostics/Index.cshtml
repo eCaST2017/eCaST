@@ -1,0 +1,279 @@
+﻿@model IEnumerable<eCaST.Models.Diagnostic>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ClinicalCycleID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScreeningID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SiteID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScreeningGuidID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OfficeVisitID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EnrollmentID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecTestNextCycleNoneOther)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Complication1Other)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Complication2Other)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FinalDiagnosisDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TreatmentDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PathCancerSize)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PathHighGradeDysplasia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PathSpecialistDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OtherFinalDiagnosis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReasonIneligible)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BCCPInitiatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BCCPEnrolledDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BCCPInitiatedDays)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BCCPEnrolledDays)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BTumorStageBin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CTumorStageBin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BTumorSizeBin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OtherBCCPDiagnosisText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDBCCPMedicaidEligBin.BCCPMedicaidEligBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDComplication1Bin.Complication1BinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDComplication2Bin.Complication2BinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDFinalDxBin.FinalDxBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDFinalDxStatusBin.FinalDxStatusBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDNextCycleIndBin.NextCycleIndBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDPathCancerSiteBin.PathCancerSiteBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDPathCanHistBin.PathCanHistBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDPathCanStageBin.PathCanStageBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDRecTestNextCycleBin.RecTestNextCycleBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDRecurrentCancersBin.RecurrentCancersBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDReturnMonthsBin.ReturnMonthsBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDReturnYearsBin.ReturnYearsBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDTreatmentStatusBin.TreatmentStatusBinName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClinicalCycleID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScreeningID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SiteID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScreeningGuidID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OfficeVisitID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnrollmentID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecTestNextCycleNoneOther)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Complication1Other)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Complication2Other)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FinalDiagnosisDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TreatmentDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PathCancerSize)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PathHighGradeDysplasia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PathSpecialistDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateUpdated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OtherFinalDiagnosis)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReasonIneligible)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BCCPInitiatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BCCPEnrolledDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BCCPInitiatedDays)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BCCPEnrolledDays)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BTumorStageBin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CTumorStageBin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BTumorSizeBin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OtherBCCPDiagnosisText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDBCCPMedicaidEligBin.BCCPMedicaidEligBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDComplication1Bin.Complication1BinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDComplication2Bin.Complication2BinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDFinalDxBin.FinalDxBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDFinalDxStatusBin.FinalDxStatusBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDNextCycleIndBin.NextCycleIndBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDPathCancerSiteBin.PathCancerSiteBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDPathCanHistBin.PathCanHistBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDPathCanStageBin.PathCanStageBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDRecTestNextCycleBin.RecTestNextCycleBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDRecurrentCancersBin.RecurrentCancersBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDReturnMonthsBin.ReturnMonthsBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDReturnYearsBin.ReturnYearsBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDTreatmentStatusBin.TreatmentStatusBinName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DiagnosticID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DiagnosticID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DiagnosticID })
+        </td>
+    </tr>
+}
+
+</table>

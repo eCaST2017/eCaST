@@ -1,0 +1,122 @@
+﻿@model eCaST.ViewModels.PhoneViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+@using (Html.BeginForm("_CreatePhoneF", "Phones", FormMethod.Post, new { id = "PhoneInfoForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+    <div id="PhEFormContainer"></div>
+    <div align="right">
+        <button class="btn btn-default" id="CancelPhoneButton" type="button"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;Cancel</button>
+    
+    <button class="btn btn-success" id="UpdatePhoneButton" type="submit"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Update</button></div>
+    @Html.Hidden("ClientID", (int?)ViewBag.ClientID)
+
+}
+
+
+
+
+<script type="text/javascript">
+
+
+   
+    $(function () {
+
+        $('#PhEFormContainer').load('@Url.Action("_PhoneForm", "Phones", new { id = ViewBag.PhoneID })');
+
+
+
+        $('#CancelPhoneButton').click(function () {
+
+
+            $('#PhoneEditContainer').load('@Url.Action("Create", "Phones")');
+
+
+
+        });
+
+
+    });
+
+    $("#UpdatePhoneButton").click(function (e) {
+
+
+        var iStopSub = 0;
+        var sErr = "Please correct the following issues:\n\n";
+
+
+        var iPhoneBinID = $("#PhoneBinID option:selected").val();
+
+        if (iPhoneBinID < 1) {
+            iStopSub = 1;
+            sErr += "You must enter a phone type" + "\n";
+
+        }
+
+        var iPhoneNumber = $("#PhoneNumber").val();
+        if (iPhoneNumber == "") {
+
+            iStopSub = 1;
+            sErr += "You must enter a Phone Number" + "\n";
+
+        }
+
+
+        if ($("#PhoneBinID").val() == 4) {
+
+            var iEmergencyName = $("#EmergencyName").val();
+            if (iEmergencyName == "") {
+
+                iStopSub = 1;
+                sErr += "You must enter an Emergency Name" + "\n";
+
+            }
+
+        }
+
+
+        if (iStopSub != 0) {
+            alert(sErr);
+            e.preventDefault();
+
+        }
+
+
+    });
+
+
+
+    $('#PhoneInfoForm').on("submit", function (evt) {
+        evt.preventDefault();
+        if ($('#PhoneInfoForm').valid()) {
+            //  $("#SaveExitButton").prop("disabled", true);
+            $.ajax({
+                url: $("#PhoneInfoForm").attr('action'),
+                type: $("#PhoneInfoForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#PhoneInfoForm").serialize(),
+                success: function (data) {
+
+                    var clientid = data.Modified;
+                    var screeningid = data.Modified2;
+
+
+                    //  $('#ClientSection').load('@Url.Action("Details", "Clients")', { id: clientid, id2: screeningid });
+                    $('#PhoneEditContainer').load('@Url.Action("Create", "Phones")');
+                    $('#PhoneListContainer').load('@Url.Action("_PhoneList", "Phones")', { id: clientid });
+
+                }
+            });
+        }
+
+    });
+
+</script>

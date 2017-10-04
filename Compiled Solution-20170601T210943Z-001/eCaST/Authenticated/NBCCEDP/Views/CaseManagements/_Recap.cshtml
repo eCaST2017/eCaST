@@ -1,0 +1,25 @@
+﻿@model eCaST.ViewModels.CaseManagementViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<div style="text-align:left;" id="CaseManagementListContainer"></div>
+
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        $('#CaseManagementListContainer').load('@Url.Action("_CaseManagementList", "CaseManagements", new { id = ViewBag.ScreeningID, id2 = ViewBag.CancerTypeBinID })');
+
+
+
+    });
+
+
+</script>

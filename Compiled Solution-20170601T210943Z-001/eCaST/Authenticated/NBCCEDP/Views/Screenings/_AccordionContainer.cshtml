@@ -1,0 +1,221 @@
+﻿<div class="row">
+
+
+    <div class="col-md-12">
+
+
+
+        <div id="ClientInfoContainer"></div>
+
+
+
+
+    </div>
+
+
+
+
+</div>
+<br />
+<div class="row">
+
+
+    <div class="col-md-12">
+
+
+
+        <div id="EnrollmentInfoContainer"></div>
+
+
+
+
+    </div>
+
+
+
+
+</div>
+<br />
+
+
+
+<div class="row">
+
+
+    <div class="col-md-12">
+
+
+
+
+
+        <div id="MedicalHistoryInfoContainer"></div>
+
+
+
+
+    </div>
+
+
+
+
+</div>
+<br />
+
+
+@if (Model.ScreeningMethodBinID == 1)
+{
+
+    <div id="ScreenProcInfoShellContainer" class="row">
+
+
+        <div class="col-md-12">
+
+
+
+
+            <div id="ScreenProcedureInfoContainer"></div>
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+    <br />
+
+    <div id="FollowupShellContainer" class="row">
+
+
+        <div class="col-md-12">
+
+
+
+
+            <div id="FollowupContainer"></div>
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+    <br />
+
+
+    <div id="DiagnosticShellContainer" class="row">
+
+
+        <div class="col-md-12">
+
+
+
+
+            <div id="DiagnosticContainer"></div>
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+    <br />
+
+
+
+
+}
+else
+{
+
+    <div id="AllScreensShellContainer" class="row">
+
+
+        <div class="col-md-12">
+
+
+
+
+            <div id="AllScreensContainer"></div>
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+    <br />
+
+
+
+}
+  
+<div id="CaseManagementShellContainer" class="row">
+
+    <div class="col-md-12">
+
+        <div id="CaseManagementContainer"></div>
+
+    </div>
+
+</div>
+
+<br />
+
+
+<div id="FinalDiagnosisShellContainer" class="row">
+
+    <div class="col-md-12">
+
+        <div id="FinalDiagnosisContainer"></div>
+
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+
+        $('#ClientInfoContainer').load('@Url.Action("_Recap", "Clients", new { id = ViewBag.ClientID, id2 = Model.ScreeningID })');
+        $('#EnrollmentInfoContainer').load('@Url.Action("_Recap", "Enrollments", new { id = ViewBag.EnrollmentID, id2 = Model.ScreeningID })');
+        $('#MedicalHistoryInfoContainer').load('@Url.Action("_MedicalHistoryRecap", "Screenings", new { id = Model.ScreeningID })');
+
+
+        if ('@Model.ScreeningMethodBinID' == 1)
+        {
+
+            $('#ScreenProcedureInfoContainer').load('@Url.Action("_Recap", "ScreenProcedures", new { id = Model.ScreeningID, id2 =  Model.CancerTypeBinID })');
+            $('#DiagnosticContainer').load('@Url.Action("_DiagnosticRecap", "ScreenProcedures", new { id = Model.ScreeningID, id2 =  Model.CancerTypeBinID })');
+            $('#FollowupContainer').load('@Url.Action("_Recap", "Followups", new { id = Model.ScreeningID })');
+
+        }
+        else
+        {
+
+            $('#AllScreensContainer').load('@Url.Action("_AllScreensRecap", "ScreenProcedures", new { id = Model.ScreeningID, id2 =  Model.CancerTypeBinID })');
+
+
+        }
+
+        $('#CaseManagementContainer').load('@Url.Action("_Recap", "CaseManagements", new { id = Model.ScreeningID, id2 = Model.CancerTypeBinID })');
+        $('#FinalDiagnosisContainer').load('@Url.Action("_Recap", "Diagnostics", new { id = Model.ScreeningID, id2 = Model.CancerTypeBinID })');
+
+    });
+
+   
+
+</script>

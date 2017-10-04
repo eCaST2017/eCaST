@@ -1,0 +1,190 @@
+﻿@model eCaST.ViewModels.ScreenProcedureViewModel
+
+
+
+
+@using (Html.BeginForm("_WorkupTestF", "PatientInformation", FormMethod.Post, new { id = "WorkupTestForm_" + @ViewBag.ProcedureMethodID }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+    <div id="WorkupContainer" style="background-color:#fff;border-radius:5px">
+
+
+
+        <div style="display:none;padding:10px" id='WorkupSection_@ViewBag.ProcedureMethodID'></div>
+
+       
+    </div>
+    <br />
+
+    @Html.Hidden("Saveid", 4)
+    @Html.Hidden("CCID", (int?)ViewBag.CCID)
+    @Html.Hidden("ClientID", (int?)ViewBag.CLID)
+    @Html.Hidden("SiteID", (int?)ViewBag.SiteID)
+    @Html.Hidden("ScreeningTypeID", (int?)ViewBag.ScreeningTypeID)
+    @Html.Hidden("EnrollID", (int?)ViewBag.EnrollID)
+    @Html.Hidden("ScreeningID", (int?)ViewBag.ScreeningID)
+    @Html.Hidden("ScreenProcedureID", (int?)ViewBag.ScreenProcedureID)
+
+
+
+}
+
+
+@*}*@
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+
+            // Blood Pressure
+        if ('@ViewBag.ProcedureMethodID' == 58) {
+
+
+            $('#' + 'WorkupSection_' +  '@ViewBag.ProcedureMethodID').css("display", "block");
+            $('#' + 'WorkupSection_' + '@ViewBag.ProcedureMethodID').load('@Url.Action("_BPWorkup", "PatientInformation", new { id = ViewBag.ScreeningID, id2 = ViewBag.ScreenProcedureID })');
+
+
+            }
+
+
+        else {
+
+
+
+
+            $('#' + 'WorkupSection_' + '@ViewBag.ProcedureMethodID').css("display", "block");
+            $('#' + 'WorkupSection_' + '@ViewBag.ProcedureMethodID').load('@Url.Action("_DiaWorkup", "PatientInformation", new { id = ViewBag.ScreeningID, id2 = ViewBag.ScreenProcedureID })');
+
+
+        }
+
+
+
+
+
+    });
+
+
+    $(function () {
+
+
+
+
+        $("#WorkupTestForm_@ViewBag.ProcedureMethodID").validate({
+            rules: {
+
+
+                WorkupStatusBinID: {
+                    required: true
+
+
+                },
+                WorkupStatusDate: {
+                    required: true
+
+
+                }
+
+
+
+            },
+            messages: {
+
+
+                WorkupStatusBinID: {
+
+                    required: "Please enter a value for Workup Status"
+
+                },
+
+                WorkupStatusDate: {
+
+                    required: "Please enter a value for Workup Status Date"
+
+                }
+
+
+
+            }
+        });
+
+        $('#WorkupTestForm_@ViewBag.ProcedureMethodID').on("submit", function (evt44) {
+            evt44.preventDefault();
+            if ($('#WorkupTestForm_@ViewBag.ProcedureMethodID').valid()) {
+                $.ajax({
+
+                    url: $("#WorkupTestForm_@ViewBag.ProcedureMethodID").attr('action'),
+                    type: $("#WorkupTestForm_@ViewBag.ProcedureMethodID").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#WorkupTestForm_@ViewBag.ProcedureMethodID").serialize(),
+                    success: function (data) {
+
+                        var clinicalcycleid = data.Modified;
+                        var siteid = data.Modified2;
+                        var screeningtypeid = data.Modified3;
+                        var clientid = data.Modified4;
+                        var enrollid = data.Modified5;
+                        var screeningid = data.Modified6;
+                        var screenprocedureid = data.Modified7;
+                        var operationid = data.Modified8;
+
+                        $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ScreeningID })');
+
+
+
+                        if (screenprocedureid == null && operationid == null) {
+
+                            toastr.success('You have successfully completed the workup for this alert value')
+
+                        }
+                        else if (screenprocedureid != null && operationid == 2) {
+
+                            toastr.success('You have successfully completed the workup for this alert value')
+
+                        }
+                        else if (screenprocedureid != null && operationid == 4) {
+
+
+                            toastr.success('You have successfully completed the workup for this alert value.');
+
+                        }
+                        else if (screenprocedureid != null && operationid == 1) {
+
+                            toastr.warning('You have successfully completed the workup for this alert value.')
+
+                        }
+                        else {
+
+                            // Nothing
+                        }
+
+
+                        $('#myModal').modal('hide')
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+
+
+
+
+                    }
+
+                });
+            }
+
+        });
+
+    });
+
+
+</script>

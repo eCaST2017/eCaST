@@ -1,0 +1,1268 @@
+﻿@model eCaST.ViewModels.ScreeningViewModel
+
+
+<style type="text/css">
+    .searchOption {
+        margin: 4px 4px 2px 4px;
+        display: inline;
+    }
+
+    .form-field * {
+        vertical-align: middle;
+    }
+
+    .form-field input {
+        clear: left;
+    }
+
+    .form-field label {
+        width: 800px;
+        display: inline-block;
+    }
+
+    input.big {
+        height: 2.1em;
+        width: 2.1em;
+    }
+
+    .error a {
+        background-color: #d9ffff !important;
+        border: 1px solid #ccc !important;
+        width: 100%;
+        color: #666 !important;
+    }
+
+    .requiredText {
+        background-color: #d9ffff;
+        border: 1px solid #999;
+    }
+
+    .requiredSelect {
+        background-color: #d9ffff;
+    }
+</style>
+
+
+@using (Html.BeginForm("_UpdateMedicalHistoryScreeningF", "Screenings", FormMethod.Post, new { id = "ScreeningMedicalHistoryEditForm" }))
+{
+
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+
+    if (ViewBag.ScreeningID != 0)
+    {
+
+
+
+        <div id="UpdateButtonContainer" class="pull-left">
+
+
+            <button id="CancelLockButton" class="btn btn-default" type="button"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Cancel</button>&nbsp;
+            <button class="btn btn-success" id="UpdateMedicalHistoryAccordionButton" type="submit">Update</button>
+
+
+        </div>
+
+
+    }
+
+    <br />
+    <br />
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+           <h4><i class="fa fa-history fa-fw"></i> Medical History</h4> 
+
+        </div>
+
+        <div class="panel-body">
+
+
+            <div class="searchOption" id="HistoryQuestionSection" style="display:block">
+                @Html.Hidden("IdHolder", (int?)ViewBag.IdHolder)
+
+
+                <div class="row">
+
+
+                    <div class="col-md-12">
+
+                        <h4>@ViewBag.SymptomHistoryLabel</h4>
+
+                    </div>
+                </div>
+                <br />
+
+                <div class="row">
+
+
+                    <div class="col-md-12">
+
+
+                        <div id="CheckBoxList1" style="width:98%;overflow:scroll;overflow-y:auto; overflow-x:hidden; padding:2px; border-bottom-color:black; margin:2px">
+
+                            @{
+                            int cnt = 0;
+                            List<eCaST.ViewModels.AssignedDDHistoryQuestionData> questions = ViewBag.Questions;
+
+
+                            foreach (var question in questions)
+                            {
+                                if (cnt++ % 3 == 0)
+                                {
+                                    @:
+                                    }
+                                    @:
+
+
+                             
+                                <div style="width:100%">
+
+                                  
+
+                                    <input class="big" style="height: 22px; margin: 0; float: left;" type="checkbox"
+                                           id="chklab@(question.DDHistoryQuestionID)"
+                                           name="selectedQuestions"
+                                           value="@question.DDHistoryQuestionID"
+                                           @(Html.Raw(question.Assigned ? "checked=\"checked\"" : "")) />
+
+
+                                  
+                                    <label style="height: 22px; padding-left:6px" id="chklabl@(question.DDHistoryQuestionID)">  @question.DDHistoryQuestionName</label>
+
+                                </div>
+                                
+                                
+                                
+
+                                @:
+                        }
+                        @:
+                            }
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+           <h4><i class="fa fa-heartbeat fa-fw"></i> Screening History</h4> 
+
+        </div>
+
+        <div class="panel-body">
+
+
+            <br />
+
+            <div style="padding-bottom:0px;display:block">
+
+
+                <div id="HysterStatusSection" style="display:none">
+
+
+                    <div class="row">
+
+
+                        <div class="col-md-3">
+
+                            @Html.LabelFor(model => model.HysterectomyStatusBinID,"Hysterectomy Status")
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div>
+
+                                @Html.DropDownListFor(model => model.HysterectomyStatusBinID, ((IEnumerable<eCaST.Models.DDHysterectomyStatusBin>)ViewBag.PossibleHysterectomyStatusBinIDs).Select(option => new SelectListItem
+                       {
+                           //Text = Html.DisplayTextFor(_ => option).ToString(),
+                           Text = option.HysterectomyStatusBinName,
+                           Value = option.HysterectomyStatusBinID.ToString(),
+                           Selected = (Model != null) && (option.HysterectomyStatusBinID == Model.HysterectomyStatusBinID)
+                       }), "Choose...", new { @class = "requiredSelect" })
+                                @Html.ValidationMessageFor(model => model.HysterectomyStatusBinID)
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+            <div style="padding-bottom:0px;display:block" id="MamPapHistorySection">
+
+
+
+                <div id="PrevMamSection" style="display:none">
+
+
+                    <div class="row">
+
+
+                        <div class="col-md-3">
+
+                            @Html.LabelFor(model => model.PrevMamBinID,"Previous Mammogram")
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            @Html.DropDownListFor(model => model.PrevMamBinID, ((IEnumerable<eCaST.Models.DDPrevMamBin>)ViewBag.PossiblePrevMamBins).Select(option => new SelectListItem
+                   {
+                       //Text = Html.DisplayTextFor(_ => option).ToString(),
+                       Text = option.PrevMamBinName,
+                       Value = option.PrevMamBinID.ToString(),
+                       Selected = (Model != null) && (option.PrevMamBinID == Model.PrevMamBinID)
+                   }), "Choose...", new { id = "PrevMamDD", @class = "requiredSelect" })
+                            @Html.ValidationMessageFor(model => model.PrevMamBinID)
+
+                        </div>
+
+
+
+                    </div>
+                    <br />
+
+                    <div id="PrevMamDateSection" style="display:none">
+
+
+
+                        <div class="row">
+
+                            <div class="col-md-3">
+
+
+                                @Html.LabelFor(model => model.PrevMamDate,"Previous Mammogram Date")
+
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                @Html.TextBoxFor(model => model.PrevMamDate, new { @class = "requiredText" })
+                                @Html.ValidationMessageFor(model => model.PrevMamDate)
+
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <br />
+
+            <div id="PrevPapSection" style="display:none">
+
+
+                <div class="row">
+
+
+                    <div class="col-md-3">
+
+                        @Html.LabelFor(model => model.PrevPapBinID, "Previous Pap History")
+                    </div>
+
+                    <div class="col-md-6">
+                        @Html.DropDownListFor(model => model.PrevPapBinID, ((IEnumerable<eCaST.Models.DDPrevPapBin>)ViewBag.PossiblePrevPapBins).Select(option => new SelectListItem
+                   {
+                       //Text = Html.DisplayTextFor(_ => option).ToString(),
+                       Text = option.PrevPapBinName,
+                       Value = option.PrevPapBinID.ToString(),
+                       Selected = (Model != null) && (option.PrevPapBinID == Model.PrevPapBinID)
+                   }), "Choose...", new { id = "PrevPapDD", @class = "requiredSelect" })
+                        @Html.ValidationMessageFor(model => model.PrevPapBinID)
+
+                    </div>
+
+
+
+
+                </div>
+
+                <div id="PrevPapDateSection" style="display:none">
+                    <br />
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            @Html.LabelFor(model => model.PrevPapDate,"Previous Pap Date")
+
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+
+
+                            @Html.TextBoxFor(model => model.PrevPapDate, new { @class = "requiredText" })
+                            @Html.ValidationMessageFor(model => model.PrevPapDate)
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            @if (ViewBag.ScreeningMethodID == 1) {
+
+            <div id="CurrentMamSection" style="display:none">
+
+                <div class="row">
+
+
+                    <div class="col-md-3">
+                        <span id="cMamLbl">
+                            @Html.LabelFor(model => model.CurrentMamReasonBinID,"Current Mammogram")
+                        </span>
+
+                    </div>
+                    <div class="col-md-6">
+                        <span id="cMamDD">
+                            @if (@ViewBag.ScreenMethodType == 2)
+                                                {
+                                @Html.DropDownListFor(model => model.CurrentMamReasonBinID, ((IEnumerable<eCaST.Models.DDCurrentMamReasonBin>)ViewBag.PossibleCurrentMamReasonBins).Select(option => new SelectListItem
+                           {
+                               //Text = Html.DisplayTextFor(_ => option).ToString(),
+                               Text = option.CurrentMamReasonBinName,
+                               Value = option.CurrentMamReasonBinID.ToString(),
+                               Selected = (Model != null) && (option.CurrentMamReasonBinID == Model.CurrentMamReasonBinID)
+                           }), new { id = "CurrentMamDD", @class = "requiredSelect" })
+                                @Html.ValidationMessageFor(model => model.CurrentMamReasonBinID)
+                                                }
+                                                else
+                                                {
+                                @Html.DropDownListFor(model => model.CurrentMamReasonBinID, ((IEnumerable<eCaST.Models.DDCurrentMamReasonBin>)ViewBag.PossibleCurrentMamReasonBins).Select(option => new SelectListItem
+                           {
+                               //Text = Html.DisplayTextFor(_ => option).ToString(),
+                               Text = option.CurrentMamReasonBinName,
+                               Value = option.CurrentMamReasonBinID.ToString(),
+                               Selected = (Model != null) && (option.CurrentMamReasonBinID == Model.CurrentMamReasonBinID)
+                           }), "Choose...", new { id = "CurrentMamDD", @class = "requiredSelect" })
+                                @Html.ValidationMessageFor(model => model.CurrentMamReasonBinID)
+                                                }
+                        </span>
+
+                    </div>
+
+                    
+
+
+                </div>
+
+                <br />
+                <div id="MamRefDateSection" style="display:none">
+
+                    <div class="row">
+
+
+                        <div class="col-md-3">
+
+                            @Html.LabelFor(model => model.MamRefDate,"Mammogram Referral Date")
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+
+                            @Html.TextBoxFor(model => model.MamRefDate, new { @class = "requiredText" })
+                            @Html.ValidationMessageFor(model => model.MamRefDate)
+
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+                
+            }
+            else
+            {
+                
+                @Html.HiddenFor(x => x.CurrentMamReasonBinID)
+                
+                
+            }
+            <br />
+            <div id="NoMamParentSection" style="display:none">
+
+                <div class="row">
+
+
+                    <div class="col-md-6">
+
+                        <div id="NoMamSection" style="display:none">
+
+                            @Html.LabelFor(model => model.NoMamExplanationBinID,"No Mammogram Explanation")
+
+                            @Html.DropDownListFor(model => model.NoMamExplanationBinID, ((IEnumerable<eCaST.Models.DDNoMamExplanationBin>)ViewBag.PossibleNoMamExplanationBins).Select(option => new SelectListItem
+                       {
+                           //Text = Html.DisplayTextFor(_ => option).ToString(),
+                           Text = option.NoMamExplanationBinName,
+                           Value = option.NoMamExplanationBinID.ToString(),
+                           Selected = (Model != null) && (option.NoMamExplanationBinID == Model.NoMamExplanationBinID)
+                       }), "Choose...", new { @class = "requiredSelect" })
+                            @Html.ValidationMessageFor(model => model.NoMamExplanationBinID)
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            <br />
+
+            @if (ViewBag.ScreeningMethodID == 1) {
+
+            <div id="CurrentPapSection" style="display:none">
+
+                <div class="row">
+
+
+                    <div class="col-md-3">
+
+                        <span id="cPapLbl">
+                            @Html.LabelFor(model => model.CurrentPapReasonBinID,"Current Pap Reason")
+                        </span>
+
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <span id="cPapDD">
+                            @if (@ViewBag.ScreenMethodType == 2)
+                                                {
+                                @Html.DropDownListFor(model => model.CurrentPapReasonBinID, ((IEnumerable<eCaST.Models.DDCurrentPapReasonBin>)ViewBag.PossibleCurrentPapReasonBins).Select(option => new SelectListItem
+                           {
+                               //Text = Html.DisplayTextFor(_ => option).ToString(),
+                               Text = option.CurrentPapReasonBinName,
+                               Value = option.CurrentPapReasonBinID.ToString(),
+                               Selected = (Model != null) && (option.CurrentPapReasonBinID == Model.CurrentPapReasonBinID)
+                           }), new { id = "CurrentPapDD", @class = "requiredSelect" })
+                                @Html.ValidationMessageFor(model => model.CurrentPapReasonBinID)
+                                                }
+                                                else
+                                                {
+                                @Html.DropDownListFor(model => model.CurrentPapReasonBinID, ((IEnumerable<eCaST.Models.DDCurrentPapReasonBin>)ViewBag.PossibleCurrentPapReasonBins).Select(option => new SelectListItem
+                           {
+                               //Text = Html.DisplayTextFor(_ => option).ToString(),
+                               Text = option.CurrentPapReasonBinName,
+                               Value = option.CurrentPapReasonBinID.ToString(),
+                               Selected = (Model != null) && (option.CurrentPapReasonBinID == Model.CurrentPapReasonBinID)
+                           }), "Choose...", new { id = "CurrentPapDD", @class = "requiredSelect" })
+                                @Html.ValidationMessageFor(model => model.CurrentPapReasonBinID)
+                                                }
+                        </span>
+
+                    </div>
+
+
+
+
+                </div>
+                <br />
+                <div id="PapRefDateSection" style="display:none">
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.PapRefDate,"Pap Referral Date")
+
+                        </div>
+
+                        <div class="col-md-6">
+
+
+                            @Html.TextBoxFor(model => model.PapRefDate, new { @class = "requiredText" })
+                            @Html.ValidationMessageFor(model => model.PapRefDate)
+
+
+                        </div>
+
+
+                    </div>
+
+                    <br />
+                  
+
+                </div>
+
+
+            </div>
+
+            }
+            else
+            {
+
+                @Html.HiddenFor(x => x.CurrentPapReasonBinID)
+
+
+            }
+            <br />
+            <div id="NoPapParentSection" style="display:none">
+
+                <div class="row">
+
+
+                    <div class="col-md-6">
+
+                        <div id="NoPapSection" style="display:none">
+
+                            @Html.LabelFor(model => model.NoPapExplanationBinID,"No Pap Explanation")
+
+                            @Html.DropDownListFor(model => model.NoPapExplanationBinID, ((IEnumerable<eCaST.Models.DDNoPapExplanationBin>)ViewBag.PossibleNoPapExplanationBins).Select(option => new SelectListItem
+                       {
+                           //Text = Html.DisplayTextFor(_ => option).ToString(),
+                           Text = option.NoPapExplanationBinName,
+                           Value = option.NoPapExplanationBinID.ToString(),
+                           Selected = (Model != null) && (option.NoPapExplanationBinID == Model.NoPapExplanationBinID)
+                       }), "Choose...", new { @class = "requiredSelect" })
+                            @Html.ValidationMessageFor(model => model.NoPapExplanationBinID)
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+
+
+            </div>
+        </div>
+
+
+         
+
+            
+            @Html.HiddenFor(x => x.ClientID)
+            @Html.HiddenFor(x => x.ScreeningID)
+            @Html.HiddenFor(x => x.EnrollmentID)
+
+}
+    
+    
+            <script type="text/javascript">
+
+
+    if ('@ViewBag.ScreeningID' != 0) {
+
+        $('#CancelLockButton').click(function () {
+
+            $('#AccGlowContainer').removeClass("glowdiv");
+            $("#txtSearch").attr("disabled", "disabled");
+            $('#EditMessageContainer').css("display", "none");
+            $('#ScreeningToolbarContainer').css("display", "block");
+            $('#FooterMenuBarContainer').css("display", "block");
+            $('#ScreenProcedureListContainer').load('@Url.Action("_ScreenProcedureList", "ScreenProcedures", new { id = ViewBag.ScreeningID, id2 = ViewBag.CancerTypeBinID })');
+
+            $('#HomeLinkContainer').css("display", "block");
+            $('#HomeNoLinkContainer').css("display", "none");
+
+            $("#ClientButton").removeAttr("disabled", "disabled");
+            $("#ClientButton").css("opacity", "1.0");
+
+            $("#ScreeningButton").removeAttr("disabled", "disabled");
+            $("#ScreeningButton").css("opacity", "1.0");
+
+            $("#EnrollmentEdit0Button").removeAttr("disabled", "disabled");
+            $("#EnrollmentEdit0Button").css("opacity", "1.0");
+
+            //$("#DiagnosticProcedureEditButton").removeAttr("disabled", "disabled");
+            //$("#DiagnosticProcedureEditButton").css("opacity", "1.0");
+
+            //$("#CaseManagementEditButton").removeAttr("disabled", "disabled");
+            //$("#CaseManagementEditButton").css("opacity", "1.0");
+
+            //$("#FinalDiagnosisEditButton").removeAttr("disabled", "disabled");
+            //$("#FinalDiagnosisEditButton").css("opacity", "1.0");
+
+            $('#ProfileButtonDown').css("display", "block");
+            $("#ProfileButtonDown").css("opacity", "1.0");
+
+            $("#ClientHistoryButton").removeAttr("disabled", "disabled");
+            $("#ClientHistoryButton").css("opacity", "1.0");
+
+            $("#SmallProfileButton").removeAttr("disabled", "disabled");
+            $("#SmallProfileButton").css("opacity", "1.0");
+
+            $("#SmallScreeningButton").removeAttr("disabled", "disabled");
+            $("#SmallScreeningButton").css("opacity", "1.0");
+
+            $("#SmallEnrollmentButton").removeAttr("disabled", "disabled");
+            $("#SmallEnrollmentButton").css("opacity", "1.0");
+
+            $("#SmallLocationButton").removeAttr("disabled", "disabled");
+            $("#SmallLocationButton").css("opacity", "1.0");
+
+            $("#ClientEditButton").removeAttr("disabled", "disabled");
+            $("#ClientEditButton").css("opacity", "1.0");
+
+            $("#EnrollmentEditButton").removeAttr("disabled", "disabled");
+            $("#EnrollmentEditButton").css("opacity", "1.0");
+
+            $("#MedicalHistoryEditButton").removeAttr("disabled", "disabled");
+            $("#MedicalHistoryEditButton").css("opacity", "1.0");
+
+            $('#AccordionContentContainer').load('@Url.Action("Create", "ScreenProcedures", new { id = ViewBag.ScreeningID, id2 = 1 })');
+
+
+        });
+
+
+        $("#UpdateMedicalHistoryAccordionButton").click(function (e) {
+
+            var iStopSub = 0;
+            var sErr = "Please correct the following issues:\n\n";
+            var iCurDate = new Date();
+            // Breast Validaton
+            if ('@ViewBag.CancerTypeBinID' == 1) {
+
+
+                var iPrevMamDD = $("#PrevMamDD option:selected").val();
+
+                if (iPrevMamDD < 1) {
+                    iStopSub = 1;
+                    sErr += "You must enter Previous Mammogram information" + "\n";
+
+                }
+
+
+                if (iPrevMamDD == 1) {
+
+                    var iPrevMamDate = $("#PrevMamDate").val();
+                    iPrevMamDateLen = iPrevMamDate.length;
+                    if (iPrevMamDateLen < 1) {
+                        iStopSub = 1;
+                        sErr += "You must enter a Previous Mam Date" + "\n";
+                    }
+
+                    if (new Date(iPrevMamDate).getTime() > new Date(iCurDate).getTime()) {
+                        iStopSub = 1;
+                        sErr += "You cannot enter a date of previous mam in the future\n";
+                    }
+
+                    // Check for valid date
+                    var timestamp = kendo.parseDate(iPrevMamDate, "mm/dd/yyyy");
+
+                    if (timestamp == null) {
+
+                        iStopSub = 1;
+                        sErr += "Please enter a valid date of previous mam\n";
+
+                    }
+
+
+
+                }
+
+                if ('@ViewBag.ScreeningMethodID' == 1) {
+
+                    var iCurrentMamDD = $("#CurrentMamDD option:selected").val();
+
+                    if (iCurrentMamDD < 1) {
+                        iStopSub = 1;
+                        sErr += "You must enter Current Mammogram information" + "\n";
+
+                    }
+
+                }
+
+            }
+                // Cervical Validation
+            else if ('@ViewBag.CancerTypeBinID' == 2) {
+
+
+                var iHysterectomyStatusBinID = $("#HysterectomyStatusBinID option:selected").val();
+
+                if (iHysterectomyStatusBinID < 1) {
+                    iStopSub = 1;
+                    sErr += "You must enter Hysterectomy information" + "\n";
+
+                }
+
+                var iPrevPapDD = $("#PrevPapDD option:selected").val();
+
+                if (iPrevPapDD < 1) {
+                    iStopSub = 1;
+                    sErr += "You must enter Previous Pap information" + "\n";
+
+                }
+
+
+                if (iPrevPapDD == 1) {
+
+                    var iPrevPapDate = $("#PrevPapDate").val();
+                    iPrevPapDateLen = iPrevPapDate.length;
+                    if (iPrevPapDateLen < 1) {
+                        iStopSub = 1;
+                        sErr += "You must enter a Previous Pap Date" + "\n";
+                    }
+
+                    if (new Date(iPrevPapDate).getTime() > new Date(iCurDate).getTime()) {
+                        iStopSub = 1;
+                        sErr += "You cannot enter a date of previous pap in the future\n";
+                    }
+
+                    // Check for valid date
+                    var timestamp = kendo.parseDate(iPrevPapDate, "mm/dd/yyyy");
+
+                    if (timestamp == null) {
+
+                        iStopSub = 1;
+                        sErr += "Please enter a valid date of previous pap\n";
+
+                    }
+
+
+
+                }
+
+                if ('@ViewBag.ScreeningMethodID' == 1) {
+
+                    var iCurrentPapDD = $("#CurrentPapDD option:selected").val();
+
+                    if (iCurrentPapDD < 1) {
+                        iStopSub = 1;
+                        sErr += "You must enter Current Pap information" + "\n";
+
+                    }
+
+
+                }
+            }
+
+
+                        if (iStopSub != 0) {
+                            alert(sErr);
+                            e.preventDefault();
+
+                        }
+
+
+                        @*if ('@ViewBag.PowerUser' == 1) {
+
+                //Add Admin Approval
+                var outAA = document.getElementById('AdminApproval').value;
+                document.getElementById("BillingHold").value = outAA;
+
+                //Add State Staff Override
+                var outSS = document.getElementById('StateStaffOverrideValue').value;
+                document.getElementById("StateStaffOverride").value = outSS;
+
+
+            }*@
+
+
+        });
+
+
+    }
+
+
+    $(function () {
+
+        if ('@ViewBag.ScreeningMethodID' == 2) {
+
+
+            var canType = $("#CancerTypeDD option:selected").val();
+
+            if (canType == 1) {
+
+                $("#CurrentMamSection").css("display", "none");
+
+            }
+            else {
+
+                $("#CurrentPapSection").css("display", "none");
+
+            }
+
+
+        }
+
+        else {
+
+            var canType = $("#CancerTypeDD option:selected").val();
+
+            if (canType == 1) {
+
+                $("#CurrentMamSection").css("display", "block");
+
+            }
+            else {
+
+                $("#CurrentPapSection").css("display", "block");
+
+            }
+
+        }
+
+        $("input[type=checkbox]").bootstrapSwitch({
+
+            onText: 'YES',
+            offText: 'NO',
+            offColor: 'default',
+            onColor: 'success'
+
+
+        });
+
+
+
+
+        if ('@ViewBag.CancerTypeID' == 2) {
+
+
+            $("#HysterStatusSection").css("display", "block");
+            $("#PrevPapSection").css("display", "block");
+            $("#CurrentPapSection").css("display", "block");
+            $("#PrevMamSection").css("display", "none");
+            $("#CurrentMamSection").css("display", "none");
+
+        }
+        else {
+
+            $("#HysterStatusSection").css("display", "none");
+            $("#PrevPapSection").css("display", "none");
+            $("#CurrentPapSection").css("display", "none");
+            $("#PrevMamSection").css("display", "block");
+            $("#CurrentMamSection").css("display", "block");
+        }
+
+        $("#ReferralDate").kendoDatePicker({ max: new Date() });
+        $(document).ready(function () {
+            $("#ReferralDate").keyup(function (e) {
+                if (e.keyCode != 8) {
+                    if ($(this).val().length == 2) {
+                        $(this).val($(this).val() + "/");
+                    } else if ($(this).val().length == 5) {
+                        $(this).val($(this).val() + "/");
+                    }
+                }
+            });
+        });
+        $("#SchedDate").kendoDatePicker();
+        $(document).ready(function () {
+            $("#SchedDate").keyup(function (e) {
+                if (e.keyCode != 8) {
+                    if ($(this).val().length == 2) {
+                        $(this).val($(this).val() + "/");
+                    } else if ($(this).val().length == 5) {
+                        $(this).val($(this).val() + "/");
+                    }
+                }
+            });
+        });
+        $("#PrevMamDate").kendoDatePicker({ max: new Date() });
+        $(document).ready(function () {
+            $("#PrevMamDate").keyup(function (e) {
+                if (e.keyCode != 8) {
+                    if ($(this).val().length == 2) {
+                        $(this).val($(this).val() + "/");
+                    } else if ($(this).val().length == 5) {
+                        $(this).val($(this).val() + "/");
+                    }
+                }
+            });
+        });
+        $("#PrevPapDate").kendoDatePicker({ max: new Date() });
+        $(document).ready(function () {
+            $("#PrevPapDate").keyup(function (e) {
+                if (e.keyCode != 8) {
+                    if ($(this).val().length == 2) {
+                        $(this).val($(this).val() + "/");
+                    } else if ($(this).val().length == 5) {
+                        $(this).val($(this).val() + "/");
+                    }
+                }
+            });
+        });
+        $("#MamRefDate").kendoDatePicker({ max: new Date() });
+        $(document).ready(function () {
+            $("#MamRefDate").keyup(function (e) {
+                if (e.keyCode != 8) {
+                    if ($(this).val().length == 2) {
+                        $(this).val($(this).val() + "/");
+                    } else if ($(this).val().length == 5) {
+                        $(this).val($(this).val() + "/");
+                    }
+                }
+            });
+        });
+        $("#PapRefDate").kendoDatePicker({ max: new Date() });
+        $(document).ready(function () {
+            $("#PapRefDate").keyup(function (e) {
+                if (e.keyCode != 8) {
+                    if ($(this).val().length == 2) {
+                        $(this).val($(this).val() + "/");
+                    } else if ($(this).val().length == 5) {
+                        $(this).val($(this).val() + "/");
+                    }
+                }
+            });
+        });
+
+
+        $("#CancerTypeDD").select2({ width: "70%" });
+        $("#HysterectomyStatusBinID").select2({ width: "100%" });
+        $("#PrevMamDD").select2({ width: "100%" });
+        $("#CurrentMamDD").select2({ width: "100%" });
+        $("#PrevPapDD").select2({ width: "100%" });
+        $("#CurrentPapDD").select2({ width: "100%" });
+        $("#HistPolypsBinID").select2({ width: "100%" });
+        $("#PrevCancerBinID").select2({ width: "100%" });
+        $("#SuspectedGeneticDxBinID").select2({ width: "100%" });
+        $("#InflamBowelDisBinID").select2({ width: "100%" });
+        $("#PrevScreenTestBinID").select2({ width: "100%" });
+        $("#RecScreenBinID").select2({ width: "100%" });
+        $("#ScreenReasonBinID").select2({ width: "100%" });
+        $("#KitDistMethodBinID").select2({ width: "100%" });
+        $("#CurrentStatusBinID").select2({ width: "100%" });
+        $("#PolypPreCancerBinID").select2({ width: "100%" });
+        $("#AgeDiagCancerBinID").select2({ width: "100%" });
+
+    });
+
+
+                $(function () {
+
+
+        
+       if ($("#PrevMamDD").val() == 1) {
+        $("#PrevMamDateSection").css("display", "block");
+             }
+
+          else {
+
+          $("#PrevMamDateSection").css("display", "none");
+
+              }
+
+        $("#PrevMamDD").change(function () {
+
+            
+            if ($("#PrevMamDD").val() == 1) {
+
+                $("#PrevMamDateSection").css("display", "block");
+            }
+
+            else {
+
+                $("#PrevMamDateSection").css("display", "none");
+
+            }
+
+        });
+
+
+    });
+
+    $(function () {
+
+
+        if ($("#PrevPapDD").val() == 1) {
+
+            $("#PrevPapDateSection").css("display", "block");
+        }
+
+        else {
+
+            $("#PrevPapDateSection").css("display", "none");
+
+        }
+
+
+
+        $("#PrevPapDD").change(function () {
+
+          
+            if ($("#PrevPapDD").val() == 1) {
+
+                $("#PrevPapDateSection").css("display", "block");
+            }
+
+            else {
+
+                $("#PrevPapDateSection").css("display", "none");
+
+            }
+
+        });
+
+
+    });
+
+
+    $(function () {
+
+
+        if ($("#CurrentMamDD").val() == 2) {
+
+            $("#MamRefDateSection").css("display", "block");
+        }
+
+        else {
+
+            $("#MamRefDateSection").css("display", "none");
+
+        }
+
+
+        if ($("#CurrentMamDD").val() == 3) {
+
+            $("#NoMamParentSection").css("display", "none");
+            $("#NoMamSection").css("display", "none");
+        }
+
+
+
+        $("#CurrentMamDD").change(function () {
+
+            
+            if ($("#CurrentMamDD").val() == 2) {
+
+                $("#MamRefDateSection").css("display", "block");
+            }
+
+            else {
+
+                $("#MamRefDateSection").css("display", "none");
+
+            }
+
+
+            if ($("#CurrentMamDD").val() == 3) {
+
+                $("#NoMamParentSection").css("display", "none");
+                $("#NoMamSection").css("display", "none");
+            }
+
+            else {
+
+
+                $("#NoMamParentSection").css("display", "none");
+                $("#NoMamSection").css("display", "none");
+
+            }
+
+        });
+
+
+    });
+
+
+    $(function () {
+
+        // Cervical Rules
+        if ($("#CurrentPapDD").val() == 2) {
+            $("#PapRefDateSection").css("display", "block");
+        }
+        else {
+            $("#PapRefDateSection").css("display", "none");
+        }
+        if ($("#CurrentPapDD").val() == 3) {
+            $("#NoPapParentSection").css("display", "none"),
+            $("#NoPapSection").css("display", "none");
+        }
+        else if ($("#CurrentPapDD").val() == 4) {
+            $("#NoPapParentSection").css("display", "none"),
+            $("#NoPapSection").css("display", "none");
+        }
+        else {
+            $("#NoPapParentSection").css("display", "none"),
+            $("#NoPapSection").css("display", "none");
+        }
+
+        $("#CurrentPapDD").change(function () {
+            // Cervical Rules
+            if ($("#CurrentPapDD").val() == 2) {
+                $("#PapRefDateSection").css("display", "block");
+            }
+            else {
+                $("#PapRefDateSection").css("display", "none");
+            }
+            if ($("#CurrentPapDD").val() == 3) {
+                $("#NoPapParentSection").css("display", "none"),
+                $("#NoPapSection").css("display", "none");
+            }
+            else if ($("#CurrentPapDD").val() == 4) {
+                $("#NoPapParentSection").css("display", "none"),
+                $("#NoPapSection").css("display", "none");
+            }
+            else {
+                $("#NoPapParentSection").css("display", "none"),
+                $("#NoPapSection").css("display", "none");
+            }
+
+        });
+    });
+
+
+    $(function () {
+        $(".addScreenLink").button();
+        $(".cancelScreenLink").button();
+        $(".nextScreenLink").button();
+
+
+        $("#HysterectomyStatusBinID").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+        $("#PrevMamDD").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+        $("#PrevPapDD").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+
+        $("#CurrentMamDD").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+        $("#CurrentPapDD").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+    });
+
+
+    $('#ScreeningMedicalHistoryEditForm').on("submit", function (evt) {
+        evt.preventDefault();
+        if ($('#ScreeningMedicalHistoryEditForm').valid()) {
+            //  $("#SaveExitButton").prop("disabled", true);
+            $.ajax({
+                url: $("#ScreeningMedicalHistoryEditForm").attr('action'),
+                type: $("#ScreeningMedicalHistoryEditForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#ScreeningMedicalHistoryEditForm").serialize(),
+                success: function (data) {
+
+                    var clientid = data.Modified;
+                    var screeningid = data.Modified2;
+
+
+                    $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ScreeningID })');
+
+                    // Reset Fields
+
+                    $('#AccGlowContainer').removeClass("glowdiv");
+                    $("#txtSearch").removeAttr("disabled", "disabled");
+                    $('#EditMessageContainer').css("display", "none");
+                    $('#ScreeningToolbarContainer').css("display", "block");
+                    $('#FooterMenuBarContainer').css("display", "block");
+
+                    $('#HomeLinkContainer').css("display", "block");
+                    $('#HomeNoLinkContainer').css("display", "none");
+
+                    $("#ClientButton").removeAttr("disabled", "disabled");
+                    $("#ClientButton").css("opacity", "1.0");
+
+                    $("#ScreeningButton").removeAttr("disabled", "disabled");
+                    $("#ScreeningButton").css("opacity", "1.0");
+
+                    $("#EnrollmentEdit0Button").removeAttr("disabled", "disabled");
+                    $("#EnrollmentEdit0Button").css("opacity", "1.0");
+
+                    //$("#DiagnosticProcedureEditButton").removeAttr("disabled", "disabled");
+                    //$("#DiagnosticProcedureEditButton").css("opacity", "1.0");
+
+                    //$("#CaseManagementEditButton").removeAttr("disabled", "disabled");
+                    //$("#CaseManagementEditButton").css("opacity", "1.0");
+
+                    //$("#FinalDiagnosisEditButton").removeAttr("disabled", "disabled");
+                    //$("#FinalDiagnosisEditButton").css("opacity", "1.0");
+
+                    $('#ProfileButtonDown').css("display", "block");
+                    $("#ProfileButtonDown").css("opacity", "1.0");
+
+                    $("#ClientHistoryButton").removeAttr("disabled", "disabled");
+                    $("#ClientHistoryButton").css("opacity", "1.0");
+
+                    $("#SmallProfileButton").removeAttr("disabled", "disabled");
+                    $("#SmallProfileButton").css("opacity", "1.0");
+
+                    $("#SmallScreeningButton").removeAttr("disabled", "disabled");
+                    $("#SmallScreeningButton").css("opacity", "1.0");
+
+                    $("#SmallEnrollmentButton").removeAttr("disabled", "disabled");
+                    $("#SmallEnrollmentButton").css("opacity", "1.0");
+
+                    $("#SmallLocationButton").removeAttr("disabled", "disabled");
+                    $("#SmallLocationButton").css("opacity", "1.0");
+
+                    $("#ClientEditButton").removeAttr("disabled", "disabled");
+                    $("#ClientEditButton").css("opacity", "1.0");
+
+                    $("#EnrollmentEditButton").removeAttr("disabled", "disabled");
+                    $("#EnrollmentEditButton").css("opacity", "1.0");
+
+                    $("#MedicalHistoryEditButton").removeAttr("disabled", "disabled");
+                    $("#MedicalHistoryEditButton").css("opacity", "1.0");
+
+
+                }
+            });
+        }
+
+    });
+
+
+
+            </script>
+
+
+

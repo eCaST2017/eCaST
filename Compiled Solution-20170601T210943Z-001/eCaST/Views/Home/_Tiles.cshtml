@@ -1,0 +1,113 @@
+﻿@{
+    ViewBag.Title = "Programs";
+}
+
+
+
+<div id="NoticeContainer"></div>
+
+
+
+
+
+
+
+
+<div class="row">
+
+
+    <div class="col-md-12">
+
+
+        <div style="border:0px" class="w3-card-2">
+
+
+            <a style="text-decoration:none" href="https://www.colorado.gov/pacific/cdphe/womens-wellness-connection" target="_blank">
+
+                <div style="width:100%;background-color:rgba(66, 139, 202, 0.75);cursor:pointer" class="clickable" url="">
+
+                    <div align="center" class="col-md-10">
+
+                    </div>
+
+                    <div style="background-color:#104872;padding:12px" align="left" class="col-md-12">
+
+
+                       <h3 style="color:#fff"><i class="fa fa-female"></i> About the eCaST Data System </h3>
+
+                    </div>
+			<br/>
+                    <div align="center" class=" col-md-12">
+
+                        <h3 style="font-family: 'Roboto', sans-serif;color:#fff;">
+                            Electronic Cancer Surveillance and Tracking (eCaST)
+
+                        </h3>
+                        <br />
+                        <br />
+                    </div>
+
+                    <div align="left" class=" col-md-12">
+
+                        <h5 style="font-family: 'Roboto', sans-serif;color:#fff;">
+
+                            The current eCaST Data System was developed by the Colorado Department of Public Health and Environment (CDPHE)
+in 2016. It is engineered to meet U.S. Centers for Disease Control and
+Prevention (CDC) National Breast and Cervical Cancer and Early Detection Program (NBCCEDP)
+reporting and documentation requirements.<br/><br/>
+Data for other public health screening programs are also collected in eCaST. Client
+demographic data is shared across grant programs, but clinical information is accessible only
+by each program. It is possible that your agency may use eCaST for other public health
+programs. 
+
+                        </h5>
+
+
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+
+			<div style="padding-right:20px" align="right"><a href="https://www.colorado.gov/pacific/sites/default/files/WWC2_Toolkit-8-Data-Entry.pdf" target="_blank" class="btn btn-success btn-lg">Find Out More</a></div>
+			<br/>
+			<br/>
+
+                </div>
+
+
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+
+      $('#NoticeContainer').load('@Url.Action("Details", "Notices", new { id = 43 })');
+
+
+     
+    });
+
+
+
+
+</script>

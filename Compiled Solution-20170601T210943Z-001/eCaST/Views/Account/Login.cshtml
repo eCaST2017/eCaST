@@ -1,0 +1,113 @@
+﻿@using CTL.Models
+@model LoginViewModel
+
+@{
+    ViewBag.Title = "Log in";
+}
+
+
+
+
+<div  class="row breadcrumb">
+    <div class="col-md-11">
+
+        <div>
+
+
+          
+
+                <h3 style="font-family: 'Roboto', sans-serif;color:#3A87AD;"><span class="glyphicon glyphicon-lock"></span>&nbsp;Access eCaST Data System</h3>
+
+           
+
+        </div>
+
+        <hr />
+        <br />    
+       
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                
+                
+                
+                
+                
+                
+                
+                
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label", @style="font-family: Archivo Narrow, sans-serif;color:#666;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email Address", @autofocus = "" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label", @style = "font-family: Archivo Narrow, sans-serif;color:#666;" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+               
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Log in" class="btn btn-default" />
+                        <a id="retrieveLink" style="text-decoration:none;color:#666" 
+                            href="@Url.Action("ForgotPassword", "Account")">
+                            &nbsp;Click here to retrieve or change password
+                                  </a>
+</div>
+                </div>
+                
+            
+                <br />
+  
+    
+   <div class="alert alert-info">
+
+       <div>
+           <h3 style="font-family: 'Roboto', sans-serif;">Request Access</h3>
+       </div>
+
+       <hr />
+       <br />
+       <h5 style="font-family: 'Roboto', sans-serif;">
+          <i class="fa fa-exclamation-circle"></i> If you are a new user please submit the form request found using the link below.
+
+           If you are having trouble logging in, please select the correct option under can't access your account link. For all other problems, questions or concerns please contact the Helpdesk.
+           </h5>
+
+
+       <br />
+       <br />
+
+       <div style="padding-right:12px" align="right">@Html.ActionLink("Help Desk", "Contact", "Home", routeValues: null, htmlAttributes: new { id = "contactLink", @class = "btn btn-default" }) <a class="btn btn-info" id="registerLink" href="@Url.Action("Register","Account")"><span class='glyphicon glyphicon-play-circle'></span>&nbsp;Request Access</a></div>
+
+
+</div>
+             
+    
+
+                <br />
+                <br />
+
+    <br />
+    <br />
+    <br />
+<br />
+
+            }
+       
+    </div>
+  
+
+    
+
+
+</div>
+
+

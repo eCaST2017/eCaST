@@ -1,0 +1,70 @@
+﻿@model IEnumerable<CTL.ViewModels.ProgramViewModel>
+
+@{
+    ViewBag.Title = "ProgramList";
+}
+
+
+<ul style="font-family: 'Roboto', sans-serif;color:#666;margin:0;padding:0">
+
+    @foreach (var item in Model)
+    {
+        <li style="list-style:none;">
+
+            <div class="w3-card-2">
+
+                <div style="width:100%;vertical-align:top" class="panel-heading">
+
+                    <div style="background-color: cornflowerblue;" class="row">
+
+                        <div class="col-md-11">
+                            @Html.HiddenFor(modelItem => item.RoleBinID)
+                            <span style="font-family: 'Roboto', sans-serif;color:#fff;font-size:x-large;">@Html.DisplayFor(modelItem => item.RoleBinName)</span>
+                        </div>
+
+
+                    </div>
+
+                    </div>
+
+
+
+
+                    <div id="ProgramList_@item.ProgramID@item.Id"></div>
+                    <br />
+
+                    <script type="text/javascript">
+
+
+                        $(function () {
+
+
+                            $("#ProgramList_@item.ProgramID@item.Id").load("@Url.Action("_ProgramListing","Programs")", { 'id': '@item.RoleBinID', 'id2': '@ViewBag.Id' },
+                               function (response, status, xhr) {
+                                   if (status == "error") {
+
+                                   }
+
+
+                               });
+
+
+                        });
+
+
+
+
+
+                    </script>
+
+
+                </div>
+            <br />
+
+        </li>
+
+
+    }
+
+
+</ul>

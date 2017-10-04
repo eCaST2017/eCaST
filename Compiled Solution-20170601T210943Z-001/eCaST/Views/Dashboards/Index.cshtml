@@ -1,0 +1,47 @@
+@model IEnumerable<CTL.Models.Dashboard>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            DashboardName
+        </th>
+        <th>
+            Theme
+        </th>
+        <th>
+            Active
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DashboardID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DashboardID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DashboardID })
+        </td>
+        <td>
+			@item.DashboardName
+        </td>
+        <td>
+			@item.Theme
+        </td>
+        <td>
+			@item.Active
+        </td>
+    </tr>
+}
+
+</table>
+
+

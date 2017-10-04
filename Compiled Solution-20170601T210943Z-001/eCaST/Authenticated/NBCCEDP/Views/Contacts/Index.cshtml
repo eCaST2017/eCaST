@@ -1,0 +1,40 @@
+﻿@model IEnumerable<eCaST.ViewModels.ContactViewModel>
+
+@{
+    ViewBag.Title = "Contacts";
+}
+
+
+@if (ViewBag.ContactCount < 1)
+{
+
+
+    <p align="center">
+        <small class="text-muted"><i class="fa fa-warning"></i>This client does not have any current contact information.</small>
+    </p>
+
+}
+else
+{
+
+
+    foreach (var item in Model)
+    {
+
+
+
+            <a href="#" class="list-group-item">
+                <i class="fa fa-tablet fa-fw"></i> @item.ContactTypeName
+                <span class="pull-right">
+                    <em>@item.Contact1</em><span>&nbsp;<i class="fa fa-pencil fa-fw"></i> Edit</span>
+                </span>
+            </a>
+        
+   
+
+}
+
+
+
+
+}

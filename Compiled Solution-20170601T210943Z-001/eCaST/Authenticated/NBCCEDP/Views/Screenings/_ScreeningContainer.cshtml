@@ -1,0 +1,104 @@
+﻿@model eCaST.ViewModels.ClientViewModel
+
+
+<style type="text/css">
+    .searchOption {
+        margin: 4px 4px 2px 4px;
+        display: inline;
+    }
+
+    .form-field * {
+        vertical-align: middle;
+    }
+
+    .form-field input {
+        clear: left;
+    }
+
+    .form-field label {
+        width: 800px;
+        display: inline-block;
+    }
+
+    input.big {
+        height: 2.1em;
+        width: 2.1em;
+    }
+
+    .error a {
+        background-color: #d9ffff !important;
+        border: 1px solid #ccc !important;
+        width: 100%;
+        color: #666 !important;
+    }
+
+    .requiredText {
+        background-color: #d9ffff;
+        border: 1px solid #999;
+    }
+
+    .requiredSelect {
+        background-color: #d9ffff;
+    }
+</style>
+
+
+
+<div align="center" id="LoadingSection" style="display:none"><img alt="Progress" src='@Url.Content("~/Content/themes/base/images/busy.gif")' id="imgProg" /> </div>
+
+
+@if (ViewBag.CancerTypeID != 4)
+{
+
+
+  
+
+            <div id="MedicalHistoryContainer"></div>
+
+
+
+            }
+            else
+            {
+
+
+            <div id="CardioContainer"></div>
+
+
+
+            }
+
+
+
+
+
+            <script type="text/javascript">
+
+
+                $(function () {
+
+
+
+
+                    $('#CardioContainer').load('@Url.Action("_PatientInfo", "PatientInformation", new { id = @ViewBag.ScreeningID, id2 = @ViewBag.ClientID })');
+                    $('#MedicalHistoryContainer').load('@Html.Raw(Url.Action("_MedicalHistory", "Screenings", new { id = @ViewBag.CancerTypeID, id2 = 0, id3 = @ViewBag.ClientID, id4 = @ViewBag.OfficeVisitDate }))');
+
+                });
+
+
+                $(function () {
+                    positionFooter();
+                    function positionFooter() {
+                        $("#pageFooterOuter").css({ position: "absolute", top: ($(window).scrollTop() + $(window).height() - $("#pageFooterOuter").height()) + "px" })
+                    }
+
+                    $(window)
+                        .scroll(positionFooter)
+                        .resize(positionFooter)
+                });
+
+
+            </script>
+
+
+

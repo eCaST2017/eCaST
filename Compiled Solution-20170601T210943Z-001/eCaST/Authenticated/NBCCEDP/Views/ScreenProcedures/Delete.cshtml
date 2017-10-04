@@ -1,0 +1,163 @@
+﻿@model eCaST.ViewModels.ScreenProcedureViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>Are you sure you want to delete this screen procedure?</h3>
+
+<div>
+   
+    <h3> @Model.ShortMethodName<text>&nbsp;</text> @Html.FormatValue(Model.ProcedureDate, "{0:MM/dd/yyyy}")<text>&nbsp;</text> @Model.ProcedureResultBinName</h3>
+
+   @using (Html.BeginForm("_DeleteScreenProcedureF", "ScreenProcedures", FormMethod.Post, new { id = "ScreenProcedureDeleteForm" }))
+   {
+        @Html.AntiForgeryToken()
+
+
+    @Html.HiddenFor(x => x.ScreenProcedureID)
+    @Html.HiddenFor(x => x.ScreeningID)
+
+   
+    <div id="DeleteButtonContainer" style="padding-top:2px; padding-bottom:52px; padding-left:22px;" align="right">
+
+        <button id="CancelProcLockButton" class="btn btn-default" type="button"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Cancel</button><text>&nbsp;</text>
+        <button id="DeleteProcButton" class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</button><text>&nbsp;</text>
+
+
+    </div>
+   }
+
+
+</div>
+
+
+
+<script type="text/javascript">
+
+
+    $('#CancelProcLockButton').click(function () {
+
+        $('#AccGlowContainer').removeClass("glowdiv");
+        $("#txtSearch").removeAttr("disabled", "disabled");
+        $('#EditMessageContainer').css("display", "none");
+        $('#ScreeningToolbarContainer').css("display", "block");
+        $('#FooterMenuBarContainer').css("display", "block");
+        $('#ScreenProcedureListContainer').load('@Url.Action("_ScreenProcedureList", "ScreenProcedures", new { id = ViewBag.ScreeningID, id2 = ViewBag.CancerTypeBinID })');
+
+        $('#HomeLinkContainer').css("display", "block");
+        $('#HomeNoLinkContainer').css("display", "none");
+
+        $("#ClientButton").removeAttr("disabled", "disabled");
+        $("#ClientButton").css("opacity", "1.0");
+
+        $("#ScreeningButton").removeAttr("disabled", "disabled");
+        $("#ScreeningButton").css("opacity", "1.0");
+
+        $('#ProfileButtonDown').css("display", "block");
+        $("#ProfileButtonDown").css("opacity", "1.0");
+
+        $("#ClientHistoryButton").removeAttr("disabled", "disabled");
+        $("#ClientHistoryButton").css("opacity", "1.0");
+
+        $("#SmallProfileButton").removeAttr("disabled", "disabled");
+        $("#SmallProfileButton").css("opacity", "1.0");
+
+        $("#SmallScreeningButton").removeAttr("disabled", "disabled");
+        $("#SmallScreeningButton").css("opacity", "1.0");
+
+        $("#SmallEnrollmentButton").removeAttr("disabled", "disabled");
+        $("#SmallEnrollmentButton").css("opacity", "1.0");
+
+        $("#SmallLocationButton").removeAttr("disabled", "disabled");
+        $("#SmallLocationButton").css("opacity", "1.0");
+
+        $("#ClientEditButton").removeAttr("disabled", "disabled");
+        $("#ClientEditButton").css("opacity", "1.0");
+
+        $("#EnrollmentEditButton").removeAttr("disabled", "disabled");
+        $("#EnrollmentEditButton").css("opacity", "1.0");
+
+        $("#MedicalHistoryEditButton").removeAttr("disabled", "disabled");
+        $("#MedicalHistoryEditButton").css("opacity", "1.0");
+
+        $('#AccordionContentContainer').load('@Url.Action("Create", "ScreenProcedures", new { id = ViewBag.ScreeningID, id2 = 1 })');
+
+
+    });
+
+
+
+
+    $('#ScreenProcedureDeleteForm').on("submit", function (evt) {
+        evt.preventDefault();
+        if ($('#ScreenProcedureDeleteForm').valid()) {
+            //  $("#SaveExitButton").prop("disabled", true);
+            $.ajax({
+                url: $("#ScreenProcedureDeleteForm").attr('action'),
+                type: $("#ScreenProcedureDeleteForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#ScreenProcedureDeleteForm").serialize(),
+                success: function (data) {
+
+                    var clientid = data.Modified;
+                    var screeningid = data.Modified2;
+
+
+                    $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ScreeningID })');
+
+                    // Reset Fields
+
+                    $('#AccGlowContainer').removeClass("glowdiv");
+                    $("#txtSearch").removeAttr("disabled", "disabled");
+                    $('#EditMessageContainer').css("display", "none");
+                    $('#ScreeningToolbarContainer').css("display", "block");
+                    $('#FooterMenuBarContainer').css("display", "block");
+
+                    $('#HomeLinkContainer').css("display", "block");
+                    $('#HomeNoLinkContainer').css("display", "none");
+
+                    $("#ClientButton").removeAttr("disabled", "disabled");
+                    $("#ClientButton").css("opacity", "1.0");
+
+                    $("#ScreeningButton").removeAttr("disabled", "disabled");
+                    $("#ScreeningButton").css("opacity", "1.0");
+
+                    $('#ProfileButtonDown').css("display", "block");
+                    $("#ProfileButtonDown").css("opacity", "1.0");
+
+                    $("#ClientHistoryButton").removeAttr("disabled", "disabled");
+                    $("#ClientHistoryButton").css("opacity", "1.0");
+
+                    $("#SmallProfileButton").removeAttr("disabled", "disabled");
+                    $("#SmallProfileButton").css("opacity", "1.0");
+
+                    $("#SmallScreeningButton").removeAttr("disabled", "disabled");
+                    $("#SmallScreeningButton").css("opacity", "1.0");
+
+                    $("#SmallEnrollmentButton").removeAttr("disabled", "disabled");
+                    $("#SmallEnrollmentButton").css("opacity", "1.0");
+
+                    $("#SmallLocationButton").removeAttr("disabled", "disabled");
+                    $("#SmallLocationButton").css("opacity", "1.0");
+
+                    $("#ClientEditButton").removeAttr("disabled", "disabled");
+                    $("#ClientEditButton").css("opacity", "1.0");
+
+                    $("#EnrollmentEditButton").removeAttr("disabled", "disabled");
+                    $("#EnrollmentEditButton").css("opacity", "1.0");
+
+                    $("#MedicalHistoryEditButton").removeAttr("disabled", "disabled");
+                    $("#MedicalHistoryEditButton").css("opacity", "1.0");
+
+
+                }
+            });
+        }
+
+    });
+
+
+
+
+</script>

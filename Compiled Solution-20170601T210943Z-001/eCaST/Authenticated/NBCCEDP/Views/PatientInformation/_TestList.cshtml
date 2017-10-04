@@ -1,0 +1,753 @@
+﻿@model IEnumerable<eCaST.ViewModels.ScreenProcedureViewModel>
+
+
+
+<style type="text/css">
+    table.dataTable td.sorting_1 {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+
+    table.dataTable td {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+
+    table.dataTable tr.odd {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+
+    table.dataTable tr.even {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+
+    .statusBlack {
+        color: black;
+    }
+
+    .statusRed {
+        color: red;
+    }
+
+    .statusBlue {
+        color: orange;
+    }
+
+    .statusGreen {
+        color: limegreen;
+    }
+
+    .statusOrange {
+        color: goldenrod;
+    }
+</style>
+
+
+
+
+<div id="NewTestButtonSection" align="right">
+
+    @* <button id="CollapseCMButton" class ="btn btn-default">[-] Collapse</button>*@
+    @if (ViewBag.BPPlusCheck == true)
+    {
+        <text>This is a</text> <img id="BBPPlusIcon" src="@Url.Content(String.Format("~/Images/CoverageIconBPPLUS.png"))" /> <text>Screening. Click Edit on the Initial Health Assessment to Update or Upgrade.</text>
+
+    }
+    else
+    {
+        //data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#testModal"
+        <button id="NewTestButton" type="button" class="btn btn-success btn-med">
+            Add Test
+        </button>
+    }
+</div>
+<br />
+<div id="holder">
+    <table style="width:100%;color:#666;font-size:16px; font-family:'Lato', sans-serif" cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+        <thead>
+            <tr>
+                <th></th>
+                <th class="Group">Type</th>
+                <th>Date Taken</th>
+                <th>Alert Code</th>
+                <th>Results</th>
+                <th>Values</th>
+                <th></th>
+
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+
+
+
+            <tr>
+
+                <td style="border:none; vertical-align:top">
+
+
+                    @if (@item.BPPlusCount > 0)
+                    {
+
+                        <img src="~/Images/CoverageIconBPPLUS.png" />
+
+                    }
+
+
+                                   @if (@item.AlertBinID == 1 || @item.AlertBinID == 2 || @item.AlertBinID == 11)
+                                   {
+
+
+
+
+
+                                       if (@item.WorkupStatusDate == null && @item.MedicationCounselingProvided == null)
+                                       {
+
+                                        <button class="btn btn-default" type="button" id='WorkupTestButton_@item.ScreenProcedureID'><span style="color:red;" class="glyphicon glyphicon-flag"></span></button>
+
+
+
+
+                                       }
+                                       else if (@item.WorkupStatusDate != null && @item.MedicationCounselingProvided == false)
+                                       {
+
+
+                                        <button class="btn btn-default" type="button" id='WorkupTestButton_@item.ScreenProcedureID'><span style="color:red;" class="glyphicon glyphicon-flag"></span></button>
+
+                                       }
+                                       else
+                                       {
+
+                                        <button class="btn btn-default" type="button" id='WorkupTestButton_@item.ScreenProcedureID'><span style="color:green;" class="glyphicon glyphicon-flag"></span></button>
+
+                                       }
+
+
+
+
+
+
+                                   }
+
+
+
+
+
+                    @if (ViewBag.PowerUser == 1)
+                    {
+
+                        if (@item.BPPlusCount < 1)
+                        {
+
+                            <div style="color:gray;cursor:pointer" class="glyphicon glyphicon-pencil btn btn-default" id='EditTestButton_@item.ScreenProcedureID'></div>
+
+
+                        }
+
+                    }
+
+                    else
+                    {
+
+
+                        if (@item.BPPlusCount < 1)
+                        {
+
+
+
+
+                            if (@item.AlertBinID == 1 || @item.AlertBinID == 2 || @item.AlertBinID == 11)
+                            {
+
+
+
+                                if (@item.WorkupStatusDate == null && @item.MedicationCounselingProvided == null)
+                                {
+
+
+
+
+
+                                    <div style="color:gray;cursor:pointer" class="glyphicon glyphicon-pencil" id='EditTestButton_@item.ScreenProcedureID' style="text-decoration:none; cursor:pointer"></div>
+
+
+
+
+
+                                }
+
+
+
+
+                            }
+
+                            else
+                            {
+
+
+
+                                <div style="color:gray;cursor:pointer" class="glyphicon glyphicon-pencil" id='EditTestButton_@item.ScreenProcedureID' style="text-decoration:none; cursor:pointer"></div>
+
+
+                            }
+
+
+
+                        }
+
+                    }
+
+
+                    <script type="text/javascript">
+
+                        $(function () {
+
+                            $("#WorkupTestButton_@item.ScreenProcedureID").click(function () {
+
+
+                                // $('#WorkupTestContainer_@item.ScreenProcedureID').load('@Url.Action("_WorkupTest", "PatientInformation", new { id = ViewBag.CCID, id2 = ViewBag.SiteID, id3 = ViewBag.ScreeningTypeID, id4 = ViewBag.CLID, id5 = ViewBag.EnrollID, id6 = ViewBag.ScreeningID, id7 = @item.ScreenProcedureID })');
+                                $('#TestListContainer').load('@Url.Action("_WorkupTest", "PatientInformation", new { id = ViewBag.ScreeningID, id2 = @item.ScreenProcedureID })');
+
+                            });
+
+
+
+                            $("#EditTestButton_@item.ScreenProcedureID").click(function () {
+
+
+                                // $('#EditTestContainer_@item.ScreenProcedureID').load('@Url.Action("_UpdateTest", "PatientInformation", new { id = ViewBag.CCID, id2 = ViewBag.SiteID, id3 = ViewBag.ScreeningTypeID, id4 = ViewBag.CLID, id5 = ViewBag.EnrollID, id6 = ViewBag.ScreeningID, id7 = @item.ScreenProcedureID })');
+                                $('#TestListContainer').load('@Url.Action("_UpdateTest", "PatientInformation", new { id = ViewBag.ScreeningID, id2 = @item.ScreenProcedureID })');
+
+                            });
+
+
+
+
+                        });
+
+
+
+
+
+                    </script>
+
+
+
+
+
+
+
+
+
+                </td>
+
+
+                <td style="border:none; vertical-align:top">
+
+                    <div class="row">
+
+                        <div class="col-md-12">@item.ProcedureMethodBinName</div>
+
+
+
+                    </div>
+
+
+                </td>
+
+
+                <td style="border:none; vertical-align:top">
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            @(((DateTime)item.TestDate).ToString("MM/dd/yyyy"))
+
+
+                            @if (@item.AlertBinID == 1 || @item.AlertBinID == 2 || @item.AlertBinID == 11)
+                            {
+
+
+                                if (@item.AlertBinID == 2)
+                                {
+
+                                    <script type="text/javascript">
+
+                                 $(document).ready(function () {
+
+
+
+                                     //var d = '@(((DateTime)item.TestDate).ToString("MM/dd/yyyy"))';
+
+
+                                     var dt = new Date('@(((DateTime)item.TestDate).ToString("MM/dd/yyyy"))');
+                                     dt.setDate(dt.getDate() + 31);
+                                     var start = moment(dt);
+
+
+                                     //var end = moment('@(((DateTime)item.TestDate).ToString("MM/dd/yyyy"))');
+                                     var et = new Date();
+                                     var end = moment(et);
+
+
+                                     if (start.diff(end, "days") <= 30) {
+
+                                         $('#relativeTime@(item.ScreenProcedureID)').text(start.diff(end, "days"));
+
+
+
+
+                             }
+                             else {
+
+                                 $('#relativeTime@(item.ScreenProcedureID)').text('0');
+                             }
+
+
+                                 });
+
+                                    </script>
+
+
+                                }
+                                else
+                                {
+
+                                    <script type="text/javascript">
+
+                         $(document).ready(function () {
+
+
+
+                             //var d = '@(((DateTime)item.TestDate).ToString("MM/dd/yyyy"))';
+
+
+                             var dt = new Date('@(((DateTime)item.TestDate).ToString("MM/dd/yyyy"))');
+                             dt.setDate(dt.getDate() + 8);
+                             var start = moment(dt);
+
+
+                             //var end = moment('@(((DateTime)item.TestDate).ToString("MM/dd/yyyy"))');
+                             var et = new Date();
+                             var end = moment(et);
+
+
+                             if (start.diff(end, "days") <= 7) {
+
+                                 $('#relativeTime@(item.ScreenProcedureID)').text(start.diff(end, "days"));
+
+
+
+
+                             }
+                             else {
+
+                                 $('#relativeTime@(item.ScreenProcedureID)').text('0');
+                             }
+
+
+                         });
+
+                                    </script>
+
+                                }
+
+                                if (@item.WorkupStatusDate == null)
+                                {
+
+
+                                    <text>(</text>  <span style="font-weight:bold" title="@item.TestDate" id="relativeTime@(item.ScreenProcedureID)"></span> <text>Days remain for workup)</text>
+
+
+                                }
+
+
+                            }
+
+                        </div>
+                    </div>
+
+
+
+                </td>
+
+                <td style="border:none; vertical-align:top">
+
+
+                    @item.AlertBinID
+
+
+                </td>
+
+                <td style="border:none; vertical-align:top">
+
+
+                    @item.AlertBinName
+
+
+                </td>
+
+
+                <td style="border:none; vertical-align:top; width:25%">
+
+
+                    @if (@item.ProcedureMethodBinID == 58)
+                    {
+
+                        <div class="row">
+
+                            <div align="center" style="color:#aeaeae; font-style:italic" class="col-md-6">
+                                bp1:<br />
+
+                                @item.SystolicBinID1 / @item.DiastolicBinID1
+
+
+                            </div>
+
+                            <div align="center" style="color:#aeaeae; font-style:italic" class="col-md-6">
+                                bp2:<br />
+
+
+                                @item.SystolicBinID2 / @item.DiastolicBinID2
+
+
+                            </div>
+
+                        </div>
+
+
+
+
+                    }
+                    else if (@item.ProcedureMethodBinID == 59)
+                    {
+
+                        <div class="row">
+
+
+
+                            <div align="center" style="color:#aeaeae; font-style:italic" class="col-md-3">
+                                tc:
+
+                                @item.TotalCholesterolBinID
+
+
+                            </div>
+
+                            <div align="center" style="color:#aeaeae; font-style:italic" class="col-md-3">
+                                hdl:
+
+
+
+                                @item.HDLCholesterolBinID
+
+
+                            </div>
+
+                            @if (@item.FastingStatusBinValue == 1)
+                            {
+
+
+                                if (@item.BloodSampleValue == false)
+                                {
+
+                                    <div align="center" style="color:#aeaeae; font-style:italic" class="col-md-3">
+                                        ldl:
+
+
+                                        @item.LDLCholesterolBinID
+
+
+                                    </div>
+
+
+                                }
+
+                                <div align="center" style="color:#aeaeae; font-style:italic" class="col-md-3">
+                                    tri:
+
+
+                                    @item.TriglyceridesBinID
+
+                                </div>
+
+                            }
+                        </div>
+
+
+
+                    }
+                    else
+                    {
+
+
+                        <div class="row">
+
+
+
+                            <div align="center" style="color:#aeaeae; font-style:italic" class="col-md-6">
+                                glucose:<br />
+
+
+                                @if (item.GlucoseBinID == null)
+                                {
+
+
+
+
+                                    <span>N/A</span>
+
+
+
+                                }
+                                else
+                                {
+
+
+                                    @item.GlucoseBinID
+
+                                }
+
+                            </div>
+
+                            <div align="center" style="color:#aeaeae; font-style:italic" class="col-md-6">
+                                a1c%:<br />
+
+
+                                @item.A1CPercentageBinValue
+
+
+                            </div>
+
+                        </div>
+
+
+
+
+                    }
+
+
+
+                </td>
+
+
+
+
+                <td style="border:none; vertical-align:top">
+
+
+
+                    @* }*@
+
+                  @if (@ViewBag.PowerUser == 1 || @ViewBag.PowerUser == 13)
+                  {
+
+                        <div style="color:gray;cursor:pointer" class="glyphicon glyphicon-trash btn btn-default" id='DeleteTestButton_@item.ScreenProcedureID'></div>
+
+
+                    }
+
+
+
+                    <script type="text/javascript">
+
+    $("#DeleteTestButton_@item.ScreenProcedureID").click(function () {
+
+
+        //  $('#DeleteTestContainer_@item.ScreenProcedureID').load('@Url.Action("_DeleteTest", "PatientInformation", new { id = ViewBag.CCID, id2 = ViewBag.SiteID, id3 = ViewBag.ScreeningTypeID, id4 = ViewBag.CLID, id5 = ViewBag.EnrollID, id6 = ViewBag.ScreeningID, id7 = @item.ScreenProcedureID })');
+        $('#TestListContainer').load('@Url.Action("_DeleteTest", "PatientInformation", new { id = ViewBag.ScreeningID, id2 = @item.ScreenProcedureID })');
+
+    });
+
+
+                    </script>
+
+
+
+                </td>
+
+
+            </tr>
+
+
+
+
+        }
+    </table>
+    <br />
+
+
+
+
+</div>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Add New Test</h3>
+            </div>
+            <div id="TestContainer" class="modal-body">
+
+                @*   @{ Html.RenderAction("_AddTest", "PatientInformation", new { id = @ViewBag.CCID, id2 = @ViewBag.SiteID, id3 = @ViewBag.ScreeningTypeID, id4 = @ViewBag.CLID, id5 = @ViewBag.EnrollID, id6 = @ViewBag.ScreeningID });}*@
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+
+
+    $("#NewTestButton").click(function () {
+
+
+        $('#TestListContainer').load('@Url.Action("_AddTest", "PatientInformation", new { id = ViewBag.ScreeningID })');
+
+
+
+
+    });
+
+
+    $(function () {
+
+        if ('@ViewBag.BPCount' > 0 && '@ViewBag.CholCount' > 0 && '@ViewBag.GlucoseCount' > 0) {
+
+
+              //$("#NewTestButtonSection").css("display", "none");
+              $("#NewTestButton").prop("disabled", true);
+
+          }
+
+
+      });
+
+
+
+</script>
+
+<script type="text/javascript" charset="utf-8">
+    (function ($) {
+        /*
+         * Function: fnGetColumnData
+         * Purpose:  Return an array of table values from a particular column.
+         * Returns:  array string: 1d data array
+         * Inputs:   object:oSettings - dataTable settings object. This is always the last argument past to the function
+         *           int:iColumn - the id of the column to extract the data from
+         *           bool:bUnique - optional - if set to false duplicated values are not filtered out
+         *           bool:bFiltered - optional - if set to false all the table data is used (not only the filtered)
+         *           bool:bIgnoreEmpty - optional - if set to false empty values are not filtered from the result array
+         * Author:   Benedikt Forchhammer <b.forchhammer /AT\ mind2.de>
+         */
+        $.fn.dataTableExt.oApi.fnGetColumnData = function (oSettings, iColumn, bUnique, bFiltered, bIgnoreEmpty) {
+            // check that we have a column id
+            if (typeof iColumn == "undefined") return new Array();
+
+            // by default we only want unique data
+            if (typeof bUnique == "undefined") bUnique = true;
+
+            // by default we do want to only look at filtered data
+            if (typeof bFiltered == "undefined") bFiltered = true;
+
+            // by default we do not want to include empty values
+            if (typeof bIgnoreEmpty == "undefined") bIgnoreEmpty = true;
+
+            // list of rows which we're going to loop through
+            var aiRows;
+
+            // use only filtered rows
+            if (bFiltered == true) aiRows = oSettings.aiDisplay;
+                // use all rows
+            else aiRows = oSettings.aiDisplayMaster; // all row numbers
+
+            // set up data array
+            var asResultData = new Array();
+
+            for (var i = 0, c = aiRows.length; i < c; i++) {
+                iRow = aiRows[i];
+                var aData = this.fnGetData(iRow);
+                var sValue = aData[iColumn];
+
+                // ignore empty values?
+                if (bIgnoreEmpty == true && sValue.length == 0) continue;
+
+                    // ignore unique values?
+                else if (bUnique == true && jQuery.inArray(sValue, asResultData) > -1) continue;
+
+                    // else push the value onto the result data array
+                else asResultData.push(sValue);
+            }
+
+            return asResultData;
+        }
+    }(jQuery));
+
+
+    function fnCreateSelect(aData) {
+        var r = '<div class="input-control select"><select style="font-size:11px"><option value="">--Show All--</option>', i, iLen = aData.length;
+        for (i = 0 ; i < iLen ; i++) {
+            r += '<option value="' + aData[i] + '">' + aData[i] + '</option>';
+        }
+        var b = "  <span style='font-size:11px'></span>  ";
+        return b + r + '</select></div>';
+    }
+
+
+    $(document).ready(function () {
+        /* Initialise the DataTable */
+        var oTable = $('#example').dataTable({
+            "oLanguage": {
+                "sSearch": "Search:"
+            },
+            "bPaginate": false,
+            "bSort": false,
+            "aaSorting": [[1, "asc"]],
+            "bAutoWidth": false,
+            "aoColumnDefs": [{ "bVisible": false, "aTargets": [3] }],
+            "bFilter": false,
+            "bInfo": false,
+            "fnDrawCallback": function (oSettings) {
+                for (var i = 0, iLen = oSettings.aoData.length ; i < iLen ; i++) {
+                    var status = oSettings.aoData[i]._aData[3];
+                    var colorCSS;
+                    if (status == '23') {
+                        colorCSS = 'statusGreen';
+                    } else if (status === '4' || status === '12') {
+                        colorCSS = 'statusBlue';
+                    } else if (status === '1' || status === '2' || status === '11') {
+                        colorCSS = 'statusRed';
+                    } else if (status === '3' || status === '7' || status === '14') {
+                        colorCSS = 'statusOrange';
+                    } else {
+                        colorCSS = 'statusBlack';
+                    }
+                    oSettings.aoData[i].nTr.className += " " + colorCSS;
+                }
+            },
+            //"aoColumnDefs": [{ "bVisible": false, "aTargets": [0] }]
+        });
+
+        /* Add a select menu for each TH element in the table footer */
+        //$(".Group").each(function (i) {
+        //    this.innerHTML = fnCreateSelect(oTable.fnGetColumnData(i));
+        //    $('select', this).change(function () {
+        //        oTable.fnFilter($(this).val(), i);
+        //    });
+        //});
+    });
+</script>

@@ -1,0 +1,486 @@
+﻿@model eCaST.ViewModels.ScreenProcedureViewModel
+
+
+<link href="@Url.Content("~/Content/slider.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/themes/base/jquery.ui.slider.css")" rel="stylesheet" type="text/css" />
+
+
+<script src="@Url.Content("~/Scripts/bootstrap-slider.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/app/patientinfo.js")" type="text/javascript"></script>
+
+
+
+@using (Html.BeginForm("_AddTestF", "PatientInformation", FormMethod.Post, new { id = "AddTestForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+
+    <div id="UpdateContainer" style="background-color:#fff;border-radius:5px" class="form-horizontal">
+
+
+        <div style="display:none;padding-left:24px" id='UpdateSection_@ViewBag.ProcedureMethodID'></div>
+
+   <br />
+    <div class="modal-footer">
+        <button type="button" id="CloseTestButton" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" id="UpdateTestingButton" class="btn btn-success">Update</button>
+    </div>
+
+        </div>
+    <br />
+
+    @Html.Hidden("Saveid", 2)
+    @Html.Hidden("CCID", (int?)ViewBag.CCID)
+    @Html.Hidden("ClientID", (int?)ViewBag.CLID)
+    @Html.Hidden("SiteID", (int?)ViewBag.SiteID)
+    @Html.Hidden("ScreeningTypeID", (int?)ViewBag.ScreeningTypeID)
+    @Html.Hidden("EnrollID", (int?)ViewBag.EnrollID)
+    @Html.Hidden("ScreeningID", (int?)ViewBag.ScreeningID)
+    @Html.Hidden("ScreenProcedureID", (int?)ViewBag.ScreenProcedureID)
+
+}
+
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+
+            // Blood Pressure
+        if ('@ViewBag.ProcedureMethodID' == 58) {
+
+
+
+            $('#' + 'UpdateSection_' +  '@ViewBag.ProcedureMethodID').css("display", "block");
+            $('#' + 'UpdateSection_' + '@ViewBag.ProcedureMethodID').load('@Url.Action("_BPTest", "PatientInformation", new { id = ViewBag.ScreeningID, id2 = ViewBag.ScreenProcedureID })');
+
+
+            }
+
+        // Cholesterol
+        if ('@ViewBag.ProcedureMethodID' == 59) {
+
+
+
+            $('#' + 'UpdateSection_' + '@ViewBag.ProcedureMethodID').css("display", "block");
+            $('#' + 'UpdateSection_' + '@ViewBag.ProcedureMethodID').load('@Url.Action("_CholTest", "PatientInformation", new { id = ViewBag.ScreeningID, id2 = ViewBag.ScreenProcedureID })');
+
+
+        }
+
+        if ('@ViewBag.ProcedureMethodID' == 60) {
+
+
+
+
+            $('#' + 'UpdateSection_' + '@ViewBag.ProcedureMethodID').css("display", "block");
+            $('#' + 'UpdateSection_' + '@ViewBag.ProcedureMethodID').load('@Url.Action("_GlucoseTest", "PatientInformation", new { id = ViewBag.ScreeningID, id2 = ViewBag.ScreenProcedureID })');
+
+
+        }
+
+
+
+
+
+    });
+
+
+    $("#CloseTestButton").click(function () {
+
+
+        $('#TestListContainer').load('@Url.Action("_TestList", "PatientInformation", new { id = ViewBag.ScreeningID })');
+
+
+      });
+
+
+</script>
+
+
+<script type="text/javascript">
+
+
+     $(function () {
+
+
+         var checkSys1FieldSelected = function () {
+             return $("SystolicBinID1").val() != 0 || $("TestDD").val() == 58;
+         };
+
+         var checkDia1FieldSelected = function () {
+             return $("DiastolicBinID1").val() != 0 || $("TestDD").val() == 58;
+         };
+
+         var checkSys2FieldSelected = function () {
+             return $("SystolicBinID2").val() != 0 || $("TestDD").val() == 58;
+         };
+
+         var checkDia2FieldSelected = function () {
+             return $("DiastolicBinID2").val() != 0 || $("TestDD").val() == 58;
+         };
+
+         var checkTCFieldSelected = function () {
+             return $("TotalCholesterolBinID").val() != 0 || $("TestDD").val() == 59;
+         };
+
+         var checkHDLFieldSelected = function () {
+             return $("HDLCholesterolBinID").val() != 0 || $("TestDD").val() == 59;
+         };
+
+         var checkFAFieldSelected = function () {
+             return $('input[id="FastingStatusBinID"]').attr('checked')
+
+         };
+
+         var checkBSFieldSelected = function () {
+             //return ($('input[id="BloodSample"]').attr('checked') == false)
+             return $('#BloodSample').not(':checked');
+
+         };
+
+         var checkFABSFieldSelected = function () {
+             //return ($('input[id="BloodSample"]').attr('checked') == false)
+             return $('input[id*="BloodSample"]:not(:checked)').length > 0 && $('input[id="FastingStatusBinID"]').attr('checked');
+
+         };
+
+         var checkGluFieldSelected = function () {
+
+
+             if ($('input[id="NoGlucose"]').attr('checked')) {
+
+                 return
+
+             }
+
+             else {
+
+
+                 if ('@ViewBag.DiaCheck' != "1") {
+
+                      return $("GlucoseBinID").val() != 0 || $("TestDD").val() == 60;
+
+                  }
+                  else {
+
+                      return
+                  }
+
+              }
+          };
+
+          var checkA1CFieldSelected = function () {
+
+              if ($('input[id="NoA1C"]').attr('checked')) {
+
+                  return
+
+              }
+
+              else {
+
+                  return $("A1CPercentageBinID").val() != -1 || $("TestDD").val() == 60;
+
+              }
+
+          };
+
+          var checkWorkupFieldSelected = function () {
+              return $("WorkupStatusBinID").val() != -1 || $("DeleteCheck").val() != 1;
+          };
+
+          var checkWorkupResultFieldSelected = function () {
+              return $("WorkupStatusBinID").val() == 2;
+          };
+
+
+          $("#AddTestForm").validate({
+
+
+              errorClass: "my-error-class",
+              validClass: "my-valid-class",
+
+
+              rules: {
+
+                  TestDate: {
+                      //required: { depends: checkTestFieldSelected }
+                      required: true
+
+                  },
+                  SystolicBinID1: {
+                      required: { depends: checkSys1FieldSelected },
+                      range: [10, 260]
+                      //required: true
+
+                  },
+                  DiastolicBinID1: {
+                      required: { depends: checkDia1FieldSelected },
+                      range: [10, 200]
+                      //required: true
+
+                  },
+                  SystolicBinID2: {
+                      required: { depends: checkSys2FieldSelected },
+                      range: [10, 260]
+                      //required: true
+
+                  },
+                  DiastolicBinID2: {
+                      required: { depends: checkDia2FieldSelected },
+                      range: [10, 200]
+                      //required: true
+
+                  },
+                  TotalCholesterolBinID: {
+                      required: { depends: checkTCFieldSelected },
+                      range: [10, 700]
+                      //required: true
+
+                  },
+                  HDLCholesterolBinID: {
+                      required: { depends: checkHDLFieldSelected },
+                      range: [10, 700]
+                      //required: true
+
+                  },
+                  LDLCholesterolBinID: {
+                      required: { depends: checkFABSFieldSelected },
+                      range: [10, 700]
+                      //required: true
+
+                  },
+                  TriglyceridesBinID: {
+                      required: { depends: checkFAFieldSelected },
+                      range: [10, 3000]
+                      //required: true
+
+                  },
+
+                  GlucoseBinID: {
+                      required: { depends: checkGluFieldSelected },
+                      //range: [10, 600]
+                      //required: true
+
+                  },
+                  A1CPercentageBinID: {
+                      required: { depends: checkA1CFieldSelected }
+
+
+                  },
+                  //WorkupStatusBinID: {
+                  //    required: { depends: checkWorkupFieldSelected }
+
+
+                  //},
+                  //WorkupStatusDate: {
+                  //    required: { depends: checkWorkupFieldSelected }
+
+
+                  //},
+                  //WorkupResultBinID: {
+                  //    required: { depends: checkWorkupResultFieldSelected }
+
+
+                  //}
+
+
+              },
+              messages: {
+
+                  TestDate: {
+                      required: "Please select a test date"
+
+                  },
+                  SystolicBinID1: {
+                      required: "Please enter a value greater than 0 for the Systolic Value"
+
+                  },
+                  DiastolicBinID1: {
+                      required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                  },
+                  SystolicBinID2: {
+                      required: "Please enter a value greater than 0 for the Systolic Value"
+
+                  },
+                  DiastolicBinID2: {
+                      required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                  },
+                  TotalCholesterolBinID: {
+                      required: "Please enter a value greater than 0 for the Total Cholesterol Value"
+
+                  },
+                  HDLCholesterolBinID: {
+                      required: "Please enter a value greater than 0 for the HDL Cholesterol Value"
+
+                  },
+                  LDLCholesterolBinID: {
+                      required: "Please enter a value greater than 0 for the LDL Cholesterol Value"
+
+                  },
+
+                  TriglyceridesBinID: {
+
+                      required: "Please enter a value greater than 0 for the Triglycerides Value"
+
+                  },
+                  GlucoseBinID: {
+
+                      required: "Please enter a value greater than 0 for the Glucose Value"
+
+                  },
+
+                  A1CPercentageBinID: {
+
+                      required: "Please enter a value for the A1C Percentage Value"
+
+                  },
+                  //WorkupStatusBinID: {
+
+                  //    required: "Please enter a value for Workup Status"
+
+                  //},
+                  //WorkupStatusDate: {
+
+                  //    required: "Please enter a value for Workup Status Date"
+
+                  //},
+                  //WorkupResultBinID: {
+
+                  //    required: "Please enter a value for Workup Result"
+
+                  //}
+
+              }
+          });
+
+          $('#AddTestForm').on("submit", function (evt44) {
+              evt44.preventDefault();
+              if ($('#AddTestForm').valid()) {
+                  $.ajax({
+
+                      url: $("#AddTestForm").attr('action'),
+                      type: $("#AddTestForm").attr('method'),
+                      contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                      data: $("#AddTestForm").serialize(),
+                      success: function (data) {
+
+                          //var clinicalcycleid = data.Modified;
+                          //var siteid = data.Modified2;
+                          //var screeningtypeid = data.Modified3;
+                          //var clientid = data.Modified4;
+                          //var enrollid = data.Modified5;
+                          var screeningid = data.Modified;
+                          var screenprocedureid = data.Modified2;
+                          var operationid = data.Modified3;
+
+                          $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ScreeningID })');
+
+                        if (screenprocedureid == null && operationid == null) {
+
+                            toastr.success('You have successfully added a test.')
+
+
+                        }
+                        else if (screenprocedureid != null && operationid == 2) {
+
+                            toastr.success('You have successfully updated a test.')
+
+                        }
+                        else if (screenprocedureid != null && operationid == 4) {
+
+
+                            toastr.success('You have successfully updated the workup for this alert value.');
+
+
+                        }
+                        else if (screenprocedureid != null && operationid == 1) {
+
+                            toastr.warning('You have successfully removed a test.')
+
+                        }
+                        else {
+
+                            // Nothing
+                        }
+
+
+                
+
+                    }
+
+                });
+            }
+
+        });
+
+
+          @* $('#AddTestForm').on("submit", function (evt) {
+            evt.preventDefault();
+
+            $.ajax({
+                url: $("#AddTestForm").attr('action'),
+                type: $("#AddTestForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#AddTestForm").serialize(),
+                success: function (data) {
+
+                    var clinicalcycleid = data.Modified;
+                    var siteid = data.Modified2;
+                    var screeningtypeid = data.Modified3;
+                    var clientid = data.Modified4;
+                    var enrollid = data.Modified5;
+                    var screeningid = data.Modified6;
+                    var screenprocedureid = data.Modified7;
+                    var operationid = data.Modified8;
+
+                    $('#ClinicalMeasurementsSection').load('@Url.Action("_ClinicalMeasurements", "PatientInformation")', { id: clinicalcycleid, id2: siteid, id3: screeningtypeid, id4: clientid, id5: enrollid, id6: screeningid });
+
+                    if (screenprocedureid == null && operationid == null) {
+
+                        toastr.success('You have successfully added a test.')
+
+                    }
+                    else if (screenprocedureid != null && operationid == 2) {
+
+                        toastr.success('You have successfully updated a test.')
+
+                    }
+                    else if (screenprocedureid != null && operationid == 4) {
+
+                        toastr.success('You have successfully completed the workup for this alert value.')
+
+                    }
+                    else if (screenprocedureid != null && operationid == 1) {
+
+                        toastr.warning('You have successfully removed a test.')
+
+                    }
+                    else {
+
+                        // Nothing
+                    }
+
+
+                    $('#myModal').modal('hide')
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+
+                }
+            });
+
+
+        });*@
+
+      });
+
+
+</script>     

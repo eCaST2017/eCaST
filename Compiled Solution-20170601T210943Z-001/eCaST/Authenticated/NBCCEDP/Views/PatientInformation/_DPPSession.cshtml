@@ -1,0 +1,886 @@
+﻿@model eCaST.ViewModels.SupportSessionViewModel
+
+
+<style type="text/css">
+    .txtdiv {
+        /*width: 130px;
+        height: 50px;*/
+        -ms-transform: rotate(270deg); /* IE 9 */
+        -moz-transform: rotate(270deg); /* Firefox */
+        -webkit-transform: rotate(270deg); /* Safari and Chrome */
+        -o-transform: rotate(270deg); /* Opera */
+    }
+
+    .clsDatePicker {
+        z-index: 100000;
+    }
+</style>
+
+
+<link href="@Url.Content("~/Content/slider.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/themes/base/jquery.ui.slider.css")" rel="stylesheet" type="text/css" />
+
+<script src="@Url.Content("~/Scripts/bootstrap-slider.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/app/patientinfo.js")" type="text/javascript"></script>
+
+
+
+<div  id="DPPSection">
+
+
+
+    <div align="center">
+
+        <div style="width:95%;text-align:left" class="alert alert-success">
+
+            @Html.Hidden("HBSupportSessionDate")
+            <span><i class="fa fa-heartbeat"></i> DPP Session Date: <input style="color:#ccc;" type="text" id="HBSupportSessionDateHIDDEN" placeholder="Date of Session"></span>
+
+        </div>
+    </div>
+
+    <div style="padding-left:34px">
+    <table style="width:100%; padding:0px">
+
+
+   
+
+        @*<tr>
+
+
+            <td style="border:none">
+
+                <div class="input-group">
+
+                        
+
+
+                 
+
+                </div>
+
+                <br />
+
+
+
+            </td>
+
+        </tr>*@
+
+
+
+        <tr>
+
+            <td style="border:none">
+
+                <div>Session Number</div>
+                <br />
+                <div>
+
+                    @* <input type="text" id="a1c" class="span2" data-slider-min="@ViewBag.A1CMINSLIDERFIRST" data-slider-max="@ViewBag.A1CMINSLIDERLAST" data-slider-step="1" data-slider-value="-14" value="" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">*@
+
+                    @* <input type="text" id="a1c" class="span2" data-slider-min="0" data-slider-max="17" data-slider-step="1.1" data-slider-value="-14" value="0.1,16.9" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">*@
+
+
+                    @Html.DropDownListFor(model => model.HBSessionNumberTypeBinID, ((IEnumerable<eCaST.Models.DDHBNumberTypeBin>)ViewBag.DDHBSessionNumberTypeBinIDs).Select(option => new SelectListItem
+                     {
+                         //Text = Html.DisplayTextFor(_ => option).ToString(),
+                         Text = option.HBSessionNumberTypeBinName,
+                         Value = option.HBSessionNumberTypeBinID.ToString(),
+                         Selected = (Model != null) && (option.HBSessionNumberTypeBinID == ViewBag.NumberType)
+                     }), "Choose...", new { @id = "HBSessionNumberTypeBinID", @class = "requiredSelect" })
+                    @Html.ValidationMessageFor(model => model.HBSessionNumberTypeBinID)
+
+
+                </div>
+
+                <br />
+                <br />
+
+            </td>
+
+        </tr>
+
+
+
+        <tr>
+
+            <td style="border:none">
+
+                <div>Type of contact for this Session</div>
+                <br />
+                <div>
+
+                    @* <input type="text" id="a1c" class="span2" data-slider-min="@ViewBag.A1CMINSLIDERFIRST" data-slider-max="@ViewBag.A1CMINSLIDERLAST" data-slider-step="1" data-slider-value="-14" value="" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">*@
+
+                    @* <input type="text" id="a1c" class="span2" data-slider-min="0" data-slider-max="17" data-slider-step="1.1" data-slider-value="-14" value="0.1,16.9" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">*@
+
+
+                    @Html.DropDownListFor(model => model.HBSessionContactTypeBinID, ((IEnumerable<eCaST.Models.DDHBContactTypeBin>)ViewBag.DDHBSessionContactTypeBinIDs).Select(option => new SelectListItem
+                     {
+                         //Text = Html.DisplayTextFor(_ => option).ToString(),
+                         Text = option.HBSessionContactTypeBinName,
+                         Value = option.HBSessionContactTypeBinID.ToString(),
+                         Selected = (Model != null) && (option.HBSessionContactTypeBinID == ViewBag.ContactType)
+                     }), "Choose...", new { @id = "HBSessionContactTypeBinID", @class = "requiredSelect" })
+                    @Html.ValidationMessageFor(model => model.HBSessionContactTypeBinID)
+
+
+
+                </div>
+
+                <br />
+                <br />
+
+            </td>
+
+        </tr>
+
+
+
+        <tr>
+
+            <td style="border:none">
+
+                <div>Setting for this Session</div>
+                <br />
+                <div>
+
+                    @* <input type="text" id="a1c" class="span2" data-slider-min="@ViewBag.A1CMINSLIDERFIRST" data-slider-max="@ViewBag.A1CMINSLIDERLAST" data-slider-step="1" data-slider-value="-14" value="" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">*@
+
+                    @* <input type="text" id="a1c" class="span2" data-slider-min="0" data-slider-max="17" data-slider-step="1.1" data-slider-value="-14" value="0.1,16.9" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">*@
+
+
+                    @Html.DropDownListFor(model => model.HBSessionSettingTypeBinID, ((IEnumerable<eCaST.Models.DDHBSettingTypeBin>)ViewBag.DDHBSettingTypeBinIDs).Select(option => new SelectListItem
+                     {
+                         //Text = Html.DisplayTextFor(_ => option).ToString(),
+                         Text = option.HBSessionSettingTypeBinName,
+                         Value = option.HBSessionSettingTypeBinID.ToString(),
+                         Selected = (Model != null) && (option.HBSessionSettingTypeBinID == ViewBag.SettingType)
+                     }), "Choose...", new { @id = "HBSessionSettingTypeBinID", @class = "requiredSelect" })
+                    @Html.ValidationMessageFor(model => model.HBSessionSettingTypeBinID)
+
+
+
+                </div>
+
+                <br />
+                <br />
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td style="border:none">
+
+                <div>Curriculum for this Session</div>
+                <br />
+                <div>
+
+                    @* <input type="text" id="a1c" class="span2" data-slider-min="@ViewBag.A1CMINSLIDERFIRST" data-slider-max="@ViewBag.A1CMINSLIDERLAST" data-slider-step="1" data-slider-value="-14" value="" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">*@
+
+                    @* <input type="text" id="a1c" class="span2" data-slider-min="0" data-slider-max="17" data-slider-step="1.1" data-slider-value="-14" value="0.1,16.9" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">*@
+
+
+                    @Html.DropDownListFor(model => model.HBSessionCurriculumTypeBinID, ((IEnumerable<eCaST.Models.DDHBCurriculumTypeBin>)ViewBag.DDHBCurriculumTypeBinIDs).Select(option => new SelectListItem
+                     {
+                         //Text = Html.DisplayTextFor(_ => option).ToString(),
+                         Text = option.HBSessionCurriculumTypeBinName,
+                         Value = option.HBSessionCurriculumTypeBinID.ToString(),
+                         Selected = (Model != null) && (option.HBSessionCurriculumTypeBinID == ViewBag.CurriculumType)
+                     }), "Choose...", new { @id = "HBSessionCurriculumTypeBinID", @class = "requiredSelect" })
+                    @Html.ValidationMessageFor(model => model.HBSessionCurriculumTypeBinID)
+
+
+
+                </div>
+
+                <br />
+                <br />
+
+            </td>
+
+        </tr>
+
+
+        <tr>
+            <td style="border:none">
+
+                <div>Location of this Session</div>
+                <br />
+
+            </td>
+        </tr>
+
+        <tr>
+            <td style="border:none">
+
+                @Html.DropDownList("SubContractorID", null, String.Empty, new { @style = "font-size:18px" })
+                @Html.ValidationMessageFor(model => model.SubContractorID)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="border:none">
+                <br />
+                <div id="ProviderSection" style="display:block">
+
+                    @* @Html.LabelFor(model => model.ProviderID)*@
+
+
+                    <div>DPP Provider</div>
+
+                    <br />
+                    <div><select style="font-size:18px" id='ProviderID' name='ProviderID' class="requiredSelect"></select></div>
+
+
+                </div>
+                <br />
+
+            </td>
+        </tr>
+
+
+    </table>
+        </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+
+    (function ($) {
+
+        $.fn.extend({
+            detachOptions: function (o) {
+                var s = this;
+                return s.each(function () {
+                    var d = s.data('selectOptions') || [];
+                    s.find(o).each(function () {
+                        d.push($(this).detach());
+                    });
+                    s.data('selectOptions', d);
+                });
+            }, attachOptions: function (o) {
+                var s = this;
+                return s.each(function () {
+                    var d = s.data('selectOptions') || [];
+                    for (var i in d) {
+                        if (d[i].is(o)) {
+                            s.append(d[i]);
+                            //console.log(d[i]);
+                            // TODO: remove option from data array
+                        }
+                    }
+                });
+            }
+        });
+
+    })(jQuery);
+
+
+
+    $(function () {
+
+
+        $("#SessionDD").change(function () {
+
+
+            if ($("#SessionDD").val() == 1) {
+
+
+                $('#HBSessionContactTypeBinID').detachOptions('[value=2]');
+                $('#HBSessionContactTypeBinID').detachOptions('[value=3]');
+            }
+
+
+        });
+
+
+    });
+
+
+
+    $(document).ready(function () {
+
+
+        $("#HBSessionNumberTypeBinID").select2({ width: "30%" });
+        $("#HBSessionContactTypeBinID").select2({ width: "30%" });
+        $("#HBSessionSettingTypeBinID").select2({ width: "30%" });
+        $("#HBSessionCurriculumTypeBinID").select2({ width: "30%" });
+        $("#SubContractorID").select2({ width: "30%" });
+        $("#ProviderID").select2({ width: "30%" });
+
+
+        if ($("#SessionDD").val() == 1) {
+
+
+            $('#HBSessionContactTypeBinID').detachOptions('[value=2]');
+            $('#HBSessionContactTypeBinID').detachOptions('[value=3]');
+        }
+
+        $("#HBSupportSessionDateHIDDEN").val('@(((DateTime)ViewBag.SupportSessionDate).ToString("MM/dd/yyyy"))');
+        $("#HBSupportSessionDateHIDDEN").kendoDatePicker({ max: new Date() });
+
+
+
+
+
+        @*$("#UpdateSessionButton").click(function () {
+
+
+            if ('@ViewBag.SupportSessionTypeID' == 1) {
+
+
+
+
+                  //Add Support Session Date
+                  var ssDate1 = $("#HBSupportSessionDateHIDDEN").val();
+                  document.getElementById("HBSupportSessionDate").value = ssDate1;
+
+
+              }
+
+              else if ('@ViewBag.SupportSessionTypeID' == 2) {
+
+                // Session Length
+                var slS1 = $("#HBSessionLengthBinIDHIDDEN").val();
+                document.getElementById("HBSessionLengthBinID").value = slS1;
+
+                // Patient Confidence
+                var pcD1 = $("#PatientConfidenceHIDDEN").val();
+                document.getElementById("PatientConfidence").value = pcD1;
+
+                // Patient Importance
+                var piS21 = $("#PatientImportanceHIDDEN").val();
+                document.getElementById("PatientImportance").value = piS21;
+
+
+                //Add Support Session Date
+                var ssDate1 = $("#HBSupportSessionDateHIDDEN").val();
+                document.getElementById("HBSupportSessionDate").value = ssDate1;
+
+            }
+
+            else {
+
+
+
+
+            }
+
+          });*@
+
+
+
+
+
+
+          // Cascading DropDown Plugin
+          (function ($) {
+              //Return the options stored for this element
+              var getOptions = function (element) {
+                  var options = element.data('options');
+
+                  if (options) {
+                      return options;
+                  }
+                  else {
+                      $.error('The element must be initialized first');
+                  }
+              }
+
+              // Set the promt text that will appear as the first value
+              var setPromptText = function (element) {
+                  var defaultValue = getOptions(element).promptText;
+                  var option = new Option(defaultValue, '');
+                  element.append(option);
+              }
+
+              // Set the text that will appear if there is no data to display
+              var setNoInfoText = function (element) {
+                  var options = getOptions(element);
+                  var noInfoElement = $('<span></span>').attr('id', 'noInfo_' + element.attr('id')).append(options.noInfoText);
+
+                  element.parent().append(noInfoElement);
+              }
+
+              // Toggle the noInfoText
+              var toggleNoInfoText = function (element, visible) {
+                  var noInfoElement = $('#noInfo_' + element.attr('id'));
+                  var options = getOptions(element);
+
+                  if (visible) {
+                      noInfoElement.show();
+                      element.hide();
+                  }
+                  else {
+                      noInfoElement.hide();
+                      element.show();
+                  }
+
+                  $(options.childSelector).each(function () {
+                      var child = $(this);
+                      var noInfoChildElement = $('#noInfo_' + child.attr('id'));
+
+                      noInfoChildElement.show();
+                      child.hide();
+                  });
+              }
+
+              var onChange = function (element) {
+                  element.bind('change', function () {
+                      var options = getOptions(element);
+                      //Iterate the childs
+                      $(options.childSelector).each(function () {
+                          var child = $(this);
+                          //Clear the child of its elements
+                          methods['clear'].call(child);
+
+                          if (element.val() != '') {
+                              methods['load'].call(child, element.val());
+                          }
+                          else {
+                              toggleNoInfoText(child, true);
+                          }
+                      });
+                  });
+              }
+
+              var methods = {
+                  init: function (options) {
+                      return this.each(function () {
+                          // setup private variables
+                          var $this = $(this);
+
+                          options = $.extend({}, $.fn.cascadeSelect.defaults, options);
+
+                          //Save the options
+                          $this.data('options', options);
+
+                          if (options.promptText) {
+                              setPromptText($this);
+                          }
+
+                          if (options.noInfoText) {
+                              setNoInfoText($this);
+                          }
+
+                          if (options.root) {
+                              methods['load'].call($this);
+                          }
+                          else {
+                              toggleNoInfoText($this, true);
+                          }
+
+                          if (options.childSelector != null) {
+                              onChange($this);
+                          }
+                      });
+                  },
+                  clear: function () {
+                      var element = $(this);
+                      var options = getOptions(element);
+
+                      var onClearCallback = options.onClear;
+                      if (onClearCallback && $.isFunction(onClearCallback)) {
+                          onClearCallback.call(element);
+                      }
+                      else {
+                          if (options.noInfoText) {
+                              var domElement = element.get(0);
+                              for (var i = domElement.options.length - 1; i > 0; i--) {
+                                  domElement.remove(i);
+                              }
+                          }
+                          else {
+                              element.empty();
+                          }
+
+                          //Call clear on the childs as well
+                          $(options.childSelector).each(function () {
+                              var child = $(this);
+                              //Clear the child of its elements
+                              methods['clear'].call(child);
+                          });
+                      }
+                  },
+                  load: function (data) {
+                      var element = $(this);
+                      var options = getOptions(element);
+
+                      var url = options.url;
+                      var filter = options.filter;
+                      var json = {};
+
+                      if (filter != null) {
+                          json[filter] = data;
+                      }
+
+                      data = data || null;
+
+                      var onLoadCallback = options.onLoad;
+                      if (onLoadCallback && $.isFunction(onLoadCallback)) {
+                          onLoadCallback.call(element, json);
+                      }
+                      else {
+                          $.ajax({
+                              url: url,
+                              type: 'GET',
+                              data: json,
+                              dataType: 'JSON',
+                              success: function (data) {
+                                  // because $('#id') != document.getElementById('id')
+                                  var domElement = element.get(0);
+
+                                  //Emtpy the dropdown list
+                                  for (var i = domElement.options.length - 1; i > 0; i--) {
+                                      domElement.remove(i);
+                                  }
+
+                                  if (data.length > 0) {
+                                      for (var i = 0; i < data.length; i++) {
+                                          var item = data[i];
+                                          var option = new Option(item.Name, item.Id);
+                                          element.append(option);
+                                      }
+                                      toggleNoInfoText(element, false);
+                                  }
+                                  else {
+                                      toggleNoInfoText(element, true);
+                                  }
+                              }
+                          });
+                      }
+                  }
+              };
+
+              $.fn.cascadeSelect = function (method) {
+                  if (methods[method]) {
+                      return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+                  }
+                  else if (typeof method === 'object' || !method) {
+                      return methods.init.apply(this, arguments);
+                  }
+                  else {
+                      $.error('Method ' + method + ' does not exist on jQuery.cascadeSelect');
+                  }
+              };
+
+              $.fn.cascadeSelect.defaults = {
+                  root: false,
+                  url: null,
+                  childSelector: null,
+                  promptText: '[Please select an item]',
+                  noInfoText: 'No information available',
+                  filter: null,
+                  onLoad: null,
+                  onClear: null,
+                  Option: null
+              };
+          })(jQuery);
+
+
+
+         // $('#SubContractorID').addClass('requiredSelect');
+         // $('#ProviderID').addClass('requiredSelect');
+
+
+          //$('input[type="submit"]').on('click', function (e) {
+
+             
+          //});
+
+
+          //$('input[type="submit"]').on('click', function (e) {
+
+          //    if (($("#SubContractorID").val() != -1)) {
+
+
+          //        if (($("#ProviderID").val() == -1)) {
+
+
+          //            alert('Please select a Provider');
+          //            e.preventDefault();
+
+          //        }
+          //    }
+          //    else {
+          //        //alert('Well Done!!!!');
+
+          //    }
+          //});
+
+
+
+    });
+
+
+</script>
+
+
+<script type='text/javascript'>
+
+
+    $(function () {
+
+    //    if ($("#SubContractorID").val() == -1) {
+    //        $("#ProviderSection").css("display", "none");
+    //    }
+    //    else {
+    //        $("#ProviderSection").css("display", "block");
+    //    }
+
+        var keyP = '@ViewBag.ProvID';
+        var id = '@ViewBag.SiteID';
+        var id2 = 'DPP';
+        $.getJSON('@Url.Action("GetProviders", "PatientInformation")', { SiteID: id, HBSessionType: id2 },
+       function (data) {
+           var select = $("#ProviderID");
+           select.empty();
+           select.append($('<option/>', {
+               value: -1,
+               text: "Choose..."
+           }));
+           $.each(data, function (index, data) {
+
+               select.append($('<option/>', {
+                   value: data.Id,
+                   text: data.Name
+               }));
+
+               if ('@ViewBag.SupportSessionID' != "") {
+
+                   //  $("#SubContractorID option[value=" + key + "]").attr("selected", "selected");
+                   $("#ProviderID").select2({ width: "30%" }).select2('val', keyP);
+
+               }
+
+
+           });
+
+       });
+
+
+
+
+        $("#SubContractorID").change(function () {
+
+
+            if ($("#SubContractorID").val() == -1) {
+                $("#ProviderSection").css("display", "none");
+            }
+            else {
+                $("#ProviderSection").css("display", "block");
+            }
+
+        });
+    });
+
+
+
+
+
+
+    var key = '@ViewBag.SubConID';
+    $.getJSON('@Url.Action("GetSubContractors", "ScreenProcedures", new { id = ViewBag.Program, id2 = ViewBag.SiteID })', {}, function (subcontractors) {
+        var list = $('select#SubContractorID');
+        list.find('option').remove();
+        list.append($('<option/>', {
+            value: -1,
+            text: "Choose..."
+        }));
+        $(subcontractors).each(function (index, subcontractor) {
+            list.append('<option value="' + subcontractor.SubContractorID + '">' + subcontractor.SubContractorName + '</option>');
+
+
+            if ('@ViewBag.SupportSessionID' != "") {
+
+                //  $("#SubContractorID option[value=" + key + "]").attr("selected", "selected");
+                $("#SubContractorID").select2({ width: "30%" }).select2('val', key);
+
+            }
+
+
+
+        });
+
+
+
+    });
+
+    @*
+    var id = key;
+        var id2 = '@ViewBag.Program'
+        $.getJSON('@Url.Action("GetProviders", "ScreenProcedures")', { SubContractorID: id, Program: id2 },
+       function (data) {
+           var select = $("#ProviderID");
+           select.empty();
+           select.append($('<option/>', {
+               value: -1,
+               text: "Choose..."
+           }));
+           $.each(data, function (index, data) {
+
+               select.append($('<option/>', {
+                   value: data.Id,
+                   text: data.Name
+               }));
+
+               if ('@ViewBag.SupportSessionID' != "") {
+
+                   var key2 = '@ViewBag.ProvID';
+                   $("#ProviderID option[value=" + key2 + "]").attr("selected", "selected");
+
+               }
+
+           });
+
+
+       });*@
+
+
+
+</script>
+
+
+<script type="text/javascript">
+
+
+   
+    @*$("#SubContractorID").change(function () {
+        var id = $(this).val();
+        var id2 = '@ViewBag.Program';
+        var id3 = 'DPP';
+            $.getJSON('@Url.Action("GetProviders", "ScreenProcedures")', { SubContractorID: id, Program: id2, HBSessionType: id3 },
+            function (data) {
+                var select = $("#ProviderID");
+                select.empty();
+                select.append($('<option/>', {
+                    value: -1,
+                    text: "Choose..."
+                }));
+                $.each(data, function (index, data) {
+
+                    select.append($('<option/>', {
+                        value: data.Id,
+                        text: data.Name
+                    }));
+                });
+
+
+            });
+        });*@
+
+
+    (function ($) {
+        $.fn.extend({
+            detachOptions: function (o) {
+                var s = this;
+                return s.each(function () {
+                    var d = s.data('selectOptions') || [];
+                    s.find(o).each(function () {
+                        d.push($(this).detach());
+                    });
+                    s.data('selectOptions', d);
+                });
+            }, attachOptions: function (o) {
+                var s = this;
+                return s.each(function () {
+                    var d = s.data('selectOptions') || [];
+                    for (var i in d) {
+                        if (d[i].is(o)) {
+                            s.append(d[i]);
+                            //console.log(d[i]);
+                            // TODO: remove option from data array
+                        }
+                    }
+                });
+            }
+        });
+
+    })(jQuery);
+
+
+    $(function () {
+
+
+      @*  if ('@ViewBag.SupportSessionID' == null) {*@
+
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=1]');
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=2]');
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=3]');
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=4]');
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=5]');
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=6]');
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=7]');
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=8]');
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=9]');
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=10]');
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=11]');
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=12]');
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=13]');
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=14]');
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=15]');
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=16]');
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=17]');
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=18]');
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=19]');
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=20]');
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=21]');
+            //$('#HBSessionNumberTypeBinID').detachOptions('[value=22]');
+
+            // Add Back Option
+          @*  $('#HBSessionNumberTypeBinID').attachOptions("[value='@ViewBag.SESSIONNUMBERMAX']");*@
+
+
+        //}
+
+    });
+
+
+    @*$(document).ready(function () {
+
+        $('#AddSessionButton').on('click', function (e) {
+
+
+            var iCurHBSupportSessionDate = $("#HBSupportSessionDate").val();
+            var iBPDate = '@ViewBag.BPDate';
+            var iStopSub = 0;
+            var sErr = "Please correct the following issues:\n\n";
+
+            if (new Date(iCurHBSupportSessionDate).getTime() < new Date(iBPDate).getTime()) {
+                iStopSub = 1;
+                sErr += "-You cannot add a date for the DPP/HC Support Session that is earlier than the initial blood pressure date.\n";
+            }
+
+            if (iStopSub != 0) {
+                alert(sErr);
+                e.preventDefault();
+            }
+
+
+
+        });
+
+
+     });*@
+
+
+
+
+
+</script>
+
+

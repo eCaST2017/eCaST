@@ -1,0 +1,295 @@
+﻿@model eCaST.ViewModels.HouseholdViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+@Html.Hidden("numberInFamily",(int?) Model.numberInFamily)
+@Html.Hidden("annualGrossIncome", (int?)Model.annualGrossIncome)
+
+<div class="list-group">
+    <a id="editHouseholdButton" style=" opacity:0.9" href="#" class="list-group-item active">
+        <div class="pull-right">
+
+            <div style="padding-bottom:6px">
+
+                <span style="font-size:16px;"><i class="fa fa-pencil fa-fw"></i>Edit Info</span>
+
+            </div>
+        </div>
+
+
+        <h1 style="font-weight:100; color:#fff;">$@(((decimal)Model.annualGrossIncome).ToString("#,##0"))</h1>
+        <br />
+        <span style="color:#fff; font-size:11px"> ANNUAL GROSS INCOME (<span id="ppov"></span>)</span>
+
+    </a>
+    <a href="#" class="list-group-item">
+        <i class="fa fa-plus-square fa-fw"></i> Insurance Coverage
+        <span class="pull-right text-muted small">
+
+            @if (@Model.InsuranceID == null)
+            {
+
+                <em style="color:red;font-size:medium">--</em>
+
+            }
+            else
+            {
+
+
+                if (@Model.InsuranceID == 1)
+                {
+
+                    <em style="color:green;font-size:medium">@Html.DisplayFor(model => model.InsuranceName)</em>
+
+                }
+                else if (@Model.InsuranceID == 2)
+                {
+
+                    <em style="color:green;font-size:medium">@Html.DisplayFor(model => model.InsuranceName)</em>
+                }
+                else if (@Model.InsuranceID == 3)
+                {
+
+                    <em style="color:red;font-size:medium">@Html.DisplayFor(model => model.InsuranceName)</em>
+                }
+                else
+                {
+            
+                    <em style="color:#666;font-size:medium">@Html.DisplayFor(model => model.InsuranceName)</em>
+                
+                 }
+            
+            
+
+            }
+
+        </span>
+    </a>
+
+
+    @if (@Model.InsuranceID == 1) { 
+
+    <a href="#" class="list-group-item">
+        <i class="fa fa-plus-square fa-fw"></i> Supplimental Public Insurance
+        <span class="pull-right text-muted small">
+            <em style="color:#666;font-size:medium">@Html.DisplayFor(model => model.subInsuranceName)</em>
+        </span>
+    </a>
+
+    }
+
+    <a href="#" class="list-group-item">
+        <i class="fa fa-map-marker fa-fw"></i> County of Residence
+        <span class="pull-right text-muted small">
+            <em style="color:#666;font-size:medium">@Html.DisplayFor(model => model.countyResidenceName)</em>
+        </span>
+    </a>
+    <a href="#" class="list-group-item">
+        <i class="fa fa-users fa-fw"></i> # in Family
+        <span class="pull-right text-muted small">
+            <em style="color:#666;font-size:medium">@Html.DisplayFor(model => model.numberInFamily)</em>
+        </span>
+    </a>
+    <a href="#" class="list-group-item">
+        <i class="fa fa-bolt fa-fw"></i> Last Updated by @Html.DisplayFor(model => model.UpdatedBy)
+        <span class="pull-right text-muted small">
+            <em style="color:#666;font-size:medium">@Html.DisplayFor(model => model.DateUpdated)</em>
+        </span>
+    </a>
+   
+
+</div>
+
+
+   <!-- Edit Household Modal -->
+@*<div class="modal fade" id="householdModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div align="left" class="modal-header">
+                <h3 style="text-align:left" class="modal-title" id="myModalLabel"><i class="fa fa-plus-square"></i>&nbsp;Edit Household Info</h3>
+            </div>
+            
+            <div id="editHouseholdContainer" class="modal-body">
+
+            </div>
+
+        </div>
+    </div>
+</div>*@
+
+
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        var two = parseInt($("#numberInFamily").val());
+        var three = "";
+            @{
+                int cnt = 0;
+                List<eCaST.ViewModels.AssignedPovertyGuidelines> pfgs = ViewBag.PovertyGuidelines;
+                foreach (var pfg in pfgs)
+                {
+                    cnt = cnt + 1;
+                    if (cnt == 1)
+                    {
+
+
+                        @:  if (two == @pfg.numberInFamily) { three = parseFloat((($("#annualGrossIncome").val()  / @pfg.PovertyAmount) * 100));}
+
+                    }
+                    else
+                    {
+
+                        @: else if (two == @pfg.numberInFamily) { three = parseFloat((($("#annualGrossIncome").val() / @pfg.PovertyAmount) * 100));}
+
+                    }
+
+                }
+
+                    
+
+            }
+    else {
+                    var three = "&nbsp;";
+    }
+            three = three.toString();
+    var n = three.length;
+    if (three >= 6) {
+        three = three.substr(0, 6);
+    }
+    $("#ppov").html("% of Poverty: <font color='white'><b>" + three + "</b></font>");
+
+
+    });
+
+
+    $(function () {
+
+
+        $("#editHouseholdButton").click(function () {
+
+
+            $('#HouseholdContainer').load('@Url.Action("Edit", "Households", new { id = @Model.HHID })');
+
+        
+        });
+
+        //$('#householdModal').on('shown.bs.modal', function () {
+        //    $(this).find('.modal-dialog').css({
+        //        //width: 'auto',
+        //        width: '92%',
+        //        height: 'auto',
+        //        'max-height': '100%'
+        //    });
+        //});
+
+
+
+    });
+
+
+        </script>
+
+
+
+
+
+
+@*<h2>Details</h2>
+
+<div>
+    <h4>Household</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InsuranceID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InsuranceID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.subInsuranceID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.subInsuranceID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.countyResidenceID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.countyResidenceID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.annualGrossIncome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.annualGrossIncome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numberInFamily)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numberInFamily)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateUpdated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.HHID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@

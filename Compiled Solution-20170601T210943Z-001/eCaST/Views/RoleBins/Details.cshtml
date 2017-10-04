@@ -1,0 +1,66 @@
+﻿@model CTL.Models.RoleBin
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RoleBin</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RoleBinName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoleBinName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LegacyRoleID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LegacyRoleID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LegacyRoleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LegacyRoleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPortalUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsPortalUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyTypeRoleBinID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AgencyTypeRoleBinID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RoleBinID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

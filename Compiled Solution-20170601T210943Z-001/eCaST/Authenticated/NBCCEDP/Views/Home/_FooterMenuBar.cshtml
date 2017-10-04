@@ -1,0 +1,197 @@
+﻿
+<div class="navbar navbar-fixed-bottom navbar-default" role="navigation">
+    <div style="width:100%" class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+        </div>
+
+
+
+        <div class="collapse navbar-collapse">
+
+            <div class="row">
+
+                <div class="col-md-10">
+
+                    <div style="padding-left:12px;">
+                        <br />
+
+
+                        <div>
+                            
+                            <a data-toggle="tooltip" data-placement="top" title="Screening Errors" style="text-decoration:none" href="#" id="ScreenErrorsButton0"><span style="background-color:orange;font-size:medium" class="badge">@ViewBag.ScreenErrorCount</span></a>
+                            <a data-toggle="tooltip" data-placement="top" title="Admin Notices" style="text-decoration:none" href="#" id="AdminErrorsButton0"><span style="background-color:#289916;font-size:medium" class="badge">@ViewBag.AdminNoticesCount</span></a>
+                            <a data-toggle="tooltip" data-placement="top" title="Patient Navigation" style="text-decoration:none" href="#" id="PatientErrorsButton0"> <span style="background-color:#2084b0;font-size:medium" class="badge">@ViewBag.PatientNavigationCount</span></a>
+                            <a data-toggle="tooltip" data-placement="top" title="Case Management" style="text-decoration:none" href="#" id="CaseManagementButton0"><span style="background-color:lightcoral;font-size:medium" class="badge">@ViewBag.CaseManagementCount</span></a>
+                            <a data-toggle="tooltip" data-placement="top" title="Cancer Cases" style="text-decoration:none" href="#" id="CancerCasesButton0"><span style="background-color:#999;font-size:medium" class="badge">@ViewBag.CancerCasesCount</span></a>
+                            <a data-toggle="tooltip" data-placement="top" title="Screen Procedure Errors" style="text-decoration:none" href="#" id="ProcErrorsButton0"><span style="background-color:lightsteelblue;font-size:medium" class="badge">@ViewBag.ScreenProcErrorCount</span></a>
+                            <a data-toggle="tooltip" data-placement="top" title="Healthy Behaviors" style="text-decoration:none" href="#" id="HBSessionsButton0"><span style="background-color:mediumaquamarine;font-size:medium" class="badge">@ViewBag.HealthyBehaviorsCount</span></a>
+                            @*<span style="background-color:#737b80;font-size:medium" class="badge">0</span>*@
+
+
+                        </div>
+
+
+
+
+                    </div>
+
+
+
+                </div>
+                <div class="col-md-2">
+
+
+
+
+
+
+
+
+
+
+                </div>
+
+            </div>
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+
+    $("#ScreenErrorsButton0").click(function () {
+
+        $("#ErrorsContainer").load("@Url.Action("_ErrorScreen", "Screenings")", { 'id': 2, 'id2': "Data Entry Errors", 'id3': "fa fa-exclamation-triangle fa-fw", 'id4': "#ff6a00", 'id5': 1 },
+                                         function (response, status, xhr) {
+                                             if (status == "error") {
+
+                                             }
+
+
+                                         });
+
+
+    });
+
+    $("#AdminErrorsButton0").click(function () {
+
+
+        $("#ErrorsContainer").load("@Url.Action("_ErrorScreen", "Screenings")", { 'id': 1, 'id2': "Admin Notices", 'id3': "fa fa-bell fa-fw", 'id4': "green", 'id5': 1 },
+                                         function (response, status, xhr) {
+                                             if (status == "error") {
+
+                                             }
+
+
+                                         });
+
+
+    });
+
+    $("#PatientErrorsButton0").click(function () {
+
+
+        $("#ErrorsContainer").load("@Url.Action("_ErrorScreen", "Screenings")", { 'id': 3, 'id2': "Patient Navigation", 'id3': "fa fa-female fa-fw", 'id4': "#2084b0", 'id5': 1 },
+                                         function (response, status, xhr) {
+                                             if (status == "error") {
+
+                                             }
+
+
+                                         });
+
+
+    });
+
+    $("#ProcErrorsButton0").click(function () {
+
+
+        $("#ErrorsContainer").load("@Url.Action("_ProcErrorScreen", "Screenings")", { 'id': 5, 'id2': "Procedure Errors", 'id3': "fa fa-exclamation-triangle fa-fw", 'id4': "lightsteelblue", 'id5': 1 },
+                                         function (response, status, xhr) {
+                                             if (status == "error") {
+
+                                             }
+
+
+                                         });
+
+
+    });
+
+    $("#CaseManagementButton0").click(function () {
+
+
+        $("#ErrorsContainer").load("@Url.Action("_CMErrorScreen", "Screenings")", { 'id': 2, 'id2': "Case Management", 'id3': "fa fa-calendar fa-fw", 'id4': "lightcoral", 'id5': 1 },
+                                         function (response, status, xhr) {
+                                             if (status == "error") {
+
+                                             }
+
+
+                                         });
+
+
+    });
+
+    $("#CancerCasesButton0").click(function () {
+
+
+        $("#ErrorsContainer").load("@Url.Action("_CCErrorScreen", "Screenings")", { 'id': 2, 'id2': "Cancer Cases", 'id3': "fa fa-user-md fa-fw", 'id4': "#999", 'id5': 1 },
+                                         function (response, status, xhr) {
+                                             if (status == "error") {
+
+                                             }
+
+
+                                         });
+
+
+    });
+
+
+      $("#HBSessionsButton0").click(function () {
+
+
+          $("#ErrorsContainer").load("@Url.Action("_HBErrorScreen", "Screenings")", { 'id': 2, 'id2': "Healthy Behaviors Sessions", 'id3': "fa fa-heartbeat fa-fw", 'id4': "mediumaquamarine", 'id5': 1 },
+                                           function (response, status, xhr) {
+                                               if (status == "error") {
+
+                                               }
+
+
+                                           });
+
+
+      });
+
+
+</script>
+
+
+
+

@@ -1,0 +1,142 @@
+@model CTL.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+@using (Html.BeginForm("_DeleteUserF", "UserProfiles", FormMethod.Post, new { id = "DeleteUserForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+<div style="padding-left:40px">
+<fieldset>
+   <legend style="color:#333; font-size:32px; font-weight:300; padding-left:10px; padding-bottom:30px; padding-top:10px">Delete this user?</legend>
+   
+    
+    <table class="display-field" style="width:50%;padding:2px; font-size:16px">
+        
+        <tr>
+        <td>
+
+            Name:
+
+        </td>
+
+        <td>
+            @Html.HiddenFor(x => x.Id)
+            @Model.FirstName&nbsp;@Model.LastName
+        
+        </td>
+
+        </tr>
+
+
+         <tr>
+        <td>
+
+           Email Address:
+
+        </td>
+
+        <td>@Model.UserName</td>
+
+             </tr>
+
+        <tr>
+
+<td>
+
+           Phone Number
+
+        </td>
+
+        <td>@Model.TelephoneNumber</td>
+
+
+        </tr>
+
+
+
+    </table>
+
+
+    
+    
+</fieldset>
+
+    </div>
+
+    <div class="modal-footer">
+        <div style="float:right">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button id="DeleteUserButton" type="submit" class="btn btn-danger">Remove</button>
+        </div>
+    </div>
+
+
+
+}
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+
+        $('#DeleteUserForm').on("submit", function (e) {
+            e.preventDefault();
+
+            if ($('#DeleteUserForm').valid()) {
+                $.ajax({
+
+                    url: $("#DeleteUserForm").attr('action'),
+                    type: $("#DeleteUserForm").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#DeleteUserForm").serialize(),
+                    success: function (data) {
+
+                        var username = data.Modified;
+                        var userid = data.Modified2;
+
+
+                        $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+                        $("#ContentContainer").load("@Url.Action("_ActiveUserProfiles", "UserProfiles")",
+                                                         function (response, status, xhr) {
+                                                             if (status == "error") {
+                                                                 //   alert("An error occurred while loading the results.");
+                                                             }
+                                                             $("#ContentContainer").show(500);
+                                                         });
+
+
+
+                        //var orgid = data.Modified3;
+
+                        @*var hash = 'ind';
+                        $('#ActivateUserProfileContainer').load('@Url.Action("_ActiveUserProfiles", "UserProfiles")');
+                        $('.nav-tabs a[href=' + hash + ']').tab('show');*@
+
+
+                        toastr.warning('You have successfully deleted ' + username + '.')
+
+
+                        $('#DeleteUserModal_' + userid).modal('hide')
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+
+                    }
+
+                });
+            }
+
+        });
+
+
+    });
+
+
+</script>

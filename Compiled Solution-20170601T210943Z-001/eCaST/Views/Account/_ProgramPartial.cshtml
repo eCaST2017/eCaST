@@ -1,0 +1,140 @@
+﻿
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="form-group">
+
+            <h3 style="font-family: 'Roboto', sans-serif;color:#666"> <span class="glyphicon glyphicon-play-circle"></span>&nbsp;Select your Program Access</h3>
+
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+<div style="padding-left:12px" class="row">
+
+    <div class="col-md-2">
+
+
+        Select the Programs you would like to access
+
+
+
+    </div>
+    <div class="col-md-4">
+
+        <div class="input-group btn-group">
+
+
+            @Html.DropDownList("testF", (SelectList)ViewData["OptionListF"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+            <input type="hidden" id="selectedIDsF" />
+
+
+
+        </div>
+
+    </div>
+
+
+
+</div>
+
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+
+        if ($("#StateStaffChkBox").is(':checked')) {
+
+
+   
+
+        }
+        else {
+
+
+            var data = '@ViewBag.Options';
+
+            //Make an array
+            var dataarrayF = data.split(",");
+
+            // Set the value
+            $("#testF").val(dataarrayF);
+           $('#selectedIDsF').val(dataarrayF);
+
+            var testF = $('#testF');
+            $(testF).select2({
+
+                width: "300px"
+            });
+
+            document.getElementById("testF").onchange = function () {
+
+
+                var idsF = $(testF).val();
+                $('#selectedIDsF').val(idsF);
+
+            };
+
+
+        }
+
+
+        $("#StateStaffChkBox").click(function () {
+
+
+
+
+            if ($("#StateStaffChkBox").is(':checked')) {
+
+
+             
+
+            }
+            else {
+
+
+                var data = '@ViewBag.Options';
+
+                //Make an array
+                var dataarrayF = data.split(",");
+
+                // Set the value
+                $("#testF").val(dataarrayF);
+
+
+                var testF = $('#testF');
+                $(testF).select2({
+
+                    width: "300px"
+                });
+
+                document.getElementById("testF").onchange = function () {
+
+
+                    var idsF = $(testF).val();
+                    
+                    $('#selectedIDsF').val(idsF);
+
+                };
+
+
+            }
+
+
+
+        });
+
+    });
+
+   
+
+
+
+
+</script>

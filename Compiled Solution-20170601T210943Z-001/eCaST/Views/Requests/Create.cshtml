@@ -1,0 +1,965 @@
+﻿@model CTL.Models.Request
+
+@{
+    ViewBag.Title = "Add A Request";
+}
+
+
+
+<style type="text/css">
+    #dropZoneC {
+        background: gray;
+        border: black dashed 3px;
+        width: 50%;
+        padding: 50px;
+        text-align: center;
+        color: white;
+    }
+
+    .error {
+        color: red;
+    }
+
+
+    .select2-container .select2-choice {
+        height: 34px;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        background-color: #fff;
+        background-image: none;
+        background: #f5f2f2;
+    }
+
+
+        .select2-container .select2-choice .select2-chosen {
+            margin-top: 4px;
+        }
+
+        .select2-container .select2-choice abbr {
+            top: 13px;
+        }
+
+        .select2-container .select2-choice,
+        .select2-container .select2-choice .select2-arrow {
+            -webkit-border-radius: 0;
+            border-radius: 0px;
+            border-color: #ccc;
+        }
+
+            .select2-container .select2-choice .select2-arrow {
+                background-color: #fafafa;
+                background-image: none;
+                background: #fafafa;
+                width: 22px;
+            }
+
+                .select2-container .select2-choice .select2-arrow b > span {
+                    margin: 4px 0 0 6px;
+                }
+
+    .select2-container.select2-container-active .select2-choice {
+        border-color: #91acce;
+    }
+
+    .select2-container.select2-dropdown-open .select2-choice {
+        border-bottom-color: #ccc;
+    }
+
+    .select2-drop {
+        -webkit-border-radius: 0 !important;
+        border-radius: 0 !important;
+    }
+
+        .select2-drop:not(.select2-drop-above) {
+            margin-top: -3px;
+        }
+
+        .select2-drop .select2-results {
+            max-height: 300px;
+        }
+
+            .select2-drop .select2-results li {
+                line-height: inherit;
+                margin: 0;
+                padding: 0;
+            }
+
+    .select2-search {
+        margin: 4px 0;
+    }
+
+        .select2-search input,
+        .select2-search input:focus {
+            background-color: #fff;
+            background-image: none;
+            background: #fff;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+            border: none;
+        }
+
+    .select2-container.form-control {
+        border: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        padding: 0;
+    }
+</style>
+
+
+@*@using (Ajax.BeginForm("Create", "RequestManager", new AjaxOptions
+        {
+            InsertionMode = InsertionMode.InsertBefore,
+            HttpMethod = "POST",
+            OnSuccess = "updateSuccess",
+
+        }, new { @id = "createRequestForm" }))
+    {
+
+*@
+
+
+@*<div>What would you like to create? <select id="CreateTypeSelect">
+
+                                <option value="0">Choose...</option>
+                                <option value="1">Request</option>
+                                <option value="2">Project</option>
+                                <option value="2">Project Task</option>
+
+                            </select></div>
+    <br />*@
+
+@using (Html.BeginForm("_AddRequestF", "RequestManager", FormMethod.Post, new { id = "AddRequestForm" }))
+{
+
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.Hidden("ApplicationID",(int?)ViewBag.ApplicationID)
+
+
+    <div id="update-message" class="error invisible"></div>
+
+
+    @*<legend>Request Information</legend>*@
+
+
+
+
+
+    @*   <div style="color:White" class="editor">*@
+
+
+    @*  </div>*@
+
+
+
+
+    @*  <div class="row">
+
+                <div class="col-md-12">
+
+        <div align="right">
+
+            @Html.CheckBox("chkWIKI", new { @id = "chkWIKI" }) Wiki Mode
+
+        </div>
+
+                </div>
+
+            </div>  *@
+
+    <div align="right"><button id="TopEditCloseButton" type="button" class="btn btn-default" data-dismiss="modal">Close Window</button></div>
+    <br />
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span style="color:#1c8d0b"> <i class="fa fa-users"></i>&nbsp;Configure Participants</span>
+            <div class="pull-right">
+
+
+            </div>
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-md-2"><b>Select Followers</b></div>
+
+                <div class="col-md-4">
+
+                    <div class="input-group btn-group">
+
+
+                        @Html.DropDownList("testFA", (SelectList)ViewData["OptionListF"], new { @id = "testFA_" + ViewBag.ApplicationID, @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+                        <input type="hidden" id="selectedIDsFA" />
+
+
+
+                    </div>
+
+
+                    <div>
+                        <input type="checkbox" id="checkboxFA">
+                        Select All
+
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="col-md-1">
+
+                    @Html.LabelFor(model => model.UserID, "Assignee")
+                </div>
+                <div class="col-md-2">
+                    @* @Html.DropDownList("UserID", String.Empty)*@
+
+
+                    @Html.DropDownListFor(model => model.UserID, ((IEnumerable<CTL.Models.ApplicationUser>)ViewBag.PossibleUserProfileBins).Select(option => new SelectListItem
+            {
+                //Text = Html.DisplayTextFor(_ => option).ToString(),
+                Text = option.FirstName + " " + option.LastName,
+                Value = option.Id.ToString(),
+                Selected = (Model != null) && (option.Id == Model.RequestorID)
+            }), "Choose...", new { @id = "UserIDC", @class = "input-control select" })
+                    @Html.ValidationMessageFor(model => model.UserID)
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+
+    <br />
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span style="color:#1c8d0b"> <i class="fa fa-pencil-square"></i>&nbsp;Request Information</span>
+            <div class="pull-right">
+
+
+            </div>
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+
+
+            <div class="row">
+                <div class="col-md-2">@Html.LabelFor(model => model.ProjectID, "Project")</div>
+                <div class="col-md-4">
+
+                    @Html.DropDownList("ProjectID", null, new { @id = "ProjectID", @style = "font-size:18px" })
+                    @Html.ValidationMessageFor(model => model.ProjectID)
+
+                </div>
+
+
+                @*<div id="ProjectSection" style="display:none">
+
+
+                    <div class="col-md-2">@Html.LabelFor(model => model.ProjectID, "Project")</div>
+                    <div class="col-md-4">
+
+                        <select style="font-size:16px" id='ProjectID' name='ProjectID' class="requiredSelect"></select>
+
+                    </div>
+
+
+                </div>*@
+
+
+
+
+            </div>
+            <br />
+
+
+
+
+
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.DueDate, "Due Date")
+                </div>
+
+                <div class="col-md-2">
+                    @Html.TextBoxFor(model => model.DueDate, new { @id = "date1", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DueDate)
+                </div>
+            </div>
+            <br />
+
+
+            <div class="row">
+                <div class="col-md-2">
+
+                    @Html.LabelFor(model => model.RequestTitle, "Title of Request")
+                </div>
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.RequestTitle, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.RequestTitle)
+
+                </div>
+
+
+
+            </div>
+            <br />
+
+
+            <div class="row">
+
+                <div class="col-md-2"> @Html.LabelFor(model => model.RequestActionID, "Request Action")</div>
+                <div class="col-md-2">
+
+                    @Html.DropDownList("RequestActionID", null, new { @id = "RequestActionIDC" })
+                    @Html.ValidationMessageFor(model => model.RequestActionID)
+
+                </div>
+
+
+
+                <div class="col-md-1"> @Html.LabelFor(model => model.RequestTypeID, "Type of Request")</div>
+                <div class="col-md-3">
+
+                    @Html.DropDownList("RequestTypeID", null, new { @id = "RequestTypeIDC" })
+                    @Html.ValidationMessageFor(model => model.RequestTypeID)
+
+                </div>
+                @* <div class="col-md-1">  @Html.LabelFor(model => model.PriorityID, "Priority")</div>*@
+                <div class="col-md-4">
+
+                    @*   @Html.DropDownList("PriorityID",null,new {@id="PriorityIDC"})
+                        @Html.ValidationMessageFor(model => model.PriorityID)*@
+
+
+                    @Html.CheckBox("Urgent", new { @id = "Urgent", @class = "class1" }) Is this request urgent?
+
+
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+
+    <br />
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span style="color:#1c8d0b"> <i class="fa fa-pencil-square"></i>&nbsp;Description</span>
+            <div class="pull-right">
+
+
+            </div>
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+
+            <table style="width:100%;padding:2px">
+                <tr>
+
+
+                    <td style="border:0px" colspan="4">
+
+                        @*   @Html.LabelFor(model => model.RequestDesc, "Description of Request")*@
+
+
+                    </td>
+
+
+
+
+
+
+                </tr>
+
+
+
+                <tr>
+
+
+                    <td style="border:0px" colspan="4">
+
+
+                        @Html.TextAreaFor(model => model.RequestDesc, new { @id = "RequestDescC", @style = "width:100%; height:200px;" })
+                        @Html.ValidationMessageFor(model => model.RequestDesc)
+
+
+
+                    </td>
+
+
+
+
+
+                </tr>
+
+
+
+
+
+            </table>
+            <br />
+            <h4><i class="fa fa-paperclip"></i>&nbsp;Add Attachments</h4>
+            <hr />
+            <div><b>*HOW TO USE FILEDROP(CHROME ONLY):</b>Drag files from your computer to the Drop Area below.</div>
+
+            <br />
+            <div id="dropZoneC">Drop your files here</div>
+            <br />
+            <div>Uploaded Files:</div>
+
+
+
+            <ul id="uploadResultC"></ul>
+
+            <input type="hidden" id="selectedFiles" />
+
+
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+    <div class="modal-footer">
+        <button id="CloseRequestButton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" id="AddRequestButton" class="btn btn-success">Save</button>
+    </div>
+
+    @Html.Hidden("UploadedFiles")
+    @Html.LabelFor(model => model.RequestorID, new { @style = "color:#fff" })
+    @Html.Label("RequestorID", @User.Identity.Name, new { @style = "color:#fff" })
+    @Html.Hidden("Participants")
+
+
+}
+
+
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        $("#UserIDC").select2({ width: "100%" });
+        $("#RequestTypeIDC").select2({ width: "100%" });
+        $("#RequestTypeIDC").select2("val", "22");
+        $("#RequestActionIDC").select2({ width: "100%" });
+        // $("#ApplicationID").select2({ width: "100%" });
+        $("#PriorityIDC").select2({ width: "100%" });
+
+        var data = '@ViewBag.OptionsF';
+
+        //Make an array
+        var dataarray = data.split(",");
+
+        // Set the value
+        $("#testFA_@ViewBag.ApplicationID").val(dataarray);
+
+
+        var testFA = $('#testFA_@ViewBag.ApplicationID');
+        $(testFA).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testFA_@ViewBag.ApplicationID").onchange = function () {
+
+            var ids = $(testFA).val();
+            $('#selectedIDsFA').val(ids);
+
+        };
+
+        $("#checkboxFA").click(function () {
+            if ($("#checkboxFA").is(':checked')) {
+                $("#testFA > option").prop("selected", "selected");
+                $("#testFA").trigger("change");
+            } else {
+                $("#testFA > option").removeAttr("selected");
+                $("#testFA").trigger("change");
+            }
+        });
+
+
+    });
+
+
+    $('#AddRequestButton').click(function () {
+
+       var result = $('#uploadResultC').find('a').each(function () {
+            return $(this).attr('href');
+        }).get().join(",");
+
+       $('#selectedFiles').val(result);
+
+       var out = document.getElementById('selectedFiles').value;
+       document.getElementById("UploadedFiles").value = out;
+
+
+        //Add Followers
+       var outFA = document.getElementById('selectedIDsFA').value;
+       document.getElementById("Participants").value = outFA;
+
+
+
+
+
+
+    });
+
+
+
+    $(function () {
+
+        $("#CreateTypeSelect").select2({ width: "90%" });
+        $("#date1").kendoDatePicker();
+
+        //$('#date1').datepicker();
+       });
+
+
+
+    @*$(function () {
+        $('#dropZoneC').filedrop({
+            url: '@Url.Action("UploadFiles")',
+             paramname: 'files',
+             maxFiles: 5,
+             dragOver: function () {
+                 $('#dropZoneC').css('background', 'blue');
+             },
+             dragLeave: function () {
+                 $('#dropZoneC').css('background', 'gray');
+             },
+             drop: function () {
+                 $('#dropZoneC').css('background', 'gray');
+             },
+             afterAll: function () {
+                 $('#dropZoneC').html('The file(s) have been uploaded successfully!');
+             },
+             uploadFinished: function (i, file, response, time) {
+
+                 //  $('#uploadResult').append('<li' + file.name + '</li>');
+                 //$("#btnadd").click(function () {
+
+                 var d = new Date();
+                 var n = d.getDate().toString();
+                 var y = d.getFullYear().toString();
+                 addkey = file.name;
+                 if (addkey != "") {
+                     $('<li><a href="' + 'https://' + 'www.phi.dphe.state.co.us/Authenticated/PORTALREQUEST' + '/Assets/' + n + y + addkey + '" target ="_blank">' + addkey + '</a><span class=\'close ui-icon \'></span></li>')
+                         .find('.close').click(function () {
+                             $(this).parent().remove();
+                         })
+                         .end().appendTo('#uploadResultC');
+
+
+                 }
+
+                 $('ul li a').click(function () {
+                     $(this).parent().remove();
+                     return false;
+                 });
+
+
+             }
+         });
+      });*@
+
+
+    $(function () {
+
+
+        $('#RequestDescC').redactor();
+
+
+    });
+
+
+
+    //$(function () {
+
+
+    //    $('#createRequestForm').validate();
+
+
+
+    //    $('#RequestTitle').rules('add', {
+    //        required: true,
+    //        messages: {
+    //            required: 'Please enter a title for this request'
+    //        }
+    //    });
+
+    //    $('#DivisionID').rules('add', {
+    //        required: true,
+    //        messages: {
+    //            required: 'Please enter a division'
+    //        }
+    //    });
+
+    //    $('#RequestProgramID').rules('add', {
+    //        required: true,
+    //        messages: {
+    //            required: 'Please enter a program'
+    //        }
+    //    });
+
+    //    $('#RequestTypeID').rules('add', {
+    //        required: true,
+    //        messages: {
+    //            required: 'Please enter a request type'
+    //        }
+    //    });
+
+    //    $('#UserID').rules('add', {
+    //        required: true,
+    //        messages: {
+    //            required: 'Please enter an assignee'
+    //        }
+    //    });
+
+    //    $('#PriorityID').rules('add', {
+    //        required: true,
+    //        messages: {
+    //            required: 'Please enter a priority'
+    //        }
+    //    });
+
+
+
+    //});
+
+
+</script>
+
+
+<script type="text/javascript">
+
+
+      $(function () {
+
+
+          //$("#ApplicationID").attr('selectedIndex', 0);
+
+          var checkApplicationFieldSelected = function () {
+              return $("#ApplicationID").val() != -1;
+          };
+
+          var checkDivisionFieldSelected = function () {
+              return $("#DivisionID").val() != -1;
+          };
+
+          var checkRequestProgramFieldSelected = function () {
+              return $("#RequestProgramID").val() != -1;
+          };
+
+          var checkRequestActionFieldSelected = function () {
+              return $("#RequestActionIDC").val() != -1;
+          };
+
+          var checkRequestTypeFieldSelected = function () {
+              return $("#RequestTypeIDC").val() != -1;
+          };
+
+          var checkUserIDFieldSelected = function () {
+              return $("#UserIDC").val() != -1;
+          };
+
+          var checkPriorityFieldSelected = function () {
+              return $("#PriorityIDC").val() != -1;
+          };
+
+          var checkDescFieldSelected = function () {
+              return $.trim($('#RequestDescC').val()).length < 1;
+          };
+
+          $("#AddRequestForm").validate({
+              rules: {
+
+                  RequestTitle: {
+                      //required: { depends: checkTestFieldSelected }
+                      required: true
+
+                  },
+
+                  ApplicationID: {
+                      //required: { depends: checkApplicationFieldSelected }
+                      //range: [10, 260]
+                      required: true
+
+                  },
+                  DueDate: {
+                      //required: { depends: checkDivisionFieldSelected }
+                      //range: [10, 260]
+                     required: true
+
+                  },
+                  RequestActionID: {
+                      required: { depends: checkRequestActionFieldSelected }
+                      //range: [10, 200]
+                      //required: true
+
+                  },
+                  RequestTypeID: {
+                      required: { depends: checkRequestTypeFieldSelected }
+                      //range: [10, 260]
+                      //required: true
+
+                  },
+                  UserID: {
+                      required: { depends: checkUserIDFieldSelected }
+                      //range: [10, 200]
+                      //required: true
+
+                  },
+                  PriorityID: {
+                      required: { depends: checkPriorityFieldSelected }
+                      //range: [10, 700]
+                      //required: true
+
+                  },
+                  RequestDesc: {
+                      required: { depends: checkDescFieldSelected }
+                      //required: true
+                      //required: true
+
+                  }
+
+              },
+              messages: {
+
+                  RequestTitle: {
+                      required: "Please enter a title for this request"
+
+                  },
+                  ApplicationID: {
+                      required: "Please enter an application"
+
+                  },
+                  DueDate: {
+                      required: "Please enter a due date"
+
+                  },
+                  RequestActionID: {
+                      required: "Please enter an action"
+
+                  },
+                  RequestTypeID: {
+                      required: "Please enter a request type"
+
+                  },
+                  UserID: {
+                      required: "Please enter an assignee"
+
+                  },
+                  PriorityID: {
+                      required: "Please enter a priority level"
+
+                  },
+                  RequestDesc: {
+                      required: "Please enter a request description"
+
+                  }
+
+              }
+          });
+
+          $('#AddRequestForm').on("submit", function (evt44) {
+              evt44.preventDefault();
+
+
+
+              if ($('#AddRequestForm').valid()) {
+                  $("#AddRequestButton").prop("disabled", true);
+                  if ($.trim($('#RequestDescC').val()).length < 1) {
+
+
+                      $("#AddRequestButton").prop("disabled", false);
+                      alert('You must enter a request description');
+
+
+                  }
+                  else if ($("#ApplicationID").val() == -1) {
+
+
+                      $("#AddRequestButton").prop("disabled", false);
+                      alert('You must enter an application');
+
+
+                  }
+
+                  else if ($("#ApplicationID").val() != -1 && $("#ProjectID").val() == -1) {
+
+
+
+                     $("#AddRequestButton").prop("disabled", false);
+                     alert('You must enter an project');
+
+
+                  }
+
+                  else{
+
+                      $.ajax({
+
+                          url: $("#AddRequestForm").attr('action'),
+                          type: $("#AddRequestForm").attr('method'),
+                          contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                          data: $("#AddRequestForm").serialize(),
+                          success: function (data) {
+
+                              //var clinicalcycleid = data.Modified;
+                              //var siteid = data.Modified2;
+                              //var screeningtypeid = data.Modified3;
+                              //var clientid = data.Modified4;
+                              //var enrollid = data.Modified5;
+                              //var screeningid = data.Modified6;
+                              //var screenprocedureid = data.Modified7;
+                              //var operationid = data.Modified8;
+
+
+                              @*  $(function () {
+
+
+                              if ($("#SummaryTypeSelect").val() == 1) {
+
+                                  $("#SummaryTypeSelect option[value=" + 2 + "]").attr("selected", "selected");
+                                  $('#TrackerSummaryContainer').load('@Url.Action("_TrackerSummaryRequest", "RequestManager")');
+                                  $('#ActiveRequestContainer').load('@Url.Action("_ActiveRequestList", "RequestManager")');
+                                  oTable.fnFilter('@ViewBag.UserName' + "_Requestor" + " Pending");
+
+                             }
+                             else {
+
+
+                                  $('#TrackerSummaryContainer').load('@Url.Action("_TrackerSummaryRequest", "RequestManager")');
+                                  $('#ActiveRequestContainer').load('@Url.Action("_ActiveRequestList", "RequestManager")');
+                                  oTable.fnFilter('@ViewBag.UserName' + "_Requestor" + " Pending");
+
+                             }
+
+                          });*@
+
+
+                              //$('#ActiveRequestContainer').load('@Url.Action("_ActiveRequestList", "RequestManager")');
+                              //$('#TrackerSummaryContainer').load('@Url.Action("_TrackerSummary", "RequestManager")');
+
+
+                              $(function () {
+
+                                  $('#TileBarContainer').load('@Url.Action("_TileBar", "Application", new { id = 1 })');
+                                  $('#ScreenContainer').load('@Url.Action("_MyRequests", "RequestManager")');
+                                  $('#ReadyReleaseContainer').load('@Url.Action("_ReadyReleaseRequests", "RequestManager")');
+
+
+                              });
+
+
+                              toastr.success('You have successfully added a request.')
+
+                              $('#requestModal').modal('hide')
+                              $('body').removeClass('modal-open');
+                              $('.modal-backdrop').remove();
+
+                          }
+
+                      });
+
+
+                  }
+
+
+
+
+              }
+
+          });
+
+      });
+
+
+</script>
+
+
+
+<script type='text/javascript'>
+
+
+
+    $.getJSON('@Url.Action("GetApplications", "RequestManager")', {}, function (applications) {
+        var list = $('select#ApplicationID');
+        list.find('option').remove();
+        list.append($('<option/>', {
+            value: -1,
+            text: "Choose..."
+        }));
+        $(applications).each(function (index, application) {
+            list.append('<option value="' + application.ApplicationID + '">' + application.Application1 + '</option>');
+
+        });
+
+
+    });
+
+</script>
+
+
+<script type="text/javascript">
+
+    $("#ApplicationID").change(function () {
+        var id = $(this).val();
+
+
+        if ($("#ApplicationID").val() == -1) {
+            $("#ProjectSection").css("display", "none");
+        }
+        else {
+            $("#ProjectSection").css("display", "block");
+        }
+
+
+            $.getJSON('@Url.Action("GetProjects", "RequestManager")', { ApplicationID: id },
+            function (data) {
+                var select = $("#ProjectID");
+                select.empty();
+                select.append($('<option/>', {
+                    value: -1,
+                    text: "Choose..."
+                }));
+                $.each(data, function (index, data) {
+
+                    select.append($('<option/>', {
+                        value: data.Id,
+                        text: data.Name
+                    }));
+                });
+
+
+            });
+        });
+
+</script>
+

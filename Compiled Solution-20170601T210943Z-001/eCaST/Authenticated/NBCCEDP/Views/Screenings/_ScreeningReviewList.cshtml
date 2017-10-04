@@ -1,0 +1,283 @@
+﻿@model IEnumerable<eCaST.ViewModels.ScreeningViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+@*<style type="text/css">
+    #menu ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    #menu li {
+        display: inline-block;
+    }
+</style>
+
+
+<ul id="menu">*@
+
+<div class="btn-group" role="group" aria-label="...">
+
+    @foreach (var item in Model)
+    {
+
+
+        <button style="opacity:0.4" type="button" id="ScreeningListButton_@item.ScreeningID" class="btn btn-default">
+
+            @*<li>*@
+
+
+
+
+
+            @if (item.CancerTypeBinID == 1)
+            {
+
+
+
+                <div style="background-color:#c75656;border-radius:5px;padding:6px;color:#fff;opacity:0.9">
+
+
+                    <div class="row">
+
+
+
+                        <div style="color:#fff;font-size:large"> <div class="col-md-12">
+                            
+                            
+                                                                     @if (item.BillingLevel != null)
+                                                                     {
+
+                                                                         <span style="color:#fff; font-weight:bold; font-size:14px; background-color:#56c23c; padding-top:2px; padding-bottom:2px; padding-left:7px; padding-right:7px; border-radius:5px; border:2px">@item.BillingLevel</span>
+
+                                                                     }
+                                                                     else
+                                                                     {
+
+                                                                         <span style="color:#fff; font-weight:bold; font-size:14px; background-color:#999; padding-top:2px; padding-bottom:2px; padding-left:7px; padding-right:7px; border-radius:5px; border:2px"><span class="glyphicon glyphicon-ok"></span></span>
+
+                                                                     }
+
+
+                                                                     @if (item.BillingPaidBinID == 3)
+                                                                     {
+
+                                                                         <span style="font-size:16px; color:#fff" class="glyphicon glyphicon-usd"></span>
+
+
+                                                                     }
+                                                                     else if (item.BillingPaidBinID == 2)
+                                                                     {
+
+                                                                         <span style="font-size:16px; color:#fff" class="glyphicon glyphicon-sort"></span>
+
+                                                                     }
+                                                                     else if (item.BillingPaidBinID == 1)
+                                                                     {
+
+                                                                         <span style="font-size:16px; color:#fff" class="glyphicon glyphicon-usd"></span>
+
+
+                                                                     }
+                                                                     else
+                                                                     {
+
+                                                                         <span style="font-size:8px; color:#fff" class="glyphicon glyphicon-minus"></span><span style="font-size:8px; color:#fff" class="glyphicon glyphicon-minus"></span>
+
+                                                                     }
+
+                            
+                            &nbsp;@item.CancerTypeBinName @item.ScreeningType on @Html.FormatValue(item.ClinicalCycleDate, "{0:MM/dd/yyyy}")</div></div>
+
+                    </div>
+
+                </div>
+
+                    @*<script type="text/javascript">
+
+
+                    $('#ScreeningListButton_@item.ScreeningID').click(function () {
+
+                        $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = item.ScreeningID })');
+                        $("#UpdateButtonContainer").css("display", "block");
+                    });
+
+
+                    </script>*@
+
+
+
+            }
+            else if (item.CancerTypeBinID == 2)
+            {
+
+                <div style="background-color:#6f517d;border-radius:5px;padding:6px;color:#fff;opacity:0.9">
+
+
+                    <div class="row">
+
+
+
+                        <div style="color:#fff;font-size:large">   <div class="col-md-12">
+                            
+                                                                       @if (item.BillingLevel != null)
+                                                                       {
+
+                                                                           <span style="color:#fff; font-weight:bold; font-size:14px; background-color:#56c23c; padding-top:2px; padding-bottom:2px; padding-left:7px; padding-right:7px; border-radius:5px; border:2px">@item.BillingLevel</span>
+
+                                                                       }
+                                                                       else
+                                                                       {
+
+                                                                           <span style="color:#fff; font-weight:bold; font-size:14px; background-color:#999; padding-top:2px; padding-bottom:2px; padding-left:7px; padding-right:7px; border-radius:5px; border:2px"><span class="glyphicon glyphicon-ok"></span></span>
+
+                                                                       }
+
+
+                                                                       @if (item.BillingPaidBinID == 3)
+                                                                       {
+
+                                                                           <span style="font-size:16px; color:#fff" class="glyphicon glyphicon-usd"></span>
+
+
+                                                                       }
+                                                                       else if (item.BillingPaidBinID == 2)
+                                                                       {
+
+                                                                           <span style="font-size:16px; color:#fff" class="glyphicon glyphicon-sort"></span>
+
+                                                                       }
+                                                                       else if (item.BillingPaidBinID == 1)
+                                                                       {
+
+                                                                           <span style="font-size:16px; color:#fff" class="glyphicon glyphicon-usd"></span>
+
+
+                                                                       }
+                                                                       else
+                                                                       {
+
+                                                                           <span style="font-size:8px; color:#fff" class="glyphicon glyphicon-minus"></span><span style="font-size:8px; color:#fff" class="glyphicon glyphicon-minus"></span>
+
+                                                                       }&nbsp;@item.CancerTypeBinName @item.ScreeningType on @Html.FormatValue(item.ClinicalCycleDate, "{0:MM/dd/yyyy}")</div>  </div>
+
+                    </div>
+
+                </div>
+
+                    @*<script type="text/javascript">
+
+
+
+                    $('#ScreeningListButton_@item.ScreeningID').click(function () {
+
+                        $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = item.ScreeningID })');
+                        $("#UpdateButtonContainer").css("display", "block");
+                    });
+
+
+                    </script>*@
+
+
+
+            }
+            else
+            {
+
+
+                <div style="background-color:#31aae5;border-radius:5px;padding:6px;color:#fff;opacity:0.9">
+
+
+                    <div class="row">
+
+
+
+                        <div style="color:#fff;font-size:large">   <div class="col-md-12">
+                            
+                                                                       @if (item.BillingLevel != null)
+                                                                       {
+
+                                                                           <span style="color:#fff; font-weight:bold; font-size:14px; background-color:#56c23c; padding-top:2px; padding-bottom:2px; padding-left:7px; padding-right:7px; border-radius:5px; border:2px">@item.BillingLevel</span>
+
+                                                                       }
+                                                                       else
+                                                                       {
+
+                                                                           <span style="color:#fff; font-weight:bold; font-size:14px; background-color:#999; padding-top:2px; padding-bottom:2px; padding-left:7px; padding-right:7px; border-radius:5px; border:2px"><span class="glyphicon glyphicon-ok"></span></span>
+
+                                                                       }
+
+
+                                                                       @if (item.BillingPaidBinID == 3)
+                                                                       {
+
+                                                                           <span style="font-size:16px;color:#fff;" class="glyphicon glyphicon-usd"></span>
+
+
+                                                                       }
+                                                                       else if (item.BillingPaidBinID == 2)
+                                                                       {
+
+                                                                           <span style="font-size:16px; color:#fff" class="glyphicon glyphicon-sort"></span>
+
+                                                                       }
+                                                                       else if (item.BillingPaidBinID == 1)
+                                                                       {
+
+                                                                           <span style="font-size:16px; color:#fff" class="glyphicon glyphicon-usd"></span>
+
+
+                                                                       }
+                                                                       else
+                                                                       {
+
+                                                                           <span style="font-size:8px; color:#fff" class="glyphicon glyphicon-minus"></span><span style="font-size:8px; color:#fff" class="glyphicon glyphicon-minus"></span>
+
+                                                                       }
+                            
+                            
+                            
+                                                                        &nbsp;@item.CancerTypeBinName @item.ScreeningType on @Html.FormatValue(item.ClinicalCycleDate, "{0:MM/dd/yyyy}")</div></div>
+
+                                                                        </div>
+
+                                                                </div>
+
+
+                                                            @*<script type="text/javascript">
+
+
+
+                                                            $('#ScreeningListButton_@item.ScreeningID').click(function () {
+
+                                                                $('#AccordionMasterContainer').load('@Url.Action("_PatientInfoDashboard", "PatientInformation", new { id = item.ScreeningID })');
+                                                                $("#UpdateButtonContainer").css("display", "block");
+                                                            });
+
+
+                                                            </script>*@
+
+
+
+
+            }
+
+
+
+         
+
+
+        </button>
+                    @*</li>*@
+
+    }
+    
+
+</div>
+
+    @*</ul>*@

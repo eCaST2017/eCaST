@@ -1,0 +1,78 @@
+﻿@model eCaST.ViewModels.PhoneViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<br />
+<div class="alert alert-danger"><h4><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;Are you sure you want to delete this contact number?</h4></div>
+<br />
+
+
+@using (Html.BeginForm("_DeletePhoneF", "Phones", FormMethod.Post, new { id = "PhoneInfoForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+   
+    <div align="right">
+        <button id="CancelPhoneButton" class="btn btn-default" type="button"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;Cancel</button>&nbsp;
+        <button class="btn btn-danger" id="DeleteClientButton" type="submit">Delete</button>
+    </div>
+
+    @Html.Hidden("ClientID", (int?)ViewBag.ClientID)
+    @Html.Hidden("PhoneID", (int?)ViewBag.PhoneID)
+
+}
+
+
+
+
+<script type="text/javascript">
+
+
+
+    $(function () {
+
+      
+        $('#CancelPhoneButton').click(function () {
+
+
+            $('#PhoneEditContainer').load('@Url.Action("Create", "Phones")');
+
+
+
+        });
+
+
+    });
+
+
+    $('#PhoneInfoForm').on("submit", function (evt) {
+        evt.preventDefault();
+        if ($('#PhoneInfoForm').valid()) {
+            //  $("#SaveExitButton").prop("disabled", true);
+            $.ajax({
+                url: $("#PhoneInfoForm").attr('action'),
+                type: $("#PhoneInfoForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#PhoneInfoForm").serialize(),
+                success: function (data) {
+
+                    var clientid = data.Modified;
+                    var screeningid = data.Modified2;
+
+
+                    $('#PhoneEditContainer').load('@Url.Action("Create", "Phones")');
+                    $('#PhoneListContainer').load('@Url.Action("_PhoneList", "Phones")', { id: clientid });
+
+                }
+            });
+        }
+
+    });
+
+</script>

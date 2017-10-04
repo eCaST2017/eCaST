@@ -1,0 +1,392 @@
+﻿@model IEnumerable<eCaST.ViewModels.RequestViewModel>
+
+@{
+    ViewBag.Title = "CMT Requests";
+}
+
+<style type="text/css">
+    table.dataTable td.sorting_1 {
+        background-color: white;
+        border-top: 1px #666;
+        border: 2px #666;
+    }
+
+    table.dataTable td {
+        background-color: white;
+        border-top: 1px #666;
+        border: 1px #666;
+    }
+
+    table.dataTable tr.odd {
+        background-color: white;
+        border-top: 1px #666;
+        border: 1px #666;
+    }
+
+    table.dataTable tr.even {
+        background-color: white;
+        border-top: 1px #666;
+        border: 1px #666;
+    }
+
+    .statusBlack {
+        color: black;
+    }
+
+    .statusRed {
+        color: red;
+    }
+
+    .statusBlue {
+        color: blue;
+    }
+
+    .statusGreen {
+        color: green;
+    }
+
+    .statusOrange {
+        color: darkred;
+    }
+</style>
+<br />
+<br />
+<br />
+<br />
+<div class="panel panel-default">
+    <div class="panel-heading">
+
+        <span><i class="fa fa-comments fa-fw"></i>Support Ticket History </span>
+
+        <div class="pull-right">
+
+            <div style="padding-bottom:25px"><button type="button" id="CloseHistoryContactButton" class="btn btn-default btn-xs"> Close History</button></div>
+
+        </div>
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+
+
+        <div class="demo_jui">
+            <table style="width:100%" class="table table-striped table-bordered" id="PendingRequestList">
+                <thead>
+                    <tr>
+
+
+                        <th>
+                            Tracker #
+                        </th>
+
+                        <th>
+                            Request Date
+                        </th>
+                        @*<th>
+                                Overdue?
+                            </th>*@
+                        @*  <th>
+                                Assignee
+                            </th> *@
+                        @*<th>
+                                Action
+                            </th>
+                            <th>
+                                Type
+                            </th>*@
+                        <th>
+                            Request Title
+                        </th>
+
+                        @* <th>
+                                Priority
+                            </th>*@
+
+                        @*<th>
+                                Status
+                            </th>*@
+
+                        @*  <th>
+                                Assigned To
+                            </th>*@
+                        @*<th>Project</th>*@
+                        @*<th>
+                                Due Date
+                            </th>*@
+
+                        @*@if (ViewBag.RoleBinID == 1 || ViewBag.RoleBinID == 13)
+                        {
+
+                            <th>Agency Contact</th>
+
+                        }
+                        else
+                        {
+
+                            <th>Support Contact</th>
+
+                        }*@
+
+                        @*@if (ViewBag.RoleBinID == 1 || ViewBag.RoleBinID == 13)
+                            {
+
+                                <th>Agency</th>
+
+                            }*@
+
+
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+
+                            <a class="btn btn-default" href="#" id="RequestButton_@item.RequestID"><i class="fa fa-eye"></i>&nbsp;@item.RequestID</a>
+
+                            <script type="text/javascript">
+
+
+                                $("#RequestButton_@item.RequestID").click(function () {
+
+
+
+                                    $("#ContactContainer").load("@Url.Action("Edit", "Requests", new { id = item.RequestID })",
+                                                                     function (response, status, xhr) {
+                                                                         if (status == "error") {
+                                                                             //   alert("An error occurred while loading the results.");
+                                                                         }
+
+                                                                     });
+                                });
+
+
+
+                            </script>
+
+
+
+                        </td>
+
+                        <td>
+                            @* @Html.DisplayFor(modelItem => item.RequestDateActual)*@
+
+                            @*   @string.Format("{0:MM/dd/yyyy}", item.RequestDateActual)*@
+
+                            @(((DateTime)item.RequestDateActual).ToString("MM/dd/yyyy"))
+
+                        </td>
+
+                        @*<td>
+
+                                @if (item.DueDate < DateTime.Now.AddDays(-1))
+                                {
+
+                                    <div>Overdue</div>
+
+                                }
+                                else if (item.DueDate == DateTime.Today)
+                                {
+
+                                    <div>Due Today</div>
+
+                                }
+                                else
+                                {
+
+                                    <div>10 Days Out</div>
+
+                                }
+
+                                @item.AssigneeName
+                                @item.RequestorName
+                            </td>*@
+
+                        @*  <td>
+                                @Html.DisplayFor(modelItem => item.UserID)
+
+                            </td> *@
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.RequestActionName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RequestTypeName)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RequestTitle)
+                        </td>
+
+                        @*   <td>
+                                @Html.DisplayFor(modelItem => item.PriorityName)
+                            </td>*@
+
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.StateName)
+                            </td>*@
+
+                        @*      <td>
+                                @Html.DisplayFor(modelItem => item.RequestorID)
+                                   @Html.HiddenFor(modelItem => item.RequestDesc)
+                            </td>*@
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.ProjectName)
+
+                            </td>*@
+                        @*<td>
+                                 @Html.DisplayFor(modelItem => item.DueDate)
+                                 @string.Format("{0:MM/dd/yyyy}", item.DueDate)
+                                @Html.HiddenFor(modelItem => item.RequestDesc)
+                               @(((DateTime)item.DueDate).ToString("MM/dd/yyyy"))
+                                @Html.DisplayFor(modelItem => item.DueDate)
+                                @Html.HiddenFor(modelItem => item.DueDate)
+                            </td>*@
+
+
+                        @*<td>@item.UserName</td>*@
+
+
+
+                        @*<td align="right">
+
+
+
+                                <a style="text-decoration:none" id="EditRequestButton_@item.RequestID" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#editModal_@item.RequestID">
+
+
+                                    <span class="btn btn-default"><i class="fa fa-users"></i> Manage</span>
+
+                                </a>
+
+
+                                <div class="modal fade" id="editModal_@item.RequestID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div align="left" class="modal-header">
+                                                <h3 class="modal-title" id="myModalLabel"><i class="fa fa-pencil-square"></i>&nbsp;Edit request</h3>
+                                            </div>
+                                            <div align="left" id="EditRequestContainer_@item.RequestID" class="modal-body"></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <script type="text/javascript">
+
+
+
+
+
+
+                                    $("#EditRequestButton_" + '@item.RequestID').click(function () {
+
+
+                                        $('#EditRequestContainer_' + '@item.RequestID').load('@Url.Action("Edit", "RequestManager", new { id = @item.RequestID, id2="MyRequests" })');
+
+
+                                    });
+
+
+                                    $('#editModal_@item.RequestID').on('shown.bs.modal', function () {
+                                        $(this).find('.modal-dialog').css({
+                                            //width: 'auto',
+                                            width: '92%',
+                                            height: 'auto',
+                                            'max-height': '100%'
+                                        });
+                                    });
+
+
+                                </script>
+
+                            </td>*@
+
+                        @*@if (ViewBag.RoleBinID == 1 || ViewBag.RoleBinID == 13)
+                            {
+                                <td>@item.AgencyName</td>
+                            }*@
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" charset="utf-8">
+
+    $(function () {
+
+        if ($("#CreateButton").attr("disabled", "disabled")) {
+
+            $("#CreateButton").removeAttr("disabled", "disabled");
+
+        }
+
+    });
+
+
+    $(document).ready(function () {
+        oTable =
+           $('#PendingRequestList').dataTable({
+               "aaSorting": [[0, "desc"]],
+               //"bJQueryUI": true,
+               "aLengthMenu": [[25, 50, 100, 250, 500, -1], [25, 50, 100, 250, 500, "All"]],
+               "bSortClasses": false,
+               //"sPaginationType": "full_numbers",
+               "bPaginate": false,
+               "bStateSave": true,
+               //"fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull)
+               //{ $('td', nRow).closest('tr').css('background', aData[5] == "Medium" ? '#ffd9cc' : '#d9ffff'); return nRow; },
+               "fnDrawCallback": function (oSettings) {
+                   //for (var i = 0, iLen = oSettings.aoData.length ; i < iLen ; i++) {
+                   //    var status = oSettings.aoData[i]._aData[5];
+                   //    var colorCSS;
+                   //    if (status == 'Low') {
+                   //        colorCSS = 'statusGreen';
+                   //    } else if (status === 'Medium') {
+                   //        colorCSS = 'statusBlue';
+                   //    } else if (status === 'High') {
+                   //        colorCSS = 'statusRed';
+                   //    } else if (status === 'Urgent') {
+                   //        colorCSS = 'statusOrange';
+                   //    } else {
+                   //        colorCSS = 'statusBlack';
+                   //    }
+                   //    oSettings.aoData[i].nTr.className += " " + colorCSS;
+                   //}
+
+
+                   $(".editLink").button();
+                   $(".detailsLink").button();
+                   $(".createLink").button();
+                   $(".deleteLink").button();
+
+               },
+               //"aoColumnDefs": [{
+               //    "bVisible": false,
+               //    "aTargets": [2]
+               //}],
+               "oLanguage": { "sSearch": "Filter: " }
+           }); $('#example_filter label input:text').focus();
+
+
+
+        oTable.fnSort([[0, 'desc']]); // Sort by first column descending
+
+    });
+
+
+    $('#CloseHistoryContactButton').click(function () {
+
+
+        $("#ContactButton").trigger('click');
+
+
+
+    });
+
+
+
+</script>

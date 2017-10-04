@@ -1,0 +1,336 @@
+﻿@model IEnumerable<eCaST.ViewModels.PatientInfoViewModel>
+
+
+<div style="height: 100%; width: 98%; overflow: scroll; overflow-y: auto; overflow-x: hidden; padding: 2px; margin: 2px;">
+
+
+
+    <div id="grid">
+        <div class="row">
+
+
+
+          
+            <div style="vertical-align:top" class="col-md-9">
+
+          
+                <div class="alert alert-default breadcrumb">
+
+                    @*<h3 style="color:#2d7ab4;"><span class="glyphicon glyphicon-heart-beat"></span>&nbsp;Cardiovascular Screening Dashboard</h3>*@
+                  
+
+
+                        @*<div class="row">
+
+                            <div class="col-md-10">
+
+                              
+
+                            </div>
+
+                         
+
+                        </div>*@
+
+
+                   
+                    <div class="alert alert-info">
+
+                        <div class="pull-right">
+
+                            <button type="button" id="ProfileInfoButton" class="btn btn-default">  <span class="glyphicon glyphicon-user"></span> Client Profile</button>
+                            <button type="button" id="EnrollmentButton" class="btn btn-default">  <i class="fa fa-calendar"></i> Enrollment Info</button>
+
+
+                        </div>
+                        <div>
+                        <h3 style="font-family:'Lato', sans-serif; color:#3c9eb4; font-weight:300"><i style="color:#3c9eb4" class="fa fa-heartbeat"></i>&nbsp;Clinical Measurements</h3> 
+                        
+                         
+                        </div>
+
+                        <hr class="style-two" />
+
+                        <br />
+
+                        <div id="ClinicalMeasurementsSection"></div>
+
+                    </div>
+
+
+                    <div id="RiskReductionSection"></div>
+
+
+                </div>
+
+
+            </div>
+
+
+            <div style="vertical-align:top" class="col-md-3">
+
+
+
+                @if (ViewBag.FollowupCheckID == 1)
+                {
+
+
+
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+
+                            <div id="CompareAssessmentSection"></div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+                    @*<div class="row">
+
+                        <div class="col-md-12">
+
+
+                            <div id="FollowupAssessmentSection"></div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+
+                            <div id="HealthAssessmentSection"></div>
+
+
+                        </div>
+
+                    </div>*@
+
+
+
+
+                }
+                else
+                {
+
+
+
+                    <div class="row">
+                        <div id="Usage" class="col-md-12">
+
+
+                            <div id="HealthAssessmentSection"></div>
+
+
+                        </div>
+
+
+
+                    </div>
+
+
+
+
+                }
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+        </div>
+
+    </div>
+
+</div>
+
+@*<div id="SaveBarSection" style="background-color:#f8f6f6" align="right" class="footer navbar-fixed-bottom">
+    <div style="padding-top:12px; padding-right:12px">
+
+        @using (Html.BeginForm("_StateStaffOverrideF", "PatientInformation", FormMethod.Post, new { id = "StateStaffOverrideForm" }))
+        {
+
+            if (ViewBag.PowerUser == 1)
+            {
+
+                <div style="float:right; padding-right:30px">
+                    <div>
+                        <div style="float:left">
+                            @Html.CheckBox("StateStaffOverride")
+                        </div>
+                        <div style="float:right">
+
+
+                            Administrative Override
+
+
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+            <button id="CancelDashButton" class="btn btn-warning" type="reset">< Back</button><text>&nbsp;</text><button class="btn btn-success" type="submit"> Recalculate</button>
+
+
+            @Html.Hidden("Saveid", 1)
+            @Html.Hidden("ScreeningID", (int?)ViewBag.ScreeningID)
+            @Html.Hidden("RedirectTo", Url.Action("Edit", "ClinicalCycles", new { id = ViewBag.CCID, id2 = ViewBag.SiteID, id3 = ViewBag.ScreeingTypeID }));
+
+
+        }
+
+
+    </div>
+
+
+</div>*@
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        $('#ClinicalMeasurementsSection').load('@Url.Action("_ClinicalMeasurements", "PatientInformation", new  { id = ViewBag.ScreeningID })');
+
+        $('#RiskReductionSection').load('@Url.Action("_RiskReductionList", "PatientInformation", new { id = ViewBag.ScreeningID })');
+
+
+        $('#FollowupSectionInline').load('@Url.Action("_FollowupInfo", "PatientInformation", new { id = ViewBag.ScreeningID })');
+
+
+        $('#HealthAssessmentSection').load('@Url.Action("_InitialHealthAssessment", "PatientInformation", new { id = ViewBag.ScreeningID })');
+
+
+        // $('#FollowupAssessmentSection').load('@Url.Action("_FollowupHealthAssessment", "PatientInformation", new { id = ViewBag.ScreeningID })');
+
+        $('#CompareAssessmentSection').load('@Url.Action("_CompareHealthAssessment", "PatientInformation", new { id = ViewBag.ScreeningID })');
+
+
+        @*$("#CancelDashButton").click(function () {
+
+            if ('@ViewBag.Pending' == 'False')
+            {
+
+                var url = '@Html.Raw(Url.Action("Edit", new { Controller = "ClinicalCycles", id = ViewBag.CCID, id2 = ViewBag.SiteID, id3 = ViewBag.ScreeingTypeID }))';
+                window.location.href = url;
+
+
+            }
+            else{
+
+
+                var url = '@Html.Raw(Url.Action("Edit", new { Controller = "OfficeVisits", id = ViewBag.OVID, id2 = ViewBag.SiteID, id3 = ViewBag.ScreeingTypeID }))';
+                window.location.href = url;
+
+
+
+            }
+
+         });*@
+
+
+
+    });
+
+    function change(e) {
+        $("#gauge").data("kendoRadialGauge").value($("#gauge-value").val());
+    }
+
+
+    $(function () {
+
+        $("#EditPatientInfoButton").click(function (evt) {
+            evt.preventDefault();
+            $('#WiseWomanSection').load('@Url.Action("_PatientInfoEdit", "PatientInformation", new { id = ViewBag.ScreeningID, id2 = ViewBag.AssessmentID })');
+
+
+
+        });
+
+
+        $("#ProfileInfoButton").click(function () {
+
+
+            $('#ClinicalMeasurementsSection').load('@Html.Raw(@Url.Action("Edit", "Clients", new { id = ViewBag.ClientID, id2 = ViewBag.ScreeningID, id3 = 1 }))');
+
+
+        });
+
+        $("#EnrollmentButton").click(function () {
+
+
+            $('#ClinicalMeasurementsSection').load('@Html.Raw(@Url.Action("Edit", "Enrollments", new { id = ViewBag.EnrollmentID, id2 = ViewBag.ScreeningID, id3 = 1 }))');
+
+
+        });
+
+
+
+    });
+
+
+    $("#PatientInfoForm").validate({
+        rules: {
+
+
+        },
+        messages: {
+
+
+        }
+    });
+
+    $('#StateStaffOverrideForm').on("submit", function (evt) {
+        evt.preventDefault();
+        if ($('#StateStaffOverrideForm').valid()) {
+            $.ajax({
+                url: $("#StateStaffOverrideForm").attr('action'),
+                type: $("#StateStaffOverrideForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#StateStaffOverrideForm").serialize(),
+                success: function (data) {
+
+                    var clinicalcycleid = data.Modified;
+                    var siteid = data.Modified2;
+                    var screeningtypeid = data.Modified3;
+                    var clientid = data.Modified4;
+                    var enrollid = data.Modified5;
+                    var screeningid = data.Modified6;
+
+                    var url = $("#RedirectTo").val();
+                    location.href = url;
+
+
+
+                }
+            });
+        }
+
+    });
+
+
+
+</script>

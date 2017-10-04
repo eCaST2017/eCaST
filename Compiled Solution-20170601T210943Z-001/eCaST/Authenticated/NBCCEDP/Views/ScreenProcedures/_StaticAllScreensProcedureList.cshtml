@@ -1,0 +1,43 @@
+﻿@model IEnumerable<eCaST.ViewModels.ScreenProcedureViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="btn-group" role="group" aria-label="...">
+    <button disabled="disabled" style="background-color:#F5F5F5;opacity:0.5" id="ScreenProcedureEditButton" type="button" class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i></button>
+    <button style="background-color:#F5F5F5" type="button" class="btn btn-default"><i class="fa fa-heartbeat" aria-hidden="true"></i>&nbsp; Screens</button>
+        @foreach (var item in Model)
+        {
+
+
+
+            <span style="cursor:text" class="btn btn-default">
+
+                @item.ShortMethodName<text>&nbsp;</text> @Html.FormatValue(item.ProcedureDate, "{0:MM/dd/yyyy}")<text>&nbsp;</text> @item.ProcedureResultBinShortName
+
+            </span>
+
+
+
+        }
+
+</div>
+
+    
+<script type="text/javascript">
+
+
+    $('#ScreenProcedureEditButton').click(function () {
+
+
+        $('#AccordionContentContainer').load('@Url.Action("Create", "ScreenProcedures", new { id = ViewBag.ScreeningID, id2 = 1 })');
+
+    });
+
+
+
+
+</script>
+

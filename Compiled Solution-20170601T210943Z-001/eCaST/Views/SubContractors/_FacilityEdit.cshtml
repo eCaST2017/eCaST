@@ -1,0 +1,132 @@
+﻿@model CTL.ViewModels.CancerTypeViewModel
+
+@using (Html.BeginForm("_UpdateSubContractorsF", "SubContractors", FormMethod.Post, new { id = "UpdateSubContractorForm_" + @ViewBag.SiteID + @ViewBag.ProgramID + @ViewBag.CancerTypeBinID }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div style="padding-left:10px">
+
+        <div><span>Primary Facility: @ViewBag.SCName</span></div>
+
+
+        <br />
+        <div>Additional Facilities (Select all that apply):</div>
+        <br />
+
+        <div class="input-group btn-group">
+
+
+            @Html.DropDownList("test", (SelectList)ViewData["OptionList"], new { @class = "NewCssdropdown", multiple = "", @id = "test_" + @ViewBag.SiteID + @ViewBag.ProgramID + @ViewBag.CancerTypeBinID })
+
+
+
+
+            <input type="hidden" id="selectedIDs_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.CancerTypeBinID" />
+
+            @Html.Hidden("FacilityList")
+            @Html.Hidden("SiteID", (int?)@ViewBag.SiteID)
+            @Html.Hidden("ProgramID", (int?)@ViewBag.ProgramID)
+            @Html.Hidden("CancerTypeBinID", (int?)@ViewBag.CancerTypeBinID)
+
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" id="SubConCloseButton_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.CancerTypeBinID" class="btn btn-default">Close</button>
+        <button type="submit" id="SubContractorButton_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.CancerTypeBinID" class="btn btn-success">Update</button>
+    </div>
+
+}
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+
+        $("#SubConCloseButton_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").click(function () {
+
+            $('#FacilityContainer_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.CancerTypeBinID').load('@Html.Raw(Url.Action("_FacilityList", "SubContractors", new { id = @ViewBag.SiteID, id2 = @ViewBag.ProgramID, id3 = @ViewBag.CancerTypeBinID }))');
+            $("#EditFacButton_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").css("display", "block");
+
+        });
+
+
+        $("#SubContractorButton_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").click(function () {
+
+            //Add SubContractor
+            var out = document.getElementById('selectedIDs_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.CancerTypeBinID').value;
+            document.getElementById("FacilityList").value = out;
+
+
+
+        });
+
+
+
+        $(function () {
+
+            var data = '@ViewBag.Options';
+
+            //Make an array
+            var dataarray = data.split(",");
+
+            // Set the value
+            $("#test_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").val(dataarray);
+            $('#selectedIDs_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.CancerTypeBinID').val(dataarray);
+
+
+            var test = $('#test_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.CancerTypeBinID');
+            $(test).select2({
+                width: "300px"
+            });
+
+            document.getElementById("test_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").onchange = function () {
+
+                var ids = $(test).val();
+                $('#selectedIDs_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.CancerTypeBinID').val(ids);
+
+            };
+
+        });
+
+
+        $('#UpdateSubContractorForm_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.CancerTypeBinID').on("submit", function (evt44) {
+            evt44.preventDefault();
+            if ($('#UpdateSubContractorForm_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.CancerTypeBinID').valid()) {
+                $.ajax({
+
+                    url: $("#UpdateSubContractorForm_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").attr('action'),
+                    type: $("#UpdateSubContractorForm_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#UpdateSubContractorForm_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").serialize(),
+                    success: function (data) {
+
+                        var clinicid = data.Modified;
+
+
+                        $('#ProgramListSection').load('@Url.Action("_ProgramManagement", "Programs", new { id = ViewBag.SiteID })');
+
+                        toastr.success('You have successfully updated the facilities for this clinic.')
+
+                     
+                    }
+
+                });
+            }
+
+        });
+
+
+
+
+    });
+
+
+</script>
+
+
+
+

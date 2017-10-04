@@ -1,0 +1,288 @@
+﻿@model CTL.Models.Request
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Request</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestDateActual)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestDateActual)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestorID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestorID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DivisionID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DivisionID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestProgramID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestProgramID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestTypeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestTypeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriorityID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriorityID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StateID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StateID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestDesc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeveloperNotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeveloperNotes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TestLog)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestLog)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeToComplete)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeToComplete)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReleaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BroadcastDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BroadcastDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrainingIssue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrainingIssue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DueDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DueDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestorNotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestorNotes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestedByID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestedByID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Overdue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Overdue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestModeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestModeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OverdueWarning)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OverdueWarning)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestorViewed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestorViewed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AssigneeViewed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AssigneeViewed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Requestor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Requestor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TestingMode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestingMode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Participants)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Participants)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubApplicationID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubApplicationID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Urgent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Urgent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestActionID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestActionID)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

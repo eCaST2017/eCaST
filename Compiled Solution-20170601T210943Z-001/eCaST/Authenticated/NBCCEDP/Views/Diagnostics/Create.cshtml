@@ -1,0 +1,1282 @@
+﻿@model eCaST.ViewModels.DiagnosticViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<style type="text/css">
+    .searchOption {
+        margin: 4px 4px 2px 4px;
+        display: inline;
+    }
+
+    .form-field * {
+        vertical-align: middle;
+    }
+
+    .form-field input {
+        clear: left;
+    }
+
+    .form-field label {
+        width: 800px;
+        display: inline-block;
+    }
+
+    input.big {
+        height: 2.1em;
+        width: 2.1em;
+    }
+
+    .error a {
+        background-color: #d9ffff !important;
+        border: 1px solid #ccc !important;
+        width: 100%;
+        color: #666 !important;
+    }
+
+    .requiredText {
+        background-color: #d9ffff;
+        border: 1px solid #999;
+    }
+
+    .requiredSelect {
+        background-color: #d9ffff;
+    }
+</style>
+
+
+@using (Html.BeginForm("_CreateFinalDiagnosisF", "Diagnostics", FormMethod.Post, new { id = "FinalDiagnosisCreateForm" }))
+{
+
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+
+
+
+    <div id="UpdateButtonContainer" class="pull-left">
+
+        <button id="CancelFinalDiagnosisLockButton" class="btn btn-default" type="button"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Cancel</button><text>&nbsp;</text>
+        <button class="btn btn-success" id="CreateFinalDiagnosisButton" type="submit">Add</button>
+
+    </div>
+    
+    <br />
+    <br />
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4><i class="fa fa-compass fa-fw"></i>Final Diagnosis Information</h4>
+
+        </div>
+
+        <div class="panel-body">
+
+
+            <br />
+
+            <div class="row">
+
+
+                <div class="col-md-3">
+
+                    @Html.LabelFor(model => model.FinalDxStatusBinID, "Final Diagnosis Status")
+
+                </div>
+
+                <div class="col-md-6">
+
+                    @Html.DropDownListFor(model => model.FinalDxStatusBinID, ((IEnumerable<eCaST.Models.DDFinalDxStatusBin>)ViewBag.PossibleFinalDxStatusBins).Select(option => new SelectListItem
+                   {
+                       //Text = Html.DisplayTextFor(_ => option).ToString(),
+                       Text = option.FinalDxStatusBinName,
+                       Value = option.FinalDxStatusBinID.ToString(),
+                       Selected = (Model != null) && (option.FinalDxStatusBinID == ViewBag.FinalDxStatusBinID)
+                   }), "Choose...", new { id = "FinalDxStatusBinID", @class = "requiredSelect" })
+                    @Html.ValidationMessageFor(model => model.FinalDxStatusBinID)
+
+                </div>
+
+
+
+            </div>
+            <br />
+            <div id="DiagnosisSection" style="display:none">
+
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.FinalDxBinID, "Final Diagnosis")
+
+                    </div>
+
+                    <div class="col-md-6">
+
+
+                        @Html.DropDownListFor(model => model.FinalDxBinID, ((IEnumerable<eCaST.Models.DDFinalDxBin>)ViewBag.PossibleFinalDxBins).Select(option => new SelectListItem
+                   {
+                       //Text = Html.DisplayTextFor(_ => option).ToString(),
+                       Text = option.FinalDxBinName,
+                       Value = option.FinalDxBinID.ToString(),
+                       Selected = (Model != null) && (option.FinalDxBinID == ViewBag.FinalDxBinID)
+                   }), "Choose...", new { id = "FinalDxBinID", @class = "requiredSelect" })
+                        @Html.ValidationMessageFor(model => model.FinalDxBinID)
+
+
+                    </div>
+
+
+                </div>
+
+                
+
+            </div>
+
+            <div id="BCCPOtherSection" style="display:none">
+                <br />
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.OtherBCCPDiagnosisText, "Other BCCP Eligible Diagnosis")
+
+                    </div>
+
+                    <div class="col-md-6">
+
+
+                        @Html.TextBoxFor(model => model.OtherBCCPDiagnosisText, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.OtherBCCPDiagnosisText)
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+            <div id="DiagnosisDateSection" style="display:none" class="row">
+                <br />
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.FinalDiagnosisDate, "Final Diagnosis Date")
+
+                </div>
+
+                <div class="col-md-6">
+
+
+                    @Html.TextBoxFor(model => model.FinalDiagnosisDate, new { @class = "requiredText" })
+                    @Html.ValidationMessageFor(model => model.FinalDiagnosisDate)
+
+
+                </div>
+
+
+            </div>
+
+            <div id="ReturnMonthsContainer" style="display:none" class="row">
+                <br />
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.ReturnMonthsBinID, "Months to return in")
+
+                </div>
+
+                <div class="col-md-6">
+
+
+                    @Html.DropDownListFor(model => model.ReturnMonthsBinID, ((IEnumerable<eCaST.Models.DDReturnMonthsBin>)ViewBag.PossibleReturnMonthBins).Select(option => new SelectListItem
+                   {
+                       //Text = Html.DisplayTextFor(_ => option).ToString(),
+                       Text = option.ReturnMonthsBinName,
+                       Value = option.ReturnMonthsBinID.ToString(),
+                       Selected = (Model != null) && (option.ReturnMonthsBinID == ViewBag.ReturnMonthsBinID)
+                   }), "Choose...", new { id = "ReturnMonthsBinID", @class = "requiredSelect" })
+                    @Html.ValidationMessageFor(model => model.ReturnMonthsBinID)
+
+
+                </div>
+
+            </div>
+
+            <div id="CervicalOtherSection" style="display:none">
+
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.OtherFinalDiagnosis, "Other Diagnosis")
+
+                    </div>
+
+                    <div class="col-md-6">
+
+
+                        @Html.TextBoxFor(model => model.OtherFinalDiagnosis, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.OtherFinalDiagnosis)
+
+
+                    </div>
+
+
+                </div>
+
+               
+
+
+            </div>
+
+
+            <div id="TreatmentSection" style="display:none">
+                <br />
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.TreatmentStatusBinID, "Treatment Status")
+
+                    </div>
+
+                    <div class="col-md-6">
+
+
+                        @Html.DropDownListFor(model => model.TreatmentStatusBinID, ((IEnumerable<eCaST.Models.DDTreatmentStatusBin>)ViewBag.PossibleTreatmentStatusBins).Select(option => new SelectListItem
+                   {
+                       //Text = Html.DisplayTextFor(_ => option).ToString(),
+                       Text = option.TreatmentStatusBinName,
+                       Value = option.TreatmentStatusBinID.ToString(),
+                       Selected = (Model != null) && (option.TreatmentStatusBinID == ViewBag.TreatmentStatusBinID)
+                   }), "Choose...", new { id = "TreatmentStatusBinID", @class = "requiredSelect" })
+                        @Html.ValidationMessageFor(model => model.TreatmentStatusBinID)
+
+
+                    </div>
+
+
+                </div>
+
+              
+
+
+                </div>
+
+            <div id="TreatmentDateSection" style="display:none">
+
+                <br />
+               
+                <div class="row">
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.TreatmentDate, "Treatment Date")
+
+                    </div>
+
+                    <div class="col-md-6">
+
+
+                        @Html.TextBoxFor(model => model.TreatmentDate, new { @class = "requiredText" })
+                        @Html.ValidationMessageFor(model => model.TreatmentDate)
+
+
+                    </div>
+
+
+                </div>
+
+                
+
+
+            </div>
+
+
+         
+
+            <div id="BCCPSection" style="display:none">
+                <br />
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.BCCPMedicaidEligBinID, "BCCP Medicaid Eligibility")
+
+                    </div>
+
+                    <div class="col-md-6">
+
+
+                        @Html.DropDownListFor(model => model.BCCPMedicaidEligBinID, ((IEnumerable<eCaST.Models.DDBCCPMedicaidEligBin>)ViewBag.PossibleBCCPMedicaidEligBins).Select(option => new SelectListItem
+                   {
+                       //Text = Html.DisplayTextFor(_ => option).ToString(),
+                       Text = option.BCCPMedicaidEligBinName,
+                       Value = option.BCCPMedicaidEligBinID.ToString(),
+                       Selected = (Model != null) && (option.BCCPMedicaidEligBinID == ViewBag.BCCPMedicaidEligBinID)
+                   }), "Choose...", new { id = "BCCPMedicaidEligBinID", @class = "requiredSelect" })
+                        @Html.ValidationMessageFor(model => model.BCCPMedicaidEligBinID)
+
+
+                    </div>
+
+
+                </div>
+
+                
+
+
+            </div>
+
+
+          
+            
+            <div id="BCCPEligibleSection" style="display:none">
+
+                <br />
+                <div class="row">
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.BCCPInitiatedDate, "BCCP Initiated Date")
+
+                    </div>
+
+                    <div class="col-md-6">
+
+
+                        @Html.TextBoxFor(model => model.BCCPInitiatedDate, new { @class = "requiredText" })
+                        @Html.ValidationMessageFor(model => model.BCCPInitiatedDate)
+
+
+                    </div>
+
+
+                </div>
+
+                <br />
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.BCCPInitiatedDays, "BCCP Initiated Business Days")
+
+                    </div>
+
+                    <div class="col-md-6">
+
+
+                        @Html.TextBoxFor(model => model.BCCPInitiatedDays, new { @class = " form-control requiredText" })
+                        @Html.ValidationMessageFor(model => model.BCCPInitiatedDays)
+
+
+                    </div>
+
+
+                </div>
+
+                <br />
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.BCCPEnrolledDate, "BCCP Application Completion Date")
+
+                    </div>
+
+                    <div class="col-md-6">
+
+
+                        @Html.TextBoxFor(model => model.BCCPEnrolledDate, new { @class = "requiredText" })
+                        @Html.ValidationMessageFor(model => model.BCCPEnrolledDate)
+
+
+                    </div>
+
+
+                </div>
+
+            
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.BCCPEnrolledDays, "BCCP Application Completion Business Days")
+
+                    </div>
+
+                    <div class="col-md-6">
+
+
+                        @Html.TextBoxFor(model => model.BCCPEnrolledDays, new { @class = "form-control requiredText" })
+                        @Html.ValidationMessageFor(model => model.BCCPEnrolledDays)
+
+
+                    </div>
+
+
+                </div>
+
+               
+
+
+            </div>
+
+
+            <div id="BCCPInEligibleSection" style="display:none">
+                <br />
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.ReasonIneligible, "BCCP Reason Ineligible")
+
+                    </div>
+
+                    <div class="col-md-6">
+
+
+                        @Html.TextBoxFor(model => model.ReasonIneligible, new { @class = "form-control requiredText" })
+                        @Html.ValidationMessageFor(model => model.ReasonIneligible)
+
+
+                    </div>
+
+
+                </div>
+
+                <br />
+
+
+            </div>
+
+
+
+            </div>
+    </div>
+
+
+ 
+ 
+    @Html.Hidden("ScreeningID", (int?)ViewBag.ScreeningID)
+    @Html.Hidden("ClientID", (int?)ViewBag.ClientID)
+
+}
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#FinalDxStatusBinID").select2({ width: "100%" });
+        $("#FinalDxBinID").select2({ width: "100%" });
+        $("#TreatmentStatusBinID").select2({ width: "100%" });
+        $("#BCCPMedicaidEligBinID").select2({ width: "100%" });
+        $("#ReturnMonthsBinID").select2({ width: "100%" });
+
+        $("#FinalDxStatusBinID").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+        $("#FinalDxBinID").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+        $("#TreatmentStatusBinID").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+        $("#BCCPMedicaidEligBinID").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+       
+        $("#FinalDiagnosisDate").kendoDatePicker({ max: new Date() });
+        $("#FinalDiagnosisDate").val('@(((DateTime?)ViewBag.LatestProcDate))');
+        $("#TreatmentDate").kendoDatePicker({ max: new Date() });
+        $("#BCCPInitiatedDate").kendoDatePicker({ max: new Date() });
+        $("#BCCPEnrolledDate").kendoDatePicker({ max: new Date() });
+
+        $("#FinalDxStatusBinID").change(function () {
+
+            if ($("#FinalDxStatusBinID").val() != 2) {
+
+
+                $('#DiagnosisSection').css("display", "block");
+                $('#DiagnosisDateSection').css("display", "block");
+                $('#CervicalOtherSection').css("display", "none");
+                $('#TreatmentSection').css("display", "none");
+                $('#TreatmentDateSection').css("display", "none");
+                $('#BCCPOtherSection').css("display", "none");
+                $('#BCCPSection').css("display", "none");
+                $('#BCCPEligibleSection').css("display", "none");
+                $('#BCCPInEligibleSection').css("display", "none");
+
+                if ($("#FinalDxStatusBinID").val() == 7) {
+
+
+                    $("#ReturnMonthsContainer").css("display", "block");
+                    $('#TreatmentSection').css("display", "none");
+                    $('#TreatmentDateSection').css("display", "none");
+                    $('#BCCPOtherSection').css("display", "none");
+                    $('#BCCPSection').css("display", "none");
+                    $('#BCCPEligibleSection').css("display", "none");
+                    $('#BCCPInEligibleSection').css("display", "none");
+
+                }
+                else if ($("#FinalDxStatusBinID").val() == 1) {
+
+
+                    $("#ReturnMonthsContainer").css("display", "none");
+                    $('#TreatmentSection').css("display", "none");
+                    $('#TreatmentDateSection').css("display", "none");
+                    $('#BCCPOtherSection').css("display", "none");
+                    $('#BCCPSection').css("display", "none");
+                    $('#BCCPEligibleSection').css("display", "none");
+                    $('#BCCPInEligibleSection').css("display", "none");
+
+                }
+                else if ($("#FinalDxStatusBinID").val() == 8) {
+
+
+                    $("#ReturnMonthsContainer").css("display", "none");
+                    $('#TreatmentSection').css("display", "none");
+                    $('#TreatmentDateSection').css("display", "none");
+                    $('#BCCPOtherSection').css("display", "none");
+                    $('#BCCPSection').css("display", "none");
+                    $('#BCCPEligibleSection').css("display", "none");
+                    $('#BCCPInEligibleSection').css("display", "none");
+
+                }
+                else if ($("#FinalDxStatusBinID").val() == 4 || $("#FinalDxStatusBinID").val() == 3 || $("#FinalDxStatusBinID").val() == 9 || $("#FinalDxStatusBinID").val() == 5) {
+
+                    $('#DiagnosisSection').css("display", "none");
+                    $("#ReturnMonthsContainer").css("display", "none");
+                    $('#TreatmentSection').css("display", "none");
+                    $('#TreatmentDateSection').css("display", "none");
+                    $('#BCCPOtherSection').css("display", "none");
+                    $('#BCCPSection').css("display", "none");
+                    $('#BCCPEligibleSection').css("display", "none");
+                    $('#BCCPInEligibleSection').css("display", "none");
+
+                }
+                else {
+
+                    $('#DiagnosisSection').css("display", "block");
+                    $('#DiagnosisDateSection').css("display", "none");
+                    $("#ReturnMonthsContainer").css("display", "none");
+                    $('#TreatmentSection').css("display", "none");
+                    $('#TreatmentDateSection').css("display", "none");
+                    $('#BCCPOtherSection').css("display", "none");
+                    $('#BCCPSection').css("display", "none");
+                    $('#BCCPEligibleSection').css("display", "none");
+                    $('#BCCPInEligibleSection').css("display", "none");
+
+                }
+
+            }
+            else {
+
+
+                $('#DiagnosisSection').css("display", "none");
+                $('#DiagnosisDateSection').css("display", "none");
+                // $('#FinalDiagnosisDate').val("");
+                $("#FinalDiagnosisDate").val('@(((DateTime?)ViewBag.LatestProcDate))');
+                $("#FinalDxBinID").select2({ width: "100%" }).select2('val', -1);
+                $("#ReturnMonthsContainer").css("display", "none");
+                $('#TreatmentSection').css("display", "none");
+                $('#TreatmentDateSection').css("display", "none");
+                $('#BCCPOtherSection').css("display", "none");
+                $('#BCCPSection').css("display", "none");
+                $('#BCCPEligibleSection').css("display", "none");
+                $('#BCCPInEligibleSection').css("display", "none");
+
+            }
+
+
+
+        });
+
+
+        $(document).ready(function () {
+            $("#FinalDiagnosisDate").keyup(function (e) {
+                if (e.keyCode != 8) {
+                    if ($(this).val().length == 2) {
+                        $(this).val($(this).val() + "/");
+                    } else if ($(this).val().length == 5) {
+                        $(this).val($(this).val() + "/");
+                    }
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $("#TreatmentDate").keyup(function (e) {
+                if (e.keyCode != 8) {
+                    if ($(this).val().length == 2) {
+                        $(this).val($(this).val() + "/");
+                    } else if ($(this).val().length == 5) {
+                        $(this).val($(this).val() + "/");
+                    }
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $("#BCCPInitiatedDate").keyup(function (e) {
+                if (e.keyCode != 8) {
+                    if ($(this).val().length == 2) {
+                        $(this).val($(this).val() + "/");
+                    } else if ($(this).val().length == 5) {
+                        $(this).val($(this).val() + "/");
+                    }
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $("#BCCPEnrolledDate").keyup(function (e) {
+                if (e.keyCode != 8) {
+                    if ($(this).val().length == 2) {
+                        $(this).val($(this).val() + "/");
+                    } else if ($(this).val().length == 5) {
+                        $(this).val($(this).val() + "/");
+                    }
+                }
+            });
+        });
+
+        $("#FinalDxBinID").change(function () {
+
+
+            if ('@ViewBag.CancerTypeBinID' == 2) {
+
+
+
+                // Cervical Check
+                if ($("#FinalDxBinID").val() != 19 ) {
+
+
+                    $('#TreatmentSection').css("display", "block");
+                    $('#BCCPSection').css("display", "block");
+
+
+                    if ($("#FinalDxBinID").val() == 17) {
+
+                        $('#CervicalOtherSection').css("display", "block");
+
+
+                    }
+                    else {
+
+                        $('#CervicalOtherSection').css("display", "none");
+                        $('#OtherFinalDiagnosis').val("");
+                    }
+
+                    if ($("#FinalDxBinID").val() == 15) {
+
+
+                        $('#CervicalOtherSection').css("display", "none");
+                        $('#OtherFinalDiagnosis').val("");
+
+                        $('#TreatmentSection').css("display", "none");
+                        $("#TreatmentStatusBinID").select2({ width: "100%" }).select2('val', -1);
+
+                        $('#BCCPSection').css("display", "none");
+                        $("#BCCPMedicaidEligBinID").select2({ width: "100%" }).select2('val', -1);
+
+
+                    }
+
+
+
+                }
+                else {
+
+                    $('#CervicalOtherSection').css("display", "none");
+                    $('#OtherFinalDiagnosis').val("");
+
+                    $('#TreatmentSection').css("display", "none");
+                    $("#TreatmentStatusBinID").select2({ width: "100%" }).select2('val', -1);
+
+                    $('#BCCPSection').css("display", "none");
+                    $("#BCCPMedicaidEligBinID").select2({ width: "100%" }).select2('val', -1);
+
+                }
+
+
+            }
+            else {
+                // Breast Check
+                if ($("#FinalDxBinID").val() != 18) {
+
+
+                    $('#TreatmentSection').css("display", "block");
+                    $('#BCCPSection').css("display", "block");
+
+
+                    if ($("#FinalDxBinID").val() == 22) {
+
+                        $('#BCCPOtherSection').css("display", "block");
+
+
+                    }
+                    else {
+
+                        $('#BCCPOtherSection').css("display", "none");
+                        $('#OtherBCCPDiagnosisText').val("");
+                    }
+
+                }
+
+                else {
+
+
+                    $('#BCCPOtherSection').css("display", "none");
+                    $('#OtherBCCPDiagnosisText').val("");
+
+                    $('#TreatmentSection').css("display", "none");
+                    $("#TreatmentStatusBinID").select2({ width: "100%" }).select2('val', -1);
+
+                    $('#BCCPSection').css("display", "none");
+                    $("#BCCPMedicaidEligBinID").select2({ width: "100%" }).select2('val', -1);
+
+                }
+
+            }
+
+        });
+
+
+
+
+        $("#TreatmentStatusBinID").change(function () {
+
+
+
+            if ($("#TreatmentStatusBinID").val() == 2) {
+
+
+                $('#TreatmentSection').css("display", "block");
+                $('#BCCPSection').css("display", "block");
+                $('#TreatmentDateSection').css("display", "none");
+
+            }
+            else if ($("#TreatmentStatusBinID").val() == 9) {
+
+                $('#TreatmentSection').css("display", "block");
+                $('#BCCPSection').css("display", "block");
+                $('#TreatmentDateSection').css("display", "block");
+            }
+            else if ($("#TreatmentStatusBinID").val() == 5 || $("#TreatmentStatusBinID").val() == 6 || $("#TreatmentStatusBinID").val() == 11) {
+
+
+                $('#TreatmentSection').css("display", "block");
+                $('#BCCPSection').css("display", "block");
+                $('#TreatmentDateSection').css("display", "block");
+
+            }
+            else {
+
+
+                $('#TreatmentDateSection').css("display", "block");
+                $('#BCCPSection').css("display", "block");
+
+
+
+            }
+        });
+
+
+
+
+     //   if ('@ViewBag.RoleBinID' == 1 || '@ViewBag.RoleBinID' == 3 || '@ViewBag.RoleBinID' == 13) {
+
+
+            $("#BCCPMedicaidEligBinID").change(function () {
+
+
+
+                if ($("#BCCPMedicaidEligBinID").val() == 1) {
+
+
+                    $('#BCCPEligibleSection').css("display", "block");
+                    $('#BCCPInEligibleSection').css("display", "none");
+
+
+                }
+                else if ($("#BCCPMedicaidEligBinID").val() == 2) {
+
+                    $('#BCCPEligibleSection').css("display", "none");
+                    $('#BCCPInEligibleSection').css("display", "block");
+                }
+                else {
+
+
+                    $('#BCCPEligibleSection').css("display", "none");
+                    $('#BCCPInEligibleSection').css("display", "none");
+
+
+
+                }
+            });
+
+
+
+
+
+     //   }
+
+
+        $("#CreateFinalDiagnosisButton").click(function (e) {
+
+            var iStopSub = 0;
+            var sErr = "Please correct the following issues:\n\n";
+            var iCurDate = new Date();
+
+            var iFinalDxStatusBinID = $("#FinalDxStatusBinID option:selected").val();
+
+            if (iFinalDxStatusBinID < 1) {
+                iStopSub = 1;
+                sErr += "Please enter an option for final diagnosis status" + "\n";
+
+            }
+
+            var iFinalDxStBinID = $("#FinalDxStatusBinID").val();
+
+            // if has value
+            if (iFinalDxStBinID > 0) {
+
+                // if not Pending
+                if (iFinalDxStBinID != 2) {
+
+
+                    // if treatment/return require final dx
+                    if (iFinalDxStBinID == 1 || iFinalDxStBinID == 8 || iFinalDxStBinID == 7) {
+
+                        // Final Diagnosis Section
+                        var iFinalDxBinID = $("#FinalDxBinID").val();
+
+                        if (iFinalDxBinID < 1) {
+                            iStopSub = 1;
+                            sErr += "Please enter an option for final diagnosis" + "\n";
+
+                        }
+
+                    }
+
+                    var iFinalDiagnosisDate = $("#FinalDiagnosisDate").val();
+
+                    iFinalDiagnosisDateLen = iFinalDiagnosisDate.length;
+                    if (iFinalDiagnosisDateLen < 1) {
+                        iStopSub = 1;
+                        sErr += "You must enter a Date of Final Diagnosis" + "\n";
+                    }
+
+                    if (new Date(iFinalDiagnosisDate).getTime() > new Date(iCurDate).getTime()) {
+                        iStopSub = 1;
+                        sErr += "You cannot enter a date of diagnosis in the future\n";
+                    }
+
+                    // Make sure Diagnosis Date is not before last procedure 
+                    if (new Date(iFinalDiagnosisDate).getTime() < new Date('@ViewBag.LatestProcDate').getTime()) {
+                        iStopSub = 1;
+                        sErr += "You cannot enter a date of diagnosis before last procedure date\n";
+                    }
+
+                    // Check for valid date
+                    var timestamp = kendo.parseDate(iFinalDiagnosisDate, "mm/dd/yyyy");
+
+                    if (timestamp == null) {
+
+                        iStopSub = 1;
+                        sErr += "Please enter a valid date of diagnosis\n";
+
+                    }
+
+
+
+
+                    // Check for Cancer related scenerios
+
+                    //STF Months
+                    if (iFinalDxStBinID == 7) {
+
+
+                        var iReturnMonthsBinID = $("#ReturnMonthsBinID").val();
+
+                        if (iReturnMonthsBinID < 1) {
+                            iStopSub = 1;
+                            sErr += "Please enter an option for return months" + "\n";
+
+                        }
+
+
+                    }
+                        // Return for routine, treatment needed 
+                    else if (iFinalDxStBinID == 1 || iFinalDxStBinID == 8) {
+
+
+                        // if has value
+                        if (iFinalDxBinID > 0) {
+
+                            // if cancer (breast & cervical)
+                            if (iFinalDxBinID != 18 && iFinalDxBinID != 19 && iFinalDxBinID != 15) {
+
+
+                                // Treatment Status
+                                var iTreatmentStatusBinID = $("#TreatmentStatusBinID").val();
+
+                                if (iTreatmentStatusBinID < 1) {
+                                    iStopSub = 1;
+                                    sErr += "Please enter an option for treatment" + "\n";
+
+                                }
+
+                                // BCCP Eligibility
+                                var iBCCPMedicaidEligBinID = $("#BCCPMedicaidEligBinID").val();
+
+                                if (iBCCPMedicaidEligBinID < 1) {
+                                    iStopSub = 1;
+                                    sErr += "Please enter an option for bccp eligibility" + "\n";
+
+                                }
+
+
+                                // if bccp other
+                                if (iFinalDxBinID == 22) {
+
+                                    //  OtherBCCPDiagnosisText
+                                    var iOtherBCCPDiagnosisText = $("#OtherBCCPDiagnosisText").val();
+                                    if (iOtherBCCPDiagnosisText == "") {
+
+                                        iStopSub = 1;
+                                        sErr += "You must enter BCCP Other Diagnosis" + "\n";
+
+                                    }
+
+
+
+                                }
+
+
+                                // if cervical other
+                                if (iFinalDxBinID == 17) {
+
+                                    // OtherFinalDiagnosis
+                                    var iOtherFinalDiagnosis = $("#OtherFinalDiagnosis").val();
+                                    if (iOtherFinalDiagnosis == "") {
+
+                                        iStopSub = 1;
+                                        sErr += "You must enter Other Diagnosis" + "\n";
+
+                                    }
+
+                                }
+
+
+                                // if treatment status has value
+                                if (iTreatmentStatusBinID > 0) {
+
+                                    // All Treatment except pending
+                                    if (iTreatmentStatusBinID != 2) {
+
+                                        // Treatment Date
+                                        var iTreatmentDate = $("#TreatmentDate").val();
+
+                                        iTreatmentDateLen = iTreatmentDate.length;
+                                        if (iTreatmentDateLen < 1) {
+                                            iStopSub = 1;
+                                            sErr += "You must enter a Date of Treatment" + "\n";
+                                        }
+
+                                        if (new Date(iTreatmentDate).getTime() > new Date(iCurDate).getTime()) {
+                                            iStopSub = 1;
+                                            sErr += "You cannot enter a date of treatment in the future\n";
+                                        }
+                                        // Check for valid date
+                                        var timestamp = kendo.parseDate(iTreatmentDate, "mm/dd/yyyy");
+
+                                        if (timestamp == null) {
+
+                                            iStopSub = 1;
+                                            sErr += "Please enter a valid date of treatment\n";
+
+                                        }
+
+                                    }
+
+                                }
+                                // if bccp eligibility has value
+                                if (iBCCPMedicaidEligBinID > 0) {
+
+                                    // Eligible
+                                    if (iBCCPMedicaidEligBinID == 1) {
+
+                                        //// BCCP Initiated Date
+                                        //var iBCCPInitiatedDate = $("#BCCPInitiatedDate").val();
+
+                                        //iBCCPInitiatedDateLen = iBCCPInitiatedDate.length;
+                                        //if (iBCCPInitiatedDateLen < 1) {
+                                        //    iStopSub = 1;
+                                        //    sErr += "You must enter a Date of BCCP Initiation" + "\n";
+                                        //}
+
+                                        //if (new Date(iBCCPInitiatedDate).getTime() > new Date(iCurDate).getTime()) {
+                                        //    iStopSub = 1;
+                                        //    sErr += "You cannot enter a date of bccp initiation in the future\n";
+                                        //}
+                                        //// Check for valid date
+                                        //var timestamp = kendo.parseDate(iBCCPInitiatedDate, "mm/dd/yyyy");
+
+                                        //if (timestamp == null) {
+
+                                        //    iStopSub = 1;
+                                        //    sErr += "Please enter a valid date of bccp initiation\n";
+
+                                        //}
+
+                                        //// BCCP Initiated Days
+                                        //var iBCCPInitiatedDays = $("#BCCPInitiatedDays").val();
+                                        //if (iBCCPInitiatedDays == "") {
+
+                                        //    iStopSub = 1;
+                                        //    sErr += "You must enter number of BCCP Initiated Days" + "\n";
+
+                                        //}
+
+
+                                        //// BCCP Enrolled Date
+                                        //var iBCCPEnrolledDate = $("#BCCPEnrolledDate").val();
+
+                                        //iBCCPEnrolledDateLen = iBCCPEnrolledDate.length;
+                                        //if (iBCCPEnrolledDateLen < 1) {
+                                        //    iStopSub = 1;
+                                        //    sErr += "You must enter a Date of BCCP application completion" + "\n";
+                                        //}
+
+                                        //if (new Date(iBCCPEnrolledDate).getTime() > new Date(iCurDate).getTime()) {
+                                        //    iStopSub = 1;
+                                        //    sErr += "You cannot enter a date of bccp application completion in the future\n";
+                                        //}
+                                        //// Check for valid date
+                                        //var timestamp = kendo.parseDate(iBCCPEnrolledDate, "mm/dd/yyyy");
+
+                                        //if (timestamp == null) {
+
+                                        //    iStopSub = 1;
+                                        //    sErr += "Please enter a valid date of bccp application completion\n";
+
+                                        //}
+
+                                        //// BCCP Enrolled Days
+                                        //var iBCCPEnrolledDays = $("#BCCPEnrolledDays").val();
+                                        //if (iBCCPEnrolledDays == "") {
+
+                                        //    iStopSub = 1;
+                                        //    sErr += "You must enter number of BCCP application completion business Days" + "\n";
+
+                                        //}
+
+
+
+
+
+
+                                    }
+                                    else if (iBCCPMedicaidEligBinID == 2) {
+
+
+                                        // Reason Ineligible
+                                        var iReasonIneligible = $("#ReasonIneligible").val();
+                                        if (iReasonIneligible == "") {
+
+                                            iStopSub = 1;
+                                            sErr += "You must enter a reason for ineligibility" + "\n";
+
+                                        }
+
+
+
+                                    }
+
+
+                                }
+
+
+
+
+
+                            }
+
+                        }
+
+
+                    }
+
+
+
+
+                }
+
+
+            }
+
+            if (iStopSub != 0) {
+                alert(sErr);
+                e.preventDefault();
+
+            }
+
+        });
+
+        $('#CancelFinalDiagnosisLockButton').click(function () {
+
+            $('#AccGlowContainer').removeClass("glowdiv");
+            $("#txtSearch").removeAttr("disabled", "disabled");
+            $('#EditMessageContainer').css("display", "none");
+            $('#ScreeningToolbarContainer').css("display", "block");
+            $('#FooterMenuBarContainer').css("display", "block");
+            $('#ScreenProcedureListContainer').load('@Url.Action("_ScreenProcedureList", "ScreenProcedures", new { id = ViewBag.ScreeningID, id2 = ViewBag.CancerTypeBinID })');
+
+            $('#HomeLinkContainer').css("display", "block");
+            $('#HomeNoLinkContainer').css("display", "none");
+
+            $("#ClientButton").removeAttr("disabled", "disabled");
+            $("#ClientButton").css("opacity", "1.0");
+
+            $("#ScreeningButton").removeAttr("disabled", "disabled");
+            $("#ScreeningButton").css("opacity", "1.0");
+
+            $("#EnrollmentEdit0Button").removeAttr("disabled", "disabled");
+            $("#EnrollmentEdit0Button").css("opacity", "1.0");
+
+            $("#DiagnosticProcedureEditButton").removeAttr("disabled", "disabled");
+            $("#DiagnosticProcedureEditButton").css("opacity", "1.0");
+
+            $("#CaseManagementEditButton").removeAttr("disabled", "disabled");
+            $("#CaseManagementEditButton").css("opacity", "1.0");
+
+            $("#FinalDiagnosisEditButton").removeAttr("disabled", "disabled");
+            $("#FinalDiagnosisEditButton").css("opacity", "1.0");
+
+            $('#ProfileButtonDown').css("display", "block");
+            $("#ProfileButtonDown").css("opacity", "1.0");
+
+            $("#ClientHistoryButton").removeAttr("disabled", "disabled");
+            $("#ClientHistoryButton").css("opacity", "1.0");
+
+            $("#SmallProfileButton").removeAttr("disabled", "disabled");
+            $("#SmallProfileButton").css("opacity", "1.0");
+
+            $("#SmallScreeningButton").removeAttr("disabled", "disabled");
+            $("#SmallScreeningButton").css("opacity", "1.0");
+
+            $("#SmallEnrollmentButton").removeAttr("disabled", "disabled");
+            $("#SmallEnrollmentButton").css("opacity", "1.0");
+
+            $("#SmallLocationButton").removeAttr("disabled", "disabled");
+            $("#SmallLocationButton").css("opacity", "1.0");
+
+            $("#ClientEditButton").removeAttr("disabled", "disabled");
+            $("#ClientEditButton").css("opacity", "1.0");
+
+            $("#EnrollmentEditButton").removeAttr("disabled", "disabled");
+            $("#EnrollmentEditButton").css("opacity", "1.0");
+
+            $("#MedicalHistoryEditButton").removeAttr("disabled", "disabled");
+            $("#MedicalHistoryEditButton").css("opacity", "1.0");
+
+            $('#AccordionContentContainer').load('@Url.Action("Create", "ScreenProcedures", new { id = ViewBag.ScreeningID, id2 = 1 })');
+
+        });
+
+
+    });
+
+    $('#FinalDiagnosisCreateForm').on("submit", function (evt) {
+        evt.preventDefault();
+        if ($('#FinalDiagnosisCreateForm').valid()) {
+            //  $("#SaveExitButton").prop("disabled", true);
+            $.ajax({
+                url: $("#FinalDiagnosisCreateForm").attr('action'),
+                type: $("#FinalDiagnosisCreateForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#FinalDiagnosisCreateForm").serialize(),
+                success: function (data) {
+
+                    var clientid = data.Modified;
+                    var screeningid = data.Modified2;
+
+
+                    $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ScreeningID })');
+
+                    // Reset Fields
+
+                    $('#AccGlowContainer').removeClass("glowdiv");
+                    $("#txtSearch").removeAttr("disabled", "disabled");
+                    $('#EditMessageContainer').css("display", "none");
+                    $('#ScreeningToolbarContainer').css("display", "block");
+                    $('#FooterMenuBarContainer').css("display", "block");
+
+                    $('#HomeLinkContainer').css("display", "block");
+                    $('#HomeNoLinkContainer').css("display", "none");
+
+                    $("#ClientButton").removeAttr("disabled", "disabled");
+                    $("#ClientButton").css("opacity", "1.0");
+
+                    $("#ScreeningButton").removeAttr("disabled", "disabled");
+                    $("#ScreeningButton").css("opacity", "1.0");
+
+                    $("#EnrollmentEdit0Button").attr("disabled", "disabled");
+                    $("#EnrollmentEdit0Button").css("opacity", "0.5");
+
+                    $("#DiagnosticProcedureEditButton").attr("disabled", "disabled");
+                    $("#DiagnosticProcedureEditButton").css("opacity", "0.5");
+
+                    $("#CaseManagementEditButton").attr("disabled", "disabled");
+                    $("#CaseManagementEditButton").css("opacity", "0.5");
+
+                    $("#FinalDiagnosisEditButton").attr("disabled", "disabled");
+                    $("#FinalDiagnosisEditButton").css("opacity", "0.5");
+
+                    $('#ProfileButtonDown').css("display", "block");
+                    $("#ProfileButtonDown").css("opacity", "1.0");
+
+                    $("#ClientHistoryButton").removeAttr("disabled", "disabled");
+                    $("#ClientHistoryButton").css("opacity", "1.0");
+
+                    $("#SmallProfileButton").removeAttr("disabled", "disabled");
+                    $("#SmallProfileButton").css("opacity", "1.0");
+
+                    $("#SmallScreeningButton").removeAttr("disabled", "disabled");
+                    $("#SmallScreeningButton").css("opacity", "1.0");
+
+                    $("#SmallEnrollmentButton").removeAttr("disabled", "disabled");
+                    $("#SmallEnrollmentButton").css("opacity", "1.0");
+
+                    $("#SmallLocationButton").removeAttr("disabled", "disabled");
+                    $("#SmallLocationButton").css("opacity", "1.0");
+
+                    $("#ClientEditButton").removeAttr("disabled", "disabled");
+                    $("#ClientEditButton").css("opacity", "1.0");
+
+                    $("#EnrollmentEditButton").removeAttr("disabled", "disabled");
+                    $("#EnrollmentEditButton").css("opacity", "1.0");
+
+                    $("#MedicalHistoryEditButton").removeAttr("disabled", "disabled");
+                    $("#MedicalHistoryEditButton").css("opacity", "1.0");
+
+
+                }
+            });
+        }
+
+    });
+
+
+</script>
+    
+ 

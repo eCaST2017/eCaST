@@ -1,0 +1,126 @@
+﻿@{
+    ViewBag.Title = "eCaST Data System";
+}
+
+
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <br />
+            <br />
+            <br />
+            <br />
+            <div id="OptionMenuBarContainer"></div>
+           <br />
+            <div class="se-pre-con"></div>
+            <div id="ClientSection"></div>
+
+            <br />
+            <br />
+
+            </div>
+        </div>
+
+
+
+
+
+
+    @section Scripts{
+
+
+
+    <script type="text/javascript">
+        window.history.forward();
+        function noBack() { window.history.forward(); }
+    </script>
+
+
+
+    <script type="text/javascript">
+
+     
+
+    $(function () {
+
+
+        $(window).load(function () {
+          
+
+
+
+
+            $("#ClientSection").load("@Url.Action("_Dashboard", "Home")",
+                                     function (response, status, xhr) {
+                                         if (status == "error") {
+
+                                         }
+
+                                         
+
+
+                                     });
+
+
+
+
+		 // Check for incoming contact support and redirect
+        if ('@ViewBag.ClientID' != "" && '@ViewBag.ScreeningID' == 0) {
+
+
+            $('#ContactContainer').css("display", "block");
+            $('#ContactContainer').load('@Html.Raw(Url.Action("Index", "RequestTrackers", new { id = @ViewBag.ClientID, id2 = @ViewBag.ScreeningID, id3= @ViewBag.ScreeningCheck }))');
+            $('#ClientSection').load('@Url.Action("Details", "Clients", new { id = @ViewBag.ClientID, id2 = 0 })');
+
+
+
+
+        }
+        else if ('@ViewBag.ClientID' != "" && '@ViewBag.ScreeningID' != "") {
+
+
+            $('#ContactContainer').css("display", "block");
+            $('#ContactContainer').load('@Html.Raw(Url.Action("Index", "RequestTrackers", new { id = @ViewBag.ClientID, id2 = @ViewBag.ScreeningID, id3= @ViewBag.ScreeningCheck }))');
+            $('#ClientSection').load('@Url.Action("Details", "Clients", new { id = 0, id2 = @ViewBag.ScreeningID })');
+           
+           
+
+
+        }
+        else if ('@ViewBag.ClientID' == "" && '@ViewBag.ScreeningID' == "") {
+
+
+            $('#ContactContainer').css("display", "none");
+
+        }
+        
+
+
+        });
+
+
+    });
+
+
+
+
+    $(function () {
+
+
+        $('#OptionMenuBarContainer').load('@Url.Action("_Search", "Home", new { id = ViewBag.HideShow })');
+
+
+       
+
+
+    });
+
+
+        
+
+
+        </script>
+
+
+    }

@@ -1,0 +1,58 @@
+﻿@model eCaST.Models.Person
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this client?</h3>
+<div>
+
+    <dl class="dl-horizontal">
+
+
+
+        <dd>
+            Last Updated:  @Html.DisplayFor(model => model.DateUpdated)
+        </dd>
+
+
+
+        <dd>
+            Updated By:  @Html.DisplayFor(model => model.UpdatedBy)
+        </dd>
+
+
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+
+
+            <input id="CloseDeleteCButton" type="button" value="Cancel" class="btn btn-default" /> <input type="submit" value="Delete" class="btn btn-danger" />
+
+        </div>
+    }
+</div>
+
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        $("#CloseDeleteCButton").click(function () {
+
+            $('#PersonSection').load('@Url.Action("Details", "People", new { id = @Model.PersonID })');
+
+        });
+
+    });
+
+</script>

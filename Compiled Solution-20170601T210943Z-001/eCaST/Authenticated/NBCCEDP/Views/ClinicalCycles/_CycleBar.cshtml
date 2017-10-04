@@ -1,0 +1,170 @@
+﻿@model IEnumerable<eCaST.ViewModels.ClinicalCycleViewModel>
+
+
+
+
+
+
+<div class="list-group">
+    
+    <a id="ProfileButton" class="list-group-item" style="color:#666;background-color:#f7f5f5" href="#Dashboard">
+        <i class="fa fa-user fa-fw"></i>&nbsp;@ViewBag.FirstName @ViewBag.LastName @Html.FormatValue(ViewBag.DOB, "{0:MM/dd/yyyy}") ( Age: @ViewBag.Age )
+    </a>
+
+    <a id="NewCycleButton" class="list-group-item" style="color:#fff;background-color:#5CB85C" href="#Dashboard"><i class="fa fa-plus-circle fa-fw"></i>Add New Cycle
+    
+        <div class="pull-right"><a href="#" class="btn btn-default btn-xs"><i class="fa fa-university" aria-hidden="true"></i>&nbsp;Billing</a></div>
+    
+    </a>
+
+   
+
+</div>
+
+
+ 
+
+    @foreach (var item in Model)
+    {
+       
+          
+
+               <div class="list-group">  
+    
+                
+                  
+                        <div style="cursor:pointer" id="DashboardNavButton_@item.ClinicalCycleID" class="list-group-item">
+
+                            <div style="padding:4px;">
+                               
+                                @if (item.ScreeningType == 1)
+                                {
+
+                                    <span style="background-color:#ccc" class="badge">S&D</span>
+
+                                }
+                                else
+                                {
+
+                                    <span style="background-color:#ccc" class="badge">STF</span>
+
+                                }
+
+                                <span style="font-size:10px;font-style:italic;color:#ccc">@item.SiteName</span>
+
+                                <div class="pull-right">
+
+                                 
+                                 <span style="color:#666;display:none" id="CycleButtonDown_@item.ClinicalCycleID"><span class="glyphicon glyphicon-plus"></span></span>
+                                 <span style="color:#666;display:none" id="CycleButtonUp_@item.ClinicalCycleID"><span class="glyphicon glyphicon-minus"></span></span>
+                                   
+                                
+                                 </div>
+                            </div>
+                            <br />
+
+                            <div  class="breadcrumb">
+                            
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                       
+                                      <div style="padding-top:6px"><span class="glyphicon glyphicon-refresh"></span>&nbsp;&nbsp;@Html.DisplayFor(modelItem => item.ClinicalCycleID)</div>  
+
+
+                                        
+
+
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <span style="background-color:#5CB85C" class="badge pull-right">&nbsp;@Html.FormatValue(item.ClinicalCycleDate, "{0:MM/dd/yyyy}")   <button class="btn btn-success btn-xs"><span class="glyphicon glyphicon-plus"></span></button>   </span>
+
+
+                                    </div>
+                                    </div>
+                                     
+
+                            
+                            </div> 
+                    
+
+                            
+                           
+                            <div id="ScreeningContainer_@item.ClinicalCycleID"></div>
+
+
+
+
+
+                        </div>
+
+                  
+
+                  
+
+
+
+                  
+                </div>
+               
+              
+             
+               <script type="text/javascript">
+
+                   $("#CycleButtonUp_@item.ClinicalCycleID").css("display", "block");
+                   $("#ScreeningContainer_@item.ClinicalCycleID").load("@Url.Action("Index", "Screenings", new { id = item.ClinicalCycleID })",
+                   function (response, status, xhr) {
+                       if (status == "error") {
+
+                       }
+                   });
+
+
+                   $('#CycleButtonDown_@item.ClinicalCycleID').click(function () {
+
+
+
+               
+                       $("#CycleButtonDown_@item.ClinicalCycleID").css("display", "none");
+                       $("#CycleButtonUp_@item.ClinicalCycleID").css("display", "block");
+
+
+                       $("#ScreeningContainer_@item.ClinicalCycleID").load("@Url.Action("Index", "Screenings", new { id = item.ClinicalCycleID })",
+                         function (response, status, xhr) {
+                             if (status == "error") {
+
+                             }
+                         });
+
+
+
+                   });
+
+                   $('#CycleButtonUp_@item.ClinicalCycleID').click(function () {
+
+
+                       $("#CycleButtonDown_@item.ClinicalCycleID").css("display", "block");
+                       $("#CycleButtonUp_@item.ClinicalCycleID").css("display", "none");
+                       $("#ScreeningContainer_@item.ClinicalCycleID").html("");
+
+
+                   });
+
+
+                   $('#NewCycleButton').click(function () {
+
+
+                       $('#ContentContainer').load('@Url.Action("_NewCycleContainer", "Screenings", new { id = @item.ClientID })');
+
+
+                   });
+
+               </script>
+
+
+           
+    }
+
+
+

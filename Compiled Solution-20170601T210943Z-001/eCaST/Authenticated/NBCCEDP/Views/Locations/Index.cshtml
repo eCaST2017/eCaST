@@ -1,0 +1,61 @@
+﻿@model IEnumerable<eCaST.Models.Location>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<div id="PhoneInformationContainer"></div>
+
+
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4><i class="fa fa-calendar-o fa-fw"></i>&nbsp;Location Information</h4>
+
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+
+
+        <div class="row">
+
+
+            <div class="col-md-6">
+
+                <div id="LocationListContainer"></div>
+
+            </div>
+
+            <div class="col-md-6 breadcrumb">
+
+
+                <div id="LocationEditContainer"></div>
+               
+            
+            
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+        $('#PhoneInformationContainer').load('@Url.Action("Index", "Phones", new { id = ViewBag.ClientID })');
+        $('#LocationEditContainer').load('@Url.Action("Create", "Locations", new { id = ViewBag.ClientID })');
+        $('#LocationListContainer').load('@Url.Action("_LocationList", "Locations", new { id = ViewBag.ClientID })');
+
+    });
+
+</script>

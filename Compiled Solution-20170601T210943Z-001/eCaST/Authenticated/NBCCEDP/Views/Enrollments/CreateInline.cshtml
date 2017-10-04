@@ -1,0 +1,62 @@
+﻿@model eCaST.ViewModels.EnrollmentViewModel
+
+
+@using (Html.BeginForm("_CreateEnrollmentF", "Enrollments", FormMethod.Post, new { id = "CreateEnrollmentInfoForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+<div id="EnrollmentIContainer"></div>
+@Html.Hidden("EnrollmentID", (int?)ViewBag.EnrollmentID)
+@Html.Hidden("ClientID", (int?)ViewBag.ClientID)
+
+}
+
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+
+
+        $('#EnrollmentIContainer').load('@Html.Raw(Url.Action("_EnrollmentInfo", "Enrollments", new { id = ViewBag.EnrollmentID, id2 = 0, id3 = 2 }))');
+
+
+    });
+
+
+
+    
+    $('#CreateEnrollmentInfoForm').on("submit", function (evt) {
+        evt.preventDefault();
+        if ($('#CreateEnrollmentInfoForm').valid()) {
+
+
+            $("#CreateEnrollIButton").prop("disabled", true);
+
+            $.ajax({
+                url: $("#CreateEnrollmentInfoForm").attr('action'),
+                type: $("#CreateEnrollmentInfoForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#CreateEnrollmentInfoForm").serialize(),
+                success: function (data) {
+
+                    //var clientid = data.Modified;
+                    //var screeningid = data.Modified2;
+
+
+                    $('#ClientSection').load('@Url.Action("Details", "Clients", new { id = @ViewBag.ClientID, id2 = 0 })');
+
+
+
+                }
+            });
+        }
+
+    });
+
+
+</script>

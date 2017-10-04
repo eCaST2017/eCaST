@@ -1,0 +1,200 @@
+﻿@model eCaST.ViewModels.ScreeningViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="btn-group" role="group" aria-label="...">
+    <button style="background-color:#F5F5F5;" id="MedicalHistoryEditButton" type="button" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+    <button style="background-color:#F5F5F5;cursor:text" type="button" class="btn btn-default"><i class="fa fa-history" aria-hidden="true"></i>&nbsp;History</button>
+   
+
+@if (Model.CancerTypeBinID == 1)
+{
+
+    <button style="cursor:text" type="button" class="btn btn-default">Prev Mam: @Model.PrevMamBinName</button>
+    
+    if (@Model.PrevMamDate != null) { 
+    
+    <button style="cursor:text" type="button" class="btn btn-default"><i class="fa fa-calendar-o" aria-hidden="true"></i>&nbsp;@Html.FormatValue(Model.PrevMamDate, "{0:MM/dd/yyyy}")</button>
+   
+        }
+    
+     <button style="cursor:text" type="button" class="btn btn-default">@Model.CurrentMamReasonBinName</button>
+
+
+}
+else
+{
+
+    <button style="cursor:text" type="button" class="btn btn-default">Hyster: @Model.HysterectomyStatusBinName</button>
+    <button style="cursor:text" type="button" class="btn btn-default">Prev Pap: @Model.PrevPapBinName</button>
+    
+    if (@Model.PrevPapDate != null) { 
+    
+    <button style="cursor:text" type="button" class="btn btn-default"><i class="fa fa-calendar-o" aria-hidden="true"></i>&nbsp;@Html.FormatValue(Model.PrevPapDate, "{0:MM/dd/yyyy}")</button>
+    
+    }
+    
+    <button style="cursor:text" type="button" class="btn btn-default">@Model.CurrentPapReasonBinName</button>
+
+
+
+
+}
+    
+
+   @if (Model.MedicalHistoryList.Count() > 0)
+   {
+
+
+    <button style="cursor:text" type="button" class="btn btn-default">@Html.Raw(string.Join(",", @Model.MedicalHistoryList.ToArray()))</button>
+
+
+   }
+
+   
+
+
+
+</div>
+
+
+
+
+
+
+@*<div class="row">
+
+    <div style="text-align:left" class="col-md-8"><h5 style="color:#333"><i class="fa fa-history" aria-hidden="true"></i>&nbsp; Medical History</h5></div>
+
+    <div class="col-md-4"><div style="padding-top:8px" class="pull-right">@Html.Raw(string.Join(",", @Model.MedicalHistoryList.ToArray()))</div>
+
+    </div>
+
+    </div>
+
+
+@if (Model.CancerTypeBinID == 1)
+{
+
+
+    <div class="row">
+
+        <div style="text-align:left" class="col-md-12">
+
+            <span style="background-color:#999" class="badge">Prev Mam: @Model.PrevMamBinName @Html.FormatValue(Model.PrevMamDate, "{0:MM/dd/yyyy}")</span>&nbsp;<span style="background-color:#999" class="badge">@Model.CurrentMamReasonBinName</span>
+
+        </div>
+
+
+    </div>
+
+
+
+}
+else
+{
+
+    <div class="row">
+
+        <div style="text-align:left" class="col-md-12">
+
+            <span style="background-color:#999" class="badge">Hyster Status: @Model.HysterectomyStatusBinName</span>&nbsp;<span style="background-color:#999" class="badge">Prev Pap: @Model.PrevPapBinName @Html.FormatValue(Model.PrevPapDate, "{0:MM/dd/yyyy}")</span>&nbsp;<span style="background-color:#999" class="badge">@Model.CurrentPapReasonBinName</span>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+}*@
+
+
+
+
+<script type="text/javascript">
+
+
+    $('#MedicalHistoryEditButton').click(function () {
+
+
+        $('#AccordionContentContainer').load('@Url.Action("_MedicalHistoryContainer", "Screenings", new { id = Model.CancerTypeBinID, id2 = Model.ScreeningID })');
+
+
+        // Lock Screen
+        $('#AccGlowContainer').addClass("glowdiv");
+        $("#txtSearch").attr("disabled", "disabled");
+        $('#EditMessageContainer').css("display", "block");
+        $('#ScreeningToolbarContainer').css("display", "none");
+        $('#FooterMenuBarContainer').css("display", "none");
+        $('#ScreenProcedureListContainer').load('@Url.Action("_StaticScreenProcedureList", "ScreenProcedures", new { id = Model.ScreeningID, id2 = ViewBag.CancerTypeBinID })');
+
+        $('#HomeLinkContainer').css("display", "none");
+        $('#HomeNoLinkContainer').css("display", "block");
+
+        $("#ClientButton").attr("disabled", "disabled");
+        $("#ClientButton").css("opacity", "0.5");
+
+        $("#ScreeningButton").attr("disabled", "disabled");
+        $("#ScreeningButton").css("opacity", "0.5");
+
+        // $("#ProfileButtonDown").attr("disabled", "disabled");
+        $('#ProfileButtonDown').css("display", "none");
+        $("#ProfileButtonDown").css("opacity", "0.5");
+
+        $("#ClientHistoryButton").attr("disabled", "disabled");
+        $("#ClientHistoryButton").css("opacity", "0.5");
+
+        $("#SmallProfileButton").attr("disabled", "disabled");
+        $("#SmallProfileButton").css("opacity", "0.5");
+
+        $("#SmallScreeningButton").attr("disabled", "disabled");
+        $("#SmallScreeningButton").css("opacity", "0.5");
+
+        $("#SmallEnrollmentButton").attr("disabled", "disabled");
+        $("#SmallEnrollmentButton").css("opacity", "0.5");
+
+        $("#SmallLocationButton").attr("disabled", "disabled");
+        $("#SmallLocationButton").css("opacity", "0.5");
+
+        $("#ClientEditButton").attr("disabled", "disabled");
+        $("#ClientEditButton").css("opacity", "0.5");
+
+        $("#EnrollmentEditButton").attr("disabled", "disabled");
+        $("#EnrollmentEditButton").css("opacity", "0.5");
+
+        $("#MedicalHistoryEditButton").attr("disabled", "disabled");
+        $("#MedicalHistoryEditButton").css("opacity", "0.5");
+
+
+
+
+    });
+
+
+    $(function () {
+
+
+        if ('@ViewBag.ExpiredScreenChecker' == 1) {
+
+
+
+            $("#MedicalHistoryEditButton").attr("disabled", "disabled");
+            $("#MedicalHistoryEditButton").css("opacity", "0.5");
+
+        }
+        else {
+
+            $("#MedicalHistoryEditButton").removeAttr("disabled", "disabled");
+            $("#MedicalHistoryEditButton").css("opacity", "1.0");
+
+        }
+
+    });
+
+</script>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<eCaST.Models.Phone>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4><i class="fa fa-mobile-phone fa-fw"></i>&nbsp;Contact Information</h4>
+
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+
+
+        <div class="row">
+
+
+            <div class="col-md-6">
+
+                <div id="PhoneListContainer"></div>
+
+            </div>
+
+            <div class="col-md-6 breadcrumb">
+
+
+                <div id="PhoneEditContainer"></div>
+               
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+        $('#PhoneEditContainer').load('@Url.Action("Create", "Phones", new { id = ViewBag.ClientID })');
+        $('#PhoneListContainer').load('@Url.Action("_PhoneList", "Phones", new { id = ViewBag.ClientID })');
+
+    });
+
+</script>

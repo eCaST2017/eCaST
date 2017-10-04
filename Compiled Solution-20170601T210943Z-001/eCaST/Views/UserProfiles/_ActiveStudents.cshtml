@@ -1,0 +1,283 @@
+﻿@model IEnumerable<CTL.ViewModels.UserProfileViewModel>
+
+@{
+    ViewBag.Title = "Active Students";
+}
+
+<script type="text/javascript" charset="utf-8">
+     $(document).ready(function () {
+         oTable = $('#ActiveStudentList').dataTable({
+             "bJQueryUI": true,
+             "sPaginationType": "full_numbers",
+             "aaSorting": [[1, "desc"]]
+         });
+     });
+		</script>
+<fieldset>
+<table style="width:100%">
+    <tr>
+        <td>
+
+ <div style="color:#333; font-size:28px; font-weight:300; padding-left:8px; padding-bottom:16px; padding-top:2px">Active Partners (@ViewBag.StudentCount)</div>
+
+        </td>
+ <td style="text-align:right; vertical-align:bottom">
+
+             
+     
+       @*@Html.ActionLink("Add New Partner", "RegisterInternalInline", new { Controller = "Account" }, new { @class = "createLinkUSERS", @Style = "font-size:18px" })*@ 
+
+     <a class="createLinkUSERS" style="text-decoration:none; color:#fff;font-size:14px" href="@Url.Action("RegisterInternalInline", "Account")">
+
+         <span class="btn btn-success">Add Partner</span>
+     </a>
+
+
+            </td>
+        </tr>
+    </table>
+    
+<div class="demo_jui">
+<table style="width: 100%; font-size: 18px" id="ActiveStudentList">
+    <thead>
+    <tr>
+        <th></th>
+
+          <th>
+            Name
+        </th>
+
+        <th>
+            Username
+        </th>
+      
+       @* <th>
+            Last Name
+        </th>*@
+        @*<th>
+            Phone Number
+        </th>*@
+        <th>
+            Organization
+        </th>
+        <th>
+            Access Level
+        </th>
+      
+    </tr>
+        </thead>
+@foreach (var item in Model) {
+    <tr>
+        <td style="width:35%">
+
+            <a id="edit1LinkS" style="text-decoration:none" class="edit1LinkS" href="@Url.Action("Edit", "UserProfiles", new { id = item.UserId })">
+
+
+                <span class="btn btn-success" style="font-size:14px">Edit</span>
+            </a>
+
+
+
+
+            <a id="delete1LinkS" style="text-decoration:none" class="delete1LinkS" href="@Url.Action("Delete", "UserProfiles", new { id = item.UserId })">
+
+
+                <span class="btn btn-danger" style="font-size:14px">Delete </span>
+            </a>
+           
+        </td>
+       
+        <td>
+			@item.FirstName
+        </td>
+
+         <td>
+			@item.UserName
+        </td>
+
+       @* <td>
+			@item.LastName
+        </td>*@
+        @* <td>
+			@item.PhoneNumber
+        </td>*@
+        <td>
+			@item.OrganizationName
+        </td>
+         <td>
+			@item.RoleBinName
+        </td>
+       
+    </tr>
+}
+
+</table>
+    </div>
+    </fieldset>
+  <div id="delete1DialogS" title="Delete Partner"></div>
+ <div id="update1DialogS" title="Partner Profile"></div>
+<div id="createDialogUSERS" title="Add Partner"></div>
+
+<script type="text/javascript">
+
+    var linkObj4;
+    $(function () {
+
+
+        $('#createDialogUSERS').dialog({
+            autoOpen: false,
+            width: 900,
+            height: 400,
+            resizable: true,
+            modal: true,
+            //buttons: {
+            //    //"Add": function () {
+            //    //    $("#update-message").html(''); //make sure there is nothing on the message before we continue                         
+            //    //    $("#addUserForm").submit();
+
+            //    //},
+            //    "Cancel": function () {
+            //        $(this).dialog("close");
+            //    }
+
+
+
+            //}
+        });
+
+        $(".createLinkUSERS").click(function () {
+            //change the title of the dialog
+            linkObj4 = $(this);
+            var dialogDiv = $('#createDialogUSERS');
+            var viewUrl = linkObj4.attr('href');
+            $.get(viewUrl, function (data) {
+                dialogDiv.html(data);
+                //validation
+                var $form = $("#addUserForm");
+                // Unbind existing validation
+                //$form.unbind();
+                //$form.data("validator", null);
+                // Check document for changes
+                //$.validator.unobtrusive.parse(document);
+                // Re add validation with changes
+                //$form.validate($form.data("unobtrusiveValidation").options);
+                //open dialog
+                dialogDiv.dialog('open');
+            });
+            return false;
+        });
+
+    });
+
+
+
+    var linkObj;
+    $(function () {
+        $(".edit1LinkS").button();
+        $(".survey1LinkS").button();
+        $(".review1LinkS").button();
+        $(".detailsLinkS").button();
+        $(".createLinkUSERS").button();
+        $(".delete1LinkS").button();
+        $(".passwordLinkS").button();
+
+        $('#update1DialogS').dialog({
+            autoOpen: false,
+            width: 750,
+            height: 440,
+            resizable: true,
+            modal: true,
+            buttons: {
+                "Update": function () {
+                    $("#update-message").html(''); //make sure there is nothing on the message before we continue                         
+                    $("#updateUserForm").submit();
+                    
+                },
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $(".edit1LinkS").click(function () {
+            //change the title of the dialog
+            linkObj = $(this);
+            var dialogDiv = $('#update1DialogS');
+            var viewUrl = linkObj.attr('href');
+            $.get(viewUrl, function (data) {
+                dialogDiv.html(data);
+                //validation
+                var $form = $("#updateUserForm");
+                // Unbind existing validation
+                //$form.unbind();
+                //$form.data("validator", null);
+                // Check document for changes
+                //$.validator.unobtrusive.parse(document);
+                // Re add validation with changes
+                //$form.validate($form.data("unobtrusiveValidation").options);
+                //open dialog
+                dialogDiv.dialog('open');
+            });
+            return false;
+        });
+
+
+    });
+
+
+    var linkObj3;
+    $(function () {
+        $(".delete1LinkS").button();
+
+        $('#delete1DialogS').dialog({
+            autoOpen: false,
+            width: 900,
+            height: 400,
+            resizable: true,
+            modal: true,
+            buttons: {
+                "Delete": function () {
+                    $("#update-message").html(''); //make sure there is nothing on the message before we continue                         
+                    $("#deleteUserForm").submit();
+
+                },
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $(".delete1LinkS").click(function () {
+            //change the title of the dialog
+            linkObj3 = $(this);
+            var dialogDiv = $('#delete1DialogS');
+            var viewUrl = linkObj3.attr('href');
+            $.get(viewUrl, function (data) {
+                dialogDiv.html(data);
+                //open dialog
+                dialogDiv.dialog('open');
+            });
+            return false;
+        });
+
+    });
+
+    function updateSuccess(data) {
+        if (data.Success == true) {
+            //we update the table's info
+            var parent = linkObj.closest("tr");
+            parent.find(".carName").html(data.Object.Name);
+            parent.find(".carDescription").html(data.Object.Description);
+            //now we can close the dialog
+            $('#delete1DialogS').dialog('close');
+            //twitter type notification
+            $('#commonMessage').html("Update Complete");
+            $('#commonMessage').delay(400).slideDown(400).delay(3000).slideUp(400);
+        }
+        else {
+            $("#update-message").html(data.ErrorMessage);
+            $("#update-message").show();
+        }
+    }
+
+    </script>

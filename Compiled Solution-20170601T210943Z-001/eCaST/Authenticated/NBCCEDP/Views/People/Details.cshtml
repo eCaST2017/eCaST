@@ -1,0 +1,462 @@
+﻿@model eCaST.Models.Person
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+
+@using (Html.BeginForm("_TransferClientF", "People", FormMethod.Post, new { id = "TransferClientForm" }))
+{
+
+
+    if (ViewBag.TransferRequired == true && ViewBag.RoleID == 2)
+    {
+
+
+ 
+       @Html.HiddenFor(model => model.SiteID)
+       @Html.HiddenFor(model => model.PersonID)
+
+    <div style="width:100%;padding-left:12px; text-align:left" class="row">
+
+        <div class="col-md-12 alert alert-warning">
+
+            <h3 style="color:#ff6a00"><i class="fa fa-exclamation-triangle fa-fw"></i>&nbsp;This Client is not currently available. To enable this client for your location, click the TRANSFER button below.</h3>
+
+        </div>
+
+    </div>
+
+    
+    
+    <div class="row">
+
+
+        <div class="col-lg-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span style="color:#ff6a00"><i class="fa fa-user fa-fw"></i> Patient Information</span>
+                   
+                </div>
+                <div class="panel-body ">
+
+
+               
+                    <div style="font-size:x-large;color:#24ad2c" class="row">
+
+                        <div class="col-md-3">
+
+                            ID: @Html.DisplayFor(model => model.PersonID)
+
+                        </div>
+
+
+                        <div class="col-md-3">
+
+                            @Html.DisplayFor(model => model.FirstName)
+                        </div>
+
+
+                        <div class="col-md-3">
+
+                            @Html.DisplayFor(model => model.LastName)
+                        </div>
+
+
+                        <div class="col-md-3">
+
+                            DOB: @(((DateTime)Model.DOB).ToString("MM/dd/yyyy"))
+
+                        </div>
+
+                    </div>
+                    <br />
+                    <hr style="width:100%;opacity:0.5" />
+                    
+                    <div class="pull-right"><button type="submit" class="btn btn-primary btn-lg">Transfer</button></div>
+
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+        </div>
+    
+    
+    
+    
+
+
+        }
+        else
+        {
+
+        <div class="row">
+            <div class="col-lg-8">
+
+
+                <div class="row">
+
+
+                    <div class="col-lg-12">
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <span style="color:#ff6a00"><i class="fa fa-user fa-fw"></i> Patient Information</span>
+                                <div class="pull-right">
+
+                                    <div style="padding-bottom:6px">
+                                    
+                                        @if (ViewBag.RoleID == 1 || ViewBag.RoleID == 13 || ViewBag.RoleID == 3)
+                                        {
+
+                                    <a class="btn btn-default" id="DeleteClientButton"><span style="font-size:16px;"><i class="fa fa-trash-o fa-fw"></i></span></a>
+
+                                        }
+
+                                    <a class="btn btn-default" id="EditClientButton"><span style="font-size:16px;"><i class="fa fa-pencil fa-fw"></i> Edit Info</span></a></div>
+
+                                            
+                                        
+                                        
+
+                                </div>
+                            </div>
+                            <div class="panel-body">
+
+                                <div id="ClientEditContainer">
+
+
+                                    <div style="font-size:x-large;color:#24ad2c" class="row">
+
+                                        <div class="col-md-3">
+
+                                            ID: @Html.DisplayFor(model => model.PersonID)
+
+                                        </div>
+
+
+                                        <div class="col-md-3">
+
+                                            @Html.DisplayFor(model => model.FirstName)
+                                        </div>
+
+
+                                        <div class="col-md-3">
+
+                                            @Html.DisplayFor(model => model.LastName)
+                                        </div>
+
+
+                                        <div class="col-md-3">
+
+                                            DOB: @(((DateTime)Model.DOB).ToString("MM/dd/yyyy"))
+
+                                        </div>
+
+
+
+                                    </div>
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+                  
+
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="fa fa-heartbeat fa-fw"></i> Clinic Visits
+
+                                <div class="pull-right">
+
+                                    <div style="padding-bottom:6px">
+
+
+                                        <a href="#" id="CreateVisitButton" class="btn btn-default">  <span style="font-size:16px;"><i class="fa fa-plus-circle fa-fw"></i> New Visit</span></a>
+
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                            <div class="panel-body">
+
+                                <div id="ClinicVisitContainer"></div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+            <div class="col-lg-4">
+
+                <div class="row">
+
+
+                    <div class="col-lg-12">
+
+
+
+                        <div id="HouseholdContainer"></div>
+
+                    </div>
+
+                    <div class="col-lg-12">
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <span style="color:#1a75e5"> <i class="fa fa-home fa-fw"></i> Contact Information</span>
+                                <div class="pull-right">
+
+                                    <div style="padding-bottom:6px">
+                                    
+                                        <a style="text-decoration:none" href="#" id="CreateContactButton">
+
+                                            <span style="font-size:16px;"><i class="fa fa-plus-circle fa-fw"></i> New Contact</span>
+
+                                        </a>
+
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+                            <div class="panel-body">
+                                <div class="list-group">
+
+
+                                    <div id="ContactContainer"></div>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+
+
+        }
+        
+        }
+        @Html.Hidden("ClientIdentifier")
+        <script type="text/javascript">
+
+
+            // Check for support tickets, if so, open Contact Container
+
+         
+
+            $(function () {
+
+
+                //Add Client Identifier
+                var outCI = '@ViewBag.ClientID';
+                document.getElementById("ClientIdentifier").value = outCI;
+
+
+
+                if('@Model.PersonID' != null){
+
+
+                    $('#ContactButton').css("display","block");
+
+                }
+
+            });
+
+
+            $(document).ready(function () {
+
+                if ('@ViewBag.RequestCheck' > 0) {
+
+
+                    $("#ContactButton").trigger('click');
+
+                }
+
+
+            });
+
+
+            $("#DeleteClientButton").click(function () {
+
+
+                $('#PersonSection').load('@Url.Action("Delete", "People", new { id = @Model.PersonID })');
+
+
+            });
+
+            $(function () {
+
+
+                $('#HouseholdContainer').load('@Url.Action("Details", "Households", new { id = @Model.PersonID })');
+                $('#ContactContainer').load('@Url.Action("Index", "Contacts", new { id = @Model.PersonID })');
+
+
+                if ('@ViewBag.CVCount' > 0) {
+
+                    $('#ClinicVisitContainer').load('@Url.Action("Index", "ClinicVisits", new { id = @Model.PersonID })');
+
+
+                }
+                else {
+
+
+                    $('#ClinicVisitContainer').load('@Url.Action("Create", "ClinicVisits", new { id = @Model.PersonID })');
+                    $('#CreateVisitButton').css("display", "none");
+
+
+                }
+
+
+              
+
+
+            });
+
+
+        </script>
+
+
+        <script type="text/javascript">
+
+
+    $(function () {
+
+
+
+        $("#EditClientButton").click(function () {
+
+
+            $('#ClientEditContainer').load('@Url.Action("Edit", "People", new { id = @Model.PersonID })');
+            $('#EditClientButton').css("display", "none");
+
+        });
+
+
+
+
+        $("#CreateVisitButton").click(function () {
+
+
+            $('#ClinicVisitContainer').load('@Url.Action("Create", "ClinicVisits", new { id = @Model.PersonID })');
+            $('#CreateVisitButton').css("display", "none");
+
+        });
+
+        $("#CreateContactButton").click(function () {
+
+
+            $('#ContactContainer').load('@Url.Action("Create", "Contacts", new { id = @Model.PersonID })');
+            $('#CreateContactButton').css("display", "none");
+
+        });
+
+        //$('#createVisitModal').on('shown.bs.modal', function () {
+        //    $(this).find('.modal-dialog').css({
+        //        //width: 'auto',
+        //        width: '92%',
+        //        height: 'auto',
+        //        'max-height': '100%'
+        //    });
+        //});
+
+        //$("#TransferClientForm").validate({
+        //    rules: {
+
+
+        //    },
+        //    messages: {
+
+
+        //    }
+        //});
+
+        $('#TransferClientForm').on("submit", function (e) {
+            e.preventDefault();
+
+            //   if ($('#TransferClientForm').valid()) {
+            $.ajax({
+
+                url: $("#TransferClientForm").attr('action'),
+                type: $("#TransferClientForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#TransferClientForm").serialize(),
+                success: function (data) {
+
+                    var username = data.Modified;
+                    var sitename = data.Modified2;
+                    var userid = data.Modified3;
+
+
+                    $('#PersonSection').load('@Url.Action("Details", "People")', { id: userid });
+                    toastr.success('You have successfully transfered client ' + username + " to " + sitename)
+
+
+
+                }
+
+            });
+            //  }
+
+        });
+
+
+
+
+    });
+
+
+
+</script>

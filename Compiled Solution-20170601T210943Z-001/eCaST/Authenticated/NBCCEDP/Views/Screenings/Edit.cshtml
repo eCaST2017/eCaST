@@ -1,0 +1,825 @@
+﻿@model eCaST.ViewModels.ScreeningViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<style type="text/css">
+    .searchOption {
+        margin: 4px 4px 2px 4px;
+        display: inline;
+    }
+
+    .form-field * {
+        vertical-align: middle;
+    }
+
+    .form-field input {
+        clear: left;
+    }
+
+    .form-field label {
+        width: 800px;
+        display: inline-block;
+    }
+
+    input.big {
+        height: 2.1em;
+        width: 2.1em;
+    }
+
+
+
+    .error a {
+        background-color: #d9ffff !important;
+        border: 1px solid #ccc !important;
+        width: 100%;
+        color: #666 !important;
+    }
+
+    .requiredText {
+        background-color: #d9ffff;
+        border: 1px solid #999;
+    }
+
+    .requiredSelect {
+        background-color: #d9ffff;
+    }
+
+    .glowdiv {
+        -webkit-box-shadow: 0 0 30px lightblue;
+        -moz-box-shadow: 0 0 30px ightblue;
+        box-shadow: 0 0 30px lightblue;
+    }
+
+
+
+</style>
+
+
+
+
+<br />
+<div id="ScreeningToolbarContainer" class="row">
+
+    <div class="col-md-8">
+
+        <div>
+
+            <div id="ScreeningEditListContainer"></div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div id="AddScreeningButtonContainer" class="pull-right">
+
+
+
+            @if (ViewBag.BillingCheck > 0)
+            {
+                <a id="BillingSummaryButton" href="#" class="btn btn-default"><i class="fa fa-university" aria-hidden="true"></i>&nbsp;Billing</a>
+
+            }
+            else
+            {
+
+                <button style="opacity:0.5" id="BillingSummaryButton" disabled="disabled" class="btn btn-default"><i class="fa fa-university" aria-hidden="true"></i>&nbsp;Billing</button>
+
+            }
+
+
+            @if (Model.ScreeningMethodBinID == 1)
+            {
+
+
+                <button id="NewScreeningButton" type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add Screening</button><text>&nbsp;</text>
+
+
+            }
+            
+            <button id="AllScreeningButton" type="button" class="btn btn-info"><span class="glyphicon glyphicon-th-list"></span>&nbsp;All Screenings</button><text>&nbsp;</text>
+            
+
+            <a id="NotesButton" href="#" class="btn btn-default"><i class="fa fa-pencil-square" aria-hidden="true"></i>&nbsp;Notes&nbsp;<span style="background-color:red" class="badge">@ViewBag.NotesCount</span></a>
+
+
+
+        </div>
+
+    </div>
+
+</div>
+
+<br />
+
+<div>
+
+    <div style="width:100%;display:none" id="NotesContainer"></div>
+
+</div>
+
+
+<div class="breadcrumb">
+
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+
+            <div class="pull-right">
+
+
+
+                @if (ViewBag.RoleBinID == 1 || ViewBag.RoleBinID == 3 || ViewBag.RoleBinID == 13)
+                {
+
+                    using (Html.BeginForm("_UpdateAdminF", "Screenings", FormMethod.Post, new { id = "ScreeningAdminUpdateForm" }))
+                    {
+
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+
+                        <div style="float:left" id="admChkPnl">
+
+                            <button type="button" id="EditRecycleButton" class="btn btn-default"><i class="fa fa-refresh"></i></button>
+                            <button type="button" id="CycleEditButton" class="btn btn-default"><i class="fa fa-pencil"></i></button>
+
+                            <button class="btn btn-danger" id="DeleteScreeningButton" type="button"><i class="fa fa-trash-o"></i></button>&nbsp;
+
+                            @Html.CheckBoxFor(model => model.StateStaffOverrideValue, new { @id = "StateStaffOverrideValue" })
+                            &nbsp;
+                            @Html.LabelFor(model => model.StateStaffOverrideValue, "Override")
+                            &nbsp;
+                            @Html.CheckBoxFor(model => model.BillingHoldValue, new { @id = "BillingHoldValue" })
+                            &nbsp;
+                            @Html.LabelFor(model => model.BillingHoldValue, "Hold")
+                            &nbsp;
+                            <button class="btn btn-success" id="UpdateAdminScreeningButton" type="submit">Update Hold/Override</button>
+
+                        </div>
+
+                        @Html.HiddenFor(x => x.ScreeningID)
+                        @Html.HiddenFor(x => x.ClientID)
+                        @Html.Hidden("StateStaffOverride")
+                        @Html.Hidden("BillingHold")
+
+                    }
+
+                }
+
+
+
+            </div>
+
+            <h4 style="color:#333">
+
+
+               @if (Model.BillingLevel > 0)
+               {
+
+                <span style="color:#fff; font-weight:bold; font-size:14px; background-color:#56c23c; padding-top:2px; padding-bottom:2px; padding-left:7px; padding-right:7px; border-radius:5px; border:2px">@Model.BillingLevel</span>
+
+               }
+               else if (Model.BillingLevel == 0)
+               {
+
+                <span style="color:#fff; font-weight:bold; font-size:14px; background-color:red; padding-top:2px; padding-bottom:2px; padding-left:7px; padding-right:7px; border-radius:5px; border:2px">@Model.BillingLevel</span>
+
+               }
+               else
+               {
+
+                    <span style="color:#fff; font-weight:bold; font-size:14px; background-color:#999; padding-top:2px; padding-bottom:2px; padding-left:7px; padding-right:7px; border-radius:5px; border:2px"><span class="glyphicon glyphicon-ok"></span></span>
+
+                }
+
+
+                @if (Model.BillingPaidBinID == 3)
+                {
+
+                    <span style="font-size:16px; color:green" class="glyphicon glyphicon-usd"></span>
+
+
+                }
+                else if (Model.BillingPaidBinID == 2)
+                {
+
+                    <span style="font-size:16px; color:#ccc" class="glyphicon glyphicon-sort"></span>
+
+                }
+                else if (Model.BillingPaidBinID == 1)
+                {
+
+                    <span style="font-size:16px; color:#ccc" class="glyphicon glyphicon-usd"></span>
+
+
+                }
+                else
+                {
+
+                    <span style="font-size:8px; color:#ccc" class="glyphicon glyphicon-minus"></span><span style="font-size:8px; color:#ccc" class="glyphicon glyphicon-minus"></span>
+
+                }&nbsp;  @Model.CancerTypeBinName  @Model.ScreeningType (@Model.ScreeningID) at @Model.ClinicName on @Html.FormatValue(Model.ClinicalCycleDate, "{0:MM/dd/yyyy}")<br />
+                <span style="color:#ccc;font-size:16px"><i>Last Updated: @Model.DateUpdated by @Model.UpdatedBy | Created: @Model.DateCreated by @Model.CreatedBy</i></span>
+
+            </h4>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+        <div id="CycContainer"></div>
+
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div id="ScreeningMessageContainer"></div>
+
+    </div>
+
+
+</div>
+<br />
+
+
+
+
+
+<div id="AccordionMasterContainer">
+
+    <div class="row">
+
+
+        <div class="col-md-6">
+
+
+
+            <div id="AccordionContainer"></div>
+
+
+
+
+        </div>
+
+
+        <div style="padding:20px" id="AccGlowContainer" class="col-md-6">
+
+
+            <div>
+
+                <div style="display:none" class="alert alert-info" id="EditMessageContainer"><h4><span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;You are now in edit mode. Click Cancel or Update below to resume navigation.</h4></div>
+
+                <div id="AccordionContentContainer"></div>
+                <div id="AccordionExpiredContentContainer"><div class="alert alert-danger"><h3><span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;This Screening is expired. Please use the CONTACT SUPPORT button above to request reactivation.</h3></div></div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+</div>
+
+@Html.Hidden("ClientIdentifier")
+@Html.Hidden("ScreeningIdentifier")
+@Html.Hidden("ScreeningCheckIdentifier")
+
+<script type="text/javascript">
+
+    $(".se-pre-con").fadeIn("slow");
+
+    $(function () {
+
+
+        $(document).ready(function () {
+
+            if ('@ViewBag.RequestCheck' > 0) {
+
+
+                $("#ContactButton").trigger('click');
+
+            }
+
+
+        });
+
+        $('#ContactContainer').css("display", "none");
+        $('#ContactContainer').html("");
+
+
+        //Add Screening Identifier
+        var outSC = '@ViewBag.ScreeningID';
+        var outSCH = 1;
+        document.getElementById("ScreeningIdentifier").value = outSC;
+        document.getElementById("ScreeningCheckIdentifier").value = outSCH;
+
+
+        if (outSC != "") {
+
+            $('#ContactButton').css("display", "block");
+
+        }
+
+        $('#FooterMenuBarContainer').load('@Url.Action("_FooterMenuBar", "Home")');
+
+        $("input[type=checkbox]").bootstrapSwitch({
+
+            onText: 'YES',
+            offText: 'NO',
+            offColor: 'default',
+            onColor: 'success'
+
+
+        });
+
+
+    });
+
+
+    if ('@Model.CancerTypeBinID' == 4) {
+
+
+        $('#AccordionMasterContainer').html("");
+        $('#AccordionMasterContainer').load('@Url.Action("_PatientInfoDashboard", "PatientInformation", new { id = Model.ScreeningID })');
+
+    }
+    else {
+
+        // $('#AccordionMasterContainer').html("");
+        $('#AccordionContainer').load('@Url.Action("_AccordionContainer", "Screenings", new { id = Model.ScreeningID })');
+
+
+        @*if ('@ViewBag.FollowupProcedure' == 22) {
+
+            $('#AccordionContentContainer').load('@Url.Action("Create", "ScreenProcedures", new { id = Model.ScreeningID, id2 = 2 })');
+
+        }
+        else {
+
+            $('#AccordionContentContainer').load('@Url.Action("Create", "ScreenProcedures", new { id = Model.ScreeningID, id2 = 1 })');
+
+        }*@
+
+
+        if('@ViewBag.ExpiredScreenChecker' == 1){
+
+
+            $('#AccordionExpiredContentContainer').css("display","block");
+            $("#ClientEditButton").attr("disabled", "disabled");
+            $("#ClientEditButton").css("opacity", "0.5");
+
+            $("#EnrollmentEdit0Button").attr("disabled", "disabled");
+            $("#EnrollmentEdit0Button").css("opacity", "0.5");
+
+            $("#MedicalHistoryEditButton").attr("disabled", "disabled");
+            $("#MedicalHistoryEditButton").css("opacity", "0.5");
+
+        }
+        else{
+
+
+            $('#AccordionContentContainer').load('@Url.Action("Create", "ScreenProcedures", new { id = Model.ScreeningID, id2 = 1 })');
+            $('#AccordionExpiredContentContainer').css("display","none");
+        }
+
+
+
+
+    }
+
+   
+
+    $('#CycleEditButton').click(function () {
+
+
+        $("#CycContainer").load("@Url.Action("_CycleContainerEdit","Screenings")", { 'id': @ViewBag.ClientID, 'id2': @ViewBag.ScreeningID, 'id3': @ViewBag.EnrollmentID },
+                function (response, status, xhr) {
+                    if (status == "error") {
+                        alert("An error occurred while loading the results.");
+                    }
+
+                });
+
+
+
+
+    });
+
+
+
+    $('#EditRecycleButton').click(function () {
+
+
+        $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ScreeningID })');
+
+
+
+
+    });
+
+
+
+    $('#UpdateAdminScreeningButton').click(function () {
+
+
+
+
+        //Add Admin Approval
+        var outAA = $('#BillingHoldValue').bootstrapSwitch('state');
+        document.getElementById("BillingHold").value = outAA;
+
+        //Add State Staff Override
+        var outSS = $('#StateStaffOverrideValue').bootstrapSwitch('state');
+        document.getElementById("StateStaffOverride").value = outSS;
+
+
+
+
+    });
+
+
+
+
+    $('#DeleteScreeningButton').click(function () {
+
+
+        $('#ContentContainer').load('@Url.Action("Delete", "Screenings", new { id = Model.ScreeningID, id2 = Model.ClientID})');
+
+        @*$('#AccGlowContainer').addClass("glowdiv");
+        // Lock Screen
+        $("#txtSearch").attr("disabled", "disabled");
+        $('#EditMessageContainer').css("display", "block");
+        $('#ScreeningToolbarContainer').css("display", "none");
+        $('#FooterMenuBarContainer').css("display", "none");
+        $('#ScreenProcedureListContainer').load('@Url.Action("_StaticScreenProcedureList", "ScreenProcedures", new { id = ViewBag.ScreeningID, id2 = ViewBag.CancerTypeBinID })');
+
+        $('#HomeLinkContainer').css("display", "none");
+        $('#HomeNoLinkContainer').css("display", "block");
+
+        $("#ClientButton").attr("disabled", "disabled");
+        $("#ClientButton").css("opacity", "0.5");
+
+        $("#ScreeningButton").attr("disabled", "disabled");
+        $("#ScreeningButton").css("opacity", "0.5");
+
+        // $("#ProfileButtonDown").attr("disabled", "disabled");
+        $('#ProfileButtonDown').css("display", "none");
+        $("#ProfileButtonDown").css("opacity", "0.5");
+
+        $("#ClientHistoryButton").attr("disabled", "disabled");
+        $("#ClientHistoryButton").css("opacity", "0.5");
+
+        $("#SmallProfileButton").attr("disabled", "disabled");
+        $("#SmallProfileButton").css("opacity", "0.5");
+
+        $("#SmallScreeningButton").attr("disabled", "disabled");
+        $("#SmallScreeningButton").css("opacity", "0.5");
+
+        $("#SmallEnrollmentButton").attr("disabled", "disabled");
+        $("#SmallEnrollmentButton").css("opacity", "0.5");
+
+        $("#SmallLocationButton").attr("disabled", "disabled");
+        $("#SmallLocationButton").css("opacity", "0.5");
+
+        $("#ClientEditButton").attr("disabled", "disabled");
+        $("#ClientEditButton").css("opacity", "0.5");
+
+        $("#EnrollmentEditButton").attr("disabled", "disabled");
+        $("#EnrollmentEditButton").css("opacity", "0.5");
+
+        $("#MedicalHistoryEditButton").attr("disabled", "disabled");
+        $("#MedicalHistoryEditButton").css("opacity", "0.5");*@
+
+
+    });
+
+
+
+    $('#NewScreeningButton').click(function () {
+
+        $('#ExistingScreeningContainer').html("");
+        $('#ContentContainer').load('@Url.Action("Create", "Screenings", new { id = Model.ClientID, id2 = Model.ScreeningID })');
+        document.getElementById('ScreeningCheckIdentifier').value = 0;
+
+    });
+
+
+    $('#AllScreeningButton').click(function () {
+
+        $('#ContentContainer').load('@Url.Action("_ScreeningList", "Screenings", new { id = @ViewBag.ClientID })');
+        $('#ProfileContainer').load('@Url.Action("_Profile", "Clients", new { id = @ViewBag.ClientID })');
+        $("#AddScreeningButtonContainer").css("display", "block");
+        $("#ProfileButtonDown").css("display", "none");
+        $("#ProfileButtonUp").css("display", "block");
+        $("#UpdateButtonContainer").css("display", "none");
+
+    });
+
+    $('#NotesButton').click(function () {
+
+
+        if ($('#NotesContainer').css('display') == 'none') {
+
+            $("#NotesContainer").css("display", "block");
+
+        }
+        else {
+
+            $("#NotesContainer").css("display", "none");
+
+        }
+
+    });
+
+
+
+    $('#BillingSummaryButton').click(function () {
+
+
+        $('#ErrorsContainer').load('@Url.Action("GetBillingInfo", "InvoiceDetails", new { id = Model.ClientID })');
+
+
+    });
+
+
+    $(function () {
+
+
+        $("#EnrollmentButtonDown").css("display", "block");
+        $("#EnrollmentButtonUp").css("display", "none");
+
+        $("#MedicalHistoryButtonDown").css("display", "block");
+        $("#MedicalHistoryButtonUp").css("display", "none");
+
+        $("#ScreenProcedureButtonDown").css("display", "block");
+        $("#ScreenProcedureButtonUp").css("display", "none");
+
+        $("#FollowupButtonDown").css("display", "block");
+        $("#FollowupButtonUp").css("display", "none");
+
+        $("#DiagProcedureButtonDown").css("display", "block");
+        $("#DiagProcedureButtonUp").css("display", "none");
+
+        $("#CaseManagementButtonDown").css("display", "block");
+        $("#CaseManagementButtonUp").css("display", "none");
+
+        $("#FinalDiagButtonDown").css("display", "block");
+        $("#FinalDiagButtonUp").css("display", "none");
+
+
+        if ('@ViewBag.EnrollmentID' != null) {
+
+            $('#EditEnrollmentContainer').load('@Url.Action("Edit", "Enrollments", new { id = ViewBag.EnrollmentID })');
+
+
+        }
+
+
+
+        $("#ScreeningMessageContainer").load("@Url.Action("Index", "Messages", new { id = Model.ScreeningID })",
+                    function (response, status, xhr) {
+                        if (status == "error") {
+
+                        }
+                    });
+
+
+        $("#ScreeningEditListContainer").load("@Url.Action("_ScreeningEditList", "Screenings", new { id = Model.ClinicalCycleID, id2 = Model.ScreeningID })",
+                  function (response, status, xhr) {
+                      if (status == "error") {
+
+                      }
+                  });
+
+    });
+
+    $(".se-pre-con").fadeOut("slow");
+
+</script>
+
+
+<script src="@Url.Content("~/Scripts/jquery.tabSlideOut.v1.3.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        $('.slide-out-div').tabSlideOut({
+            tabHandle: '.handle',                     //class of the element that will become your tab
+            pathToTabImage: 'http://www.chd.dphe.state.co.us/images/contact_tab2.png', //path to the image for the tab //Optionally can be set using css
+            imageHeight: '122px',                     //height of tab image           //Optionally can be set using css
+            imageWidth: '86px',                       //width of tab image            //Optionally can be set using css
+            tabLocation: 'right',                      //side of screen where tab lives, top, right, bottom, or left
+            speed: 300,                               //speed of animation
+            action: 'click',                          //options: 'click' or 'hover', action to trigger animation
+            topPos: '86px',                          //position from the top/ use if tabLocation is left or right
+            leftPos: '20px',                          //position from left/ use if tabLocation is bottom or top
+            fixedPosition: true                     //options: true makes it stick(fixed position) on scroll
+        });
+    });
+
+
+
+    $(document).ready(function () {
+        var CreatedBy = '@ViewBag.CreatedBy';
+        var DateCreated = '@ViewBag.DateCreated';
+        var UpdatedBy = '@ViewBag.UpdatedBy';
+        var DateUpdated = '@ViewBag.DateUpdated';
+        var CCId = '@Model.ClinicalCycleID';
+        var SCId = '@Model.ScreeningID';
+
+        $('#NotesContainer').jtable({
+            title: 'Screening Notes',
+            paging: true, //Enable paging
+            pageSize: 5,
+            sorting: true, //Enable sorting
+            defaultSorting: 'DateUpdated DESC',
+            selecting: false,
+            multiselect: false,
+            selectingCheckboxes: false,
+            //openChildAsAccordion: true, //Enable this line to show child tabes as accordion style
+            actions: {
+                listAction: '@Url.Action("ScreenCommentsList", "ScreenComments", new { id = (int?)Model.ScreeningID, id2 = (int?)Model.ClinicalCycleID })',
+                deleteAction: '@Url.Action("DeleteScreenComment", "ScreenComments")',
+                updateAction: '@Url.Action("UpdateScreenComment", "ScreenComments")',
+                createAction: '@Url.Action("CreateScreenComment", "ScreenComments")'
+            },
+            fields: {
+                ScreenCommentID: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                ScreeningID: {
+                    title: '',
+                    // width: '20%',
+                    type: 'hidden',
+                    defaultValue: SCId
+                },
+                ClinicalCycleID: {
+                    title: '',
+                    //width: '20%',
+                    type: 'hidden',
+                    defaultValue: CCId
+                },
+                ScreenCommentText: {
+                    title: 'Comment',
+                    type: 'textarea',
+                    //width: '40%',
+                    //listClass: 'Edit-ScreenCommentText',
+                    list: true,
+                    //input: function (data) {
+                    //    if (data.values) {
+                    //        return '<textarea class="" id="Edit-ScreenCommentText" name="ScreenCommentText" style="width:400px;display:block" value="' + data.record.ScreenCommentText + '" />';
+                    //    } else {
+                    //        return '<textarea class="" id="Edit-ScreenCommentText" name="ScreenCommentText" style="width:200px;display:block"/>';
+                    //    }
+                    //}
+                    //,
+                    display: function (data) {
+                        return $('<div' + ' title="' + data.record.ScreenCommentText + '" style="height: 100px; overflow: scroll; overflow-y: auto; overflow-x: hidden; padding: 2px; margin: 2px" id="Treeview">' + data.record.ScreenCommentText + '</div>');
+                    }
+                },
+                AdminOnly: {
+                    title: '',
+                    //width: '20%',
+                    type: 'checkbox',
+                    values: { 'false': 'Admin Notes Only', 'true': 'Admin Notes Only' },
+                    listClass: "Edit-AdminOnly",
+                    //create: false,
+                    defaultValue: false,
+                    list: false
+                },
+                DateUpdated: {
+                    title: 'Date Updated',
+                    //width: '15%',
+                    type: 'date',
+                    visibility: 'fixed',
+                    displayFormat: 'yy-mm-dd',
+                    list: true,
+                    create: false,
+                    edit: false,
+                    defaultValue: DateUpdated
+                   // , display: function (data) {
+                  //      return moment(data.record.DateUpdated).fromNow();
+                 //   }
+                },
+                UpdatedBy: {
+                    title: 'By',
+                    //width: '20%',
+                    list: true,
+                    create: false,
+                    edit: false,
+                    visibility: 'fixed',
+                    defaultValue: UpdatedBy
+                },
+                DateCreated: {
+                    title: '',
+                    //width: '15%',
+                    //type: 'date',
+                    displayFormat: 'yy-mm-dd',
+                    list: false,
+                    type: 'hidden',
+                    visibility: 'fixed',
+                    //display: function (data) {
+                    //    return moment(data.record.DateCreated).fromNow();
+                    //}
+                    defaultValue: DateUpdated,
+                    create: false,
+                    edit: false,
+                    //sorting: false //This column is not sortable!
+                },
+                CreatedBy: {
+                    title: '',
+                    //width: '20%',
+                    list: false,
+                    type: 'hidden',
+                    defaultValue: CreatedBy
+                },
+            },
+            rowInserted: function (event, data) {
+                if (data.record.Active == true) {
+                    $('#NotesContainer').jtable('selectRows', data.row);
+                    // $('#ScreenMessageCountSection').load('@Url.Action("_ScreenMessageCount", "Screenings")', { id: SCId });
+
+
+
+
+                }
+            },
+            recordAdded: function (event, data) {
+
+                //  $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = Model.ScreeningID })');
+
+            },
+            recordDeleted: function (event, data) {
+
+                //    $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = Model.ScreeningID })');
+
+            },
+            recordsLoaded: function (event, data) {
+
+                $('#ScreenMessageCountSection').load('@Url.Action("_ScreenMessageCount", "Screenings")', { id: SCId });
+
+            },
+            formCreated: function (event, data) {
+
+                data.form.find('#td.Edit-ScreenCommentText').css("width", "35px");
+                $(function () {
+                    $("#Edit-AdminOnly").parent().parent().css("display", "none");
+                    if ('@ViewBag.PowerUser' == 1) {
+                        $("#Edit-AdminOnly").parent().parent().css("display", "block");
+                    }
+                    else {
+                        $("#Edit-AdminOnly").parent().parent().css("display", "none");
+                    }
+                });
+            }
+        });
+        //Load person list from server
+        $('#NotesContainer').jtable('load');
+
+    });
+
+  
+
+    $('#ScreeningAdminUpdateForm').on("submit", function (evt) {
+        evt.preventDefault();
+        if ($('#ScreeningAdminUpdateForm').valid()) {
+            //  $("#SaveExitButton").prop("disabled", true);
+            $.ajax({
+                url: $("#ScreeningAdminUpdateForm").attr('action'),
+                type: $("#ScreeningAdminUpdateForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#ScreeningAdminUpdateForm").serialize(),
+                success: function (data) {
+
+                    var clientid = data.Modified;
+                    var screeningid = data.Modified2;
+
+
+
+                    $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ScreeningID })');
+
+
+
+                }
+            });
+        }
+
+    });
+
+
+
+</script>

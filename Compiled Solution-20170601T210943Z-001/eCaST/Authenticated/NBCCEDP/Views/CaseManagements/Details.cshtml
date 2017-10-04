@@ -1,0 +1,130 @@
+﻿@model eCaST.Models.CaseManagement
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CaseManagement</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ScreeningProcedureID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ScreeningProcedureID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ScreeningProcGuidID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ScreeningProcGuidID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ScreeningID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ScreeningID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SiteID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SiteID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ScreeningGuidID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ScreeningGuidID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OfficeVisitID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OfficeVisitID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnrollmentID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnrollmentID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicalCycleID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClinicalCycleID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InterventionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InterventionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateUpdated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DDInterventionTypeBin.InterventionTypeBinName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DDInterventionTypeBin.InterventionTypeBinName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CaseManagementID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

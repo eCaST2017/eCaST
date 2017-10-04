@@ -1,0 +1,174 @@
+﻿@model IEnumerable<eCaST.ViewModels.SupportSessionViewModel>
+
+
+
+
+
+
+@*  @if (ViewBag.FollowupCheck > 0 ){
+
+    <div id="FollowupSection"></div>
+
+      }*@
+
+
+
+
+
+
+
+
+
+@*  if (ViewBag.SessionCount > 0 ){*@
+
+<div id="SessionInfoSection"></div>
+@*}*@
+
+
+
+<br />
+
+<div id="NewSSButtonSection" align="right">
+
+    @* <button id="CollapseRRButton" class ="btn btn-default">[-] Collapse</button> *@
+
+
+    @if (ViewBag.HCSessionTypeCheck == true && ViewBag.HCSessionCount > 7)
+    {
+
+        // Don't show button
+
+    }
+
+    else if (ViewBag.HCSessionTypeCheck == false && ViewBag.DPPSessionTypeCheck == true && ViewBag.DPPSessionCount > 21)
+    {
+
+
+        // Don't show button
+
+    }
+
+
+    else
+    {
+
+        if (ViewBag.FollowupAssessmentCheck > 0)
+        {
+
+
+            // Don't show button
+
+        }
+        else
+        {
+            //data-toggle="modal" data-target="#ssModal"
+            <button id="NewSSButton" class="btn btn-success btn-med">Add Session</button>
+
+        }
+
+    }
+
+</div>
+
+<div id="SupportSessionListSection"></div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="ssModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Add New Session</h3>
+            </div>
+            <div id="SSContainer" class="modal-body">
+
+                @*   @{ Html.RenderAction("_AddTest", "PatientInformation", new { id = @ViewBag.CCID, id2 = @ViewBag.SiteID, id3 = @ViewBag.ScreeningTypeID, id4 = @ViewBag.CLID, id5 = @ViewBag.EnrollID, id6 = @ViewBag.ScreeningID });}*@
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+        $('#SupportSessionListSection').load('@Url.Action("_SupportSessionList", "PatientInformation", new { id = ViewBag.ScreeningID })');
+
+
+        $('#SessionInfoSection').load('@Url.Action("_SessionInfo", "PatientInformation", new { id = ViewBag.ScreeningID })');
+
+
+        @*$('#FollowupSection').load('@Url.Action("_FollowupInfo", "PatientInformation", new { id = ViewBag.CCID, id2 = ViewBag.SiteID, id3 = ViewBag.ScreeningTypeID, id4 = ViewBag.CLID, id5 = ViewBag.EnrollID, id6 = ViewBag.ScreeningID })');*@
+
+    });
+
+
+
+
+
+</script>
+
+
+<script type="text/javascript">
+
+
+  @*  $(document).ready(function () {
+
+        if ('@ViewBag.BPCount' > 0 && '@ViewBag.CholCount' > 0 && '@ViewBag.GlucoseCount' > 0) {
+
+
+            $("#NewTestButtonSection").css("display", "none");
+
+        }
+
+    });*@
+
+
+    $("#NewSSButton").click(function () {
+
+
+      //  $('#SSContainer').load('@Url.Action("_AddSession", "PatientInformation", new { id = ViewBag.ScreeningID })');
+
+
+        $('#SupportSessionListSection').load('@Url.Action("_AddSession", "PatientInformation", new { id = ViewBag.ScreeningID })');
+        $("#NewSSButton").css("display", "none");
+
+        //$(function () {
+
+        //    $('#ssModal').modal({
+        //        backdrop: 'static',
+        //        keyboard: true
+        //    });
+
+        //});
+
+
+    });
+
+
+
+    $("#CloseAddButton").click(function () {
+
+
+        $('#WiseWomanSection').load('@Url.Action("_PatientInfoDashboard", "PatientInformation", new { id = ViewBag.ScreeningID })');
+
+        //$('#ssModal').modal('hide')
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+
+
+    });
+
+
+
+
+
+</script>

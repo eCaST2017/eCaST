@@ -1,0 +1,286 @@
+﻿@model IEnumerable<eCaST.ViewModels.PatientInfoViewModel>
+@using Kendo.Mvc.UI;
+
+
+<style type="text/css">
+
+
+    #gauge-container {
+            background: transparent url('@Url.Content("~/Content/dataviz/gauge/gauge-container-partial_flat.png")') no-repeat 50% 50%;
+            width: 230px;
+            height: 200px;
+            text-align: center;
+            margin: 0 auto 30px auto;
+        }
+
+
+    #gauge {
+            width: 240px;
+            height: 130px;
+            margin: 0 auto;
+            border-color: transparent;
+        }
+
+        #gauge-container .k-slider {
+            margin-top: -11px;
+            width: 140px;
+        }
+
+
+
+    .txtdiv {
+        /*width: 130px;
+        height: 50px;*/
+        -ms-transform: rotate(270deg); /* IE 9 */
+        -moz-transform: rotate(270deg); /* Firefox */
+        -webkit-transform: rotate(270deg); /* Safari and Chrome */
+        -o-transform: rotate(270deg); /* Opera */
+    }
+
+
+    hr.style-two {
+        border: 0;
+        height: 1px;
+        background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+        background-image: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+        background-image: -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+        background-image: -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+    }
+
+
+
+</style>
+
+<link href="@Url.Content("~/Content/slider.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/themes/base/jquery.ui.slider.css")" rel="stylesheet" type="text/css" />
+
+
+<script src="@Url.Content("~/Scripts/bootstrap-slider.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/app/patientinfo.js")" type="text/javascript"></script>
+
+
+
+@foreach (var item in Model)
+{
+
+    <div id="grid">
+        <div class="row">
+            <div style="vertical-align:top" class="col-md-4">
+
+                <div class="@ViewBag.BMIBoxColor">
+
+                    <div align="center">
+                        <h4><span class="@ViewBag.BMIIcon"></span>&nbsp;BMI Index Result: <b>@ViewBag.BMIMessage</b></h4></div>
+
+                        <hr class="style-two" />
+
+                        <br />
+
+                        <div id="gauge-container">
+
+                            <div style="padding-top:12px">
+                                @(Html.Kendo().RadialGauge()
+                            .Name("gauge")
+                            .Pointer(pointer => pointer.Value(ViewBag.BMI))
+                            .Scale(scale => scale
+                                .MinorUnit(5)
+                                .StartAngle(-30)
+                                .EndAngle(210)
+                                .Max(60)
+                            )
+                                )
+
+                            </div>
+
+
+                            <div style="color:#666">BMI: @ViewBag.BMI</div>
+
+                        </div>
+
+                        <div align="center">
+
+                            <table style="padding:0px">
+
+                                <tr>
+                                    <td colspan="4" style="border:none">
+
+                                        <h4><span class="glyphicon glyphicon-user"></span>&nbsp;Measurement Factors</h4>
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border:none" colspan="4">
+
+                                        <hr class="style-two" />
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border:none">
+                                        <label class="sr-only" for="DDWeightBinID"> Weight:</label>@item.DDWeightBinID Lbs.
+
+                                    </td>
+
+                                    <td style="border:none">
+
+                                        <label class="sr-only" for="DDHeightBinID"> Height:</label>@item.DDHeightBinID Inches
+
+                                    </td>
+
+
+                                </tr>
+
+
+                                <tr>
+                                    <td style="border:none">
+
+                                        <label class="sr-only" for="DDWaistBinID"> Waist:</label>@item.DDWaistBinID Inches
+                                    </td>
+
+                                    <td style="border:none">
+
+
+                                        <label class="sr-only" for="DDHipBinID"> Hip:</label>@item.DDHipBinID Inches
+
+                                    </td>
+
+
+                                </tr>
+
+
+                            </table>
+
+
+                        </div>
+
+
+                    </div>
+
+            </div>
+
+
+            <div style="vertical-align:top" class="col-md-8">
+
+
+                <div class="alert alert-info">
+                   
+
+                    <div class="row">
+
+                        <div class="col-md-12"><span style="font-size:medium;color:#fff; width:100%" class="badge">Tests Performed: @ViewBag.TestCount</span></div>
+
+
+                    </div>
+
+
+
+                    <hr class="style-two" />
+
+
+                    <div id="TestListContainer"></div>
+
+
+                
+
+
+                    @if (item.BPPlus != true)
+                    {
+
+
+
+                        if (ViewBag.TestCount < 3 || ViewBag.WorkupCount > 0)
+                        {
+
+
+                            <div class="alert alert-danger">
+
+                                <h4><span class="glyphicon glyphicon-warning-sign"></span> This screening currently has (@ViewBag.TestCount of 3) clinical measurement tests performed and has alert values needing medical evaluation and Risk Reduction Counseling may not be completed. In order for this screening to be eligible for payment, all (3) tests must be performed and all alert values must have a medical evaluation. Click the "Add Test" button above to add tests. If Risk Reduction Counseling has not been completed, please complete below.</h4>
+
+
+
+                            </div>
+
+
+                        }
+
+                        else
+                        {
+
+                            <div class="alert alert-success">
+
+                                <h4><span class="glyphicon glyphicon-ok-circle"></span> Success! This screening has met the minimum requirements for payment; all (@ViewBag.TestCount) tests and any medical evaluations have been performed.</h4>
+
+
+
+                            </div>
+
+                        }
+
+                    }
+
+                </div>
+
+                <div>
+
+                    @if (ViewBag.IntegratedCheck > 0)
+                    {
+
+
+                        <div> <span style="color:#eb8522; font-weight:bold">*This WISEWOMAN screening office visit given on ( <span style="color:#c81d1d"> @(((DateTime)ViewBag.AssessDate).ToString("MM/dd/yyyy")) </span> ) WAS NOT provided on the same date as the WWC office visit given on ( <span style="color:#c81d1d">@(((DateTime)ViewBag.CycleDate).ToString("MM/dd/yyyy"))</span> )  making this a non-integrated office visit.</span> </div>
+
+
+
+
+                    }
+
+
+                    @Html.Hidden("hide")
+                    @Html.Hidden("pending")
+                    @Html.Hidden("power")
+                    @Html.Hidden("enDate")
+
+
+
+
+
+
+                </div>
+
+
+
+
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+  
+
+}
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+
+        $('#TestListContainer').load('@Url.Action("_TestList", "PatientInformation", new { id = ViewBag.ScreeningID })');
+
+
+    });
+
+
+
+
+</script>
+
+
+

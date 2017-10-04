@@ -1,0 +1,62 @@
+﻿@model CTL.ViewModels.SiteListViewModel
+
+@{
+    ViewBag.Title = "SiteLists";
+}
+
+
+
+
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                @ViewBag.ProgramName
+               
+             </div>
+
+                <div class="col-md-8">
+
+                    @Html.DropDownList("testFMW", (SelectList)ViewData["OptionListF"], new { @id = "testFMW_" + @ViewBag.ProgramID, @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+                    <input type="hidden" id="selectedIDsFMW_@ViewBag.ProgramID" />
+
+
+                </div>
+            </div>
+
+ 
+
+<script type="text/javascript">
+
+    $(function () {
+
+        var data = '@ViewBag.Options';
+
+        //Make an array
+        var dataarrayFMW = data.split(",");
+
+        // Set the value
+        $("#testFMW_@ViewBag.ProgramID").val(dataarrayFMW);
+
+
+        var testFMW = $('#testFMW_@ViewBag.ProgramID');
+        $(testFMW).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testFMW_@ViewBag.ProgramID").onchange = function () {
+
+            var idsFMW = $(testFMW).val();
+            $('#selectedIDsFMW_@ViewBag.ProgramID').val(idsFMW);
+
+        };
+
+    });
+
+
+</script>

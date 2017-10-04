@@ -1,0 +1,79 @@
+﻿@model eCaST.ViewModels.RequestTrackerViewModel
+
+@{
+    ViewBag.Title = "Complete";
+}
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<div class="alert alert-success"><h4><span class="glyphicon glyphicon-check"></span>&nbsp;Are you sure you want to complete this support ticket?</h4></div>
+<br />
+
+
+@using (Html.BeginForm("_CloseTrackerF", "RequestTrackers", FormMethod.Post, new { id = "RequestCloseTrackerForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+
+    <div align="right">
+        <button id="CancelRequestTrackerButton" class="btn btn-default" type="button"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;Cancel</button>&nbsp;
+        <button class="btn btn-success" id="CompleteRequestTrackerButton" type="submit">Complete Request</button>
+    </div>
+
+    @Html.Hidden("RequestID",(int?)ViewBag.RequestID)
+    @Html.Hidden("RequestDesc", (string)ViewBag.RequestDesc)
+    @Html.Hidden("ScreeningCheck", (int?)ViewBag.ScreeningCheck)
+    @Html.Hidden("ClientID", (int?)ViewBag.ClientID)
+    @Html.Hidden("ScreeningID", (int?)ViewBag.ScreeningID)
+
+}
+
+
+
+
+<script type="text/javascript">
+
+
+
+    $(function () {
+
+
+        $('#CancelRequestTrackerButton').click(function () {
+
+            $("#ContactButton").trigger('click');
+            
+
+
+
+        });
+
+
+    });
+
+
+    $('#RequestCloseTrackerForm').on("submit", function (evt) {
+        evt.preventDefault();
+        if ($('#RequestCloseTrackerForm').valid()) {
+            //  $("#SaveExitButton").prop("disabled", true);
+            $.ajax({
+                url: $("#RequestCloseTrackerForm").attr('action'),
+                type: $("#RequestCloseTrackerForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#RequestCloseTrackerForm").serialize(),
+                success: function (data) {
+
+                    
+                    $('#ClientSection').load('@Url.Action("_Dashboard", "Home")');
+                    $('#ContactContainer').css("display", "none");
+                }
+            });
+        }
+
+    });
+
+</script>

@@ -1,0 +1,274 @@
+﻿@model IEnumerable<eCaST.ViewModels.ScreeningViewModel>
+
+
+
+@foreach (var item in Model)
+{
+
+    if (item.ScreenMessageCount > 0)
+    {
+
+
+        <div class="btn-group">
+
+            <div class="btn-group">
+                <button style="border-radius:5px" id="DD_@item.MessageID@item.ScreeningID" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+
+                    @if (item.BillingPaidBinID == 3)
+                    {
+
+                        <span style="font-size:16px; color:green" class="glyphicon glyphicon-usd"></span>
+
+
+                    }
+                    else if (item.BillingPaidBinID == 2)
+                    {
+
+                        <span style="font-size:16px; color:#ccc" class="glyphicon glyphicon-sort"></span>
+
+                    }
+                    else if (item.BillingPaidBinID == 1)
+                    {
+
+                        <span style="font-size:16px; color:#ccc" class="glyphicon glyphicon-usd"></span>
+
+
+                    }
+                    else
+                    {
+
+                        <span style="font-size:8px; color:#ccc" class="glyphicon glyphicon-minus"></span><span style="font-size:8px; color:#ccc" class="glyphicon glyphicon-minus"></span>
+
+                    }
+
+                    &nbsp;&nbsp;<span style="font-size:16px; color:#ff6a00" class="glyphicon glyphicon-warning-sign"></span>&nbsp;&nbsp;
+                    <span style="border-left:1px solid #ccc;height:60px; padding-right:8px"></span> <span class="caret"></span>
+                </button>
+                <ul id="ddm_@item.MessageID@item.ScreeningID" class="dropdown-menu" role="menu">
+                    <li style="width:760px">
+
+
+                        <div>
+
+                            <ul id="myTab" class="nav nav-tabs">
+                                <li class="active">
+                                    <a style="text-decoration:none" href="#ind_@item.MessageID@item.ScreeningID">
+
+
+                                        <span style="padding-right:6px; text-decoration:none">Screening Errors</span>
+
+
+                                    </a>
+
+                                </li>
+
+                                <li>
+                                    <a style="text-decoration:none" href="#org_@item.MessageID@item.ScreeningID">
+
+
+                                        <span style="padding-right:6px; text-decoration:none">Billing History</span>
+
+
+                                    </a>
+
+                                </li>
+
+
+
+                            </ul>
+
+                            <div id='content' class="tab-content">
+                                <div class="tab-pane active" id="ind_@item.MessageID@item.ScreeningID">
+
+
+
+
+                                    <div id="BillingSection_@item.MessageID@item.ScreeningID"></div>
+                                    <br />
+                                    <br />
+                                </div>
+
+                                <div class="tab-pane" id="org_@item.MessageID@item.ScreeningID">
+
+                                    <div class="alert alert-default">
+                                        <!--Main Content-->
+
+
+                                        <div id="InvoiceDetailSection_@item.MessageID@item.ScreeningID"></div>
+                                        <br />
+                                        <br />
+                                    </div>
+
+
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+
+                    </li>
+
+                </ul>
+
+
+
+            </div>
+        </div>
+
+        <script type="text/javascript">
+
+           $(function () {
+
+               $("#DD_@item.MessageID@item.ScreeningID").click(function () {
+
+                   $('#BillingSection_@item.MessageID@item.ScreeningID').load('@Url.Action("_ScreenMessageList", "Messages", new { id = item.ScreeningID })');
+
+                   $('#InvoiceDetailSection_@item.MessageID@item.ScreeningID').load('@Url.Action("_InvoiceDetailList", "InvoiceDetails", new { id = item.ScreeningID, id2 = item.MessageID })');
+
+               });
+
+           });
+
+
+           $('#ScreeningErrorList').dataTable().fnSettings().aoDrawCallback.push({
+               "fn": function () {
+
+                   $("#DD_@item.MessageID@item.ScreeningID").click(function () {
+
+                       $('#BillingSection_@item.MessageID@item.ScreeningID').load('@Url.Action("_ScreenMessageList", "Messages", new { id = item.ScreeningID })');
+
+                       $('#InvoiceDetailSection_@item.MessageID@item.ScreeningID').load('@Url.Action("_InvoiceDetailList", "InvoiceDetails", new { id = item.ScreeningID, id2 = item.MessageID })');
+
+});
+
+
+                   $(document).ready(function () {
+                       $("#ddm_@item.MessageID@item.ScreeningID").on("click", "li", function (e) {
+                              e.stopPropagation();
+                          });
+                      });
+
+
+               }
+           });
+
+
+
+        </script>
+
+
+
+        <script type="text/javascript">
+
+
+                           $(document).ready(function () {
+                               $("#ddm_@item.MessageID@item.ScreeningID").on("click", "li", function (e) {
+                                   e.stopPropagation();
+                               });
+                           });
+
+
+
+        </script>
+
+
+
+
+    }
+
+    else
+    {
+        @*<a class="popBilling" href='@Url.Action("_ScreenMessageList", new { Controller = "Messages", id = item.OfficeVisitID, id2 = item.ScreeningGuidID, id3 = item.EnrollmentID, id4 = item.SiteID, id5 = item.ScreeningID, id6 = item.Pending, id7 = item.ScreeningType, id8 = item.ClinicalCycleID, id9 = item.OVScreeningType })'>*@
+
+        if (item.BillingLevel == 0)
+        {
+
+
+            <a class="popBilling" href='@Url.Action("_ScreenMessageList", new { Controller = "Messages", id = item.OfficeVisitID, id2 = item.ScreeningGuidID, id3 = item.EnrollmentID, id4 = item.SiteID, id5 = item.ScreeningID, id6 = item.Pending, id7 = item.ScreeningType, id8 = item.ClinicalCycleID, id9 = item.OVScreeningType })'> <img id="@item.ScreeningID" src="@Url.Content(String.Format("~/Images/LevelNULLBillingIcon2.png"))" /></a>
+
+
+        }
+
+        else if (item.BillingLevel == 1)
+        {
+
+
+            <a class="popBilling" href='@Url.Action("_ScreenMessageList", new { Controller = "Messages", id = item.OfficeVisitID, id2 = item.ScreeningGuidID, id3 = item.EnrollmentID, id4 = item.SiteID, id5 = item.ScreeningID, id6 = item.Pending, id7 = item.ScreeningType, id8 = item.ClinicalCycleID, id9 = item.OVScreeningType })'>  <img id="@item.ScreeningID" src="@Url.Content(String.Format("~/Images/Level1BillingIcon2.png"))" /></a>
+
+
+        }
+
+        else if (item.BillingLevel == 2)
+        {
+
+
+            <a class="popBilling" href='@Url.Action("_ScreenMessageList", new { Controller = "Messages", id = item.OfficeVisitID, id2 = item.ScreeningGuidID, id3 = item.EnrollmentID, id4 = item.SiteID, id5 = item.ScreeningID, id6 = item.Pending, id7 = item.ScreeningType, id8 = item.ClinicalCycleID, id9 = item.OVScreeningType })'>  <img id="@item.ScreeningID" src="@Url.Content(String.Format("~/Images/Level2BillingIcon2.png"))" /> </a>
+
+
+        }
+
+        else if (item.BillingLevel == 3)
+        {
+
+
+            <a class="popBilling" href='@Url.Action("_ScreenMessageList", new { Controller = "Messages", id = item.OfficeVisitID, id2 = item.ScreeningGuidID, id3 = item.EnrollmentID, id4 = item.SiteID, id5 = item.ScreeningID, id6 = item.Pending, id7 = item.ScreeningType, id8 = item.ClinicalCycleID, id9 = item.OVScreeningType })'>   <img id="@item.ScreeningID" src="@Url.Content(String.Format("~/Images/Level3BillingIcon2.png"))" /> </a>
+
+
+        }
+
+
+        else if (item.BillingLevel == 4)
+        {
+
+            <a class="popBilling" href='@Url.Action("_ScreenMessageList", new { Controller = "Messages", id = item.OfficeVisitID, id2 = item.ScreeningGuidID, id3 = item.EnrollmentID, id4 = item.SiteID, id5 = item.ScreeningID, id6 = item.Pending, id7 = item.ScreeningType, id8 = item.ClinicalCycleID, id9 = item.OVScreeningType })'>   <img id="@item.ScreeningID" src="@Url.Content(String.Format("~/Images/Level4BillingIcon2.png"))" /> </a>
+
+        }
+
+        else if (item.BillingLevel == 5)
+        {
+
+            <a class="popBilling" href='@Url.Action("_ScreenMessageList", new { Controller = "Messages", id = item.OfficeVisitID, id2 = item.ScreeningGuidID, id3 = item.EnrollmentID, id4 = item.SiteID, id5 = item.ScreeningID, id6 = item.Pending, id7 = item.ScreeningType, id8 = item.ClinicalCycleID, id9 = item.OVScreeningType })'>  <img id="@item.ScreeningID" src="@Url.Content(String.Format("~/Images/Level5BillingIcon2.png"))" /> </a>
+
+        }
+
+        else if (item.BillingLevel == 6)
+        {
+
+            <a class="popBilling" href='@Url.Action("_ScreenMessageList", new { Controller = "Messages", id = item.OfficeVisitID, id2 = item.ScreeningGuidID, id3 = item.EnrollmentID, id4 = item.SiteID, id5 = item.ScreeningID, id6 = item.Pending, id7 = item.ScreeningType, id8 = item.ClinicalCycleID, id9 = item.OVScreeningType })'>  <img id="@item.ScreeningID" src="@Url.Content(String.Format("~/Images/Level6BillingIcon2.png"))" /> </a>
+
+        }
+
+                             // CCSP (No Billing)
+        else if (item.BillingLevel == 99)
+        {
+
+            <img id="@item.ScreeningID" src="@Url.Content(String.Format("~/Images/CoverageIcon.png"))" />
+
+        }
+
+
+        else
+        {
+
+            <a class="popBilling" href='@Url.Action("_ScreenMessageList", new { Controller = "Messages", id = item.OfficeVisitID, id2 = item.ScreeningGuidID, id3 = item.EnrollmentID, id4 = item.SiteID, id5 = item.ScreeningID, id6 = item.Pending, id7 = item.ScreeningType, id8 = item.ClinicalCycleID, id9 = item.OVScreeningType })'>   <img class="popImage" title="This screening contains no errors." id="@item.ScreeningID" src="@Url.Content(String.Format("~/Images/CoverageIconNA.png"))" />  </a>
+
+
+
+        }
+
+
+
+
+
+    }
+
+
+
+}
+
+
+
+

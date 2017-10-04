@@ -1,0 +1,315 @@
+﻿@model eCaST.ViewModels.SupportSessionViewModel
+
+<link href="@Url.Content("~/Content/slider.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/themes/base/jquery.ui.slider.css")" rel="stylesheet" type="text/css" />
+
+<script src="@Url.Content("~/Scripts/bootstrap-slider.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/app/patientinfo.js")" type="text/javascript"></script>
+
+
+@using (Html.BeginForm("_AddSupportSessionF", "PatientInformation", FormMethod.Post, new { id = "AddSessionForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div style="background-color:#fff;border-radius:5px">
+        <div style="padding:20px" align="center">
+            <div style="width:90%;text-align:left" id="DeleteContainer" class="alert alert-danger">
+
+                <h4 style="text-align:left;padding-top:12px"><i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;Are you sure you want to delete this session?</h4>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button id="CloseDeleteSessionButton" type="button" class="btn btn-default">Cancel</button>
+            <button type="submit" id="DeleteSessionButton" class="btn btn-danger">Delete</button>
+        </div>
+
+    </div>
+
+
+
+
+    @Html.Hidden("Saveid", 1)
+    @Html.Hidden("CCID", (int?)ViewBag.CCID)
+    @Html.Hidden("ClientID", (int?)ViewBag.CLID)
+    @Html.Hidden("SiteID", (int?)ViewBag.SiteID)
+    @Html.Hidden("ScreeningTypeID", (int?)ViewBag.ScreeningTypeID)
+    @Html.Hidden("EnrollID", (int?)ViewBag.EnrollID)
+    @Html.Hidden("ScreeningID", (int?)ViewBag.ScreeningID)
+    @Html.Hidden("HBSupportSessionID", (int?)ViewBag.SupportSessionID)
+
+
+
+}
+
+
+<script type="text/javascript">
+
+
+    $("#CloseDeleteSessionButton").click(function () {
+
+
+
+        $('#SupportSessionListSection').load('@Url.Action("_SupportSessionList", "PatientInformation", new { id = ViewBag.ScreeningID })');
+        $("#NewSSButton").css("display", "block");
+
+
+
+    });
+
+
+
+
+    $(function () {
+
+        var checkCompFieldSelected = function () {
+            return $("#HBSessionCompletionTypeBinID").val() == 5;
+        };
+
+        var checkCompHBFieldSelected = function () {
+            return $("#HBSessionCompletionTypeBinID").val() != -1;
+        };
+
+        @*   var checkSNFieldSelected = function () {
+            return $("#HBSessionNumberTypeBinID").val() != -1 || $("#HBSessionTypeBinID").val() == 1 || $("#HBSessionNumberTypeBinID").val() == '@ViewBag.SESSIONNUMBERMAX' || $("#HBSessionNumberTypeBinID").val() == 1 || $("#HBSessionNumberTypeBinID").val() == 22;
+        };*@
+
+        var checkSNFieldSelected = function () {
+            return $("#HBSessionNumberTypeBinID").val() != -1;
+        };
+
+        var checkDateFieldSelected = function () {
+            return $("#HBSessionTypeBinID").val() != -1;
+        };
+
+        var checkCONFieldSelected = function () {
+            return $("#HBSessionContactTypeBinID").val() != -1 || $("#HBSessionTypeBinID").val() != 1;
+        };
+
+        var checkSETFieldSelected = function () {
+            return $("#HBSessionSettingTypeBinID").val() != -1 || $("#HBSessionTypeBinID").val() != 1;
+        };
+
+        var checkLenFieldSelected = function () {
+            return $("HBSessionLengthBinID").val() != 0 || $("#HBSessionTypeBinID").val() == 2;
+        };
+
+        var checkPCFieldSelected = function () {
+            return $("PatientConfidence").val() != 0 || $("#HBSessionTypeBinID").val() == 2;
+        };
+
+        var checkPIFieldSelected = function () {
+            return $("PatientImportance").val() != 0 || $("#HBSessionTypeBinID").val() == 2;
+        };
+
+        var checkSOCFieldSelected = function () {
+            return $("#StateOfChangeBinID").val() != -1 || $("#HBSessionTypeBinID").val() != 1;
+        };
+
+        var checkSUBFieldSelected = function () {
+            return $("#SubContractorID").val() != -1 || $("#HBSessionTypeBinID").val() != 1;
+        };
+
+        var checkCURRFieldSelected = function () {
+            return $("#HBSessionCurriculumTypeBinID").val() != -1 || $("#HBSessionTypeBinID").val() == 1;
+        };
+
+
+        $("#AddSessionForm").validate({
+            rules: {
+
+                //HBReferralDate: {
+                //    required: { depends: checkCompHBFieldSelected }
+                //    //required: true
+
+                //},
+
+
+                HBSupportSessionDate: {
+                    required: { depends: checkDateFieldSelected }
+                    //required: true
+
+                },
+
+                HBSessionBarrierTypeBinID: {
+                    required: { depends: checkCompFieldSelected }
+                    //required: true
+
+                },
+
+                HBSessionNumberTypeBinID: {
+                    required: { depends: checkSNFieldSelected },
+                    range: ['@ViewBag.SESSIONNUMBERMAX', '@ViewBag.SESSIONNUMBERMAX']
+                    //required: true
+
+                },
+                HBSessionContactTypeBinID: {
+                    required: { depends: checkCONFieldSelected }
+                    //required: true
+
+                },
+                HBSessionSettingTypeBinID: {
+                    required: { depends: checkSETFieldSelected }
+                    //required: true
+
+                },
+                HBSessionLengthBinID: {
+                    required: { depends: checkLenFieldSelected },
+                    range: [1, 60]
+                    //required: true
+
+                },
+                PatientConfidence: {
+                    required: { depends: checkPCFieldSelected },
+                    range: [1, 10]
+                    //required: true
+
+                },
+                PatientImportance: {
+                    required: { depends: checkPIFieldSelected },
+                    range: [1, 10]
+                    //required: true
+
+                },
+                StateOfChangeBinID: {
+                    required: { depends: checkSOCFieldSelected }
+
+                    //required: true
+
+                },
+                SubContractorID: {
+                    required: { depends: checkSUBFieldSelected }
+
+                    //required: true
+
+                },
+                HBSessionCurriculumTypeBinID: {
+                    required: { depends: checkCURRFieldSelected }
+                    //required: true
+
+                }
+
+            },
+            messages: {
+
+                HBSupportSessionDate: {
+                    required: "Please enter a session date"
+
+                },
+
+
+                HBSessionBarrierTypeBinID: {
+                    required: "Please enter a barrier to completion"
+
+                },
+
+                HBSessionNumberTypeBinID: {
+                    required: "Please enter a session number"
+
+                },
+                HBSessionContactTypeBinID: {
+                    required: "Please enter a type of contact"
+
+                },
+                HBSessionSettingTypeBinID: {
+                    required: "Please enter a type of setting"
+
+                },
+                HBSessionLengthBinID: {
+                    required: "Please enter a session length greater than 0"
+
+                },
+                PatientConfidence: {
+                    required: "Please enter a value for patient confidence greater than 0"
+
+                },
+                PatientImportance: {
+                    required: "Please enter a value for patient importance greater than 0"
+
+                },
+                StateOfChangeBinID: {
+                    required: "Please enter state of change status"
+
+                },
+                SubContractorID: {
+                    required: "Please enter a location"
+
+                },
+                HBSessionCurriculumTypeBinID: {
+                    required: "Please enter a type of curriculum"
+                }
+                //,
+                //HBReferralDate: {
+                //    required: "Please enter a referral date"
+
+                //}
+
+            }
+
+        });
+
+        $('#AddSessionForm').on("submit", function (evt) {
+            evt.preventDefault();
+            if ($('#AddSessionForm').valid()) {
+                $.ajax({
+                    url: $("#AddSessionForm").attr('action'),
+                    type: $("#AddSessionForm").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#AddSessionForm").serialize(),
+                    success: function (data) {
+
+                        var clinicalcycleid = data.Modified;
+                        var siteid = data.Modified2;
+                        var screeningtypeid = data.Modified3;
+                        var clientid = data.Modified4;
+                        var enrollid = data.Modified5;
+                        var screeningid = data.Modified6;
+                        var supportsessionid = data.Modified7;
+                        var saveid = data.Modified8;
+
+                        @*$('#SupportSessionSection').load('@Url.Action("_SupportSessions", "PatientInformation")', { id: clinicalcycleid, id2: siteid, id3: screeningtypeid, id4: clientid, id5: enrollid, id6: screeningid });
+                        $('#HealthAssessmentSection').load('@Url.Action("_InitialHealthAssessment", "PatientInformation")', { id: clinicalcycleid, id2: siteid, id3: screeningtypeid, id4: clientid, id5: enrollid, id6: screeningid });*@
+                        $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ScreeningID })');
+
+                        if (supportsessionid == null && saveid == 1) {
+
+                            toastr.success('You have successfully added a session.')
+
+                        }
+
+                        else if (supportsessionid == null && saveid == 3) {
+
+                            toastr.success('You have successfully updated the session status.')
+
+                        }
+                        else if (supportsessionid != null && saveid == 2) {
+
+                            toastr.success('You have successfully updated a session.')
+
+                        }
+                        else {
+
+                            toastr.warning('You have successfully removed a session.')
+                        }
+
+
+                        $('#ssModal').modal('hide')
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+
+                    }
+                });
+
+
+            }
+
+
+
+        });
+
+    });
+
+
+</script>
+

@@ -1,0 +1,184 @@
+﻿@model IEnumerable<CTL.ViewModels.ApplicationViewModel>
+
+@{
+    ViewBag.Title = "Active Applications";
+}
+
+
+
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        oTable = $('#ActiveApplicationList').dataTable({
+            "bPaginate": false,
+            "oLanguage": {
+                "sSearch": "<i class='fa fa-filter fa-fw'></i> Filter: "
+            }
+            //"bJQueryUI": true,
+            //"sPaginationType": "full_numbers",
+            //"aaSorting": [[1, "desc"]]
+        });
+    });
+</script>
+
+<style type="text/css">
+    label, div {
+        color: #666;
+    }
+
+
+    #ActiveApplicationList td.sorting_1 {
+        background-color: #fff;
+        border: 1px lightgrey;
+    }
+    /*table.dataTable td{ background-color: aliceblue;  border:1px lightgrey;}*/
+    #ActiveApplicationList tr {
+        background-color: #fff;
+        color: #666;
+    }
+
+        #ActiveApplicationList tr:nth-child(even) {
+            background-color: #f7f7f6;
+        }
+</style>
+
+
+
+
+<div class="w3-card-2">
+    <div style="background-color:#0F9D58" class="panel-heading w3-card-2">
+        <span style="color:#fff;font-family: 'Roboto', sans-serif; font-size:16px"><i style="color:#fff" class="fa fa-tasks fa-fw"></i>&nbsp;Applications &nbsp;<span style="font-size:18px;background-color:#fff;color:#0F9D58" class="badge">@ViewBag.AppCount</span></span>
+
+    </div>
+    <!-- /.panel-heading -->
+    <div style="background-color:#fff" class="panel-body">
+
+
+
+        <table style="width:100%;  font-size:14px" id="ActiveApplicationList">
+            <thead>
+                <tr style="background-color:#f7f7f6;">
+                    @*<th></th>*@
+                    <th>
+                        Application
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                       Program(s)
+                    </th>
+                   
+                    @*<th></th>*@
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    @*<td style="width:12%">*@
+
+
+              
+                     
+                        @*else
+                        {
+
+                            <a id="cmtLink_@item.ApplicationID" style="text-decoration:none" data-toggle="modal" data-target="#cmtModal_@item.ApplicationID" href="#">
+
+
+                                <span class="btn btn-default" style="font-size:16px;background-color:darkorange;color:#fff"><i class="fa fa-edit"></i>&nbsp;<b>SUPPORT</b></span>
+                            </a>
+
+
+
+                            <div class="modal fade" id="cmtModal_@item.ApplicationID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div style="text-align:left" class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 style="color:#4a6ddc; font-family: 'Roboto', sans-serif;" class="modal-title" id="myModalLabel">Create a Support Ticket</h3>
+                                        </div>
+
+                                        <div id="cmtContainer_@item.ApplicationID"></div>
+
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <script type="text/javascript">
+
+
+                                $(function () {
+
+
+                                    $("#cmtLink_@item.ApplicationID").click(function () {
+
+
+                                        $('#cmtContainer_@item.ApplicationID').load('@Url.Action("Create", "Requests", new { id = @item.ApplicationID })');
+
+
+                                    });
+
+                                });
+
+
+
+                                $('#cmtModal_@item.ApplicationID').on('shown.bs.modal', function () {
+                                    $(this).find('.modal-dialog').css({
+                                        //width: 'auto',
+                                        width: '92%',
+                                        height: 'auto',
+                                        'max-height': '100%'
+                                    });
+                                });
+
+
+
+                            </script>
+
+
+                        }*@
+                    @*</td>*@
+
+
+                    <td>
+
+                        @if (item.RoleBinID == 1 || item.RoleBinID == 13)
+                        {
+                            <a class="btn btn-default" href="@Url.Action("Edit", "Applications", new { id = item.ApplicationID })"><span class="glyphicon glyphicon-cog"></span> </a>
+                            <a style="color:#fff" class="btn btn-danger" href="@Url.Action("Delete", "Applications", new { id = item.ApplicationID })"><span class="glyphicon glyphicon-trash"></span> </a>
+    <a class="btn btn-default" target="_blank" style="color:#333; font-size:large" href="@Html.DisplayFor(modelItem => item.HTTP)"><i class="fa fa-share fa-fw" />&nbsp;@Html.DisplayFor(modelItem => item.ApplicationName)</a>
+                        }
+                        else
+                        {
+
+
+                            <a class="btn btn-default" target="_blank" style="color:#333;width:100%;font-size:large" href="@Html.DisplayFor(modelItem => item.HTTP)"><i class="fa fa-share fa-fw" />&nbsp;@Html.DisplayFor(modelItem => item.ApplicationName)</a>
+
+
+
+                        }
+
+
+
+                     
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ApplicationDescription)
+                    </td>
+                    <td>
+                        <span> @string.Join(",", item.ProgramAList.ToArray())</span>
+                    </td>
+                   
+                   
+                </tr>
+            }
+
+        </table>
+
+
+    </div>
+</div>

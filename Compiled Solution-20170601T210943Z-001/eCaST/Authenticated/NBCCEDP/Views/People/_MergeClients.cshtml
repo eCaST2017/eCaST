@@ -1,0 +1,183 @@
+﻿@model eCaST.ViewModels.MergePersonViewModel
+
+@{
+    ViewBag.Title = "Configure Lockdown Date";
+}
+
+
+
+@using (Html.BeginForm("_MergeClientsF", "People", FormMethod.Post, new { id = "MergeClientsForm" }))
+{
+
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+   
+
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span style="color:#4ea920">
+                <i class="fa fa-random fa-fw"></i>&nbsp;Merge Clients
+            </span>
+
+        </div>
+
+        <div class="panel-body">
+
+
+            <div class="row">
+
+
+                <div class="col-md-6">
+
+                    <div>
+                        <div class="form-group has-success has-feedback">
+                            <label style="padding-right:35px" for="KPersonID">Client to Keep</label>
+                            @Html.EditorFor(model => model.KPersonID, new { htmlAttributes = new { @class = "form-control requiredText" } })
+                            @Html.ValidationMessageFor(model => model.KPersonID, "", new { @class = "text-danger" })
+                            
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <div>
+                        <div class="form-group has-success has-feedback">
+                            <label style="padding-right:35px" for="">Client to Delete</label>
+                            @Html.EditorFor(model => model.DPersonID, new { htmlAttributes = new { @class = "form-control requiredText" } })
+                            @Html.ValidationMessageFor(model => model.DPersonID, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+
+            <div class="modal-footer">
+
+
+                <a class="btn btn-default" href="@Url.Action("Index","Home")">Cancel</a> <button type="submit" id="MergeClientsButton0" class="btn btn-success">Merge</button>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+    
+    
+    
+    <div id="MergeListContainer"></div>
+    
+    
+
+
+}
+
+
+
+<script type="text/javascript">
+
+
+
+
+    $(function () {
+
+
+
+        $('#MergeListContainer').load('@Url.Action("_MergeClientList", "People")');
+
+
+
+                $("#MergeClientsButton0").click(function (e) {
+
+
+                    // Form Validation
+
+                    var iKPersonID = $("#KPersonID").val();
+                    var iDPersonID = $("#DPersonID").val();
+                    var iStopSub = 0;
+                    var sErr = "Please correct the following issues:\n\n";
+
+
+                    iKPersonIDLen = iKPersonID.length;
+                    if (iKPersonIDLen < 1) {
+                        iStopSub = 1;
+                        sErr += "You must enter a Person ID to Keep" + "\n";
+                    }
+
+                  
+                    iDPersonIDLen = iDPersonID.length;
+                    if (iDPersonIDLen < 1) {
+                        iStopSub = 1;
+                        sErr += "You must enter a Person ID to Delete" + "\n";
+                    }
+
+
+                    if (iStopSub != 0) {
+                        alert(sErr);
+                        e.preventDefault();
+                    }
+
+
+                });
+
+
+
+                $('#MergeClientsForm').on("submit", function (e) {
+                    e.preventDefault();
+
+                    $.ajax({
+
+                        url: $("#MergeClientsForm").attr('action'),
+                        type: $("#MergeClientsForm").attr('method'),
+                        contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                        data: $("#MergeClientsForm").serialize(),
+                        success: function (data) {
+
+                            var status = data.Status;
+
+                            if (status == "Success") {
+
+                               // $('#PersonSection').load('@Url.Action("_ClientHistory", "People")');
+                                $('#PersonSection').load('@Url.Action("_MergeClients", "People")');
+                                toastr.success('You have successfully merged a client');
+
+                            }
+                            else {
+
+                                toastr.warning('Your attempt to merge clients was unsuccessful. Please try again.');
+
+                            }
+                           
+
+
+
+                        }
+
+                    });
+
+                });
+
+
+
+
+            });
+
+
+
+
+
+</script>
+

@@ -1,0 +1,106 @@
+﻿@model eCaST.Models.InvoiceDetail
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>InvoiceDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClientID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClientID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DetailTypeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DetailTypeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DetailID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DetailID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CancerTypeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CancerTypeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillingLevelID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillingLevelID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateLastService)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateLastService)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FederalAllocation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FederalAllocation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StateAllocation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StateAllocation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

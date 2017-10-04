@@ -1,0 +1,83 @@
+﻿@model CTL.ViewModels.UserProfileViewModel
+@{
+    ViewBag.Title = "Partner Profile";
+    
+}
+
+
+
+<h3 style="font-family: 'Roboto', sans-serif;color:#3a53c7;padding-left:20px"><span class="glyphicon glyphicon-dashboard"></span>&nbsp; My Dashboard</h3>
+<hr />
+
+
+@*@if (ViewBag.FollowCount > 0) { 
+
+{ Html.RenderAction("FollowList", "Posts");}
+
+    
+}
+
+
+
+<ul class="nav nav-tabs" >
+    <li class="active"><a href="#profile" role="tab" data-toggle="tab">Family Leaders&nbsp;<span class="badge pull-right">@ViewBag.FLCount</span></a></li>
+    <li><a href="#home" role="tab" data-toggle="tab">Opportunities&nbsp;<span class="badge pull-right">@ViewBag.PostCount</span></a></li>
+    <li><a href="#messages" role="tab" data-toggle="tab">Organizations&nbsp;<span class="badge pull-right">@ViewBag.OrgCount</span></a></li>
+   
+</ul>
+
+
+<div  id='content' class="tab-content">
+    <div class="tab-pane active" id="profile">
+
+        @{ Html.RenderAction("AllMemberList", "UserProfiles");}
+
+      
+    </div>
+    <div class="tab-pane" id="home">
+
+        @{ Html.RenderAction("OpportunityList", "Posts");}
+
+    
+
+    </div>
+   
+    <div class="tab-pane" id="messages">
+
+
+        @{ Html.RenderAction("_OrganizationList", "Organizations");}
+
+       
+
+    </div>
+
+</div>*@
+
+
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jquerycustom")
+
+
+@*<script type="text/javascript">
+
+
+    $(function () {
+
+
+        $('#OpportunityListContainer').load('@Url.Action("OpportunityList", "Posts")');
+
+    });
+
+
+</script>*@
+
+
+
+}
+
+  
+  

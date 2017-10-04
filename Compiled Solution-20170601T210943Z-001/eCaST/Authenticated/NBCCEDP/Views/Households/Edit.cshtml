@@ -1,0 +1,528 @@
+﻿@model eCaST.Models.Household
+
+@{
+    ViewBag.Title = "Edit Household";
+}
+
+
+
+@using (Html.BeginForm("_EditHouseholdF", "Households", FormMethod.Post, new { id = "EditHHForm" }))
+{
+
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.HHID)
+    @Html.HiddenFor(model => model.PersonID)
+
+
+    @*<div class="row">
+
+            <div class="col-md-2">
+
+                Type of Insurance
+
+            </div>
+
+
+            <div class="col-md-10">
+
+                @Html.DropDownListFor(model => model.UserID, ((IEnumerable<PORTALREQUEST.Models.UserProfile>)ViewBag.PossibleUserProfileBins).Select(option => new SelectListItem
+                {
+                    //Text = Html.DisplayTextFor(_ => option).ToString(),
+                    Text = option.FirstName + " " + option.LastName,
+                    Value = option.UserID.ToString(),
+                    Selected = (Model != null) && (option.UserID == Model.UserID)
+                }), "Choose...", new { @id = "UserIDC", @class = "input-control select" })
+
+
+                @Html.ValidationMessageFor(model => model.numberInFamily, "", new { @class = "text-danger" })
+
+            </div>
+
+
+        </div>
+        <br />*@
+
+
+
+    
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-pencil fa-fw"></i> Houshold Information
+
+            </div>
+
+            <div class="panel-body">
+
+
+
+                <div class="row">
+
+                    <div class="col-md-2">
+
+                        Monthly Gross Income
+
+                    </div>
+
+
+                    <div class="col-md-10">
+
+                        @Html.EditorFor(model => model.annualGrossIncome, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.annualGrossIncome, "", new { @class = "text-danger" })
+
+                    </div>
+
+
+                </div>
+
+                <br />
+
+                <div class="row">
+
+                    <div class="col-md-2">
+
+                        # in Family
+
+                    </div>
+
+
+                    <div class="col-md-10">
+
+                        @Html.EditorFor(model => model.numberInFamily, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.numberInFamily, "", new { @class = "text-danger" })
+
+                    </div>
+
+
+                </div>
+                <br />
+
+
+                <span id="ppov"></span>
+                <br />
+                <br />
+
+                <div class="row">
+
+                    <div class="col-md-2">
+
+                        Insurance Coverage
+
+                    </div>
+
+
+                    <div class="col-md-10">
+
+                        @Html.DropDownListFor(model => model.InsuranceID, ((IEnumerable<eCaST.Models.DD_InsuranceTypes>)ViewBag.PossibleInsuranceBins).Select(option => new SelectListItem
+            {
+                //Text = Html.DisplayTextFor(_ => option).ToString(),
+                Text = option.Description,
+                Value = option.ID.ToString(),
+                Selected = (Model != null) && (option.ID == Model.InsuranceID)
+            }), "Choose...", new { @id = "InsuranceID", @class = "input-control select" })
+                        @Html.ValidationMessageFor(model => model.InsuranceID, "", new { @class = "text-danger" })
+                    </div>
+
+
+                </div>
+                <br />
+
+                <div style="display:none" id="SubInsuranceContainer" class="row">
+
+                    <div class="col-md-2">
+
+                        Supplimental Public Insurance
+
+                    </div>
+
+
+                    <div class="col-md-10">
+
+                        @Html.DropDownListFor(model => model.subInsuranceID, ((IEnumerable<eCaST.Models.DD_InsuranceSubTypes>)ViewBag.PossibleSubInsuranceBins).Select(option => new SelectListItem
+            {
+                //Text = Html.DisplayTextFor(_ => option).ToString(),
+                Text = option.Description,
+                Value = option.ID.ToString(),
+                Selected = (Model != null) && (option.ID == Model.subInsuranceID)
+            }), "Choose...", new { @id = "subInsuranceID", @class = "input-control select" })
+                        @Html.ValidationMessageFor(model => model.subInsuranceID, "", new { @class = "text-danger" })
+                    </div>
+
+
+                </div>
+                <br />
+
+                <div class="row">
+
+                    <div class="col-md-2">
+
+                        County of Residence
+
+                    </div>
+
+
+                    <div class="col-md-10">
+
+                        @Html.DropDownListFor(model => model.countyResidenceID, ((IEnumerable<eCaST.Models.DD_Counties>)ViewBag.PossibleCountyBins).Select(option => new SelectListItem
+            {
+                //Text = Html.DisplayTextFor(_ => option).ToString(),
+                Text = option.Description,
+                Value = option.ID.ToString(),
+                Selected = (Model != null) && (option.ID == Model.countyResidenceID)
+            }), "Choose...", new { @id = "countyResidenceID", @class = "input-control select" })
+                        @Html.ValidationMessageFor(model => model.countyResidenceID, "", new { @class = "text-danger" })
+                    </div>
+
+
+                </div>
+                <br />
+
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.InsuranceID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.InsuranceID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.InsuranceID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.subInsuranceID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.subInsuranceID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.subInsuranceID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.countyResidenceID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.countyResidenceID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.countyResidenceID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+
+                <div class="modal-footer">
+                    <button id="CloseHHButton" type="button" class="btn btn-default">Close</button>
+                    <button type="submit" id="EditHHButton" class="btn btn-success">Save</button>
+                </div>
+
+
+                </div>
+
+            </div>
+
+
+
+
+
+                }
+
+
+
+
+                <script type="text/javascript">
+
+                   
+                    $(function () {
+
+                        var two0 = parseInt($("#numberInFamily").val());
+                        var three0 = "";
+           @{
+               int cnt0 = 0;
+               List<eCaST.ViewModels.AssignedPovertyGuidelines> pfgs0 = ViewBag.PovertyGuidelines;
+               foreach (var pfg in pfgs0)
+               {
+                   cnt0 = cnt0 + 1;
+                   if (cnt0 == 1)
+                   {
+
+
+                       @:  if (two0 == @pfg.numberInFamily) { three0 = parseFloat((($("#annualGrossIncome").val() / @pfg.PovertyAmount) * 100));}
+
+                   }
+                   else
+                   {
+
+                       @: else if (two0 == @pfg.numberInFamily) { three0 = parseFloat((($("#annualGrossIncome").val() / @pfg.PovertyAmount) * 100));}
+
+                   }
+
+               }
+
+                    
+
+           }
+                    else {
+                   var three0 = "&nbsp;";
+                    }
+           three0 = three0.toString();
+                    var n = three0.length;
+                    if (three0 >= 6) {
+                        three0 = three0.substr(0, 6);
+                    }
+                    $("#ppov").html("% of Poverty: <font color='brown'><b>" + three0 + "</b></font>");
+
+
+                    });
+
+
+                    $(function () {
+                        $("#numberInFamily").change(function () {
+                            var two = parseInt($("#numberInFamily").val());
+                            var three = "";
+                            @{
+                                int cnt = 0;
+                                List<eCaST.ViewModels.AssignedPovertyGuidelines> pfgs = ViewBag.PovertyGuidelines;
+                                foreach (var pfg in pfgs)
+                                {
+                                    cnt = cnt + 1;
+                                    if (cnt == 1)
+                                    {
+
+
+                                        @:  if (two == @pfg.numberInFamily) { three = parseFloat((($("#annualGrossIncome").val() / @pfg.PovertyAmount) * 100));}
+
+                                    }
+                                    else
+                                    {
+
+                                        @: else if (two == @pfg.numberInFamily) { three = parseFloat((($("#annualGrossIncome").val() / @pfg.PovertyAmount) * 100));}
+
+                                    }
+
+                                }
+
+                    
+
+                            }
+                        else {
+                                    var three = "&nbsp;";
+                        }
+                            three = three.toString();
+                        var n = three.length;
+                        if (three >= 6) {
+                            three = three.substr(0, 6);
+                        }
+                        $("#ppov").html("% of Poverty: <font color='brown'><b>" + three + "</b></font>");
+
+                    });
+                    });
+
+
+
+                        $(function () {
+                            $("#annualGrossIncome").change(function () {
+                                var two1 = parseInt($("#numberInFamily").val());
+                                var three1 = "";
+                                @{
+                                    int cnt1 = 0;
+                                    List<eCaST.ViewModels.AssignedPovertyGuidelines> pfgs1 = ViewBag.PovertyGuidelines;
+                                    foreach (var pfg in pfgs1)
+                                    {
+                                        cnt1 = cnt1 + 1;
+                                        if (cnt1 == 1)
+                                        {
+
+
+                                            @:  if (two1 == @pfg.numberInFamily) { three1 = parseFloat((($("#annualGrossIncome").val() / @pfg.PovertyAmount) * 100));}
+
+                                        }
+                                        else
+                                        {
+
+                                            @: else if (two1 == @pfg.numberInFamily) { three1 = parseFloat((($("#annualGrossIncome").val() / @pfg.PovertyAmount) * 100));}
+
+                                        }
+
+                                    }
+
+                    
+
+                                }
+                            else {
+                                        var three1 = "&nbsp;";
+                            }
+                                three1 = three1.toString();
+                            var n = three1.length;
+                            if (three1 >= 6) {
+                                three1 = three1.substr(0, 6);
+                            }
+                            $("#ppov").html("% of Poverty: <font color='brown'><b>" + three1 + "</b></font>");
+
+                        });
+                        });
+
+
+                    $(function () {
+
+
+                        $("#InsuranceID").select2({ width: "100%" });
+                        $("#subInsuranceID").select2({ width: "100%" });
+                        $("#countyResidenceID").select2({ width: "100%" });
+
+
+
+                        $("#CloseHHButton").click(function () {
+
+
+                            $('#HouseholdContainer').load('@Url.Action("Details", "Households", new { id = @Model.PersonID })');
+
+
+                        });
+
+
+                    });
+
+                    $(function () {
+
+                        var value = $('select#InsuranceID option:selected').val();
+
+                        if (value == 1) {
+
+
+                            $("#SubInsuranceContainer").css("display", "block");
+
+
+                        }
+                        else {
+
+                            $("#SubInsuranceContainer").css("display", "none");
+
+                        }
+
+
+                        $("#InsuranceID").click(function () {
+
+                            var value = $('select#InsuranceID option:selected').val();
+
+                            if (value == 1) {
+
+
+                                $("#SubInsuranceContainer").css("display", "block");
+
+
+                            }
+                            else {
+
+                                $("#SubInsuranceContainer").css("display", "none");
+
+                            }
+
+
+
+
+                        });
+
+
+                    });
+
+                    $(function () {
+
+                        $("#EditHHButton").click(function (e) {
+
+
+                            // Form Validation
+
+
+                            var iStopSub = 0;
+                            var sErr = "Please correct the following issues:\n\n";
+
+
+
+                            var iannualGrossIncome = $("#annualGrossIncome").val();
+
+                            if (iannualGrossIncome == "") {
+
+                                iStopSub = 1;
+                                sErr += "You must enter Annual Gross Income" + "\n";
+
+                            }
+
+
+                            var inumberInFamily = $("#numberInFamily").val();
+
+                            if (inumberInFamily == "") {
+
+                                iStopSub = 1;
+                                sErr += "You must enter Number In Family" + "\n";
+
+                            }
+
+
+                            var icountyResidenceID = $("#countyResidenceID option:selected").val();
+
+                            if (icountyResidenceID < 1) {
+                                iStopSub = 1;
+                                sErr += "You must enter a County of Residence" + "\n";
+
+                            }
+
+
+                            var iInsuranceID = $("#InsuranceID option:selected").val();
+
+                            if (iInsuranceID < 1) {
+                                iStopSub = 1;
+                                sErr += "You must enter Insurance Coverage" + "\n";
+
+                            }
+
+
+                            var value = $('select#InsuranceID option:selected').val();
+
+                            if (value == 1) {
+
+
+                                var isubInsuranceID = $("#subInsuranceID option:selected").val();
+
+                                if (isubInsuranceID < 1) {
+                                    iStopSub = 1;
+                                    sErr += "You must enter Supplimental Public Insurance" + "\n";
+
+                                }
+
+
+                            }
+
+
+                            if (iStopSub != 0) {
+                                alert(sErr);
+                                e.preventDefault();
+                            }
+
+
+                        });
+
+
+                        $('#EditHHForm').on("submit", function (e) {
+                            e.preventDefault();
+
+                            $.ajax({
+
+                                url: $("#EditHHForm").attr('action'),
+                                type: $("#EditHHForm").attr('method'),
+                                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                                data: $("#EditHHForm").serialize(),
+                                success: function (data) {
+
+                                    var personid = data.Modified;
+                                    var firstname = data.Modified2;
+                                    var lastname = data.Modified3;
+                                   
+
+                                    $('#HouseholdContainer').load('@Url.Action("Details", "Households")', { id: personid });
+                                    toastr.success('You have successfully updated household information for ' + firstname + " " + lastname)
+
+
+
+                                }
+
+                            });
+
+                        });
+
+                    });
+
+
+                </script>

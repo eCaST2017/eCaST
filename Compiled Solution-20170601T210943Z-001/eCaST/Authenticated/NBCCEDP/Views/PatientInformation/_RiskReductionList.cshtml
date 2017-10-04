@@ -1,0 +1,332 @@
+﻿@model eCaST.ViewModels.RiskReductionViewModel
+
+<style type="text/css">
+    .example-two {
+        border-radius: 10px;
+        border: 3px solid #fff;
+        background-color:#2f8f40;
+        color:#fff;
+        font-size:16px;
+        padding:12px;
+    }
+</style>
+
+
+
+
+@*<div align="right">Status: @ViewBag.Status</div>*@
+
+
+<div class="alert alert-warning">
+
+
+    <h3 style="font-family:'Lato', sans-serif; color:#dd913f; font-weight:300"><span style="color:#dd913f" class="glyphicon glyphicon-sort-by-attributes"></span>&nbsp;Risk Reduction/Readiness to Change</h3>
+
+
+    <hr class="style-two" />
+
+    <br />
+
+
+
+
+    <div align="right">
+
+
+        @if (@ViewBag.Complete == true)
+        {
+
+            <div class="alert alert-success">
+                @*&nbsp;&nbsp;Enhanced Risk Reduction Counseling Provided? <b>@ViewBag.RREnhancedCounseling</b>*@
+                <h4><label>Risk Reduction Started On:</label>&nbsp;<label style="color:#68ae2a"> @(((DateTime)ViewBag.BeginDate).ToString("MM/dd/yyyy"))</label>&nbsp;<label>Status:</label>&nbsp;<label style="color:#68ae2a">Completed on @(((DateTime)ViewBag.CompDate).ToString("MM/dd/yyyy"))</label></h4> 
+                
+            </div>
+
+
+
+        }
+        else
+        {
+
+            <div class="alert alert-danger">
+
+                <h4><label>Status:</label>&nbsp;&nbsp;<label style="color:#d82424">Incomplete</label></h4>
+                
+            </div>
+
+
+
+        }
+
+        &nbsp;&nbsp;  @* <button id="CollapseRRButton" class ="btn btn-default">[-] Collapse</button>*@
+
+        @*@if (ViewBag.BPPlusCheck == true)
+        {
+            <text>This is a</text> <img id="BBPPlusIcon" src="@Url.Content(String.Format("~/Images/CoverageIconBPPLUS.png"))" /> <text>Screening. Click Edit on the Initial Health Assessment to Update or Upgrade.</text>
+
+        }
+        else
+        {*@
+
+
+            <button id="EditRRButton" type="submit" class="btn btn-success">Edit</button>
+
+        @*}*@
+
+    </div>
+
+
+
+    <div><h3 style="font-family:'Lato', sans-serif; color:#dd913f; font-weight:300">Priority Areas</h3></div>
+
+    <hr class="style-two" />
+
+    <br />
+
+    @if (@ViewBag.RRNutrition == "Yes")
+    {
+
+        <text><div class="example-two"><i class="fa fa-check"></i>&nbsp;
+        </text>
+
+    }
+    else
+    {
+
+        <text><div>
+        </text>
+
+    }
+
+    <label>Participant decided nutrition is a priority area:</label> @ViewBag.RRNutrition
+
+
+
+</div>
+<br />
+<br />
+@if (@ViewBag.RRPhysicalActivity == "Yes")
+{
+
+    <text><div class="example-two"><i class="fa fa-check"></i>&nbsp;
+    </text>
+
+}
+else
+{
+
+    <text><div>
+    </text>
+
+}
+
+<label>Participant decided physical activity is a priority area:</label> @ViewBag.RRPhysicalActivity
+
+
+
+</div>
+<br />
+<br />
+@if (@ViewBag.RRSmokingCessation == "Yes")
+{
+
+    <text><div class="example-two"><i class="fa fa-check"></i>&nbsp;
+    </text>
+
+}
+else
+{
+
+    <text><div>
+    </text>
+
+}
+
+
+<label>Participant decided smoking cessation is a priority area:</label> @ViewBag.RRSmokingCessation
+</div>
+<br />
+<br />
+@if (@ViewBag.RRMedicationAdherence == "Yes")
+{
+
+    <text><div class="example-two"><i class="fa fa-check"></i>&nbsp;
+    </text>
+
+}
+else
+{
+
+    <text><div>
+    </text>
+
+}
+
+
+<label>Participant decided medication adherence for hypertension (high blood pressure) is a priority area:</label> @ViewBag.RRMedicationAdherence
+</div>
+
+
+<br />
+<br />
+
+<div><h3 style="font-family:'Lato', sans-serif; color:#dd913f; font-weight:300">Readiness to Change</h3></div>
+
+<hr class="style-two" />
+
+<br />
+
+<div> <label>Readiness to change assessment date:</label>&nbsp;@Html.FormatValue(@ViewBag.ReadinessDate, "{0:MM/dd/yyyy}")  </div>
+<br />
+<br />
+<div> <label>Participant state of change:</label> @ViewBag.ChangeState </div>
+<br />
+<br />
+
+@if (ViewBag.TobaccoResourceDate != null)
+{
+
+    <div id="SmokingCessationSection">
+
+        <div><h3 style="font-family:'Lato', sans-serif; color:#dd913f; font-weight:300">Tobacco Cessation (Quitline)</h3></div>
+
+        <hr class="style-two" />
+
+        <br />
+
+        <div>
+            <label>Date of referral to tobacco cessation resource:</label>
+
+          
+            @Html.FormatValue(@ViewBag.TobaccoResourceDate, "{0:MM/dd/yyyy}")
+
+        </div>
+        <br />
+        <br />
+
+        <div> <label>Type of tobacco cessation resource:</label> @ViewBag.TobaccoResourceType </div>
+        <br />
+        <br />
+
+        <div> <label>Tobacco Resource Completion Status:</label> @ViewBag.TobCompletedBinName </div>
+        <br />
+
+        <br />
+
+    </div>
+    
+    
+
+}
+
+
+              <div id="HBSessionSection">
+
+                  <div><h3 style="font-family:'Lato', sans-serif; color:#dd913f; font-weight:300">Referral to Healthy Behavior Support Program</h3></div>
+
+                  <hr class="style-two" />
+
+                  <br />
+
+                  @if (ViewBag.HBSessionReferralDate != null) { 
+
+                  <div>
+                      <label>Date of referral to healthy behavior support:</label>
+
+
+                      @Html.FormatValue(@ViewBag.HBSessionReferralDate, "{0:MM/dd/yyyy}")
+
+                  </div>
+
+                  }
+                  else
+                  {
+
+                    <div>
+                        
+                        
+                        
+                        <label>Not Referred</label>
+
+
+                        
+
+                    </div>
+
+
+                  }
+
+
+                  <br />
+                  <br />
+
+               
+
+              </div>
+
+
+
+
+</div>
+
+
+
+@if (ViewBag.HBSessionReferralDate != null)
+{
+
+    <div class="alert alert-success">
+
+
+        <h3 style="font-family:'Lato', sans-serif; color:#388957; font-weight:300"><span style="color:#388957" class="glyphicon glyphicon-heart"></span>&nbsp;Diabetes Prevention Program (DPP)/Health Coaching (HC)/Cooking Matters (CM)</h3>
+
+
+        <hr class="style-two" />
+
+        <br />
+
+
+
+        <script type="text/javascript">
+
+
+                        $(function () {
+
+                            $('#SupportSessionSection').load('@Url.Action("_SupportSessions", "PatientInformation", new { id = ViewBag.ScreeningID })');
+
+
+                        });
+
+        </script>
+
+
+
+
+        <div id="SupportSessionSection"></div>
+
+    </div>
+
+
+}
+
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        $("#EditRRButton").click(function (evt33) {
+            evt33.preventDefault();
+            $('#RiskReductionSection').load('@Url.Action("_RiskReductionEdit", "PatientInformation", new { id = ViewBag.ScreeningID })');
+            $("#SaveBarSection").css("display", "none");
+
+
+        });
+
+      });
+
+
+</script>

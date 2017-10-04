@@ -1,0 +1,396 @@
+﻿<div class="row">
+
+    <div class="col-md-12">
+
+
+
+
+
+        <ul class="bxslider">
+
+            <li>
+                <a id="ScreenErrorsButton" href="#">
+                    <div style="background-color:orange; border-radius:0px" class="panel">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i style="color:#666;opacity:0.5" class="fa fa-exclamation-triangle fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div id="SECountContainer"></div>
+                                    <br />
+                                    <div style="color:#fff;text-align:right" class="big">Data Entry Errors</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background-color:#e5782b;border:0px;color:#666;opacity:0.5" class="panel-footer">
+                            <span class="pull-left">View Details</span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </div>
+                </a>
+
+
+
+            </li>
+
+
+            <li>
+
+               
+                <a id="AdminErrorsButton" href="#">
+                    <div style="background-color:#289916" class="panel">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i style="color:#666;opacity:0.5" class="fa fa-bell fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div id="ANCountContainer"></div>
+                                    <br />
+                                    <div style="color:#fff;text-align:right" class="big">Admin Notices</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background-color:green;border:0px;color:#333;opacity:0.5" class="panel-footer">
+                            <span class="pull-left">View Details</span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </div>
+                </a>
+
+
+
+
+
+            </li>
+
+
+            <li>
+
+
+                <a id="PatientErrorsButton" data-toggle="modal" data-target="#patientErrorsModal" href="#">
+                    <div style="background-color:#2084b0" class="panel">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i style="color:#666;opacity:0.5" class="fa fa-female fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div id="PNCountContainer"></div>
+                                    <br />
+                                    <div style="color:#fff;text-align:right" class="big">Patient Navigation</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background-color:#415db2;border:0px;color:#333;opacity:0.5" class="panel-footer">
+                            <span class="pull-left">View Details</span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </a>
+
+
+
+            </li>
+
+
+            <li>
+
+
+                <a id="CaseManagementButton" href="#">
+                    <div style="background-color:lightcoral" class="panel">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i style="color:#666;opacity:0.5" class="fa fa-calendar fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div id="CMCountContainer"></div>
+                                    <br />
+                                    <div style="color:#fff;text-align:right" class="big">Case Management</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background-color:#ce1717;border:0px;color:#333;opacity:0.5" class="panel-footer">
+                            <span class="pull-left">View Details</span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </div>
+                </a>
+
+
+
+
+
+            </li>
+
+
+            <li>
+
+                <a id="CancerCasesButton" href="#">
+                    <div style="background-color:#999" class="panel">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i style="color:#666;opacity:0.5" class="fa fa-user-md fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div id="CCCountContainer"></div>
+                                    <br />
+                                    <div style="color:#fff;text-align:right" class="big">Cancer cases</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background-color:#666;border:0px;color:#333;opacity:0.5" class="panel-footer">
+                            <span class="pull-left">View Details</span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </div>
+                </a>
+
+
+
+
+            </li>
+
+
+            <li>
+
+                <a id="ProcErrorsButton" href="#">
+                    <div style="background-color:lightsteelblue" class="panel">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i style="color:#666;opacity:0.5" class="fa fa-exclamation-triangle fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div id="PRCountContainer"></div>
+                                    <br />
+                                    <div style="color:#fff;text-align:right" class="big">Procedure Errors</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background-color:steelblue;border:0px;color:#333;opacity:0.5" class="panel-footer">
+                            <span class="pull-left">View Details</span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </a>
+
+
+            </li>
+
+
+
+            <li>
+
+                @*[dbo].[Report_ClientsReferredHealthyBehaviorSessions]*@ 
+                <a id="HBSessionsButton" href="#">
+                    <div style="background-color:mediumaquamarine" class="panel">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i style="color:#666;opacity:0.5" class="fa fa-heartbeat fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div id="HBCountContainer"></div>
+                                    <br />
+                                    <div style="color:#fff;text-align:right" class="big">HB Referred Clients</div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background-color:darkseagreen;border:0px;color:#333;opacity:0.5" class="panel-footer">
+                            <span class="pull-left">View Details</span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </div>
+                </a>
+
+
+
+            </li>
+
+        
+         
+        </ul>
+
+
+    </div>
+
+
+
+</div>
+
+
+<script type="text/javascript">
+
+
+
+
+    $("#ScreenErrorsButton").click(function () {
+
+        $(".se-pre-con").fadeIn("slow");
+        $("#ErrorsContainer").load("@Url.Action("_ErrorScreen", "Screenings")", { 'id': 2, 'id2': "Data Entry Errors", 'id3': "fa fa-exclamation-triangle fa-fw", 'id4': "#ff6a00" },
+                                         function (response, status, xhr) {
+                                             if (status == "error") {
+
+                                             }
+
+                                             $(".se-pre-con").fadeOut("slow");
+
+                                         });
+
+
+    });
+
+    $("#AdminErrorsButton").click(function () {
+
+        $(".se-pre-con").fadeIn("slow");
+        $("#ErrorsContainer").load("@Url.Action("_ErrorScreen", "Screenings")", { 'id': 1, 'id2': "Admin Notices", 'id3': "fa fa-bell fa-fw", 'id4': "green" },
+                                         function (response, status, xhr) {
+                                             if (status == "error") {
+
+                                             }
+
+                                             $(".se-pre-con").fadeOut("slow");
+                                         });
+
+
+    });
+
+    $("#PatientErrorsButton").click(function () {
+
+        $(".se-pre-con").fadeIn("slow");
+        $("#ErrorsContainer").load("@Url.Action("_ErrorScreen", "Screenings")", { 'id': 3, 'id2': "Patient Navigation", 'id3': "fa fa-female fa-fw", 'id4': "#2084b0" },
+                                         function (response, status, xhr) {
+                                             if (status == "error") {
+
+                                             }
+
+                                             $(".se-pre-con").fadeOut("slow");
+                                         });
+
+
+    });
+
+    $("#ProcErrorsButton").click(function () {
+
+        $(".se-pre-con").fadeIn("slow");
+        $("#ErrorsContainer").load("@Url.Action("_ProcErrorScreen", "Screenings")", { 'id': 5, 'id2': "Procedure Errors", 'id3': "fa fa-exclamation-triangle fa-fw", 'id4': "lightsteelblue" },
+                                         function (response, status, xhr) {
+                                             if (status == "error") {
+
+                                             }
+
+                                             $(".se-pre-con").fadeOut("slow");
+
+                                         });
+
+
+    });
+
+    $("#CaseManagementButton").click(function () {
+
+        $(".se-pre-con").fadeIn("slow");
+        $("#ErrorsContainer").load("@Url.Action("_CMErrorScreen", "Screenings")", { 'id': 2, 'id2': "Case Management", 'id3': "fa fa-calendar fa-fw", 'id4': "lightcoral" },
+                                         function (response, status, xhr) {
+                                             if (status == "error") {
+
+                                             }
+
+                                             $(".se-pre-con").fadeOut("slow");
+                                         });
+
+
+    });
+
+    $("#CancerCasesButton").click(function () {
+
+        $(".se-pre-con").fadeIn("slow");
+        $("#ErrorsContainer").load("@Url.Action("_CCErrorScreen", "Screenings")", { 'id': 2, 'id2': "Cancer Cases", 'id3': "fa fa-user-md fa-fw", 'id4': "#999" },
+                                         function (response, status, xhr) {
+                                             if (status == "error") {
+
+                                             }
+
+                                             $(".se-pre-con").fadeOut("slow");
+                                         });
+
+
+    });
+
+    $("#HBSessionsButton").click(function () {
+
+        $(".se-pre-con").fadeIn("slow");
+        $("#ErrorsContainer").load("@Url.Action("_HBErrorScreen", "Screenings")", { 'id': 2, 'id2': "Healthy Behaviors Sessions", 'id3': "fa fa-heartbeat fa-fw", 'id4': "mediumaquamarine" },
+                                         function (response, status, xhr) {
+                                             if (status == "error") {
+
+                                             }
+
+                                             $(".se-pre-con").fadeOut("slow");
+                                         });
+
+
+    });
+
+
+    $(function () {
+
+        $('#SECountContainer').load('@Url.Action("_ScreenErrorCount", "Home")');
+        $('#ANCountContainer').load('@Url.Action("_AdminNoticeCount", "Home")');
+        $('#PNCountContainer').load('@Url.Action("_PatientNavigationCount", "Home")');
+        $('#CMCountContainer').load('@Url.Action("_CaseManagementCount", "Home")');
+        $('#PRCountContainer').load('@Url.Action("_ScreenProcErrorsCount", "Home")');
+        $('#CCCountContainer').load('@Url.Action("_CancerCasesCount", "Home")');
+        $('#HBCountContainer').load('@Url.Action("_HealthyBehaviorsCount", "Home")');
+
+        //var slider = $('.bxslider').bxSlider({
+        //});
+
+        $('.bxslider').bxSlider({
+            
+            minSlides: 4,
+            maxSlides: 4,
+            slideWidth: 1000,
+            slideMargin: 20
+        });
+
+    });
+
+    $(".bx-next").click(function () {
+      
+        $('#SECountContainer').load('@Url.Action("_ScreenErrorCount", "Home")');
+        $('#ANCountContainer').load('@Url.Action("_AdminNoticeCount", "Home")');
+        $('#PNCountContainer').load('@Url.Action("_PatientNavigationCount", "Home")');
+        $('#CMCountContainer').load('@Url.Action("_CaseManagementCount", "Home")');
+        $('#PRCountContainer').load('@Url.Action("_ScreenProcErrorsCount", "Home")');
+        $('#CCCountContainer').load('@Url.Action("_CancerCasesCount", "Home")');
+        $('#HBCountContainer').load('@Url.Action("_HealthyBehaviorsCount", "Home")');
+
+
+    });
+
+</script>
+

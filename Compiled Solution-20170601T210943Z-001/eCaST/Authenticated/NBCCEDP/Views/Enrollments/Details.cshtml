@@ -1,0 +1,324 @@
+﻿@model eCaST.ViewModels.EnrollmentViewModel
+
+@{
+    ViewBag.Title = "Enrollment Details";
+}
+
+
+@Html.Hidden("EnrollmentID",(int?)ViewBag.EnrollmentID)
+@Html.HiddenFor(x => x.EnrollmentDate)
+@Html.HiddenFor(x => x.ProgramBinID)
+@Html.HiddenFor(x => x.ProgramID)
+@Html.HiddenFor(x => x.InsuranceBinID)
+@Html.HiddenFor(x => x.UninsuredClientReferredBinID)
+@Html.HiddenFor(x => x.MedicareBinID)
+@Html.HiddenFor(x => x.ReminderBinID)
+@Html.HiddenFor(x => x.HeardOfProgramBinID)
+@Html.HiddenFor(x => x.MonthlyIncome)
+@Html.HiddenFor(x => x.NumberLivingOnIncome)
+@Html.HiddenFor(x => x.TobaccoUseBinID)
+@Html.HiddenFor(x => x.Active)
+@Html.HiddenFor(x => x.LegalPresence)
+@Html.Hidden("LegalPresenceValue",(bool)ViewBag.LegalPresenceValue)
+@Html.HiddenFor(x => x.IncomeEligible)
+@Html.HiddenFor(x => x.PercentPoverty)
+
+
+<div class="btn-group-lg" role="group" aria-label="...">
+    <button style="background-color:#F5F5F5;" id="EnrollmentEditButton0" type="button" class="btn btn-default btn-xl"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+    @if (ViewBag.RoleBinID == 1 || ViewBag.RoleBinID == 3 || ViewBag.RoleBinID == 13)
+    {
+
+
+        <button style="background-color:#F5F5F5;" id="EnrollmentConfigButton" type="button" class="btn btn-default btn-xl"><i class="fa fa-cog" aria-hidden="true"></i></button>
+
+
+    }
+    <button style="background-color:#F5F5F5;cursor:text" type="button" class="btn btn-default btn-xl"><i class="fa fa-calendar-o" aria-hidden="true"></i>&nbsp; Enrollment</button>
+    
+    @if (ViewBag.ExpirationDate >= ViewBag.Today)
+    {
+
+
+    <button style="cursor:text" type="button" class="btn btn-default btn-xl"><i class="fa fa-calendar-o" aria-hidden="true"></i>&nbsp;@Html.FormatValue(Model.EnrollmentDate, "{0:MM/dd/yyyy}")</button>
+    
+    
+    
+    
+    <button style="cursor:text" type="button" class="btn btn-default btn-xl">@Model.InsuranceBinName</button>
+    <button style="cursor:text" type="button" class="btn btn-default btn-xl">@Model.MedicareBinName</button>
+
+    if (@Model.UninsuredClientReferredBinName != null)
+    {
+
+
+        <button style="cursor:text" type="button" class="btn btn-default btn-xl">@Model.UninsuredClientReferredBinName</button>
+
+
+    }
+
+
+    @*<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-usd"></span>&nbsp;@Model.MonthlyIncome</button>
+        <button type="button" class="btn btn-default"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;@Model.NumberLivingOnIncome</button>*@
+    <button style="cursor:text" type="button" class="btn btn-default btn-xl">@Model.PercentPoverty &nbsp;<i class="fa fa-percent" aria-hidden="true"></i>&nbsp;&nbsp;FPL</button>
+        
+    }
+    @if (ViewBag.Today >= ViewBag.ExpirationDate)
+    {
+
+
+        <button id="EnrollStatusButton" name="Expired" style="cursor:text;color:#ff0000" type="button" class="btn btn-default btn-xl"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;&nbsp;Expired</button>
+
+    }
+    else
+    {
+
+        <button id="EnrollStatusButton" name="Active" style="cursor:text;color:#42994f" type="button" class="btn btn-default btn-xl"><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;&nbsp;Active</button>
+
+    }
+</div>
+
+
+
+@*<div style="display:block" id="EditEnrollmentContainer"></div>*@
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+        if($("#EnrollStatusButton").attr("name") == "Expired"){
+
+
+            $('#CCEnrollmentContainer').load('@Url.Action("_EnrollmentInfo", "Enrollments", new { id = ViewBag.EnrollmentID, id2 = 0 })');
+
+        }
+       
+        @*var today = '@ViewBag.Today';
+        var expdate = '@ViewBag.ExpirationDate';
+
+
+            if (today >= expdate) {
+            
+                $("#EnrollmentEditButton0").trigger('click');
+
+            }*@
+
+
+        
+
+        $('#EnrollmentEditButton0').click(function () {
+
+            $('#CCEnrollmentContainer').load('@Url.Action("_EnrollmentInfo", "Enrollments", new { id = ViewBag.EnrollmentID, id2 = 0 })');
+
+        });
+
+        $('#EnrollmentConfigButton').click(function () {
+
+            $('#CCEnrollmentContainer').load('@Url.Action("Index", "Enrollments", new { id = ViewBag.ClientID, id2 = 0 })');
+
+        });
+
+
+    });
+
+</script>
+
+@*@if (ViewBag.NewCycleCheck == 1)
+{
+
+
+    if (ViewBag.EnrollmentCheck == 1)
+    {
+
+
+        <br />
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="pull-right">
+
+                    @if (ViewBag.EnrollmentID != null)
+                    {
+
+
+                        if (ViewBag.ScreeningID == null)
+                        {
+
+                            <button type="button" id="EditEnrollmentButton" class="btn btn-info btn-xs">Update Active Enrollment</button>
+
+                        }
+                        
+
+                    }
+
+                    <button type="button" id="EnrollmentListButton" class="btn btn-default btn-xs">Use Another Enrollment</button>
+
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+        
+        
+        <div class="row">
+
+            <div id="EnrollmentLabelContainer" class="col-md-12">
+                <h3 style="color:#5CB85C;">
+                    <i class="fa fa-check-circle fa-fw"></i>&nbsp;@Html.FormatValue(Model.EnrollmentDate, "{0:MM/dd/yyyy}") Active Enrollment # <span id="EnrIDNumberTxt">@Model.EnrollmentID</span>
+
+
+                    <span style="font-style:italic;color:#ccc;font-size:medium">(Expires: @Html.FormatValue(Model.ExpirationDate, "{0:MM/dd/yyyy}"), @Model.InsuranceBinName @Model.MedicareBinName )</span>
+
+                </h3> 
+            </div>
+           
+
+
+        </div>
+
+
+
+
+    }
+    else {
+
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <h3 style="color:red;">
+                    <i class="fa fa-exclamation-circle fa-fw"></i>&nbsp;Expired Enrollment
+
+                </h3>
+            </div>
+           
+        </div>
+
+
+
+    }
+
+    <br />
+
+    <div id="EnrollmentListingContainer"></div>
+
+    <div style="display:none" id="EditEnrollmentContainer"></div>
+
+
+}
+else {
+
+
+<hr style="width:100%;background-color:#ccc;opacity:0.3" />
+
+if (ViewBag.EnrollmentCheck == 1)
+{
+
+
+<div class="row">
+
+<div class="col-md-5">Current Enrollment:</div>
+
+ <div align="right" class="col-md-7"><span style="color:#5CB85C;"><i class="fa fa-check-circle fa-fw"></i>&nbsp;Active 
+     
+  
+     <span style="font-style:italic;color:#ccc">(Expires: @Html.FormatValue(Model.ExpirationDate, "{0:MM/dd/yyyy}") )</span>
+
+     </span></div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-4">Insurance:</div>
+
+    <div align="right" class="col-md-8"><span>@Model.InsuranceBinName</span></div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-6">Medicare:</div>
+
+    <div align="right" class="col-md-6"><span>@Model.MedicareBinName</span></div>
+
+</div>
+
+
+}
+else {
+
+
+    <div class="row">
+
+        <div class="col-md-6">Current Enrollment:</div>
+
+        <div align="right" class="col-md-6"><span style="color:red"><i class="fa fa-exclamation-circle fa-fw"></i>&nbsp;Expired Enrollment</span></div>
+        <br />
+        <br />
+        <br />
+    </div>
+
+
+
+}
+
+
+
+}
+
+
+
+<script type="text/javascript">
+
+
+
+    $('#EditEnrollmentContainer').load('@Url.Action("Edit", "Enrollments", new { id = ViewBag.EnrollmentID, id2 = 0 })');
+
+
+    $('#EnrollmentListButton').click(function () {
+
+
+        if ('@ViewBag.EnrollmentCheck' == 1) {
+
+          //  $('#ContentContainer').load('@Url.Action("Index", "Enrollments", new { id = ViewBag.ClientID, id2 = ViewBag.ScreeningID })');
+            $('#EnrollmentListingContainer').load('@Url.Action("Index", "Enrollments", new { id = ViewBag.ClientID, id2 = ViewBag.ScreeningID })');
+            $('#EditEnrollmentContainer').html("");
+            $('#EnrollmentLabelContainer').css("display", "none");
+            $('#CycleContainer').html("");
+            $('#ScreeningContainer').html("");
+            $('#AddScrButtonContainer').css("display", "none");
+        }
+
+    });
+
+
+    $('#EditEnrollmentButton').click(function () {
+
+
+        if ('@ViewBag.EnrollmentCheck' == 1) {
+
+
+            //Set Enrollment ID label
+            var outENR = $('#EnrollmentID').val();
+            // alert(outENR);
+
+          //  $('#ContentContainer').load('@Url.Action("Edit", "Enrollments", new { id = ViewBag.EnrollmentID, id2 = 0 })');
+           
+            $('#EditEnrollmentContainer').css("display", "block");
+            $('#EnrollmentListingContainer').html("");
+            $('#EnrollmentLabelContainer').css("display", "block");
+            $('#CycleContainer').html("");
+            $('#ScreeningContainer').html("");
+            $('#AddScrButtonContainer').css("display", "none");
+        }
+
+    });
+
+
+</script>*@

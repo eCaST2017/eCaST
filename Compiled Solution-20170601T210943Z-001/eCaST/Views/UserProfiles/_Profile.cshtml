@@ -1,0 +1,1448 @@
+﻿@model CTL.ViewModels.UserProfileViewModel
+
+
+
+<style type="text/css">
+    .clearfix {
+        *zoom: 1;
+    }
+
+        .clearfix:before,
+        .clearfix:after {
+            display: table;
+            content: "";
+            line-height: 0;
+        }
+
+        .clearfix:after {
+            clear: both;
+        }
+
+    .hide-text {
+        font: 0/0 a;
+        color: transparent;
+        text-shadow: none;
+        background-color: transparent;
+        border: 0;
+    }
+
+    .input-block-level {
+        display: block;
+        width: 100%;
+        min-height: 30px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .btn-file {
+        overflow: hidden;
+        position: relative;
+        vertical-align: middle;
+    }
+
+        .btn-file > input {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            opacity: 0;
+            filter: alpha(opacity=0);
+            transform: translate(-300px, 0) scale(4);
+            font-size: 23px;
+            direction: ltr;
+            cursor: pointer;
+        }
+
+    .fileupload {
+        margin-bottom: 9px;
+    }
+
+        .fileupload .uneditable-input {
+            display: inline-block;
+            margin-bottom: 0px;
+            vertical-align: middle;
+            cursor: text;
+        }
+
+        .fileupload .thumbnail {
+            overflow: hidden;
+            display: inline-block;
+            margin-bottom: 5px;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+            .fileupload .thumbnail > img {
+                display: inline-block;
+                vertical-align: middle;
+                max-height: 100%;
+            }
+
+        .fileupload .btn {
+            vertical-align: middle;
+        }
+
+    .fileupload-exists .fileupload-new,
+    .fileupload-new .fileupload-exists {
+        display: none;
+    }
+
+    .fileupload-inline .fileupload-controls {
+        display: inline;
+    }
+
+    .fileupload-new .input-group .btn-file {
+        -webkit-border-radius: 0 3px 3px 0;
+        -moz-border-radius: 0 3px 3px 0;
+        border-radius: 0 3px 3px 0;
+    }
+
+    .thumbnail-borderless .thumbnail {
+        border: none;
+        padding: 0;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .fileupload-new.thumbnail-borderless .thumbnail {
+        border: 1px solid #ddd;
+    }
+
+    .control-group.warning .fileupload .uneditable-input {
+        color: #a47e3c;
+        border-color: #a47e3c;
+    }
+
+    .control-group.warning .fileupload .fileupload-preview {
+        color: #a47e3c;
+    }
+
+    .control-group.warning .fileupload .thumbnail {
+        border-color: #a47e3c;
+    }
+
+    .control-group.error .fileupload .uneditable-input {
+        color: #b94a48;
+        border-color: #b94a48;
+    }
+
+    .control-group.error .fileupload .fileupload-preview {
+        color: #b94a48;
+    }
+
+    .control-group.error .fileupload .thumbnail {
+        border-color: #b94a48;
+    }
+
+    .control-group.success .fileupload .uneditable-input {
+        color: #468847;
+        border-color: #468847;
+    }
+
+    .control-group.success .fileupload .fileupload-preview {
+        color: #468847;
+    }
+
+    .control-group.success .fileupload .thumbnail {
+        border-color: #468847;
+    }
+</style>
+
+
+
+<div id="update-message" class="error invisible"></div>
+<div class="alert alert-default">
+
+
+   
+    @*@Html.Partial("_CreateOrEdit", Model)*@
+
+
+    @*<h3 style="font-family: 'Roboto', sans-serif;color:#3a53c7;padding-left:20px"><span class="glyphicon glyphicon-user"></span>&nbsp;My Profile</h3>*@
+
+
+    @*<hr />
+    <div class="row">
+
+        <div class="col-md-12">
+
+
+
+            <h4 style="font-family: 'Roboto', sans-serif;color:#3a53c7;"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Change Profile Picture</h4>
+            <hr />
+
+        </div>
+
+    </div>*@
+
+
+
+
+    <br />
+    <h4 style="font-family: 'Roboto', sans-serif;color:#3a53c7;"><span class="glyphicon glyphicon-user"></span>&nbsp;Personal Information</h4>
+    <hr />
+
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="form-group">
+                @*@Html.LabelFor(model => model.UserName, null, "User Name")*@
+                <span>User Name</span>
+                @Html.TextBoxFor(m => m.UserName, new { id = "UserName", @class = "form-control", placeholder = "UserName" })
+                @Html.ValidationMessageFor(m => m.UserName)
+
+
+
+            </div>
+
+        </div>
+
+        @*<div class="col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.OrganizationName)
+                @Html.TextBoxFor(m => m.OrganizationName, new { id = "OrganizationName", @class = "form-control", placeholder = "Organization Name" })
+                @Html.ValidationMessageFor(m => m.OrganizationName)
+
+
+            </div>
+
+        </div>*@
+
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-3">
+
+            <div class="form-group">
+                <span>First Name</span>
+                @Html.TextBoxFor(m => m.FirstName, new { id = "FirstName", @class = "form-control", placeholder = "First Name" })
+                @Html.ValidationMessageFor(m => m.FirstName)
+
+
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <span>List Name</span>
+                @Html.TextBoxFor(m => m.LastName, new { id = "LastName", @class = "form-control", placeholder = "Last Name" })
+                @Html.ValidationMessageFor(m => m.LastName)
+
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+    <div class="row">
+
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <span>Middle Name</span>
+                @Html.TextBoxFor(m => m.MiddleName, new { id = "MiddleName", @class = "form-control", placeholder = "Middle Name" })
+                @Html.ValidationMessageFor(m => m.MiddleName)
+
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-md-3">
+
+            <div class="form-group">
+                <span>Telephone Number</span>
+                @Html.TextBoxFor(m => m.TelephoneNumber, new { id = "TelephoneNumber", @class = "form-control Phone", placeholder = "Phone Number" })
+                @Html.ValidationMessageFor(m => m.TelephoneNumber)
+
+
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+
+  
+    <div class="row">
+       
+
+
+        @if (ViewBag.Role == 1)
+        {
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <span>Change to Power User?</span>
+                    @Html.DropDownList("RoleBinID", String.Empty)
+                    @Html.ValidationMessageFor(m => m.RoleBinID)
+
+
+                </div>
+
+            </div>
+
+        }
+        
+
+        @if (ViewBag.Role == 1 || ViewBag.Role == 13)
+        {
+           
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <span>Active</span>
+                        @Html.EditorFor(m => m.Active, new { id = "Active" })
+                        @Html.ValidationMessageFor(m => m.RoleBinID)
+
+
+                    </div>
+
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <span>External ID</span>
+                        @Html.TextBoxFor(m => m.ExternalID, new { id = "ExternalID", @class = "form-control", placeholder = "External ID" })
+                        @Html.ValidationMessageFor(m => m.ExternalID)
+                        </div>
+                    </div>
+
+
+        }
+        else
+        {
+
+
+            @Html.HiddenFor(m => m.ExternalID)
+
+
+        }
+
+                </div>
+
+
+
+
+                <br />
+                <h4 style="font-family: 'Roboto', sans-serif;color:#3a53c7;"><span class="glyphicon glyphicon-cog"></span>&nbsp;Access Settings</h4>
+                <hr />
+
+                @if (ViewBag.UserRoleBinID == 3 || ViewBag.UserRoleBinID == 13 || ViewBag.UserRoleBinID == 39)
+            {
+
+                    <div id="ProgramRoleContainer"></div>
+
+
+            }
+else
+{
+
+                    <div id="ProgramContainer"></div>
+
+}
+
+                @if (ViewBag.Role == 1 || ViewBag.Role == 13 || ViewBag.UserRoleBinID == 39)
+        {
+
+                    <div style="padding-right:0px" align="right"><a id="ChangeAccessButton" style="text-decoration:none;color:#fff" class="btn btn-info" href="@Url.Action("Register", "Account", new { id = @ViewBag.UserId })">Change Access</a></div>
+                    <br />
+
+}
+
+
+
+
+                @if (ViewBag.UUID == ViewBag.UID)
+ {
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>eCaST Data System - Data Security, Use and Confidentiality Agreement</h3>
+                            <hr />
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>
+                                I agree to the following:
+                            </p>
+                            <ul>
+                                <li>I will participate in and complete training provided by eCaST Data System on appropriate access to and use of identified systems.</li>
+                                <li>
+                                    I understand that I will be granted access to the systems above on appropriate access after receiving training by eCaST Data System and creating a Secure Web ID and password.  I further understand my responsibilities associated with this Secure Web ID and password as follows:
+
+                                    <ul>
+
+                                        <li>I am responsible for making every effort to prevent unauthorized users from gaining access to or using my Secure Web ID and password.</li>
+                                        <li>I understand that the security of my Secure Web ID and password is my responsibility.  I will not share my Secure Web ID or password with any other person.  I also understand that using another person’s ID is a violation of this Agreement.</li>
+                                        <li>I will not leave my password around my computer or where another person might easily locate it.</li>
+                                        <li>I will change my password periodically and if I suspect it has been compromised.  I will set up my password according to department or system guidelines for length and content.</li>
+
+                                    </ul>
+
+
+                                </li>
+                                <li>I will not allow unauthorized persons to use eCaST Data System resources and systems.</li>
+                                <li>I will make every reasonable effort to prevent use of a computer for illegal or unethical purposes by all users, authorized or not.</li>
+                                <li>I will immediately report any suspected or actual unauthorized access to the CDPHE Data Owner or Data Manager that manages the information.</li>
+                                <li>I understand that my access to the systems identified above is granted for the purpose of public health and environmental protection.  I will not use or disclose any data for any purpose or end inconsistently with the purposes of the system(s) for which access is granted.  I understand that accessing or attempting to access data files or programs which I am not authorized to use is a security violation.  If I am unsure if any use or disclosure is permitted, I will discuss the issue with my supervisor and/or contact the eCaST Data System Data Manager or Data Owner for further clarification.</li>
+                                <li>I will take precautions to protect confidential data displayed on my screen from viewing by others.  This may mean re-positioning my computer screen, adding a device to limit other’s view, turning off the computer when leaving the area or enabling password-protected screen savers.  I will take reasonable and appropriate steps taking into account the staff and public access to my area and the nature of the data on the system.</li>
+                                <li>I understand that files I access may be protected from distribution by copyright or other applicable laws.  The System has exclusive copyrights in all original works of authorship created by its employees or contractors.  This applies to both published and unpublished works, and includes, but is not limited to, written documents, charts, graphs, imagery and maps.  Other entities’ copyrighted work also may be accessible on the website.  I will not reproduce, distribute or display these works without permission from the System or another copyright owner.</li>
+                                <li>I understand that for audit or system security purposes, the Department may monitor all my activity.</li>
+                                <li>I understand that eCaST Data System reserves the right to revoke my Secure Web ID and my access at any time, with or without cause.</li>
+                                <li>I understand that any violation of federal, state, local or the program’s confidentiality requirements or this Agreement will be considered a breach of my obligations and may result in revocation of my access to requested systems.</li>
+                                <li>I understand that information contained in the systems identified above is highly confidential and is protected from improper use and disclosure by applicable federal and state laws.  I agree not to disclose confidential information in violation of this Agreement of applicable confidentiality laws.</li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            @Html.CheckBox("PrivacyAgreement") &nbsp; I agree to these terms and conditions
+                            @Html.ValidationMessageFor(m => m.PrivacyAgreement)
+                            <br />
+
+                        </div>
+                        <br />
+
+                    </div>
+
+
+ }
+else
+{
+
+
+                    @Html.Hidden("PrivacyAgreement",(bool?)ViewBag.PrivacyAgreement)
+
+
+}
+
+                <div class="modal-footer">
+                    <div style="float:right">
+
+                      @if (@ViewBag.PrivacyAgreement == true)
+                      {
+
+                            <a style="text-decoration:none" href='@Url.Action("Manage", new { Controller = "Dashboards"})'><span class="btn btn-default">Cancel</span> </a>
+
+                        }
+
+                        <button id="UpdateProfileButton" type="submit" class="btn btn-success">Update</button>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div style="color:White" class="editor">
+                    @Html.Hidden("Id", Model.Id, new { id = "id" })
+
+
+                    @if (ViewBag.Role != 1)
+        {
+
+
+                        @Html.Hidden("RoleBinID", Model.RoleBinID, new { id = "RoleBinID" })
+                        @Html.Hidden("Active", Model.Active, new { id = "Active" })
+
+        }
+
+                    @Html.Hidden("DateUpdated", (DateTime?)ViewBag.DateUpdated, new { id = "DateUpdated" })
+                    @Html.Hidden("UpdatedBy", (string)ViewBag.UpdatedBy, new { id = "UpdatedBy" })
+                    @Html.Hidden("DateCreated", (DateTime?)ViewBag.DateCreated, new { id = "DateCreated" })
+                    @Html.Hidden("CreatedBy", (string)ViewBag.CreatedBy, new { id = "CreatedBy" })
+                    @Html.Hidden("firstTimeLoggedIn", (bool?)ViewBag.firstTimeLoggedIn, new { id = "firstTimeLoggedIn" })
+                    @Html.Hidden("Status", (bool?)ViewBag.Status, new { id = "Status" })
+                    @Html.Hidden("id2", (string)ViewBag.UserCheck, new { id = "id2" })
+                    @Html.Hidden("FocusAreas")
+                    @Html.Hidden("Skills")
+                    @Html.Hidden("Knowledge")
+                    @Html.Hidden("Abilities")
+                    @Html.Hidden("Whom")
+                    @Html.Hidden("Languages")
+                    @Html.Hidden("Counties")
+                    @Html.Hidden("Youth")
+                    @Html.Hidden("YoungChildren")
+                    @Html.Hidden("Women")
+
+                </div>
+
+
+
+
+
+
+
+            </div>
+
+
+<div style="color:White" class="editor">
+
+   
+
+</div>
+
+
+
+<div class="modal fade" id="MessageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 style="font-family: 'Roboto', sans-serif;color:#3a53c7;" class=" modal-title" id="myModalLabel">Manage Your Profile</h4>
+            </div>
+            <div class="modal-body">
+
+                <div id="ManageContainer"></div>
+
+
+            </div>
+
+            <div class="modal-footer">
+                <div style="float:right">
+
+                    <button type="button" id="CloseButton" class="btn btn-success" data-dismiss="modal"><span class="glyphicon glyphicon-check"></span>&nbsp;Get Started</button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+   <div class="modal fade" id="ssModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div style="text-align:left" class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 style="font-weight:bold" class="modal-title" id="myModalLabel"><img src="~/Content/images/iconCL2.png" />&nbsp;Welcome to the Health informatics Data System Portal!</h3>
+            </div>
+
+            <div style="padding:20px" id="ActivateDetailContainer">
+               
+                <div>
+                
+                <div class="row">
+
+                    <div class="col-md-1"><i style="color:#009637" class="fa fa-check-circle fa-3x"></i></div>
+
+                    <div class="col-md-11"><h3 style="color:#009637">Please review and agree to our <b>Security Policy below</b>. You can also <b>upload a profile picture</b> or update your personal information.</h3></div>
+
+                    </div>
+                
+                    <br />
+
+                    <div class="row">
+
+                        <div class="col-md-1"><i class="fa fa-wrench fa-3x"></i></div>
+
+                        <div class="col-md-11"><h3>If you are in need of <b>Assistance</b>, click <b>here</b> to open a ticket with our technical support team.</h3></div>
+
+                    </div>
+
+                
+               </div>
+
+               
+             
+            </div>
+
+            <div class="modal-footer">
+                <div align="right"><button class="btn btn-default" type="button" data-dismiss="modal">Close</button></div>
+            </div>
+           
+    </div>
+       
+    </div>
+</div>
+
+
+<div class="modal fade" id="cpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div style="text-align:left" class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+               
+                <h3 style="font-weight:bold" class="modal-title" id="myModalLabel"><img src="~/Content/images/iconCL2.png" />&nbsp;Your password has expired. Please reset.</h3>
+            </div>
+
+            <div style="padding:20px" id="cpDetailContainer"></div>
+
+            <div class="modal-footer">
+                    <div align="right"><input id="ResetButton" type="submit" class="btn btn-default" value="Reset" /></div>
+                </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $("#ResetButton").click(function (e) {
+
+        // Validation
+        var iStopSub = 0;
+        var sErr = "Please correct the following issues:\n\n";
+
+        if ($('#Password').val() == "") {
+            iStopSub = 1;
+            sErr += "-Please enter a password.\n";
+        }
+        else {
+
+            var ps = $('#Password').val();
+            var myRegEx = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@@$%^&*-]).{6,}$');
+
+            if (ps != myRegEx.exec(ps)) {
+
+                iStopSub = 1;
+                sErr += "-Password must be at least 6 characters long and have at least 1 number, 1 uppercase letter and 1 special character.\n";
+
+            }
+
+
+        }
+        if ($('#ConfirmPassword').val() == "") {
+            iStopSub = 1;
+            sErr += "-Please enter a confirm password.\n";
+        }
+
+
+        if ($('#Password').val() != $('#ConfirmPassword').val()) {
+            iStopSub = 1;
+            sErr += "-Passwords must match.\n";
+        }
+
+        if (iStopSub != 0) {
+            alert(sErr);
+            e.preventDefault();
+
+        }
+
+    });
+
+</script>
+
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $('.Phone').mask('(999) 999-9999? x99999');
+        $('.zip').mask('99999');
+
+
+        @*if ('@ViewBag.FirstTime' == "True") {*@
+        if ('@ViewBag.PrivacyAgreement' != "True") {
+
+
+            $('#ssModal').modal('show');
+
+            $('#ssModal').on('shown.bs.modal', function () {
+                $(this).find('.modal-dialog').css({
+                    //width: 'auto',
+                    width: '92%',
+                    height: 'auto',
+                    'max-height': '100%'
+                });
+            });
+
+
+           
+
+        }
+        else {
+
+
+            $('#ssModal').modal('hide');
+          
+
+
+        }
+
+        if ('@ViewBag.ChangePassword' == "True") {
+
+
+
+            $('#cpModal').modal('show');
+
+            $('#cpModal').on('shown.bs.modal', function () {
+                $(this).find('.modal-dialog').css({
+                    //width: 'auto',
+                    width: '92%',
+                    height: 'auto',
+                    'max-height': '100%'
+                });
+            });
+
+
+            $("#cpDetailContainer").load("@Url.Action("ResetPasswordInline","Account")", { 'id': '@ViewBag.Code' },
+          function (response, status, xhr) {
+              if (status == "error") {
+
+              }
+
+
+          });
+
+
+
+        }
+        else {
+
+
+            $('#cpModal').modal('hide');
+
+
+        }
+
+
+
+    });
+
+
+    $(function () {
+
+
+        $('#UserName').attr('readonly', true);
+
+
+    });
+
+    @*$(function () {
+
+
+        if ('@ViewBag.PrivacyAgreement' == "True") {
+
+
+            $('#PrivacyAgreement').prop('checked', true);
+
+
+        }*@
+
+
+    $(function () {
+
+        if ('@ViewBag.UserRoleBinID' == 3 || '@ViewBag.UserRoleBinID' == 13 || '@ViewBag.UserRoleBinID' == 39) {
+            $(".se-pre-con").fadeIn("slow");
+            $("#ProgramRoleContainer").load("@Url.Action("_ProgramRoleList","Programs")", { 'id': '@Model.Id' },
+               function (response, status, xhr) {
+                   if (status == "error") {
+
+                   }
+                   $(".se-pre-con").fadeOut("slow");
+
+               });
+
+        }
+        else {
+            $(".se-pre-con").fadeIn("slow");
+            $("#ProgramContainer").load("@Url.Action("_ProgramList","Programs")", { 'id': '@Model.Id' },
+              function (response, status, xhr) {
+                  if (status == "error") {
+
+                  }
+                  $(".se-pre-con").fadeOut("slow");
+
+              });
+
+        }
+
+
+
+    });
+
+
+
+
+</script>
+
+
+
+
+    @*<script type="text/javascript">
+
+
+      
+
+
+
+            //if ($('#PrivacyAgreement').attr('checked')) {
+
+
+            //    $('#PrivacyAgreement').attr('disabled', 'disabled');
+
+            //}
+
+
+
+
+        });
+
+
+
+        $(function () {
+
+
+            $("#UpdateProfileButton").click(function () {
+
+
+                //Add Focus Areas
+                var outF = document.getElementById('selectedIDsF').value;
+                document.getElementById("FocusAreas").value = outF;
+
+                //Add Skills
+                var out = document.getElementById('selectedIDs').value;
+                document.getElementById("Skills").value = out;
+
+                //Add Knowledge
+                var outK = document.getElementById('selectedIDsK').value;
+                document.getElementById("Knowledge").value = outK;
+
+                //Add Abilities
+                var outA = document.getElementById('selectedIDsA').value;
+                document.getElementById("Abilities").value = outA;
+
+                //Add Languages
+                var outL = document.getElementById('selectedIDsL').value;
+                document.getElementById("Languages").value = outL;
+
+                //Add Whom
+                var outW = document.getElementById('selectedIDsW').value;
+                document.getElementById("Whom").value = outW;
+
+                //Add Counties
+                var outC = document.getElementById('selectedIDsC').value;
+                document.getElementById("Counties").value = outC;
+
+                //Add Women
+                var outFMW = document.getElementById('selectedIDsFMW').value;
+                document.getElementById("Women").value = outFMW;
+
+                //Add Youth
+                var outFMY = document.getElementById('selectedIDsFMY').value;
+                document.getElementById("Youth").value = outFMY;
+
+                //Add Young Children
+                var outFMYC = document.getElementById('selectedIDsFMYC').value;
+                document.getElementById("YoungChildren").value = outFMYC;
+
+
+            });
+
+
+
+        });
+
+
+
+
+    if ('@ViewBag.Status' == 'False') {
+
+        $(function () {
+
+            $('#MessageModal').modal('show');
+            $('#ManageContainer').load('@Url.Action("Details", "Contents", new { id = 11 })');
+
+        });
+
+    }
+
+
+        if ('@ViewBag.Status' == 'True' && '@ViewBag.FirstTime' == 'True') {
+
+            $(function () {
+
+                $('#FirstTimeModal').modal('show');
+                $('#ChangePasswordContainer').load('@Url.Action("Manage", "Account")');
+
+            });
+
+        }
+
+
+      
+
+    </script>
+
+
+   
+    <script type="text/javascript">
+
+        $(function () {
+
+
+         
+
+        $("#StateID").select2({ width: "100%" });
+
+        if ('@ViewBag.OCount' != "") {
+
+              $("#RoleBinID").select2({ width: "100%" });
+               $("#Active").select2({ width: "100%" });
+
+        }
+
+        
+        $("#GraduatedBinID").select2({ width: "30%" });
+
+    });
+
+    </script>
+
+
+    <script type="text/javascript">
+
+
+
+        $(function () {
+
+
+      
+        var data = '@ViewBag.Options';
+
+            //Make an array
+            var dataarray = data.split(",");
+
+            // Set the value
+            $("#test").val(dataarray);
+            $('#selectedIDs').val(dataarray);
+
+            var test = $('#test');
+            $(test).select2({
+
+                width: "300px"
+            });
+
+
+            document.getElementById("test").onchange = function () {
+
+                var ids = $(test).val();
+                $('#selectedIDs').val(ids);
+
+            };
+
+            $("#checkbox").click(function () {
+                if ($("#checkbox").is(':checked')) {
+                    $("#test > option").prop("selected", "selected");
+                    $("#test").trigger("change");
+                } else {
+                    $("#test > option").removeAttr("selected");
+                    $("#test").trigger("change");
+                }
+            });
+
+
+            var dataFMW = '@ViewBag.OptionsFMW';
+
+
+        //Make an array
+            var dataarrayFMW = dataFMW.split(",");
+
+
+
+        // Set the value
+            $("#testFMW").val(dataarrayFMW);
+            $('#selectedIDsFMW').val(dataarrayFMW);
+
+            var testFMW = $('#testFMW');
+            $(testFMW).select2({
+
+                width: "300px"
+            });
+
+
+            document.getElementById("testFMW").onchange = function () {
+
+                var idsFMW = $(testFMW).val();
+                $('#selectedIDsFMW').val(idsFMW);
+
+            };
+
+            $("#checkboxFMW").click(function () {
+                if ($("#checkboxFMW").is(':checked')) {
+                    $("#testFMW > option").prop("selected", "selected");
+                    $("#testFMW").trigger("change");
+                } else {
+                    $("#testFMW > option").removeAttr("selected");
+                    $("#testFMW").trigger("change");
+                }
+            });
+
+
+            var dataFMY = '@ViewBag.OptionsFMY';
+
+        //Make an array
+            var dataarrayFMY = dataFMY.split(",");
+
+        // Set the value
+            $("#testFMY").val(dataarrayFMY);
+            $('#selectedIDsFMY').val(dataarrayFMY);
+
+            var testFMY = $('#testFMY');
+            $(testFMY).select2({
+
+                width: "300px"
+            });
+
+
+            document.getElementById("testFMY").onchange = function () {
+
+                var idsFMY = $(testFMY).val();
+                $('#selectedIDsFMY').val(idsFMY);
+
+            };
+
+            $("#checkboxFMY").click(function () {
+                if ($("#checkboxFMY").is(':checked')) {
+                    $("#testFMY > option").prop("selected", "selected");
+                    $("#testFMY").trigger("change");
+                } else {
+                    $("#testFMY > option").removeAttr("selected");
+                    $("#testFMY").trigger("change");
+                }
+            });
+
+
+            var dataFMYC = '@ViewBag.OptionsFMYC';
+
+        //Make an array
+            var dataarrayFMYC = dataFMYC.split(",");
+
+        // Set the value
+            $("#testFMYC").val(dataarrayFMYC);
+            $('#selectedIDsFMYC').val(dataarrayFMYC);
+
+            var testFMYC = $('#testFMYC');
+            $(testFMYC).select2({
+
+                width: "300px"
+            });
+
+
+            document.getElementById("testFMYC").onchange = function () {
+
+                var idsFMYC = $(testFMYC).val();
+                $('#selectedIDsFMYC').val(idsFMYC);
+
+            };
+
+            $("#checkboxFMYC").click(function () {
+                if ($("#checkboxFMYC").is(':checked')) {
+                    $("#testFMYC > option").prop("selected", "selected");
+                    $("#testFMYC").trigger("change");
+                } else {
+                    $("#testFMYC > option").removeAttr("selected");
+                    $("#testFMYC").trigger("change");
+                }
+            });
+
+
+
+
+            var dataF = '@ViewBag.OptionsF';
+
+        //Make an array
+            var dataarrayF = dataF.split(",");
+
+
+
+            // See if more info shows
+
+
+         
+            if ($.inArray('45', dataarrayF) > -1) {
+
+
+                $("#MoreInfoSection").css("display", "block");
+                $("#WomenMoreInfoSection").css("display", "block");
+
+
+            }
+
+            else {
+
+
+
+                $("#WomenMoreInfoSection").css("display", "none");
+
+
+            };
+
+            if ($.inArray('49', dataarrayF) > -1) {
+
+
+                $("#MoreInfoSection").css("display", "block");
+                $("#YoungChildrenMoreInfoSection").css("display", "block");
+
+
+            }
+
+            else {
+
+
+                $("#YoungChildrenMoreInfoSection").css("display", "none");
+
+
+            };
+
+            if ($.inArray('50', dataarrayF) > -1) {
+
+
+                $("#MoreInfoSection").css("display", "block");
+                $("#YouthMoreInfoSection").css("display", "block");
+
+
+            }
+
+            else {
+
+
+
+                $("#YouthMoreInfoSection").css("display", "none");
+
+
+            };
+
+
+            if ($.inArray('50', dataarrayF) > -1 || $.inArray('49', dataarrayF) > -1 || $.inArray('45', dataarrayF) > -1) {
+
+                $("#MoreInfoSection").css("display", "block");
+
+            }
+            else {
+
+
+                $("#MoreInfoSection").css("display", "none");
+
+            }
+
+
+        // Set the value
+        $("#testF").val(dataarrayF);
+        $('#selectedIDsF').val(dataarrayF);
+
+        var testF = $('#testF');
+        $(testF).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testF").onchange = function () {
+
+            var idsF = $(testF).val();
+            $('#selectedIDsF').val(idsF);
+
+            var x = [];
+            $('#testF :selected').each(function (i, selected) {
+
+                x.push($(selected).val());
+
+            });
+
+
+            if ($.inArray('45', x) > -1) {
+
+
+                $("#MoreInfoSection").css("display", "block");
+                $("#WomenMoreInfoSection").css("display", "block");
+
+
+            }
+
+            else {
+
+
+
+                $("#WomenMoreInfoSection").css("display", "none");
+
+
+            };
+
+            if ($.inArray('49', x) > -1) {
+
+
+                $("#MoreInfoSection").css("display", "block");
+                $("#YoungChildrenMoreInfoSection").css("display", "block");
+
+
+            }
+
+            else {
+
+
+                $("#YoungChildrenMoreInfoSection").css("display", "none");
+
+
+            };
+
+            if ($.inArray('50', x) > -1) {
+
+
+                $("#MoreInfoSection").css("display", "block");
+                $("#YouthMoreInfoSection").css("display", "block");
+
+
+            }
+
+            else {
+
+
+
+                $("#YouthMoreInfoSection").css("display", "none");
+
+
+            };
+
+
+            if ($.inArray('50', x) > -1 || $.inArray('49', x) > -1 || $.inArray('45', x) > -1) {
+
+                $("#MoreInfoSection").css("display", "block");
+
+            }
+            else {
+
+
+                $("#MoreInfoSection").css("display", "none");
+
+            }
+
+
+        };
+
+        //$("#checkboxF").click(function () {
+        //    if ($("#checkboxF").is(':checked')) {
+        //        $("#testF > option").prop("selected", "selected");
+        //        $("#testF").trigger("change");
+        //    } else {
+        //        $("#testF > option").removeAttr("selected");
+        //        $("#testF").trigger("change");
+        //    }
+        //});
+
+
+        var dataK = '@ViewBag.OptionsK';
+
+        //Make an array
+        var dataarrayK = dataK.split(",");
+
+        // Set the value
+        $("#testK").val(dataarrayK);
+        $('#selectedIDsK').val(dataarrayK);
+
+        var testK = $('#testK');
+        $(testK).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testK").onchange = function () {
+
+            var idsK = $(testK).val();
+            $('#selectedIDsK').val(idsK);
+
+        };
+
+        $("#checkboxK").click(function () {
+            if ($("#checkboxK").is(':checked')) {
+                $("#testK > option").prop("selected", "selected");
+                $("#testK").trigger("change");
+            } else {
+                $("#testK > option").removeAttr("selected");
+                $("#testK").trigger("change");
+            }
+        });
+
+
+        var dataA = '@ViewBag.OptionsA';
+
+        //Make an array
+        var dataarrayA = dataA.split(",");
+
+        // Set the value
+        $("#testA").val(dataarrayA);
+        $('#selectedIDsA').val(dataarrayA);
+
+        var testA = $('#testA');
+        $(testA).select2({
+
+            width: "300px"
+        });
+
+
+
+        document.getElementById("testA").onchange = function () {
+
+            var idsA = $(testA).val();
+            $('#selectedIDsA').val(idsA);
+
+        };
+
+        $("#checkboxA").click(function () {
+            if ($("#checkboxA").is(':checked')) {
+                $("#testA > option").prop("selected", "selected");
+                $("#testA").trigger("change");
+            } else {
+                $("#testA > option").removeAttr("selected");
+                $("#testA").trigger("change");
+            }
+        });
+
+
+
+        var dataC = '@ViewBag.OptionsC';
+
+        //Make an array
+        var dataarrayC = dataC.split(",");
+
+        // Set the value
+        $("#testC").val(dataarrayC);
+        $('#selectedIDsC').val(dataarrayC);
+
+        var testC = $('#testC');
+        $(testC).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testC").onchange = function () {
+
+            var idsC = $(testC).val();
+            $('#selectedIDsC').val(idsC);
+
+        };
+
+
+
+        $("#checkboxC").click(function () {
+            if ($("#checkboxC").is(':checked')) {
+                $("#testC > option").prop("selected", "selected");
+                $("#testC").trigger("change");
+            } else {
+                $("#testC > option").removeAttr("selected");
+                $("#testC").trigger("change");
+            }
+        });
+
+
+
+        var dataW = '@ViewBag.OptionsW';
+
+        //Make an array
+        var dataarrayW = dataW.split(",");
+
+        // Set the value
+        $("#testW").val(dataarrayW);
+        $('#selectedIDsW').val(dataarrayW);
+
+        var testW = $('#testW');
+        $(testW).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testW").onchange = function () {
+
+            var idsW = $(testW).val();
+            $('#selectedIDsW').val(idsW);
+
+        };
+
+
+        $("#checkboxW").click(function () {
+            if ($("#checkboxW").is(':checked')) {
+                $("#testW > option").prop("selected", "selected");
+                $("#testW").trigger("change");
+            } else {
+                $("#testW > option").removeAttr("selected");
+                $("#testW").trigger("change");
+            }
+        });
+
+
+        var dataL = '@ViewBag.OptionsL';
+
+        //Make an array
+        var dataarrayL = dataL.split(",");
+
+        // Set the value
+        $("#testL").val(dataarrayL);
+        $('#selectedIDsL').val(dataarrayL);
+
+        var testL = $('#testL');
+        $(testL).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testL").onchange = function () {
+
+            var idsL = $(testL).val();
+            $('#selectedIDsL').val(idsL);
+
+        };
+
+        
+        $("#checkboxL").click(function () {
+            if ($("#checkboxL").is(':checked')) {
+                $("#testL > option").prop("selected", "selected");
+                $("#testL").trigger("change");
+            } else {
+                $("#testL > option").removeAttr("selected");
+                $("#testL").trigger("change");
+            }
+        });
+
+
+
+    });
+
+
+
+
+
+
+     
+
+
+    </script>*@
+
+

@@ -1,0 +1,138 @@
+﻿@model CTL.ViewModels.NoticeViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+@if (ViewBag.NoticeCount > 0) { 
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="alert alert-@Model.Alert">
+
+            <div><h3><i class="fa fa-@Model.Icon"></i> @Model.NoticeName</h3></div>
+   
+
+            <div><h4>@Html.Raw(Model.NoticeDescription)</h4></div>
+
+    </div>
+</div>
+
+</div>
+    
+    
+}
+
+
+
+@*<h2>Details</h2>
+
+<div>
+    <h4>Notice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NoticeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoticeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NoticeDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoticeDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProgramID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProgramID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NoticeTypeBinID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoticeTypeBinID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Default)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Default)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Expires)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Expires)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpirationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpirationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateUpdated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.NoticeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@

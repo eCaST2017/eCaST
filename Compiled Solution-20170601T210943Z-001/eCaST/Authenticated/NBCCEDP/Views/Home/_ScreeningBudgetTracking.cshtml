@@ -1,0 +1,158 @@
+﻿@model eCaST.ViewModels.ScreeningBudgetTrackingViewModel
+
+<div class="panel">
+    <div class="panel-heading breadcrumb">
+
+        <span style="color:#666">
+            <i class="fa fa-bar-chart-o fa-fw"></i>&nbsp;Breast and Cervical Screening Budget Tracking YTD (@Model.TotalScreeningCount)
+        </span>
+
+        @*<div class="pull-right">
+           
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                    --Select Contract Type--
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <li>
+                        <a href="#">WWC</a>
+                    </li>
+                    <li>
+                        <a href="#">WIWO</a>
+                    </li>
+                    <li>
+                        <a href="#">CCGP</a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>*@
+
+
+    </div>
+</div>
+<div style="padding:10px">
+   
+
+    <div id="chart_div" style="width:100%; height:300px;"></div>
+
+
+    <div style="background-color:#efecec" class="alert alert-default">
+
+        <div class="row">
+
+            <div class="col-md-9">Screening Cap Amount:</div>
+            <div class="col-md-3">@string.Format("{0:C}", Model.ScreenCapAmount)</div>
+
+
+
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-9">Total YTD Paid:</div>
+            <div class="col-md-3">@string.Format("{0:C}",Model.TotalPaidAmount) </div>
+
+
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-9">Percent of fiscal year complete:</div>
+            <div class="col-md-3">@Model.PercentFY%</div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-9">Number YTD of Breast Screens paid:</div>
+            <div class="col-md-3">@Model.BreastScreeningCount</div>
+
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-9">Amount YTD paid towards Breast Screens:</div>
+            <div class="col-md-3">@string.Format("{0:C}",Model.BreastTotalSpent) </div>
+
+
+        </div >
+
+
+
+
+        <div class="row">
+
+            <div class="col-md-9">Number YTD of Cervical Screens paid:</div>
+            <div class="col-md-3">@Model.CervicalScreeningCount</div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-9">Amount YTD paid towards Cervical Screens:</div>
+            <div class="col-md-3">@string.Format("{0:C}",Model.CervicalTotalSpent) </div>
+
+        </div>
+
+    </div>
+
+    <div align="right"><button type="button" onclick="window.print('@Url.Action("_ScreeningBudgetTracking", "Births")');" class="btn btn-success btn-xs">export</button></div>
+
+    </div>
+
+           
+
+    <script type ="text/javascript">
+
+        $(function()
+            {
+
+
+                var data = google.visualization.arrayToDataTable([
+
+
+
+
+
+                ['Body part', 'Screenings YTD'],
+
+
+
+
+
+                ['Breast (' + @Model.BreastScreeningCount + ')', @Model.BreastScreeningCount],
+
+
+
+
+
+                ['Cervical (' + @Model.CervicalScreeningCount + ')', @Model.CervicalScreeningCount],
+            @*['Cardio (' + @ViewBag.CardioScreenCount + ')', @ViewBag.CardioScreenCount],
+        ['Colorectal (' + @ViewBag.ColoScreenCount + ')', @ViewBag.ColoScreenCount]*@
+
+            ]);
+
+            var options = {
+                title: '',
+                pieHole: 0.4,
+                slices: {
+                    2: { offset: 0.0 }
+
+                },
+
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        });
+
+
+
+    </script>

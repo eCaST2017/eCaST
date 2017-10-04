@@ -1,0 +1,361 @@
+﻿@model eCaST.Models.Client
+
+
+
+<div style="width:100%">
+
+    <div class="btn-group btn-block" role="group" aria-label="...">
+
+
+        <button id="ProfileButtonDown" style="background-color:#999;display:none;" type="button" class="btn btn-default col-md-1">
+
+
+            <h4 style="color:#fff;cursor:pointer;padding-bottom:6px" class="glyphicon glyphicon-chevron-down"></h4>
+
+
+        </button>
+
+
+        <button id="ProfileButtonUp" style="background-color:#999;display:none;" type="button" class="btn btn-default col-md-1">
+
+
+            <h4 style="color:#fff;cursor:pointer;padding-bottom:6px" class="glyphicon glyphicon-chevron-up"></h4>
+
+        </button>
+
+
+        <button style="background-color:#999;text-align:left;cursor:text" id="EnrollmentEditButton" type="button" class="btn btn-default col-md-11 visible-sm visible-xs">
+
+
+            <h4 style="color:#fff"><span style="background-color:#ccc;font-size:large" class="badge">@Model.ClientID</span></h4>
+
+
+        </button>
+
+
+        <div style="background-color:#999;border-radius:3px;text-align:left;cursor:text;padding:7px" id="EnrollmentEditButton" type="button" class="col-md-11 hidden-sm hidden-xs">
+
+
+            <h4 style="color:#fff"><i class="fa fa-female fa-fw"></i>&nbsp;@Model.FirstName @Model.LastName &nbsp;<span style="background-color:#ccc;font-size:large" class="badge">@Model.ClientID</span><span style="color:#ccc;font-style:italic"> Date of Birth: @Html.FormatValue(Model.DOB, "{0:MM/dd/yyyy}")  | Age: @Model.Age</span></h4>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<div id="ProfileHolder" class="alert alert-default">
+
+    @*<div class="row">
+
+
+        <div class="col-md-12">
+
+
+            <h4 style="color:#ccc">@Model.FirstName @Model.LastName - @Model.ClientID</h4>
+
+
+        </div>
+
+        </div>
+    <br />*@
+
+        <div class="row">
+
+
+            <div class="col-md-3">
+
+                
+                <div style="background-color:#f6f5f5;border-radius:5px;padding:20px">
+
+
+                    <div class="row">
+
+                        <div class="col-md-10"><h4><i class="fa fa-user" aria-hidden="true"></i>&nbsp;@Model.FirstName's Demographics</h4></div>
+                        <div class="col-md-2"><div class="pull-right"><button id="SmallProfileButton" class="btn btn-success btn-xs">Edit</button></div></div>
+
+                    </div>
+
+
+                    <div class="row">
+
+                        
+                        <div class="col-md-12">
+
+                            
+                        <div id="ProfileInfoContainer"></div>
+                        
+                        </div>
+                        
+                    
+                    </div>
+
+
+
+
+                        </div>
+
+
+
+
+
+
+                    </div>
+
+
+            <div class="col-md-3">
+
+                <div style="background-color:#f6f5f5;border-radius:5px;padding:20px">
+
+                    <div class="row">
+
+                        <div class="col-md-10"><h4><i class="fa fa-heartbeat" aria-hidden="true"></i>&nbsp;Screenings</h4></div>
+                        <div class="col-md-2"><div class="pull-right"><button id="SmallScreeningButton" class="btn btn-success btn-xs">View</button></div></div>
+
+                    </div>
+
+                    <div class="row">
+
+
+                        <div class="col-md-12">
+
+
+                            <div id="ScreeningsContainer"></div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+                    <div class="col-md-3">
+
+                        <div style="background-color:#f6f5f5;border-radius:5px;padding:20px">
+
+                            <div class="row">
+
+                                <div class="col-md-10"><h4><i class="fa fa-calendar-o" aria-hidden="true"></i>&nbsp;Enrollment Status</h4></div>
+                                <div class="col-md-2"><div class="pull-right">
+                                    @if (ViewBag.RoleBinID == 1 || ViewBag.RoleBinID == 13 || ViewBag.RoleBinID == 3)
+                                    {
+
+                                        <button id="SmallEnrollmentButton" class="btn btn-success btn-xs">View</button>
+
+                                    }
+                                    else
+                                    {
+
+                                        <button id="SmallScreenEnrollmentButton" class="btn btn-success btn-xs">Add Enrollment</button>
+
+                                    }
+                                   
+                                    
+                                    
+                                    </div></div>
+
+                            </div>
+
+                            <div class="row">
+
+
+                                <div class="col-md-12">
+
+
+                                    <div id="EnrollmentHistoryContainer"></div>
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-3">
+
+
+                        <div style="background-color:#f6f5f5;border-radius:5px;padding:20px">
+
+                            <div class="row">
+
+                                <div class="col-md-10"><h4><i class="fa fa-home" aria-hidden="true"></i>&nbsp;Contact Info</h4></div>
+                                <div class="col-md-2"><div class="pull-right"><button id="SmallLocationButton" class="btn btn-success btn-xs">View/Add</button></div></div>
+
+                            </div>
+
+                            <div class="row">
+
+
+                                <div class="col-md-12">
+
+                                    
+                                    <div id="LocationInfoContainer"></div>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+
+    </div>
+
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        if ('@ViewBag.ScreeningID' != 0) {
+
+
+            $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ScreeningID })');
+            $("#UpdateButtonContainer").css("display", "block");
+            $("#ProfileButtonDown").css("display", "block");
+            $("#AddScreeningButtonContainer").css("display", "block");
+        }
+        else {
+
+            if ('@ViewBag.ExistingScreeningID' < 1) {
+
+                $("#ExistingScreeningContainer").css("display", "none");
+
+            }
+            else {
+
+
+                $("#ExistingScreeningContainer").css("display", "block");
+
+            }
+
+
+            if ('@ViewBag.EnrollmentUpdateCheck' == 1) {
+
+                $('#ContentContainer').load('@Url.Action("Create", "Screenings", new { id = Model.ClientID, id2 = ViewBag.ScreeningID })');
+               // $('#ProfileContainer').load('@Url.Action("_Profile", "Clients", new { id = @Model.ClientID })');
+                $("#AddScreeningButtonContainer").css("display", "block");
+                $("#ProfileButtonDown").css("display", "none");
+                $("#ProfileButtonUp").css("display", "block");
+                $("#UpdateButtonContainer").css("display", "none");
+
+            }
+            else {
+
+                $('#ContentContainer').load('@Url.Action("_ScreeningList", "Screenings", new { id = Model.ClientID })');
+               // $('#ProfileContainer').load('@Url.Action("_Profile", "Clients", new { id = @Model.ClientID })');
+                $("#AddScreeningButtonContainer").css("display", "block");
+                $("#ProfileButtonDown").css("display", "none");
+                $("#ProfileButtonUp").css("display", "block");
+                $("#UpdateButtonContainer").css("display", "none");
+
+
+
+            }
+
+
+        }
+
+    });
+
+    $('#ProfileButtonDown').click(function () {
+
+
+        $("#ProfileButtonDown").css("display", "none");
+      //  $('#ProfileContainer').load('@Url.Action("_Profile", "Clients", new { id = @Model.ClientID })');
+        $('#ProfileHolder').css("display", "block");
+        $("#ProfileButtonUp").css("display", "block");
+
+
+
+    });
+
+    $('#ProfileButtonUp').click(function () {
+
+
+
+        // $('#ProfileContainer').html("");
+        $('#ProfileHolder').css("display", "none");
+        $("#ProfileButtonDown").css("display", "block");
+        $("#ProfileButtonUp").css("display", "none");
+
+
+
+    });
+
+
+    $('#ProfileInfoContainer').load('@Url.Action("_Summary", "Clients", new { id = Model.ClientID })');
+    $('#EnrollmentHistoryContainer').load('@Url.Action("ProfileDetails", "Enrollments", new { id = Model.ClientID })');
+    $('#LocationInfoContainer').load('@Url.Action("Details", "Locations", new { id = Model.ClientID })');
+    @*$('#LocationInfoContainer').load('@Url.Action("Details", "Locations", new { id = Model.ClientID })');*@
+    $('#ScreeningsContainer').load('@Url.Action("Details", "Screenings", new { id = Model.ClientID })');
+
+    $('#SmallProfileButton').click(function () {
+
+
+        $('#ContentContainer').load('@Html.Raw(Url.Action("Edit", "Clients", new { id = @Model.ClientID, id2 = 0, id3 = 0, id4 = 1 }))');
+        $("#AddScreeningButtonContainer").css("display", "none");
+        document.getElementById('ScreeningCheckIdentifier').value = 0;
+    });
+
+    $('#SmallScreeningButton').click(function () {
+
+
+
+        $('#ContentContainer').load('@Url.Action("_ScreeningList", "Screenings", new { id = @Model.ClientID })');
+        $("#AddScreeningButtonContainer").css("display", "block");
+        $('#ContactContainer').css("display", "none");
+        $('#ContactContainer').html("");
+        document.getElementById('ScreeningCheckIdentifier').value = 0;
+
+    });
+
+
+    $('#SmallScreenEnrollmentButton').click(function () {
+
+
+      //  $('#ContentContainer').load('@Url.Action("Create", "Screenings", new { id = Model.ClientID, id2 = 0 })');
+        $('#ContentContainer').load('@Url.Action("CreateInline", "Enrollments", new { id = ViewBag.EnrollmentID })');
+
+    });
+
+    $('#SmallEnrollmentButton').click(function () {
+
+
+
+        $('#ContentContainer').load('@Url.Action("Index", "Enrollments", new { id = @Model.ClientID })');
+        $("#AddScreeningButtonContainer").css("display", "none");
+        document.getElementById('ScreeningCheckIdentifier').value = 0;
+
+    });
+
+
+    $('#SmallLocationButton').click(function () {
+
+
+        $('#ContentContainer').load('@Url.Action("Index", "Locations", new { id = @Model.ClientID })');
+        $("#AddScreeningButtonContainer").css("display", "none");
+        document.getElementById('ScreeningCheckIdentifier').value = 0;
+
+    });
+
+</script>

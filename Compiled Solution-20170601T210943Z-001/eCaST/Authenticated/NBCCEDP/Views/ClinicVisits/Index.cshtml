@@ -1,0 +1,515 @@
+﻿@model IEnumerable<eCaST.ViewModels.ClinicVisitViewModel>
+
+@{
+    ViewBag.Title = "Clinic Visits";
+}
+
+<ul class="timeline">
+
+    @foreach (var item in Model)
+    {
+
+
+        if (item.QualifyingCount > 0) { 
+       
+        
+         <li>
+            <div style="background-color:#329b54" class="timeline-badge">
+                <i class="fa fa-check"></i>
+            </div>
+            <div class="timeline-panel">
+                <div class="timeline-heading">
+                    <div class="timeline-title">
+                        
+                        <div class="pull-right">
+
+                            @if (ViewBag.RoleID == 1 || ViewBag.RoleID == 13 || ViewBag.RoleID == 3)
+                            {
+
+
+                        <a style="text-decoration:none" id="EditVisitButton_@item.VisitID"><span style="font-size:16px; cursor:pointer"><i class="fa fa-pencil fa-2x"></i></span>  </a>
+                        <a style="text-decoration:none" id="DeleteVisitButton_@item.VisitID">     <span style="font-size:16px; cursor:pointer"><i class="fa fa-trash-o fa-2x"></i></span>  </a>
+
+                            }
+                            else
+                            {
+
+
+
+
+                                if (item.DateVisit < ViewBag.LockDownDate)
+                                {
+
+                                <i class="fa fa-lock fa-2x"></i>
+
+                            }
+                            else
+                            {
+                                
+                                <a style="text-decoration:none" id="EditVisitButton_@item.VisitID">     <span style="font-size:16px; cursor:pointer"><i class="fa fa-pencil fa-2x"></i></span>  </a>
+                                <a style="text-decoration:none" id="DeleteVisitButton_@item.VisitID">     <span style="font-size:16px; cursor:pointer"><i class="fa fa-trash-o fa-2x"></i></span>  </a>
+                            }
+
+
+
+                            }
+
+                           </div>
+                        
+                        
+                        <h4>@(((DateTime)item.DateVisit).ToString("MM/dd/yyyy"))</h4>
+                    
+                        
+                        <!-- Edit Visit Modal -->
+                        @*<div class="modal fade" id="editModal_@item.VisitID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div align="left" class="modal-header">
+                                        <h3 style="text-align:left" class="modal-title" id="myModalLabel">Edit Clinic Visit</h3>
+                                    </div>
+                                    <div align="left" id="EditVisitContainer_@item.VisitID" class="modal-body"></div>
+
+                                </div>
+                            </div>
+                        </div>*@
+
+
+                        <script type="text/javascript">
+
+
+                $("#EditVisitButton_" + '@item.VisitID').click(function () {
+
+
+                    $('#ClinicVisitContainer').load('@Url.Action("Edit", "ClinicVisits", new { id = @item.VisitID })');
+
+
+                });
+
+
+                $("#DeleteVisitButton_" + '@item.VisitID').click(function () {
+
+
+                 $('#ClinicVisitContainer').load('@Url.Action("Delete", "ClinicVisits", new { id = @item.VisitID })');
+
+
+                  });
+
+                @*$('#editModal_@item.VisitID').on('shown.bs.modal', function () {
+                    $(this).find('.modal-dialog').css({
+                        //width: 'auto',
+                        width: '92%',
+                        height: 'auto',
+                        'max-height': '100%'
+                    });
+                });*@
+
+
+                        </script>   
+
+
+
+                    
+                    
+                    </div>
+
+                   
+                </div>
+                <div class="timeline-body">
+                    
+                    <div id="SiteContainer_@item.VisitID"></div>
+
+                    <script type="text/javascript">
+
+                        $(function () {
+
+
+                            $('#SiteContainer_@item.VisitID').load('@Url.Action("Details", "Sites", new { id = @item.SiteID })');
+
+                        });
+
+                    </script>
+
+                  
+                    <div><b>Previous Contraception:</b> @item.BeforeContraceptiveTypeName</div>
+                    <div><b>Current Contraception:</b> @item.AfterContraceptiveTypeName</div>
+                    @*<div align="right"><span style="font-size:10px">Show More</span> <span style="font-size:12px" id="detailsButton_@item.VisitID" class="fa fa-angle-down"></span></div>*@
+                    <div id="AdditionalInfoContainer_@item.VisitID">
+
+                        
+                        <div><b>Provider Type:</b> @item.ProviderTypeIDName</div>
+
+                        @if (string.Join(",", item.MedicalList.ToArray()) == "")
+                        {
+
+                            <div><b>Medical Procedures:</b>  --  </div>
+
+                        }
+                        else
+                        {
+
+                            <div><b>Medical Procedures:</b> @string.Join(",", item.MedicalList.ToArray())</div>
+
+                        }
+                       
+                        @if (string.Join(",", item.CounselingList.ToArray()) == "")
+                        {
+
+                            <div><b>Counseling:</b>  --  </div>
+
+                        }
+                        else
+                        {
+
+                            <div><b>Counseling:</b> @string.Join(",", item.CounselingList.ToArray())</div>
+
+                        }
+                        @if (string.Join(",", item.LabList.ToArray()) == "")
+                        {
+
+                            <div><b>Lab Procedures:</b>  --  </div>
+
+                        }
+                        else
+                        {
+
+                            <div><b>Lab Procedures:</b> @string.Join(",", item.LabList.ToArray())</div>
+
+                        }
+
+                        @if (string.Join(",", item.ReferralList.ToArray()) == "")
+                        {
+
+                            <div><b>Referral:</b>  --  </div>
+
+                        }
+                        else
+                        {
+
+                            <div><b>Referral:</b> @string.Join(",", item.ReferralList.ToArray())</div>
+
+                        }
+
+                        <p>
+                            <small class="text-muted"><i class="fa fa-clock-o"></i>&nbsp;Last Updated: @item.DateUpdated by @item.UpdatedBy</small>
+                        </p>
+
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </li>
+       
+        
+    }
+        else { 
+        
+         <li class="timeline-inverted">
+            <div class="timeline-badge danger">
+                <i class="fa fa-life-bouy"></i>
+            </div>
+            <div class="timeline-panel">
+                <div class="timeline-heading">
+                    
+                    
+                  
+                    <div class="timeline-title">
+
+                        <div class="pull-right">
+
+
+                            @if (ViewBag.RoleID == 1)
+                            {
+
+
+                                <a style="text-decoration:none" id="EditVisitButton_@item.VisitID"><span style="font-size:16px; cursor:pointer"><i class="fa fa-pencil fa-2x"></i></span>  </a>
+                            <a style="text-decoration:none" id="DeleteVisitButton_@item.VisitID">     <span style="font-size:16px; cursor:pointer"><i class="fa fa-trash-o fa-2x"></i></span>  </a>
+
+                            }
+                            else
+                            {
+
+
+                                if (item.DateVisit < ViewBag.LockDownDate)
+                                {
+
+                                    <i class="fa fa-lock fa-2x"></i>
+
+                                }
+                                else
+                                {
+
+                                    <a style="text-decoration:none" id="EditVisitButton_@item.VisitID"><span style="font-size:16px; cursor:pointer"><i class="fa fa-pencil fa-2x"></i></span>  </a>
+                                    <a style="text-decoration:none" id="DeleteVisitButton_@item.VisitID">     <span style="font-size:16px; cursor:pointer"><i class="fa fa-trash-o fa-2x"></i></span>  </a>
+                                }
+
+
+
+                            }
+
+
+                        </div>
+
+
+                        <h4>@(((DateTime)item.DateVisit).ToString("MM/dd/yyyy"))</h4>
+
+
+                        <!-- Edit Visit Modal -->
+                        <div class="modal fade" id="editModal_@item.VisitID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div align="left" class="modal-header">
+                                        <h3 style="text-align:left" class="modal-title" id="myModalLabel">Edit Clinic Visit</h3>
+                                    </div>
+                                    <div align="left" id="EditVisitContainer_@item.VisitID" class="modal-body"></div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <script type="text/javascript">
+
+
+                            $("#EditVisitButton_" + '@item.VisitID').click(function () {
+
+
+                                $('#ClinicVisitContainer').load('@Url.Action("Edit", "ClinicVisits", new { id = @item.VisitID })');
+
+
+                            });
+
+                            $("#DeleteVisitButton_" + '@item.VisitID').click(function () {
+
+
+                                $('#ClinicVisitContainer').load('@Url.Action("Delete", "ClinicVisits", new { id = @item.VisitID })');
+
+
+                            });
+
+                            @*$('#editModal_@item.VisitID').on('shown.bs.modal', function () {
+                                $(this).find('.modal-dialog').css({
+                                    //width: 'auto',
+                                    width: '92%',
+                                    height: 'auto',
+                                    'max-height': '100%'
+                                });
+                            });*@
+
+
+                        </script>
+
+
+
+
+
+                    </div>
+                    
+                </div>
+                <div class="timeline-body">
+
+                    <div id="SiteContainer_@item.VisitID"></div>
+
+                    <script type="text/javascript">
+
+                        $(function () {
+
+
+                            $('#SiteContainer_@item.VisitID').load('@Url.Action("Details", "Sites", new { id = @item.SiteID })');
+
+                        });
+
+                    </script>
+
+
+                    <div><b>Previous Contraception:</b> @item.BeforeContraceptiveTypeName</div>
+                    <div><b>Current Contraception:</b> @item.AfterContraceptiveTypeName</div>
+                    @*<div align="right"><span style="font-size:10px">Show More</span> <span style="font-size:12px" id="detailsButton_@item.VisitID" class="fa fa-angle-down"></span></div>*@
+                    <div id="AdditionalInfoContainer_@item.VisitID">
+
+
+                        <div><b>Provider Type:</b> @item.ProviderTypeIDName</div>
+
+                        @if (string.Join(",", item.MedicalList.ToArray()) == "")
+                        {
+
+                            <div><b>Medical Procedures:</b>  --  </div>
+
+                        }
+                        else
+                        {
+
+                            <div><b>Medical Procedures:</b> @string.Join(",", item.MedicalList.ToArray())</div>
+
+                        }
+
+                        @if (string.Join(",", item.CounselingList.ToArray()) == "")
+                        {
+
+                            <div><b>Counseling:</b>  --  </div>
+
+                        }
+                        else
+                        {
+
+                            <div><b>Counseling:</b> @string.Join(",", item.CounselingList.ToArray())</div>
+
+                        }
+                        @if (string.Join(",", item.LabList.ToArray()) == "")
+                        {
+
+                            <div><b>Lab Procedures:</b>  --  </div>
+
+                        }
+                        else
+                        {
+
+                            <div><b>Lab Procedures:</b> @string.Join(",", item.LabList.ToArray())</div>
+
+                        }
+
+                        @if (string.Join(",", item.ReferralList.ToArray()) == "")
+                        {
+
+                            <div><b>Referral:</b>  --  </div>
+
+                        }
+                        else
+                        {
+
+                            <div><b>Referral:</b> @string.Join(",", item.ReferralList.ToArray())</div>
+
+                        }
+
+                        <p>
+                            <small class="text-muted"><i class="fa fa-clock-o"></i>&nbsp;Last Updated: @item.DateUpdated by @item.UpdatedBy</small>
+                        </p>
+
+                    </div>
+                
+                 </div>
+            </div>
+        </li>
+        
+        
+        
+    }
+
+    }
+
+</ul>
+
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PersonID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SiteID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateVisit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClinicVisitTypeID1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClinicVisitTypeID2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClinicVisitTypeID3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PercentPoverty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProviderTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BeforeContraceptionTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AfterContraceptionTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CountyResidence)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThirdPartyKey)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PersonID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SiteID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateVisit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClinicVisitTypeID1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClinicVisitTypeID2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClinicVisitTypeID3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PercentPoverty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProviderTypeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BeforeContraceptionTypeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AfterContraceptionTypeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CountyResidence)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ThirdPartyKey)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateUpdated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.VisitID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.VisitID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.VisitID })
+        </td>
+    </tr>
+}
+
+</table>*@

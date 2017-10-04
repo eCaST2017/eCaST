@@ -1,0 +1,225 @@
+﻿@model IEnumerable<eCaST.Models.Followup>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ScreeningProcedureID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScreeningProcGuidID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScreeningID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SiteID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScreeningGuidID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OfficeVisitID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EnrollmentID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClinicalCycleID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FUProcedureOther)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateClosed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SurgeryDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RRCounselingDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RRCompletionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RRNutritionBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RRPhysicalActivityBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RRSmokingCessationBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RRMedicationAdherenceBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RRReadinessDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RRReadinessBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TobResourceDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TobResourceBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TobCompletedBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDPatientInfoBin_PatientInfoBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDReadinessBin_ReadinessBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RREnhancedCounseling)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDFUProcedureBin.FUProcedureBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDFUProcedureMonthsBin.FUProcedureMonthsBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDFUProcedureReasonBin.FUProcedureReasonBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDPathSurgResectionBin.PathSurgResectionBinName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScreeningProcedureID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScreeningProcGuidID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScreeningID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SiteID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScreeningGuidID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OfficeVisitID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnrollmentID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClinicalCycleID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FUProcedureOther)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateUpdated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateClosed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SurgeryDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RRCounselingDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RRCompletionDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RRNutritionBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RRPhysicalActivityBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RRSmokingCessationBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RRMedicationAdherenceBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RRReadinessDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RRReadinessBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TobResourceDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TobResourceBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TobCompletedBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDPatientInfoBin_PatientInfoBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDReadinessBin_ReadinessBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RREnhancedCounseling)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDFUProcedureBin.FUProcedureBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDFUProcedureMonthsBin.FUProcedureMonthsBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDFUProcedureReasonBin.FUProcedureReasonBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDPathSurgResectionBin.PathSurgResectionBinName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.FollowupID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.FollowupID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.FollowupID })
+        </td>
+    </tr>
+}
+
+</table>

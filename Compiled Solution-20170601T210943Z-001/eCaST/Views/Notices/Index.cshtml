@@ -1,0 +1,100 @@
+﻿@model IEnumerable<CTL.Models.Notice>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+
+<br />
+<br />
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NoticeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NoticeDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProgramID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NoticeTypeBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Default)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Expires)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpirationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoticeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoticeDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProgramID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoticeTypeBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Default)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Expires)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpirationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateUpdated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.NoticeID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.NoticeID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.NoticeID })
+        </td>
+    </tr>
+}
+
+</table>

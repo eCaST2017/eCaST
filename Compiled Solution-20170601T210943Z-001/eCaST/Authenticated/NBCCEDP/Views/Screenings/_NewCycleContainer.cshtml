@@ -1,0 +1,587 @@
+﻿@model eCaST.ViewModels.ScreeningViewModel
+
+@{
+    ViewBag.Title = "Add New Client";
+}
+
+<style type="text/css">
+    .searchOption {
+        margin: 4px 4px 2px 4px;
+        display: inline;
+    }
+
+    .form-field * {
+        vertical-align: middle;
+    }
+
+    .form-field input {
+        clear: left;
+    }
+
+    .form-field label {
+        width: 800px;
+        display: inline-block;
+    }
+
+    input.big {
+        height: 2.1em;
+        width: 2.1em;
+    }
+
+
+
+    .error a {
+        background-color: #d9ffff !important;
+        border: 1px solid #ccc !important;
+        width: 100%;
+        color: #666 !important;
+    }
+
+    .requiredText {
+        background-color: #d9ffff;
+        border: 1px solid #999;
+    }
+
+    .requiredSelect {
+        background-color: #d9ffff;
+    }
+</style>
+
+
+
+   
+
+    <br />
+   <div class="row">
+
+        <div class="col-md-12">
+           
+           
+            <div class="panel-heading" style="background-color:#00A34A;">
+
+                <div>
+
+                <h4 style="color:#fff"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add New Screening</h4>
+
+
+                <div align="right">
+
+
+                    @if (ViewBag.ScreeningID > 0)
+                    {
+
+
+                        <button type="button" id="ReturnScreeningButton" href="#" class="btn btn-default"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>&nbsp;Return to Screening</button>
+
+                    }
+                    else
+                    {
+
+                        <button id="CancelNewScreeningButton" type="button" class="btn btn-default">Cancel</button>
+
+                    }
+
+
+
+                </div>
+
+
+            </div>
+             
+
+
+            </div>
+
+            <br />
+
+
+          
+            </div>
+
+        </div>   
+    
+@if (@ViewBag.ClinicalCycleID != null)
+{
+
+    <div class="row">
+
+        <div class="col-md-2"><h3 style="color:#999"><i class="fa fa-heartbeat"></i>&nbsp;Associated Screenings:</h3></div>
+        <div class="col-md-10"><div id="ScreeningReviewListContainer"></div></div>
+
+    </div>
+
+    <br />
+
+}
+
+<div id="CCEnrollmentContainer"></div>
+<br />
+<div id="CycleContainer"></div>
+
+
+
+<div id="ScreeningContainer"></div>
+
+    
+   
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+
+        if('@ViewBag.ClinicalCycleID' != null){
+
+            $("#ScreeningReviewListContainer").load("@Url.Action("_ScreeningReviewList", "Screenings", new { id = ViewBag.ClinicalCycleID, id2 = ViewBag.ScreeningID })",
+            function (response, status, xhr) {
+                if (status == "error") {
+
+                }
+            });
+
+
+        }
+
+
+        $("#ReturnScreeningButton").click(function () {
+
+
+            $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ScreeningID })');
+
+
+        });
+
+
+        $('#CancelNewScreeningButton').click(function () {
+
+
+
+            $('#ContentContainer').load('@Url.Action("_ScreeningList", "Screenings", new { id = @ViewBag.ClientID })');
+            $("#AddScreeningButtonContainer").css("display", "block");
+
+
+        });
+
+
+
+        if('@ViewBag.ScreeningID' > 0 ){
+
+
+            $("#CCEnrollmentContainer").load("@Url.Action("Details","Enrollments")", { 'id': @ViewBag.ClientID, 'id2': 1, 'id3': @ViewBag.ScreeningID, 'id4': @ViewBag.EnrollmentID },
+            function (response, status, xhr) {
+
+                var al = $("#EnrIDNumberTxt").text();
+                // alert(al);
+
+
+                $("#CycleContainer").load("@Url.Action("_CycleContainer","Screenings")", { 'id': @ViewBag.ClientID, 'id2': @ViewBag.ScreeningID, 'id3': al },
+                  function (response, status, xhr) {
+                      if (status == "error") {
+                          alert("An error occurred while loading the results.");
+                      }
+
+                  });
+
+
+
+            });
+
+        }
+        else{
+
+
+            $('#CCEnrollmentContainer').load('@Url.Action("Details", "Enrollments", new { id = @ViewBag.ClientID, id2 = 1 })');
+            $('#CycleContainer').load('@Url.Action("_CycleContainer", "Screenings", new { id = @ViewBag.ClientID, id2 = @ViewBag.ScreeningID })');
+
+
+
+
+        }
+
+
+
+
+
+    });
+
+    $("#ReturnScreeningButton").click(function () {
+
+
+        $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ScreeningID })');
+
+
+    });
+
+
+
+    $(document).ready(function () {
+
+
+        $("#CreateButton").click(function (e) {
+
+            var iStopSub = 0;
+            var sErr = "Please correct the following issues:\n\n";
+
+
+
+            if ($("#OfficeVisitDate").val() == "") {
+                iStopSub = 1;
+                sErr += "-Please enter and Office Date.\n";
+            }
+
+            var iCurOVDate = $("#OfficeVisitDate").val();
+            // Check for valid date
+            var timestamp = kendo.parseDate(iCurOVDate, "mm/dd/yyyy");
+
+            if (timestamp == null) {
+
+                iStopSub = 1;
+                sErr += "Please enter a valid Office Visit Date\n";
+
+            }
+
+            var iSiteID = $("#SiteID option:selected").val();
+
+            if (iSiteID < 1) {
+                iStopSub = 1;
+                sErr += "You must enter a Site" + "\n";
+
+            }
+
+            var iScreeningMethodBinID = $("#ScreeningMethodBinID option:selected").val();
+
+            if (iScreeningMethodBinID < 1) {
+                iStopSub = 1;
+                sErr += "You must enter a Screening Method" + "\n";
+
+            }
+
+            var iCancerTypeDD = $("#CancerTypeDD option:selected").val();
+
+            if (iCancerTypeDD < 1) {
+                iStopSub = 1;
+                sErr += "You must enter a Screening Type" + "\n";
+
+            }
+
+
+            // Breast Validaton
+            if ($("#CancerTypeDD").val() == 1) {
+
+
+                var iPrevMamDD = $("#PrevMamDD option:selected").val();
+
+                if (iPrevMamDD < 1) {
+                    iStopSub = 1;
+                    sErr += "You must enter Previous Mammogram information" + "\n";
+
+                }
+
+                var iCurrentMamDD = $("#CurrentMamDD option:selected").val();
+
+                if (iCurrentMamDD < 1) {
+                    iStopSub = 1;
+                    sErr += "You must enter Current Mammogram information" + "\n";
+
+                }
+
+            }
+                // Cervical Validation
+            else if ($("#CancerTypeDD").val() == 2) {
+
+
+                var iPrevPapDD = $("#PrevPapDD option:selected").val();
+
+                if (iPrevPapDD < 1) {
+                    iStopSub = 1;
+                    sErr += "You must enter Previous Pap information" + "\n";
+
+                }
+
+                var iCurrentPapDD = $("#CurrentPapDD option:selected").val();
+
+                if (iCurrentPapDD < 1) {
+                    iStopSub = 1;
+                    sErr += "You must enter Current Pap information" + "\n";
+
+                }
+
+            }
+                // Cardio Validation
+            else if ($("#CancerTypeDD").val() == 4) {
+
+
+                if ($("#BPPlus").is(':checked')) {
+
+
+                    var iCurASSDate = $("#AssessmentDateHIDDEN").val();
+                    var iCurBPDate = $("#BPTestDateHIDDEN").val();
+                    var iCurDate = new Date();
+                    var iStopSub = 0;
+                    var sErr = "Please correct the following issues:\n\n";
+
+
+                    iASSDateLen = iCurASSDate.length;
+                    if (iASSDateLen < 1) {
+                        iStopSub = 1;
+                        sErr += "-Please enter an assessment date.\n";
+                    }
+
+                    if (new Date(iCurASSDate).getTime() > new Date(iCurDate).getTime()) {
+                        iStopSub = 1;
+                        sErr += "-You cannot add an assessment date in the future.\n";
+                    }
+
+
+                    iBPDateLen = iCurBPDate.length;
+                    if (iBPDateLen < 1) {
+                        iStopSub = 1;
+                        sErr += "-Please enter an blood pressure reading date.\n";
+                    }
+
+                    if (new Date(iCurBPDate).getTime() > new Date(iCurDate).getTime()) {
+                        iStopSub = 1;
+                        sErr += "-You cannot add an blood pressure reading date in the future.\n";
+                    }
+
+
+
+                    var iSysRead = $("#SystolicReading").val();
+                    //alert(iPhysAct);
+                    //if (iPhysAct < 0 && iPhysAct > 30) {
+                    if (iSysRead == "") {
+
+                        iStopSub = 1;
+                        sErr += "-Please enter information about the Systolic Reading.\n";
+
+                    }
+                    if (iSysRead > 260) {
+
+                        iStopSub = 1;
+                        sErr += "-The range for the Systolic Reading is 0 to 260.\n";
+
+                    }
+
+                    var iDiaRead = $("#DiastolicReading").val();
+                    //alert(iPhysAct);
+                    //if (iPhysAct < 0 && iPhysAct > 30) {
+                    if (iDiaRead == "") {
+
+                        iStopSub = 1;
+                        sErr += "-Please enter information about the Diastolic Reading.\n";
+
+                    }
+                    if (iDiaRead > 200) {
+
+                        iStopSub = 1;
+                        sErr += "-The range for the Diastolic Reading is 0 to 200.\n";
+
+                    }
+
+
+
+
+                }
+                else {
+
+                    var iCurASSDate = $("#AssessmentDateHIDDEN").val();
+                    var iCurDate = new Date();
+                    var iStopSub = 0;
+                    var sErr = "Please correct the following issues:\n\n";
+
+
+                    iASSDateLen = iCurASSDate.length;
+                    if (iASSDateLen < 1) {
+                        iStopSub = 1;
+                        sErr += "-Please enter an assessment date.\n";
+                    }
+
+                    if (new Date(iCurASSDate).getTime() > new Date(iCurDate).getTime()) {
+                        iStopSub = 1;
+                        sErr += "-You cannot add an assessment date in the future.\n";
+                    }
+
+
+                    if ($("#checkboxPHYSICALHEALTHCHECK").is(':checked')) {
+
+                        if ($("#PhysicalHealthValueIDNS").val().length == 0) {
+                            iStopSub = 1;
+                            sErr += "-Please enter a reason for not collecting Physical Activity information.\n";
+                        }
+
+                    }
+                    else {
+
+                        var iPhysAct = $("#PhysicalHealthValueID").val();
+                        //alert(iPhysAct);
+                        //if (iPhysAct < 0 && iPhysAct > 30) {
+                        if (iPhysAct == "") {
+
+                            iStopSub = 1;
+                            sErr += "-Please enter information about physical activity.\n";
+
+                        }
+                        if (iPhysAct > 30) {
+
+                            iStopSub = 1;
+                            sErr += "-The range for Physical Activity is 0 to 30 days.\n";
+
+                        }
+
+                    }
+
+
+                    if ($("#checkboxMENTALHEALTHCHECK").is(':checked')) {
+
+                        if ($("#MentalHealthValueIDNS").val().length == 0) {
+                            iStopSub = 1;
+                            sErr += "-Please enter a reason for not collecting Mental Activity information.\n";
+                        }
+
+                    }
+                    else {
+
+                        var iMentalAct = $("#MentalHealthValueID").val();
+                        //alert(iPhysAct);
+                        //if (iPhysAct < 0 && iPhysAct > 30) {
+                        if (iMentalAct == "") {
+
+                            iStopSub = 1;
+                            sErr += "-Please enter information about mental activity.\n";
+
+                        }
+                        if (iMentalAct > 30) {
+
+                            iStopSub = 1;
+                            sErr += "-The range for Mental Activity is 0 to 30 days.\n";
+
+                        }
+
+                    }
+
+                    if ($("#checkboxMENTALPHYSICALHEALTHCHECK").is(':checked')) {
+
+                        if ($("#MentalPhysicalHealthValueIDNS").val().length == 0) {
+                            iStopSub = 1;
+                            sErr += "-Please enter a reason for not collecting Mental/Physical Activity information.\n";
+                        }
+
+                    }
+                    else {
+
+                        var iMentalPhysAct = $("#MentalPhysicalHealthValueID").val();
+                        //alert(iPhysAct);
+                        //if (iPhysAct < 0 && iPhysAct > 30) {
+                        if (iMentalPhysAct == "") {
+
+                            iStopSub = 1;
+                            sErr += "-Please enter information about mental/physical activity.\n";
+
+                        }
+                        if (iMentalPhysAct > 30) {
+
+                            iStopSub = 1;
+                            sErr += "-The range for Mental/Physical Activity is 0 to 30 days.\n";
+
+                        }
+
+                    }
+
+                    if ($("#checkboxSMOKINGSECONDHANDCHECK").is(':checked')) {
+
+                        if ($("#SmokingSecondHandValueIDNS").val().length == 0) {
+                            iStopSub = 1;
+                            sErr += "-Please enter select yes if exposure to second hand smoke was less than 1 hour.\n";
+                        }
+
+                    }
+                    else {
+
+                        var iSmokingSecondHandAct = $("#SmokingSecondHandValueID").val();
+                        //alert(iPhysAct);
+                        //if (iPhysAct < 0 && iPhysAct > 30) {
+                        if (iSmokingSecondHandAct == "") {
+
+                            iStopSub = 1;
+                            sErr += "-Please enter information about secondhand smoking exposure.\n";
+
+                        }
+                        if (iSmokingSecondHandAct > 30) {
+
+                            iStopSub = 1;
+                            sErr += "-The range for secondhand smoking is 0 to 24 hours.\n";
+
+                        }
+
+                    }
+
+
+                }
+
+
+            }
+
+
+            if (iStopSub != 0) {
+                alert(sErr);
+                e.preventDefault();
+
+            }
+
+        });
+    });
+
+
+
+    $('#PatientInfoForm').on("submit", function (evt) {
+        evt.preventDefault();
+        if ($('#PatientInfoForm').valid()) {
+            //  $("#SaveExitButton").prop("disabled", true);
+            $.ajax({
+                url: $("#PatientInfoForm").attr('action'),
+                type: $("#PatientInfoForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#PatientInfoForm").serialize(),
+                success: function (data) {
+
+                    //var clinicalcycleid = data.Modified;
+                    //var siteid = data.Modified2;
+                    //var screeningtypeid = data.Modified3;
+                    //var clientid = data.Modified4;
+                    //var enrollid = data.Modified5;
+                    //var screeningid = data.Modified6;
+                    //var bpplus = data.Modified7;
+
+
+                    //  if (bpplus == false) {
+
+                    @*$('#WiseWomanSection').load('@Url.Action("_PatientInfoDashboard", "PatientInformation")', { id: clinicalcycleid, id2: siteid, id3: screeningtypeid, id4: clientid, id5: enrollid, id6: screeningid });
+                        toastr.success('You have successfully added patient information.')
+                        $('#CancerTypeDD').attr('disabled', 'disabled');*@
+
+                    //    }
+                    //  else {
+
+
+
+                    @*url = '@Url.Action("Edit", "ClinicalCycles", new { id = "_clinicalcycleid_", id2 = "_siteid_", id3 = "_screeningtypeid_" })';
+                        url = url.replace('_clinicalcycleid_', encodeURIComponent(clinicalcycleid));
+                        url = url.replace('_siteid_', encodeURIComponent(siteid));
+                        url = url.replace('_screeningtypeid_', encodeURIComponent(screeningtypeid));
+                        location.href = url;*@
+
+
+                    //     }
+
+                }
+            });
+        }
+
+    });
+
+
+
+
+    </script>

@@ -1,0 +1,604 @@
+﻿@model eCaST.ViewModels.ScreenProcedureViewModel
+
+<link href="@Url.Content("~/Content/slider.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/themes/base/jquery.ui.slider.css")" rel="stylesheet" type="text/css" />
+
+
+<script src="@Url.Content("~/Scripts/bootstrap-slider.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/app/patientinfo.js")" type="text/javascript"></script>
+
+<style type="text/css">
+    .txtdiv {
+        /*width: 130px;
+        height: 50px;*/
+        -ms-transform: rotate(270deg); /* IE 9 */
+        -moz-transform: rotate(270deg); /* Firefox */
+        -webkit-transform: rotate(270deg); /* Safari and Chrome */
+        -o-transform: rotate(270deg); /* Opera */
+    }
+
+    .clsDatePicker {
+        z-index: 100000;
+    }
+</style>
+
+
+<div id="DiaWorkupSection">
+
+    <div id="MedNoSection" style="display:none" class="alert alert-danger">
+
+        <h4><span class="glyphicon glyphicon-warning-sign"></span> Medication Counseling must be completed before a medical evaluation can be considered complete. If medication counseling has yet to be given, you may enter a workup date and return later once medication counseling has been given.</h4>
+
+    </div>
+
+    <div>Workup Status</div>
+    <br />
+    <div>
+
+
+        @Html.DropDownListFor(model => model.WorkupStatusBinID, ((IEnumerable<eCaST.Models.DDWorkupStatusBin>)ViewBag.DDWorkupStatusBinIDs).Select(option => new SelectListItem
+                     {
+                         //Text = Html.DisplayTextFor(_ => option).ToString(),
+                         Text = option.WorkupStatusBinName,
+                         Value = option.WorkupStatusBinID.ToString(),
+                         Selected = (Model != null) && (option.WorkupStatusBinID == @ViewBag.WorkupStatus)
+                     }), "Choose...", new { @id = "WorkupStatusBinID", @class = "requiredSelect" })
+        @Html.ValidationMessageFor(model => model.WorkupStatusBinID)
+
+
+    </div>
+
+    <br />
+    <br />
+
+
+
+    <div id="MedCounselingSection" style="display:none">
+
+
+
+        <div>
+            Medication Counseling Provided?
+
+        </div>
+
+
+        <div style="width:20%">
+
+            <div style="float:left"> @Html.RadioButtonFor(model => model.MedicationCounselingProvided, true, new { @class = "MedicationCounselingProvided", @id = "Yes" }) Yes</div>
+            <div style="float:right"> @Html.RadioButtonFor(model => model.MedicationCounselingProvided, false, new { @class = "MedicationCounselingProvided", @id = "No" }) No</div>
+
+        </div>
+
+
+
+    </div>
+    <br />
+
+
+    <div id="NotCompleteSection" style="display:none">
+
+        <div>Workup Not Completed because:</div>
+        <br />
+        <div>
+
+
+            @Html.DropDownListFor(model => model.WorkupResultBinID, ((IEnumerable<eCaST.Models.DDWorkupResultBin>)ViewBag.DDWorkupResultBinIDs).Select(option => new SelectListItem
+                     {
+                         //Text = Html.DisplayTextFor(_ => option).ToString(),
+                         Text = option.WorkupResultBinName,
+                         Value = option.WorkupResultBinID.ToString(),
+                         Selected = (Model != null) && (option.WorkupResultBinID == @ViewBag.WorkupResult)
+                     }), "Choose...", new { @id = "WorkupResultBinID", @class = "requiredSelect" })
+            @Html.ValidationMessageFor(model => model.WorkupResultBinID)
+
+
+        </div>
+
+        <br />
+        <br />
+
+    </div>
+
+
+    <div id="WorkupDetailSection" style="display:none">
+
+
+        <div id="OutcomeDetailSection" style="display:none">
+            <br />
+            <br />
+            <div>Workup Medication Outcomes (Select all that apply):</div>
+            <br />
+
+            <div class="input-group btn-group">
+
+                @Html.DropDownList("test", (SelectList)ViewData["OptionList"], new { @class = "NewCssdropdown", multiple = "" })
+
+                <input type="hidden" id="selectedIDs" />
+
+
+
+            </div>
+
+
+        </div>
+
+        @*<div id="OutcomeDetailSection" style="display:none">
+                <br />
+                <br />
+             <div>Workup Medication Outcome:</div>
+               <br />
+
+            <div class="input-group btn-group">
+                               <span class="input-group-addon"><b class="glyphicon glyphicon-list-alt"></b></span>
+
+
+                   @Html.DropDownListFor(model => model.WorkupResultBinID, ((IEnumerable<eCaST.Models.DDWorkupResultBin>)ViewBag.DDWorkupResultOptionsBinIDs).Select(option => new SelectListItem
+                        {
+                            //Text = Html.DisplayTextFor(_ => option).ToString(),
+                            Text = option.WorkupResultBinName,
+                            Value = option.WorkupResultBinID.ToString(),
+                            Selected = (Model != null) && (option.WorkupResultBinID == @ViewBag.WorkupResult)
+                        }), new { @id = "example6", @class = "requiredSelect", @multiple = "multiple"  })
+                       @Html.ValidationMessageFor(model => model.WorkupResultBinID)
+
+
+               </div>
+
+
+                </div>*@
+
+        <br />
+        <br />
+
+
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                @Html.Hidden("WorkupStatusDate")
+                <div><h3 style="color:#666"><i class="fa fa-heartbeat"></i> Glucose Diagnostic Workup Date:</h3></div>
+                <div><input class="requiredText" style="color:#ccc;" type="text" id="WorkupStatusDateHIDDEN" placeholder="Date of Workup"></div>
+
+            </div>
+
+
+
+
+        </div>
+
+
+
+        @*<table style="width:100%; padding:2px">
+
+
+            <tr>
+                <td style="border:none"><h3>Glucose Diagnostic Workup&nbsp;<i style="color:#ccc">Date:</i></h3></td>
+                <td style="border:none">
+
+                    <div class="input-group">
+
+                        @Html.Hidden("WorkupStatusDate")
+
+                        <br />
+                        <br />
+
+                        <input style="color:#ccc;" type="text" id="WorkupStatusDateHIDDEN" placeholder="Date of Workup">
+
+
+
+
+                    </div>
+
+
+
+                </td>
+
+            </tr>
+
+
+
+
+        </table>*@
+
+
+
+
+
+    </div>
+
+
+
+
+
+</div>
+
+<br />
+<div class="modal-footer">
+    <button type="button" id="DiaCloseButton" class="btn btn-default">Close</button>
+    <div style="float:right;padding-left:6px" id="WorkupTestingButtonSection">
+        <button type="submit" id="WorkupTestingButton" class="btn btn-success">Update</button>
+    </div>
+</div>
+
+@Html.Hidden("MedicationOutcomes")
+
+
+
+<script type="text/javascript">
+
+
+
+    (function ($) {
+        $.fn.extend({
+            detachOptions: function (o) {
+                var s = this;
+                return s.each(function () {
+                    var d = s.data('selectOptions') || [];
+                    s.find(o).each(function () {
+                        d.push($(this).detach());
+                    });
+                    s.data('selectOptions', d);
+                });
+            }, attachOptions: function (o) {
+                var s = this;
+                return s.each(function () {
+                    var d = s.data('selectOptions') || [];
+                    for (var i in d) {
+                        if (d[i].is(o)) {
+                            s.append(d[i]);
+                            //console.log(d[i]);
+                            // TODO: remove option from data array
+                        }
+                    }
+                });
+            }
+        });
+    })(jQuery);
+ 
+
+    $("#DiaCloseButton").click(function () {
+
+
+        $('#TestListContainer').load('@Url.Action("_TestList", "PatientInformation", new { id = ViewBag.ScreeningID })');
+
+
+
+    });
+
+
+
+
+    $(function () {
+
+        var data = '@ViewBag.Options';
+
+        //Make an array
+        var dataarray = data.split(",");
+
+        // Set the value
+        $("#test").val(dataarray);
+        $("#selectedIDs").val(dataarray);
+
+
+        $("#WorkupStatusDateHIDDEN").kendoDatePicker({ max: new Date() });
+
+        var test = $('#test');
+        $(test).select2({
+            //data: [
+            //    { id: 1, text: "Medication prescribed" },
+            //    { id: 2, text: "Medication changed" },
+            //    { id: 3, text: "Referred for Medication Therapy Management (MTM)" },
+            //    { id: 4, text: "Referred for Chronic disease self-management (CDSMP)" },
+            //    { id: 5, text: "Referred for Diabetes Self-Management Education (DSME)" }
+            //],
+            //multiple: true,
+            width: "300px"
+        });
+
+
+        document.getElementById("test").onchange = function () {
+
+            var ids = $(test).val();
+            $('#selectedIDs').val(ids);
+
+        };
+
+
+
+    });
+
+$(document).ready(function () {
+
+
+    // Get Workup Date
+    $("#WorkupStatusDateHIDDEN").val('@(((DateTime?)ViewBag.WorkupDate))');
+    $("#WorkupStatusBinID").select2({ width: "70%" });
+    $("#WorkupResultBinID").select2({ width: "70%" });
+
+
+
+
+
+
+});
+
+
+
+    $(function () {
+
+        if ($("#WorkupStatusBinID").val() == 1) {
+
+
+            $("#NotCompleteSection").css("display", "none"),
+             $("#WorkupDetailSection").css("display", "none"),
+            $("#MedCounselingSection").css("display", "block");
+
+
+
+
+            if ('@ViewBag.Counseling' == '1') {
+
+
+                $("#WorkupDetailSection").css("display", "block");
+                $("#OutcomeDetailSection").css("display", "block");
+                $("#MedNoSection").css("display", "none");
+            }
+            else {
+
+                $("#WorkupDetailSection").css("display", "block");
+                $("#OutcomeDetailSection").css("display", "none");
+                $("#MedNoSection").css("display", "block");
+            }
+
+
+
+
+
+
+          }
+
+          else if ($("#WorkupStatusBinID").val() == 2) {
+
+
+              $("#NotCompleteSection").css("display", "block"),
+              $("#WorkupDetailSection").css("display", "block"),
+              $("#MedCounselingSection").css("display", "none"),
+              $('#WorkupResultBinID').detachOptions('[value=1]'),
+              $('#WorkupResultBinID').detachOptions('[value=2]'),
+              $('#WorkupResultBinID').detachOptions('[value=3]'),
+              $('#WorkupResultBinID').detachOptions('[value=4]'),
+              $('#WorkupResultBinID').detachOptions('[value=5]');
+
+
+
+          }
+
+
+          else {
+
+
+              $("#NotCompleteSection").css("display", "none"),
+               $("#WorkupDetailSection").css("display", "none"),
+              $("#MedCounselingSection").css("display", "none");
+
+
+          }
+
+      });
+
+
+
+    $(function () {
+
+
+        $("#WorkupStatusBinID").change(function () {
+
+
+            if ($("#WorkupStatusBinID").val() == 1) {
+
+                $("#OutcomeDetailSection").css("display", "block");
+                $("#NotCompleteSection").css("display", "none"),
+                 $("#WorkupDetailSection").css("display", "none"),
+                $("#MedCounselingSection").css("display", "block");
+
+
+
+
+
+            }
+
+            else if ($("#WorkupStatusBinID").val() == 2) {
+
+                  $("#OutcomeDetailSection").css("display", "none");
+                  $("#NotCompleteSection").css("display", "block"),
+                  $("#WorkupDetailSection").css("display", "block"),
+                  $("#MedCounselingSection").css("display", "none"),
+                  $('#WorkupResultBinID').detachOptions('[value=1]'),
+                  $('#WorkupResultBinID').detachOptions('[value=2]'),
+                  $('#WorkupResultBinID').detachOptions('[value=3]'),
+                  $('#WorkupResultBinID').detachOptions('[value=4]'),
+                  $('#WorkupResultBinID').detachOptions('[value=5]');
+
+
+
+            }
+
+
+            else {
+
+                $("#NotCompleteSection").css("display", "none"),
+                 $("#WorkupDetailSection").css("display", "none"),
+                $("#MedCounselingSection").css("display", "none");
+                $("#WorkupTestingButtonSection").css("display", "none");
+
+            }
+
+
+        });
+
+
+    });
+
+
+    $(function () {
+
+
+        $("#Yes").change(function () {
+
+
+            if ($('#Yes').attr("checked", "checked")) {
+
+
+                $("#WorkupDetailSection").css("display", "block");
+                $("#WorkupTestingButtonSection").css("display", "block");
+                $("#OutcomeDetailSection").css("display", "block");
+                $("#MedNoSection").css("display", "none");
+
+            }
+            else {
+
+
+                $("#WorkupDetailSection").css("display", "none");
+                $("#WorkupTestingButtonSection").css("display", "block");
+                $("#OutcomeDetailSection").css("display", "none");
+                $("#MedNoSection").css("display", "block");
+            }
+
+
+        });
+
+
+
+        $("#No").change(function () {
+
+
+            if ($('#No').attr("checked", "checked")) {
+
+
+                $("#WorkupDetailSection").css("display", "block");
+                $("#WorkupTestingButtonSection").css("display", "block");
+                $("#OutcomeDetailSection").css("display", "none");
+                $("#MedNoSection").css("display", "block");
+            }
+            else {
+
+
+                $("#WorkupDetailSection").css("display", "block");
+                $("#WorkupTestingButtonSection").css("display", "block");
+                $("#OutcomeDetailSection").css("display", "block");
+                $("#MedNoSection").css("display", "none");
+            }
+
+
+        });
+
+
+        $("#WorkupStatusBinID").change(function () {
+
+
+            if ($('#WorkupStatusBinID').val() == 2) {
+
+
+
+                $("#WorkupTestingButtonSection").css("display", "block");
+
+            }
+            else {
+
+
+
+                $("#WorkupTestingButtonSection").css("display", "none");
+
+            }
+
+
+        });
+    });
+
+
+    
+
+
+    $(document).ready(function () {
+
+        $('#WorkupTestingButton').on('click', function (e) {
+
+            //Add Medication Outcomes
+            var out = document.getElementById('selectedIDs').value;
+            document.getElementById("MedicationOutcomes").value = out;
+
+            //Add Test Screen
+            var diaDate1 = $("#WorkupStatusDateHIDDEN").val();
+            document.getElementById("WorkupStatusDate").value = diaDate1;
+
+
+            var iWorkupStatusBinID = $("#WorkupStatusBinID option:selected").val();
+            var iCurWorkupStatusDate = $("#WorkupStatusDateHIDDEN").val();
+            var iBPDate = '@ViewBag.BPDate';
+            var iCurDate = new Date();
+            var iStopSub = 0;
+            var sErr = "Please correct the following issues:\n\n";
+
+
+            if (iWorkupStatusBinID < 1) {
+                iStopSub = 1;
+                sErr += "You must enter workup status information" + "\n";
+
+            }
+            else {
+
+
+                iCurWorkupStatusDateLen = iCurWorkupStatusDate.length;
+                if (iCurWorkupStatusDateLen < 1) {
+                    iStopSub = 1;
+                    sErr += "You must enter a date for workup status" + "\n";
+                }
+
+
+                if (new Date(iCurWorkupStatusDate).getTime() < new Date(iBPDate).getTime()) {
+                    iStopSub = 1;
+                    sErr += "-You cannot add a workup date that is earlier than the initial glucose test date.\n";
+                }
+
+                if (new Date(iCurWorkupStatusDate).getTime() > new Date(iCurDate).getTime()) {
+                    iStopSub = 1;
+                    sErr += "You cannot enter a date of workup in the future\n";
+                }
+
+                // Check for valid date
+                var timestamp = kendo.parseDate(iCurWorkupStatusDate, "mm/dd/yyyy");
+
+                if (timestamp == null) {
+
+                    iStopSub = 1;
+                    sErr += "Please enter a valid date of workup\n";
+
+                }
+
+                //if ($('#Yes').is(':checked')) {
+
+                //    if ($("#selectedIDs").val() == "") {
+                //        iStopSub = 1;
+                //        sErr += "-Please enter information about workup medication outcomes.\n";
+                //    }
+
+                //}
+
+            }
+
+
+            if (iStopSub != 0) {
+                alert(sErr);
+                e.preventDefault();
+            }
+
+
+
+        });
+
+
+      });
+
+</script>

@@ -1,0 +1,795 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - eCaST Data System</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href='https://fonts.googleapis.com/css?family=Lato:700' rel='stylesheet' type='text/css'>
+    <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" language="javascript" src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    
+    
+    <script type="text/javascript">
+    google.load("visualization", "1", { packages: ["corechart"] });
+      
+    </script>
+
+
+
+    <style type="text/css">
+
+
+        /*
+ * Off Canvas
+ * --------------------------------------------------
+ */
+  .sidebar-offcanvas, .col-main {
+    position: relative;
+  }
+  .animate .sidebar-offcanvas, .animate .col-main {
+    -webkit-transition: all .25s ease-out;
+         -o-transition: all .25s ease-out;
+            transition: all .25s ease-out;
+  }
+  .side-toggle .sidebar-offcanvas {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  .side-toggle .col-main {
+   width:100%;
+  }
+
+
+        @@media screen and (max-width: 767px) {
+            /*
+ * Off Canvas
+ * --------------------------------------------------
+ */
+            .row-offcanvas {
+                position: relative;
+                -webkit-transition: all .25s ease-out;
+                -o-transition: all .25s ease-out;
+                transition: all .25s ease-out;
+            }
+
+            .row-offcanvas-right {
+                right: 0;
+            }
+
+            .row-offcanvas-left {
+                left: 0;
+            }
+
+            .row-offcanvas-right .sidebar-offcanvas {
+                right: -66.66666667%; /* 8 columns */
+            }
+
+            .row-offcanvas-left .sidebar-offcanvas {
+                left: -66.66666667%; /* 8 columns */
+            }
+
+            .row-offcanvas-right.active {
+                right: 66.66666667%; /* 8 columns */
+            }
+
+            .row-offcanvas-left.active {
+                left: 66.66666667%; /* 8 columns */
+            }
+
+            .sidebar-offcanvas {
+                position: absolute;
+                top: 0;
+                width: 66.66666667%; /* 8 columns */
+            }
+
+            .row-offcanvas-left .sidebar-offcanvas {
+                margin-left: 15px;
+            }
+        }
+
+   .field-validation-error {
+    color: #e80c4d;
+    font-weight: bold;
+}
+  
+
+
+        #container {
+            margin: 0 auto;
+            width: 300px;
+        }
+
+        h1 {
+            font-size: 3.8em;
+            color: #000000;
+            margin-bottom: 3px;
+        }
+
+            h1 .small {
+                font-size: 0.4em;
+            }
+
+            h1 a {
+                text-decoration: none;
+            }
+
+        h2 {
+            font-size: 1.5em;
+            color: #000000;
+        }
+
+        h3 {
+            text-align: left;
+            color: #000000;
+        }
+
+        a {
+            color: #000000;
+        }
+
+        .description {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            margin-top: 30px;
+            font-style: italic;
+        }
+
+        .download {
+            float: right;
+        }
+
+        pre {
+            background: #000;
+            color: #fff;
+            padding: 15px;
+        }
+
+        hr {
+            border: 0;
+            width: 80%;
+            border-bottom: 1px solid #aaa;
+        }
+
+        .footer {
+            text-align: center;
+            padding-top: 30px;
+            font-style: italic;
+        }
+
+
+        #tagcloud a {
+            text-decoration: none;
+            color:#999;
+        }
+
+            #tagcloud a:hover {
+                text-decoration: underline;
+            }
+
+        #tagcloud {
+            margin: 2px auto;
+            font: "Lato", sans-serif;
+        }
+
+        .img-circle {
+            border-radius: 50%;
+            }
+
+
+         .select2-container .select2-choice {
+        height: 34px;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        background-color: #fff;
+        background-image: none;
+        background: #f5f2f2;
+    }
+
+
+        .select2-container .select2-choice .select2-chosen {
+            margin-top: 4px;
+        }
+
+        .select2-container .select2-choice abbr {
+            top: 13px;
+        }
+
+        .select2-container .select2-choice,
+        .select2-container .select2-choice .select2-arrow {
+            -webkit-border-radius: 0;
+            border-radius: 0px;
+            border-color: #ccc;
+        }
+
+            .select2-container .select2-choice .select2-arrow {
+                background-color: #fafafa;
+                background-image: none;
+                background: #fafafa;
+                width: 22px;
+            }
+
+                .select2-container .select2-choice .select2-arrow b > span {
+                    margin: 4px 0 0 6px;
+                }
+
+    .select2-container.select2-container-active .select2-choice {
+        border-color: #91acce;
+    }
+
+    .select2-container.select2-dropdown-open .select2-choice {
+        border-bottom-color: #ccc;
+    }
+
+    .select2-drop {
+        -webkit-border-radius: 0 !important;
+        border-radius: 0 !important;
+    }
+
+        .select2-drop:not(.select2-drop-above) {
+            margin-top: -3px;
+        }
+
+        .select2-drop .select2-results {
+            max-height: 300px;
+        }
+
+            .select2-drop .select2-results li {
+                line-height: inherit;
+                margin: 0;
+                padding: 0;
+            }
+
+    .select2-search {
+        margin: 4px 0;
+    }
+
+        .select2-search input,
+        .select2-search input:focus {
+            background-color: #fff;
+            background-image: none;
+            background: #fff;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+            border: none;
+        }
+
+    .select2-container.form-control {
+        border: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        padding: 0;
+    }
+
+    /* Paste this css to your style sheet file or under head tag */
+/* This only works with JavaScript, 
+if it's not present, don't show loader */
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url(https://www.healthinformatics.dphe.state.co.us/Content/images/loader-64x/Preloader_2.gif) center no-repeat #fff;
+}
+
+table.dataTable thead .sorting, 
+table.dataTable thead .sorting_asc, 
+table.dataTable thead .sorting_desc {
+    background : none;
+}
+
+
+
+    </style>
+
+    <script type="text/javascript">
+    window.history.forward();
+    function noBack() { window.history.forward(); }
+
+
+ 
+
+    </script>
+
+</head>
+<body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
+    <div class="se-pre-con"></div>
+    <div id="wrapper">
+
+
+
+
+        <div class="navbar navbar-fixed-top navbar-default" role="navigation">
+            <div style="width:100%" class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div style="width:100%">
+
+                        @*<div class="row hidden-xs">
+
+                            <div class="col-md-3">
+                                <ul class="nav navbar-top-links navbar-left">
+
+                                    <li style="padding-top:8px" class="dropdown">
+
+                                        <button type="button" class="btn btn-default btn-small" data-toggle="offcanvas"><span id="chevronIcon"></span>&nbsp;&nbsp;<span id="ToggleLabel">@ViewBag.ToggleLabel</span></button>
+
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="col-md-9">*@
+
+                        @*<div style="padding-top:12px">*@
+
+                        <div id="HomeLinkContainer" style="padding-top:18px">
+                        
+                        <a style="font-family:'Lato' , sans-serif, sans-serif; text-decoration:none; font-weight:bold; color:#666;font-size:large" href="@Url.Action("Index", "Home")"><img src="~/Content/images/iconCL2.png" />&nbsp;<span>eCaST Data System</span></a>
+                        
+                        
+                        </div>
+
+                        <div id="HomeNoLinkContainer" style="padding-top:18px;display:none">
+
+                            <a style="font-family:'Lato' , sans-serif, sans-serif; text-decoration:none; font-weight:bold; color:#666;font-size:large" href="#"><img src="~/Content/images/iconCL2.png" />&nbsp;<span>eCaST Data System</span></a>
+
+
+                        </div>
+
+
+                        @*</div>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                            <a class="visible-xs" style="font-family:'Lato' , sans-serif, sans-serif; text-decoration:none; font-weight:bold; color:#666" href="@Url.Action("Index", "Home")"><img src="~/Content/images/iconCL2.png" />&nbsp;eCaST</a>
+
+                        *@
+
+
+                    </div>
+
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-top-links navbar-right">
+                        @*https://drive.google.com/drive/u/0/folders/0B_jN2i1FKbXTVk5JaFIwVmZxcDg*@
+                        <li><a href="#" id="HelpVideosButton"><span style="padding-left:10px"><i class="fa fa-cloud-download"></i>&nbsp;Resources</span></a></li>
+                        
+                        
+                       
+
+                       <li><a href="#" style="display:none" id="ContactButton"><span style="padding-left:10px"><i class="fa fa-comments"></i>&nbsp;Contact Support</span></a></li>
+
+                       
+                        
+                        <li><a href="#" id="DashButton"><span style="padding-left:10px"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Portal</span></a></li>
+                       @* <li><a href="#" id="ReportsButton"><span style="padding-left:10px;padding-right:10px"><span class="glyphicon glyphicon-th-list"></span>&nbsp;Reports</span></a></li>  *@
+
+                        @*<li class="dropdown">
+
+                                <span>@ViewBag.FirstName</span>
+
+                            </li>*@
+
+
+
+
+                        <li class="dropdown">
+                            @*<a style="text-decoration: none; color:#666; font-size:24px" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i><span class="caret"></span></a>*@
+                            <a class="dropdown-toggle" data-toggle="dropdown" href='#'>
+
+
+
+                                <span>@ViewBag.FirstName</span>&nbsp;&nbsp;<img class="img-circle" style="width:30px;height:30px" src="@Html.Raw(ViewBag.ProfilePic)" />
+
+
+
+
+                            </a>
+
+
+
+
+                            <ul class="dropdown-menu">
+
+                                <li>
+
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        <div style="padding-left: 6px">Logged in as: <strong>@User.Identity.Name </strong></div>
+
+
+                                    }
+
+                                </li>
+
+                                <li class="divider"></li>
+
+
+
+
+                                <li style="padding-top: 0px">
+                                    <a style="text-decoration:none" href="@Url.Action("LogOffPortal", "Account")"><span class="glyphicon glyphicon-remove-sign"></span>&nbsp;Logout</a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div><!-- /.nav-collapse -->
+            </div><!-- /.container -->
+        </div>
+
+
+
+
+
+        <div style="width:100%" class="container">
+
+            @*<div class="row row-offcanvas row-offcanvas-left side-toggle">*@
+
+            @*<div class="col-xs-7 col-sm-2 sidebar-offcanvas" id="sidebar" role="navigation">
+
+                    <div style="padding-top:70px">
+
+                        <div align="center" style="text-align:left" id="NavBarContainer"></div>
+
+                    </div>
+
+                </div>*@
+
+            @*<div class="col-xs-12 col-sm-10 col-main">
+
+                <div style="padding-top:10px">*@
+
+            <div id="ContactContainer" style="display:none"></div>
+            <div id="HelpVideoContainer" style="display:none"></div>
+            <div id="AdvancedSearchContainer" style="display:none"></div>
+            @RenderBody()
+
+
+            @*</div>
+
+
+                        </div>
+
+
+                </div>*@
+
+        </div>
+
+
+
+        <div id="FooterMenuBarContainer"></div>
+
+
+    </div>
+
+  
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+
+    @if (ViewBag.DashboardTipCheck != true) { 
+
+    <!-- Tip Content -->
+    <ol id="joyRideTipContent">
+
+        <li data-id="ClientSection" data-button="Next" data-options="tipLocation:left">
+            <h2>Welcome to the new eCaST Data System!</h2>
+            <br />
+            <p>Look up a client here by typing in their first and/or last name and your results will appear listed below.  Click on the desired client to enter the client record to begin eCaSTing! If you do not find the desired client, click "+New Client" to the right of the search bar to start a fresh client profile!
+</p>
+            @*<div><iframe width="230" height="230" src="https://www.youtube.com/embed/Fv9WGPppD-E?list=PL_Cgs1O_ePS3Iudcb532pQeUbVV3cpSUG" frameborder="0" allowfullscreen></iframe></div>
+    <br />*@
+        </li>
+        <li data-id="TileContainer" data-button="Next" data-options="tipLocation:right">
+            <h2>Cases for Review</h2>
+            <p>Each tile represents a specific category of cases for review.  When you click on a tile, the table below will refresh to represent each tile category.  To enter a case, click on the Screening ID!<br /><br />
+            
+                <ul><li>
+    The
+    <b>Data Entry Errors Tile</b> lists all errors for your agency or site
+</li>
+                    <li>
+                        The
+                        <b>Admin Notices Tile</b> consists of errors regarding WWC program eligibility
+                    </li>
+                    <li>
+                        The
+                        <b>Patient Navigation Tile</b> consists of all cases in need of further screenings
+                    </li>
+                    <li>
+                        The
+                        <b>Case Management Tile</b> consists of all cases with an abnormal screening in need of diagnostic workup or a final diagnosis
+                    </li>
+                    <li>
+                        The
+                        <b>Cancer Cases Tile</b> consists of all cases with cancer as the final diagnosis for your agency
+                    </li>
+                    - The
+                    <li><b>Procedure Errors Tile</b> consists of all errors associated with a procedure
+                   </li>
+                       
+                        </ul>
+                    <br />
+                    And if you are  WIWO agency, the Healthy Behaviors Tile consist of all WIWO clients with in-progress sessions
+                    <br />
+                    <br />
+
+               
+
+</p>
+        </li>
+        <li data-id="HistContainer" data-button="Next" data-options="tipLocation:left">
+            <h2>Client History</h2>
+            <p>Quickly find, review and enter recent work in eCaST with one click on the client ID!  Instead of searching for a recently eCaSTed client, you can find them quickly here! </p>
+        </li>
+        <li data-id="ScreeningBudgetTrackingContainer" data-button="Next" data-options="tipLocation:left">
+            <h2>Budget Tracking</h2>
+            <p>Get a quick snapshot of screening levels and grant activities.</p>
+        </li>
+        <li data-button="Close">
+            <h2>Thank you for taking our quick tour!</h2>
+            <p>eCaST 2.0 was designed using user feedback to create a more efficient user experience.  A lot is new, but some things should look familiar :)  Keep in mind we no longer ask for Cycles to be created, just screenings!  We thank you for your patience in transitioning to a new system!
+Now you are ready to get cracking!. Happy eCaSTing!
+</p>
+        </li>
+
+
+
+    </ol>
+
+        
+    }
+   
+
+    <script type="text/javascript">
+
+
+            $(window).load(function () {
+
+            //    if ('@ViewBag.DashboardTipCheck' != true) {
+
+                    $('#joyRideTipContent').joyride({
+                        autoStart: true,
+                        modal:true
+
+                    });
+
+             //   }
+
+            });
+
+
+    </script>
+   
+
+
+   
+</body>
+</html>
+
+
+
+
+<script type="text/javascript">
+
+    //paste this code under the head tag or in a separate js file.
+    // Wait for window load
+    //$(window).load(function () {
+    //    // Animate loader off screen
+    //    $(".se-pre-con").fadeOut("slow");
+    //});
+
+    $(function () {
+
+
+
+        $("#ContactButton").click(function () {
+
+            var ci = 0;
+            var sc = 0;
+            var sch = 0;
+            var outCII = document.getElementById('ClientIdentifier').value;
+            if (outCII != null) {
+
+
+                ci = outCII;
+                $('#ContactButton').css("display", "block");
+
+            }
+            else {
+
+                $('#ContactButton').css("display", "none");
+
+            }
+            var outSCC = document.getElementById('ScreeningIdentifier').value;
+            if (outSCC != null) {
+
+
+                sc = outSCC;
+                $('#ContactButton').css("display", "block");
+            }
+            else {
+
+                $('#ContactButton').css("display", "none");
+
+            }
+
+            var outSCH = document.getElementById('ScreeningCheckIdentifier').value;
+            if (outSCH != null) {
+
+
+                sch = outSCH;
+                $('#ContactButton').css("display", "block");
+
+            }
+            else {
+
+                $('#ContactButton').css("display", "none");
+
+            }
+
+
+            $('#ContactContainer').css("display", "block");
+            $('#ContactContainer').load('@Url.Action("Index", "RequestTrackers")', { id: ci, id2: sc, id3: sch });
+            //  $('#HelpVideoContainer').load('@Url.Action("Index", "TrainingMaterials")', { id: ci, id2: sc, id3: sch });
+
+        });
+
+        $("#HelpVideosButton").click(function () {
+
+            $('#HelpVideoContainer').css("display", "block");
+            $('#HelpVideoContainer').load('@Url.Action("Index", "TrainingMaterials")', { id: 20 });
+
+
+        });
+
+     //   $("#ReportsButton").click(function () {
+
+
+         //   var baseUrl = window.location.hostname;
+
+            // var baseUrl = "<%= Request.Url.GetLeftPart(UriPartial.Authority) %>";
+
+       //     if ((baseUrl == "www.healthinformatics.dphe.state.co.us")) {
+
+       //         window.open('https://www.healthinformatics.dphe.state.co.us/Authenticated/Reporting/Home/Index', '_blank');
+
+
+       //     }
+        //    else if ((baseUrl == "www.train.healthinformatics.dphe.state.co.us")) {
+
+
+        //        window.open('https://www.train.healthinformatics.dphe.state.co.us/Authenticated/Reporting/Home/Index', '_blank');
+
+        //    }
+        //    else {
+
+
+        //        window.open('https://www.test.healthinformatics.dphe.state.co.us/Authenticated/Reporting/Home/Index', '_blank');
+
+      //      }
+
+     //   });
+
+        $("#DashButton").click(function () {
+
+
+            var baseUrl = window.location.hostname;
+
+
+            if ((baseUrl == "www.healthinformatics.dphe.state.co.us")) {
+
+                window.open('https://www.healthinformatics.dphe.state.co.us/DashBoards/Manage', '_blank');
+
+
+            }
+            else if ((baseUrl == "www.train.healthinformatics.dphe.state.co.us")) {
+
+
+                window.open('https://www.train.healthinformatics.dphe.state.co.us/eCaST/DashBoards/Manage', '_blank');
+
+            }
+            else {
+
+                window.open('https://www.test.healthinformatics.dphe.state.co.us/DashBoards/Manage', '_blank');
+
+            }
+
+        });
+
+
+    });
+
+    //(function ($) {
+    //    $.fn.clickToggle = function (func1, func2) {
+    //        var funcs = [func1, func2];
+    //        this.data('toggleclicked', 0);
+    //        this.click(function () {
+    //            var data = $(this).data();
+    //            var tc = data.toggleclicked;
+    //            $.proxy(funcs[tc], this)();
+    //            data.toggleclicked = (tc + 1) % 2;
+    //        });
+    //        return this;
+    //    };
+    //}(jQuery));
+    //$(document).ready(function () {
+
+    //    if ($('.row-offcanvas').hasClass('active')) {
+
+    //        $('#chevronIcon').toggleClass('glyphicon glyphicon-chevron-down');
+
+    //    }
+    //    else {
+
+    //        $('#chevronIcon').toggleClass('glyphicon glyphicon-chevron-up');
+
+    //    }
+
+    //    $('[data-toggle="offcanvas"]').click(function () {
+    //        $('.row-offcanvas').toggleClass('active').toggleClass('side-toggle');
+
+    //        if ($('.row-offcanvas').hasClass('active')) {
+
+    //            $('#chevronIcon').removeClass('glyphicon glyphicon-chevron-up');
+    //            $('#chevronIcon').toggleClass('glyphicon glyphicon-chevron-down');
+
+    //        }
+    //        else {
+
+    //            $('#chevronIcon').removeClass('glyphicon glyphicon-chevron-down');
+    //            $('#chevronIcon').toggleClass('glyphicon glyphicon-chevron-up');
+
+    //        }
+
+
+    //    });
+    //    $(window).resize(function () {
+    //        if ($(window).width() < 768) {
+    //            $('.row-offcanvas').removeClass('animate');
+    //        } else {
+    //            $('.row-offcanvas').addClass('animate');
+    //        }
+    //    });
+    //});
+
+
+
+
+
+</script>
+
+ 
+
+
+
+

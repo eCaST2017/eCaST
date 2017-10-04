@@ -1,0 +1,74 @@
+﻿@model eCaST.ViewModels.ClientViewModel
+
+
+
+<hr style="width:100%;background-color:#ccc;opacity:0.3" />
+
+<div class="row">
+
+
+    <div class="col-md-6">
+
+
+        Age:
+
+
+    </div>
+
+
+    <div align="right" class="col-md-6">
+
+        @Model.Age
+
+        </div>
+
+
+    </div>
+
+
+<div class="row">
+
+
+    <div class="col-md-6">
+
+
+        Ethnicity:
+
+
+    </div>
+
+
+    <div align="right" class="col-md-6">
+
+        @Model.EthnicityHispanicBinName
+
+    </div>
+
+
+</div>
+
+
+
+<div class="row">
+
+
+    <div class="col-md-2">
+
+
+        Race(s):
+
+
+    </div>
+
+
+    <div align="right" class="col-md-10">
+
+       @string.Join(",", Model.RaceList.ToArray())
+
+    </div>
+
+
+</div>
+
+
+

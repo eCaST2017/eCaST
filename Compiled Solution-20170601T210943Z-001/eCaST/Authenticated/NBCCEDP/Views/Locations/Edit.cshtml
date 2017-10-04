@@ -1,0 +1,150 @@
+﻿@model eCaST.ViewModels.LocationViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm("_CreateLocationF", "Locations", FormMethod.Post, new { id = "LocInfoForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+    <div id="LocFormContainer"></div>
+    <div align="right">
+        <button class="btn btn-default" id="CancelLocationButton" type="button"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;Cancel</button>
+    
+    <button class="btn btn-success" id="UpdateLocationButton" type="submit"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Update</button></div>
+
+    @Html.Hidden("ClientID", (int?)ViewBag.ClientID)
+    @Html.Hidden("LocationID", (int?)ViewBag.LocationID)
+}
+
+<script type="text/javascript">
+
+    $(function () {
+
+
+        $('#LocFormContainer').load('@Url.Action("_LocationForm", "Locations", new { id = ViewBag.LocationID })');
+
+
+
+        $('#CancelLocationButton').click(function () {
+
+
+            $('#LocationEditContainer').load('@Url.Action("Create", "Locations", new { id = ViewBag.ClientID })');
+
+
+
+        });
+
+
+       
+        
+
+    });
+
+
+    $("#CreateLocationButton").click(function (e) {
+
+
+        var iStopSub = 0;
+        var sErr = "Please correct the following issues:\n\n";
+
+
+        //var iAddress = $("#Address").val();
+        //if (iAddress == "") {
+
+        //    iStopSub = 1;
+        //    sErr += "You must enter an Address" + "\n";
+
+        //}
+
+        //var iCityBinID = $("#CityBinID option:selected").val();
+
+        //if (iCityBinID < 1) {
+        //    iStopSub = 1;
+        //    sErr += "You must enter a city" + "\n";
+
+        //}
+
+        var iStateBinID = $("#StateBinID option:selected").val();
+
+        if (iStateBinID < 1) {
+            iStopSub = 1;
+            sErr += "You must enter a state" + "\n";
+
+        }
+
+        var iCountyBinID = $("#CountyBinID option:selected").val();
+
+        if (iCountyBinID < 1) {
+            iStopSub = 1;
+            sErr += "You must enter a county" + "\n";
+
+        }
+
+        var iZipCode = $("#ZipCode").val();
+
+        if (iZipCode == "") {
+
+            iStopSub = 1;
+            sErr += "You must enter an Zipcode" + "\n";
+
+        }
+
+
+
+        //var iEmailAddress = $("#EmailAddress").val();
+
+        //if (iEmailAddress == "") {
+
+        //        iStopSub = 1;
+        //        sErr += "You must enter an Email Address" + "\n";
+
+        //    }
+
+
+        if (iStopSub != 0) {
+            alert(sErr);
+            e.preventDefault();
+
+        }
+
+
+    });
+
+
+
+    $('#LocInfoForm').on("submit", function (evt) {
+
+        evt.preventDefault();
+
+        if ($('#LocInfoForm').valid()) {
+
+            $("#CreateLocationButton").prop("disabled", true);
+
+            $.ajax({
+                url: $("#LocInfoForm").attr('action'),
+                type: $("#LocInfoForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#LocInfoForm").serialize(),
+                success: function (data) {
+
+                    var clientid = data.Modified;
+                    var screeningid = data.Modified2;
+
+                    $('#LocationEditContainer').load('@Url.Action("Create", "Locations")', { id: clientid });
+                    $('#LocationListContainer').load('@Url.Action("_LocationList", "Locations")', { id: clientid });
+                    $('#ProfileContainer').load('@Url.Action("_Profile", "Clients")', { id: clientid });
+
+
+                }
+            });
+        }
+
+    });
+
+
+</script>

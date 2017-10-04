@@ -1,0 +1,1882 @@
+﻿@model eCaST.ViewModels.PatientInfoViewModel
+
+
+
+<style type="text/css">
+    .txtdiv {
+        /*width: 130px;
+        height: 50px;*/
+        -ms-transform: rotate(270deg); /* IE 9 */
+        -moz-transform: rotate(270deg); /* Firefox */
+        -webkit-transform: rotate(270deg); /* Safari and Chrome */
+        -o-transform: rotate(270deg); /* Opera */
+    }
+
+    .field-validation-error {
+        color: #e80c4d;
+        font-weight: bold;
+    }
+
+    .my-error-class {
+        color: #FF0000; /* red */
+    }
+
+    .my-valid-class {
+        color: #00CC00; /* green */
+    }
+
+    .fixedElement {
+        position: fixed;
+        top: 154px;
+        left: 0px;
+        width: 100%;
+        z-index: 1;
+    }
+
+    input.big {
+        height: 1.1em;
+        width: 1.1em;
+    }
+</style>
+
+
+
+<link href="@Url.Content("~/Content/slider.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/themes/base/jquery.ui.slider.css")" rel="stylesheet" type="text/css" />
+
+<script src="@Url.Content("~/Scripts/bootstrap-slider.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/app/patientinfo.js")" type="text/javascript"></script>
+
+
+
+   
+
+    <br />
+    <div class="alert alert-warning">
+
+
+        <h4><i class="fa fa-exclamation-triangle"></i> Not able to perform this followup assessment?</h4>
+
+        <div style="border-radius: 5px; background-color: transparent; padding: 12px" class="form-group">
+
+            @using (Html.BeginForm("_FollowupInfoF", "PatientInformation", FormMethod.Post, new { id = "FollowupInfoForm" }))
+            {
+
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @style = "color: red" })
+
+
+                @Html.DropDownListFor(model => model.FollowupCompletenessBinID, ((IEnumerable<eCaST.Models.DDFollowupCompletenessBin>)ViewBag.PossibleFollowupCompletenessBinIDs).Select(option => new SelectListItem
+           {
+
+               Text = option.FollowupCompletenessBinName,
+               Value = option.FollowupCompletenessBinID.ToString(),
+               Selected = (Model != null) && (option.FollowupCompletenessBinID == Model.FollowupCompletenessBinID)
+           }), "Choose...", new { @id = "FollowupCompletenessBinID", @class = "requiredSelect" })
+                @Html.ValidationMessageFor(model => model.FollowupCompletenessBinID)
+
+                <button class="btn btn-warning" type="submit">Update/Exit</button>
+
+                @Html.Hidden("ScreeningID", (int?)ViewBag.ScreeningID)
+                @Html.Hidden("FUFlag1", (int?)ViewBag.FollowUpFlag)
+                @Html.Hidden("Saveid", 1)
+                @*@Html.Hidden("CCID1", (int?)ViewBag.CCID)
+                @Html.Hidden("ClientID1", (int?)ViewBag.CLID)
+                @Html.Hidden("SiteID1", (int?)ViewBag.SiteID)
+                @Html.Hidden("ScreeningTypeID1", (int?)ViewBag.ScreeningTypeID)
+                @Html.Hidden("EnrollID1", (int?)ViewBag.EnrollID)
+                @Html.Hidden("AssessmentTypeBinID1", 1)*@
+
+
+
+            }
+        </div>
+
+
+    </div>
+
+
+
+       
+
+
+
+@using (Html.BeginForm("_PatientInfoF", "PatientInformation", FormMethod.Post, new { id = "PatientInfoForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @style = "color: red" })
+
+   
+  
+<div id="ScreeningContainer"></div>
+   
+    <div class="pull-right">
+
+        <button type="button" id="CancelFollowupButton" class="btn btn-default">  <span class="glyphicon glyphicon-remove"></span> Close</button>
+        <button type="submit" id="SaveFollowupButton" class="btn btn-success">  <span class="glyphicon glyphicon-check"></span> Save</button>
+
+
+    </div>
+
+
+    @Html.Hidden("ScreeningID", (int?)ViewBag.ScreeningID)
+    @Html.Hidden("FUFlag", (int?)ViewBag.FollowUpFlag)
+    @Html.Hidden("Saveid", 1)
+    @Html.Hidden("BPPlusValue")
+
+
+}
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+
+        $("#FollowupCompletenessBinID").select2({ width: "70%" });
+
+        $("#CancelFollowupButton").click(function () {
+
+
+            $('#AccordionMasterContainer').load('@Url.Action("_PatientInfoDashboard", "PatientInformation", new { id = ViewBag.ScreeningID })');
+
+
+
+        });
+
+    });
+
+    $(function () {
+
+        $("#ScreeningContainer").load("@Url.Action("_ScreeningContainer", "Screenings")", { 'id': 4, 'id2': @ViewBag.ScreeningID },
+        function (response, status, xhr) {
+            if (status == "error") {
+                //   alert("An error occurred while loading the results.");
+            }
+
+         
+        });
+
+       
+
+    });
+
+
+
+
+    $("#SaveFollowupButton").click(function (e) {
+
+        var iStopSub = 0;
+        var sErr = "Please correct the following issues:\n\n";
+
+
+        //Add Test Screen
+        var hvASSDate1 = $("#AssessmentDateHIDDEN").val();
+        document.getElementById("AssessmentDate").value = hvASSDate1;
+
+
+        var iCurDate = new Date();
+        var iCurASSDate = $("#AssessmentDateHIDDEN").val();
+        iASSDateLen = iCurASSDate.length;
+        if (iASSDateLen < 1) {
+            iStopSub = 1;
+            sErr += "-Please enter an assessment date.\n";
+        }
+
+        if (new Date(iCurASSDate).getTime() > new Date(iCurDate).getTime()) {
+            iStopSub = 1;
+            sErr += "-You cannot add an assessment date in the future.\n";
+        }
+
+
+
+
+     
+            if ($("#BPPlus").is(':checked')) {
+                       
+                document.getElementById("BPPlusValue").value = "True";
+                
+                var iCurBPDate = $("#BPTestDateHIDDEN").val();
+
+
+                //Add Test Screen
+                var hvBPDate1 = $("#BPTestDateHIDDEN").val();
+                document.getElementById("BPDate").value = hvBPDate1;
+
+                // Blood Pressure
+                var hvS1 = $("#SystolicBinID1HIDDEN").val();
+                document.getElementById("SystolicReading").value = hvS1;
+
+                var hvD1 = $("#DiastolicBinID1HIDDEN").val();
+                document.getElementById("DiastolicReading").value = hvD1;
+
+                //Create Screen
+                var hvH = $("#DDHeightBinIDHIDDEN").val();
+                document.getElementById("DDHeightBinID").value = hvH;
+
+                var hvW = $("#DDWeightBinIDHIDDEN").val();
+                document.getElementById("DDWeightBinID").value = hvW;
+
+                var hvWA = $("#DDWaistBinIDHIDDEN").val();
+                document.getElementById("DDWaistBinID").value = hvWA;
+
+                var hvHIP = $("#DDHipBinIDHIDDEN").val();
+                document.getElementById("DDHipBinID").value = hvHIP;
+
+                var hvCMD = $("#CholMedYesValueIDHIDDEN").val();
+                document.getElementById("CholMedYesValueID").value = hvCMD;
+
+                var hvHTM = $("#HyperTensionMedYesValueIDHIDDEN").val();
+                document.getElementById("HyperTensionMedYesValueID").value = hvHTM;
+
+                var hvDMV = $("#DiabetesMedYesValueIDHIDDEN").val();
+                document.getElementById("DiabetesMedYesValueID").value = hvDMV;
+
+                var hvFC = $("#FruitValueIDHIDDEN").val();
+                document.getElementById("FruitValueID").value = hvFC;
+
+                var hvVEG = $("#VegValueIDHIDDEN").val();
+                document.getElementById("VegValueID").value = hvVEG;
+
+                var hvMOD = $("#ModerateActivityValueIDHIDDEN").val();
+                document.getElementById("ModerateActivityValueID").value = hvMOD;
+
+                var hvVIG = $("#VigorousActivityValueIDHIDDEN").val();
+                document.getElementById("VigorousActivityValueID").value = hvVIG;
+
+                var hvSEC = $("#SmokingSecondHandValueIDHIDDEN").val();
+                document.getElementById("SmokingSecondHandValueID").value = hvSEC;
+
+                var hvPHY = $("#PhysicalHealthValueIDHIDDEN").val();
+                document.getElementById("PhysicalHealthValueID").value = hvPHY;
+
+                var hvMH = $("#MentalHealthValueIDHIDDEN").val();
+                document.getElementById("MentalHealthValueID").value = hvMH;
+
+                var hvMHPHY = $("#MentalPhysicalHealthValueIDHIDDEN").val();
+                document.getElementById("MentalPhysicalHealthValueID").value = hvMHPHY;
+
+             
+
+
+                iBPDateLen = iCurBPDate.length;
+                if (iBPDateLen < 1) {
+                    iStopSub = 1;
+                    sErr += "-Please enter an blood pressure reading date.\n";
+                }
+
+                if (new Date(iCurBPDate).getTime() > new Date(iCurDate).getTime()) {
+                    iStopSub = 1;
+                    sErr += "-You cannot add an blood pressure reading date in the future.\n";
+                }
+
+                //Create Screen
+                var hvH = $("#DDHeightBinIDHIDDEN").val();
+                document.getElementById("DDHeightBinID").value = hvH;
+
+                var hvW = $("#DDWeightBinIDHIDDEN").val();
+                document.getElementById("DDWeightBinID").value = hvW;
+
+
+                var iDDHeightBinID = $("#DDHeightBinID").val();
+
+                if (iDDHeightBinID == "") {
+
+                    iStopSub = 1;
+                    sErr += "-Please enter information about height.\n";
+
+                }
+
+                if (iDDHeightBinID < 27 || iDDHeightBinID > 80) {
+
+                    iStopSub = 1;
+                    sErr += "-The range for height is between 27 and 80 inches.\n";
+
+                }
+
+
+                var iDDWeightBinID = $("#DDWeightBinID").val();
+
+                if (iDDWeightBinID == "") {
+
+                    iStopSub = 1;
+                    sErr += "-Please enter information about weight.\n";
+
+                }
+
+                if (iDDWeightBinID < 60 || iDDWeightBinID > 500) {
+
+                    iStopSub = 1;
+                    sErr += "-The range for weight is between 60 and 500 inches.\n";
+
+                }
+
+
+                     
+                var iSysRead = $("#SystolicReading").val();
+                //alert(iPhysAct);
+                //if (iPhysAct < 0 && iPhysAct > 30) {
+                if (iSysRead == "") {
+
+                    iStopSub = 1;
+                    sErr += "-Please enter information about the Systolic Reading.\n";
+
+                }
+                if (iSysRead > 260) {
+
+                    iStopSub = 1;
+                    sErr += "-The range for the Systolic Reading is 0 to 260.\n";
+
+                }
+
+                var iDiaRead = $("#DiastolicReading").val();
+                //alert(iPhysAct);
+                //if (iPhysAct < 0 && iPhysAct > 30) {
+                if (iDiaRead == "") {
+
+                    iStopSub = 1;
+                    sErr += "-Please enter information about the Diastolic Reading.\n";
+
+                }
+                if (iDiaRead > 200) {
+
+                    iStopSub = 1;
+                    sErr += "-The range for the Diastolic Reading is 0 to 200.\n";
+
+                }
+
+                if ($("#checkboxPHYSICALHEALTHCHECK").is(':checked')) {
+
+                    if ($("#PhysicalHealthValueIDNS").val().length == 0) {
+                        iStopSub = 1;
+                        sErr += "-Please enter a reason for not collecting Physical Activity information.\n";
+                    }
+
+                }
+                else {
+
+                    var iPhysAct = $("#PhysicalHealthValueID").val();
+                    //alert(iPhysAct);
+                    //if (iPhysAct < 0 && iPhysAct > 30) {
+                    if (iPhysAct == "") {
+
+                        iStopSub = 1;
+                        sErr += "-Please enter information about physical activity.\n";
+
+                    }
+                    if (iPhysAct > 30) {
+
+                        iStopSub = 1;
+                        sErr += "-The range for Physical Activity is 0 to 30 days.\n";
+
+                    }
+
+                }
+
+
+                if ($("#checkboxMENTALHEALTHCHECK").is(':checked')) {
+
+                    if ($("#MentalHealthValueIDNS").val().length == 0) {
+                        iStopSub = 1;
+                        sErr += "-Please enter a reason for not collecting Mental Activity information.\n";
+                    }
+
+                }
+                else {
+
+                    var iMentalAct = $("#MentalHealthValueID").val();
+                    //alert(iPhysAct);
+                    //if (iPhysAct < 0 && iPhysAct > 30) {
+                    if (iMentalAct == "") {
+
+                        iStopSub = 1;
+                        sErr += "-Please enter information about mental activity.\n";
+
+                    }
+                    if (iMentalAct > 30) {
+
+                        iStopSub = 1;
+                        sErr += "-The range for Mental Activity is 0 to 30 days.\n";
+
+                    }
+
+                }
+
+                if ($("#checkboxMENTALPHYSICALHEALTHCHECK").is(':checked')) {
+
+                    if ($("#MentalPhysicalHealthValueIDNS").val().length == 0) {
+                        iStopSub = 1;
+                        sErr += "-Please enter a reason for not collecting Mental/Physical Activity information.\n";
+                    }
+
+                }
+                else {
+
+                    var iMentalPhysAct = $("#MentalPhysicalHealthValueID").val();
+                    //alert(iPhysAct);
+                    //if (iPhysAct < 0 && iPhysAct > 30) {
+                    if (iMentalPhysAct == "") {
+
+                        iStopSub = 1;
+                        sErr += "-Please enter information about mental/physical activity.\n";
+
+                    }
+                    if (iMentalPhysAct > 30) {
+
+                        iStopSub = 1;
+                        sErr += "-The range for Mental/Physical Activity is 0 to 30 days.\n";
+
+                    }
+
+                }
+
+                if ($("#checkboxSMOKINGSECONDHANDCHECK").is(':checked')) {
+
+                    if ($("#SmokingSecondHandValueIDNS").val().length == 0) {
+                        iStopSub = 1;
+                        sErr += "-Please enter select yes if exposure to second hand smoke was less than 1 hour.\n";
+                    }
+
+                }
+                else {
+
+                    var iSmokingSecondHandAct = $("#SmokingSecondHandValueID").val();
+                    //alert(iPhysAct);
+                    //if (iPhysAct < 0 && iPhysAct > 30) {
+                    if (iSmokingSecondHandAct == "") {
+
+                        iStopSub = 1;
+                        sErr += "-Please enter information about secondhand smoking exposure.\n";
+
+                    }
+                    if (iSmokingSecondHandAct > 30) {
+
+                        iStopSub = 1;
+                        sErr += "-The range for secondhand smoking is 0 to 24 hours.\n";
+
+                    }
+
+                }
+
+                var iFruitValue = $("#FruitValueID").val();
+                //alert(iPhysAct);
+                //if (iPhysAct < 0 && iPhysAct > 30) {
+                if (iFruitValue == "") {
+
+                    iStopSub = 1;
+                    sErr += "-Please enter information about fruit intake.\n";
+
+                }
+                if (iFruitValue > 50) {
+
+                    iStopSub = 1;
+                    sErr += "-The range for fruit intake is 0 to 50 cups.\n";
+
+                }
+
+                var iVegValue = $("#VegValueID").val();
+                //alert(iPhysAct);
+                //if (iPhysAct < 0 && iPhysAct > 30) {
+                if (iVegValue == "") {
+
+                    iStopSub = 1;
+                    sErr += "-Please enter information about vegetable intake.\n";
+
+                }
+
+                if (iVegValue > 15) {
+
+                    iStopSub = 1;
+                    sErr += "-The range for vegetable intake is 0 to 15 cups.\n";
+
+                }
+
+                var iDDHeightBinID = $("#DDHeightBinID").val();
+
+                if (iDDHeightBinID == "") {
+
+                    iStopSub = 1;
+                    sErr += "-Please enter information about height.\n";
+
+                }
+
+                if (iDDHeightBinID < 27 || iDDHeightBinID > 80) {
+
+                    iStopSub = 1;
+                    sErr += "-The range for height is between 27 and 80 inches.\n";
+
+                }
+
+
+                var iDDWeightBinID = $("#DDWeightBinID").val();
+
+                if (iDDWeightBinID == "") {
+
+                    iStopSub = 1;
+                    sErr += "-Please enter information about weight.\n";
+
+                }
+
+                if (iDDWeightBinID < 60 || iDDWeightBinID > 500) {
+
+                    iStopSub = 1;
+                    sErr += "-The range for weight is between 60 and 500 inches.\n";
+
+                }
+
+                var iModerateActivityValueID = $("#ModerateActivityValueID").val();
+
+                if (iModerateActivityValueID == "") {
+
+                    iStopSub = 1;
+                    sErr += "-Please enter information about moderate physical activity.\n";
+
+                }
+
+                if (iModerateActivityValueID > 10080) {
+
+                    iStopSub = 1;
+                    sErr += "-The range for moderate physical activity is between 0 and 10080 .\n";
+
+                }
+
+                var iVigorousActivityValueID = $("#VigorousActivityValueID").val();
+
+                if (iVigorousActivityValueID == "") {
+
+                    iStopSub = 1;
+                    sErr += "-Please enter information about vigorous physical activity.\n";
+
+                }
+
+                if (iVigorousActivityValueID > 10080) {
+
+                    iStopSub = 1;
+                    sErr += "-The range for vigorous physical activity is between 0 and 10080 .\n";
+
+                }   
+
+                var checkIfAssessment = function () {
+
+                    return '@ViewBag.FollowUpFlag' == "0";
+
+                };
+
+                var checkIfHeightFieldSelected = function () {
+                    return $("#DDHeightBinID").val() > 0 || $("#DDHeightBinID").val() != null;
+                };
+
+                var checkIfWeightFieldSelected = function () {
+                    return $("#DDWeightBinID").val() > 0 || $("#DDWeightBinID").val() != null;
+                };
+
+
+                var checkIfCholFieldSelected = function () {
+                    return $("#HighCholValueID").val() == 1;
+                };
+
+                var checkIfTCholFieldSelected = function () {
+                    return $("#HighCholValueID").val() != -1;
+                };
+
+                // New
+                var checkIfCholMedValueFieldSelected = function () {
+
+                    if ($("#HighCholValueID").val() != -1) {
+
+                        if ($("#CholMedValueID").val() == 1) {
+
+                            return $("#CholMedYesValueID").val() < 1;
+
+                        }
+
+
+                    }
+
+                    // return $("#CholMedValueID").val() != -1;
+                };
+
+                var checkIfHyperTFieldSelected = function () {
+                    return $("#HyperTensionValueID").val() != -1;
+                };
+
+                var checkIfHyperTMedFieldSelected = function () {
+                    return $("#HyperTensionValueID").val() == 1;
+                };
+
+                var checkIfHyperTMeasureFieldSelected = function () {
+                    return $("#HyperTensionMeasureValueID").val() == 1;
+                };
+
+                var checkIfHyperTMedYesFieldSelected = function () {
+
+                    if ($("#HyperTensionValueID").val() != -1) {
+
+                        if ($("#HyperTensionMedValueID").val() == 1) {
+
+                            return $("#HyperTensionMedYesValueID").val() < 1;
+
+                        }
+
+
+                    }
+
+
+                };
+
+                var checkIfDiabetesFieldSelected = function () {
+                    return $("#DiabetesValueID").val() != -1;
+                };
+                var checkIfDiabetesMedFieldSelected = function () {
+                    return $("#DiabetesValueID").val() == 1;
+                };
+                var checkIfDiabetesMedYesFieldSelected = function () {
+
+                    if ($("#DiabetesValueID").val() != -1) {
+
+                        if ($("#DiabetesMedValueID").val() == 1) {
+
+                            return $("#DiabetesMedYesValueID").val() < 1;
+
+                        }
+
+
+                    }
+
+
+                };
+                var checkIfHeartAttackFieldSelected = function () {
+                    return $("#HeartAttackValueID").val() != -1;
+                };
+
+                var checkIfFishFieldSelected = function () {
+                    return $("#FishValueID").val() != -1;
+                };
+
+                var checkIfWholeGrainsFieldSelected = function () {
+                    return $("#WholeGrainsValueID").val() != -1;
+                };
+
+                var checkIfDrinkFieldSelected = function () {
+                    return $("#DrinkValueID").val() != -1;
+                };
+                var checkIfSodiumReducedFieldSelected = function () {
+                    return $("#SodiumReducedValueID").val() != -1;
+                };
+                var checkIfSmokingFieldSelected = function () {
+                    return $("#SmokingValueID").val() != -1;
+                };
+
+                $("#PatientInfoForm").validate({
+
+                    errorClass: "my-error-class",
+                    validClass: "my-valid-class",
+
+
+                    rules: {
+
+                        DDHeightBinID: {
+                            required: { depends: checkIfHeightFieldSelected },
+                            range: [36, 80]
+
+                        },
+
+                        DDWeightBinID: {
+                            required: { depends: checkIfWeightFieldSelected },
+                            range: [60, 500]
+
+                        },
+
+                        //DDWaistBinID: {
+                        //    required: { depends: checkIfWaistFieldSelected },
+                        //    range: [2, 72]
+
+                        //},
+                        //DDHipBinID: {
+                        //    required: { depends: checkIfHipFieldSelected },
+                        //    range: [2, 72]
+
+                        //},
+
+
+                        //EducationBinID: {
+                        //    //required: true
+                        //    required: { depends: checkIfAssessment }
+
+                        //},
+                        //LanguageBinID: {
+                        //    //required: true
+                        //    required: { depends: checkIfAssessment }
+
+                        //}
+                        //,
+
+
+                        HighCholValueID: {
+                            required: { depends: checkIfTCholFieldSelected }
+
+                        },
+                        CholMedValueID: {
+                            required: { depends: checkIfCholFieldSelected }
+
+                        },
+                        // New
+                        CholMedYesValueID: {
+                            required: { depends: checkIfCholMedValueFieldSelected },
+                            range: [1, 7]
+
+                        },
+
+                        HyperTensionValueID: {
+                            required: { depends: checkIfHyperTFieldSelected }
+
+                        },
+                        HyperTensionMedValueID: {
+                            required: { depends: checkIfHyperTMedFieldSelected }
+
+                        },
+                        HyperTensionMeasureValueID: {
+                            required: { depends: checkIfHyperTMedFieldSelected }
+
+                        },
+                        HyperTensionMedYesValueID: {
+                            required: { depends: checkIfHyperTMedYesFieldSelected },
+                            range: [1, 7]
+
+                        },
+                        HyperTensionMeasureYesValueID: {
+                            required: { depends: checkIfHyperTMeasureFieldSelected }
+
+                        },
+                        HyperTensionShareValueID: {
+                            required: { depends: checkIfHyperTMedFieldSelected }
+
+                        },
+                        DiabetesValueID: {
+                            required: { depends: checkIfDiabetesFieldSelected }
+
+                        },
+                        DiabetesMedValueID: {
+                            required: { depends: checkIfDiabetesMedFieldSelected }
+
+                        },
+
+                        DiabetesMedYesValueID: {
+                            required: { depends: checkIfDiabetesMedYesFieldSelected },
+                            range: [1, 7]
+
+                        },
+                        HeartAttackValueID: {
+                            required: { depends: checkIfHeartAttackFieldSelected }
+
+                        },
+                        //New
+                        FruitValueID: {
+                            required: true,
+                            range: [0, 50]
+
+                        },
+                        VegValueID: {
+                            required: true,
+                            range: [0, 15]
+
+                        },
+                        ModerateActivityValueID: {
+                            required: true,
+                            range: [0, 10080]
+
+                        },
+                        VigorousActivityValueID: {
+                            required: true,
+                            range: [0, 10080]
+
+                        },
+                        SmokingSecondHandValueID: {
+                            required: true,
+                            range: [0, 24]
+
+                        },
+                        PhysicalHealthValueID: {
+                            required: true,
+                            range: [0, 30]
+
+                        },
+                        MentalHealthValueID: {
+                            required: true,
+                            range: [0, 30]
+
+                        },
+                        MentalPhysicalHealthValueID: {
+                            required: true,
+                            range: [0, 30]
+
+                        },
+                       //  End New
+                        FishValueID: {
+                            required: { depends: checkIfFishFieldSelected }
+
+                        },
+                        WholeGrainsValueID: {
+                            required: { depends: checkIfWholeGrainsFieldSelected }
+
+                        },
+                        DrinkValueID: {
+                            required: { depends: checkIfDrinkFieldSelected }
+
+                        },
+                        SodiumReducedValueID: {
+                            required: { depends: checkIfSodiumReducedFieldSelected }
+
+                         },
+                        SmokingValueID: {
+                            required: { depends: checkIfSmokingFieldSelected }
+
+                        }
+                        //SystolicReading: {
+                        //    required: { depends: checkIfSystolicFieldSelected },
+                        //    range: [0, 260]
+
+                        //},
+
+                        //DiastolicReading: {
+                        //    required: { depends: checkIfDiastolicFieldSelected },
+                        //    range: [0, 200]
+
+                        //}
+
+                    },
+                    messages: {
+                        DDHeightBinID: {
+                            required: "Please enter a value greater than 0 for patient height"
+
+                        },
+                        DDWeightBinID: {
+                            required: "Please enter a value greater than 0 for patient weight"
+
+                        },
+                        //DDWaistBinID: {
+                        //    required: "Please enter a value greater than 0 for patient waist"
+
+                        //},
+                        //DDHipBinID: {
+                        //    required: "Please enter a value greater than 0 for patient hip circumference"
+
+                        //},
+                        //EducationBinID: {
+                        //    required: "Please enter information about Education"
+
+                        //},
+                        //LanguageBinID: {
+                        //    required: "Please enter information about Language"
+
+                        //}
+                        //,
+
+                        HighCholValueID: {
+                            required: "Please enter information about cholesterol"
+
+                        },
+                        CholMedValueID: {
+                            required: "Please enter information about cholesterol medication"
+
+                        },
+                        //New
+                        CholMedYesValueID: {
+                            required: "Please enter information about amount of days cholesterol medication taken"
+
+                        },
+                        HyperTensionValueID: {
+                            required: "Please enter information about hypertension"
+
+                        },
+                        HyperTensionMedValueID: {
+                            required: "Please enter information about hypertension medication"
+
+                        },
+                        HyperTensionMedYesValueID: {
+                            required: "Please enter information about hypertension medication"
+
+                        },
+                        HyperTensionMeasureValueID: {
+                            required: "Please enter information about hypertension measurement"
+
+                        },
+                        HyperTensionMeasureYesValueID: {
+                            required: "Please enter information about hypertension measurement sources"
+
+                        },
+                        HyperTensionShareValueID: {
+                            required: "Please enter information about hypertension readings"
+
+                        },
+                        DiabetesValueID: {
+                            required: "Please enter information about diabetes"
+
+                        },
+                        DiabetesMedValueID: {
+                            required: "Please enter information about diabetes medication"
+
+                        },
+                        DiabetesMedYesValueID: {
+                            required: "Please enter information about diabetes medication"
+
+                        },
+                        HeartAttackValueID: {
+                            required: "Please enter information about heart attacks"
+
+                        },
+                        //New
+                        FruitValueID: {
+                            required: "Please enter information about fruit intake"
+
+                        },
+                        VegValueID: {
+                            required: "Please enter information about fruit intake"
+
+                        },
+                        ModerateActivityValueID: {
+                            required: "Please enter information about amount of moderate activity"
+
+                        },
+                        VigorousActivityValueID: {
+                            required: "Please enter information about amount of vigorous activity"
+
+                        },
+                        SmokingSecondHandValueID: {
+                            required: "Please enter information about secondhand smoking"
+
+                        },
+                        PhysicalHealthValueID: {
+                            required: "Please enter information about physical health"
+
+                        },
+                        MentalHealthValueID: {
+                            required: "Please enter information about mental health"
+
+                        },
+                        MentalPhysicalHealthValueID: {
+                            required: "Please enter information about mental and physical health"
+
+                        },
+                        // End New
+                        FishValueID: {
+                            required: "Please enter information about fish intake"
+
+                        },
+                        WholeGrainsValueID: {
+                            required: "Please enter information about whole grain intake"
+
+                        },
+                        DrinkValueID: {
+                            required: "Please enter information about sugary drink intake"
+
+                        },
+                        SodiumReducedValueID: {
+                            required: "Please enter information about sodium intake"
+
+                         },
+                        SmokingValueID: {
+                            required: "Please enter information about smoking"
+
+                        }
+                        //SystolicReading: {
+                        //    required: "Please enter information about the systolic reading"
+
+                        //},
+                        //DiastolicReading: {
+                        //    required: "Please enter information about the diastolic reading"
+
+                        //}
+
+                    }
+                });
+
+
+                // Remove validation
+                //$('#EducationBinID').each(function () {
+                //    $(this).rules('remove');
+                //});
+
+                //$('#LanguageBinID').each(function () {
+                //    $(this).rules('remove');
+                //});
+
+
+                //$('#FruitValueID').each(function () {
+                //    $(this).rules('remove');
+                //});
+
+                //$('#VegValueID').each(function () {
+                //    $(this).rules('remove');
+                //});
+
+                //$('#FishValueID').each(function () {
+                //    $(this).rules('remove');
+                //});
+                //$('#WholeGrainsValueID').each(function () {
+                //    $(this).rules('remove');
+                //});
+                //$('#DrinkValueID').each(function () {
+                //    $(this).rules('remove');
+                //});
+                //$('#SodiumReducedValueID').each(function () {
+                //    $(this).rules('remove');
+                //});
+                //$('#ModerateActivityValueID').each(function () {
+                //    $(this).rules('remove');
+                //});
+                //$('#VigorousActivityValueID').each(function () {
+                //    $(this).rules('remove');
+                //});
+                //$('#PhysicalHealthValueID').each(function () {
+                //    $(this).rules('remove');
+                //});
+                //$('#MentalHealthValueID').each(function () {
+                //    $(this).rules('remove');
+                //});
+
+                //$('#PhysicalMentalHealthValueID').each(function () {
+                //    $(this).rules('remove');
+                //});
+
+
+                //  End Remove Validation
+
+
+            }
+            else {
+
+                document.getElementById("BPPlusValue").value = "False";
+                //Create Screen
+                var hvH = $("#DDHeightBinIDHIDDEN").val();
+                document.getElementById("DDHeightBinID").value = hvH;
+
+                var hvW = $("#DDWeightBinIDHIDDEN").val();
+                document.getElementById("DDWeightBinID").value = hvW;
+
+                var hvWA = $("#DDWaistBinIDHIDDEN").val();
+                document.getElementById("DDWaistBinID").value = hvWA;
+
+                var hvHIP = $("#DDHipBinIDHIDDEN").val();
+                document.getElementById("DDHipBinID").value = hvHIP;
+
+                var hvCMD = $("#CholMedYesValueIDHIDDEN").val();
+                document.getElementById("CholMedYesValueID").value = hvCMD;
+
+                var hvHTM = $("#HyperTensionMedYesValueIDHIDDEN").val();
+                document.getElementById("HyperTensionMedYesValueID").value = hvHTM;
+
+                var hvDMV = $("#DiabetesMedYesValueIDHIDDEN").val();
+                document.getElementById("DiabetesMedYesValueID").value = hvDMV;
+
+                var hvFC = $("#FruitValueIDHIDDEN").val();
+                document.getElementById("FruitValueID").value = hvFC;
+
+                var hvVEG = $("#VegValueIDHIDDEN").val();
+                document.getElementById("VegValueID").value = hvVEG;
+
+                var hvMOD = $("#ModerateActivityValueIDHIDDEN").val();
+                document.getElementById("ModerateActivityValueID").value = hvMOD;
+
+                var hvVIG = $("#VigorousActivityValueIDHIDDEN").val();
+                document.getElementById("VigorousActivityValueID").value = hvVIG;
+
+                var hvSEC = $("#SmokingSecondHandValueIDHIDDEN").val();
+                document.getElementById("SmokingSecondHandValueID").value = hvSEC;
+
+                var hvPHY = $("#PhysicalHealthValueIDHIDDEN").val();
+                document.getElementById("PhysicalHealthValueID").value = hvPHY;
+
+                var hvMH = $("#MentalHealthValueIDHIDDEN").val();
+                document.getElementById("MentalHealthValueID").value = hvMH;
+
+                var hvMHPHY = $("#MentalPhysicalHealthValueIDHIDDEN").val();
+                document.getElementById("MentalPhysicalHealthValueID").value = hvMHPHY;
+
+                      
+                //Add Assessment Date
+                //var assDate = $("#AssessmentDateHIDDEN").val();
+                //document.getElementById("AssessmentDate").value = assDate;
+
+                var checkIfAssessment = function () {
+
+                    return '@ViewBag.FollowUpFlag' == "0";
+
+                };
+
+                //var checkIfHeightFieldSelected = function () {
+                //    return $("#DDHeightBinID").val() > 0 || $("#DDHeightBinID").val() != null;
+                //};
+
+                //var checkIfWeightFieldSelected = function () {
+                //    return $("#DDWeightBinID").val() > 0 || $("#DDWeightBinID").val() != null;
+                //};
+
+
+                var checkIfCholFieldSelected = function () {
+                    return $("#HighCholValueID").val() == 1;
+                };
+
+                var checkIfTCholFieldSelected = function () {
+                    return $("#HighCholValueID").val() != -1;
+                };
+
+                // New
+                var checkIfCholMedValueFieldSelected = function () {
+
+                    if ($("#HighCholValueID").val() != -1) {
+
+                        if ($("#CholMedValueID").val() == 1) {
+
+                            return $("#CholMedYesValueID").val() < 1;
+
+                        }
+
+
+                    }
+
+                    // return $("#CholMedValueID").val() != -1;
+                };
+
+                var checkIfHyperTFieldSelected = function () {
+                    return $("#HyperTensionValueID").val() != -1;
+                };
+
+                var checkIfHyperTMedFieldSelected = function () {
+                    return $("#HyperTensionValueID").val() == 1;
+                };
+
+                var checkIfHyperTMeasureFieldSelected = function () {
+                    return $("#HyperTensionMeasureValueID").val() == 1;
+                };
+
+                var checkIfHyperTMedYesFieldSelected = function () {
+
+                    if ($("#HyperTensionValueID").val() != -1) {
+
+                        if ($("#HyperTensionMedValueID").val() == 1) {
+
+                            return $("#HyperTensionMedYesValueID").val() < 1;
+
+                        }
+
+
+                    }
+
+
+                };
+
+                var checkIfDiabetesFieldSelected = function () {
+                    return $("#DiabetesValueID").val() != -1;
+                };
+                var checkIfDiabetesMedFieldSelected = function () {
+                    return $("#DiabetesValueID").val() == 1;
+                };
+                var checkIfDiabetesMedYesFieldSelected = function () {
+
+                    if ($("#DiabetesValueID").val() != -1) {
+
+                        if ($("#DiabetesMedValueID").val() == 1) {
+
+                            return $("#DiabetesMedYesValueID").val() < 1;
+
+                        }
+
+
+                    }
+
+
+                };
+                var checkIfHeartAttackFieldSelected = function () {
+                    return $("#HeartAttackValueID").val() != -1;
+                };
+
+                var checkIfFishFieldSelected = function () {
+                    return $("#FishValueID").val() != -1;
+                };
+
+                var checkIfWholeGrainsFieldSelected = function () {
+                    return $("#WholeGrainsValueID").val() != -1;
+                };
+
+                var checkIfDrinkFieldSelected = function () {
+                    return $("#DrinkValueID").val() != -1;
+                };
+                var checkIfSodiumReducedFieldSelected = function () {
+                    return $("#SodiumReducedValueID").val() != -1;
+                };
+                var checkIfSmokingFieldSelected = function () {
+                    return $("#SmokingValueID").val() != -1;
+                };
+
+                $("#PatientInfoForm").validate({
+
+                    errorClass: "my-error-class",
+                    validClass: "my-valid-class",
+
+
+                    rules: {
+
+                        //DDHeightBinID: {
+                        //    required: { depends: checkIfHeightFieldSelected },
+                        //    range: [36, 80]
+
+                        //},
+
+                        //DDWeightBinID: {
+                        //    required: { depends: checkIfWeightFieldSelected },
+                        //    range: [60, 500]
+
+                        //},
+
+                        //DDWaistBinID: {
+                        //    required: { depends: checkIfWaistFieldSelected },
+                        //    range: [2, 72]
+
+                        //},
+                        //DDHipBinID: {
+                        //    required: { depends: checkIfHipFieldSelected },
+                        //    range: [2, 72]
+
+                        //},
+
+
+                        //EducationBinID: {
+                        //    required: true
+                        //    // required: { depends: checkIfAssessment }
+
+                        //},
+                        //LanguageBinID: {
+                        //    required: true
+                        //    //  required: { depends: checkIfAssessment }
+
+                        //}
+                        //,
+
+
+                        HighCholValueID: {
+                            required: { depends: checkIfTCholFieldSelected }
+
+                        },
+                        CholMedValueID: {
+                            required: { depends: checkIfCholFieldSelected }
+
+                        },
+                        // New
+                        CholMedYesValueID: {
+                            required: { depends: checkIfCholMedValueFieldSelected },
+                            range: [1, 7]
+
+                        },
+
+                        HyperTensionValueID: {
+                            required: { depends: checkIfHyperTFieldSelected }
+
+                        },
+                        HyperTensionMedValueID: {
+                            required: { depends: checkIfHyperTMedFieldSelected }
+
+                        },
+                        HyperTensionMeasureValueID: {
+                            required: { depends: checkIfHyperTMedFieldSelected }
+
+                        },
+                        HyperTensionMedYesValueID: {
+                            required: { depends: checkIfHyperTMedYesFieldSelected },
+                            range: [1, 7]
+
+                        },
+                        HyperTensionMeasureYesValueID: {
+                            required: { depends: checkIfHyperTMeasureFieldSelected }
+
+                        },
+                        HyperTensionShareValueID: {
+                            required: { depends: checkIfHyperTMedFieldSelected }
+
+                        },
+                        DiabetesValueID: {
+                            required: { depends: checkIfDiabetesFieldSelected }
+
+                        },
+                        DiabetesMedValueID: {
+                            required: { depends: checkIfDiabetesMedFieldSelected }
+
+                        },
+
+                        DiabetesMedYesValueID: {
+                            required: { depends: checkIfDiabetesMedYesFieldSelected },
+                            range: [1, 7]
+
+                        },
+                        HeartAttackValueID: {
+                            required: { depends: checkIfHeartAttackFieldSelected }
+
+                        },
+                        //New
+                        FruitValueID: {
+                            required: true,
+                            range: [0, 50]
+
+                        },
+                        VegValueID: {
+                            required: true,
+                            range: [0, 15]
+
+                        },
+                        ModerateActivityValueID: {
+                            required: true,
+                            range: [0, 10080]
+
+                        },
+                        VigorousActivityValueID: {
+                            required: true,
+                            range: [0, 10080]
+
+                        },
+                        //SmokingSecondHandValueID: {
+                        //    required: true,
+                        //    range: [0, 24]
+
+                        //},
+                        //PhysicalHealthValueID: {
+                        //    required: true,
+                        //    range: [0, 30]
+
+                        //},
+                        //MentalHealthValueID: {
+                        //    required: true,
+                        //    range: [0, 30]
+
+                        //},
+                        //MentalPhysicalHealthValueID: {
+                        //    required: true,
+                        //    range: [0, 30]
+
+                        //},
+                        // End New
+                        FishValueID: {
+                            required: { depends: checkIfFishFieldSelected }
+
+                        },
+                        WholeGrainsValueID: {
+                            required: { depends: checkIfWholeGrainsFieldSelected }
+
+                        },
+                        DrinkValueID: {
+                            required: { depends: checkIfDrinkFieldSelected }
+
+                        },
+                        SodiumReducedValueID: {
+                            required: { depends: checkIfSodiumReducedFieldSelected }
+
+                        },
+                        SmokingValueID: {
+                            required: { depends: checkIfSmokingFieldSelected }
+
+                        }
+                        //SystolicReading: {
+                        //    required: { depends: checkIfSystolicFieldSelected },
+                        //    range: [0, 260]
+
+                        //},
+
+                        //DiastolicReading: {
+                        //    required: { depends: checkIfDiastolicFieldSelected },
+                        //    range: [0, 200]
+
+                        //}
+
+                    },
+                    messages: {
+                        //DDHeightBinID: {
+                        //    required: "Please enter a value greater than 0 for patient height"
+
+                        //},
+                        //DDWeightBinID: {
+                        //    required: "Please enter a value greater than 0 for patient weight"
+
+                        //},
+                        //DDWaistBinID: {
+                        //    required: "Please enter a value greater than 0 for patient waist"
+
+                        //},
+                        //DDHipBinID: {
+                        //    required: "Please enter a value greater than 0 for patient hip circumference"
+
+                        //},
+                        //EducationBinID: {
+                        //    required: "Please enter information about Education"
+
+                        //},
+                        //LanguageBinID: {
+                        //    required: "Please enter information about Language"
+
+                        //}
+                        //,
+
+                        HighCholValueID: {
+                            required: "Please enter information about cholesterol"
+
+                        },
+                        CholMedValueID: {
+                            required: "Please enter information about cholesterol medication"
+
+                        },
+                        //New
+                        CholMedYesValueID: {
+                            required: "Please enter information about amount of days cholesterol medication taken"
+
+                        },
+                        HyperTensionValueID: {
+                            required: "Please enter information about hypertension"
+
+                        },
+                        HyperTensionMedValueID: {
+                            required: "Please enter information about hypertension medication"
+
+                        },
+                        HyperTensionMedYesValueID: {
+                            required: "Please enter information about hypertension medication"
+
+                        },
+                        HyperTensionMeasureValueID: {
+                            required: "Please enter information about hypertension measurement"
+
+                        },
+                        HyperTensionMeasureYesValueID: {
+                            required: "Please enter information about hypertension measurement sources"
+
+                        },
+                        HyperTensionShareValueID: {
+                            required: "Please enter information about hypertension readings"
+
+                        },
+                        DiabetesValueID: {
+                            required: "Please enter information about diabetes"
+
+                        },
+                        DiabetesMedValueID: {
+                            required: "Please enter information about diabetes medication"
+
+                        },
+                        DiabetesMedYesValueID: {
+                            required: "Please enter information about diabetes medication"
+
+                        },
+                        HeartAttackValueID: {
+                            required: "Please enter information about heart attacks"
+
+                        },
+                        //New
+                        FruitValueID: {
+                            required: "Please enter information about fruit intake"
+
+                        },
+                        VegValueID: {
+                            required: "Please enter information about fruit intake"
+
+                        },
+                        ModerateActivityValueID: {
+                            required: "Please enter information about amount of moderate activity"
+
+                        },
+                        VigorousActivityValueID: {
+                            required: "Please enter information about amount of vigorous activity"
+
+                        },
+                        //SmokingSecondHandValueID: {
+                        //    required: "Please enter information about secondhand smoking"
+
+                        //},
+                        //PhysicalHealthValueID: {
+                        //    required: "Please enter information about physical health"
+
+                        //},
+                        //MentalHealthValueID: {
+                        //    required: "Please enter information about mental health"
+
+                        //},
+                        //MentalPhysicalHealthValueID: {
+                        //    required: "Please enter information about mental and physical health"
+
+                        //},
+                        // End New
+                        FishValueID: {
+                            required: "Please enter information about fish intake"
+
+                        },
+                        WholeGrainsValueID: {
+                            required: "Please enter information about whole grain intake"
+
+                        },
+                        DrinkValueID: {
+                            required: "Please enter information about sugary drink intake"
+
+                        },
+                        SodiumReducedValueID: {
+                            required: "Please enter information about sodium intake"
+
+                        },
+                        SmokingValueID: {
+                            required: "Please enter information about smoking"
+
+                        }
+                        //SystolicReading: {
+                        //    required: "Please enter information about the systolic reading"
+
+                        //},
+                        //DiastolicReading: {
+                        //    required: "Please enter information about the diastolic reading"
+
+                        //}
+
+                    }
+                });
+
+                //// Add validation
+                //$('#EducationBinID').each(function () {
+                //    $(this).rules('add', "required");
+                //});
+
+                //$('#LanguageBinID').each(function () {
+                //    $(this).rules('add', "required");
+                //});
+                      
+                $('#FruitValueID').each(function () {
+                    $(this).rules('add', "required");
+                });
+
+                $('#VegValueID').each(function () {
+                    $(this).rules('add', "required");
+                });
+
+                $('#FishValueID').each(function () {
+                    $(this).rules('add', "required");
+                });
+                $('#WholeGrainsValueID').each(function () {
+                    $(this).rules('add', "required");
+                });
+                $('#DrinkValueID').each(function () {
+                    $(this).rules('add', "required");
+                });
+                $('#SodiumReducedValueID').each(function () {
+                    $(this).rules('add', "required");
+                });
+                $('#ModerateActivityValueID').each(function () {
+                    $(this).rules('add', "required");
+                });
+                $('#VigorousActivityValueID').each(function () {
+                    $(this).rules('add', "required");
+                });
+                $('#PhysicalHealthValueID').each(function () {
+                    $(this).rules('add', "required");
+                });
+                $('#MentalHealthValueID').each(function () {
+                    $(this).rules('add', "required");
+                });
+
+                $('#PhysicalMentalHealthValueID').each(function () {
+                    $(this).rules('add', "required");
+                });
+
+                    
+
+                if ($("#checkboxPHYSICALHEALTHCHECK").is(':checked')) {
+
+                    if ($("#PhysicalHealthValueIDNS").val().length == 0) {
+                        iStopSub = 1;
+                        sErr += "-Please enter a reason for not collecting Physical Activity information.\n";
+                    }
+
+                }
+                else {
+
+                    var iPhysAct = $("#PhysicalHealthValueID").val();
+                    //alert(iPhysAct);
+                    //if (iPhysAct < 0 && iPhysAct > 30) {
+                    if (iPhysAct == "") {
+
+                        iStopSub = 1;
+                        sErr += "-Please enter information about physical activity.\n";
+
+                    }
+                    if (iPhysAct > 30) {
+
+                        iStopSub = 1;
+                        sErr += "-The range for Physical Activity is 0 to 30 days.\n";
+
+                    }
+
+                }
+
+
+                if ($("#checkboxMENTALHEALTHCHECK").is(':checked')) {
+
+                    if ($("#MentalHealthValueIDNS").val().length == 0) {
+                        iStopSub = 1;
+                        sErr += "-Please enter a reason for not collecting Mental Activity information.\n";
+                    }
+
+                }
+                else {
+
+                    var iMentalAct = $("#MentalHealthValueID").val();
+                    //alert(iPhysAct);
+                    //if (iPhysAct < 0 && iPhysAct > 30) {
+                    if (iMentalAct == "") {
+
+                        iStopSub = 1;
+                        sErr += "-Please enter information about mental activity.\n";
+
+                    }
+                    if (iMentalAct > 30) {
+
+                        iStopSub = 1;
+                        sErr += "-The range for Mental Activity is 0 to 30 days.\n";
+
+                    }
+
+                }
+
+                if ($("#checkboxMENTALPHYSICALHEALTHCHECK").is(':checked')) {
+
+                    if ($("#MentalPhysicalHealthValueIDNS").val().length == 0) {
+                        iStopSub = 1;
+                        sErr += "-Please enter a reason for not collecting Mental/Physical Activity information.\n";
+                    }
+
+                }
+                else {
+
+                    var iMentalPhysAct = $("#MentalPhysicalHealthValueID").val();
+                    //alert(iPhysAct);
+                    //if (iPhysAct < 0 && iPhysAct > 30) {
+                    if (iMentalPhysAct == "") {
+
+                        iStopSub = 1;
+                        sErr += "-Please enter information about mental/physical activity.\n";
+
+                    }
+                    if (iMentalPhysAct > 30) {
+
+                        iStopSub = 1;
+                        sErr += "-The range for Mental/Physical Activity is 0 to 30 days.\n";
+
+                    }
+
+                }
+
+                if ($("#checkboxSMOKINGSECONDHANDCHECK").is(':checked')) {
+
+                    if ($("#SmokingSecondHandValueIDNS").val().length == 0) {
+                        iStopSub = 1;
+                        sErr += "-Please enter select yes if exposure to second hand smoke was less than 1 hour.\n";
+                    }
+
+                }
+                else {
+
+                    var iSmokingSecondHandAct = $("#SmokingSecondHandValueID").val();
+                    //alert(iPhysAct);
+                    //if (iPhysAct < 0 && iPhysAct > 30) {
+                    if (iSmokingSecondHandAct == "") {
+
+                        iStopSub = 1;
+                        sErr += "-Please enter information about secondhand smoking exposure.\n";
+
+                    }
+                    if (iSmokingSecondHandAct > 30) {
+
+                        iStopSub = 1;
+                        sErr += "-The range for secondhand smoking is 0 to 24 hours.\n";
+
+                    }
+
+                }
+
+
+                var iFruitValue = $("#FruitValueID").val();
+                //alert(iPhysAct);
+                //if (iPhysAct < 0 && iPhysAct > 30) {
+                if (iFruitValue == "") {
+
+                    iStopSub = 1;
+                    sErr += "-Please enter information about fruit intake.\n";
+
+                }
+                if (iFruitValue > 50) {
+
+                    iStopSub = 1;
+                    sErr += "-The range for fruit intake is 0 to 50 cups.\n";
+
+                }
+
+                var iVegValue = $("#VegValueID").val();
+                //alert(iPhysAct);
+                //if (iPhysAct < 0 && iPhysAct > 30) {
+                if (iVegValue == "") {
+
+                    iStopSub = 1;
+                    sErr += "-Please enter information about vegetable intake.\n";
+
+                }
+
+                if (iVegValue > 15) {
+
+                    iStopSub = 1;
+                    sErr += "-The range for vegetable intake is 0 to 15 cups.\n";
+
+                }
+
+                //var iDDHeightBinID = $("#DDHeightBinID").val();
+
+                //if (iDDHeightBinID == "") {
+
+                //    iStopSub = 1;
+                //    sErr += "-Please enter information about height.\n";
+
+                //}
+
+                //if (iDDHeightBinID < 27 || iDDHeightBinID > 80) {
+
+                //    iStopSub = 1;
+                //    sErr += "-The range for height is between 27 and 80 inches.\n";
+
+                //}
+
+
+                //var iDDWeightBinID = $("#DDWeightBinID").val();
+
+                //if (iDDWeightBinID == "") {
+
+                //    iStopSub = 1;
+                //    sErr += "-Please enter information about weight.\n";
+
+                //}
+
+                //if (iDDWeightBinID < 60 || iDDWeightBinID > 500) {
+
+                //    iStopSub = 1;
+                //    sErr += "-The range for weight is between 60 and 500 inches.\n";
+
+                //}
+
+                var iModerateActivityValueID = $("#ModerateActivityValueID").val();
+
+                if (iModerateActivityValueID == "") {
+
+                    iStopSub = 1;
+                    sErr += "-Please enter information about moderate physical activity.\n";
+
+                }
+
+                if (iModerateActivityValueID > 10080) {
+
+                    iStopSub = 1;
+                    sErr += "-The range for moderate physical activity is between 0 and 10080 .\n";
+
+                }
+
+                var iVigorousActivityValueID = $("#VigorousActivityValueID").val();
+
+                if (iVigorousActivityValueID == "") {
+
+                    iStopSub = 1;
+                    sErr += "-Please enter information about vigorous physical activity.\n";
+
+                }
+
+                if (iVigorousActivityValueID > 10080) {
+
+                    iStopSub = 1;
+                    sErr += "-The range for vigorous physical activity is between 0 and 10080 .\n";
+
+                }
+
+            }
+
+
+       
+         
+        if (iStopSub != 0) {
+            alert(sErr);
+            e.preventDefault();
+
+        }
+
+
+  
+
+    });
+
+  
+
+
+
+        $('#FollowupInfoForm').on("submit", function (evt) {
+            evt.preventDefault();
+            if ($('#FollowupInfoForm').valid()) {
+
+                $.ajax({
+                    url: $("#FollowupInfoForm").attr('action'),
+                    type: $("#FollowupInfoForm").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#FollowupInfoForm").serialize(),
+                    success: function (data) {
+
+                        var clinicalcycleid = data.Modified;
+                        var siteid = data.Modified2;
+                        var screeningtypeid = data.Modified3;
+                        var clientid = data.Modified4;
+                        var enrollid = data.Modified5;
+                        var screeningid = data.Modified6;
+
+                        $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ScreeningID })');
+                        //toastr.success('You have successfully updated the followup completion status information.')
+
+                        $('#CancerTypeDD').attr('disabled', 'disabled');
+
+
+
+                    }
+                });
+            }
+
+        });
+
+
+    $('#PatientInfoForm').on("submit", function (evt) {
+        evt.preventDefault();
+        if ($('#PatientInfoForm').valid()) {
+            $.ajax({
+                url: $("#PatientInfoForm").attr('action'),
+                type: $("#PatientInfoForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#PatientInfoForm").serialize(),
+                success: function (data) {
+
+                  
+                    var screeningid = data.Modified;
+                    var bpplus = data.Modified2;
+
+
+                    $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ScreeningID })');
+
+
+               
+
+
+                }
+            });
+    }
+
+    });
+
+
+
+    </script>
+
+
+   

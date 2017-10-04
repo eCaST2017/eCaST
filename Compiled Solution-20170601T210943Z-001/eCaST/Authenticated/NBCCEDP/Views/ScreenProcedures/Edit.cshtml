@@ -1,0 +1,2949 @@
+﻿@model eCaST.ViewModels.ScreenProcedureViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<style type="text/css">
+    .searchOption {
+        margin: 4px 4px 2px 4px;
+        display: inline;
+    }
+
+    .form-field * {
+        vertical-align: middle;
+    }
+
+    .form-field input {
+        clear: left;
+    }
+
+    .form-field label {
+        width: 800px;
+        display: inline-block;
+    }
+
+    input.big {
+        height: 2.1em;
+        width: 2.1em;
+    }
+
+    .error a {
+        background-color: #d9ffff !important;
+        border: 1px solid #ccc !important;
+        width: 100%;
+        color: #666 !important;
+    }
+
+    .requiredText {
+        background-color: #d9ffff;
+        border: 1px solid #999;
+    }
+
+    .requiredSelect {
+        background-color: #d9ffff;
+    }
+</style>
+
+
+@using (Html.BeginForm("_UpdateScreenProcedureF", "ScreenProcedures", FormMethod.Post, new { id = "ScreenProcedureUpdateForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div id="ScreenProcMessageContainer"></div>
+
+        </div>
+
+
+    </div>
+    <br />
+
+
+
+    <div id="UpdateButtonContainer" class="pull-left">
+
+        @if (ViewBag.RoleBinID == 1 || ViewBag.RoleBinID == 3 || ViewBag.RoleBinID == 13)
+        {
+
+            @Html.CheckBoxFor(model => model.StateStaffOverride, new { @id = "StateStaffOverrideValue", @style = "disabled='disabled'" })
+            <text>&nbsp;</text>
+            @Html.LabelFor(model => model.StateStaffOverride, "Override")
+            <text>&nbsp;</text>
+            @Html.CheckBoxFor(model => model.AdminApproval, new { @id = "AdminApproval", @style = "disabled='disabled'" })
+            <text>&nbsp;</text>
+            @Html.LabelFor(model => model.AdminApproval, "Admin Approval")
+
+        }
+
+
+
+            <button id="DeleteProcButton" class="btn btn-danger" type="button"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</button><text>&nbsp;</text>
+
+       
+
+        <button id="CancelProcLockButton" class="btn btn-default" type="button"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Cancel</button><text>&nbsp;</text>
+        <button class="btn btn-success" id="UpdateAccordionProcButton" type="submit">Update</button>
+
+
+
+
+    </div>
+
+
+
+    <br />
+    <br />
+
+    <div id="ScreeningResultsSection" style="display:block">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4><i class="fa fa-heartbeat fa-fw"></i> Edit Procedure</h4>
+
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+
+
+           
+                <div class="row">
+
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.ProcedureMethodBinID, "Procedure Method")
+
+                    </div>
+                    <div class="col-md-3">
+
+                        @Html.DropDownListFor(model => model.ProcedureMethodBinID, ((IEnumerable<eCaST.Models.DDProcedureMethodBin>)ViewBag.PossibleProcedureMethodBins).Select(option => new SelectListItem
+            {
+                //Text = Html.DisplayTextFor(_ => option).ToString(),
+                Text = option.ProcedureMethodBinName,
+                Value = option.ProcedureMethodBinID.ToString(),
+                Selected = (Model != null) && (option.ProcedureMethodBinID == Model.ProcedureMethodBinID)
+            }), "Choose...", new { @id = "ddlST", @class = "requiredSelect" })
+                        @Html.ValidationMessageFor(model => model.ProcedureMethodBinID)
+
+                    </div>
+
+
+                    <div id="OtherScreeningMethodSection" style="display:none; padding-top:6px">
+
+
+                        <div class="col-md-1">
+
+                            @Html.LabelFor(model => model.ProcedureMethodOther)
+                        </div>
+                        <div class="col-md-5">
+
+
+
+                            @Html.TextBoxFor(model => model.ProcedureMethodOther, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ProcedureMethodOther)
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <br />
+                <div id="FundingSourceSection" style="display:block; padding-top:6px">
+
+                    <div class="row">
+
+
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.FundingSourceBinID, "Funding Source")
+                        </div>
+
+                        <div class="col-md-3">
+
+
+                            @Html.DropDownListFor(model => model.FundingSourceBinID, ((IEnumerable<eCaST.Models.DDFundingSourceBin>)ViewBag.PossibleFundingSourceBins).Select(option => new SelectListItem
+  {
+      //Text = Html.DisplayTextFor(_ => option).ToString(),
+      Text = option.FundingSourceBinName,
+      Value = option.FundingSourceBinID.ToString(),
+      Selected = (Model != null) && (option.FundingSourceBinID == Model.FundingSourceBinID)
+  }), "Choose...", new { @class = "requiredSelect" })
+                            @Html.ValidationMessageFor(model => model.FundingSourceBinID)
+
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+                <br />
+                <div class="row">
+
+
+                    <div class="col-md-3">
+
+                        @Html.LabelFor(model => model.ProcedureDate, "Date of Procedure")
+                    </div>
+
+                    <div class="col-md-9">
+
+                        @Html.TextBoxFor(model => model.ProcedureDate, new { @class = "requiredText" })
+                        @Html.ValidationMessageFor(model => model.ProcedureDate) &nbsp;&nbsp;
+
+                        @Html.Hidden("ProcedureAge")
+
+                        @if (@ViewBag.RoleName != "ReadOnly")
+                        {  @ViewBag.FirstName }
+                        else
+                        { <text>Patient</text> } will be  @Html.TextBoxFor(model => model.ProcedureAge, new { @id = "ProcedureAgeTxt", style = "width:26px;border:0px; border-color:#fff" }) when this procedure is performed.
+
+
+
+                    </div>
+
+
+                </div>
+                <br />
+
+                <div id="AdequacySpecimenSection" style="display:none">
+
+
+                    <div class="row">
+
+
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.AdequacyBinID)
+
+                        </div>
+                        <div class="col-md-3">
+                            @Html.DropDownListFor(model => model.AdequacyBinID, ((IEnumerable<eCaST.Models.DDAdequacyBin>)ViewBag.PossibleAdequacyBins).Select(option => new SelectListItem
+                          {
+                              //Text = Html.DisplayTextFor(_ => option).ToString(),
+                              Text = option.AdequacyBinName,
+                              Value = option.AdequacyBinID.ToString(),
+                              Selected = (Model != null) && (option.AdequacyBinID == Model.AdequacyBinID)
+                          }), "Choose...", new { @id = "AdequacyBinID", @class = "requiredSelect" })
+                            @Html.ValidationMessageFor(model => model.AdequacyBinID)
+
+
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <br />
+                        <div class="col-md-3">
+
+                            @Html.LabelFor(model => model.SpecimenTypeBinID)
+                        </div>
+
+                        <div class="col-md-3">
+                            @Html.DropDownListFor(model => model.SpecimenTypeBinID, ((IEnumerable<eCaST.Models.DDSpecimenTypeBin>)ViewBag.PossibleSpecimenTypeBins).Select(option => new SelectListItem
+                          {
+                              //Text = Html.DisplayTextFor(_ => option).ToString(),
+                              Text = option.SpecimenTypeBinName,
+                              Value = option.SpecimenTypeBinID.ToString(),
+                              Selected = (Model != null) && (option.SpecimenTypeBinID == Model.SpecimenTypeBinID)
+                          }), "Choose...", new { @class = "requiredSelect" })
+                            @Html.ValidationMessageFor(model => model.SpecimenTypeBinID)
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+
+
+                    <div class="col-md-3">
+
+                        @Html.LabelFor(model => model.ProcedureResultBinID, "Procedure Results")
+
+                    </div>
+                    <div class="col-md-3">
+
+                        @Html.DropDownListFor(model => model.ProcedureResultBinID, ((IEnumerable<eCaST.Models.DDProcedureResultBin>)ViewBag.PossibleProcedureResultBins).Select(option => new SelectListItem
+              {
+                  //Text = Html.DisplayTextFor(_ => option).ToString(),
+                  Text = option.ProcedureResultBinName,
+                  Value = option.ProcedureResultBinID.ToString(),
+                  Selected = (Model != null) && (option.ProcedureResultBinID == Model.ProcedureResultBinID)
+              }), "Choose...", new { @id = "ProcedureResultBinID", @class = "requiredSelect" })
+                        @Html.ValidationMessageFor(model => model.ProcedureResultBinID)
+
+                    </div>
+
+                    <div id="OtherScreeningResultSection" style="display:none; padding-top:6px">
+
+
+                        <div class="col-md-2">
+
+                            @Html.LabelFor(model => model.OtherDxText)
+                        </div>
+                        <div class="col-md-4">
+
+
+
+                            @Html.TextBoxFor(model => model.OtherDxText, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.OtherDxText)
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+                </div>
+
+                <br />
+
+                <div id="MamTypeSection" style="display:none">
+
+
+                    <div class="row">
+
+
+                        <div class="col-md-3">
+
+                            @Html.LabelFor(model => model.ProcedureTypeBinID)
+                        </div>
+
+                        <div class="col-md-3">
+
+                            @Html.DropDownListFor(model => model.SecondaryProcedureTypeBinID, ((IEnumerable<eCaST.Models.DDProcedureTypeBin>)ViewBag.PossibleProcedureTypeBins).Select(option => new SelectListItem
+                          {
+                              //Text = Html.DisplayTextFor(_ => option).ToString(),
+                              Text = option.ProcedureTypeBinName,
+                              Value = option.ProcedureTypeBinID.ToString(),
+                              Selected = (Model != null) && (option.ProcedureTypeBinID == Model.SecondaryProcedureTypeBinID)
+                          }), "Choose...", new { @class = "requiredSelect" })
+                            @Html.ValidationMessageFor(model => model.SecondaryProcedureTypeBinID)
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <div id="CBETypeSection" style="display:none">
+
+
+                    <div class="row">
+
+
+                        <div class="col-md-3">
+
+                            @Html.LabelFor(model => model.ProcedureTypeBinID, "CBE Type")
+                        </div>
+
+                        <div class="col-md-3">
+
+                            @Html.DropDownListFor(model => model.SecondaryProcedureTypeBinID, ((IEnumerable<eCaST.Models.DDProcedureTypeBin>)ViewBag.PossibleCBEProcedureTypeBins).Select(option => new SelectListItem
+                          {
+                              //Text = Html.DisplayTextFor(_ => option).ToString(),
+                              Text = option.ProcedureTypeBinName,
+                              Value = option.ProcedureTypeBinID.ToString(),
+                              Selected = (Model != null) && (option.ProcedureTypeBinID == Model.SecondaryProcedureTypeBinID)
+                          }), "Choose...", new { @class = "requiredSelect", @id = "CBEProcTypeDD" })
+                            @Html.ValidationMessageFor(model => model.SecondaryProcedureTypeBinID)
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <br />
+
+
+
+
+                <div class="row">
+
+
+                    <div class="col-md-3">
+
+                        @Html.LabelFor(model => model.SubContractorID, "Facility")
+                    </div>
+
+                    <div class="col-md-3">
+
+                        @Html.DropDownList("SubContractorID", String.Empty)
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <div id="ProviderSection" style="display:none">   @Html.LabelFor(model => model.ProviderID)  <select id='ProviderID' name='ProviderID' class="requiredSelect"></select></div>
+                    </div>
+
+
+
+
+                </div>
+
+                <br />
+                <div id="PathExamSection" style="display:none">
+
+                    <div class="row">
+
+
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.CecumReachedBinID)
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            @Html.DropDownListFor(model => model.CecumReachedBinID, ((IEnumerable<eCaST.Models.DDCecumReachedBin>)ViewBag.PossibleCecumReachedBins).Select(option => new SelectListItem
+             {
+
+                 //Text = Html.DisplayTextFor(_ => option).ToString(),
+                 Text = option.CecumReachedBinName,
+                 Value = option.CecumReachedBinID.ToString(),
+                 Selected = (Model != null) && (option.CecumReachedBinID == Model.CecumReachedBinID)
+             }), "Choose...", new { @class = "requiredSelect" })
+                            @Html.ValidationMessageFor(model => model.CecumReachedBinID)
+
+
+                        </div>
+
+
+                        <div class="col-md-1">
+
+                            @Html.LabelFor(model => model.QualityPrepBinID)
+
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            @Html.DropDownListFor(model => model.QualityPrepBinID, ((IEnumerable<eCaST.Models.DDQualityPrepBin>)ViewBag.PossibleQualityPrepBins).Select(option => new SelectListItem
+             {
+                 Text = option.QualityPrepBinName,
+                 //Text = Html.DisplayTextFor(_ => option).ToString(),
+                 Value = option.QualityPrepBinID.ToString(),
+                 Selected = (Model != null) && (option.QualityPrepBinID == Model.QualityPrepBinID)
+             }), "Choose...", new { @class = "requiredSelect" })
+                            @Html.ValidationMessageFor(model => model.QualityPrepBinID)
+
+                        </div>
+
+                    </div>
+                    <br />
+
+                    <div class="row">
+
+
+                        <div class="col-md-3">
+
+                            @Html.LabelFor(model => model.AdequateExamBinID)
+                        </div>
+
+                        <div class="col-md-3">
+                            @Html.DropDownListFor(model => model.AdequateExamBinID, ((IEnumerable<eCaST.Models.DDAdequateExamBin>)ViewBag.PossibleAdequateExamBins).Select(option => new SelectListItem
+                  {
+                      Text = option.AdequateExamBinName,
+                      //Text = Html.DisplayTextFor(_ => option).ToString(),
+                      Value = option.AdequateExamBinID.ToString(),
+                      Selected = (Model != null) && (option.AdequateExamBinID == Model.AdequateExamBinID)
+                  }), "Choose...")
+                            @Html.ValidationMessageFor(model => model.AdequateExamBinID)
+
+                        </div>
+
+
+                    </div>
+                    <br />
+                    <div class="row">
+
+
+                        <div class="col-md-3">
+
+                            <div id="givenLabelSection" style="display:none">
+
+                                @Html.LabelFor(model => model.PatientGivenResultsBinID)
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div id="givenDDSection" style="display:none">
+
+                                @Html.DropDownListFor(model => model.PatientGivenResultsBinID, ((IEnumerable<eCaST.Models.DDPatientGivenResultsBin>)ViewBag.PossiblePatientGivenResultsBins).Select(option => new SelectListItem
+            {
+
+                Text = option.PatientGivenResultsBinName,
+                //Text = Html.DisplayTextFor(_ => option).ToString(),
+                Value = option.PatientGivenResultsBinID.ToString(),
+                Selected = (Model != null) && (option.PatientGivenResultsBinID == Model.PatientGivenResultsBinID)
+            }), "Choose...", new { @id = "PatientGivenResultsBinID", @class = "requiredSelect" })
+                                @Html.ValidationMessageFor(model => model.PatientGivenResultsBinID)
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <br />
+                    <div class="row">
+
+
+                        <div class="col-md-1">
+                            @Html.LabelFor(model => model.Pathology)
+                        </div>
+                        <div class="col-md-5">
+                            @Html.CheckBoxFor(model => model.Pathology, new { id = "pathReport" })
+                        </div>
+                        <div class="col-md-1">
+                            <span id="transPrLbl" style="display:none">
+                                @Html.LabelFor(model => model.TranslationProvided)
+                            </span>
+                        </div>
+                        <div class="col-md-5">
+                            <span id="transPrDD" style="display:none">
+                                @*@Html.CheckBoxFor(model => model.TranslationProvided, new { @id = "TranslationProvided" })*@
+                            </span>
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+                <br />
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+    <br />
+
+    <div id="PathologyResultsSection" style="display:none">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-user fa-fw"></i> Pathology
+
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+
+                <div class="row">
+
+
+                    <div class="col-md-3">
+
+                        @Html.LabelFor(model => model.PathPolypBinID)
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        @Html.DropDownListFor(model => model.PathPolypBinID, ((IEnumerable<eCaST.Models.DDPathPolypBin>)ViewBag.PossiblePathPolypBins).Select(option => new SelectListItem
+{
+
+    Text = option.PathPolypBinName,
+    //Text = Html.DisplayTextFor(_ => option).ToString(),
+    Value = option.PathPolypBinID.ToString(),
+    Selected = (Model != null) && (option.PathPolypBinID == Model.PathPolypBinID)
+}), "Choose...", new { @class = "requiredSelect" })
+                        @Html.ValidationMessageFor(model => model.PathPolypBinID)
+
+                    </div>
+
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.PathProviderBinID)
+
+                    </div>
+
+
+                    <div class="col-md-3">
+
+                        @Html.DropDownList("PathProviderBinID", String.Empty)
+                        @Html.ValidationMessageFor(model => model.PathProviderBinID)
+
+
+                    </div>
+
+
+
+                </div>
+                <br />
+
+                <div class="row">
+
+
+                    <div class="col-md-3">
+
+                        @Html.LabelFor(model => model.PathContainerCount)
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        @Html.TextBoxFor(model => model.PathContainerCount, new { @class = " form-control requiredText" })
+                        @Html.ValidationMessageFor(model => model.PathContainerCount)
+
+                    </div>
+
+
+                </div>
+
+
+
+
+                <div id="PathAdenomaSection" style="display:none">
+                    <br />
+
+                    <div class="row">
+
+
+                        <div class="col-md-3">
+
+                            @Html.LabelFor(model => model.PathHistBinID)
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            @Html.DropDownListFor(model => model.PathHistBinID, ((IEnumerable<eCaST.Models.DDPathHistBin>)ViewBag.PossiblePathHistBins).Select(option => new SelectListItem
+            {
+
+                Text = option.PathHistBinName,
+                //Text = Html.DisplayTextFor(_ => option).ToString(),
+                Value = option.PathHistBinID.ToString(),
+                Selected = (Model != null) && (option.PathHistBinID == Model.PathHistBinID)
+            }), "Choose...", new { @class = "requiredSelect" })
+                            @Html.ValidationMessageFor(model => model.PathHistBinID)
+
+                        </div>
+
+
+                        <div class="col-md-3">
+
+                            @Html.LabelFor(model => model.PathPolypsRemoved)
+                        </div>
+
+                        <div class="col-md-3">
+
+                            @Html.TextBoxFor(model => model.PathPolypsRemoved, new { @class = " form-control requiredText" })
+                            @Html.ValidationMessageFor(model => model.PathPolypsRemoved)
+
+                        </div>
+
+
+
+
+                    </div>
+
+                    <br />
+                    <div class="row">
+
+
+                        <div class="col-md-3">@Html.LabelFor(model => model.PathHighGradeDysplasia)</div>
+
+                        <div class="col-md-3">
+
+                            @Html.RadioButtonFor(model => model.PathHighGradeDysplasia, true) Yes
+                            @Html.RadioButtonFor(model => model.PathHighGradeDysplasia, false) No
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            @Html.LabelFor(model => model.PathLargestAdenoma)
+                        </div>
+
+                        <div class="col-md-3">
+
+                            @Html.TextBoxFor(model => model.PathLargestAdenoma, new { @class = "form-control requiredText" })
+                            @Html.ValidationMessageFor(model => model.PathLargestAdenoma)
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+
+
+    </div>
+
+    @Html.HiddenFor(x => x.ScreenProcedureID)
+    @Html.Hidden("ScreeningID", (int?)ViewBag.ScreeningID)
+    @Html.Hidden("ClinicalCycleID", (int?)ViewBag.ClinicalCycleID)
+    @Html.Hidden("ClientID", (int?)ViewBag.ClientID)
+
+
+   
+
+
+}
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+
+        if ($("#ProcedureResultBinID").val() == 327) {
+
+
+            $("#OtherScreeningResultSection").css("display", "block");
+
+
+        }
+        else {
+
+
+
+            $("#OtherScreeningResultSection").css("display", "none");
+
+        }
+
+
+
+        $("#ProcedureResultBinID").change(function () {
+
+
+            if ($("#ProcedureResultBinID").val() == 327) {
+
+
+                $("#OtherScreeningResultSection").css("display", "block");
+
+
+
+
+            }
+            else {
+
+
+
+                $("#OtherScreeningResultSection").css("display", "none");
+
+            }
+
+
+
+        });
+
+
+    });
+
+
+
+    $(function () {
+
+
+        $("#ScreenProcMessageContainer").load("@Url.Action("_ProcedureErrors", "Messages", new { id = Model.ScreenProcedureID })",
+                   function (response, status, xhr) {
+                       if (status == "error") {
+
+                       }
+                   });
+
+
+        $("input[type=checkbox]").bootstrapSwitch({
+
+            onText: 'YES',
+            offText: 'NO',
+            offColor: 'default',
+            onColor: 'success'
+
+
+        });
+
+
+    });
+
+
+
+
+    function calculate_age(birth_month, birth_day, birth_year, proc_month, proc_day, proc_year) {
+
+        age = proc_year - birth_year;
+        var iset = 0;
+
+        if (proc_month < (birth_month - 1)) {
+            age--;
+            iset = 1;
+        }
+        if (birth_month > proc_month) {
+            if (iset == 0) {
+                age--;
+                iset = 1;
+            }
+        }
+        if ((birth_month) == proc_month) {
+            if (proc_day < birth_day) {
+                if (iset == 0) {
+                    age--;
+                    iset = 1;
+                }
+            }
+        }
+
+        return age;
+
+    }
+
+
+    $('#DeleteProcButton').click(function () {
+
+        $('#AccordionContentContainer').load('@Url.Action("Delete", "ScreenProcedures", new { id = Model.ScreenProcedureID })');
+
+    });
+
+    $('#CancelProcLockButton').click(function () {
+
+        $('#AccGlowContainer').removeClass("glowdiv");
+        $("#txtSearch").removeAttr("disabled", "disabled");
+        $('#EditMessageContainer').css("display", "none");
+        $('#ScreeningToolbarContainer').css("display", "block");
+        $('#FooterMenuBarContainer').css("display", "block");
+        $('#ScreenProcedureListContainer').load('@Url.Action("_ScreenProcedureList", "ScreenProcedures", new { id = ViewBag.ScreeningID, id2 = ViewBag.CancerTypeBinID })');
+
+        $('#HomeLinkContainer').css("display", "block");
+        $('#HomeNoLinkContainer').css("display", "none");
+
+        $("#ClientButton").removeAttr("disabled", "disabled");
+        $("#ClientButton").css("opacity", "1.0");
+
+        $("#ScreeningButton").removeAttr("disabled", "disabled");
+        $("#ScreeningButton").css("opacity", "1.0");
+
+        $("#EnrollmentEdit0Button").attr("disabled", "disabled");
+        $("#EnrollmentEdit0Button").css("opacity", "0.5");
+
+        $('#ProfileButtonDown').css("display", "block");
+        $("#ProfileButtonDown").css("opacity", "1.0");
+
+        $("#ClientHistoryButton").removeAttr("disabled", "disabled");
+        $("#ClientHistoryButton").css("opacity", "1.0");
+
+        $("#SmallProfileButton").removeAttr("disabled", "disabled");
+        $("#SmallProfileButton").css("opacity", "1.0");
+
+        $("#SmallScreeningButton").removeAttr("disabled", "disabled");
+        $("#SmallScreeningButton").css("opacity", "1.0");
+
+        $("#SmallEnrollmentButton").removeAttr("disabled", "disabled");
+        $("#SmallEnrollmentButton").css("opacity", "1.0");
+
+        $("#SmallLocationButton").removeAttr("disabled", "disabled");
+        $("#SmallLocationButton").css("opacity", "1.0");
+
+        $("#ClientEditButton").removeAttr("disabled", "disabled");
+        $("#ClientEditButton").css("opacity", "1.0");
+
+        $("#EnrollmentEditButton").removeAttr("disabled", "disabled");
+        $("#EnrollmentEditButton").css("opacity", "1.0");
+
+        $("#MedicalHistoryEditButton").removeAttr("disabled", "disabled");
+        $("#MedicalHistoryEditButton").css("opacity", "1.0");
+
+        $('#AccordionContentContainer').load('@Url.Action("Create", "ScreenProcedures", new { id = ViewBag.ScreeningID, id2 = 1 })');
+
+
+    });
+
+
+    $(function () {
+
+        $("input[type=checkbox]").bootstrapSwitch({
+
+            onText: 'YES',
+            offText: 'NO',
+            offColor: 'danger',
+            onColor: 'success'
+
+
+        });
+
+     //   $("#ProcedureDate").val('@ViewBag.ClinicalCycleDate');
+
+        var dateString = $('#ProcedureDate').val();
+        date = new Date(dateString);
+
+        var dateString2 = '@ViewBag.DOB';
+        date2 = new Date(dateString2);
+        var accAge = calculate_age(date2.getMonth(), date2.getDate(), date2.getFullYear(), date.getMonth(), date.getDate(), date.getFullYear());
+        $('#ProcedureAgeTxt').css("border", "none");
+        $('#ProcedureAgeTxt').prop('disabled', 'disabled');
+        $('#ProcedureAgeTxt').val(accAge);
+        $('#ProcedureAge').val(accAge);
+
+        $(function () {
+            $("#ProcedureDate").change(function () {
+
+                var dateString = $('#ProcedureDate').val();
+                date = new Date(dateString);
+
+                var dateString2 = '@ViewBag.DOB';
+                date2 = new Date(dateString2);
+                var accAge = calculate_age(date2.getMonth(), date2.getDate(), date2.getFullYear(), date.getMonth(), date.getDate(), date.getFullYear());
+                $('#ProcedureAgeTxt').css("border", "none");
+                $('#ProcedureAgeTxt').prop('disabled', 'disabled');
+                $('#ProcedureAgeTxt').val(accAge);
+                $('#ProcedureAge').val(accAge);
+
+
+            });
+
+        });
+
+        $(document).ready(function () {
+            $("#ProcedureDate").keyup(function (e) {
+                if (e.keyCode != 8) {
+                    if ($(this).val().length == 2) {
+                        $(this).val($(this).val() + "/");
+                    } else if ($(this).val().length == 5) {
+                        $(this).val($(this).val() + "/");
+                    }
+                }
+            });
+        });
+
+
+        $("#FinalDiagnosisDate").kendoDatePicker({ max: new Date() });
+        $("#TreatmentDate").kendoDatePicker({ max: new Date() });
+        $("#PathSpecialistDate").kendoDatePicker({ max: new Date() });
+        $("#ProcedureDate").kendoDatePicker({ max: new Date() });
+
+
+        $("#ddlST").select2({ width: "100%" });
+        $("#FundingSourceBinID").select2({ width: "100%" });
+        $("#ProcedureResultBinID").select2({ width: "100%" });
+        $("#SecondaryProcedureTypeBinID").select2({ width: "100%" });
+        $("#CBEProcTypeDD").select2({ width: "100%" });
+        $("#AdequacyBinID").select2({ width: "100%" });
+        //$("#SubContractorID").select2({ width: "100%" });
+        $("#SpecimenTypeBinID").select2({ width: "100%" });
+        $("#SubContractorID").select2({ width: "100%" });
+        $("#ProviderID").select2({ width: "100%" });
+
+        $("#ddlST").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+        $("#FundingSourceBinID").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+        $("#ProcedureResultBinID").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+        $("#SubContractorID").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+        $("#SecondaryProcedureTypeBinID").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+        $("#CBEProcTypeDD").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+        $("#AdequacyBinID").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+        $("#SpecimenTypeBinID").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+        // REVIEW THIS CODE //
+
+        //// Colonoscopy
+        //if ($("#ddlST").val() == 12) {
+
+        //    $('#AdequacyBinID').rules('add', {
+        //        required: true,
+        //        messages: {
+        //            required: 'Please enter an option for Adequacy'
+        //        }
+        //    });
+
+        //    $('#SpecimenTypeBinID').rules('add', {
+        //        required: true,
+        //        messages: {
+        //            required: 'Please enter an option for Specimen Type'
+        //        }
+        //    });
+
+
+        //}
+
+        //else {
+
+
+        //    // Not Required
+
+        //}
+
+
+        //// Adequacy/Specimen
+        //$("#ddlST").change(function () {
+        //    if ($("#ddlST").val() == 12) {
+        //        $('#AdequacyBinID').rules('add', {
+        //            required: true,
+        //            messages: {
+        //                required: 'Please enter an option for Adequacy'
+        //            }
+        //        });
+        //        $('#SpecimenTypeBinID').rules('add', {
+        //            required: true,
+        //            messages: {
+        //                required: 'Please enter an option for Specimen Type'
+        //            }
+        //        });
+        //    }
+        //    else {
+        //        $('#AdequacyBinID').rules('remove');
+        //        $('#AdequacyBinID').val('');
+        //        $('#SpecimenTypeBinID').rules('remove');
+        //        $('#SpecimenTypeBinID').val('');
+        //        // Not Required
+        //    }
+        //});
+
+
+        //$('#SubContractorID').addClass('requiredSelect');
+
+
+        //$('#addScreeningProcForm').on('submit', function (e) {
+
+
+        //    if (($("#SubContractorID").val() == -1)) {
+
+        //        alert('Please select a Facility');
+        //        e.preventDefault();
+        //    }
+        //    else {
+        //        //alert('Well Done!!!!');
+
+        //    }
+
+
+        //});
+
+
+        //$('#FundingSourceBinID').rules('add', {
+        //    required: true,
+        //    messages: {
+        //        required: 'Please enter an option for Funding Source'
+        //    }
+        //});
+
+
+
+        //$('#addScreeningProcForm').on('submit', function (e) {
+
+        //    var a = document.getElementById("ProcedureAgeTxt").value;
+        //    var c = parseInt(a);
+
+
+        //});
+
+        $('#CancelProcLockButton').click(function () {
+
+            $('#AccGlowContainer').removeClass("glowdiv");
+            $("#txtSearch").removeAttr("disabled", "disabled");
+            $('#EditMessageContainer').css("display", "none");
+            $('#ScreeningToolbarContainer').css("display", "block");
+            $('#FooterMenuBarContainer').css("display", "block");
+            $('#ScreenProcedureListContainer').load('@Url.Action("_ScreenProcedureList", "ScreenProcedures", new { id = ViewBag.ScreeningID, id2 = ViewBag.CancerTypeBinID })');
+
+            $('#HomeLinkContainer').css("display", "block");
+            $('#HomeNoLinkContainer').css("display", "none");
+
+            $("#ClientButton").removeAttr("disabled", "disabled");
+            $("#ClientButton").css("opacity", "1.0");
+
+            $("#ScreeningButton").removeAttr("disabled", "disabled");
+            $("#ScreeningButton").css("opacity", "1.0");
+
+            // $("#ProfileButtonDown").removeAttr("disabled", "disabled");
+            $('#ProfileButtonDown').css("display", "block");
+            $("#ProfileButtonDown").css("opacity", "1.0");
+
+            $("#ClientHistoryButton").removeAttr("disabled", "disabled");
+            $("#ClientHistoryButton").css("opacity", "1.0");
+
+            $("#EnrollmentEdit0Button").removeAttr("disabled", "disabled");
+            $("#EnrollmentEdit0Button").css("opacity", "1.0");
+
+            $("#DiagnosticProcedureEditButton").removeAttr("disabled", "disabled");
+            $("#DiagnosticProcedureEditButton").css("opacity", "1.0");
+
+            $("#CaseManagementEditButton").removeAttr("disabled", "disabled");
+            $("#CaseManagementEditButton").css("opacity", "1.0");
+
+            $("#FinalDiagnosisEditButton").removeAttr("disabled", "disabled");
+            $("#FinalDiagnosisEditButton").css("opacity", "1.0");
+
+            $("#SmallProfileButton").removeAttr("disabled", "disabled");
+            $("#SmallProfileButton").css("opacity", "1.0");
+
+            $("#SmallScreeningButton").removeAttr("disabled", "disabled");
+            $("#SmallScreeningButton").css("opacity", "1.0");
+
+            $("#SmallEnrollmentButton").removeAttr("disabled", "disabled");
+            $("#SmallEnrollmentButton").css("opacity", "1.0");
+
+            $("#SmallLocationButton").removeAttr("disabled", "disabled");
+            $("#SmallLocationButton").css("opacity", "1.0");
+
+            $("#ClientEditButton").removeAttr("disabled", "disabled");
+            $("#ClientEditButton").css("opacity", "1.0");
+
+            $("#EnrollmentEditButton").removeAttr("disabled", "disabled");
+            $("#EnrollmentEditButton").css("opacity", "1.0");
+
+            $("#MedicalHistoryEditButton").removeAttr("disabled", "disabled");
+            $("#MedicalHistoryEditButton").css("opacity", "1.0");
+
+
+            $("#ddlST").select2("val", "");
+            $("#FundingSourceBinID").select2("val", "");
+            $("#ProcedureResultBinID").select2("val", "");
+            $("#ProcedureResultBinID").attr("disabled", "disabled");
+            $("#AdequacyBinID").select2("val", "");
+            $("#SpecimenTypeBinID").select2("val", "");
+            $("#ProcedureTypeBinID").select2("val", "");
+            $("#SubContractorID").select2("val", "");
+
+            // Set Update/Cancel Buttons Back to Lock
+            //Unlock Update/Cancel Buttons
+            $("#UpdateAccordionProcButton").attr("disabled", "disabled");
+            $("#UpdateAccordionProcButton").css("opacity", "0.5");
+
+            $("#CancelProcLockButton").attr("disabled", "disabled");
+            $("#CancelProcLockButton").css("opacity", "0.5");
+
+
+        });
+
+
+        $("#UpdateAccordionProcButton").click(function (e) {
+
+
+            var iProcRslt0 = $("#ProcedureResultBinID").val();
+            $("#ProcedureResultBinID").select2({ width: "100%" }).select2('val', iProcRslt0);
+
+
+       
+            var iStopSub = 0;
+            var sErr = "Please correct the following issues:\n\n";
+            var iCurDate = new Date();
+
+               var iddlST = $("#ddlST option:selected").val();
+               var iProcedureResultBinID = $("#ProcedureResultBinID option:selected").val();
+
+
+               if (iddlST < 1) {
+                    iStopSub = 1;
+                    sErr += "Please enter an option for Procedure Method" + "\n";
+
+                }
+
+
+               if (iddlST == 9) {
+
+                   var iCBEValue = $("#CBEProcTypeDD").val();
+                   $("#SecondaryProcedureTypeBinID").val(iCBEValue);
+
+
+               }
+
+
+               if (iddlST == 12) {
+
+
+                   var iAdequacyBinID = $("#AdequacyBinID option:selected").val();
+                   if (iAdequacyBinID < 1) {
+                       iStopSub = 1;
+                       sErr += "Please enter an option for adequecy" + "\n";
+
+                   }
+
+                   var iSpecimenTypeBinID = $("#SpecimenTypeBinID option:selected").val();
+                   if (iSpecimenTypeBinID < 1) {
+                       iStopSub = 1;
+                       sErr += "Please enter an option for specimen type" + "\n";
+
+                   }
+
+
+               }
+               else if (iddlST == 11) {
+
+
+                   var iSecondaryProcedureTypeBinID = $("#SecondaryProcedureTypeBinID option:selected").val();
+                   if (iSecondaryProcedureTypeBinID < 1) {
+                       iStopSub = 1;
+                       sErr += "Please enter an option for Mammogram Type" + "\n";
+
+                   }
+
+               }
+               else if (iddlST == 9) {
+
+
+                   var iCBEProcTypeDD = $("#CBEProcTypeDD option:selected").val();
+                   if (iCBEProcTypeDD < 1) {
+                       iStopSub = 1;
+                       sErr += "Please enter an option for CBE Type" + "\n";
+
+                   }
+
+               }
+               else if (iddlST == 62 || iddlST == 33 || iddlST == 34) {
+
+
+                   var iProcedureMethodOther = $("#ProcedureMethodOther").val();
+                   if (iProcedureMethodOther == "") {
+
+                       iStopSub = 1;
+                       sErr += "You must enter an other procedure method" + "\n";
+
+                   }
+
+               }
+
+
+               if (iProcedureResultBinID == 327) {
+
+                   var iOtherDxText = $("#OtherDxText").val();
+                   if (iOtherDxText == "") {
+
+                       iStopSub = 1;
+                       sErr += "Please enter an other procedure result" + "\n";
+
+                   }
+
+
+               }
+
+
+
+               var iProcedureDate = $("#ProcedureDate").val();
+               iProcedureDateLen = iProcedureDate.length;
+               if (iProcedureDateLen < 1) {
+                        iStopSub = 1;
+                        sErr += "You must enter a Procedure Date" + "\n";
+                    }
+
+               if (new Date(iProcedureDate).getTime() > new Date(iCurDate).getTime()) {
+                        iStopSub = 1;
+                        sErr += "You cannot enter a date of procedure in the future\n";
+                    }
+
+                    // Check for valid date
+               var timestamp = kendo.parseDate(iProcedureDate, "mm/dd/yyyy");
+
+                    if (timestamp == null) {
+
+                        iStopSub = 1;
+                        sErr += "Please enter a valid date of procedure\n";
+
+                    }
+
+                    var iFundingSourceBinID = $("#FundingSourceBinID option:selected").val();
+                    if (iFundingSourceBinID < 1) {
+                        iStopSub = 1;
+                        sErr += "Please enter an option for Funding Source" + "\n";
+
+                    }
+
+                    var iProcedureResultBinID = $("#ProcedureResultBinID option:selected").val();
+                    if (iProcedureResultBinID < 1) {
+                    iStopSub = 1;
+                    sErr += "Please enter an option for Procedure Result" + "\n";
+
+                }
+
+
+                    var iSubContractorID = $("#SubContractorID option:selected").val();
+                    if (iSubContractorID < 1) {
+                        iStopSub = 1;
+                        sErr += "Please enter an option for Facility" + "\n";
+
+                    }
+
+
+            if (iStopSub != 0) {
+                alert(sErr);
+                e.preventDefault();
+
+
+            }
+
+
+                       @*if ('@ViewBag.PowerUser' == 1) {
+
+                           //Add Admin Approval
+                           var outAA = document.getElementById('AdminApproval').value;
+                           document.getElementById("BillingHold").value = outAA;
+
+                           //Add State Staff Override
+                           var outSS = document.getElementById('StateStaffOverrideValue').value;
+                           document.getElementById("StateStaffOverride").value = outSS;
+
+
+                       }*@
+
+
+                       });
+
+
+        $(function () {
+
+           
+            //**************************************** Procedure Result Data Driven Dropdown
+            $("#ProcedureResultBinID").removeAttr("disabled");
+            var iProcRslt = $("#ProcedureResultBinID").val();
+            var iProcRslt = $("#ddlST").val();
+            var iProgBinID = '@ViewBag.Program';
+            $.getJSON("@Url.Action("LoadResultsByMethodID", "ScreenProcedures")", { iProcedureMethodBinID: iProcRslt, iProgramBinID: iProgBinID },
+            function (procData) {
+                var select = $("#ProcedureResultBinID");
+                select.empty();
+                select.append($('<option/>', {
+                    value: 0,
+                    text: "Choose...."
+                }));
+                $.each(procData, function (index, itemData) {
+
+                    select.append($('<option/>', {
+                        value: itemData.Value,
+                        text: itemData.Text
+                    }));
+                });
+
+               $("#ProcedureResultBinID").val(@Model.ProcedureResultBinID);
+               
+               
+            });
+            //if ((iProcRslt == 62) || (iProcRslt == 34) || (iProcRslt == 33)) {
+            //    //OtherScreeningMethodSection
+            //    $("#OtherScreeningMethodSection").show();
+            //    $('#ProcedureMethodOther').rules('add', {
+            //        required: true,
+            //        messages: {
+            //            required: 'Please enter an procedure name.'
+            //        }
+            //    });
+            //}
+            //else {
+            //    $("#OtherScreeningMethodSection").hide();
+            //    $('#ProcedureMethodOther').rules('remove');
+            //    $('#ProcedureMethodOther').val('');
+            //}
+
+            //**************************************** Procedure Result Data Driven Dropdown
+
+
+
+
+        });
+
+        $(function () {
+
+           
+          
+            // FOB Take Home
+            if ($("#ddlST").val() == 1) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                //$('#CreateButton').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none")
+            }
+                // FIT
+            else if ($("#ddlST").val() == 2) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none")
+            }
+                // Sigmoidoscopy
+            else if ($("#ddlST").val() == 3) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "block")
+
+
+            }
+                // Colonoscopy
+            else if ($("#ddlST").val() == 4) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "block")
+
+
+
+                // DCBE
+            }
+            else if ($("#ddlST").val() == 5) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "block")
+
+                // Other
+            }
+            else if ($("#ddlST").val() == 6) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "block"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "block")
+
+
+                // BREAST AND CERVICAL OPTIONS
+
+            }
+                // CBE
+            else if ($("#ddlST").val() == 9) {
+                //$("#CreateButton").css("display", "block"),
+                // $('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "block"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // DCBE
+            else if ($("#ddlST").val() == 36) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+            else if ($("#ddlST").val() == 11) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "block"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+
+            }
+                // Breast US
+            else if ($("#ddlST").val() == 16) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+
+
+            }
+                // Biopsy Excisional
+            else if ($("#ddlST").val() == 17) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+
+            }
+                // Biopsy Sterotactic
+            else if ($("#ddlST").val() == 18) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+               $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+
+
+            }
+                // Biopsy US guided percutaneous core
+            else if ($("#ddlST").val() == 19) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+
+            }
+                // Biopsy US vacuum assisted
+            else if ($("#ddlST").val() == 20) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+
+
+
+            }
+                // Cyst aspiration
+            else if ($("#ddlST").val() == 21) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+
+            }
+                // Ductogram (multiple)
+            else if ($("#ddlST").val() == 22) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+
+            }
+                // Ductogram (single)
+            else if ($("#ddlST").val() == 23) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+               $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+
+            }
+                // Dx main, additional views
+            else if ($("#ddlST").val() == 24) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // Film Comparison
+            else if ($("#ddlST").val() == 25) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // FNA by palpation
+            else if ($("#ddlST").val() == 26) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+               $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // Surgical Medical Consult
+            else if ($("#ddlST").val() == 44) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // CBE (Repeat or clinical correlation)
+            else if ($("#ddlST").val() == 45) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // FNA, ultrasound guided
+            else if ($("#ddlST").val() == 46) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+               $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // MRI
+            else if ($("#ddlST").val() == 56) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+               $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // Pap Test
+            else if ($("#ddlST").val() == 12) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "block")
+            }
+                // Pelvic Exam
+            else if ($("#ddlST").val() == 13) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // HPV
+            else if ($("#ddlST").val() == 14) {
+                //$("#CreateButton").css("display", "block"),
+                // $('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // Cold Knife Cone (CKC)
+            else if ($("#ddlST").val() == 27) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // Colposcopy w/o biopsy
+            else if ($("#ddlST").val() == 28) {
+                //$("#CreateButton").css("display", "block"),
+                // $('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // Endometrial Biopsy
+            else if ($("#ddlST").val() == 29) {
+                //$("#CreateButton").css("display", "block"),
+                // $('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // GYN Consult
+            else if ($("#ddlST").val() == 30) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // LEEP/LOOP
+            else if ($("#ddlST").val() == 32) {
+                //$("#CreateButton").css("display", "block"),
+                // $('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // Other biopsy - not colposcopic
+            else if ($("#ddlST").val() == 33) {
+                //$("#CreateButton").css("display", "block"),
+                // $('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "block"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // Other, Diagnostic
+            else if ($("#ddlST").val() == 34 || $("#ddlST").val() == 62) {
+                //$("#CreateButton").css("display", "block"),
+                // $('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "block"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // Poylp Removal
+            else if ($("#ddlST").val() == 35) {
+                //$("#CreateButton").css("display", "block"),
+                // $('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // Colposcopy with biopsy and or ECC
+            else if ($("#ddlST").val() == 41) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+            else {
+                $('input[type="submit"]').attr('disabled', 'disabled'),
+                $("#ProcedureResultBinID").prop('disabled', 'disabled'),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+
+
+        });
+
+
+        $("#ddlST").change(function () {
+
+
+          
+            //Unlock Update/Cancel Buttons
+            $("#UpdateAccordionProcButton").removeAttr("disabled", "disabled");
+            $("#UpdateAccordionProcButton").css("opacity", "1.0");
+
+            $("#CancelProcLockButton").removeAttr("disabled", "disabled");
+            $("#CancelProcLockButton").css("opacity", "1.0");
+
+            // Lock Screen
+            $('#AccGlowContainer').addClass("glowdiv");
+            $("#txtSearch").attr("disabled", "disabled");
+            $('#EditMessageContainer').css("display", "block");
+            $('#ScreeningToolbarContainer').css("display", "none");
+            $('#FooterMenuBarContainer').css("display", "none");
+            $('#ScreenProcedureListContainer').load('@Url.Action("_StaticScreenProcedureList", "ScreenProcedures", new { id = ViewBag.ScreeningID, id2 = ViewBag.CancerTypeBinID })');
+
+            $('#HomeLinkContainer').css("display", "none");
+            $('#HomeNoLinkContainer').css("display", "block");
+
+            $("#ClientButton").attr("disabled", "disabled");
+            $("#ClientButton").css("opacity", "0.5");
+
+            $("#ScreeningButton").attr("disabled", "disabled");
+            $("#ScreeningButton").css("opacity", "0.5");
+
+            $("#EnrollmentEdit0Button").attr("disabled", "disabled");
+            $("#EnrollmentEdit0Button").css("opacity", "0.5");
+
+            $("#DiagnosticProcedureEditButton").attr("disabled", "disabled");
+            $("#DiagnosticProcedureEditButton").css("opacity", "0.5");
+
+            $("#CaseManagementEditButton").attr("disabled", "disabled");
+            $("#CaseManagementEditButton").css("opacity", "0.5");
+
+            $("#FinalDiagnosisEditButton").attr("disabled", "disabled");
+            $("#FinalDiagnosisEditButton").css("opacity", "0.5");
+
+            // $("#ProfileButtonDown").attr("disabled", "disabled");
+            $('#ProfileButtonDown').css("display", "none");
+            $("#ProfileButtonDown").css("opacity", "0.5");
+
+            $("#ClientHistoryButton").attr("disabled", "disabled");
+            $("#ClientHistoryButton").css("opacity", "0.5");
+
+            $("#SmallProfileButton").attr("disabled", "disabled");
+            $("#SmallProfileButton").css("opacity", "0.5");
+
+            $("#SmallScreeningButton").attr("disabled", "disabled");
+            $("#SmallScreeningButton").css("opacity", "0.5");
+
+            $("#SmallEnrollmentButton").attr("disabled", "disabled");
+            $("#SmallEnrollmentButton").css("opacity", "0.5");
+
+            $("#SmallLocationButton").attr("disabled", "disabled");
+            $("#SmallLocationButton").css("opacity", "0.5");
+
+            $("#ClientEditButton").attr("disabled", "disabled");
+            $("#ClientEditButton").css("opacity", "0.5");
+
+            $("#EnrollmentEditButton").attr("disabled", "disabled");
+            $("#EnrollmentEditButton").css("opacity", "0.5");
+
+            $("#MedicalHistoryEditButton").attr("disabled", "disabled");
+            $("#MedicalHistoryEditButton").css("opacity", "0.5");
+
+
+            //**************************************** Procedure Result Data Driven Dropdown
+            $("#ProcedureResultBinID").removeAttr("disabled");
+            var iProcRslt = $(this).val();
+            var iProcRslt = $("#ddlST").val();
+            var iProgBinID = '@ViewBag.Program';
+            $.getJSON("@Url.Action("LoadResultsByMethodID", "ScreenProcedures")", { iProcedureMethodBinID: iProcRslt, iProgramBinID: iProgBinID },
+            function (procData) {
+                var select = $("#ProcedureResultBinID");
+                select.empty();
+                select.append($('<option/>', {
+                    value: 0,
+                    text: "Choose...."
+                }));
+                $.each(procData, function (index, itemData) {
+
+                    select.append($('<option/>', {
+                        value: itemData.Value,
+                        text: itemData.Text
+                    }));
+                });
+            });
+            //if ((iProcRslt == 62) || (iProcRslt == 34) || (iProcRslt == 33)) {
+            //    //OtherScreeningMethodSection
+            //    $("#OtherScreeningMethodSection").show();
+            //    $('#ProcedureMethodOther').rules('add', {
+            //        required: true,
+            //        messages: {
+            //            required: 'Please enter an procedure name.'
+            //        }
+            //    });
+            //}
+            //else {
+            //    $("#OtherScreeningMethodSection").hide();
+            //    $('#ProcedureMethodOther').rules('remove');
+            //    $('#ProcedureMethodOther').val('');
+            //}
+
+            //**************************************** Procedure Result Data Driven Dropdown
+
+            //alert($("#ddlST").val());
+            if ($("#ddlST").val() == 9 || $("#ddlST").val() == 12 || $("#ddlST").val() == 13 || $("#ddlST").val() == 14) {
+
+                var myDate1 = '@ViewBag.ClinicalCycleDate';
+
+                var myDate = new Date(myDate1);
+                //var myDate = Date.parse(myDate1);
+                var prettyDate = (myDate.getMonth() + 1) + '/' + myDate.getDate() + '/' +
+                        myDate.getFullYear();
+                $("#ProcedureDate").val(prettyDate);
+
+                var dateString = $('#ProcedureDate').val(),
+                date = new Date(dateString);
+
+                var dateString2 = '@ViewBag.DOB';
+                date2 = new Date(dateString2);
+                var accAge = calculate_age(date2.getMonth(), date2.getDate(), date2.getFullYear(), date.getMonth(), date.getDate(), date.getFullYear());
+                $('#ProcedureAgeTxt').css("border", "none");
+                $('#ProcedureAgeTxt').prop('disabled', 'disabled');
+                $('#ProcedureAgeTxt').val(accAge);
+                $('#ProcedureAge').val(accAge);
+                //$('#AdminApproval').val('0');
+                $('#AdminApproval').prop('checked', false);
+            }
+            else {
+                var dSTR = "";
+                $("#ProcedureDate").val(dSTR);
+                if (($("#ddlST").val() == 22) || ($("#ddlST").val() == 23)) {
+                    //$('#AdminApproval').val('1');
+                    $('#AdminApproval').prop('checked', true);
+                }
+                else {
+                    // $('#AdminApproval').val('0');
+                    $('#AdminApproval').prop('checked', false);
+                }
+            }
+
+
+            // FOB Take Home
+            if ($("#ddlST").val() == 1) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                //$('#CreateButton').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none")
+            }
+                // FIT
+            else if ($("#ddlST").val() == 2) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none")
+            }
+                // Sigmoidoscopy
+            else if ($("#ddlST").val() == 3) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "block")
+
+
+            }
+                // Colonoscopy
+            else if ($("#ddlST").val() == 4) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "block")
+
+
+
+                // DCBE
+            }
+            else if ($("#ddlST").val() == 5) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "block")
+
+                // Other
+            }
+            else if ($("#ddlST").val() == 6) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "block"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "block")
+
+
+                // BREAST AND CERVICAL OPTIONS
+
+            }
+                // CBE
+            else if ($("#ddlST").val() == 9) {
+                //$("#CreateButton").css("display", "block"),
+                // $('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "block"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // DCBE
+            else if ($("#ddlST").val() == 36) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                //Mammogram
+            else if ($("#ddlST").val() == 11) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "block"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+
+            }
+                // Breast US
+            else if ($("#ddlST").val() == 16) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+
+
+            }
+                // Biopsy Excisional
+            else if ($("#ddlST").val() == 17) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+
+            }
+                // Biopsy Sterotactic
+            else if ($("#ddlST").val() == 18) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+               $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+
+
+            }
+                // Biopsy US guided percutaneous core
+            else if ($("#ddlST").val() == 19) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+
+            }
+                // Biopsy US vacuum assisted
+            else if ($("#ddlST").val() == 20) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+
+
+
+            }
+                // Cyst aspiration
+            else if ($("#ddlST").val() == 21) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+
+            }
+                // Ductogram (multiple)
+            else if ($("#ddlST").val() == 22) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+
+            }
+                // Ductogram (single)
+            else if ($("#ddlST").val() == 23) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+               $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+
+            }
+                // Dx main, additional views
+            else if ($("#ddlST").val() == 24) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // Film Comparison
+            else if ($("#ddlST").val() == 25) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // FNA by palpation
+            else if ($("#ddlST").val() == 26) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+               $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // Surgical Medical Consult
+            else if ($("#ddlST").val() == 44) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // CBE (Repeat or clinical correlation)
+            else if ($("#ddlST").val() == 45) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // FNA, ultrasound guided
+            else if ($("#ddlST").val() == 46) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+               $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // MRI
+            else if ($("#ddlST").val() == 56) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+               $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // Pap Test
+            else if ($("#ddlST").val() == 12) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "block")
+            }
+                // Pelvic Exam
+            else if ($("#ddlST").val() == 13) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // HPV
+            else if ($("#ddlST").val() == 14) {
+                //$("#CreateButton").css("display", "block"),
+                // $('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // Cold Knife Cone (CKC)
+            else if ($("#ddlST").val() == 27) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // Colposcopy w/o biopsy
+            else if ($("#ddlST").val() == 28) {
+                //$("#CreateButton").css("display", "block"),
+                // $('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // Endometrial Biopsy
+            else if ($("#ddlST").val() == 29) {
+                //$("#CreateButton").css("display", "block"),
+                // $('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // GYN Consult
+            else if ($("#ddlST").val() == 30) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // LEEP/LOOP
+            else if ($("#ddlST").val() == 32) {
+                //$("#CreateButton").css("display", "block"),
+                // $('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // Other biopsy - not colposcopic
+            else if ($("#ddlST").val() == 33) {
+                //$("#CreateButton").css("display", "block"),
+                // $('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "block"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // Other, Diagnostic
+            else if ($("#ddlST").val() == 34 || $("#ddlST").val() == 62) {
+                //$("#CreateButton").css("display", "block"),
+                // $('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "block"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // Poylp Removal
+            else if ($("#ddlST").val() == 35) {
+                //$("#CreateButton").css("display", "block"),
+                // $('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+                // Colposcopy with biopsy and or ECC
+            else if ($("#ddlST").val() == 41) {
+                //$("#CreateButton").css("display", "block"),
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#OtherScreeningMethodSection").css("display", "none"),
+                $("#ProcedureResultBinID").removeAttr("disabled"),
+                $("#PathExamSection").css("display", "none"),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+            else {
+                $('input[type="submit"]').attr('disabled', 'disabled'),
+                $("#ProcedureResultBinID").prop('disabled', 'disabled'),
+                $("#MamTypeSection").css("display", "none"),
+                $("#CBETypeSection").css("display", "none"),
+                $("#AdequacySpecimenSection").css("display", "none")
+            }
+
+
+        });
+
+    });
+
+
+    $(document).ready(function () {
+
+
+        $("#TranslationProvided").val('0');
+        $('#transPrLbl').hide();
+        $('#transPrDD').hide();
+
+
+        $("#AdequacyBinID").change(function () {
+            var iAdqBinID = $("#AdequacyBinID").val();
+            //alert(iAdqBinID + ' - adq');
+        });
+
+
+    });
+
+
+    (function ($) {
+        $.fn.extend({
+            detachOptions: function (o) {
+                var s = this;
+                return s.each(function () {
+                    var d = s.data('selectOptions') || [];
+                    s.find(o).each(function () {
+                        d.push($(this).detach());
+                    });
+                    s.data('selectOptions', d);
+                });
+            }, attachOptions: function (o) {
+                var s = this;
+                return s.each(function () {
+                    var d = s.data('selectOptions') || [];
+                    for (var i in d) {
+                        if (d[i].is(o)) {
+                            s.append(d[i]);
+                            //console.log(d[i]);
+                            // TODO: remove option from data array
+                        }
+                    }
+                });
+            }
+        });
+    })(jQuery);
+
+
+
+    $(function () {
+
+        var iIsUsingChrome = 0;
+        var isChromium = window.chrome,
+            vendorName = window.navigator.vendor;
+        if (isChromium !== null && isChromium !== undefined && vendorName === "Google Inc.") {
+            iIsUsingChrome = 1;
+        } else {
+            iIsUsingChrome = 0;
+        }
+        if (iIsUsingChrome == 1) {
+            for (var j = 0; j < 10; j++) {
+                $('#QualityPrepBinID').detachOptions('[value=' + j + ']');
+            }
+            $('#QualityPrepBinID').attachOptions('[value=5]');
+            $('#QualityPrepBinID').attachOptions('[value=6]');
+            $('#QualityPrepBinID').attachOptions('[value=7]');
+            $('#QualityPrepBinID').attachOptions('[value=4]');
+        }
+        else {
+            $('#QualityPrepBinID').detachOptions('[value=1]');
+            $('#QualityPrepBinID').detachOptions('[value=2]');
+            $('#QualityPrepBinID').detachOptions('[value=3]');
+        }
+
+    });
+
+    $(function () {
+
+        //$("#ddlST").change(function () {
+
+
+        //});
+
+
+        $("#ProviderSection").css("display", "none");
+        $("#FundingSourceSection").css("display", "block");
+        $("#ProviderID option[value=" + 1 + "]").attr("selected", "selected");
+
+        $('#FundingSourceBinID').detachOptions('[value=18]'),
+        $('#FundingSourceBinID').detachOptions('[value=19]');
+
+        $("#givenLabelSection").css("display", "none"),
+        $("#givenDDSection").css("display", "none");
+
+    });
+    $(function () {
+        $("#ProcedureDate").change(function () {
+            var dateString = $('#ProcedureDate').val(),
+            date = new Date(dateString);
+            var dateString2 = '@ViewBag.DOB';
+            date2 = new Date(dateString2);
+            var accAge = calculate_age(date2.getMonth(), date2.getDate(), date2.getFullYear(), date.getMonth(), date.getDate(), date.getFullYear());
+            $('#ProcedureAgeTxt').css("border", "none");
+            $('#ProcedureAgeTxt').prop('disabled', 'disabled');
+            $('#ProcedureAgeTxt').val(accAge);
+            $('#ProcedureAge').val(accAge);
+        });
+    });
+    $(function () {
+        $('input[id="pathReport"]').bind('change', function () {
+            if ($('input[id="pathReport"]').attr('checked')) {
+                $("#PathologyResultsSection").css("display", "block");
+            }
+            else {
+                $("#PathologyResultsSection").css("display", "none");
+            }
+        });
+    });
+
+
+    //Adequacy Unsatifactory Check
+    $(function () {
+        $("#AdequacyBinID").change(function () {
+            if ($("#AdequacyBinID").val() == 2) {
+                var newOption = $('<option value="338">Unsatisfactory</option>');
+                $('#ProcedureResultBinID').append(newOption);
+                $("#ProcedureResultBinID option[value=" + 338 + "]").attr("selected", "selected");
+                $('#ProcedureResultBinID').attr("disabled", "true");
+            }
+            else {
+                //var newOption = $('<option value="290">Abnormal - Not suspicious for cancer</option>');
+                //$('#ProcedureResultBinID').append(newOption);
+                //$("#ProcedureResultBinID option[value=" + 290 + "]").attr("selected", "selected");
+                //$('#ProcedureResultBinID').attr("disabled", "true");
+                $('#ProcedureResultBinID').removeAttr('disabled');
+            }
+        });
+    });
+    $(function () {
+        $('form').bind('submit', function () {
+            //alert('submission');
+            $('#ProcedureResultBinID').removeAttr('disabled');
+            //$(this).find(':input').removeAttr('disabled');
+        });
+    });
+    $(function () {
+       // $("#ProcedureResultBinID").prop('disabled', 'disabled');
+        $("#AdequateExamBinID").prop('disabled', 'disabled');
+        $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+        //$("#CecumReachedBinID").prop('disabled', 'disabled');
+    });
+    $(function () {
+
+
+        $("#QualityPrepBinID").change(function () {
+
+
+            if ($("#QualityPrepBinID").val() == 1 && $("#CecumReachedBinID").val() == 1) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 1 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 5 && $("#CecumReachedBinID").val() == 1) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 1 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 6 && $("#CecumReachedBinID").val() == 1) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 1 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 2 && $("#CecumReachedBinID").val() == 1) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 2 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 7 && $("#CecumReachedBinID").val() == 1) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 2 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 1 && $("#CecumReachedBinID").val() == 2) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 2 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 5 && $("#CecumReachedBinID").val() == 2) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 2 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 6 && $("#CecumReachedBinID").val() == 2) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 2 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 2 && $("#CecumReachedBinID").val() == 2) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 2 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 7 && $("#CecumReachedBinID").val() == 2) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 2 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 1 && $("#CecumReachedBinID").val() == 3) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 5 && $("#CecumReachedBinID").val() == 3) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 6 && $("#CecumReachedBinID").val() == 3) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 3 && $("#CecumReachedBinID").val() == 1) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 2 && $("#CecumReachedBinID").val() == 3) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 7 && $("#CecumReachedBinID").val() == 3) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 3 && $("#CecumReachedBinID").val() == 2) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 3 && $("#CecumReachedBinID").val() == 3) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 4 && $("#CecumReachedBinID").val() == 1) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 4 && $("#CecumReachedBinID").val() == 2) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 4 && $("#CecumReachedBinID").val() == 3) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 1 && $("#CecumReachedBinID").val() == '') {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 5 && $("#CecumReachedBinID").val() == '') {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 6 && $("#CecumReachedBinID").val() == '') {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 2 && $("#CecumReachedBinID").val() == '') {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 7 && $("#CecumReachedBinID").val() == '') {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 3 && $("#CecumReachedBinID").val() == '') {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == '' && $("#CecumReachedBinID").val() == '') {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == '' && $("#CecumReachedBinID").val() == 1) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == '' && $("#CecumReachedBinID").val() == 2) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == '' && $("#CecumReachedBinID").val() == 3) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+        });
+    });
+    $(function () {
+        $("#CecumReachedBinID").change(function () {
+            if ($("#QualityPrepBinID").val() == 1 && $("#CecumReachedBinID").val() == 1) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 1 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 5 && $("#CecumReachedBinID").val() == 1) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 1 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 6 && $("#CecumReachedBinID").val() == 1) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 1 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 2 && $("#CecumReachedBinID").val() == 1) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 2 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 7 && $("#CecumReachedBinID").val() == 1) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 2 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 1 && $("#CecumReachedBinID").val() == 2) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 2 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 5 && $("#CecumReachedBinID").val() == 2) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 2 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 6 && $("#CecumReachedBinID").val() == 2) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 2 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 2 && $("#CecumReachedBinID").val() == 2) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 2 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 7 && $("#CecumReachedBinID").val() == 2) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 2 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 1 && $("#CecumReachedBinID").val() == 3) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 5 && $("#CecumReachedBinID").val() == 3) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 6 && $("#CecumReachedBinID").val() == 3) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 3 && $("#CecumReachedBinID").val() == 1) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 2 && $("#CecumReachedBinID").val() == 3) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 7 && $("#CecumReachedBinID").val() == 3) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 3 && $("#CecumReachedBinID").val() == 2) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 3 && $("#CecumReachedBinID").val() == 3) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 4 && $("#CecumReachedBinID").val() == 1) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 4 && $("#CecumReachedBinID").val() == 2) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 4 && $("#CecumReachedBinID").val() == 3) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 1 && $("#CecumReachedBinID").val() == '') {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 5 && $("#CecumReachedBinID").val() == '') {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 6 && $("#CecumReachedBinID").val() == '') {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 2 && $("#CecumReachedBinID").val() == '') {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 7 && $("#CecumReachedBinID").val() == '') {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == 3 && $("#CecumReachedBinID").val() == '') {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == '' && $("#CecumReachedBinID").val() == 1) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == '' && $("#CecumReachedBinID").val() == 2) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == '' && $("#CecumReachedBinID").val() == 3) {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+            else if ($("#QualityPrepBinID").val() == '' && $("#CecumReachedBinID").val() == '') {
+                //$("#AdequateExamBinID").val() == 1;
+                $("#AdequateExamBinID option[value=" + 3 + "]").attr("selected", "selected");
+            }
+        });
+    });
+
+
+
+
+    //$(function () {
+    //    $("#ddlST").change(function () {
+
+    //    });
+    //});
+
+
+
+</script>
+
+
+<script type='text/javascript'>
+
+    $(function () {
+
+        $("#SubContractorID").change(function () {
+            if ($("#SubContractorID").val() == -1) {
+                $("#ProviderSection").css("display", "none");
+            }
+            else {
+                $("#ProviderSection").css("display", "block");
+            }
+            if ('@ViewBag.Program' == '20') {
+                // Hide Provider Section for WWC
+                $("#ProviderSection").css("display", "none");
+            }
+        });
+    });
+
+    var key = '@ViewBag.SubContractorID1';
+    var value = '@ViewBag.SubContractorName1';
+
+    $.getJSON('@Url.Action("GetSubContractors", "ScreenProcedures", new { id = ViewBag.Program, id2 = ViewBag.SiteID })', {}, function (subcontractors) {
+        var list = $('select#SubContractorID');
+        list.find('option').remove();
+        list.append($('<option/>', {
+            value: -1,
+            text: "Choose..."
+        }));
+        $(subcontractors).each(function (index, subcontractor) {
+            list.append('<option value="' + subcontractor.SubContractorID + '">' + subcontractor.SubContractorName + '</option>');
+            // $("#SubContractorID option[value=" + key + "]").attr("selected", "selected");
+            $("#SubContractorID").select2({ width: "100%" }).select2('val', key);
+        });
+
+    });
+
+</script>
+
+
+<script type="text/javascript">
+
+
+    //$(document).ready(function () {
+    $("#SubContractorID").change(function () {
+        var id = $(this).val();
+        var id2 = '@ViewBag.Program'
+        $.getJSON('@Url.Action("GetProviders", "ScreenProcedures")', { SubContractorID: id, Program: id2 },
+        function (data) {
+            var select = $("#ProviderID");
+            select.empty();
+            select.append($('<option/>', {
+                value: -1,
+                text: "Choose..."
+            }));
+            $.each(data, function (index, data) {
+
+                select.append($('<option/>', {
+                    value: data.Id,
+                    text: data.Name
+                }));
+            });
+
+        });
+    });
+
+
+
+    $('#ScreenProcedureUpdateForm').on("submit", function (evt) {
+        evt.preventDefault();
+        if ($('#ScreenProcedureUpdateForm').valid()) {
+            //  $("#SaveExitButton").prop("disabled", true);
+            $.ajax({
+                url: $("#ScreenProcedureUpdateForm").attr('action'),
+                type: $("#ScreenProcedureUpdateForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#ScreenProcedureUpdateForm").serialize(),
+                success: function (data) {
+
+                    var clientid = data.Modified;
+                    var screeningid = data.Modified2;
+
+
+                    $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ScreeningID })');
+
+                    // Reset Fields
+
+                    $('#AccGlowContainer').removeClass("glowdiv");
+                    $("#txtSearch").removeAttr("disabled", "disabled");
+                    $('#EditMessageContainer').css("display", "none");
+                    $('#ScreeningToolbarContainer').css("display", "block");
+                    $('#FooterMenuBarContainer').css("display", "block");
+
+                    $('#HomeLinkContainer').css("display", "block");
+                    $('#HomeNoLinkContainer').css("display", "none");
+
+                    $("#ClientButton").removeAttr("disabled", "disabled");
+                    $("#ClientButton").css("opacity", "1.0");
+
+                    $("#ScreeningButton").removeAttr("disabled", "disabled");
+                    $("#ScreeningButton").css("opacity", "1.0");
+
+                    $("#EnrollmentEdit0Button").removeAttr("disabled", "disabled");
+                    $("#EnrollmentEdit0Button").css("opacity", "1.0");
+
+                    $("#DiagnosticProcedureEditButton").removeAttr("disabled", "disabled");
+                    $("#DiagnosticProcedureEditButton").css("opacity", "1.0");
+
+                    $("#CaseManagementEditButton").removeAttr("disabled", "disabled");
+                    $("#CaseManagementEditButton").css("opacity", "1.0");
+
+                    $("#FinalDiagnosisEditButton").removeAttr("disabled", "disabled");
+                    $("#FinalDiagnosisEditButton").css("opacity", "1.0");
+
+
+                    $('#ProfileButtonDown').css("display", "block");
+                    $("#ProfileButtonDown").css("opacity", "1.0");
+
+                    $("#ClientHistoryButton").removeAttr("disabled", "disabled");
+                    $("#ClientHistoryButton").css("opacity", "1.0");
+
+                    $("#SmallProfileButton").removeAttr("disabled", "disabled");
+                    $("#SmallProfileButton").css("opacity", "1.0");
+
+                    $("#SmallScreeningButton").removeAttr("disabled", "disabled");
+                    $("#SmallScreeningButton").css("opacity", "1.0");
+
+                    $("#SmallEnrollmentButton").removeAttr("disabled", "disabled");
+                    $("#SmallEnrollmentButton").css("opacity", "1.0");
+
+                    $("#SmallLocationButton").removeAttr("disabled", "disabled");
+                    $("#SmallLocationButton").css("opacity", "1.0");
+
+                    $("#ClientEditButton").removeAttr("disabled", "disabled");
+                    $("#ClientEditButton").css("opacity", "1.0");
+
+                    $("#EnrollmentEditButton").removeAttr("disabled", "disabled");
+                    $("#EnrollmentEditButton").css("opacity", "1.0");
+
+                    $("#MedicalHistoryEditButton").removeAttr("disabled", "disabled");
+                    $("#MedicalHistoryEditButton").css("opacity", "1.0");
+
+
+                }
+            });
+        }
+
+    });
+
+
+
+</script>

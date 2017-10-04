@@ -1,0 +1,152 @@
+﻿@model IEnumerable<eCaST.ViewModels.MessageViewModel>
+
+@{
+    ViewBag.Title = "Screening Messages";
+}
+
+
+
+
+
+<div style="height: 250px; width:100%; overflow: scroll; overflow-y: auto; overflow-x: hidden; padding: 0px; margin: 0px">
+
+    <div>
+
+
+        @if (@ViewBag.MessageCount == 0)
+        {
+            <table>
+                <tr>
+                    <td style="width:10%">
+
+
+
+                        <span style="font-size:20px; color:#57ba22" class="glyphicon glyphicon-ok"></span>
+
+                    </td>
+
+                    <td>
+
+
+                        <i>This Screening has met the coverage rules.</i>
+
+
+                    </td>
+                </tr>
+            </table>
+
+        }
+        else
+        {
+
+
+
+
+            foreach (var item in Model)
+            {
+
+
+                <div class="alert alert-warning">
+                    <div class="row">
+                        <div class="col-md-1">
+
+
+                            <span style="font-size:20px; color:#ff6a00" class="glyphicon glyphicon-warning-sign"></span>
+
+                        </div>
+                        <div class="col-md-11">
+
+
+                            @if (item.Controller == "Screenings")
+                            {
+
+
+
+
+                                <a title="@item.MessageName-Click link to resolve" id="messageLink_@item.MessageID" style="word-wrap:break-word" href='@Url.Action(item.Action, item.Controller, new { id = item.OfficeVisitID, id2 = item.ScreeningGuidID, id3 = item.SiteID, id4 = item.EnrollmentID, id5 = item.ScreeningID, id6 = item.Pending, id7 = item.ScreenType, id8 = item.ClinicalCycleID, id9 = item.OVScreenType, id10 = item.MessageID, id11 = item.MessageID })'>@item.MessageName &nbsp; <i>- Click link to resolve</i></a>
+
+
+
+                            }
+                            else if (item.Controller == "ScreenProcedures")
+                            {
+
+
+
+
+                                <a title="@item.MessageName-Click link to resolve" id="messageLink_@item.MessageID" style="word-wrap:break-word" href='@Url.Action(item.Action, item.Controller, new { id = item.OfficeVisitID, id2 = item.ScreeningGuidID, id3 = item.SiteID, id4 = item.EnrollmentID, id5 = item.ScreeningID, id6 = item.Pending, id7 = item.ScreenType, id8 = item.ClinicalCycleID, id9 = item.OVScreenType, id10 = item.MessageID, id11 = item.MessageID })'>@item.MessageName &nbsp; <i>- Click link to resolve</i></a>
+
+
+                            }
+                            else if (item.Controller == "Clients")
+                            {
+
+
+
+
+
+                                <a title="@item.MessageName-Click link to resolve" id="messageLink_@item.MessageID" style="word-wrap:break-word" href='@Url.Action(item.Action, item.Controller, new { id = item.ClientID, id2 = item.MessageID })'>@item.MessageName &nbsp; <i>- Click link to resolve</i></a>
+
+
+                            }
+                            else
+                            {
+
+
+
+                                <a title="@item.MessageName-Click link to resolve" id="messageLink_@item.MessageID" style="word-wrap:break-word" href='@Url.Action(item.Action, item.Controller, new { id = item.ClientID, id2 = item.MessageID })'>@item.MessageName &nbsp; <i>- Click link to resolve</i></a>
+
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+
+                <script type="text/javascript">
+
+                    $(function () {
+
+
+
+                        var linkText = $("#messageLink_@item.MessageID").text();
+                        if (linkText.length > 80) {
+                            $("#messageLink_@item.MessageID").text(linkText.substring(0, 80) + " ...");
+                        }
+
+
+
+                        $('#myTab a').click(function (e) {
+                            e.preventDefault()
+                            $(this).tab('show')
+
+                        });
+
+                    });
+
+
+                </script>
+
+
+
+
+            }
+
+
+
+
+
+
+
+        }
+
+    </div>
+
+</div>
+
+
+

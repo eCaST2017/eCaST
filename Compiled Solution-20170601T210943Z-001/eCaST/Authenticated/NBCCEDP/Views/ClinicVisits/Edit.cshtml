@@ -1,0 +1,1165 @@
+﻿@model eCaST.ViewModels.ClinicVisitViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+
+
+<style type="text/css">
+    .error a {
+        background-color: #d9ffff !important;
+        border: 1px solid #ccc !important;
+        width: 100%;
+        color: #666 !important;
+    }
+
+
+    .errorBG {
+        background-color: green;
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f4f4', endColorstr='#eeeeee', GradientType=0 );
+        background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(20%, #f4f4f4), color-stop(50%, #f0f0f0), color-stop(52%, #e8e8e8), color-stop(100%, #eeeeee));
+        background-image: -webkit-linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+        background-image: -moz-linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+        background-image: -o-linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+        background-image: -ms-linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+        background-image: linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+        -webkit-box-shadow: 0 0 2px #ffffff inset, 0 1px 0 rgba(0,0,0,0.05);
+        -moz-box-shadow: 0 0 2px #ffffff inset, 0 1px 0 rgba(0,0,0,0.05);
+        box-shadow: 0 0 2px #ffffff inset, 0 1px 0 rgba(0,0,0,0.05);
+        color: #333;
+        border: 1px solid #aaaaaa;
+    }
+
+
+    .error {
+        color: green;
+    }
+</style>
+
+@using (Html.BeginForm("_EditClinicVisitF", "ClinicVisits", FormMethod.Post, new { id = "EditClinicVisitForm" }))
+{
+
+
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.VisitID)
+    @Html.Hidden("PersonID", (int?)ViewBag.PersonID)
+    @Html.Hidden("MedicalProcedures")
+    @Html.Hidden("Counseling")
+    @Html.Hidden("LabProcedures")
+    @Html.Hidden("Referral")
+    @*@Html.Hidden("Supplies")*@
+    @Html.Hidden("SiteIDValue")
+
+    @*<div align="right"><button id="TopEditCloseButton" type="button" class="btn btn-default" data-dismiss="modal">Close Window</button></div>
+        <br />*@
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span style="color:#ff6a00"><i class="fa fa-pencil fa-fw"></i> Visit Information</span>
+
+        </div>
+        <div class="panel-body">
+
+
+
+            <div class="row">
+
+
+                <div class="col-md-2">
+
+                    @Html.LabelFor(model => model.SiteID, "Location")
+
+                </div>
+                <div class="col-md-4">
+
+                    @*@Html.EditorFor(model => model.SiteID, new { htmlAttributes = new { @class = "form-control" } })*@
+
+
+
+                    @Html.DropDownList("SiteID", null, new { @id = "SiteID" })
+
+                    @Html.ValidationMessageFor(model => model.SiteID, "", new { @class = "text-danger" })
+
+                </div>
+
+
+                <div class="col-md-2">
+
+                    @Html.LabelFor(model => model.DateVisit, "Visit Date")
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group has-success has-feedback">
+                        @Html.EditorFor(model => model.DateVisit, new { htmlAttributes = new { @class = "form-control", @placeholder = "Date of Visit" } })
+                        @Html.ValidationMessageFor(model => model.DateVisit, "", new { @class = "text-danger" })
+                        <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+            <br />
+
+            <div class="row">
+
+                <div class="col-md-2">
+
+                    @Html.LabelFor(model => model.ProviderTypeID, "Provider Type")
+
+                </div>
+                <div class="col-md-4">
+
+                    @*@Html.EditorFor(model => model.ProviderTypeID, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.DropDownListFor(model => model.ProviderTypeID, ((IEnumerable<eCaST.Models.DD_ProviderType>)ViewBag.PossibleProviderTypeBins).Select(option => new SelectListItem
+            {
+                //Text = Html.DisplayTextFor(_ => option).ToString(),
+                Text = option.Description,
+                Value = option.ID.ToString(),
+                Selected = (Model != null) && (option.ID == Model.ProviderTypeID)
+            }), "Choose...", new { @id = "ProviderTypeID", @class = "input-control select" })
+                    @Html.ValidationMessageFor(model => model.ProviderTypeID, "", new { @class = "text-danger" })
+
+                </div>
+
+
+
+                <div style="display:none" class="col-md-2">
+
+                    @Html.LabelFor(model => model.ClinicVisitTypeID1, "Primary Visit Type")
+
+                </div>
+                <div style="display:none" class="col-md-4">
+
+                    @*@Html.EditorFor(model => model.ClinicVisitTypeID1, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.DropDownListFor(model => model.ClinicVisitTypeID1, ((IEnumerable<eCaST.Models.DD_ClinicVisitTypes>)ViewBag.PossibleClinicVisitTypeBins).Select(option => new SelectListItem
+            {
+                //Text = Html.DisplayTextFor(_ => option).ToString(),
+                Text = option.Description,
+                Value = option.ID.ToString(),
+                Selected = (Model != null) && (option.ID == Model.ClinicVisitTypeID1)
+            }), "Choose...", new { @id = "ClinicVisitTypeID1", @class = "input-control select" })
+                    @Html.ValidationMessageFor(model => model.ClinicVisitTypeID1, "", new { @class = "text-danger" })
+
+                </div>
+
+
+            </div>
+
+            <br />
+            <div id="SecondaryVisitContainer" style="display:none" class="row">
+
+
+                <div class="col-md-2">
+
+                    @Html.LabelFor(model => model.ClinicVisitTypeID2, "Secondary Visit Type")
+
+                </div>
+                <div class="col-md-4">
+
+                    @*@Html.EditorFor(model => model.ClinicVisitTypeID1, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.DropDownListFor(model => model.ClinicVisitTypeID2, ((IEnumerable<eCaST.Models.DD_ClinicVisitTypes>)ViewBag.PossibleClinicVisitTypeBins).Select(option => new SelectListItem
+            {
+                //Text = Html.DisplayTextFor(_ => option).ToString(),
+                Text = option.Description,
+                Value = option.ID.ToString(),
+                Selected = (Model != null) && (option.ID == Model.ClinicVisitTypeID2)
+            }), "Choose...", new { @id = "ClinicVisitTypeID2", @class = "input-control select" })
+                    @Html.ValidationMessageFor(model => model.ClinicVisitTypeID2, "", new { @class = "text-danger" })
+
+                </div>
+
+                <div class="col-md-2">
+
+                    @Html.LabelFor(model => model.ClinicVisitTypeID3, "Terciary Visit Type")
+
+                </div>
+                <div class="col-md-4">
+
+                    @*@Html.EditorFor(model => model.ClinicVisitTypeID1, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.DropDownListFor(model => model.ClinicVisitTypeID3, ((IEnumerable<eCaST.Models.DD_ClinicVisitTypes>)ViewBag.PossibleClinicVisitTypeBins).Select(option => new SelectListItem
+            {
+                //Text = Html.DisplayTextFor(_ => option).ToString(),
+                Text = option.Description,
+                Value = option.ID.ToString(),
+                Selected = (Model != null) && (option.ID == Model.ClinicVisitTypeID3)
+            }), "Choose...", new { @id = "ClinicVisitTypeID3", @class = "input-control select" })
+                    @Html.ValidationMessageFor(model => model.ClinicVisitTypeID3, "", new { @class = "text-danger" })
+
+                </div>
+
+
+            </div>
+            <br />
+
+            <div class="row">
+
+
+                <div class="col-md-2">
+
+                    @Html.LabelFor(model => model.BeforeContraceptionTypeID, "Contraceptive Before")
+
+                </div>
+                <div class="col-md-4">
+
+
+                    @Html.DropDownListFor(model => model.BeforeContraceptionTypeID, ((IEnumerable<eCaST.Models.DD_ContraceptiveTypes>)ViewBag.PossibleContraceptiveTypeBins).Select(option => new SelectListItem
+            {
+                //Text = Html.DisplayTextFor(_ => option).ToString(),
+                Text = option.Description,
+                Value = option.ID.ToString(),
+                Selected = (Model != null) && (option.ID == Model.BeforeContraceptionTypeID)
+            }), "Choose...", new { @id = "BeforeContraceptiveTypeID", @class = "input-control select" })
+                    @Html.ValidationMessageFor(model => model.BeforeContraceptionTypeID, "", new { @class = "text-danger" })
+
+                </div>
+
+
+                <div class="col-md-2">
+
+                    @Html.LabelFor(model => model.AfterContraceptionTypeID, "Contraceptive After")
+
+                </div>
+                <div class="col-md-4">
+
+
+                    @Html.DropDownListFor(model => model.AfterContraceptionTypeID, ((IEnumerable<eCaST.Models.DD_ContraceptiveTypes>)ViewBag.PossibleContraceptiveTypeBins).Select(option => new SelectListItem
+            {
+                //Text = Html.DisplayTextFor(_ => option).ToString(),
+                Text = option.Description,
+                Value = option.ID.ToString(),
+                Selected = (Model != null) && (option.ID == Model.AfterContraceptionTypeID)
+            }), "Choose...", new { @id = "AfterContraceptiveTypeID", @class = "input-control select" })
+                    @Html.ValidationMessageFor(model => model.AfterContraceptionTypeID, "", new { @class = "text-danger" })
+
+                </div>
+
+
+            </div>
+            <br />
+
+
+        </div>
+    </div>
+
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span style="color:#3867c0"><i class="fa fa-pencil fa-fw"></i> Visit Procedures</span>
+
+        </div>
+        <div class="panel-body">
+
+
+            <div class="row">
+
+
+                <div class="col-md-2">
+
+
+                    Medical Procedures
+
+                </div>
+
+                <div class="col-md-8">
+
+                    <div class="input-group btn-group">
+
+
+                        @Html.DropDownList("testMP", (SelectList)ViewData["OptionListMP"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+                        <input type="hidden" id="selectedIDsMP" />
+
+
+                    </div>
+
+                </div>
+                <div id="MPCheck" style="display:none" class=" col-md-2"><span style="font-size:x-large;color:green" class="glyphicon glyphicon-ok"></span>*Qualifying</div>
+
+            </div>
+            <br />
+
+            <div class="row">
+
+
+                <div class="col-md-2">
+
+
+                    Counseling
+
+                </div>
+
+                <div class="col-md-8">
+
+                    <div class="input-group btn-group">
+
+
+                        @Html.DropDownList("testCOU", (SelectList)ViewData["OptionListCOU"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+                        <input type="hidden" id="selectedIDsCOU" />
+
+
+                    </div>
+
+                </div>
+                <div id="COUCheck" style="display:none" class=" col-md-2"><span style="font-size:x-large;color:green" class="glyphicon glyphicon-ok"></span>*Qualifying</div>
+
+            </div>
+            <br />
+
+
+            <div class="row">
+
+
+                <div class="col-md-2">
+
+
+                    Lab Procedures
+
+                </div>
+
+                <div class="col-md-8">
+
+                    <div class="input-group btn-group">
+
+
+                        @Html.DropDownList("testLAB", (SelectList)ViewData["OptionListLAB"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+                        <input type="hidden" id="selectedIDsLAB" />
+
+
+                    </div>
+
+                </div>
+                <div id="LABCheck" style="display:none" class=" col-md-2"><span style="font-size:x-large;color:green" class="glyphicon glyphicon-ok"></span>*Qualifying</div>
+
+            </div>
+            <br />
+            <div class="row">
+
+
+                <div class="col-md-2">
+
+
+                    Referral
+
+                </div>
+
+                <div class="col-md-8">
+
+                    <div class="input-group btn-group">
+
+
+                        @Html.DropDownList("testREF", (SelectList)ViewData["OptionListREF"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+                        <input type="hidden" id="selectedIDsREF" />
+
+
+                    </div>
+
+                </div>
+                <div id="REFCheck" style="display:none" class=" col-md-2"><span style="font-size:x-large;color:green" class="glyphicon glyphicon-ok"></span>*Qualifying</div>
+
+            </div>
+            <br />
+
+            @*<div class="row">
+
+
+                <div class="col-md-2">
+
+
+                    Supplies
+
+                </div>
+
+                <div class="col-md-8">
+
+                    <div class="input-group btn-group">
+
+
+                        @Html.DropDownList("testSUP", (SelectList)ViewData["OptionListSUP"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+                        <input type="hidden" id="selectedIDsSUP" />
+
+
+                    </div>
+
+                </div>
+                <div id="SUPCheck" style="display:none" class=" col-md-2"><span style="font-size:x-large;color:green" class="glyphicon glyphicon-ok"></span>*Qualifying</div>
+
+            </div>*@
+
+
+
+
+        </div>
+    </div>
+
+
+
+    <div class="modal-footer">
+
+        @*<button id="EditCloseButton" type="button" class="btn btn-default" data-dismiss="modal">Close Window</button>*@
+        <a id="CloseEditCVButton" class="btn btn-default">Cancel</a>  <button type="submit" id="EditVisitButton" class="btn btn-success">Save</button>
+    </div>
+
+
+
+}
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+
+        $("#SiteID").select2({ width: "100%" });
+        $("#SiteID").select2('val', '@Model.SiteID');
+        $("#ProviderTypeID").select2({ width: "100%" });
+     //   $("#ClinicVisitTypeID1").select2({ width: "100%" });
+        $("#BeforeContraceptiveTypeID").select2({ width: "100%" });
+        $("#AfterContraceptiveTypeID").select2({ width: "100%" });
+        // $("#DateVisit").kendoDatePicker();
+        $('#DateVisit').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            maxDate: new Date
+
+        });
+
+
+        var data = '@ViewBag.OptionsMP';
+
+        //Make an array
+        var dataarray = data.split(",");
+
+        // Set the value
+        $("#testMP").val(dataarray);
+        $('#selectedIDsMP').val(dataarray);
+
+        var testMP = $('#testMP');
+        $(testMP).select2({
+
+            width: "300px",
+            // containerCssClass: "error"
+        });
+
+
+       // document.getElementById("testMP").onchange = function () {
+        $("#testMP").on('change', function(){
+
+            var ids = $(testMP).val();
+            $('#selectedIDsMP').val(ids);
+
+
+            var x = [];
+            $('#testMP :selected').each(function (i, selected) {
+
+                x.push($(selected).text());
+
+            });
+
+            var count = 0;
+            var i, currentElem;
+            for (i = 0, l = x.length; i < l; i++) {
+
+                currentElem = x[i];
+
+                if (currentElem.indexOf('*') > -1) {
+
+                    count = count + 1;
+
+                }
+
+
+               // alert(x);
+               // alert(count);
+
+                if (count > 0) {
+
+                    $("#MPCheck").css("display", "block");
+
+                }
+                else {
+
+                    $("#MPCheck").css("display", "none");
+
+                }
+
+
+                if (count == 0) {
+
+                    $("#MPCheck").css("display", "none");
+
+                }
+
+
+                if (x === 0) {
+
+                    $("#MPCheck").css("display", "none");
+
+
+                }
+
+
+
+            }
+            if ($("#selectedIDsMP").val() == "") {
+
+                $("#MPCheck").css("display", "none");
+
+            }
+
+        });
+
+        $('#testMP option').each(function () {
+
+            if ($(this).text().indexOf('*') > -1) {
+
+
+
+
+                //alert($(this).text());
+                 $(this).select2("container").addClass("error");
+
+            }
+
+
+        });
+
+
+        $('#testMP').on("select2:unselecting", function (e) {
+
+
+            var unselected_value = $('#testMP').val();
+
+
+            alert(unselected_value);
+
+
+        }).trigger('change');
+
+
+
+
+        var dataCOU = '@ViewBag.OptionsCOU';
+
+        //Make an array
+        var dataarrayCOU = dataCOU.split(",");
+
+        // Set the value
+        $("#testCOU").val(dataarrayCOU);
+        $('#selectedIDsCOU').val(dataarrayCOU);
+
+        var testCOU = $('#testCOU');
+        $(testCOU).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testCOU").onchange = function () {
+
+            var idsCOU = $(testCOU).val();
+            $('#selectedIDsCOU').val(idsCOU);
+
+            var x = [];
+            $('#testCOU :selected').each(function (i, selected) {
+
+                x.push($(selected).text());
+
+            });
+
+            var count = 0;
+            var i, currentElem;
+            for (i = 0, l = x.length; i < l; i++) {
+
+                currentElem = x[i];
+
+                if (currentElem.indexOf('*') > -1) {
+
+                    count = count + 1;
+
+                }
+
+
+                if (count > 0) {
+
+                    $("#COUCheck").css("display", "block");
+
+                }
+                else {
+
+                    $("#COUCheck").css("display", "none");
+
+                }
+
+
+                if (count == 0) {
+
+                    $("#COUCheck").css("display", "none");
+
+                }
+
+
+                if (x === 0) {
+
+                    $("#COUCheck").css("display", "none");
+
+
+                }
+
+
+
+            }
+
+            if ($("#selectedIDsCOU").val() == "") {
+
+                $("#COUCheck").css("display", "none");
+
+            }
+
+        };
+
+
+        $('#testCOU option').each(function () {
+
+            if ($(this).text().indexOf('*') > -1) {
+
+
+                //alert($(this).text());
+                $(this).select2("container").addClass("error");
+
+            }
+
+
+        });
+
+
+        var dataLAB = '@ViewBag.OptionsLAB';
+
+        //Make an array
+        var dataarrayLAB = dataLAB.split(",");
+
+        // Set the value
+        $("#testLAB").val(dataarrayLAB);
+        $('#selectedIDsLAB').val(dataarrayLAB);
+
+        var testLAB = $('#testLAB');
+        $(testLAB).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testLAB").onchange = function () {
+
+            var idsLAB = $(testLAB).val();
+            $('#selectedIDsLAB').val(idsLAB);
+
+            var x = [];
+            $('#testLAB :selected').each(function (i, selected) {
+
+                x.push($(selected).text());
+
+            });
+
+            var count = 0;
+            var i, currentElem;
+            for (i = 0, l = x.length; i < l; i++) {
+
+                currentElem = x[i];
+
+                if (currentElem.indexOf('*') > -1) {
+
+                    count = count + 1;
+
+                }
+
+
+                if (count > 0) {
+
+                    $("#LABCheck").css("display", "block");
+
+                }
+                else {
+
+                    $("#LABCheck").css("display", "none");
+
+                }
+
+
+                if (count == 0) {
+
+                    $("#LABCheck").css("display", "none");
+
+                }
+
+
+                if (x === 0) {
+
+                    $("#LABCheck").css("display", "none");
+
+
+                }
+
+
+
+            }
+
+            if ($("#selectedIDsLAB").val() == "") {
+
+                $("#LABCheck").css("display", "none");
+
+            }
+
+
+        };
+
+
+        $('#testLAB option').each(function () {
+
+            if ($(this).text().indexOf('*') > -1) {
+
+
+                //alert($(this).text());
+                $(this).select2("container").addClass("error");
+
+            }
+
+
+        });
+
+
+
+        var dataREF = '@ViewBag.OptionsREF';
+
+        //Make an array
+        var dataarrayREF = dataREF.split(",");
+
+        // Set the value
+        $("#testREF").val(dataarrayREF);
+        $('#selectedIDsREF').val(dataarrayREF);
+
+        var testREF = $('#testREF');
+        $(testREF).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testREF").onchange = function () {
+
+            var idsREF = $(testREF).val();
+            $('#selectedIDsREF').val(idsREF);
+
+
+            var x = [];
+            $('#testREF :selected').each(function (i, selected) {
+
+                x.push($(selected).text());
+
+            });
+
+            var count = 0;
+            var i, currentElem;
+            for (i = 0, l = x.length; i < l; i++) {
+
+                currentElem = x[i];
+
+                if (currentElem.indexOf('*') > -1) {
+
+                    count = count + 1;
+
+                }
+
+
+                if (count > 0) {
+
+                    $("#REFCheck").css("display", "block");
+
+                }
+                else {
+
+                    $("#REFCheck").css("display", "none");
+
+                }
+
+
+                if (count == 0) {
+
+                    $("#REFCheck").css("display", "none");
+
+                }
+
+
+                if (x === 0) {
+
+                    $("#REFCheck").css("display", "none");
+
+
+                }
+
+
+
+            }
+            if ($("#selectedIDsREF").val() == "") {
+
+                $("#REFCheck").css("display", "none");
+
+            }
+
+        };
+
+        $('#testREF option').each(function () {
+
+            if ($(this).text().indexOf('*') > -1) {
+
+
+                //alert($(this).text());
+                $(this).select2("container").addClass("error");
+
+            }
+
+
+        });
+
+        @*var dataSUP = '@ViewBag.OptionsSUP';
+
+        //Make an array
+        var dataarraySUP = dataSUP.split(",");
+
+        // Set the value
+        $("#testSUP").val(dataarraySUP);
+        $('#selectedIDsSUP').val(dataarraySUP);
+
+        var testSUP = $('#testSUP');
+        $(testSUP).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testSUP").onchange = function () {
+
+            var idsSUP = $(testSUP).val();
+            $('#selectedIDsSUP').val(idsSUP);
+
+            var x = [];
+            $('#testSUP :selected').each(function (i, selected) {
+
+                x.push($(selected).text());
+
+            });
+
+            var count = 0;
+            var i, currentElem;
+            for (i = 0, l = x.length; i < l; i++) {
+
+                currentElem = x[i];
+
+                if (currentElem.indexOf('*') > -1) {
+
+                    count = count + 1;
+
+                }
+
+
+                if (count > 0) {
+
+                    $("#SUPCheck").css("display", "block");
+
+                }
+                else {
+
+                    $("#SUPCheck").css("display", "none");
+
+                }
+
+
+                if (count == 0) {
+
+                    $("#SUPCheck").css("display", "none");
+
+                }
+
+
+                if (x === 0) {
+
+                    $("#SUPCheck").css("display", "none");
+
+
+                }
+
+
+
+            }
+
+
+
+
+        };
+
+
+        $('#testSUP option').each(function () {
+
+            if ($(this).text().indexOf('*') > -1) {
+
+
+                //alert($(this).text());
+                $(this).select2("container").addClass("error");
+
+            }
+
+
+        });*@
+
+
+    });
+
+    $(function () {
+
+
+        var value = $('select#ClinicVisitTypeID1 option:selected').val();
+
+        if (value == 1) {
+
+
+            $("#SecondaryVisitContainer").css("display", "block");
+            $("#ClinicVisitTypeID2").select2({ width: "100%" });
+            $("#ClinicVisitTypeID3").select2({ width: "100%" });
+
+        }
+        else {
+
+            $("#SecondaryVisitContainer").css("display", "none");
+
+        }
+
+
+    });
+
+    $("#ClinicVisitTypeID1").click(function () {
+
+   var value = $('select#ClinicVisitTypeID1 option:selected').val();
+
+    if (value == 1) {
+
+
+     $("#SecondaryVisitContainer").css("display", "block");
+     $("#ClinicVisitTypeID2").select2({ width: "100%" });
+     $("#ClinicVisitTypeID3").select2({ width: "100%" });
+
+       }
+       else {
+
+       $("#SecondaryVisitContainer").css("display", "none");
+
+        }
+
+
+          });
+
+
+
+    $("#CloseEditCVButton").click(function () {
+
+        $('#ClinicVisitContainer').load('@Url.Action("Index", "ClinicVisits", new { id = @Model.PersonID })');
+
+    });
+
+
+
+    $(function () {
+
+        $("#EditVisitButton").click(function (e) {
+
+
+
+            // Add Procedures
+
+            //Add Medical Procedures
+            var outMP = document.getElementById('selectedIDsMP').value;
+            document.getElementById("MedicalProcedures").value = outMP;
+
+            //Add Counseling
+            var outCOU = document.getElementById('selectedIDsCOU').value;
+            document.getElementById("Counseling").value = outCOU;
+
+            //Add Lab Procedures
+            var outLAB = document.getElementById('selectedIDsLAB').value;
+            document.getElementById("LabProcedures").value = outLAB;
+
+            //Add Referral
+            var outREF = document.getElementById('selectedIDsREF').value;
+            document.getElementById("Referral").value = outREF;
+
+            //Add Supplies
+            //var outSUP = document.getElementById('selectedIDsSUP').value;
+            //document.getElementById("Supplies").value = outSUP;
+
+            //Set Site ID
+            var outSI = document.getElementById('SiteID').value;
+            document.getElementById("SiteIDValue").value = outSI;
+
+            // Form Validation
+
+            var iCurDVDate = $("#DateVisit").val();
+            var iCurDate = new Date();
+
+
+            var iStopSub = 0;
+            var sErr = "Please correct the following issues:\n\n";
+
+
+            iDVDateLen = iCurDVDate.length;
+            if (iDVDateLen < 1) {
+                iStopSub = 1;
+                sErr += "You must enter a Visit Date" + "\n";
+            }
+
+            if (new Date(iCurDVDate).getTime() > new Date(iCurDate).getTime()) {
+                iStopSub = 1;
+                sErr += "-You cannot enter a visit date in the future\n";
+            }
+
+            var iSiteID = $("#SiteID option:selected").val();
+
+            if (iSiteID < 1) {
+                iStopSub = 1;
+                sErr += "You must enter a Default Site" + "\n";
+
+            }
+
+
+
+            var iProviderTypeID = $("#ProviderTypeID option:selected").val();
+
+            if (iProviderTypeID < 1) {
+                iStopSub = 1;
+                sErr += "You must enter a Provider Type" + "\n";
+
+            }
+
+
+            //var iClinicVisitTypeID1 = $("#ClinicVisitTypeID1 option:selected").val();
+
+            //if (iClinicVisitTypeID1 < 1) {
+            //    iStopSub = 1;
+            //    sErr += "You must enter a Clinic Visit Type" + "\n";
+
+            //}
+
+
+            var value = $('select#ClinicVisitTypeID1 option:selected').val();
+
+            if (value == 1) {
+
+
+                var iClinicVisitTypeID2ID = $("#ClinicVisitTypeID2 option:selected").val();
+
+                if (iClinicVisitTypeID2ID < 1) {
+                    iStopSub = 1;
+                    sErr += "You must enter Type of Secondary Clinic Visit Type" + "\n";
+
+                }
+
+
+            }
+
+            var iBeforeContraceptionTypeID = $("#BeforeContraceptiveTypeID option:selected").val();
+
+            if (iBeforeContraceptionTypeID < 1) {
+                iStopSub = 1;
+                sErr += "You must enter a Before Contraceptive" + "\n";
+
+            }
+
+            var iAfterContraceptionTypeID = $("#AfterContraceptiveTypeID option:selected").val();
+
+            if (iAfterContraceptionTypeID < 1) {
+                iStopSub = 1;
+                sErr += "You must enter a After Contraceptive" + "\n";
+
+            }
+
+            var iselectedIDsMP = $("#selectedIDsMP").val();
+            iselectedIDsMPLen = iselectedIDsMP.length;
+
+            var iselectedIDsCOU = $("#selectedIDsCOU").val();
+            iselectedIDsCOULen = iselectedIDsCOU.length;
+
+            if (iselectedIDsMPLen < 1 && iselectedIDsCOULen < 1) {
+                iStopSub = 1;
+                sErr += "-You must enter at least 1 Medical Procedure or Counseling Procedure" + "\n";
+            }
+
+            //if ($("#selectedIDsMP").val() == "") {
+            //    iStopSub = 1;
+            //    sErr += "-You must enter at least 1 Medical Procedure" + "\n";
+            //}
+
+
+            if (iStopSub != 0) {
+                alert(sErr);
+                e.preventDefault();
+            }
+
+
+        });
+
+
+        $('#EditClinicVisitForm').on("submit", function (e) {
+            e.preventDefault();
+
+            $.ajax({
+
+                url: $("#EditClinicVisitForm").attr('action'),
+                type: $("#EditClinicVisitForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#EditClinicVisitForm").serialize(),
+                success: function (data) {
+
+                    var userid = data.Modified;
+                    var firstname = data.Modified2;
+                    var lastname = data.Modified3;
+
+
+                    $('#ClinicVisitContainer').load('@Url.Action("Index", "ClinicVisits")', { id: userid });
+                            toastr.success('You have successfully created a clinic visit for ' + firstname + " " + lastname)
+
+
+
+                        }
+
+                    });
+
+                });
+
+
+
+
+                });
+
+
+
+
+
+
+</script>
+
+

@@ -1,0 +1,288 @@
+﻿@model eCaST.Models.Followup
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Followup</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ScreeningProcedureID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ScreeningProcedureID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ScreeningProcGuidID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ScreeningProcGuidID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ScreeningID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ScreeningID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SiteID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SiteID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ScreeningGuidID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ScreeningGuidID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OfficeVisitID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OfficeVisitID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnrollmentID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnrollmentID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicalCycleID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClinicalCycleID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FUProcedureOther)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FUProcedureOther)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateUpdated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateClosed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateClosed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SurgeryDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SurgeryDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RRCounselingDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RRCounselingDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RRCompletionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RRCompletionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RRNutritionBinID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RRNutritionBinID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RRPhysicalActivityBinID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RRPhysicalActivityBinID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RRSmokingCessationBinID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RRSmokingCessationBinID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RRMedicationAdherenceBinID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RRMedicationAdherenceBinID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RRReadinessDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RRReadinessDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RRReadinessBinID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RRReadinessBinID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TobResourceDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TobResourceDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TobResourceBinID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TobResourceBinID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TobCompletedBinID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TobCompletedBinID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DDPatientInfoBin_PatientInfoBinID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DDPatientInfoBin_PatientInfoBinID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DDReadinessBin_ReadinessBinID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DDReadinessBin_ReadinessBinID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RREnhancedCounseling)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RREnhancedCounseling)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DDFUProcedureBin.FUProcedureBinName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DDFUProcedureBin.FUProcedureBinName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DDFUProcedureMonthsBin.FUProcedureMonthsBinName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DDFUProcedureMonthsBin.FUProcedureMonthsBinName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DDFUProcedureReasonBin.FUProcedureReasonBinName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DDFUProcedureReasonBin.FUProcedureReasonBinName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DDPathSurgResectionBin.PathSurgResectionBinName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DDPathSurgResectionBin.PathSurgResectionBinName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,83 @@
+@model IEnumerable<CTL.Models.UserProfile>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            UserName
+        </th>
+        <th>
+            FirstName
+        </th>
+        <th>
+            LastName
+        </th>
+        <th>
+            OrganizationBinID
+        </th>
+        <th>
+            PhoneNumber
+        </th>
+        <th>
+            Documents
+        </th>
+        <th>
+            OrganizationBins
+        </th>
+        <th>
+            Organizations
+        </th>
+        <th>
+            Requests
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.UserId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.UserId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.UserId })
+        </td>
+        <td>
+			@item.UserName
+        </td>
+        <td>
+			@item.FirstName
+        </td>
+        <td>
+			@item.LastName
+        </td>
+        <td>
+			@item.OrganizationID
+        </td>
+        <td>
+			@item.PhoneNumber
+        </td>
+        <td>
+			@item.Documents
+        </td>
+        <td>
+			@Html.DisplayTextFor(_ => item.OrganizationBins).ToString()
+        </td>
+        <td>
+			@(item.Organizations == null ? "None" : item.Organizations.Count.ToString())
+        </td>
+        <td>
+			@(item.Requests == null ? "None" : item.Requests.Count.ToString())
+        </td>
+    </tr>
+}
+
+</table>
+
+

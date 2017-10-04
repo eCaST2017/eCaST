@@ -1,0 +1,146 @@
+﻿@model eCaST.Models.ClinicVisit
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ClinicVisit</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SiteID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SiteID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateVisit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateVisit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicVisitTypeID1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClinicVisitTypeID1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicVisitTypeID2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClinicVisitTypeID2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicVisitTypeID3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClinicVisitTypeID3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PercentPoverty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PercentPoverty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProviderTypeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProviderTypeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BeforeContraceptionTypeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BeforeContraceptionTypeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AfterContraceptionTypeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AfterContraceptionTypeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CountyResidence)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CountyResidence)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ThirdPartyKey)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ThirdPartyKey)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateUpdated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.VisitID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,454 @@
+﻿
+
+<style type="text/css">
+
+
+    .loadinggif {
+        /*background:url('http://www.hsi.com.hk/HSI-Net/pages/images/en/share/ajax-loader.gif') no-repeat right center;*/
+        background: url(../../Content/images/loading32x32.gif) no-repeat right center;
+    }
+
+
+    .ui-autocomplete {
+        max-height: 200px;
+        overflow-y: auto; /* prevent horizontal scrollbar */
+        overflow-x: hidden; /* add padding to account for vertical scrollbar */
+        z-index: 100000 !important;
+    }
+
+
+    .tt-dropdown-menu,
+    .gist {
+        text-align: left;
+    }
+
+    .twitter-typeahead {
+        width: 100%;
+    }
+
+
+    .tt-hint {
+        color: #999;
+        width: 100%;
+    }
+
+    .tt-dropdown-menu {
+        width: 422px;
+        margin-top: 12px;
+        padding: 8px 0;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+        -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+        box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    }
+
+    .tt-suggestion {
+        padding: 3px 20px;
+        font-size: 18px;
+        line-height: 24px;
+    }
+
+        .tt-suggestion.tt-cursor {
+            color: #fff;
+            background-color: #0097cf;
+        }
+
+        .tt-suggestion p {
+            margin: 0;
+        }
+
+    .gist {
+        font-size: 14px;
+    }
+
+    /* example specific styles */
+    /* ----------------------- */
+
+    #custom-templates .empty-message {
+        padding: 5px 10px;
+        text-align: center;
+    }
+
+    #multiple-datasets .league-name {
+        margin: 0 20px 5px 20px;
+        padding: 3px 0;
+        border-bottom: 1px solid #ccc;
+    }
+
+    #scrollable-dropdown-menu .tt-dropdown-menu {
+        max-height: 150px;
+        overflow-y: auto;
+    }
+
+    #rtl-support .tt-dropdown-menu {
+        text-align: right;
+    }
+
+    .grad {
+        background: -webkit-linear-gradient(white, lightgrey); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(white, lightgrey); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(white, lightgrey); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(white, lightgrey); /* Standard syntax */
+    }
+</style>
+
+
+<div id="SearchContainer">
+
+
+    <div class="row">
+
+        <div class="col-md-6">
+
+
+            @*<div class="input-group">
+                
+                <div class="input-group-btn">
+                    <button id="AdvancedSearchButton" type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span>&nbsp;Search Clients</button><button type="button" style="opacity:0.5" class="btn btn-default" disabled="disabled" id="newClientButton"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;New Client</button> <button id="clearClientButton" type="button" class="btn btn-default">Clear</button>
+                </div>
+            </div>*@
+
+
+            <div class="input-group">
+                <input type="text" data-target="self" class="typeahead form-control" id="txtSearch" placeholder="Search Clients by First and Last Name">
+                <div class="input-group-btn">
+                    <button type="button" style="opacity:0.5" class="btn btn-default" disabled="disabled" id="newClientButton"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;New Client</button> <button id="clearClientButton" type="button" class="btn btn-default">Clear</button><button id="AdvancedSearchButton" type="button" class="btn btn-default">Advanced Search</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="input-group">
+                <input type="number"  data-target="self" class="typeahead form-control" id="txtSearchId" placeholder="Enter Client ID/Screening ID">
+                <div class="input-group-btn">
+                     <button id="ClientButton" type="button" class="btn btn-default" aria-label="Help"><span class="glyphicon glyphicon-user"></span>&nbsp;Get Client</button> <button id="ScreeningButton" type="button" class="btn btn-default"><i class="fa fa-heartbeat"></i>&nbsp;Get Screening</button>
+                    
+                    @if (ViewBag.HideShow == true)
+                    {
+
+                        <button style="opacity:0.5" disabled ="disabled" id="ClientHistoryButton" type="button" class="btn btn-default" aria-label="Help"><span class="glyphicon glyphicon-refresh"></span>&nbsp;History</button>
+
+
+                    }
+                    else
+                    {
+
+                        <button id="ClientHistoryButton" type="button" class="btn btn-default" aria-label="Help"><span class="glyphicon glyphicon-refresh"></span>&nbsp;History</button>
+
+                    }
+                    
+                   
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+   
+
+    <div id="NoRecordsContainer" style="display:none"><h4 style="color:red"><span class="glyphicon glyphicon-warning-sign"></span> Your search returned (0) results. If you think this client already exists, use the advanced search to verify.</h4></div>
+
+
+
+    @*<div class="col-lg-12">
+      
+        <div class="alert alert-default">
+
+            <div id="the-basics">
+
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        <input type="text" data-target="self" class="typeahead form-control input-sm" id="txtSearch" placeholder="Search Clients by ID,Name,DOB or Chart #" /><div class="pull-right">
+                            <button style="opacity:0.5" class="btn btn-default btn-xs" disabled="disabled" id="newClientButton">New Client</button>
+                            <button class="btn btn-default btn-xs" id="clearClientButton">Clear</button>
+                        </div>
+                    </div>
+
+
+                </div>
+              
+
+                <div class="col-md-2">
+                    <input type="text" data-target="self" class="typeahead form-control input-sm" id="txtSearchId" placeholder="Enter Client ID/Screening ID" />
+
+                </div>
+
+                <div class="col-md-4">
+                    <button  class="btn btn-success btn-xs" id="ClientButton">Get Client</button>
+                    <button  class="btn btn-info btn-xs" id="ScreeningButton">Get Screening</button>
+
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+
+
+    </div>*@
+
+</div>
+
+
+
+<script type="text/javascript">
+
+                @*$(function () {
+
+                    $('#ClientSection').load('@Url.Action("_Dashboard", "Home")');
+
+                });*@
+
+
+    $("#ClientHistoryButton").click(function () {
+
+
+        $("#ErrorsContainer").load("@Url.Action("Index", "Clients", new { id = ViewBag.HideShow })",
+                                         function (response, status, xhr) {
+                                             if (status == "error") {
+
+                                             }
+
+
+                                         });
+
+
+    });
+
+
+
+    $("#AdvancedSearchButton").click(function () {
+
+      
+        if ($('#AdvancedSearchContainer').html() == "") {
+
+            $('#AdvancedSearchContainer').css("display", "block");
+            $('#AdvancedSearchContainer').load('@Url.Action("SearchClients", "Home")');
+
+       
+
+        }
+        else {
+
+            $('#AdvancedSearchContainer').css("display", "none");
+            $('#AdvancedSearchContainer').html("");
+
+        }
+
+       
+
+    });
+
+
+    $('#clearClientButton').click(function () {
+
+
+        $('#txtSearch').val('');
+        $('#newClientButton').attr('disabled', 'disabled');
+        $('#newClientButton').css('opacity', '0.5');
+
+
+    });
+
+    $('#newClientButton').click(function () {
+
+
+        $('#ClientSection').load('@Url.Action("Create", "Clients")');
+        $('#AdvancedSearchContainer').css("display", "none");
+
+
+    });
+
+
+    $('#ClientButton').click(function () {
+
+
+        var iStopSub = 0;
+        var sErr = "Please correct the following issues:\n\n";
+
+        var itxtSearchId = $("#txtSearchId").val();
+        if (itxtSearchId == "") {
+
+            iStopSub = 1;
+            sErr += "You must enter a Client ID" + "\n";
+
+        }
+
+        if (iStopSub != 0) {
+            alert(sErr);
+            e.preventDefault();
+
+        }
+
+        var cid = $('#txtSearchId').val();
+
+        // $('#ClientSection').load('@Url.Action("Details", "Clients")', { id: cid, id2: 0 });
+
+      
+        $("#ClientSection").load('@Url.Action("Details", "Clients")', { id: cid, id2: 0 }, function (response, status, xhr) {
+            if (status == "error") {
+                var msg = "Client #" + cid + " does not exist. Please search again.";
+                // $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
+                alert(msg);
+                var url = '@Url.Action("Index", "Home")';
+                window.location.href = url;
+            }
+
+        });
+
+    });
+
+
+    $('#ScreeningButton').click(function () {
+
+        var iStopSub = 0;
+        var sErr = "Please correct the following issues:\n\n";
+
+        var itxtSearchId = $("#txtSearchId").val();
+        if (itxtSearchId == "") {
+
+            iStopSub = 1;
+            sErr += "You must enter a Screening ID" + "\n";
+
+        }
+
+        if (iStopSub != 0) {
+            alert(sErr);
+            e.preventDefault();
+
+        }
+
+        var cid = $('#txtSearchId').val();
+
+        //   $('#ClientSection').load('@Url.Action("Details", "Clients")', { id: 0, id2: cid });
+
+        $("#ClientSection").load('@Url.Action("Details", "Clients")', { id: 0, id2: cid }, function (response, status, xhr) {
+            if (status == "error") {
+                var msg = "Screening #" + cid + " does not exist. Please search again.";
+                // $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
+                alert(msg);
+                var url = '@Url.Action("Index", "Home")';
+                window.location.href = url;
+            }
+
+        });
+
+
+
+       
+
+        });
+
+
+
+
+</script>
+
+
+<script type="text/javascript">
+
+
+
+    $(document).ready(function () {
+
+
+        $("#txtSearch").autocomplete({
+            minLength: 2,
+            //delay: 700,
+            source: function (request, response) {
+
+                $('#txtSearch').addClass('loadinggif');
+
+                $.ajax({
+                    url: '@Url.Action("GetClients","Clients")',
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        term: $('#txtSearch').val()
+
+
+                    },
+                    success: function (data) {
+
+
+
+
+                        response($.map(data, function (value, index) {
+
+
+
+                            return {
+                                label: value,
+                                value: value
+                            }
+
+
+                        }));
+
+
+
+
+                        $('#txtSearch').removeClass('loadinggif');
+                        $('#newClientButton').removeAttr('disabled', 'disabled');
+                        $('#newClientButton').css('opacity', '1.0');
+                        $('#newClientButton').css('background-color:', '#ff6a00');
+
+                    },
+
+                });
+            }
+                    ,
+
+            select: function (event, ui) {
+                // Do something with  "ui.item.Id" or "ui.item.Name" or any of the other properties you selected to return from the action
+                //alert(ui.item.value);
+                var uu = parseInt(ui.item.value.substr(0, ui.item.value.indexOf(' ')));
+                //alert(uu);
+                $('#ClientSection').load('@Url.Action("Details", "Clients")', { id: uu, id2: 0 });
+                // toastr.success('You have successfully loaded client # ' + ui.item.value)
+
+                $('#txtSearch').val('');
+                $('#newClientButton').attr('disabled', 'disabled');
+                $('#newClientButton').css('opacity', '0.5');
+
+
+                $('.row-offcanvas').toggleClass('active').toggleClass('side-toggle');
+
+                if ($('.row-offcanvas').hasClass('active')) {
+
+                    $('#chevronIcon').removeClass('glyphicon glyphicon-chevron-up');
+                    $('#chevronIcon').toggleClass('glyphicon glyphicon-chevron-down');
+
+                }
+                else {
+
+                    $('#chevronIcon').removeClass('glyphicon glyphicon-chevron-down');
+                    $('#chevronIcon').toggleClass('glyphicon glyphicon-chevron-up');
+
+                }
+
+
+
+            }
+
+
+        });
+
+
+    });
+
+</script>
+

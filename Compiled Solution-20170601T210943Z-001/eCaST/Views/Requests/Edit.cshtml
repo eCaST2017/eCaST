@@ -1,0 +1,30 @@
+﻿@model CTL.Models.Request
+
+<div id="RequestTrackerContainer"></div>
+
+
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        $("#RequestTrackerContainer").load("@Html.Raw(Url.Action("_TrackerList", "RequestTrackers", new { id = ViewBag.ClientID, id2 = ViewBag.ScreeningID, id3 = ViewBag.RequestID }))",
+        function (response, status, xhr) {
+            if (status == "error") {
+                //   alert("An error occurred while loading the results.");
+            }
+            
+        });
+
+
+
+
+
+    });
+
+
+
+
+</script>

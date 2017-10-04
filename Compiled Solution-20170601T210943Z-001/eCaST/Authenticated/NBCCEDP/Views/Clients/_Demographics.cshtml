@@ -1,0 +1,663 @@
+﻿@model eCaST.ViewModels.ClientViewModel
+
+@{
+    ViewBag.Title = "Client Demographics";
+}
+
+<style type="text/css">
+    .searchOption {
+        margin: 4px 4px 2px 4px;
+        display: inline;
+    }
+
+    .form-field * {
+        vertical-align: middle;
+    }
+
+    .form-field input {
+        clear: left;
+    }
+
+    .form-field label {
+        width: 800px;
+        display: inline-block;
+    }
+
+    input.big {
+        height: 2.1em;
+        width: 2.1em;
+    }
+
+    .error a {
+        background-color: #d9ffff !important;
+        border: 1px solid #ccc !important;
+        width: 100%;
+        color: #666 !important;
+    }
+
+    .requiredText {
+        background-color: #d9ffff;
+        border: 1px solid #999;
+    }
+
+    .requiredSelect {
+        background-color: #d9ffff;
+    }
+</style>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4><i class="fa fa-user fa-fw"></i> Personal Information</h4>
+
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+
+
+        @*<div class="row">
+
+
+                <div class="col-md-12">
+
+                    @Html.RadioButtonFor(model => model.Gender, true, new { @class = "Gender", @id = "Female" }) Female
+                    @Html.RadioButtonFor(model => model.Gender, false, new { @class = "Gender", @id = "Male" }) Male
+
+                </div>
+
+            </div>*@
+
+
+        @if (@ViewBag.RoleName != "ReadOnly")
+        {
+            <div class="row">
+
+
+                <div class="col-md-2">
+
+
+                    <span>Last Name</span>
+                </div>
+
+                <div class="col-md-4">
+                    @Html.TextBoxFor(model => model.LastName, new { @class = "requiredText form-control" })
+                    @Html.ValidationMessageFor(model => model.LastName)
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <span>First Name</span>
+                </div>
+
+                <div class="col-md-4">
+                    @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.FirstName)
+
+                </div>
+
+            </div>
+            <br />
+            <div class="row">
+
+                <div class="col-md-2">
+                    <span>Middle Name</span>
+                </div>
+
+                <div class="col-md-4">
+                    @Html.TextBoxFor(model => model.MiddleName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.MiddleName)
+                </div>
+
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.MaidenName)
+                </div>
+
+                <div class="col-md-4">
+                    @Html.TextBoxFor(model => model.MaidenName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.MaidenName)
+                </div>
+
+
+            </div>
+            <br />
+
+
+            <div class="row">
+
+
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.SSN, "SSN (Last 4)")
+                </div>
+
+                <div class="col-md-4">
+                    @Html.TextBoxFor(model => model.SSN, new { maxlength = 4, @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SSN)
+                </div>
+
+
+
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.DOB, "DOB")
+                </div>
+
+                <div class="col-md-3">
+                  
+
+
+                    <span style="color:#ccc;font-style:italic">(ex. mm/dd/yyyy)</span>  @Html.TextBoxFor(model => model.DOB, new { id = "DOB", @class = "requiredText" }) 
+                    @Html.ValidationMessageFor(model => model.DOB)
+                </div>
+
+
+                <div class="col-md-1"><span style="display:none;float:left" id="AgeLabel">Age:</span>&nbsp;<span style="color:brown" id="AgeTx"></span></div>
+
+
+
+            </div>
+            <br />
+            <div class="row">
+
+                <div class="col-md-2">
+                    @*@Html.LabelFor(model => model.EthnicityHispanicBinID,null,"Hispanic Ethnicity")*@
+                    <span>Hispanic Ethnicity</span>
+                </div>
+
+                <div class="col-md-4">
+                    @Html.DropDownListFor(model => model.EthnicityHispanicBinID, ((IEnumerable<eCaST.Models.DDEthnicityHispanicBin>)ViewBag.PossibleEthnicityHispanicBins).Select(option => new SelectListItem
+                                   {
+                                       //Text = Html.DisplayTextFor(_ => option).ToString(),
+                                       Text = option.EthnicityHispanicBinName,
+                                       Value = option.EthnicityHispanicBinID.ToString(),
+                                       Selected = (Model != null) && (option.EthnicityHispanicBinID == Model.EthnicityHispanicBinID)
+                                   }), "Choose...", new { }
+)
+                    @Html.ValidationMessageFor(model => model.EthnicityHispanicBinID)
+
+                </div>
+
+
+                <div class="col-md-2">
+
+                    @Html.LabelFor(model => model.ChartNumber, "Chart Number")
+                </div>
+
+                <div class="col-md-4">
+
+                    @Html.TextBoxFor(model => model.ChartNumber, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ChartNumber)
+
+                </div>
+
+
+            </div>
+
+            <br />
+
+        }
+
+
+        <div class="row"><div class="col-md-12"><hr style="width:100%" /></div></div>
+
+        <div style="padding-top:2px" class="editor-label">
+            <h4>Race(s)</h4> @*<span class="requiredText">(Required)</span>*@
+        </div>
+
+        <div style="background-color: #d9ffff;" class="row">
+            <div class="col-md-2">
+
+
+                *Select all race(s) that apply
+
+
+
+            </div>
+            <div class="col-md-4">
+
+                <div class="input-group btn-group">
+
+
+                    @Html.DropDownList("testF", (SelectList)ViewData["OptionListF"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+                    <input type="hidden" id="selectedIDsF" />
+
+
+
+                </div>
+
+                <div id="UnselectBoxContainer" style="display:none">
+                    <input type="checkbox" id="checkboxUNSEL">
+                    Unselect
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+        <br />
+
+
+        <div style="width:100%">
+
+            <div style="float:left;">
+
+
+                <div class="editor">
+
+                    <div>
+
+                        <div id="TribeBox" style="float:left;display:none">
+
+
+                            <div class="row">
+
+                                <div class="col-md-5"> @Html.LabelFor(model => model.Tribe, "Tribe")</div>
+
+                                <div class="col-md-7">
+
+
+                                    @Html.TextBoxFor(model => model.Tribe, new { @class = "form-control requiredText" })
+                                    @Html.ValidationMessageFor(model => model.Tribe)
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div id="RaceOtherBox" style="float:right; padding-left:12px; display:none">
+
+
+                            <div class="row">
+
+                                <div class="col-md-5">
+
+
+                                    @Html.LabelFor(model => model.Other, "Other")
+
+
+
+                                </div>
+
+
+                                <div class="col-md-7">
+
+                                    @Html.TextBoxFor(model => model.Other, new { @class = "form-control requiredText" })
+                                    @Html.ValidationMessageFor(model => model.Other)
+
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+
+@Html.Hidden("ClientID",(int?) ViewBag.ClientID)
+@Html.Hidden("ScreeningID", (int?)ViewBag.ScreeningID)
+@Html.Hidden("Races")
+@Html.Hidden("Age")
+
+
+
+<script type="text/javascript">
+
+
+
+  
+    $(document).ready(function () {
+
+        $("input[type=checkbox]").bootstrapSwitch({
+
+            onText: 'YES',
+            offText: 'NO',
+            offColor: 'default',
+            onColor: 'success'
+
+
+        });
+
+
+        function calculate_age(birth_month, birth_day, birth_year, proc_month, proc_day, proc_year) {
+
+            age = proc_year - birth_year;
+            var iset = 0;
+
+            if (proc_month < (birth_month - 1)) {
+                age--;
+                iset = 1;
+            }
+            if (birth_month > proc_month) {
+                if (iset == 0) {
+                    age--;
+                    iset = 1;
+                }
+            }
+            if ((birth_month) == proc_month) {
+                if (proc_day < birth_day) {
+                    if (iset == 0) {
+                        age--;
+                        iset = 1;
+                    }
+                }
+            }
+
+            return age;
+
+        }
+
+        $(function () {
+
+        var dob1 = $('#DOB').val();
+        if (dob1 != '') {
+            var date1 = new Date();
+            date21 = new Date(dob1);
+            var accAge1 = calculate_age(date21.getMonth(), date21.getDate(), date21.getFullYear(), date1.getMonth(), date1.getDate(), date1.getFullYear());
+            $('#AgeTx').html(age);
+            $('#AgeLabel').css("display", "block");
+
+
+        }
+
+        });
+
+         $('#DOB').keyup(function () {
+
+              var dob = $('#DOB').val();
+              if (dob != '') {
+              var date = new Date();
+              date2 = new Date(dob);
+              var accAge = calculate_age(date2.getMonth(), date2.getDate(), date2.getFullYear(), date.getMonth(), date.getDate(), date.getFullYear());
+              $('#AgeTx').html(age);
+              $('#AgeLabel').css("display", "block");
+                  //var str = dob.split('/');
+                // var firstdate = new Date(str[2], str[1], str[0]);
+                //  // alert(firstdate);
+                // var today = new Date();
+                // var dayDiff = Math.ceil(today.getTime() - firstdate.getTime()) / (1000 * 60 * 60 * 24 * 365);
+                //  var age = parseInt(dayDiff);
+                //  $('#AgeTx').html(age);
+                //$('#AgeLabel').css("display", "block");
+
+                }
+
+         });
+
+
+       
+             function onChange() {
+
+                 $(function () {
+
+                     var dob2 = $('#DOB').val();
+                     if (dob2 != '') {
+                         var date2 = new Date();
+                         date22 = new Date(dob2);
+                         var accAge2 = calculate_age(date22.getMonth(), date22.getDate(), date22.getFullYear(), date2.getMonth(), date2.getDate(), date2.getFullYear());
+                         $('#AgeTx').html(age);
+                         $('#AgeLabel').css("display", "block");
+
+
+                     }
+
+                 });
+
+
+
+             }
+
+             // $("#DOB").kendoDatePicker({change: onChange});
+             $("#DOB").kendoDatePicker({ max: new Date(), change: onChange });
+        
+
+       
+         $(document).ready(function () {
+             $("#DOB").keyup(function (e) {
+                 if (e.keyCode != 8) {
+                     if ($(this).val().length == 2) {
+                         $(this).val($(this).val() + "/");
+                     } else if ($(this).val().length == 5) {
+                         $(this).val($(this).val() + "/");
+                     }
+                 }
+             });
+         });
+
+         $("#EthnicityHispanicBinID").select2({ width: "100%" });
+
+        
+
+         var data = '@ViewBag.OptionsF';
+
+        //Make an array
+         var dataarray = data.split(",");
+
+        // Set the value
+         $("#testF").val(dataarray);
+         $('#selectedIDsF').val(dataarray);
+
+        // Races
+         var testF = $('#testF');
+         $(testF).select2({
+
+             width: "300px"
+             
+
+         });
+
+         $("#EthnicityHispanicBinID").select2({
+             containerCssClass: "error",
+             width: "100%"
+         });
+
+
+         var idsF = $(testF).val();
+         $('#selectedIDsF').val(idsF);
+
+         var x = [];
+         $('#testF :selected').each(function (i, selected) {
+
+             x.push($(selected).val());
+
+         });
+
+
+         if ($.inArray('5', x) > -1) {
+
+             if ('@ViewBag.Tribe' == null) {
+
+                 $("#Tribe").val(null);
+
+             }
+
+             $("#TribeBox").css("display", "block");
+
+
+
+         }
+
+         else {
+
+             if ('@ViewBag.Tribe' == null) {
+
+                 $("#Tribe").val(null);
+
+             }
+             $("#TribeBox").css("display", "none");
+
+
+         };
+
+
+         if ($.inArray('9', x) > -1) {
+
+             if ('@ViewBag.Other' == null) {
+
+                 $("#Other").val(null);
+
+             }
+
+           
+             $("#RaceOtherBox").css("display", "block");
+
+
+
+         }
+
+         else {
+
+
+             if ('@ViewBag.Other' == null) {
+
+                 $("#Other").val(null);
+
+             }
+
+             $("#RaceOtherBox").css("display", "none");
+
+
+         };
+         if ($.inArray('13', x) > -1) {
+
+             $("#testF").select2("val", "");
+             // var ukn = 13;
+             $("#testF").select2("val", "13");
+             $('#testF').select2("enable", false);
+             $('#UnselectBoxContainer').css("display", "block");
+
+         }
+         else {
+
+             $('#UnselectBoxContainer').css("display", "none");
+
+         }
+
+
+
+
+
+         document.getElementById("testF").onchange = function () {
+
+             var idsF = $(testF).val();
+             $('#selectedIDsF').val(idsF);
+
+             var x = [];
+             $('#testF :selected').each(function (i, selected) {
+
+                 x.push($(selected).val());
+
+             });
+
+
+             if ($.inArray('5', x) > -1) {
+
+                 if ('@ViewBag.Tribe' == null) {
+
+                     $("#Tribe").val(null);
+
+                 }
+
+                 $("#TribeBox").css("display", "block");
+
+
+
+             }
+
+             else {
+
+                 if ('@ViewBag.Tribe' == null) {
+
+                     $("#Tribe").val(null);
+
+                 }
+
+                 $("#TribeBox").css("display", "none");
+
+
+             };
+
+
+             if ($.inArray('9', x) > -1) {
+
+                 if ('@ViewBag.Other' == null) {
+
+                     $("#Other").val(null);
+
+                 }
+
+                 $("#RaceOtherBox").css("display", "block");
+
+
+
+             }
+
+             else {
+
+
+                 if ('@ViewBag.Other' == null) {
+
+                     $("#Other").val(null);
+
+                 }
+
+                 $("#RaceOtherBox").css("display", "none");
+
+
+             };
+             if ($.inArray('13', x) > -1) {
+                 // $('#checkboxUNSEL').attr('checked', false);
+                 //  $('#checkboxUNSEL').bootstrapSwitch('setState', false);
+                 
+                 $("#testF").select2("val", "");
+                 // var ukn = 13;
+                 $("#testF").select2("val", "13");
+                 $('#testF').select2("enable", false);
+                 $('#UnselectBoxContainer').css("display", "block");
+                
+             }
+             else {
+
+                 $('#UnselectBoxContainer').css("display", "none");
+
+             }
+
+         }
+
+
+    });
+
+  //  $("#checkboxUNSEL").click(function () {
+    $('#checkboxUNSEL').on('switchChange.bootstrapSwitch', function () {
+
+        if ($("#checkboxUNSEL").is(':checked')) {
+
+
+            $("#testF").select2("val", "");
+            $('#testF').select2("enable", true);
+        }
+
+
+    });
+
+
+</script>

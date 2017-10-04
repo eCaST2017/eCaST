@@ -1,0 +1,953 @@
+﻿@model eCaST.ViewModels.RiskReductionViewModel
+
+
+
+@*<link href="@Url.Content("~/Content/bootstrap.custom.css")" rel="stylesheet" type="text/css" />*@
+<link href="@Url.Content("~/Content/slider.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/themes/base/jquery.ui.slider.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/app/patientinfo.js")" type="text/javascript"></script>
+@*<script src="@Url.Content("~/Scripts/bootstrap.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap-multiselect.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/Content/bootstrap-multiselect.css")" rel="stylesheet" type="text/css" />*@
+
+
+<style type="text/css">
+    .my-error-class {
+        color: #FF0000; /* red */
+    }
+
+    .my-valid-class {
+        color: #00CC00; /* green */
+    }
+</style>
+
+
+
+
+
+
+@using (Html.BeginForm("_RiskReductionListF", "PatientInformation", FormMethod.Post, new { id = "RiskReductionFormEdit" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+    <div class="alert alert-warning">
+
+
+        <h3 style="font-family:'Lato', sans-serif; color:#dd913f; font-weight:300"><span style="color:#dd913f" class="glyphicon glyphicon-sort-by-attributes"></span>&nbsp;Risk Reduction/Readiness to Change</h3>
+
+
+        <hr class="style-two" />
+
+        <br />
+
+
+        @*<div>
+
+            <div class="input-group">
+
+                <label for="RREnhancedCounseling">@Html.LabelFor(model => model.RREnhancedCounseling)</label>&nbsp;
+
+                @Html.CheckBoxFor(model => model.RREnhancedCounseling, new { @id = "RREnhancedCounseling" })
+
+            </div>
+
+
+        </div>
+        <br />*@
+
+
+        <div>
+
+            <div class="input-group">
+
+                @* <input style="color: #ccc;" type="text" id="RRCompletionDateHIDDEN" class="form-control clsDatePicker" placeholder="Completion Date">
+
+
+                    <span class="input-group-addon"><i id="calIconTourDateDetails" class="glyphicon glyphicon-th"></i></span>*@
+
+                <label for="RRCompletionDateHIDDEN">@Html.LabelFor(model => model.RRCompletionDate)</label>&nbsp;
+
+                <input id="RRCompletionDateHIDDEN">
+
+            </div>
+
+
+        </div>
+
+
+
+
+        <div>
+            <h3 style="font-family:'Lato', sans-serif; color:#dd913f; font-weight:300">Priority Areas</h3>
+        </div>
+
+        <hr class="style-two" />
+
+        <br />
+
+        <div>
+
+            <label for="RRNutritionBinID">@Html.LabelFor(model => model.RRNutritionBinID)</label>
+            @Html.DropDownListFor(model => model.RRNutritionBinID, ((IEnumerable<eCaST.Models.DDReadinessBin>)ViewBag.PossibleReadinessBinIDs).Select(option => new SelectListItem
+{
+    //Text = Html.DisplayTextFor(_ => option).ToString(),
+    Text = option.ReadinessBinName,
+    Value = option.ReadinessBinID.ToString(),
+    Selected = (Model != null) && (option.ReadinessBinID == @ViewBag.RRNutBinID)
+}), "Choose...", new { @id = "RRNutritionBinID", @class = "requiredSelect" })
+            @Html.ValidationMessageFor(model => model.RRNutritionBinID)
+
+
+
+        </div>
+        <br />
+        <br />
+        <div>
+
+
+
+            <label for="RRPhysicalActivityBinID">@Html.LabelFor(model => model.RRPhysicalActivityBinID)</label>
+            @Html.DropDownListFor(model => model.RRPhysicalActivityBinID, ((IEnumerable<eCaST.Models.DDReadinessBin>)ViewBag.PossibleReadinessBinIDs).Select(option => new SelectListItem
+{
+    //Text = Html.DisplayTextFor(_ => option).ToString(),
+    Text = option.ReadinessBinName,
+    Value = option.ReadinessBinID.ToString(),
+    Selected = (Model != null) && (option.ReadinessBinID == @ViewBag.RRPhysicalActivity)
+}), "Choose...", new { @id = "RRPhysicalActivityBinID", @class = "requiredSelect" })
+            @Html.ValidationMessageFor(model => model.RRPhysicalActivityBinID)
+
+
+
+
+
+
+        </div>
+        <br />
+        <br />
+        <div>
+
+
+
+
+            <label for="RRSmokingCessationBinID">@Html.LabelFor(model => model.RRSmokingCessationBinID)</label>
+            @Html.DropDownListFor(model => model.RRSmokingCessationBinID, ((IEnumerable<eCaST.Models.DDReadinessBin>)ViewBag.PossibleReadinessBinIDs).Select(option => new SelectListItem
+{
+    //Text = Html.DisplayTextFor(_ => option).ToString(),
+    Text = option.ReadinessBinName,
+    Value = option.ReadinessBinID.ToString(),
+    Selected = (Model != null) && (option.ReadinessBinID == @ViewBag.RRSmokingCessation)
+}), "Choose...", new { @id = "RRSmokingCessationBinID", @class = "requiredSelect" })
+            @Html.ValidationMessageFor(model => model.RRSmokingCessationBinID)
+
+
+
+
+
+
+
+
+        </div>
+        <br />
+        <br />
+        <div>
+
+
+
+
+            <label for="RRMedicationAdherenceBinID">@Html.LabelFor(model => model.RRMedicationAdherenceBinID)</label>
+            @Html.DropDownListFor(model => model.RRMedicationAdherenceBinID, ((IEnumerable<eCaST.Models.DDReadinessBin>)ViewBag.PossibleReadinessBinIDs).Select(option => new SelectListItem
+{
+    //Text = Html.DisplayTextFor(_ => option).ToString(),
+    Text = option.ReadinessBinName,
+    Value = option.ReadinessBinID.ToString(),
+    Selected = (Model != null) && (option.ReadinessBinID == @ViewBag.RRMedicationAdherence)
+}), "Choose...", new { @id = "RRMedicationAdherenceBinID", @class = "requiredSelect" })
+            @Html.ValidationMessageFor(model => model.RRMedicationAdherenceBinID)
+
+
+
+
+
+        </div>
+
+
+        <br />
+        <br />
+
+        <div>
+            <h3 style="font-family:'Lato', sans-serif; color:#dd913f; font-weight:300">Readiness to Change</h3>
+        </div>
+
+        <hr class="style-two" />
+
+        <br />
+
+
+        <div>
+
+            <div class="input-group">
+
+
+                <label for="RRReadinessDateHIDDEN">@Html.LabelFor(model => model.RRReadinessDate)</label>&nbsp;
+
+                <input id="RRReadinessDateHIDDEN">
+
+            </div>
+
+
+        </div>
+
+
+        <br />
+
+        <div>
+
+
+
+
+
+            <label for="RRReadinessBinID">@Html.LabelFor(model => model.RRReadinessBinID)</label>
+            @Html.DropDownListFor(model => model.RRReadinessBinID, ((IEnumerable<eCaST.Models.DDStateOfChangeBin>)ViewBag.PossibleStateOfChangeBinIDs).Select(option => new SelectListItem
+{
+    //Text = Html.DisplayTextFor(_ => option).ToString(),
+    Text = option.StateOfChangeBinName,
+    Value = option.StateOfChangeBinID.ToString(),
+    Selected = (Model != null) && (option.StateOfChangeBinID == @ViewBag.ChangeState)
+}), "Choose...", new { @id = "RRReadinessBinID", @class = "requiredSelect" })
+            @Html.ValidationMessageFor(model => model.RRReadinessBinID)
+
+
+
+
+
+
+        </div>
+        <br />
+        <br />
+
+
+
+
+
+        <div style="display:none" id="SmokingCessationSection">
+
+
+            <div>
+                <h3 style="font-family:'Lato', sans-serif; color:#dd913f; font-weight:300">Tobacco Cessation (Quitline)</h3>
+            </div>
+
+            <hr class="style-two" />
+
+            <br />
+
+
+            <div>
+
+                <div class="input-group">
+
+                    Was the client referred to a Tobacco Cessation Program?&nbsp;
+
+                    @Html.CheckBox("SCCheck")
+
+                </div>
+
+
+            </div>
+            <br />
+
+
+            <div id="SCSection" style="display:none">
+
+
+            <div>
+                <div class="input-group">
+
+                    @*<input style="color: #ccc;" type="text" id="TobResourceDateHIDDEN" class="form-control clsDatePicker" placeholder="Date of Referral to tobacco cessation resource">*@
+                    <label for="TobResourceDateHIDDEN">@Html.LabelFor(model => model.TobResourceDate)</label>
+
+                    @Html.Hidden("TobResourceDate")   <input id="TobResourceDateHIDDEN">
+
+                    @* <span class="input-group-addon"><i id="calIconTourDateDetails1" class="glyphicon glyphicon-th"></i></span>*@
+
+
+                    <script type="text/javascript">
+
+                $(function () {
+
+
+                    $("#TobResourceDateHIDDEN").kendoDatePicker({ max: new Date() });
+
+
+                });
+
+                    </script>
+
+
+
+
+                </div>
+
+
+
+
+            </div>
+            <br />
+            <br />
+
+
+
+            <div>
+
+
+                <label for="TobResourceBinID">@Html.LabelFor(model => model.TobResourceBinID)</label>
+                @Html.DropDownListFor(model => model.TobResourceBinID, ((IEnumerable<eCaST.Models.DDTobResourceBin>)ViewBag.PossibleCessationResourceBinIDs).Select(option => new SelectListItem
+{
+    //Text = Html.DisplayTextFor(_ => option).ToString(),
+    Text = option.TobResourceBinName,
+    Value = option.TobResourceBinID.ToString(),
+    Selected = (Model != null) && (option.TobResourceBinID == @ViewBag.TobaccoResourceType)
+}), "Choose...", new { @id = "TobResourceBinID", @class = "requiredSelect" })
+                @Html.ValidationMessageFor(model => model.TobResourceBinID)
+
+
+
+
+
+            </div>
+            <br />
+            <br />
+
+            <div>
+
+
+
+
+                <label for="TobCompletedBinID">@Html.LabelFor(model => model.TobCompletedBinID)</label>&nbsp;
+                @Html.DropDownListFor(model => model.TobCompletedBinID, ((IEnumerable<eCaST.Models.DDTobCompletedBin>)ViewBag.PossibleCessationCompletedBinIDs).Select(option => new SelectListItem
+{
+    //Text = Html.DisplayTextFor(_ => option).ToString(),
+    Text = option.TobCompletedBinName,
+    Value = option.TobCompletedBinID.ToString(),
+    Selected = (Model != null) && (option.TobCompletedBinID == @ViewBag.TobaccoActivityCompleted)
+}), "Choose...", new { @id = "TobCompletedBinID", @class = "requiredSelect" })
+                @Html.ValidationMessageFor(model => model.TobCompletedBinID)
+
+
+
+            </div>
+            <br />
+            <br />
+
+
+            </div>
+
+
+        </div>
+
+
+        <br />
+
+
+        <div id="HBSessionSection">
+
+            <div><h3 style="font-family:'Lato', sans-serif; color:#dd913f; font-weight:300">Referral to Healthy Behavior Support Program</h3></div>
+
+            <hr class="style-two" />
+
+            <br />
+
+            <div>
+
+                <div id="HBReferralCheckHolder" class="input-group">
+
+                    Was the client referred to the Healthy Behavior Support Program?&nbsp;
+
+                    @Html.CheckBox("HBReferralCheck")
+
+                </div>
+
+
+            </div>
+            <br />
+
+
+            <div id="HBReferralDateSection" style="display:none">
+                
+                <div class="input-group">
+                    <label for="HBReferralDateHIDDEN">Referral Date for the DPP/HC Support Session(s)</label>&nbsp;&nbsp;
+               @Html.Hidden("HBReferralDate")     <input style="color:#ccc; width:300px" type="text" id="HBReferralDateHIDDEN" placeholder="Date of Referral for Session">
+
+                </div>
+
+
+            </div>
+            <br />
+            <br />
+
+
+
+        </div>
+
+
+
+
+
+
+        <div align="right">
+            <button id="CancelRRButton" type="reset" class="btn btn-default">Cancel</button>    <button id="UpdateRRButton" class="btn btn-success">Update</button>
+        </div>
+
+    </div>
+
+    @Html.Hidden("Saveid", 2)
+    @Html.Hidden("CCID", (int?)ViewBag.CCID)
+    @Html.Hidden("ClientID", (int?)ViewBag.CLID)
+    @Html.Hidden("SiteID", (int?)ViewBag.SiteID)
+    @Html.Hidden("ScreeningTypeID", (int?)ViewBag.ScreeningTypeID)
+    @Html.Hidden("EnrollID", (int?)ViewBag.EnrollID)
+    @Html.Hidden("ScreeningID", (int?)ViewBag.ScreeningID)
+    @Html.Hidden("RRCompletionDate")
+    @Html.Hidden("RRReadinessDate")
+
+
+
+
+
+}
+
+
+<script type="text/javascript">
+
+
+
+    $(function () {
+
+
+        $("input[type=checkbox]").bootstrapSwitch({
+
+            onText: 'YES',
+            offText: 'NO',
+            offColor: 'default',
+            onColor: 'success'
+
+
+        });
+
+
+
+
+
+
+
+
+        $("#HBReferralDateHIDDEN").val('@(((DateTime?)ViewBag.HBSessionReferralDate))');
+
+
+        if ($("#HBReferralDateHIDDEN").val() != "") {
+
+
+
+            $('#HBReferralCheck').bootstrapSwitch('state', true);
+            $('#HBReferralDateSection').css("display", "block");
+
+
+        }
+        else {
+
+
+            $('#HBReferralCheck').bootstrapSwitch('state', false);
+            $('#HBReferralDateSection').css("display", "none");
+
+
+        }
+
+        $('#HBReferralCheck').on('switchChange.bootstrapSwitch', function () {
+
+            if ($("#HBReferralCheck").is(':checked')) {
+
+
+                $('#HBReferralDateSection').css("display", "block");
+
+            }
+            else {
+
+                $('#HBReferralDateSection').css("display", "none");
+
+            }
+
+        });
+
+        //  $("#TobResourceDateHIDDEN").val('@(((DateTime?)ViewBag.TobResourceDate))');
+
+        if ('@ViewBag.TobResourceDate' != "") {
+
+
+
+            $('#SCCheck').bootstrapSwitch('state', true);
+            $('#SCSection').css("display", "block");
+            $("#TobResourceDateHIDDEN").val('@(((DateTime?)ViewBag.TobResourceDate))');
+
+
+        }
+        else
+        {
+
+
+            $('#SCCheck').bootstrapSwitch('state', false);
+            $('#SCSection').css("display", "none");
+
+
+        }
+
+
+
+
+        $('#SCCheck').on('switchChange.bootstrapSwitch', function () {
+
+            if ($("#SCCheck").is(':checked')) {
+
+
+                $('#SCSection').css("display", "block");
+
+            }
+            else {
+
+                $('#SCSection').css("display", "none");
+
+            }
+
+        });
+
+
+        if ('@ViewBag.HBSessionCount' > 0) {
+
+
+            
+            $("#HBReferralCheckHolder").css("display","none");
+             $('#HBReferralDateHIDDEN').attr("disabled", true);
+
+            //// Set Value 
+            // var outHBR = true;
+            // document.getElementById("HBReferralCheck").value = outHBR;
+
+        }
+        else {
+
+            $("#HBReferralDateHIDDEN").kendoDatePicker({ max: new Date() });
+
+        }
+
+
+        if ('@ViewBag.RREnhancedCounseling' == 1) {
+
+
+
+            $('#RREnhancedCounseling').attr("checked", "checked");
+
+        }
+
+
+
+
+        $("#RRSmokingCessationBinID").change(function () {
+
+
+            if ($("#RRSmokingCessationBinID").val() == 1) {
+
+
+
+                $("#SmokingCessationSection").css("display", "block");
+
+
+            }
+
+
+            else {
+
+                $("#SmokingCessationSection").css("display", "none");
+
+
+            }
+
+
+        });
+
+
+    });
+
+
+
+
+
+    $(document).ready(function () {
+
+        $("#RRNutritionBinID").select2({ width: "30%" });
+        $("#RRPhysicalActivityBinID").select2({ width: "30%" });
+        $("#RRSmokingCessationBinID").select2({ width: "30%" });
+        $("#RRMedicationAdherenceBinID").select2({ width: "30%" });
+        $("#RRReadinessBinID").select2({ width: "30%" });
+        $("#TobResourceBinID").select2({ width: "30%" });
+        $("#TobCompletedBinID").select2({ width: "30%" });
+
+
+        if ('@ViewBag.SmokeCheck' == 1 || '@ViewBag.RRSmokingCessation' == 1) {
+
+
+            $("#SmokingCessationSection").css("display", "block");
+
+
+        }
+        else {
+
+
+            $("#SmokingCessationSection").css("display", "none");
+
+
+        }
+
+
+        $("#RRCompletionDateHIDDEN").val('@(((DateTime?)ViewBag.RRCompletionDate))');
+        $("#RRReadinessDateHIDDEN").val('@(((DateTime?)ViewBag.RRReadinessDate))');
+        // $("#TobResourceDateHIDDEN").val('@(((DateTime?)ViewBag.TobResourceDate))');
+
+
+        // create DatePicker from input HTML element
+
+        $("#RRCompletionDateHIDDEN").kendoDatePicker({ max: new Date() });
+        $("#RRReadinessDateHIDDEN").kendoDatePicker({ max: new Date() });
+
+
+
+
+
+    });
+
+
+
+    $("#CancelRRButton").click(function () {
+
+        $('#RiskReductionSection').load('@Url.Action("_RiskReductionList", "PatientInformation", new { id = ViewBag.ScreeningID })');
+        //$("#SaveBarSection").css("display", "block");
+
+    });
+
+    $(function () {
+
+
+        //var checkTobFieldSelected = function () {
+        //    return $("#RRSmokingCessationBinID").val() == 1;
+        //};
+
+
+
+        //$("#RiskReductionFormEdit").validate({
+
+        //    errorClass: "my-error-class",
+        //    validClass: "my-valid-class",
+
+        //    rules: {
+
+        //        RRNutritionBinID: {
+        //            //required: { depends: checkTestFieldSelected }
+        //            required: true
+
+        //        },
+
+        //        RRPhysicalActivityBinID: {
+        //            //required: { depends: checkTestFieldSelected }
+        //            required: true
+
+        //        },
+        //        RRSmokingCessationBinID: {
+        //            //required: { depends: checkTestFieldSelected }
+        //            required: true
+
+        //        },
+        //        RRMedicationAdherenceBinID: {
+        //            //required: { depends: checkTestFieldSelected }
+        //            required: true
+
+        //        },
+        //        RRReadinessDate: {
+        //            required: true
+
+
+        //        },
+        //        RRReadinessBinID: {
+        //            //required: { depends: checkTestFieldSelected }
+        //            required: true
+
+        //        },
+        //        TobResourceDate: {
+        //            required: { depends: checkTobFieldSelected }
+        //            //required: true
+
+        //        },
+        //        TobResourceBinID: {
+        //            required: { depends: checkTobFieldSelected }
+        //            //required: true
+
+        //        }
+
+        //        //,
+        //        //TobCompletedBinID: {
+        //        //    required: { depends: checkTobFieldSelected }
+        //        //    //required: true
+
+        //        //}
+
+        //    },
+        //    messages: {
+
+        //        RRNutritionBinID: {
+        //            required: "Please enter a priority status for Nutrition"
+
+        //        },
+        //        RRPhysicalActivityBinID: {
+        //            required: "Please enter a priority status for Physical Activity"
+
+        //        },
+
+        //        RRSmokingCessationBinID: {
+        //            required: "Please enter a priority status for Smoking Cessation"
+
+        //        },
+        //        RRMedicationAdherenceBinID: {
+        //            required: "Please enter a priority status for Medication Adherence"
+
+        //        },
+        //        RRReadinessDate: {
+        //            required: "Please enter the state of change date"
+
+        //        },
+        //        RRReadinessBinID: {
+        //            required: "Please enter the participant's stage of change"
+
+        //        },
+        //        TobResourceDate: {
+        //            required: "Please enter a date of referral for resource"
+
+        //        },
+
+        //        TobResourceBinID: {
+        //            required: "Please enter a type of cessation resource"
+
+        //        }
+
+        //        //,
+        //        //TobCompletedBinID: {
+        //        //    required: "Please enter a type of cessation activity completed"
+
+        //        //}
+
+        //    }
+
+        //});
+
+        $('#RiskReductionFormEdit').on("submit", function (evt) {
+            evt.preventDefault();
+            if ($('#RiskReductionFormEdit').valid()) {
+                $.ajax({
+                    url: $("#RiskReductionFormEdit").attr('action'),
+                    type: $("#RiskReductionFormEdit").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#RiskReductionFormEdit").serialize(),
+                    success: function (data) {
+
+                        var clinicalcycleid = data.Modified;
+                        var siteid = data.Modified2;
+                        var screeningtypeid = data.Modified3;
+                        var clientid = data.Modified4;
+                        var enrollid = data.Modified5;
+                        var screeningid = data.Modified6;
+
+                        // $('#RiskReductionSection').load('@Url.Action("_RiskReductionList", "PatientInformation")', { id: clinicalcycleid, id2: siteid, id3: screeningtypeid, id4: clientid, id5: enrollid, id6: screeningid });
+                        //  $('#WiseWomanSection').load('@Url.Action("_PatientInfoDashboard", "PatientInformation")', { id: clinicalcycleid, id2: siteid, id3: screeningtypeid, id4: clientid, id5: enrollid, id6: screeningid });
+                        $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ScreeningID })');
+
+                        toastr.success('You have successfully updated the risk reduction section.')
+
+
+
+
+                    }
+                });
+
+            }
+
+
+        });
+
+    });
+
+
+
+    $(document).ready(function () {
+
+        $('#UpdateRRButton').on('click', function (e) {
+
+            //Set Completion Date
+            var hvDate = $("#RRCompletionDateHIDDEN").val();
+            document.getElementById("RRCompletionDate").value = hvDate;
+
+            //Set Readiness Date
+            var rrDate = $("#RRReadinessDateHIDDEN").val();
+            document.getElementById("RRReadinessDate").value = rrDate;
+
+            //Set Tob Resource Date
+            var trDate = $("#TobResourceDateHIDDEN").val();
+            document.getElementById("TobResourceDate").value = trDate;
+            // $("#SaveBarSection").css("display", "block");
+
+            //Set Completion Date
+            var siDate = $("#HBReferralDateHIDDEN").val();
+            document.getElementById("HBReferralDate").value = siDate;
+
+            // Validation
+
+            var iCurDate = new Date();
+            var iCurRRCompDate = $("#RRCompletionDate").val();
+            var iCurRRReadinessDate = $("#RRReadinessDate").val();
+            var iBPDate = '@ViewBag.BPDate';
+
+            var iStopSub = 0;
+            var sErr = "Please correct the following issues:\n\n";
+
+            var iRRCompletionDateHIDDEN = $("#RRCompletionDateHIDDEN").val();
+            iRRCompletionDateHIDDENLen = iRRCompletionDateHIDDEN.length;
+            if (iRRCompletionDateHIDDENLen < 1) {
+                iStopSub = 1;
+                sErr += "You must enter a date for risk reduction completion" + "\n";
+            }
+
+            if (new Date(iRRCompletionDateHIDDEN).getTime() > new Date(iCurDate).getTime()) {
+                iStopSub = 1;
+                sErr += "You cannot enter a date for risk reduction completion in the future\n";
+            }
+
+            if (new Date(iCurRRCompDate).getTime() < new Date(iBPDate).getTime()) {
+                iStopSub = 1;
+                sErr += "-You cannot add a Risk Reduction date earlier than the initial blood pressure date.\n";
+            }
+
+
+            if (new Date(iCurRRReadinessDate).getTime() < new Date(iBPDate).getTime()) {
+                iStopSub = 1;
+                sErr += "-You cannot add a Risk Reduction Readiness date earlier than the initial blood pressure date.\n";
+            }
+
+
+            var iRRNutritionBinID = $("#RRNutritionBinID option:selected").val();
+
+            if (iRRNutritionBinID < 1) {
+                iStopSub = 1;
+                sErr += "You must enter nutrition information" + "\n";
+
+            }
+
+            var iRRPhysicalActivityBinID = $("#RRPhysicalActivityBinID option:selected").val();
+
+            if (iRRPhysicalActivityBinID < 1) {
+                iStopSub = 1;
+                sErr += "You must enter physical activity information" + "\n";
+
+            }
+
+            var iRRSmokingCessationBinID = $("#RRSmokingCessationBinID option:selected").val();
+
+            if (iRRSmokingCessationBinID < 1) {
+                iStopSub = 1;
+                sErr += "You must enter smoking cessation information" + "\n";
+
+            }
+
+            if ($("#SCCheck").is(':checked')) {
+
+                var iTobResourceDateHIDDEN = $("#TobResourceDateHIDDEN").val();
+                iTobResourceDateHIDDENLen = iTobResourceDateHIDDEN.length;
+                if (iTobResourceDateHIDDENLen < 1) {
+                    iStopSub = 1;
+                    sErr += "You must enter a date for referral to tobacco cessation resource" + "\n";
+                }
+
+                if (new Date(iTobResourceDateHIDDEN).getTime() > new Date(iCurDate).getTime()) {
+                    iStopSub = 1;
+                    sErr += "You cannot enter a date for referral to tobacco cessation resource in the future\n";
+                }
+
+
+                var iTobResourceBinID = $("#TobResourceBinID option:selected").val();
+
+                if (iTobResourceBinID < 1) {
+                    iStopSub = 1;
+                    sErr += "You must enter the type of tobacco cessation resource" + "\n";
+
+                }
+
+
+                var iTobCompletedBinID = $("#TobCompletedBinID option:selected").val();
+
+                if (iTobCompletedBinID < 1) {
+                    iStopSub = 1;
+                    sErr += "You must enter the type of tobacco cessation activity completed" + "\n";
+
+                }
+
+
+            }
+
+
+            var iRRMedicationAdherenceBinID = $("#RRMedicationAdherenceBinID option:selected").val();
+
+            if (iRRMedicationAdherenceBinID < 1) {
+                iStopSub = 1;
+                sErr += "You must enter medication adherance information" + "\n";
+
+            }
+
+            var iRRReadinessBinID = $("#RRReadinessBinID option:selected").val();
+
+            if (iRRReadinessBinID < 1) {
+                iStopSub = 1;
+                sErr += "You must enter state of change information" + "\n";
+
+            }
+
+
+            if ($("#HBReferralCheck").is(':checked')) {
+
+
+                var iHBReferralDateHIDDEN = $("#HBReferralDateHIDDEN").val();
+                iHBReferralDateHIDDENLen = iHBReferralDateHIDDEN.length;
+                if (iHBReferralDateHIDDENLen < 1) {
+                    iStopSub = 1;
+                    sErr += "You must enter a date for referral to the healthy behavior support program" + "\n";
+                }
+
+                if (new Date(iHBReferralDateHIDDEN).getTime() > new Date(iCurDate).getTime()) {
+                    iStopSub = 1;
+                    sErr += "You cannot enter a date for referral to the healthy behavior support program in the future\n";
+                }
+
+            }
+
+
+            if (iStopSub != 0) {
+                alert(sErr);
+                e.preventDefault();
+            }
+
+
+
+        });
+
+
+    });
+
+
+</script>
+

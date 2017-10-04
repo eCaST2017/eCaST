@@ -1,0 +1,201 @@
+﻿@model eCaST.ViewModels.LockdownLogViewModel
+
+@{
+    ViewBag.Title = "Configure Lockdown Date";
+}
+
+
+@using (Html.BeginForm("_UpdateLockdownDateF", "ClinicVisits", FormMethod.Post, new { id = "UpdateLockdownDateForm" }))
+{
+
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.Hidden("LockdownDateID", (int?)ViewBag.LockDownID)
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span style="color:#4ea920">
+                <i class="fa fa-lock fa-fw"></i>&nbsp;Set Lockdown Date
+            </span>
+
+        </div>
+
+        <div class="panel-body">
+
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div>
+                        <div class="alert alert-info">
+                         
+                        
+                            <h3><i class="fa fa-lock"></i> Current Lockdown Date: @(((DateTime)ViewBag.LockDownDate).ToString("MM/dd/yyyy"))</h3>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+            <div class="row">
+                <div class="col-md-3">
+
+                    <div>
+                        <div class="form-group has-success has-feedback">
+                            <label style="padding-right:35px" for="FirstName">Set Lockdown Date</label>
+                            @Html.EditorFor(model => model.DateLock, new { htmlAttributes = new { @class = "form-control requiredText" } })
+                            @Html.ValidationMessageFor(model => model.DateLock, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div>
+                        <div><label>Comments</label></div>
+                        <div>
+
+                            @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @style = "width:100%", @rows = "20", @cols = "50", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+
+                <a class="btn btn-default" href="@Url.Action("Index","Home")">Cancel</a> <button type="submit" id="LockdownDateButton00" class="btn btn-success">Set</button>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <div id="LockdownListContainer"></div>
+
+
+
+}
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+
+        $('#LockdownListContainer').load('@Url.Action("_LockDownList", "ClinicVisits")');
+
+
+        $('#DateLock').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            maxDate: new Date
+
+        });
+
+
+
+
+
+    });
+
+
+
+    $(function () {
+
+
+        $("#LockdownDateButton00").click(function (e) {
+
+
+
+            var iCurLDDate = $("#DateLock").val();
+            var iCurDate = new Date();
+            var iStopSub = 0;
+            var sErr = "Please correct the following issues:\n\n";
+
+
+            iLDDateLen = iCurLDDate.length;
+            if (iLDDateLen < 1) {
+                iStopSub = 1;
+                sErr += "You must enter a Lockdown Date" + "\n";
+            }
+
+            //if (new Date(iCurLDDate).getTime() > new Date(iCurDate).getTime()) {
+            //    iStopSub = 1;
+            //    sErr += "-You cannot enter a lockdown date in the future\n";
+            //}
+
+
+            if (iStopSub != 0) {
+                alert(sErr);
+                e.preventDefault();
+            }
+
+
+        });
+
+
+
+        $('#UpdateLockdownDateForm').on("submit", function (e) {
+            e.preventDefault();
+
+
+
+            $.ajax({
+
+                url: $("#UpdateLockdownDateForm").attr('action'),
+                type: $("#UpdateLockdownDateForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#UpdateLockdownDateForm").serialize(),
+                success: function (data) {
+
+                    var lockdowndate = data.Modified;
+
+
+
+                    $('#PersonSection').load('@Url.Action("_ClientHistory", "People")');
+                    toastr.success('You have successfully changed the lockdown date to ' + lockdowndate)
+
+
+
+                }
+
+            });
+
+
+
+        });
+
+
+
+
+    });
+
+
+
+
+
+</script>

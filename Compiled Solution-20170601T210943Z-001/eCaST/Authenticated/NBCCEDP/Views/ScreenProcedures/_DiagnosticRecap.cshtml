@@ -1,0 +1,30 @@
+﻿@model eCaST.ViewModels.ScreenProcedureViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@*<div class="row">
+
+    <div style="text-align:left" class="col-md-12"><h5 style="color:#333"><i class="fa fa-heartbeat" aria-hidden="true"></i>&nbsp; Screen Procedures</h5></div>
+
+  
+</div>*@
+
+
+<div style="text-align:left;" id="DiagnosticListContainer"></div>
+
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        $('#DiagnosticListContainer').load('@Url.Action("_DiagnosticProcedureList", "ScreenProcedures", new { id = ViewBag.ScreeningID, id2 = ViewBag.CancerTypeBinID })');
+
+
+    });
+
+
+</script>

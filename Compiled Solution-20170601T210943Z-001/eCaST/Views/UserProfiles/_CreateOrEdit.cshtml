@@ -1,0 +1,604 @@
+@model CTL.ViewModels.UserProfileViewModel
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+<h3 style="font-family: 'Roboto', sans-serif;color:#3a53c7;padding-left:20px"><span class="glyphicon glyphicon-user"></span>&nbsp;My Profile</h3>
+<hr />
+<div class="row">
+
+    <div class="col-md-12">
+
+     
+
+        <h4 style="font-family: 'Roboto', sans-serif;color:#3a53c7;"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Change Profile Picture</h4>
+        <hr />
+
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+
+
+        @*@Html.Raw(Model.ProfilePic)*@
+
+
+        <div class="fileupload fileupload-new" data-provides="fileupload">
+            <div class="fileupload-preview thumbnail" style="width: 200px; height: 200px;">
+
+                @Html.Raw(Model.profilePic)
+            </div>
+            <div>
+                <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file"></span>
+                <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+            </div>
+        </div>
+
+
+        @*@Html.TextAreaFor(model => model.ProfilePic, new { @style = "width:85%;height:150px" })*@
+
+
+        <br />
+
+     
+
+
+        </div>
+
+  
+
+    </div>
+<br />
+<h4 style="font-family: 'Roboto', sans-serif;color:#3a53c7;"><span class="glyphicon glyphicon-user"></span>&nbsp;Personal Information</h4>
+<hr />
+
+
+        <div class="row">
+            <div class="col-md-3">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserName)
+                    @Html.TextBoxFor(m => m.UserName, new { id = "UserName", @class = "form-control", placeholder = "UserName" })
+                    @Html.ValidationMessageFor(m => m.UserName)
+
+
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OrganizationName)
+                    @Html.TextBoxFor(m => m.OrganizationName, new { id = "OrganizationName", @class = "form-control", placeholder = "Organization Name" })
+                    @Html.ValidationMessageFor(m => m.OrganizationName)
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-3">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FirstName)
+                    @Html.TextBoxFor(m => m.FirstName, new { id = "FirstName", @class = "form-control", placeholder = "First Name" })
+                    @Html.ValidationMessageFor(m => m.FirstName)
+
+
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LastName)
+                    @Html.TextBoxFor(m => m.LastName, new { id = "LastName", @class = "form-control", placeholder = "Last Name" })
+                    @Html.ValidationMessageFor(m => m.LastName)
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-3">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Address)
+                    @Html.TextBoxFor(m => m.Address, new { id = "Address", @class = "form-control", placeholder = "Address" })
+                    @Html.ValidationMessageFor(m => m.Address)
+
+
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.City)
+                    @Html.TextBoxFor(m => m.LastName, new { id = "City", @class = "form-control", placeholder = "City" })
+                    @Html.ValidationMessageFor(m => m.City)
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-3">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ZipCode)
+                    @Html.TextBoxFor(m => m.ZipCode, new { id = "ZipCode", @class = "form-control", placeholder = "ZipCode" })
+                    @Html.ValidationMessageFor(m => m.ZipCode)
+
+
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Fax)
+                    @Html.TextBoxFor(m => m.Fax, new { id = "Fax", @class = "form-control", placeholder = "Fax" })
+                    @Html.ValidationMessageFor(m => m.Fax)
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StateID)
+                    @Html.DropDownList("StateID", String.Empty)
+                    @Html.ValidationMessageFor(m => m.StateID)
+
+
+
+                </div>
+
+            </div>
+
+
+            @if (ViewBag.OCount != null) {
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RoleBinID)
+                    @Html.DropDownList("RoleBinID", String.Empty)
+                    @Html.ValidationMessageFor(m => m.RoleBinID)
+
+
+                </div>
+
+            </div>
+                
+            }
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-3">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PhoneNumber)
+                    @Html.TextBoxFor(m => m.PhoneNumber, new { id = "PhoneNumber", @class = "form-control", placeholder = "Phone Number" })
+                    @Html.ValidationMessageFor(m => m.PhoneNumber)
+
+
+
+                </div>
+
+            </div>
+
+           @if (ViewBag.OCount != null) {
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Active)
+                    @Html.EditorFor(m => m.Active, new { id = "Active" })
+                    @Html.ValidationMessageFor(m => m.RoleBinID)
+
+
+                </div>
+
+            </div>
+
+                    }
+
+        </div>
+<br />
+<h4 style="font-family: 'Roboto', sans-serif;color:#3a53c7;">Leadership Profile</h4>
+<hr />
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="form-group">
+            <label style="padding-right:35px" for="GraduatedBinID">What year did you graduate from FLTI? </label>
+            @Html.DropDownListFor(model => model.GraduatedBinID, ((IEnumerable<CTL.Models.GraduatedBin>)ViewBag.PossibleGraduatedBins).Select(option => new SelectListItem
+            {
+                //Text = Html.DisplayTextFor(_ => option).ToString(),
+                Text = option.GraduatedBinName,
+                Value = option.GraduatedBinID.ToString(),
+                Selected = (Model != null) && (option.GraduatedBinID == Model.GraduatedBinID)
+            }), "Choose...", new { @class = "input-control select" })
+            @Html.ValidationMessageFor(m => m.GraduatedBinID)
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="editor-label">
+
+    <h4>What I like</h4>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-2">
+
+
+        *Select the interests or topic areas in which you would like to receive notifications
+
+
+
+    </div>
+    <div class="col-md-4">
+
+        <div class="input-group btn-group">
+
+
+            @Html.DropDownList("testF", (SelectList)ViewData["OptionListF"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+            <input type="hidden" id="selectedIDsF" />
+
+
+
+        </div>
+
+
+        <div>
+            <input type="checkbox" id="checkboxF">
+            Select All
+
+
+        </div>
+
+
+
+    </div>
+
+</div>
+<br />
+
+
+
+
+
+
+<hr />
+
+<div class="editor-label">
+
+    <h4> What I can do</h4>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-2">
+
+
+        Skills
+
+
+
+    </div>
+    <div class="col-md-4">
+
+        <div class="input-group btn-group">
+
+
+            @Html.DropDownList("test", (SelectList)ViewData["OptionList"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+            <input type="hidden" id="selectedIDs" />
+
+
+
+        </div>
+
+
+        <div>
+            <input type="checkbox" id="checkbox">
+            Select All
+
+
+        </div>
+
+
+
+    </div>
+
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-2">
+
+
+        Knowledge
+
+
+
+    </div>
+    <div class="col-md-4">
+
+        <div class="input-group btn-group">
+
+
+            @Html.DropDownList("testK", (SelectList)ViewData["OptionListK"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+            <input type="hidden" id="selectedIDsK" />
+
+
+
+        </div>
+
+        <div>
+            <input type="checkbox" id="checkboxK">
+            Select All
+
+
+        </div>
+
+    </div>
+
+</div>
+<br />
+<div class="row">
+    <div class="col-md-2">
+
+
+        Abilities
+
+
+
+    </div>
+    <div class="col-md-4">
+
+        <div class="input-group btn-group">
+
+
+            @Html.DropDownList("testA", (SelectList)ViewData["OptionListA"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+            <input type="hidden" id="selectedIDsA" />
+
+
+
+        </div>
+
+        <div>
+            <input type="checkbox" id="checkboxA">
+            Select All
+
+
+        </div>
+
+    </div>
+
+</div>
+<br />
+
+
+<div class="row">
+    <div class="col-md-2">
+
+
+        Language other than English
+
+
+
+    </div>
+    <div class="col-md-4">
+
+        <div class="input-group btn-group">
+
+
+            @Html.DropDownList("testL", (SelectList)ViewData["OptionListL"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+            <input type="hidden" id="selectedIDsL" />
+
+
+
+        </div>
+
+        <div>
+            <input type="checkbox" id="checkboxL">
+            Select All
+
+
+        </div>
+
+    </div>
+
+</div>
+<br />
+
+
+
+<hr />
+
+<div class="editor-label">
+
+    <h4>Whom I want to impact</h4>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-2">
+
+
+        Audience
+
+
+
+    </div>
+    <div class="col-md-4">
+
+        <div class="input-group btn-group">
+
+
+            @Html.DropDownList("testW", (SelectList)ViewData["OptionListWhom"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+            <input type="hidden" id="selectedIDsW" />
+
+
+        </div>
+
+        <div>
+            <input type="checkbox" id="checkboxW">
+            Select All
+
+
+        </div>
+
+
+
+    </div>
+
+</div>
+
+
+<hr />
+
+<div class="editor-label">
+
+    <h4>Where I want to impact</h4>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-2">
+
+
+        County(ies)
+
+
+
+    </div>
+    <div class="col-md-4">
+
+        <div class="input-group btn-group">
+
+
+            @Html.DropDownList("testC", (SelectList)ViewData["OptionListCounty"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+            <input type="hidden" id="selectedIDsC" />
+
+
+        </div>
+
+        <div>
+            <input type="checkbox" id="checkboxC">
+            Select All (Check for State-wide Listings)
+
+
+        </div>
+
+
+
+    </div>
+
+</div>
+
+
+@if (Model.Status == false) { 
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>User Access Agreement</h3>
+        <hr />
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <p>I understand that is registry is just a collaboration tool meant to connect Family Leaders with opportunities and in no way promises placement or compensation. The Colorado Department of Public Health and Environment (CDPHE) is not responsible for any issues related to job placement or lack there of. Furthermore, CDPHE will monitor usage and correspondence on this web application and reserves the right to block users who have unprofessional behavior on this site.  </p>
+
+    </div>
+
+</div>
+
+
+<div class="row">
+
+    <div class="col-md-6">
+        @Html.CheckBox("PrivacyAgreement") &nbsp; I agree to these terms and conditions
+        @Html.ValidationMessageFor(m => m.PrivacyAgreement)
+        <br />
+    </div>
+    <br />
+
+</div>
+    
+    
+    
+       
+
+}
+
+
+
+        <div class="modal-footer">
+            <div style="float:right">
+                <a style="text-decoration:none" href='@Url.Action("UserAccount", new { Controller = "Dashboards", id = Model.Id})'><span class="btn btn-default">Cancel</span> </a>
+                <button id="AddPostButton" type="submit" class="btn btn-success">Update</button>
+            </div>
+        </div>
+
+
+
+        <div style="color:White" class="editor">
+
+            @Html.Hidden("DateUpdated", (DateTime?)ViewBag.DateUpdated, new { id = "DateUpdated" })
+            @Html.Hidden("UpdatedBy", (string)ViewBag.UpdatedBy, new { id = "UpdatedBy" })
+            @Html.Hidden("DateCreated", (DateTime?)ViewBag.DateCreated, new { id = "DateCreated" })
+            @Html.Hidden("CreatedBy", (string)ViewBag.CreatedBy, new { id = "CreatedBy" })
+            @Html.Hidden("firstTimeLoggedIn", (bool?)ViewBag.firstTimeLoggedIn, new { id = "firstTimeLoggedIn" })
+            @Html.Hidden("Status", (bool?)ViewBag.Status, new { id = "Status" })
+
+        </div>
+
+

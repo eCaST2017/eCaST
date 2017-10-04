@@ -1,0 +1,482 @@
+﻿@model eCaST.ViewModels.FollowupViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<style type="text/css">
+    .searchOption {
+        margin: 4px 4px 2px 4px;
+        display: inline;
+    }
+
+    .form-field * {
+        vertical-align: middle;
+    }
+
+    .form-field input {
+        clear: left;
+    }
+
+    .form-field label {
+        width: 800px;
+        display: inline-block;
+    }
+
+    input.big {
+        height: 2.1em;
+        width: 2.1em;
+    }
+
+    .error a {
+        background-color: #d9ffff !important;
+        border: 1px solid #ccc !important;
+        width: 100%;
+        color: #666 !important;
+    }
+
+    .requiredText {
+        background-color: #d9ffff;
+        border: 1px solid #999;
+    }
+
+    .requiredSelect {
+        background-color: #d9ffff;
+    }
+</style>
+
+
+@using (Html.BeginForm("_UpdateFollowupF", "Followups", FormMethod.Post, new { id = "FollowupEditForm" }))
+{
+
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+
+
+
+    <div id="UpdateButtonContainer" class="pull-left">
+
+        <button id="CancelFollowLockButton" class="btn btn-default" type="button"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Cancel</button><text>&nbsp;</text>
+        <button class="btn btn-success" id="UpdateFollowupButton" type="submit">Update</button>
+
+    </div>
+    
+    <br />
+    <br />
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4><i class="fa fa-random fa-fw"></i>Followup Information</h4>
+
+    </div>
+
+    <div class="panel-body">
+
+
+        <br />
+
+        <div class="row">
+
+
+            <div class="col-md-3">
+
+                @Html.LabelFor(model => model.FUProcedureBinID, "Recommended Followup")
+
+            </div>
+
+            <div class="col-md-6">
+
+                @Html.DropDownListFor(model => model.FUProcedureBinID, ((IEnumerable<eCaST.Models.DDFUProcedureBin>)ViewBag.PossibleFUProcedureBins).Select(option => new SelectListItem
+                   {
+                       //Text = Html.DisplayTextFor(_ => option).ToString(),
+                       Text = option.FUProcedureBinName,
+                       Value = option.FUProcedureBinID.ToString(),
+                       Selected = (Model != null) && (option.FUProcedureBinID == Model.FUProcedureBinID)
+                   }), "Choose...", new { id = "FUProcedureBinID", @class = "requiredSelect" })
+                @Html.ValidationMessageFor(model => model.FUProcedureBinID)
+
+            </div>
+
+
+
+        </div>
+        <br />
+        <div id="DateClosedSection" style="display:none">
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.DateClosed, "Date Closed")
+
+                </div>
+
+                <div class="col-md-6">
+
+
+                    @Html.TextBoxFor(model => model.DateClosed, new { @class = "requiredText" })
+                    @Html.ValidationMessageFor(model => model.DateClosed)
+
+
+                </div>
+
+
+            </div>
+
+            <br />
+
+
+        </div>
+
+        <br />
+
+        <div id="FUMonthsSection" style="display:none">
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.FUProcedureMonthsBinID, "Months to Complete")
+
+                </div>
+
+                <div class="col-md-3">
+
+
+                    @Html.DropDownListFor(model => model.FUProcedureMonthsBinID, ((IEnumerable<eCaST.Models.DDFUProcedureMonthsBin>)ViewBag.PossibleFUProcedureMonthsBins).Select(option => new SelectListItem
+                   {
+                       //Text = Html.DisplayTextFor(_ => option).ToString(),
+                       Text = option.FUProcedureMonthsBinName,
+                       Value = option.FUProcedureMonthsBinID.ToString(),
+                       Selected = (Model != null) && (option.FUProcedureMonthsBinID == Model.FUProcedureMonthsBinID)
+                   }), "Choose...", new { id = "FUProcedureMonthsBinID", @class = "requiredSelect" })
+                    @Html.ValidationMessageFor(model => model.FUProcedureMonthsBinID)
+
+
+                </div>
+
+
+             
+            </div>
+
+            <br />
+
+
+        </div>
+
+        <br />
+
+
+    </div>
+    </div>
+
+
+
+
+    
+    @Html.HiddenFor(x => x.FollowupID)
+    @Html.HiddenFor(x => x.ScreeningID)
+    @Html.HiddenFor(x => x.ClientID)
+
+}
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#FUProcedureBinID").select2({ width: "100%" });
+        $("#FUProcedureMonthsBinID").select2({ width: "100%" });
+
+        $("#FUProcedureBinID").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+        $("#FUProcedureMonthsBinID").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+        $("#DateClosed").kendoDatePicker({ max: new Date() });
+
+
+        $(function () {
+
+
+            if ($("#FUProcedureBinID").val() == 14 || $("#FUProcedureBinID").val() == 15 || $("#FUProcedureBinID").val() == 16 || $("#FUProcedureBinID").val() == 9) {
+
+
+                $('#DateClosedSection').css("display", "block");
+
+
+            }
+            else {
+
+                $('#DateClosedSection').css("display", "none");
+
+            }
+
+            if ($("#FUProcedureBinID").val() == 10) {
+
+
+                $('#FUMonthsSection').css("display", "block");
+
+            }
+            else {
+
+
+                $('#FUMonthsSection').css("display", "none");
+
+            }
+
+
+            $(document).ready(function () {
+                $("#DateClosed").keyup(function (e) {
+                    if (e.keyCode != 8) {
+                        if ($(this).val().length == 2) {
+                            $(this).val($(this).val() + "/");
+                        } else if ($(this).val().length == 5) {
+                            $(this).val($(this).val() + "/");
+                        }
+                    }
+                });
+            });
+
+
+        });
+
+        $("#FUProcedureBinID").change(function () {
+
+            if ($("#FUProcedureBinID").val() == 14 || $("#FUProcedureBinID").val() == 15 || $("#FUProcedureBinID").val() == 16 || $("#FUProcedureBinID").val() == 9) {
+
+
+                $('#DateClosedSection').css("display", "block");
+
+
+            }
+            else {
+
+                $('#DateClosedSection').css("display", "none");
+                $('#DateClosed').val("");
+
+            }
+
+            if ($("#FUProcedureBinID").val() == 10) {
+
+
+                $('#FUMonthsSection').css("display", "block");
+
+            }
+            else {
+
+
+                $('#FUMonthsSection').css("display", "none");
+                $("#FUProcedureMonthsBinID").select2({ width: "100%" }).select2('val', -1);
+            }
+
+        });
+
+
+        $("#UpdateFollowupButton").click(function (e) {
+
+            var iStopSub = 0;
+            var sErr = "Please correct the following issues:\n\n";
+            var iCurDate = new Date();
+          
+            var iFUProcedureBinID = $("#FUProcedureBinID option:selected").val();
+
+            if (iFUProcedureBinID < 1) {
+                iStopSub = 1;
+                sErr += "Please enter an option for Recommended Followup" + "\n";
+
+            }
+
+            if ($("#FUProcedureBinID").val() == 14 || $("#FUProcedureBinID").val() == 15 || $("#FUProcedureBinID").val() == 16 || $("#FUProcedureBinID").val() == 9) {
+
+                var iDateClosed = $("#DateClosed").val();
+                iDateClosedLen = iDateClosed.length;
+                if (iDateClosedLen < 1) {
+                    iStopSub = 1;
+                    sErr += "You must enter a Date Closed" + "\n";
+                }
+
+                if (new Date(iDateClosed).getTime() > new Date(iCurDate).getTime()) {
+                    iStopSub = 1;
+                    sErr += "You cannot enter a date of closure in the future\n";
+                }
+
+                // Check for valid date
+                var timestamp = kendo.parseDate(iDateClosed, "mm/dd/yyyy");
+
+                if (timestamp == null) {
+
+                    iStopSub = 1;
+                    sErr += "Please enter a valid date of closure\n";
+
+                }
+
+
+            }
+
+            if ($("#FUProcedureBinID").val() == 10) {
+
+                var iFUProcedureMonthsBinID = $("#FUProcedureMonthsBinID option:selected").val();
+                if (iFUProcedureMonthsBinID < 1) {
+                    iStopSub = 1;
+                    sErr += "Please enter an option for months to complete" + "\n";
+
+                }
+
+
+            }
+
+           
+          
+            if (iStopSub != 0) {
+                alert(sErr);
+                e.preventDefault();
+
+            }
+
+
+                     @*if ('@ViewBag.PowerUser' == 1) {
+
+                         //Add Admin Approval
+                         var outAA = document.getElementById('AdminApproval').value;
+                         document.getElementById("BillingHold").value = outAA;
+
+                         //Add State Staff Override
+                         var outSS = document.getElementById('StateStaffOverrideValue').value;
+                         document.getElementById("StateStaffOverride").value = outSS;
+
+
+                     }*@
+
+
+                     });
+
+        $('#CancelFollowLockButton').click(function () {
+
+            $('#AccGlowContainer').removeClass("glowdiv");
+            $("#txtSearch").removeAttr("disabled", "disabled");
+            $('#EditMessageContainer').css("display", "none");
+            $('#ScreeningToolbarContainer').css("display", "block");
+            $('#FooterMenuBarContainer').css("display", "block");
+            $('#ScreenProcedureListContainer').load('@Url.Action("_ScreenProcedureList", "ScreenProcedures", new { id = ViewBag.ScreeningID, id2 = ViewBag.CancerTypeBinID })');
+
+            $('#HomeLinkContainer').css("display", "block");
+            $('#HomeNoLinkContainer').css("display", "none");
+
+            $("#ClientButton").removeAttr("disabled", "disabled");
+            $("#ClientButton").css("opacity", "1.0");
+
+            $("#ScreeningButton").removeAttr("disabled", "disabled");
+            $("#ScreeningButton").css("opacity", "1.0");
+
+            $("#EnrollmentEdit0Button").removeAttr("disabled", "disabled");
+            $("#EnrollmentEdit0Button").css("opacity", "1.0");
+
+            $('#ProfileButtonDown').css("display", "block");
+            $("#ProfileButtonDown").css("opacity", "1.0");
+
+            $("#ClientHistoryButton").removeAttr("disabled", "disabled");
+            $("#ClientHistoryButton").css("opacity", "1.0");
+
+            $("#SmallProfileButton").removeAttr("disabled", "disabled");
+            $("#SmallProfileButton").css("opacity", "1.0");
+
+            $("#SmallScreeningButton").removeAttr("disabled", "disabled");
+            $("#SmallScreeningButton").css("opacity", "1.0");
+
+            $("#SmallEnrollmentButton").removeAttr("disabled", "disabled");
+            $("#SmallEnrollmentButton").css("opacity", "1.0");
+
+            $("#SmallLocationButton").removeAttr("disabled", "disabled");
+            $("#SmallLocationButton").css("opacity", "1.0");
+
+            $("#ClientEditButton").removeAttr("disabled", "disabled");
+            $("#ClientEditButton").css("opacity", "1.0");
+
+            $("#EnrollmentEditButton").removeAttr("disabled", "disabled");
+            $("#EnrollmentEditButton").css("opacity", "1.0");
+
+            $("#MedicalHistoryEditButton").removeAttr("disabled", "disabled");
+            $("#MedicalHistoryEditButton").css("opacity", "1.0");
+
+            $('#AccordionContentContainer').load('@Url.Action("Create", "ScreenProcedures", new { id = ViewBag.ScreeningID, id2 = 1 })');
+
+        });
+
+
+    });
+
+    $('#FollowupEditForm').on("submit", function (evt) {
+        evt.preventDefault();
+        if ($('#FollowupEditForm').valid()) {
+            //  $("#SaveExitButton").prop("disabled", true);
+            $.ajax({
+                url: $("#FollowupEditForm").attr('action'),
+                type: $("#FollowupEditForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#FollowupEditForm").serialize(),
+                success: function (data) {
+
+                    var clientid = data.Modified;
+                    var screeningid = data.Modified2;
+
+
+                    $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ScreeningID })');
+
+                    // Reset Fields
+
+                    $('#AccGlowContainer').removeClass("glowdiv");
+                    $("#txtSearch").removeAttr("disabled", "disabled");
+                    $('#EditMessageContainer').css("display", "none");
+                    $('#ScreeningToolbarContainer').css("display", "block");
+                    $('#FooterMenuBarContainer').css("display", "block");
+
+                    $('#HomeLinkContainer').css("display", "block");
+                    $('#HomeNoLinkContainer').css("display", "none");
+
+                    $("#ClientButton").removeAttr("disabled", "disabled");
+                    $("#ClientButton").css("opacity", "1.0");
+
+                    $("#ScreeningButton").removeAttr("disabled", "disabled");
+                    $("#ScreeningButton").css("opacity", "1.0");
+
+                    $('#ProfileButtonDown').css("display", "block");
+                    $("#ProfileButtonDown").css("opacity", "1.0");
+
+                    $("#ClientHistoryButton").removeAttr("disabled", "disabled");
+                    $("#ClientHistoryButton").css("opacity", "1.0");
+
+                    $("#SmallProfileButton").removeAttr("disabled", "disabled");
+                    $("#SmallProfileButton").css("opacity", "1.0");
+
+                    $("#SmallScreeningButton").removeAttr("disabled", "disabled");
+                    $("#SmallScreeningButton").css("opacity", "1.0");
+
+                    $("#SmallEnrollmentButton").removeAttr("disabled", "disabled");
+                    $("#SmallEnrollmentButton").css("opacity", "1.0");
+
+                    $("#SmallLocationButton").removeAttr("disabled", "disabled");
+                    $("#SmallLocationButton").css("opacity", "1.0");
+
+                    $("#ClientEditButton").removeAttr("disabled", "disabled");
+                    $("#ClientEditButton").css("opacity", "1.0");
+
+                    $("#EnrollmentEditButton").removeAttr("disabled", "disabled");
+                    $("#EnrollmentEditButton").css("opacity", "1.0");
+
+                    $("#MedicalHistoryEditButton").removeAttr("disabled", "disabled");
+                    $("#MedicalHistoryEditButton").css("opacity", "1.0");
+
+
+                }
+            });
+        }
+
+    });
+
+
+        </script>

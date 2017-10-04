@@ -1,0 +1,203 @@
+﻿@model eCaST.ViewModels.LocationViewModel
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4><i class="fa fa-home fa-fw"></i> Location Information</h4>
+
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+
+
+        <div id="PrimaryContainer" style="display:block" class="row">
+
+
+            <div class="col-md-12">
+
+                <div style="float:left">@Html.CheckBoxFor(model => model.PrimaryValue, new { @class = "big" })</div> <h4>&nbsp;&nbsp;Primary Address?</h4>
+                @Html.ValidationMessageFor(model => model.Primary)
+
+            </div>
+
+        </div>
+
+        <br />
+
+
+
+        <div class="row">
+
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.Street)
+            </div>
+
+            <div class="col-md-4">
+                @Html.TextBoxFor(model => model.Street, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Street)
+            </div>
+
+
+            <div class="col-md-2">
+                City
+            </div>
+
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.CityBinID, ((IEnumerable<eCaST.ViewModels.AssignedCityData>)ViewBag.PossibleCityBins).Select(option => new SelectListItem
+                               {
+                                   Text = option.CityBinName,
+                                   Value = option.CityBinID.ToString(),
+                                   Selected = (Model != null) && (option.CityBinID == Model.CityBinID)
+                               }), "Choose...", new { })
+                @Html.ValidationMessageFor(model => model.CityBinID)
+            </div>
+
+        </div>
+        <br />
+
+        <div class="row">
+
+            <div class="col-md-2">
+                State
+            </div>
+
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.StateBinID, ((IEnumerable<eCaST.ViewModels.AssignedStateData>)ViewBag.PossibleStateBins).Select(option => new SelectListItem
+                               {
+                                   Text = option.StateBinName,
+                                   Value = option.StateBinID.ToString(),
+                                   Selected = (Model != null) && (option.StateBinID == Model.StateBinID)
+                               }), "Choose...", new { @class = "requiredSelect" })
+                @Html.ValidationMessageFor(model => model.StateBinID)
+            </div>
+
+
+            <div class="col-md-2">
+
+                @Html.LabelFor(model => model.ZipCode)
+            </div>
+
+            <div class="col-md-4">
+
+                @Html.TextBoxFor(model => model.ZipCode, new { @type="number", @class = "requiredText form-control" })
+                @Html.ValidationMessageFor(model => model.ZipCode)
+
+            </div>
+
+        </div>
+
+        <br />
+
+
+        <div class="row">
+
+            <div class="col-md-2">County</div>
+            <div class="col-md-4">
+
+                @Html.DropDownListFor(model => model.CountyBinID, ((IEnumerable<eCaST.ViewModels.AssignedCountyData>)ViewBag.PossibleCountyBins).Select(option => new SelectListItem
+                               {
+                                   Text = option.CountyBinName,
+                                   Value = option.CountyBinID.ToString(),
+                                   Selected = (Model != null) && (option.CountyBinID == Model.CountyBinID)
+                               }), "Choose...", new { @class = "requiredSelect" })
+                @Html.ValidationMessageFor(model => model.CountyBinID)
+
+
+            </div>
+
+            <div class="col-md-2">
+
+
+                @Html.LabelFor(model => model.EmailAddress, "Email Address")
+
+            </div>
+            <div class="col-md-4">
+
+                @Html.TextBoxFor(model => model.EmailAddress, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EmailAddress)
+
+            </div>
+
+
+        </div>
+
+
+        <br />
+        <br />
+
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+
+      
+
+        $("input[type=checkbox]").bootstrapSwitch({
+
+            onText: 'YES',
+            offText: 'NO',
+            offColor: 'danger',
+            onColor: 'success'
+
+
+        });
+
+
+        if ('@ViewBag.Primary' == 'True') {
+
+
+            $('#PrimaryValue').bootstrapSwitch('state', true);
+
+
+        }
+
+        if ('@ViewBag.PhoneID' == 0 ) {
+
+            if ('@ViewBag.ClientID' == 0) {
+
+                $('#PrimaryContainer').css("display", "none");
+                $('#PrimaryValue').bootstrapSwitch('state', true);
+
+            }
+
+        }
+
+      
+
+        $("#CityBinID").select2({ width: "100%" });
+
+        $("#StateBinID").select2().select2("val", '10');
+
+        $("#StateBinID").select2({ width: "100%" });
+
+        $("#CountyBinID").select2({ width: "100%" });
+
+
+
+    });
+
+    $(function () {
+
+
+
+        $("#StateBinID").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+
+        $("#CountyBinID").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+
+    });
+
+</script>

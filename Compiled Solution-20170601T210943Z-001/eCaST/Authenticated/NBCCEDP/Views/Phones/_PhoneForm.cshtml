@@ -1,0 +1,125 @@
+﻿@model eCaST.ViewModels.PhoneViewModel
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4><i class="fa fa-mobile-phone fa-fw"></i> Contact Information</h4>
+
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+
+        <div class="row">
+
+            <div class="col-md-2">
+                Phone Type
+            </div>
+
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.PhoneBinID, ((IEnumerable<eCaST.ViewModels.AssignedPhoneData>)ViewBag.PossiblePhoneBins).Select(option => new SelectListItem
+                               {
+                                   Text = option.PhoneBinName,
+                                   Value = option.PhoneBinID.ToString(),
+                                   Selected = (Model != null) && (option.PhoneBinID == Model.PhoneBinID)
+                               }), "Choose...", new { })
+                @Html.ValidationMessageFor(model => model.PhoneBinID)
+                @Html.Hidden("PhoneID",(int?)ViewBag.PhoneID)
+            </div>
+
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.PhoneNumber, "Phone Number")
+            </div>
+
+            <div class="col-md-4">
+
+
+
+                @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PhoneNumber)
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+        <div style="display:none" id="EmergencyContactContainer" class="row">
+
+            <br />
+
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.EmergencyName, "Emergency Name")
+            </div>
+
+            <div class="col-md-4">
+
+
+
+                @Html.TextBoxFor(model => model.EmergencyName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EmergencyName)
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+
+        $("#PhoneBinID").select2({ width: "100%" });
+
+
+    });
+
+
+    if ('@ViewBag.PhoneID' != null) {
+
+
+        if ($("#PhoneBinID").val() == 4) {
+
+            $("#EmergencyContactContainer").css("display", "block");
+
+        }
+        else {
+
+            $("#EmergencyContactContainer").css("display", "none");
+
+        }
+
+
+    }
+
+
+    $("#PhoneBinID").change(function () {
+
+        if ($("#PhoneBinID").val() == 4) {
+
+            $("#EmergencyContactContainer").css("display", "block");
+
+        }
+        else {
+
+            $("#EmergencyContactContainer").css("display", "none");
+
+        }
+    });
+
+</script>
+
+
+
+

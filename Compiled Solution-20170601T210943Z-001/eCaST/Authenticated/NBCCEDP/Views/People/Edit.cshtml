@@ -1,0 +1,841 @@
+﻿@model eCaST.ViewModels.PersonViewModel
+
+@{
+    ViewBag.Title = "Edit Client";
+}
+
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">*@
+
+<style type="text/css">
+    .label {
+        font-family: 'Roboto', sans-serif;
+    }
+
+
+    .box {
+        float: left;
+        width: 20px;
+        height: 20px;
+        margin: 5px;
+        border: 1px solid rgba(0, 0, 0, .2);
+    }
+
+    .blue {
+        background: #d9ffff;
+    }
+
+
+    .error a {
+        background-color: #d9ffff !important;
+        border: 1px solid #ccc !important;
+        width: 100%;
+        color: #666 !important;
+    }
+
+
+    .requiredText {
+        background-color: #d9ffff;
+        border: 1px solid #ccc;
+    }
+
+    .requiredSelect {
+        background-color: #d9ffff;
+    }
+</style>
+
+
+
+
+
+@using (Html.BeginForm("_EditClientF", "People", FormMethod.Post, new { id = "EditClientForm" }))
+{
+
+    @Html.Hidden("Races");
+    @Html.Hidden("SiteIDValue");
+    @Html.HiddenFor(x => x.PersonID)
+
+    <div style="padding-left:10px;width:99%;text-align:left">
+        <br />
+        <div style="padding-left:0px;"><h2 style="font-family: 'Roboto', sans-serif; color:#666"><i class="fa fa-pencil"></i>&nbsp;Edit Client</h2></div>
+        <hr />
+
+        <div style="padding-right:20px" class="pull-right">
+
+            <div style="width:90px;height:26px;text-align:center" class="box blue"><span style="font-family: 'Roboto', sans-serif;padding-top:20px">*Required</span></div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="form-group">
+
+                    <h3 style="font-family: 'Roboto', sans-serif;color:#666"> <span class="glyphicon glyphicon-map-marker"></span>&nbsp;Client Location</h3>
+
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        <div class="row">
+
+            <div class="col-md-2">
+
+
+                Select the default site for this client
+
+
+            </div>
+
+            <div class="col-md-10">
+
+
+                @Html.DropDownList("SiteID", null, new { @id = "SiteID", style = "font-size:20px", @class = "requiredSelect" })
+
+                @Html.ValidationMessageFor(model => model.SiteID, "", new { @class = "text-danger" })
+
+
+            </div>
+
+        </div>
+        <hr />
+
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="form-group">
+
+                    <h3 style="font-family: 'Roboto', sans-serif;color:#666"> <span class="glyphicon glyphicon-user"></span>&nbsp;Personal Information</h3>
+
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        <div class="row">
+            <div class="col-md-3">
+
+                <div>
+                    <label style="padding-right:35px" for="FirstName">First Name</label>
+                    @Html.TextBoxFor(m => m.FirstName, new { id = "FirstName", @class = "form-control requiredText", placeholder = "First Name" })
+                    @Html.ValidationMessageFor(m => m.FirstName)
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div>
+                    <label style="padding-right:35px" for="LastName">Last Name</label>
+                    @Html.TextBoxFor(m => m.LastName, new { id = "LastName", @class = "form-control requiredText", placeholder = "Last Name" })
+                    @Html.ValidationMessageFor(m => m.LastName)
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div>
+                    <label style="padding-right:35px" for="LastName">Middle Name</label>
+                    @Html.TextBoxFor(m => m.MiddleName, new { id = "MiddleName", @class = "form-control", placeholder = "Middle Name" })
+                    @Html.ValidationMessageFor(m => m.MiddleName)
+                </div>
+
+            </div>
+
+
+            <div class="col-md-2">
+
+                <div>
+                    <label style="padding-right:35px" for="LastName">Maiden Name</label>
+                    @Html.TextBoxFor(m => m.MaidenName, new { id = "MaidenName", @class = "form-control", placeholder = "Maiden Name" })
+                    @Html.ValidationMessageFor(m => m.MaidenName)
+                </div>
+
+            </div>
+
+        </div>
+
+        <hr />
+
+
+        <div class="row">
+            <div class="col-md-3">
+
+                <div>
+                    <label style="padding-right:35px" for="FirstName">AKA First Name</label>
+                    @Html.TextBoxFor(m => m.AKAFirstName, new { id = "AKAFirstName", @class = "form-control", placeholder = "AKA First Name" })
+                    @Html.ValidationMessageFor(m => m.AKAFirstName)
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div>
+                    <label style="padding-right:35px" for="LastName">AKA Last Name</label>
+                    @Html.TextBoxFor(m => m.AKALastName, new { id = "AKA LastName", @class = "form-control", placeholder = "AKA Last Name" })
+                    @Html.ValidationMessageFor(m => m.AKALastName)
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div>
+                    <label style="padding-right:35px" for="LastName">AKA Middle Name</label>
+                    @Html.TextBoxFor(m => m.AKAMiddleName, new { id = "AKA MiddleName", @class = "form-control", placeholder = "AKA Middle Name" })
+                    @Html.ValidationMessageFor(m => m.AKAMiddleName)
+                </div>
+
+            </div>
+            <div class="col-md-3">
+
+                <label style="padding-right:35px" for="LastName">Limited English Proficiency?</label>
+                <div class="checkbox">
+                    @Html.CheckBoxFor(model => model.LimitedEnglish)
+                    @Html.ValidationMessageFor(model => model.LimitedEnglish, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+
+        </div>
+
+        <br />
+
+
+        <div class="row">
+            <div class="col-md-3">
+
+                <div>
+                    <div class="form-group has-success has-feedback">
+                        <label style="padding-right:35px" for="FirstName">Date Of Birth</label>
+                        @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control requiredText" } })
+                        @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+                        @*<span class="glyphicon glyphicon-calendar form-control-feedback"></span>*@
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div>
+                    <label style="padding-right:35px" for="LastName">Gender</label>
+                    @Html.DropDownListFor(model => model.GenderID, ((IEnumerable<eCaST.Models.DD_Genders>)ViewBag.PossibleGenderBins).Select(option => new SelectListItem
+            {
+                //Text = Html.DisplayTextFor(_ => option).ToString(),
+                Text = option.Description,
+                Value = option.ID.ToString(),
+                Selected = (Model != null) && (option.ID == Model.GenderID)
+            }), "Choose...", new { @id = "GenderID", @class = "input-control select" })
+                    @Html.ValidationMessageFor(model => model.GenderID, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div>
+                    <div class="form-group has-success has-feedback">
+                        <label style="padding-right:35px" for="LastName">Enrollment Date</label>
+                        @Html.EditorFor(model => model.DateEnrollment, new { htmlAttributes = new { @class = "form-control requiredText" } })
+                        @Html.ValidationMessageFor(model => model.DateEnrollment, "", new { @class = "text-danger" })
+                        @*<span class="glyphicon glyphicon-calendar form-control-feedback"></span>*@
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="col-md-2">
+
+                <div>
+                    <label style="padding-right:35px" for="LastName">Language</label>
+                    @Html.DropDownListFor(model => model.LanguageSpokenID, ((IEnumerable<eCaST.Models.DD_Language>)ViewBag.PossibleLanguageBins).Select(option => new SelectListItem
+            {
+                //Text = Html.DisplayTextFor(_ => option).ToString(),
+                Text = option.Description,
+                Value = option.ID.ToString(),
+                Selected = (Model != null) && (option.ID == Model.LanguageSpokenID)
+            }), "Choose...", new { @id = "LanguageSpokenID", @class = "input-control select" })
+                    @Html.ValidationMessageFor(model => model.LanguageSpokenID, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+
+        </div>
+
+        <hr />
+
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="form-group">
+
+                    <h3 style="font-family: 'Roboto', sans-serif;color:#666"> <span class="glyphicon glyphicon-user"></span>&nbsp;Race and Ethnicity Information</h3>
+
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <div>
+                    <label style="padding-right:35px" for="LastName">Hispanic Ehtnicity</label>
+                    @Html.DropDownListFor(model => model.EthnicityHispanic, ((IEnumerable<eCaST.Models.DD_Ethnicity>)ViewBag.PossibleEthnicityBins).Select(option => new SelectListItem
+            {
+                //Text = Html.DisplayTextFor(_ => option).ToString(),
+                Text = option.Description,
+                Value = option.ID.ToString(),
+                Selected = (Model != null) && (option.ID == Model.EthnicityHispanic)
+            }), "Choose...", new { @id = "EthnicityHispanic", @class = "input-control select" })
+                    @Html.ValidationMessageFor(model => model.EthnicityHispanic, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <label style="padding-right:35px" for="NoSSN">Does client have a social security number?</label>
+                <div class="checkbox">
+                    @Html.CheckBoxFor(model => model.NoSSNBool)
+                    @Html.ValidationMessageFor(model => model.NoSSNBool, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+
+           
+
+            <div class="col-md-4">
+
+                <label style="padding-right:35px" for="EthnicityConfidential">Information to remain confidential?</label>
+                <div class="checkbox">
+                    @Html.CheckBoxFor(model => model.EthnicityConfidential)
+                    @Html.ValidationMessageFor(model => model.EthnicityConfidential, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+
+        </div>
+        <br />
+
+        <div class="row">
+
+
+            <div class="col-md-2">
+
+
+                Select the applicable race(s) for this client
+
+            </div>
+
+            <div class="col-md-10">
+
+                <div class="input-group btn-group">
+
+
+                    @Html.DropDownList("testCR", (SelectList)ViewData["OptionListCR"], new { @class = "form-control requiredText", multiple = "", @placeholder = "Click to Add" })
+
+
+                    <input type="hidden" id="selectedIDsCR" />
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+       
+        <div class="modal-footer">
+
+
+            <a id="CloseEditSButton" class="btn btn-default">Cancel</a> <button type="submit" id="SaveClientButton" class="btn btn-success">Save</button>
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+}
+
+
+
+
+<script type="text/JavaScript">
+    function valid(f) {
+        !(/^[A-z&#209;&#241;0-9]*$/i).test(f.value) ? f.value = f.value.replace(/[^A-z&#209;&#241;0-9]/ig, '') : null;
+    }
+</script>
+
+
+<script type="text/javascript">
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+
+</script>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        var value = $('select#InsuranceID option:selected').val();
+
+        if(value == 1){
+
+
+            $("#SubInsuranceContainer").css("display","block");
+
+
+        }
+        else{
+
+            $("#SubInsuranceContainer").css("display","none");
+
+        }
+
+
+    });
+
+
+    $("#InsuranceID").click(function () {
+
+        var value = $('select#InsuranceID option:selected').val();
+
+        if(value == 1){
+
+
+            $("#SubInsuranceContainer").css("display","block");
+
+
+        }
+        else{
+
+            $("#SubInsuranceContainer").css("display","none");
+
+        }
+
+
+
+
+    });
+
+
+
+
+
+    $(function () {
+
+
+        $("input[type=checkbox]").bootstrapSwitch({
+
+            onText: 'YES',
+            offText: 'NO',
+            offColor: 'info',
+            onColor: 'success'
+
+
+        });
+
+
+        // Check to see if Prof,SSn,Con need to be checked
+
+        if('@Model.LimitedEnglishValue' == 'True'){
+
+
+            $('#LimitedEnglish').bootstrapSwitch('state', true);
+
+
+        }
+
+        if('@Model.NoSSN' == 1){
+
+
+            $('#NoSSNBool').bootstrapSwitch('state', true);
+
+
+        }
+
+
+        if('@Model.EthnicityConfidentialValue' == 'True'){
+
+
+            $('#EthnicityConfidential').bootstrapSwitch('state', true);
+
+
+        }
+
+
+        $("#SiteID").select2({ width: "60%", containerCssClass: "error" });
+        $("#GenderID").select2({ width: "100%", containerCssClass: "error" });
+        $("#EthnicityHispanic").select2({ width: "100%", containerCssClass: "error" });
+        $("#LanguageSpokenID").select2({ width: "100%", containerCssClass: "error" });
+        $("#InsuranceID").select2({ width: "100%", containerCssClass: "error" });
+        $("#subInsuranceID").select2({ width: "100%", containerCssClass: "error" });
+        $("#countyResidenceID").select2({ width: "100%", containerCssClass: "error" });
+        $("#StateID").select2({ width: "100%", containerCssClass: "error" });
+        $("#ContactTypeID").select2({ width: "100%" });
+
+        $('#DOB').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            maxDate: new Date
+
+        });
+
+        $('#DateEnrollment').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            maxDate: new Date
+
+        });
+
+
+
+        var dataCR = '@ViewBag.OptionsCR';
+
+        //Make an array
+        var dataarrayCR = dataCR.split(",");
+
+        // Set the value
+        $("#testCR").val(dataarrayCR);
+        $('#selectedIDsCR').val(dataarrayCR);
+
+
+        var testCR = $('#testCR');
+        $(testCR).select2({
+
+            width: "500px",
+           // containerCssClass: "error"
+        });
+
+
+        document.getElementById("testCR").onchange = function () {
+
+            var ids = $(testCR).val();
+            $('#selectedIDsCR').val(ids);
+
+        };
+
+
+
+    });
+
+
+    @*$(function () {
+
+
+        var two0 = parseInt($("#numberInFamily").val());
+        var three0 = "";
+            @{
+                int cnt0 = 0;
+                List<eCaST.ViewModels.AssignedPovertyGuidelines> pfgs0 = ViewBag.PovertyGuidelines;
+                foreach (var pfg in pfgs0)
+                {
+                    cnt0 = cnt0 + 1;
+                    if (cnt0 == 1)
+                    {
+
+
+                        @:  if (two0 == @pfg.numberInFamily) { three0 = parseFloat((($("#annualGrossIncome").val() * 12 / @pfg.PovertyAmount) * 100));}
+
+                    }
+                    else
+                    {
+
+                        @: else if (two0 == @pfg.numberInFamily) { three0 = parseFloat((($("#annualGrossIncome").val() * 12 / @pfg.PovertyAmount) * 100));}
+
+                    }
+
+                }
+
+
+
+            }
+    else {
+                    var three0 = "&nbsp;";
+    }
+            three0 = three0.toString();
+    var n = three0.length;
+    if (three0 >= 6) {
+        three0 = three0.substr(0, 6);
+    }
+    $("#ppov").html("% of Poverty: <font color='brown'><b>" + three0 + "</b></font>");
+
+
+
+        $("#numberInFamily").change(function () {
+            var two = parseInt($("#numberInFamily").val());
+            var three = "";
+            @{
+                    int cnt = 0;
+                    List<eCaST.ViewModels.AssignedPovertyGuidelines> pfgs = ViewBag.PovertyGuidelines;
+                    foreach (var pfg in pfgs)
+                    {
+                        cnt = cnt + 1;
+                        if (cnt == 1)
+                        {
+
+
+                           @:  if (two == @pfg.numberInFamily) { three = parseFloat((($("#annualGrossIncome").val() * 12 / @pfg.PovertyAmount) * 100));}
+
+                        }
+                        else
+                        {
+
+                            @: else if (two == @pfg.numberInFamily) { three = parseFloat((($("#annualGrossIncome").val() * 12 / @pfg.PovertyAmount) * 100));}
+
+                        }
+
+                    }
+
+
+
+                }
+                else {
+                    var three = "&nbsp;";
+                    }
+            three = three.toString();
+            var n = three.length;
+            if (three >= 6) {
+                three = three.substr(0, 6);
+            }
+            $("#ppov").html("% of Poverty: <font color='brown'><b>" + three + "</b></font>");
+
+        });
+    });*@
+
+
+            @*$(function () {
+                $("#annualGrossIncome").change(function () {
+                    var two1 = parseInt($("#annualGrossIncome").val());
+                    var three1 = "";
+                    @{
+                        int cnt1 = 0;
+                        List<eCaST.ViewModels.AssignedPovertyGuidelines> pfgs1 = ViewBag.PovertyGuidelines;
+                        foreach (var pfg in pfgs1)
+                        {
+                            cnt1 = cnt1 + 1;
+                            if (cnt1 == 1)
+                            {
+
+
+                                @:  if (two1 == @pfg.numberInFamily) { three1 = parseFloat((($("#annualGrossIncome").val() * 12 / @pfg.PovertyAmount) * 100));}
+
+                            }
+                            else
+                            {
+
+                                @: else if (two1 == @pfg.numberInFamily) { three1 = parseFloat((($("#annualGrossIncome").val() * 12 / @pfg.PovertyAmount) * 100));}
+
+                            }
+
+                        }
+
+
+
+                    }
+                else {
+                            var three1 = "&nbsp;";
+                }
+                    three1 = three1.toString();
+                var n = three1.length;
+                if (three1 >= 6) {
+                    three1 = three1.substr(0, 6);
+                }
+                $("#ppov").html("% of Poverty: <font color='brown'><b>" + three1 + "</b></font>");
+
+            });
+            });*@
+
+    $(function () {
+
+
+
+        $("#CloseEditSButton").click(function () {
+
+            $('#PersonSection').load('@Url.Action("Details", "People")', { id: '@Model.PersonID' });
+
+        });
+
+
+        $("#SaveClientButton").click(function (e) {
+
+
+
+            // Add Race(s)
+
+            //Add Focus Areas
+            var outCR = document.getElementById('selectedIDsCR').value;
+            document.getElementById("Races").value = outCR;
+
+            //Set Site ID
+            var outSI = document.getElementById('SiteID').value;
+            document.getElementById("SiteIDValue").value = outSI;
+
+            // Form Validation
+
+            var iCurDOBDate = $("#DOB").val();
+            var iCurDate = new Date();
+            var iStopSub = 0;
+            var sErr = "Please correct the following issues:\n\n";
+
+
+            iDOBDateLen = iCurDOBDate.length;
+            if (iDOBDateLen < 1) {
+                iStopSub = 1;
+                sErr += "You must enter a Date of Birth" + "\n";
+            }
+
+            if (new Date(iCurDOBDate).getTime() > new Date(iCurDate).getTime()) {
+                iStopSub = 1;
+                sErr += "-You cannot enter a date of birth in the future\n";
+            }
+
+            var iSiteID = $("#SiteID option:selected").val();
+
+            if (iSiteID < 1) {
+                iStopSub = 1;
+                sErr += "You must enter a Default Site" + "\n";
+
+            }
+
+
+            var iFirstName = $("#FirstName").val();
+
+            if (iFirstName == "") {
+
+                iStopSub = 1;
+                sErr += "You must enter a First Name" + "\n";
+
+            }
+
+            var iLastName = $("#LastName").val();
+
+            if (iLastName == "") {
+
+                iStopSub = 1;
+                sErr += "You must enter a Last Name" + "\n";
+
+            }
+
+            var iDOB = $("#DOB").val();
+
+            if (iDOB == "") {
+
+                iStopSub = 1;
+                sErr += "You must enter a Date of Birth" + "\n";
+
+            }
+
+            var iGenderID = $("#GenderID option:selected").val();
+
+            if (iGenderID < 1) {
+                iStopSub = 1;
+                sErr += "You must enter a Gender" + "\n";
+
+            }
+
+            var iDateEnrollment = $("#DateEnrollment").val();
+
+            if (iDateEnrollment == "") {
+
+                iStopSub = 1;
+                sErr += "You must enter a Date of Enrollment" + "\n";
+
+            }
+
+
+            var iLanguageSpokenID = $("#LanguageSpokenID option:selected").val();
+
+            if (iLanguageSpokenID < 1) {
+                iStopSub = 1;
+                sErr += "You must enter a Language" + "\n";
+
+            }
+
+            var iEthnicityHispanic = $("#EthnicityHispanic option:selected").val();
+
+            if (iEthnicityHispanic < 1) {
+                iStopSub = 1;
+                sErr += "You must enter Hispanic Ethnicity" + "\n";
+
+            }
+
+       
+
+            if ($("#selectedIDsCR").val() == "") {
+                iStopSub = 1;
+                sErr += "-You must enter Race(s)" + "\n";
+            }
+
+
+        
+            if (iStopSub != 0) {
+                alert(sErr);
+                e.preventDefault();
+            }
+
+
+        });
+
+
+
+        $('#EditClientForm').on("submit", function (e) {
+            e.preventDefault();
+
+            $.ajax({
+
+                url: $("#EditClientForm").attr('action'),
+                type: $("#EditClientForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#EditClientForm").serialize(),
+                success: function (data) {
+
+                    var userid = data.Modified;
+                    var firstname = data.Modified2;
+                    var lastname = data.Modified3;
+
+
+                    $('#PersonSection').load('@Url.Action("Details", "People")', { id: userid });
+                    toastr.success('You have successfully updated the client record for ' + firstname + " " + lastname)
+
+
+
+                }
+
+            });
+
+        });
+
+
+
+
+    });
+
+
+</script>

@@ -1,0 +1,55 @@
+﻿@model eCaST.Models.Person
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "Qualifying Visit Snapshot";
+}
+
+
+<div class="chart-wrapper">
+    @(Html.Kendo().Chart()
+        .Name("chart")
+            //.Title((String) ViewBag.CurrentYearName + " Births")
+       .Title("Qualifying Visits By Year")
+        .Legend(legend => legend
+            .Position(ChartLegendPosition.Bottom)
+        )
+        .HtmlAttributes(new { style = "height: 300px" })
+        .ChartArea(chartArea => chartArea
+            .Background("transparent")
+        )
+            //.SeriesDefaults(seriesDefaults =>
+            //    seriesDefaults.Area().Line(line => line.Style(ChartAreaStyle.Smooth))
+            //)
+
+        .SeriesColors(new string[] { "#666", "#009933" })
+        .Series(series =>
+        {
+            series.Area(new double[] { (int)ViewBag.BirthsYear1, (int)ViewBag.BirthsYear2, (int)ViewBag.BirthsYear3, (int)ViewBag.BirthsYear4, (int)ViewBag.BirthsYear5, (int)ViewBag.BirthsYear6, (int)ViewBag.BirthsYear7, (int)ViewBag.BirthsYear8, (int)ViewBag.BirthsYear9, (int)ViewBag.BirthsYear10, (int)ViewBag.BirthsYear11, (int)ViewBag.BirthsYear12 }).Name(@ViewBag.PrevYear0);
+            series.Area(new double[] { (int)ViewBag.BirthsCURRENTYear1, (int)ViewBag.BirthsCURRENTYear2, (int)ViewBag.BirthsCURRENTYear3, (int)ViewBag.BirthsCURRENTYear4, (int)ViewBag.BirthsCURRENTYear5, (int)ViewBag.BirthsCURRENTYear6, (int)ViewBag.BirthsCURRENTYear7, (int)ViewBag.BirthsCURRENTYear8, (int)ViewBag.BirthsCURRENTYear9, (int)ViewBag.BirthsCURRENTYear10, (int)ViewBag.BirthsCURRENTYear11, (int)ViewBag.BirthsCURRENTYear12 }).Name(@ViewBag.CurrentYear0);
+
+            //series.Area(new double[] { -0.253, 0.362, -3.519, 1.799, 2.252, 3.343, 0.843, 2.877, -5.416, 5.590 }).Name("Haiti");
+        })
+        .CategoryAxis(axis => axis
+            .Categories("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+            //.MajorGridLines(lines => lines.Visible(false))
+                    .MajorGridLines(majorGridLines => majorGridLines.Visible(false))
+                    .MajorTicks(majorTicks => majorTicks.Visible(false))
+
+
+
+        )
+        .ValueAxis(axis => axis
+            .Numeric()
+            .Labels(labels => labels.Format("{0}"))
+            .AxisCrossingValue(-10)
+            .Line(line => line.Visible(false))
+                     .MajorGridLines(majorGridLines => majorGridLines.Visible(false))
+            //   .Visible(false)
+        )
+        .Tooltip(tooltip => tooltip
+            .Visible(true)
+            .Format("{0}%")
+            .Template("#= series.name #: #= value #")
+        )
+    )
+</div>

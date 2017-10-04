@@ -1,0 +1,847 @@
+﻿@model eCaST.ViewModels.ScreeningViewModel
+
+<style type="text/css">
+    .searchOption {
+        margin: 4px 4px 2px 4px;
+        display: inline;
+    }
+
+    .form-field * {
+        vertical-align: middle;
+    }
+
+    .form-field input {
+        clear: left;
+    }
+
+    .form-field label {
+        width: 800px;
+        display: inline-block;
+    }
+
+    input.big {
+        height: 2.1em;
+        width: 2.1em;
+    }
+
+
+
+    .error a {
+        background-color: #d9ffff !important;
+        border: 1px solid #ccc !important;
+        width: 100%;
+        color: #666 !important;
+    }
+
+    .requiredText {
+        background-color: #d9ffff;
+        border: 1px solid #999;
+    }
+
+    .requiredSelect {
+        background-color: #d9ffff;
+    }
+</style>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4><i class="fa fa-female fa-fw"></i> Screening Information</h4>
+
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+
+
+        @*<div class="row">
+
+            <div class="col-md-2">
+             
+                @Html.LabelFor(model => model.OfficeVisitDate, "Office Visit Date")
+
+            </div>
+            <div class="col-md-10">
+
+                @Html.TextBoxFor(model => model.OfficeVisitDate, new { id = "OfficeVisitDate", @class = "requiredText" })
+                @Html.ValidationMessageFor(model => model.OfficeVisitDate)
+
+
+            </div>
+
+
+        </div>
+
+        <br />*@
+
+        <div class="row">
+
+            <div class="col-md-2">
+
+                @Html.LabelFor(model => model.SiteID, "Location")
+
+
+
+            </div>
+            <div class="col-md-10">
+
+                @Html.DropDownList("SiteID", (IEnumerable<SelectListItem>)ViewBag.SiteID, new { @id = "SiteID", @class = "requiredSelect" })
+                @Html.ValidationMessageFor(model => model.SiteID)
+
+
+            </div>
+
+
+        </div>
+        <br />
+
+
+
+
+        <div class="row">
+
+
+            <div class="col-md-2">
+
+                @Html.LabelFor(model => model.CancerTypeBinID, "Type of Screening")
+
+            </div>
+
+            <div class="col-md-10">
+
+
+                @if (ViewBag.RoleBinID != 2)
+                {
+
+
+                    <select id='CancerTypeDD' name='CancerTypeBinID' class="requiredSelect"></select>
+
+
+                }
+                else
+                {
+
+
+                    @Html.DropDownListFor(model => model.CancerTypeBinID, ((IEnumerable<eCaST.Models.DDCancerTypeBin>)ViewBag.PossibleCancerTypeBinIDs).Select(option => new SelectListItem
+                           {
+                               //Text = Html.DisplayTextFor(_ => option).ToString(),
+                               Text = option.CancerTypeBinName,
+                               Value = option.CancerTypeBinID.ToString(),
+                               Selected = (Model != null) && (option.CancerTypeBinID == Model.CancerTypeBinID)
+                           }), new { id = "CancerTypeDD" })
+
+
+                }
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4><i class="fa fa-calendar-o fa-fw"></i> Office Visit Information</h4>
+
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+
+
+        <div class="row">
+
+            <div class="col-md-2">
+                @*@Html.Hidden("EnrollmentID",(int?)ViewBag.EnrollmentID)*@
+                @Html.LabelFor(model => model.OfficeVisitDate, "Office Visit Date")
+
+            </div>
+            <div class="col-md-10">
+
+                @Html.TextBoxFor(model => model.OfficeVisitDate, new { id = "OfficeVisitDate", @class = "requiredText" })
+                @Html.ValidationMessageFor(model => model.OfficeVisitDate)
+
+
+            </div>
+
+
+        </div>
+
+     
+        <br />
+        <div id="ScreeningMethodContainer" class="row">
+
+            <div class="col-md-2">
+
+                @Html.LabelFor(model => model.ScreeningMethodBinID, "Screening Method")
+
+
+
+            </div>
+            <div class="col-md-10">
+
+                @Html.DropDownListFor(model => model.ScreeningMethodBinID, ((IEnumerable<eCaST.Models.DDScreeningMethodBin>)ViewBag.PossibleScreeningMethodBinIDs).Select(option => new SelectListItem
+                           {
+                               //Text = Html.DisplayTextFor(_ => option).ToString(),
+                               Text = option.ScreeningMethodBinName,
+                               Value = option.ScreeningMethodBinID.ToString(),
+                               Selected = (Model != null) && (option.ScreeningMethodBinID == Model.ScreeningMethodBinID)
+                           }), "Choose...", new { @id = "ScreeningMethodBinID", @class = "requiredSelect" })
+                @Html.ValidationMessageFor(model => model.ScreeningMethodBinID)
+
+
+            </div>
+
+
+        </div>
+
+        </div>
+    </div>
+
+        <script type="text/javascript">
+
+    (function ($) {
+
+        $.fn.extend({
+            detachOptions: function (o) {
+                var s = this;
+                return s.each(function () {
+                    var d = s.data('selectOptions') || [];
+                    s.find(o).each(function () {
+                        d.push($(this).detach());
+                    });
+                    s.data('selectOptions', d);
+                });
+            }, attachOptions: function (o) {
+                var s = this;
+                return s.each(function () {
+                    var d = s.data('selectOptions') || [];
+                    for (var i in d) {
+                        if (d[i].is(o)) {
+                            s.append(d[i]);
+                            //console.log(d[i]);
+                            // TODO: remove option from data array
+                        }
+                    }
+                });
+            }
+        });
+
+    })(jQuery);
+
+
+    $(function () {
+
+        $("#SiteID").select2({ width: "60%" });
+        $("#SiteID").select2({ width: "100%" }).select2('val', '@ViewBag.FirstSiteID');
+        $("#ScreeningMethodBinID").select2({ width: "60%" });
+
+
+        $("#SiteID").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+        $("#ScreeningMethodBinID").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+        if('@ViewBag.ClientID' > 0){
+
+
+            function onOpen() {
+
+
+                var smc0 = $("#CancerTypeDD option:selected").val();
+                if (smc0 == 4) {
+
+
+                    // Hide and Set Screening Method for Cardio
+                    $("#ScreeningMethodContainer").css("display", "none");
+                    //   $("#ScreeningMethodBinID").select2({ width: "100%" }).select2('val', 1);
+
+                }
+                else {
+
+                    // Hide and Set Screening Method for Cardio
+                    $("#ScreeningMethodContainer").css("display", "block");
+                    //   $("#ScreeningMethodBinID").select2({ width: "100%" }).select2('val', 1);
+
+                }
+
+
+
+
+                $("#ScreeningContainer").load("@Url.Action("_ScreeningContainer", "Screenings")", { 'id': smc0, 'id2': 0, 'id3': @ViewBag.ClientID },
+                                 function (response, status, xhr) {
+                                     if (status == "error") {
+                                         //   alert("An error occurred while loading the results.");
+                                     }
+
+
+                                 });
+
+
+
+
+            }
+
+
+
+
+            function onChange() {
+
+                $(".se-pre-con").fadeIn("fast");
+
+                var smc0 = $("#CancerTypeDD option:selected").val();
+                if (smc0 == 4) {
+
+
+                    // Hide and Set Screening Method for Cardio
+                    $("#ScreeningMethodContainer").css("display", "none");
+
+
+                }
+                else {
+
+                    // Hide and Set Screening Method for Cardio
+                    $("#ScreeningMethodContainer").css("display", "block");
+                    $('#ScreeningMethodBinID').select2({ width: "60%", containerCssClass: "error" }).select2('val', $('.select2 option:eq(1)').val());
+
+                }
+
+
+                var ovdate = $("#OfficeVisitDate").val();
+
+
+                $("#ScreeningContainer").load("@Html.Raw(Url.Action("_ScreeningContainer", "Screenings"))", { 'id': smc0, 'id2': 0, 'id3': '@ViewBag.ClientID', 'id4': ovdate },
+                                      function (response, status, xhr) {
+                                          if (status == "error") {
+                                              //   alert("An error occurred while loading the results.");
+                                          }
+
+                                          $(".se-pre-con").fadeOut("slow");
+
+                                      });
+
+
+            }
+
+
+
+            $("#OfficeVisitDate").kendoDatePicker({
+                change: onChange,
+                //  open: onOpen,
+                max: new Date()
+
+            });
+
+
+            $(document).ready(function () {
+                $("#OfficeVisitDate").keyup(function (e) {
+
+                    if (e.keyCode != 8) {
+                        if ($(this).val().length == 2) {
+                            $(this).val($(this).val() + "/");
+                        } else if ($(this).val().length == 5) {
+                            $(this).val($(this).val() + "/");
+                        }
+                    }
+
+                    
+
+                    var smc0 = $("#CancerTypeDD option:selected").val();
+                    if (smc0 == 4) {
+
+
+                        // Hide and Set Screening Method for Cardio
+                        $("#ScreeningMethodContainer").css("display", "none");
+
+
+                    }
+                    else {
+
+                        // Hide and Set Screening Method for Cardio
+                        $("#ScreeningMethodContainer").css("display", "block");
+                        $('#ScreeningMethodBinID').select2({ width: "60%", containerCssClass: "error" }).select2('val', $('.select2 option:eq(1)').val());
+
+                    }
+
+                    // Check for valid date
+                    var iCurOVDate = $("#OfficeVisitDate").val();
+                    var timestamp = kendo.parseDate(iCurOVDate, "mm/dd/yyyy");
+
+                    if (timestamp != null) {
+
+
+                        var ovdate = $("#OfficeVisitDate").val();
+                        $("#ScreeningContainer").load("@Url.Action("_ScreeningContainer", "Screenings")", { 'id': smc0, 'id2': 0, 'id3': @ViewBag.ClientID, 'id4': ovdate },
+                                              function (response, status, xhr) {
+                                                  if (status == "error") {
+                                                      //   alert("An error occurred while loading the results.");
+                                                  }
+
+                                                
+
+                                              });
+
+
+                    }
+
+
+                });
+            });
+
+
+        }
+        else{
+
+            $("#OfficeVisitDate").kendoDatePicker({max: new Date()});
+
+
+
+        }
+
+
+
+
+
+        // Check if Admin, Disable Screening Type
+        if ('@ViewBag.RoleBinID' != 2) {
+
+
+            var id = $("#SiteID").val();
+            var id2 = '@ViewBag.ScreeningID';
+            $.getJSON('@Url.Action("GetCancerTypes", "Screenings")', { SiteID: id, ScreeningID: id2 },
+            function (data) {
+                var select = $("#CancerTypeDD");
+                select.empty();
+                //select.append($('<option/>', {
+                //    value: -1,
+                //    text: "Choose..."
+                //}));
+                $.each(data, function (index, data) {
+
+                    select.append($('<option/>', {
+                        value: data.Id,
+                        text: data.Name
+                    }));
+                });
+                $(".se-pre-con").fadeIn("fast");
+                var smc0 = $("#CancerTypeDD option:selected").val();
+                if (smc0 == 4) {
+
+
+                    // Hide and Set Screening Method for Cardio
+                    $("#ScreeningMethodContainer").css("display", "none");
+                    //   $("#ScreeningMethodBinID").select2({ width: "100%" }).select2('val', 1);
+
+                }
+                else {
+
+                    // Hide and Set Screening Method for Cardio
+                    $("#ScreeningMethodContainer").css("display", "block");
+                    //   $("#ScreeningMethodBinID").select2({ width: "100%" }).select2('val', 1);
+
+                }
+
+
+                if('@ViewBag.ScreeningID' == 0){
+
+
+                    $("#ScreeningContainer").load("@Url.Action("_ScreeningContainer", "Screenings")", { 'id': smc0, 'id2': 0, 'id3': @ViewBag.ClientID },
+                                          function (response, status, xhr) {
+                                              if (status == "error") {
+                                                  //   alert("An error occurred while loading the results.");
+                                              }
+                                              $(".se-pre-con").fadeOut("slow");
+
+                                          });
+
+
+                }
+                else{
+
+
+                    var ovdate = $("#OfficeVisitDate").val();
+                   
+                        $("#ScreeningContainer").load("@Url.Action("_ScreeningContainer", "Screenings")", { 'id': smc0, 'id2': @ViewBag.ScreeningID, 'id3': @ViewBag.ClientID, 'id4': ovdate },
+                                             function (response, status, xhr) {
+                                                 if (status == "error") {
+                                                     //   alert("An error occurred while loading the results.");
+                                                 }
+                                                 $(".se-pre-con").fadeOut("slow");
+
+                                             });
+
+                    
+
+
+
+                }
+
+
+
+
+                });
+
+
+
+
+                $("#SiteID").change(function () {
+
+
+                    var id = $(this).val();
+                    var id2 = '@ViewBag.ScreeningID';
+                $.getJSON('@Url.Action("GetCancerTypes", "Screenings")', { SiteID: id, ScreeningID: id2 },
+                function (data) {
+                    var select = $("#CancerTypeDD");
+                    select.empty();
+                    //select.append($('<option/>', {
+                    //    value: -1,
+                    //    text: "Choose..."
+                    //}));
+                    $.each(data, function (index, data) {
+
+                        select.append($('<option/>', {
+                            value: data.Id,
+                            text: data.Name
+                        }));
+                    });
+
+                });
+
+
+
+            });
+
+
+
+
+            //Button Click
+            $("#CancerTypeDD").change(function () {
+                var id = $(this).val();
+                var text = $(this).text();
+                $("#OfficeVisitDate").val("");
+                $(".se-pre-con").fadeIn("fast");
+                if (id != null) {
+
+                    if (id == 4) {
+
+
+                        // Hide and Set Screening Method for Cardio
+                        $("#ScreeningMethodContainer").css("display", "none");
+                        
+                        $("#ScreeningMethodBinID").select2({ width: "100%" }).select2('val', 1);
+
+                    }
+                    else if (id == 1) {
+
+                        // Hide and Set Screening Method for Cardio
+                        $("#ScreeningMethodContainer").css("display", "block");
+                        //   $("#ScreeningMethodBinID").select2({ width: "100%" }).select2('val', 1);
+
+
+
+                    }
+                    else {
+
+
+
+                        // Hide and Set Screening Method for Cardio
+                        $("#ScreeningMethodContainer").css("display", "block");
+                        //    $("#ScreeningMethodBinID").select2({ width: "100%" }).select2('val', 1);
+
+
+
+
+                    }
+
+
+                    if('@ViewBag.ScreeningID' == 0){
+
+                        $("#ScreeningContainer").load("@Url.Action("_ScreeningContainer", "Screenings")", { 'id': id, 'id2': 0, 'id3': @ViewBag.ClientID },
+                                              function (response, status, xhr) {
+                                                  if (status == "error") {
+                                                      //   alert("An error occurred while loading the results.");
+                                                  }
+
+                                                  $(".se-pre-con").fadeOut("slow");
+                                              });
+
+
+                    }
+                    else {
+
+
+
+                        if (id == 4) {
+
+
+                            $("#OfficeVisitDate").val('');
+                        }
+                        else{
+
+                            $("#OfficeVisitDate").val('@ViewBag.OfficeVisitDate');
+
+                        }
+
+
+                        
+                       
+                        var ovdate = $("#OfficeVisitDate").val();
+                        if (id == 4) {
+
+                        
+
+                            $("#ScreeningContainer").load("@Url.Action("_ScreeningContainer", "Screenings")", { 'id': id, 'id2': 0, 'id3': @ViewBag.ClientID },
+                                                  function (response, status, xhr) {
+                                                      if (status == "error") {
+                                                          //   alert("An error occurred while loading the results.");
+                                                      }
+                                                      $(".se-pre-con").fadeOut("slow");
+
+                                                  });
+
+
+
+                        }
+                        else{
+                            $("#ScreeningContainer").load("@Url.Action("_ScreeningContainer", "Screenings")", { 'id': id, 'id2': @ViewBag.ScreeningID, 'id3': @ViewBag.ClientID, 'id4': ovdate },
+                                                 function (response, status, xhr) {
+                                                     if (status == "error") {
+                                                         //   alert("An error occurred while loading the results.");
+                                                     }
+                                                     $(".se-pre-con").fadeOut("slow");
+
+                                                 });
+
+                        }
+
+
+                    }
+
+
+
+                }
+
+            });
+
+
+
+
+
+        } else {
+
+
+            var smc = $("#CancerTypeDD option:selected").val();
+
+            if (smc == 4) {
+
+                // Hide and Set Screening Method for Cardio
+                $("#ScreeningMethodContainer").css("display", "none");
+                //   $("#ScreeningMethodBinID").select2({ width: "100%" }).select2('val', 1);
+
+            }
+            else {
+
+                // Hide and Set Screening Method for Cardio
+                $("#ScreeningMethodContainer").css("display", "block");
+                //  $("#ScreeningMethodBinID").select2({ width: "100%" }).select2('val', 1);
+
+
+
+                @*if ('@ViewBag.ScreeningID' != null) {
+
+
+                    $("#SiteID").select2({ width: "100%" }).select2('val', '@ViewBag.SelectedSiteID');
+
+
+                }*@
+
+
+            }
+
+
+            if (smc == 4) {
+
+
+                // Hide and Set Screening Method for Cardio
+                $("#ScreeningMethodContainer").css("display", "none");
+                //   $("#ScreeningMethodBinID").select2({ width: "100%" }).select2('val', 1);
+
+            }
+            else {
+
+                // Hide and Set Screening Method for Cardio
+                $("#ScreeningMethodContainer").css("display", "block");
+                //   $("#ScreeningMethodBinID").select2({ width: "100%" }).select2('val', 1);
+
+            }
+
+
+
+            $("#ScreeningContainer").load("@Url.Action("_ScreeningContainer", "Screenings")", { 'id': smc, 'id2': 0, 'id3': @ViewBag.ClientID },
+                                  function (response, status, xhr) {
+                                      if (status == "error") {
+                                          //   alert("An error occurred while loading the results.");
+                                      }
+                                      $(".se-pre-con").fadeOut("slow");
+
+                                  });
+
+
+            //Button Click
+            $("#CancerTypeDD").change(function () {
+                var id = $(this).val();
+                var text = $(this).text();
+                $(".se-pre-con").fadeIn("fast");
+                if (id != null) {
+
+                    if (id == 4) {
+
+
+                        // Hide and Set Screening Method for Cardio
+                        $("#ScreeningMethodContainer").css("display", "none");
+                        $("#ScreeningMethodBinID").select2({ width: "100%" }).select2('val', 1);
+                        $("#OfficeVisitDate").val('');
+                    }
+                    else {
+
+                        // Hide and Set Screening Method for Cardio
+                        $("#ScreeningMethodContainer").css("display", "block");
+                        //    $("#ScreeningMethodBinID").select2({ width: "100%" }).select2('val', 1);
+
+                    }
+
+                    if('@ViewBag.ScreeningID' == 0){
+
+                        $("#ScreeningContainer").load("@Url.Action("_ScreeningContainer", "Screenings")", { 'id': id, 'id2': 0, 'id3': @ViewBag.ClientID },
+                                              function (response, status, xhr) {
+                                                  if (status == "error") {
+                                                      //   alert("An error occurred while loading the results.");
+                                                  }
+                                                  $(".se-pre-con").fadeOut("slow");
+
+                                              });
+
+                    }
+                    else{
+
+                        
+                       
+                        var ovdate = $("#OfficeVisitDate").val();
+                        $("#ScreeningContainer").load("@Url.Action("_ScreeningContainer", "Screenings")", { 'id': id, 'id2': @ViewBag.ScreeningID, 'id3': @ViewBag.ClientID, 'id4': ovdate },
+                                           function (response, status, xhr) {
+                                               if (status == "error") {
+                                                   //   alert("An error occurred while loading the results.");
+                                               }
+                                               $(".se-pre-con").fadeOut("slow");
+
+                                           });
+
+
+                    }
+
+                }
+
+            });
+
+
+            $("#CancerTypeDD").select2({ width: "60%" });
+
+            $("#CancerTypeDD").select2({
+                containerCssClass: "error",
+                width: "100%"
+            });
+
+
+
+        }
+
+
+        if ($('#ScreeningMethodBinID').val() == 2) {
+
+
+            var canType = $("#CancerTypeDD option:selected").val();
+
+            if(canType == 1){
+
+                $("#CurrentMamSection").css("display", "none");
+
+            }
+            else{
+
+                $("#CurrentPapSection").css("display", "none");
+
+            }
+
+
+        }
+
+        else {
+
+            var canType = $("#CancerTypeDD option:selected").val();
+
+            if(canType == 1){
+
+                $("#CurrentMamSection").css("display", "block");
+
+            }
+            else{
+
+                $("#CurrentPapSection").css("display", "block");
+
+            }
+
+        }
+
+        $("#ScreeningMethodBinID").change(function () {
+
+
+            if ($('#ScreeningMethodBinID').val() == 2) {
+
+
+                var canType = $("#CancerTypeDD option:selected").val();
+
+                if(canType == 1){
+
+                    $("#CurrentMamSection").css("display", "none");
+
+                }
+                else{
+
+                    $("#CurrentPapSection").css("display", "none");
+
+                }
+
+
+            }
+
+            else {
+
+                var canType = $("#CancerTypeDD option:selected").val();
+
+                if(canType == 1){
+
+                    $("#CurrentMamSection").css("display", "block");
+
+                }
+                else{
+
+                    $("#CurrentPapSection").css("display", "block");
+
+                }
+
+            }
+
+        });
+
+
+    });
+
+
+
+        </script>

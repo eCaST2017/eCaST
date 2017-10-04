@@ -1,0 +1,268 @@
+﻿@model eCaST.Models.Person
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "Client History";
+}
+
+
+
+
+
+<div class="row">
+    <div class="col-lg-12">
+
+
+        <div class="row">
+
+
+            <div class="col-lg-12">
+
+
+                @*<div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span style="color:#ff6a00"><i class="fa fa-user fa-fw"></i>Client Care History</span>
+                        <div class="pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    Actions
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li>
+                                        <a href="#">Action</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Another action</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Something else here</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">Separated link</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">*@
+
+                
+               
+
+                @*<a style="font-size:78px;color:#ccc; font-family:'Segoe UI Light'; font-weight:100" id="clientButton_0" href="#" rel="0.1">Last 10</a>*@
+
+                      
+
+
+                        @*<div class="row">
+
+                            <div class="col-md-3">
+
+                                @Html.DisplayFor(model => model.PersonID)
+
+                            </div>
+
+
+                            <div class="col-md-3">
+
+                                @Html.DisplayFor(model => model.FirstName)
+                            </div>
+
+
+                            <div class="col-md-3">
+
+                                @Html.DisplayFor(model => model.LastName)
+                            </div>
+
+
+                            <div class="col-md-3">
+
+                                @Html.DisplayFor(model => model.DOB)
+                            </div>
+
+
+
+                        </div>*@
+
+
+
+
+                    @*</div>
+
+                </div>*@
+
+
+
+            </div>
+
+            <div class="col-lg-12">
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span style="color:#4ea920">
+                            <i class="fa fa-bar-chart-o fa-fw"></i>&nbsp;Client History</span>
+                            @*<div class="pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        --Select Time Period --
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li>
+                                            <a href="#">Action</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Another action</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Something else here</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li>
+                                            <a href="#">Separated link</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>*@
+</div>
+
+                    <div class="panel-body">
+                        @*<div id="morris-area-chart"></div>*@
+
+                        
+
+
+                        <div id="QualChartContainer"></div>
+
+
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                </div>
+
+
+
+             
+
+                    </div>
+
+
+
+        </div>
+
+
+    </div>
+    @*<div class="col-lg-4">
+
+        <div class="row">
+
+
+            <div class="col-lg-12">
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span style="color:#1a75e5"> <i class="fa fa-bullseye fa-fw"></i>Benchmarking</span>
+                    </div>
+                   
+                    <div class="panel-body">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item">
+                                <i class="fa fa-users fa-fw"></i> Unduplicated # FPUs by Age and Gender
+                                <span class="pull-right text-muted small">
+                                    <em style="color:#4ea920; font-size:24px">12%<i class="fa fa-sort-asc fa-fw"></i></em>
+                                </span>
+                            </a>
+                            <a href="#" class="list-group-item">
+                                <i class="fa fa-users fa-fw"></i> Unduplicated # Female FPUs by Ethnicity and Race 
+                                <span class="pull-right text-muted small">
+                                    <em style="color:#ff0000; font-size:24px">-10%<i class="fa fa-sort-desc fa-fw"></i></em>
+                                </span>
+                            </a>
+
+                            <a href="#" class="list-group-item">
+                                <i class="fa fa-users fa-fw"></i> Unduplicated # Male FPUs by Ethnicity and Race
+                                <span class="pull-right text-muted small">
+                                    <em style="color:#ff0000; font-size:24px">-14%<i class="fa fa-sort-desc fa-fw"></i></em>
+                                </span>
+                            </a>
+
+                            <a href="#" class="list-group-item">
+                                <i class="fa fa-users fa-fw"></i> Unduplicated # FPUs by Income Level
+                                <span class="pull-right text-muted small">
+                                    <em style="color:#4ea920; font-size:24px">5%<i class="fa fa-sort-asc fa-fw"></i></em>
+                                </span>
+                            </a>
+
+                            <a href="#" class="list-group-item">
+                                <i class="fa fa-users fa-fw"></i> Unduplicated # FPUs by Health Insurance Coverage
+                                <span class="pull-right text-muted small">
+                                    <em style="color:#4ea920; font-size:24px">15%<i class="fa fa-sort-asc fa-fw"></i></em>
+                                </span>
+                            </a>
+                           
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-lg-12">
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span style="color:#ff6a00"> <i class="fa fa-cog fa-fw"></i>Account Settings</span>
+                    </div>
+                   
+                    <div class="panel-body">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item">
+                                <i class="fa fa-tasks fa-fw"></i> Change Password
+                                <span class="pull-right text-muted small">
+                                    <em>Change</em>
+                                </span>
+                            </a>
+                            <a href="#" class="list-group-item">
+                                <i class="fa fa-user fa-fw"></i> Profile
+                                <span class="pull-right text-muted small">
+                                    <em>Update</em>
+                                </span>
+                            </a>
+                           
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>*@
+</div>
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+        
+        $('#QualChartContainer').load('@Url.Action("Index", "People")');
+
+    });
+
+    </script>

@@ -1,0 +1,353 @@
+﻿@model eCaST.ViewModels.CaseManagementViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<style type="text/css">
+    .searchOption {
+        margin: 4px 4px 2px 4px;
+        display: inline;
+    }
+
+    .form-field * {
+        vertical-align: middle;
+    }
+
+    .form-field input {
+        clear: left;
+    }
+
+    .form-field label {
+        width: 800px;
+        display: inline-block;
+    }
+
+    input.big {
+        height: 2.1em;
+        width: 2.1em;
+    }
+
+    .error a {
+        background-color: #d9ffff !important;
+        border: 1px solid #ccc !important;
+        width: 100%;
+        color: #666 !important;
+    }
+
+    .requiredText {
+        background-color: #d9ffff;
+        border: 1px solid #999;
+    }
+
+    .requiredSelect {
+        background-color: #d9ffff;
+    }
+</style>
+
+
+@using (Html.BeginForm("_EditCaseManagementF", "CaseManagements", FormMethod.Post, new { id = "CaseManagementEditForm" }))
+{
+
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+
+    <div id="UpdateButtonContainer" class="pull-left">
+
+        <button id="DeleteCaseManagementButton" class="btn btn-danger" type="button"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</button><text>&nbsp;</text>
+        <button id="CancelCaseManagementLockButton" class="btn btn-default" type="button"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Cancel</button><text>&nbsp;</text>
+        <button class="btn btn-success" id="UpdateCaseManagementButton" type="submit">Update</button>
+
+    </div>
+
+    <br />
+    <br />
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4><i class="fa fa-user fa-fw"></i>Edit Case Management</h4>
+
+        </div>
+
+        <div class="panel-body">
+
+
+            <br />
+
+            <div class="row">
+
+
+                <div class="col-md-3">
+
+                    @Html.LabelFor(model => model.InterventionTypeBinID, "Type of Intervention")
+
+                </div>
+
+                <div class="col-md-6">
+
+                    @Html.DropDownListFor(model => model.InterventionTypeBinID, ((IEnumerable<eCaST.Models.DDInterventionTypeBin>)ViewBag.PossibleInterventionTypeBins).Select(option => new SelectListItem
+                   {
+                       //Text = Html.DisplayTextFor(_ => option).ToString(),
+                       Text = option.InterventionTypeBinName,
+                       Value = option.InterventionTypeBinID.ToString(),
+                       Selected = (Model != null) && (option.InterventionTypeBinID == Model.InterventionTypeBinID)
+                   }), "Choose...", new { id = "InterventionTypeBinID", @class = "requiredSelect" })
+                    @Html.ValidationMessageFor(model => model.InterventionTypeBinID)
+
+                </div>
+
+
+
+            </div>
+            <br />
+            <div id="InterventionDateSection" style="display:block">
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.InterventionDate, "Date of Intervention")
+
+                    </div>
+
+                    <div class="col-md-6">
+
+
+                        @Html.TextBoxFor(model => model.InterventionDate, new { @class = "requiredText" })
+                        @Html.ValidationMessageFor(model => model.InterventionDate)
+
+
+                    </div>
+
+
+                </div>
+
+                <br />
+
+
+            </div>
+
+            <br />
+
+
+        </div>
+
+    </div>
+
+   
+  
+
+    @Html.HiddenFor(x => x.CaseManagementID)
+    @Html.Hidden("ScreeningID", (int?)ViewBag.ScreeningID)
+    @Html.Hidden("ClientID", (int?)ViewBag.ClientID)
+
+
+}
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#InterventionTypeBinID").select2({ width: "100%" });
+
+        $("#InterventionTypeBinID").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+
+        $("#InterventionDate").kendoDatePicker({ max: new Date() });
+
+    });
+
+    $('#DeleteCaseManagementButton').click(function () {
+
+        $('#AccordionContentContainer').load('@Url.Action("Delete", "CaseManagements", new { id = Model.CaseManagementID })');
+
+    });
+
+    $("#UpdateCaseManagementButton").click(function (e) {
+
+        var iStopSub = 0;
+        var sErr = "Please correct the following issues:\n\n";
+        var iCurDate = new Date();
+
+        var iInterventionTypeBinID = $("#InterventionTypeBinID option:selected").val();
+
+        if (iInterventionTypeBinID < 1) {
+            iStopSub = 1;
+            sErr += "Please enter an option for Intervention Type" + "\n";
+
+        }
+
+        var iInterventionDate = $("#InterventionDate").val();
+        iInterventionDateLen = iInterventionDate.length;
+        if (iInterventionDateLen < 1) {
+                iStopSub = 1;
+                sErr += "You must enter an Intervention Date" + "\n";
+            }
+
+        if (new Date(iInterventionDate).getTime() > new Date(iCurDate).getTime()) {
+                iStopSub = 1;
+                sErr += "You cannot enter a date of intervention in the future\n";
+            }
+
+            // Check for valid date
+        var timestamp = kendo.parseDate(iInterventionDate, "mm/dd/yyyy");
+
+            if (timestamp == null) {
+
+                iStopSub = 1;
+                sErr += "Please enter a valid date of intervention\n";
+
+            }
+
+        if (iStopSub != 0) {
+            alert(sErr);
+            e.preventDefault();
+
+        }
+
+
+                    @*if ('@ViewBag.PowerUser' == 1) {
+
+                        //Add Admin Approval
+                        var outAA = document.getElementById('AdminApproval').value;
+                        document.getElementById("BillingHold").value = outAA;
+
+                        //Add State Staff Override
+                        var outSS = document.getElementById('StateStaffOverrideValue').value;
+                        document.getElementById("StateStaffOverride").value = outSS;
+
+
+                    }*@
+
+
+       });
+
+
+
+    $('#CancelCaseManagementLockButton').click(function () {
+
+        $('#AccGlowContainer').removeClass("glowdiv");
+        $("#txtSearch").removeAttr("disabled", "disabled");
+        $('#EditMessageContainer').css("display", "none");
+        $('#ScreeningToolbarContainer').css("display", "block");
+        $('#FooterMenuBarContainer').css("display", "block");
+        $('#ScreenProcedureListContainer').load('@Url.Action("_ScreenProcedureList", "ScreenProcedures", new { id = ViewBag.ScreeningID, id2 = ViewBag.CancerTypeBinID })');
+
+        $('#HomeLinkContainer').css("display", "block");
+        $('#HomeNoLinkContainer').css("display", "none");
+
+        $("#ClientButton").removeAttr("disabled", "disabled");
+        $("#ClientButton").css("opacity", "1.0");
+
+        $("#ScreeningButton").removeAttr("disabled", "disabled");
+        $("#ScreeningButton").css("opacity", "1.0");
+
+        $('#ProfileButtonDown').css("display", "block");
+        $("#ProfileButtonDown").css("opacity", "1.0");
+
+        $("#ClientHistoryButton").removeAttr("disabled", "disabled");
+        $("#ClientHistoryButton").css("opacity", "1.0");
+
+        $("#SmallProfileButton").removeAttr("disabled", "disabled");
+        $("#SmallProfileButton").css("opacity", "1.0");
+
+        $("#SmallScreeningButton").removeAttr("disabled", "disabled");
+        $("#SmallScreeningButton").css("opacity", "1.0");
+
+        $("#SmallEnrollmentButton").removeAttr("disabled", "disabled");
+        $("#SmallEnrollmentButton").css("opacity", "1.0");
+
+        $("#SmallLocationButton").removeAttr("disabled", "disabled");
+        $("#SmallLocationButton").css("opacity", "1.0");
+
+        $("#ClientEditButton").removeAttr("disabled", "disabled");
+        $("#ClientEditButton").css("opacity", "1.0");
+
+        $("#EnrollmentEditButton").removeAttr("disabled", "disabled");
+        $("#EnrollmentEditButton").css("opacity", "1.0");
+
+        $("#MedicalHistoryEditButton").removeAttr("disabled", "disabled");
+        $("#MedicalHistoryEditButton").css("opacity", "1.0");
+
+        $('#AccordionContentContainer').load('@Url.Action("Create", "ScreenProcedures", new { id = ViewBag.ScreeningID, id2 = 1 })');
+
+    });
+
+
+    $('#CaseManagementEditForm').on("submit", function (evt) {
+        evt.preventDefault();
+        if ($('#CaseManagementEditForm').valid()) {
+            //  $("#SaveExitButton").prop("disabled", true);
+            $.ajax({
+                url: $("#CaseManagementEditForm").attr('action'),
+                type: $("#CaseManagementEditForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#CaseManagementEditForm").serialize(),
+                success: function (data) {
+
+                    var clientid = data.Modified;
+                    var screeningid = data.Modified2;
+
+
+                    $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ScreeningID })');
+
+                    // Reset Fields
+
+                    $('#AccGlowContainer').removeClass("glowdiv");
+                    $("#txtSearch").removeAttr("disabled", "disabled");
+                    $('#EditMessageContainer').css("display", "none");
+                    $('#ScreeningToolbarContainer').css("display", "block");
+                    $('#FooterMenuBarContainer').css("display", "block");
+
+                    $('#HomeLinkContainer').css("display", "block");
+                    $('#HomeNoLinkContainer').css("display", "none");
+
+                    $("#ClientButton").removeAttr("disabled", "disabled");
+                    $("#ClientButton").css("opacity", "1.0");
+
+                    $("#ScreeningButton").removeAttr("disabled", "disabled");
+                    $("#ScreeningButton").css("opacity", "1.0");
+
+                    $('#ProfileButtonDown').css("display", "block");
+                    $("#ProfileButtonDown").css("opacity", "1.0");
+
+                    $("#ClientHistoryButton").removeAttr("disabled", "disabled");
+                    $("#ClientHistoryButton").css("opacity", "1.0");
+
+                    $("#SmallProfileButton").removeAttr("disabled", "disabled");
+                    $("#SmallProfileButton").css("opacity", "1.0");
+
+                    $("#SmallScreeningButton").removeAttr("disabled", "disabled");
+                    $("#SmallScreeningButton").css("opacity", "1.0");
+
+                    $("#SmallEnrollmentButton").removeAttr("disabled", "disabled");
+                    $("#SmallEnrollmentButton").css("opacity", "1.0");
+
+                    $("#SmallLocationButton").removeAttr("disabled", "disabled");
+                    $("#SmallLocationButton").css("opacity", "1.0");
+
+                    $("#ClientEditButton").removeAttr("disabled", "disabled");
+                    $("#ClientEditButton").css("opacity", "1.0");
+
+                    $("#EnrollmentEditButton").removeAttr("disabled", "disabled");
+                    $("#EnrollmentEditButton").css("opacity", "1.0");
+
+                    $("#MedicalHistoryEditButton").removeAttr("disabled", "disabled");
+                    $("#MedicalHistoryEditButton").css("opacity", "1.0");
+
+
+                }
+            });
+        }
+
+    });
+
+
+
+</script>

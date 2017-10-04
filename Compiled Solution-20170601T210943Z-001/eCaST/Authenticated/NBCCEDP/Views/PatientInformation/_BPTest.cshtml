@@ -1,0 +1,484 @@
+﻿@model eCaST.ViewModels.ScreenProcedureViewModel
+
+
+<link href="@Url.Content("~/Content/slider.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/themes/base/jquery.ui.slider.css")" rel="stylesheet" type="text/css" />
+
+
+<script src="@Url.Content("~/Scripts/bootstrap-slider.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/app/patientinfo.js")" type="text/javascript"></script>
+
+
+<style type="text/css">
+    .txtdiv {
+        /*width: 130px;
+        height: 50px;*/
+        -ms-transform: rotate(270deg); /* IE 9 */
+        -moz-transform: rotate(270deg); /* Firefox */
+        -webkit-transform: rotate(270deg); /* Safari and Chrome */
+        -o-transform: rotate(270deg); /* Opera */
+    }
+
+    .clsDatePicker {
+        z-index: 100000;
+    }
+</style>
+
+
+<div class="alert alert-default" id="BloodPressureSection">
+
+    <div style="padding:20px" align="center">
+
+        <div style="width:96%;text-align:left" class="alert alert-info">
+            @Html.Hidden("BPTestDate")
+            <span><i class="fa fa-heartbeat"></i> Blood Pressure Test Date:&nbsp;<input style="color:#ccc;" type="text" id="BPTestDateHIDDEN" readonly="readonly" placeholder="Date Test Taken"> <i class="fa fa-lock"></i></span>
+        </div>
+
+    </div>
+    <br />
+            <div style="padding-left:34px" class="row">
+
+                <div class="col-md-6">
+
+                    <div><h4>1st Reading</h4></div>
+                    <br />
+                    <div style="width:54%">
+                    <input class="requiredSelect" style="width:45px; border:none; color:#666; display:block; height: 22px; margin: 0; float: left;" type="text" id="SystolicBinID1HIDDEN">
+                    <span style="padding-left:50px">/</span>
+                    <input class="requiredSelect" style=" width:45px; border:none; color:#666; display:block;height: 22px; margin: 0; float: right;" type="text" id="DiastolicBinID1HIDDEN">
+                    </div>
+                    <br />
+                    <div>Systolic Pressure </div>
+                    <br />
+                    <div style="color:#f5f5f5;">
+                    @Html.Hidden("SystolicBinID1")
+                    <input type="text" id="systolic1" class="span2" value="" data-slider-min="@ViewBag.S1MINSLIDERFIRST" data-slider-max="@ViewBag.S1MINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">
+                    
+                    </div>
+                    <br />
+                    <div>Diastolic Pressure </div>
+                     <br />
+                    <div style="color:#f5f5f5;">
+                    @Html.Hidden("DiastolicBinID1")
+                    <input type="text" id="diastolic1" class="span2" value="" data-slider-min="@ViewBag.D1MINSLIDERFIRST" data-slider-max="@ViewBag.D1MINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">
+                    </div>
+                
+                
+                
+                </div>
+
+                <div class="col-md-6">
+
+                    <div><h4>2nd Reading</h4></div>
+                    <br />
+                    <div style="width:54%">
+                        <input class="requiredSelect" style="width:45px; border:none; color:#666; display:block; height: 22px; margin: 0; float: left;" type="text" id="SystolicBinID2HIDDEN">
+                        <span style="padding-left:50px">/</span>
+                        <input class="requiredSelect" style=" width:45px; border:none; color:#666; display:block;height: 22px; margin: 0; float: right;" type="text" id="DiastolicBinID2HIDDEN">
+                    </div>
+                    <br />
+                    <div>Systolic Pressure </div>
+                    <br />
+                    <div style="color:#f5f5f5;">
+                        @Html.Hidden("SystolicBinID2")
+                        <input type="text" id="systolic2" class="span2" value="" data-slider-min="@ViewBag.S2MINSLIDERFIRST" data-slider-max="@ViewBag.S2MINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">
+
+                    </div>
+                    <br />
+                    <div>Diastolic Pressure </div>
+                    <br />
+                    <div style="color:#f5f5f5;">
+                        @Html.Hidden("DiastolicBinID2")
+                        <input type="text" id="diastolic2" class="span2" value="" data-slider-min="@ViewBag.D2MINSLIDERFIRST" data-slider-max="@ViewBag.D2MINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">
+                    </div>
+
+
+                </div>
+
+
+
+
+            </div>
+
+
+
+
+
+            @*<table style="width:100%; padding:2px">*@
+                @*<tr>
+                    <td style="border:none"><h3>Blood Pressure&nbsp;<i style="color:#ccc">Date:</i></h3></td>
+                    <td style="border:none">
+
+                        <div class="input-group">
+
+                            @Html.Hidden("BPTestDate")   <input style="color:#ccc;" type="text" id="BPTestDateHIDDEN" readonly="readonly" placeholder="Date Test Taken">
+
+
+                        
+
+                        </div>
+
+
+
+
+                    </td>
+
+                </tr>*@
+
+                @*<tr><td style="border:none" colspan="2"><hr class="style-two" /></td></tr>*@
+                @*<tr>
+
+                    <td style="border:none">
+                        <div><h4>1st Reading</h4></div>
+
+
+
+                    </td>
+                </tr>*@
+
+                @*<tr><td style="border:none" colspan="2"><hr class="style-two" /></td></tr>
+
+                <tr>
+                    <td colspan="2" style="border:none">
+
+
+
+                        <table style="width:27%; padding:0px">
+                            <tr>
+
+                                <td style="border:none;text-align:right">
+                                    <input class="requiredSelect" style="width:45px; border:none; color:#666; display:block; height: 22px; margin: 0; float: left;" type="text" id="SystolicBinID1HIDDEN">/
+                                </td>
+                                <td style="border:none">
+
+                                    <input class="requiredSelect" style=" width:45px; border:none; color:#666; display:block;height: 22px; margin: 0; float: left;" type="text" id="DiastolicBinID1HIDDEN">
+
+                                </td>
+                            </tr>
+
+                        </table>
+
+
+
+                    </td>
+
+
+                </tr>*@
+
+                @*<tr>
+
+                    <td style="border:none">
+
+
+                        <div>Systolic Pressure </div>
+                        <div>@Html.Hidden("SystolicBinID1")<br /><br /></div>
+                        <div style="color:#f5f5f5;"><input type="text" id="systolic1" class="span2" value="" data-slider-min="@ViewBag.S1MINSLIDERFIRST" data-slider-max="@ViewBag.S1MINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+                       
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td style="border:none">
+
+                        <br />
+                        <br />
+                        <div>Diastolic Pressure </div>
+                        <div>@Html.Hidden("DiastolicBinID1")<br /><br /></div>
+                        <div style="color:#f5f5f5;"><input type="text" id="diastolic1" class="span2" value="" data-slider-min="@ViewBag.D1MINSLIDERFIRST" data-slider-max="@ViewBag.D1MINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+                       
+                        <br />
+                        <br />
+                        <br />
+                    </td>
+
+                </tr>*@
+
+                @*<tr><td colspan="2" style="border:none"><hr class="style-two" /></td></tr>
+
+                <tr>
+
+                    <td style="border:none">
+                        <div><h4>2nd Reading</h4></div>
+
+
+                    </td>
+                </tr>
+
+                <tr><td colspan="2" style="border:none"><hr class="style-two" /></td></tr>
+
+                <tr>
+                    <td colspan="2" style="border:none">
+
+
+
+                        <table style="width:27%; padding:0px">
+                            <tr>
+
+                                <td style="border:none;text-align:right">
+                                    <input class="requiredSelect" style="width:45px; border:none; color:#666; display:block;height: 22px; margin: 0; float: left;" type="text" id="SystolicBinID2HIDDEN">/
+                                </td>
+                                <td style="border:none">
+
+                                    <input class="requiredSelect" style=" width:45px; border:none; color:#666; display:block;height: 22px; margin: 0; float: left;" type="text" id="DiastolicBinID2HIDDEN">
+
+                                </td>
+                            </tr>
+
+                        </table>
+
+
+
+                    </td>
+
+
+                </tr>
+
+                <tr>
+
+                    <td style="border:none">
+
+
+
+                        <div>Systolic Pressure</div>
+                        <div> @Html.Hidden("SystolicBinID2")<br /><br /></div>
+                        <div style="color:#f5f5f5;"><input type="text" id="systolic2" class="span2" value="" data-slider-min="@ViewBag.S2MINSLIDERFIRST" data-slider-max="@ViewBag.S2MINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+                       
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td style="border:none">
+                        <br />
+                        <br />
+                        <div>Diastolic Pressure</div>
+                        <div>  @Html.Hidden("DiastolicBinID2")<br /><br /></div>
+                        <div style="color:#f5f5f5;"><input type="text" id="diastolic2" class="span2" value="" data-slider-min="@ViewBag.D2MINSLIDERFIRST" data-slider-max="@ViewBag.D2MINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+                      
+
+                    </td>
+
+                </tr>*@
+
+
+            @*</table>*@
+
+        </div>
+        <br />
+
+
+
+
+        <script type="text/javascript">
+
+
+            $(document).ready(function () {
+
+                // Set default Systolic 1 Value
+                $("#SystolicBinID1HIDDEN").val('@ViewBag.S1MINSLIDERFIRST');
+
+                // Set default Systolic 1 Value
+                $("#DiastolicBinID1HIDDEN").val('@ViewBag.D1MINSLIDERFIRST');
+
+                // Set default Systolic 2 Value
+                $("#SystolicBinID2HIDDEN").val('@ViewBag.S2MINSLIDERFIRST');
+
+                // Set default Systolic 1 Value
+                $("#DiastolicBinID2HIDDEN").val('@ViewBag.D2MINSLIDERFIRST');
+
+                $("#BPTestDateHIDDEN").val('@(((DateTime)ViewBag.ClinicalCycleDate).ToString("MM/dd/yyyy"))');
+
+                //$("#BPTestDateHIDDEN").kendoDatePicker({ max: new Date() });
+
+
+
+                $("#SystolicBinID1HIDDEN").on("keyup", function () {
+                    var val = Math.abs(parseInt(this.value, 10) || 0);
+                    this.value = val > 260 ? 260 : val;
+                    $('#systolic1').slider('setValue', val);
+                });
+
+
+                $("#DiastolicBinID1HIDDEN").on("keyup", function () {
+                    var val = Math.abs(parseInt(this.value, 10) || 0);
+                    this.value = val > 200 ? 200 : val;
+                    $('#diastolic1').slider('setValue', val);
+                });
+
+
+                $("#SystolicBinID2HIDDEN").on("keyup", function () {
+                    var val = Math.abs(parseInt(this.value, 10) || 0);
+                    this.value = val > 260 ? 260 : val;
+                    $('#systolic2').slider('setValue', val);
+                });
+
+
+                $("#DiastolicBinID2HIDDEN").on("keyup", function () {
+                    var val = Math.abs(parseInt(this.value, 10) || 0);
+                    this.value = val > 200 ? 200 : val;
+                    $('#diastolic2').slider('setValue', val);
+                });
+
+
+
+
+
+                if ('@ViewBag.ProcedureID' != null) {
+
+
+
+
+                    // Set Sys 1 Value
+                    $slider = $('#systolic1');
+                    $slider.slider('setValue', '@ViewBag.S1MINSLIDERVALUE');
+                    $("#SystolicBinID1HIDDEN").val('@ViewBag.S1MINSLIDERVALUE');
+
+
+                    // Set Dia 1 Value
+                    $slider = $('#diastolic1');
+                    $slider.slider('setValue', '@ViewBag.D1MINSLIDERVALUE');
+                    $("#DiastolicBinID1HIDDEN").val('@ViewBag.D1MINSLIDERVALUE');
+
+
+                    // Set Sys 2 Value
+                    $slider = $('#systolic2');
+                    $slider.slider('setValue', '@ViewBag.S2MINSLIDERVALUE');
+                    $("#SystolicBinID2HIDDEN").val('@ViewBag.S2MINSLIDERVALUE');
+
+
+                    // Set Dia 1 Value
+                    $slider = $('#diastolic2');
+                    $slider.slider('setValue', '@ViewBag.D2MINSLIDERVALUE');
+                    $("#DiastolicBinID2HIDDEN").val('@ViewBag.D2MINSLIDERVALUE');
+
+
+                }
+
+
+
+
+
+            });
+
+
+
+
+
+            $("#UpdateTestingButton").click(function (e) {
+
+                // Validation
+                var iCurDate = new Date();
+                var iStopSub = 0;
+                var sErr = "Please correct the following issues:\n\n";
+
+                if ('@ViewBag.ProcMethod' == 59) {
+
+
+                    // Cholesterol
+                    var hvSC1 = $("#TotalCholesterolBinIDHIDDEN").val();
+                    document.getElementById("TotalCholesterolBinID").value = hvSC1;
+
+                    var hvDC1 = $("#HDLCholesterolBinIDHIDDEN").val();
+                    document.getElementById("HDLCholesterolBinID").value = hvDC1;
+
+                    var hvS2C1 = $("#LDLCholesterolBinIDHIDDEN").val();
+                    document.getElementById("LDLCholesterolBinID").value = hvS2C1;
+
+                    var hvD2C1 = $("#TriglyceridesBinIDHIDDEN").val();
+                    document.getElementById("TriglyceridesBinID").value = hvD2C1;
+
+                    //Add Test Screen
+                    var hvCLDate1 = $("#CLTestDateHIDDEN").val();
+                    document.getElementById("CLTestDate").value = hvCLDate1;
+
+
+                }
+
+                else if ('@ViewBag.ProcMethod' == 58) {
+
+                    // Blood Pressure
+                    var hvS1 = $("#SystolicBinID1HIDDEN").val();
+                    document.getElementById("SystolicBinID1").value = hvS1;
+
+                    var hvD1 = $("#DiastolicBinID1HIDDEN").val();
+                    document.getElementById("DiastolicBinID1").value = hvD1;
+
+                    var hvS21 = $("#SystolicBinID2HIDDEN").val();
+                    document.getElementById("SystolicBinID2").value = hvS21;
+
+                    var hvD21 = $("#DiastolicBinID2HIDDEN").val();
+                    document.getElementById("DiastolicBinID2").value = hvD21;
+
+                    //Add Test Screen
+                    var hvBPDate1 = $("#BPTestDateHIDDEN").val();
+                    document.getElementById("BPTestDate").value = hvBPDate1;
+
+
+                    var iSystolicBinID1 = $("#SystolicBinID1").val();
+                    if (iSystolicBinID1 == "") {
+
+                        iStopSub = 1;
+                        sErr += "You must enter Systolic Reading 1" + "\n";
+
+                    }
+
+                    if (iSystolicBinID1 < 1) {
+
+                        iStopSub = 1;
+                        sErr += "The systolic reading cannot be 0 " + "\n";
+
+                    }
+
+                    var iDiastolicBinID1 = $("#DiastolicBinID1").val();
+                    if (iDiastolicBinID1 == "") {
+
+                        iStopSub = 1;
+                        sErr += "You must enter Diastolic Reading 1" + "\n";
+
+                    }
+
+                    if (iDiastolicBinID1 < 1) {
+
+                        iStopSub = 1;
+                        sErr += "The diastolic reading cannot be 0" + "\n";
+
+                    }
+
+
+
+                }
+
+                else {
+
+                    // Glucose
+                    var hvG1 = $("#GlucoseBinIDHIDDEN").val();
+                    document.getElementById("GlucoseBinID").value = hvG1;
+
+                    //var hvA = $("#A1CPercentageBinIDHIDDEN").val();
+                    //document.getElementById("A1CPercentageBinID").value = hvA;
+
+                    //Add Test Screen
+                    var hvGLUDate1 = $("#GLUTestDateHIDDEN").val();
+                    document.getElementById("GLUTestDate").value = hvGLUDate1;
+
+
+                }
+
+                if (iStopSub != 0) {
+                    alert(sErr);
+                    e.preventDefault();
+
+                }
+
+            });
+
+
+        </script>
+

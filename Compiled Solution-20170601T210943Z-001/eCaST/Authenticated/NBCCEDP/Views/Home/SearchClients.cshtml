@@ -1,0 +1,372 @@
+﻿@model eCaST.ViewModels.SearchCriteria
+
+@{
+    ViewBag.Title = "SearchClients";
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = null;
+}
+
+
+
+
+@*@using (Html.BeginForm())
+    {
+
+*@
+
+@*@using (Ajax.BeginForm("SearchClient", "Clients", new AjaxOptions
+        {
+            InsertionMode = InsertionMode.InsertBefore,
+            HttpMethod = "POST",
+            OnSuccess = "updateSuccess"
+        }, new { @id = "searchClientsForm00" }))
+    {
+    @Html.ValidationSummary(true)
+
+
+
+
+*@
+
+<br />
+<br />
+<br />
+<br />
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <span style="color:#3a318d"><i class="fa fa-search"></i>&nbsp;Advanced Search</span>
+    </div>
+
+    <div class="panel-body">
+
+        <div id="SearchClientsPanel">
+
+
+
+
+            <div style="width:100%">
+
+                @*@Html.Hidden("status", (int)ViewBag.PV)
+
+                @Html.Hidden("statusF", (bool)ViewBag.PVF)*@
+
+
+
+
+
+
+            </div>
+
+
+
+
+            <div style="padding-bottom:4px" class="row">
+
+
+                <div class="col-md-1">
+
+                    @Html.LabelFor(model => model.ClientID)
+
+
+                </div>
+                <div class="col-md-4">
+
+                    @Html.TextBoxFor(model => model.ClientID, new { id = "ClientID", maxlength = 8, @class = "form-control" })
+
+                    @Html.ValidationMessageFor(model => model.ClientID)
+
+
+
+                </div>
+
+
+                <div class="col-md-1">
+
+                    @Html.LabelFor(model => model.DOB)
+
+
+                </div>
+                <div class="col-md-4">
+
+                    @Html.TextBoxFor(model => model.DOB, new { id = "DOB0", @class = "form-control" })
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+
+            <div style="padding-bottom:4px" class="row">
+
+                @if (@ViewBag.RoleName != "ReadOnly")
+                {
+
+
+
+                    <div class="col-md-1">
+
+                        @* @Html.LabelFor(model => model.LastName)*@
+                        L. Name
+
+                    </div>
+                    <div class="col-md-4">
+
+                        @Html.TextBoxFor(model => model.LastName, new { id = "LastName0", @class = "form-control" })
+
+
+
+                    </div>
+
+
+
+
+                    <div class="col-md-1">
+
+                        @*@Html.LabelFor(model => model.FirstName)*@
+                        F. Name
+
+                    </div>
+                    <div class="col-md-4">
+
+                        @Html.TextBoxFor(model => model.FirstName, new { id = "FirstName0", @class = "form-control" })
+
+
+
+                    </div>
+
+                }
+
+            </div>
+
+
+            <div style="padding-bottom:4px" class="row">
+
+
+
+                <div class="col-md-1">
+
+                    @Html.LabelFor(model => model.ChartNumber)
+
+
+                </div>
+                <div class="col-md-4">
+
+                    @Html.TextBoxFor(model => model.ChartNumber, new { id = "ChartNumber0", @class = "form-control" })
+
+
+
+                </div>
+
+
+
+                <div class="col-md-1">
+
+                    @* @Html.LabelFor(model => model.SSN)*@
+                    SSN
+
+                </div>
+                <div class="col-md-4">
+
+                    @Html.TextBoxFor(model => model.SSN, new { id = "SSN0", onkeypress = "return isNumberKey(event)", maxlength = 4, @class = "form-control" })
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+            <div id="searchResultsClients"></div>
+
+
+
+            <div class="row">
+                <div align="right" class="col-md-10">
+
+                    <input type="hidden" id="StartIndex" value="1" />
+
+                    <button type="button" id="ClearFormButton" class="btn btn-default"><span class="glyphicon glyphicon-remove-sign"></span>&nbsp;Clear</button>   <button type="button" id="Search" class="btn btn-success"><span style="color:#fff" class="glyphicon glyphicon-search"></span>&nbsp;Search</button>
+
+
+                </div>
+            </div>
+            <br />
+
+
+
+
+
+
+            <div style="color:White; display:none" class="editor">
+
+
+
+
+
+            </div>
+
+
+
+
+
+            <div id="searchResults"></div>
+
+        </div>
+
+       
+
+
+        </div>
+    </div>
+
+
+       
+
+         <script type="text/javascript">
+
+
+                 $("#ClearFormButton").click(function () {
+
+                     $('input[type=text]').each(function () {
+
+                         $(this).val('');
+
+                     });
+
+
+                 });
+
+
+                 $(document).ready(function () {
+
+                     $("input").bind("keydown", function (event) {
+                         // track enter key
+                         var keycode = (event.keyCode ? event.keyCode : (event.which ? event.which : event.charCode));
+                         if (keycode == 13) { // keycode for enter key
+                             // force the 'Enter Key' to implicitly click the Update button
+                             document.getElementById('Search').click();
+                             return false;
+                         } else {
+                             return true;
+                         }
+                     }); // end of function
+
+                 }); // end of document ready
+
+
+
+                 $(function () {
+
+                     $("#waitImage").ajaxStart(function () {
+                         $(this).show();
+                     }).ajaxStop(function () {
+                         $(this).hide();
+                     });
+                     $("#Search").click(function () {
+                         $('#ClientID,#DOB0,#LastName0,#FirstName0,#ChartNumber0,#SSN0').each(function () {
+                             if ($(this).val() != '') {
+
+                                 var searchParameters = GetSearchParameters();
+
+                                 var jsonData = JSON.stringify(searchParameters, null, 2);
+
+                                 $.ajax({
+                                     url: '@Url.Content("~/Home/Search/")',
+                                     type: 'POST',
+                                     data: jsonData,
+                                     datatype: 'json',
+                                     contentType: 'application/json; charset=utf-8',
+                                     success: function (data) {
+
+
+                                         $("#WarnDiv").css("display", "none");
+                                         $('#searchResults').replaceWith(data);
+                                         $('#newClientButton').removeAttr('disabled', 'disabled');
+                                         $('#newClientButton').css('opacity', '1.0');
+                                         $('#newClientButton').css('background-color:', '#ff6a00');
+
+                                     },
+                                     error: function (request, status, err) {
+                                         alert(status);
+                                         alert(err);
+                                     },
+
+
+
+                                 });
+
+
+                             }
+
+                             else {
+
+                                 $("#WarnDiv").html("");
+                                 $("#WarnDiv").removeAttr("class", "alert alert-warning");
+                                 $("#WarnDiv").css("display", "block");
+
+                                 //$("#WarnDiv").delay(5000);
+                                 //$("#WarnDiv").html("<span class='glyphicon glyphicon-warning-sign'></span>&nbsp; You must enter search parameters.");
+                                 //$("#WarnDiv").attr("class", "alert alert-warning");
+
+
+                             }
+
+
+
+                         });
+
+
+                 
+                         $("#LastName").focus();
+                         $('button[type=submit] .default').click();
+
+
+
+
+                         //document.getElementById("myResults").innerHTML = "You searched for:" + $("#ClientID").val('');
+                         return false;
+                     });
+
+                     function GetSearchParameters() {
+                         var clientId = $("#ClientID").val();
+                         var dob = $("#DOB0").val();
+                         //var programId = $("#ProgramBinID").val();
+                         var lastname = $("#LastName0").val();
+                         var firstname = $("#FirstName0").val();
+                         var chartnumber = $("#ChartNumber0").val();
+                         var ssn = $("#SSN0").val();
+                         //var activeId = $("#ActiveBinID").val();
+
+                         //if (programId == undefined) programId = 0;
+                         //if (activeId == undefined) activeId = 0;
+
+                         return {
+                             ClientID: clientId,
+                             DOB: dob,
+                             //ProgramBinID: programId,
+                             LastName: lastname,
+                             FirstName: firstname,
+                             ChartNumber: chartnumber,
+                             SSN: ssn
+                             //ActiveBinID: activeId
+                         };
+                     }
+                 });
+
+
+             
+            
+
+          
+</script>
+
+
+
+       

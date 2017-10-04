@@ -1,0 +1,43 @@
+﻿@model eCaST.ViewModels.LocationViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<hr style="width:100%;background-color:#ccc;opacity:0.3" />
+
+
+@if (ViewBag.LocationID != null) { 
+
+
+<div>
+    <h4>Primary Location</h4>
+</div>
+
+
+<div style="padding-bottom:10px" class="row">
+
+@if (ViewBag.CityBinID != null) {
+
+    <div class="col-md-12">@ViewBag.Street @ViewBag.CityBinName, @ViewBag.StateBinName @ViewBag.ZipCode</div>
+
+}
+else
+{
+
+    <div class="col-md-12">@ViewBag.StateBinName @ViewBag.ZipCode</div>
+
+}
+
+</div>
+
+
+}
+else
+{
+    
+    
+    <span>There is currently (0) primary locations</span>
+    
+}
+

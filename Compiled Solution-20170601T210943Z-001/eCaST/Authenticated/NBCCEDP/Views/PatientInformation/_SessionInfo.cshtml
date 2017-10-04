@@ -1,0 +1,81 @@
+﻿@model eCaST.ViewModels.SupportSessionViewModel
+
+
+
+<div align="right">
+
+
+
+    @if (@ViewBag.HBSessionCompletionTypeBinID == 1)
+    {
+
+        <div class="alert alert-info">
+
+            <h4>DPP/HC Support Session Completion Status: <span style="color:#68ae2a">@ViewBag.HBSessionCompletionTypeBinName</span></h4>
+            <br />
+
+            @if (@ViewBag.FollowupAssessmentCheck < 1)
+            {
+
+                <button id="EditSIButton" type="submit" class="btn btn-success">Edit</button>
+
+
+            }
+
+
+        </div>
+
+
+    }
+    else
+    {
+
+        <div class="alert alert-warning">
+
+            <h4>DPP/HC Support Session Completion Status: <span style="color:#d82424">@ViewBag.HBSessionCompletionTypeBinName</span></h4>&nbsp;&nbsp;
+            <br />
+            @if (@ViewBag.FollowupAssessmentCheck < 1)
+            {
+
+
+                <button id="EditSIButton" type="submit" class="btn btn-success">Edit</button>
+
+
+            }
+
+        </div>
+
+
+
+    }
+
+
+
+
+
+</div>
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+
+
+        $("#EditSIButton").click(function (evt22) {
+            evt22.preventDefault();
+            $('#SessionInfoSection').load('@Url.Action("_SessionInfoEdit", "PatientInformation", new { id = ViewBag.ScreeningID })');
+            $("#SaveBarSection").css("display", "none");
+            $("#NewSSButton").css("display", "none");
+
+        });
+
+      });
+
+
+</script>
+
+
+
+

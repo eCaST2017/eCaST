@@ -1,0 +1,467 @@
+﻿@model IEnumerable<eCaST.ViewModels.ScreenProcedureViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@foreach (var item in Model)
+{
+    <div style="padding-bottom:2px">
+        <div style="background-color:#e1e8e8;border-radius:5px;padding:6px">
+
+            <span id="ScreeningProcNavButton_@item.ScreenProcedureID">
+
+                <i class="fa fa-heartbeat" aria-hidden="true"></i>&nbsp;@Html.FormatValue(item.ProcedureDate, "{0:MM/dd/yyyy}") &nbsp;
+
+                <span style="background-color:#ccc" class="badge pull-right">&nbsp;@item.ShortMethodName</span>
+
+
+            </span>
+
+        </div>
+    </div>
+
+}
+
+@*<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ScreeningProcGuidID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScreeningID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SiteID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScreeningGuidID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OfficeVisitID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EnrollmentID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClinicalCycleID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProcedureMethodOther)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProcedureDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProcedureAge)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubContractorID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProviderID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StateStaffOverride)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pathology)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PathProviderBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PathPolypsRemoved)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PathContainerCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PathHighGradeDysplasia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PathLargestAdenoma)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SurgeryDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Coverage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BillingUpdatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BillingPaidBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdminApproval)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OtherDxText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsBethesda)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SystolicBinID1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiastolicBinID1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SystolicBinID2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiastolicBinID2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FastingStatusBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalCholesterolBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HDLCholesterolBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LDLCholesterolBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TriglyceridesBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GlucoseBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.A1CPercentageBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AlertBin_AlertBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CholBin_TotalCholBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiastolicBin_DiastolicBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SystolicBin_SystolicBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TriglyceridesBin_TrigylceridesBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AlertBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TestDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkupStatusBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkupResultBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkupStatusDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MedicationCounselingProvided)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BloodSample)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TranslationProvided)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BPPlus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDAdequacyBin.AdequacyBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDAdequateExamBin.AdequateExamBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDCecumReachedBin.CecumReachedBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDFundingSourceBin.FundingSourceBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDPathHistBin.PathHistBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDPathPolypBin.PathPolypBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDPatientGivenResultsBin.PatientGivenResultsBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDProcedureMethodBin.ProcedureMethodBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDProcedureOutcomeBin.ProcedureOutcomeBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDProcedureResultBin.ProcedureResultBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDProcedureTypeBin.ProcedureTypeBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDQualityPrepBin.QualityPrepBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDSpecimenTypeBin.SpecimenTypeBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScreenProcedure1.ProcedureMethodOther)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScreenProcedure2.ProcedureMethodOther)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScreeningProcGuidID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScreeningID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SiteID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScreeningGuidID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OfficeVisitID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnrollmentID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClinicalCycleID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProcedureMethodOther)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProcedureDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProcedureAge)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubContractorID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProviderID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StateStaffOverride)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pathology)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PathProviderBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PathPolypsRemoved)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PathContainerCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PathHighGradeDysplasia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PathLargestAdenoma)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SurgeryDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateUpdated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Coverage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillingUpdatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillingPaidBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdminApproval)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OtherDxText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsBethesda)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SystolicBinID1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiastolicBinID1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SystolicBinID2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiastolicBinID2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FastingStatusBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalCholesterolBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HDLCholesterolBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LDLCholesterolBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TriglyceridesBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GlucoseBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.A1CPercentageBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AlertBin_AlertBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CholBin_TotalCholBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiastolicBin_DiastolicBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SystolicBin_SystolicBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TriglyceridesBin_TrigylceridesBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AlertBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TestDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkupStatusBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkupResultBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkupStatusDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MedicationCounselingProvided)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BloodSample)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TranslationProvided)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BPPlus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDAdequacyBin.AdequacyBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDAdequateExamBin.AdequateExamBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDCecumReachedBin.CecumReachedBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDFundingSourceBin.FundingSourceBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDPathHistBin.PathHistBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDPathPolypBin.PathPolypBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDPatientGivenResultsBin.PatientGivenResultsBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDProcedureMethodBin.ProcedureMethodBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDProcedureOutcomeBin.ProcedureOutcomeBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDProcedureResultBin.ProcedureResultBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDProcedureTypeBin.ProcedureTypeBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDQualityPrepBin.QualityPrepBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDSpecimenTypeBin.SpecimenTypeBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScreenProcedure1.ProcedureMethodOther)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScreenProcedure2.ProcedureMethodOther)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ScreenProcedureID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ScreenProcedureID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ScreenProcedureID })
+        </td>
+    </tr>
+}
+
+</table>*@

@@ -1,0 +1,81 @@
+﻿@model IEnumerable<eCaST.Models.ScreenComment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ClinicalCycleID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScreenCommentText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdminOnly)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Screening.Comments)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClinicalCycleID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScreenCommentText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdminOnly)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateUpdated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Screening.Comments)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ScreenCommentID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ScreenCommentID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ScreenCommentID })
+        </td>
+    </tr>
+}
+
+</table>

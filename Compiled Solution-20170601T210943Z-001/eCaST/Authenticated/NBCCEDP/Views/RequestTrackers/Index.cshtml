@@ -1,0 +1,470 @@
+﻿@model eCaST.ViewModels.RequestTrackerViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+@using (Html.BeginForm("_CreateRequestTrackerF", "RequestTrackers", FormMethod.Post, new { id = "RequestTrackerForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+    <br />
+    <br />
+    <br />
+    <br />
+    
+    if(ViewBag.RequestCheck > 0){
+
+    if (ViewBag.ScreeningCheck == 1) {
+
+
+    <div class="alert alert-info"><h4><i class="fa fa-info-circle"></i>&nbsp; There are currently support comments open on this screening. To minimize, click cancel below.</h4></div>
+
+
+    }
+    else
+    {
+
+
+        <div class="alert alert-info"><h4><i class="fa fa-info-circle"></i>&nbsp; There are currently support comments open on this client. To minimize, click cancel below.</h4></div>
+
+    }
+
+    
+    }
+
+    <div id="TrackerListContainer"></div>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+
+            @if (ViewBag.ScreeningCheck == 1) { 
+                
+                
+                if(ViewBag.RequestCheck > 0){
+
+            <span><i class="fa fa-comments fa-fw"></i>Add a comment for @ViewBag.ClientName Screening #@ViewBag.ScreeningID </span>
+
+                }
+                else
+                {
+
+                    <span><i class="fa fa-comments fa-fw"></i>Create Support Ticket for @ViewBag.ClientName Screening #@ViewBag.ScreeningID </span>
+
+                }
+
+
+            }
+            else
+            {
+
+                 if(ViewBag.RequestCheck > 0){
+
+                <span><i class="fa fa-comments fa-fw"></i>Add a comment for @ViewBag.ClientName</span>
+
+                 }
+                 else
+                 {
+
+                    <span><i class="fa fa-comments fa-fw"></i>Create Support Ticket for @ViewBag.ClientName</span>
+
+                 }
+
+            }
+
+            <div class="pull-right">
+
+                <div style="padding-bottom:25px"><button type="button" id="HistoryContactButton" class="btn btn-default btn-xs">History</button></div>
+
+            </div>
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+
+
+           @Html.Hidden("ClientID",(int?)ViewBag.ClientID)
+           @Html.Hidden("ScreeningID", (int?)ViewBag.ScreeningID)
+           @Html.Hidden("ScreeningCheck", (int?)ViewBag.ScreeningCheck)
+
+            
+            <div>Comments:</div>
+
+            <div>
+                @Html.TextAreaFor(model => model.RequestDesc, new { rows = "10", @style = "width:100%" })
+                @Html.ValidationMessageFor(model => model.RequestDesc, "", new { @class = "text-danger" })
+            </div>
+            <br />
+
+
+            <div align="right">
+            
+             
+            
+            <button type="button" id="HideContactButton" class="btn btn-default">Cancel</button> 
+            
+
+                @if (ViewBag.RoleID == 1 || ViewBag.RoleID == 13)
+               {
+
+
+
+               if(ViewBag.RequestCheck > 0){
+            
+            <button type="submit" id="SubmitContactButton" class="btn btn-success">Add Comment</button>
+            
+               }
+
+               }
+                else
+                {
+
+
+                    <button type="submit" id="SubmitContactButton" class="btn btn-success">Add Comment</button>
+
+                }
+                   
+                   
+                   </div>
+
+
+                    
+      </div>
+
+        </div>
+    <br />
+    
+
+
+
+}
+
+
+<div align="right">
+
+    @if (ViewBag.RoleID == 1 || ViewBag.RoleID == 13)
+    {
+
+
+        if (ViewBag.RequestCheck > 0)
+        {
+
+            <button type="button" id="CompleteContactButton" class="btn btn-success">Complete Ticket</button>
+
+        }
+
+
+    }
+
+
+
+</div>
+
+
+
+<script type="text/javascript">
+
+
+    if('@ViewBag.RequestCheck' > 0){
+
+
+        if('@ViewBag.ScreeningCheck' == 1){
+
+
+            $('#TrackerListContainer').load('@Url.Action("_TrackerList", "RequestTrackers", new { id = ViewBag.ClientID, id2 = ViewBag.ScreeningID })');
+
+
+        }
+        else{
+
+
+            $('#TrackerListContainer').load('@Url.Action("_TrackerList", "RequestTrackers", new { id = ViewBag.ClientID, id2 = 0 })');
+
+        }
+
+    }
+
+
+
+    $('#CompleteContactButton').click(function () {
+
+        var iRequestDesc0 = $("#RequestDesc").val();
+
+        $('#ContactContainer').load('@Url.Action("Delete", "RequestTrackers")',{ 'id' : '@ViewBag.RequestID', 'id2' : iRequestDesc0, 'id3' : '@ViewBag.ScreeningCheck', 'id4': '@ViewBag.ClientID', 'id5': '@ViewBag.ScreeningID' });
+
+
+
+
+    });
+
+    $('#HistoryContactButton').click(function () {
+
+
+        $('#ContactContainer').load('@Url.Action("Index", "Requests", new { id = ViewBag.ClientID, id2 = ViewBag.ScreeningID })');
+
+
+
+    });
+
+
+    $('#HideContactButton').click(function () {
+
+        $('#ContactContainer').css("display", "none");
+        $('#ContactContainer').html("");
+    });
+
+
+
+    $("#SubmitContactButton").click(function (e) {
+
+
+        var iStopSub = 0;
+        var sErr = "Please correct the following issues:\n\n";
+
+
+
+        var iRequestDesc = $("#RequestDesc").val();
+
+        if (iRequestDesc == "") {
+
+            iStopSub = 1;
+            sErr += "You must enter a Comment" + "\n";
+
+        }
+
+
+        if (iStopSub != 0) {
+            alert(sErr);
+            e.preventDefault();
+
+        }
+
+
+    });
+
+
+    $('#RequestTrackerForm').on("submit", function (evt) {
+        evt.preventDefault();
+        if ($('#RequestTrackerForm').valid()) {
+            //  $("#SaveExitButton").prop("disabled", true);
+            $.ajax({
+                url: $("#RequestTrackerForm").attr('action'),
+                type: $("#RequestTrackerForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#RequestTrackerForm").serialize(),
+                success: function (data) {
+
+                    var clientid = data.Modified;
+                    var screeningid = data.Modified2;
+
+
+                    $('#ClientSection').load('@Url.Action("Details", "Clients")', { id: @ViewBag.ClientID, id2: @ViewBag.ScreeningID });
+
+
+
+                }
+            });
+        }
+
+    });
+
+
+
+
+
+</script>
+
+
+            @*<div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RequestID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.RequestID, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.RequestID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Assignee, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Assignee, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Assignee, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Priority, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateUpdated, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DateUpdated, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DateUpdated, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UpdatedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.UpdatedBy, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UpdatedBy, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateCreated, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DateCreated, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DateCreated, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CreatedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CreatedBy, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CreatedBy, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RequestDesc, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.RequestDesc, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.RequestDesc, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DeveloperNotes, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DeveloperNotes, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DeveloperNotes, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+            }
+
+            <div>
+                @Html.ActionLink("Back to List", "Index")
+            </div>*@
+
+
+
+
+
+
+
+            @*@model IEnumerable<eCaST.Models.RequestTracker>
+
+                @{
+                    ViewBag.Title = "Index";
+                }
+
+                <h2>Index</h2>
+
+                <p>
+                    @Html.ActionLink("Create New", "Create")
+                </p>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RequestID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Assignee)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Priority)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DateUpdated)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UpdatedBy)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DateCreated)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CreatedBy)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RequestDesc)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DeveloperNotes)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                @foreach (var item in Model) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RequestID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Assignee)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Priority)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateUpdated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UpdatedBy)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateCreated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedBy)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RequestDesc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DeveloperNotes)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id=item.RequestTrackerID }) |
+                            @Html.ActionLink("Details", "Details", new { id=item.RequestTrackerID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id=item.RequestTrackerID })
+                        </td>
+                    </tr>
+                }
+
+                </table>*@

@@ -1,0 +1,357 @@
+﻿@model IEnumerable<eCaST.ViewModels.ScreeningViewModel>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style type="text/css">
+    table.dataTable td.sorting_1 {
+        background-color: white;
+        border-top: 1px #666;
+        border: 2px #666;
+    }
+
+    table.dataTable td {
+        background-color: white;
+        border-top: 1px #666;
+        border: 1px #666;
+    }
+
+    table.dataTable tr.odd {
+        background-color: white;
+        border-top: 1px #666;
+        border: 1px #666;
+    }
+
+    table.dataTable tr.even {
+        background-color: white;
+        border-top: 1px #666;
+        border: 1px #666;
+    }
+
+
+    .multiline
+{
+   white-space: pre-wrap;
+}
+
+
+
+</style>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <span style="color:@ViewBag.LabelColor"><i class="@ViewBag.LabelIcon"></i>@ViewBag.TileLabel</span>
+      
+        @if (ViewBag.ShowHideButton == 1)
+        {
+
+
+        <div class="pull-right">
+
+            <button id="HideErrorsButton" class="btn btn-danger btn-xs">Hide</button>
+
+        </div>
+
+
+        }
+
+</div>
+   
+    <div class="panel-body">
+
+
+
+        <div id="PendingScreeningErrorsPanel">
+
+
+
+
+
+            <div id="ScreeningErrorListPanel">
+
+                <div id="scrList">
+
+                    <div id="messageDiv" style="display:none">There are currently (0) @ViewBag.ScreenTypeLabel (s).</div>
+
+                    <div id="ScreeningErrorSection">
+
+
+
+
+                        <div>
+                         
+                            <table id="ScreeningErrorList" class="display nowrap" cellspacing="0" style="width:100%">
+                                <thead>
+                                    <tr>
+
+                                       
+                                        <th></th>
+                                        <th>Screen ID</th>
+                                        <th>Screening ID</th>
+                                        <th>Error Message(s)</th>
+                                       <th>Error Message(s)</th>
+                                        <th>Name</th>
+
+                                        <th>Screen Type</th>
+                                        <th>Client ID</th>
+                                       
+                                     
+                                        <th>Last Updated</th>
+                                        <th>Clinic Name</th>
+
+                                    </tr>
+                                </thead>
+                                @foreach (var item in Model)
+                                {
+
+                                    <tr>
+
+                                        <td>
+
+                                   
+
+                                            <div align="center">
+                                              
+                                            </div>
+
+                                        </td>
+
+
+
+                                        <td>
+
+
+
+                                            <a class="btn btn-default" id="ScreenButton_@item.ScreeningID" href="#">
+                                            
+                                                @if (item.BillingPaidBinID == 3)
+                                                {
+
+                                                    <span style="font-size:16px; color:green" class="glyphicon glyphicon-usd"></span>
+
+
+                                                }
+                                                else if (item.BillingPaidBinID == 2)
+                                                {
+
+                                                    <span style="font-size:16px; color:#ccc" class="glyphicon glyphicon-sort"></span>
+
+                                                }
+                                                else if (item.BillingPaidBinID == 1)
+                                                {
+
+                                                    <span style="font-size:16px; color:#ccc" class="glyphicon glyphicon-usd"></span>
+
+
+                                                }
+                                                else
+                                                {
+
+                                                    <span style="font-size:8px; color:#ccc" class="glyphicon glyphicon-minus"></span><span style="font-size:8px; color:#ccc" class="glyphicon glyphicon-minus"></span>
+
+                                                }
+                                            
+                                            
+                                            
+                                            @item.ScreeningID</a>
+
+
+                                            <script type="text/javascript">
+
+
+                                                $('#ScreenButton_@item.ScreeningID').click(function () {
+
+                                                    $('#ClientSection').load('@Url.Action("Details", "Clients")', { id: @item.ClientID, id2:@item.ScreeningID });
+
+                                                    $('.row-offcanvas').toggleClass('active').toggleClass('side-toggle');
+
+                                                    if ($('.row-offcanvas').hasClass('active')) {
+
+                                                        $('#chevronIcon').removeClass('glyphicon glyphicon-chevron-up');
+                                                        $('#chevronIcon').toggleClass('glyphicon glyphicon-chevron-down');
+
+                                                    }
+                                                    else {
+
+                                                        $('#chevronIcon').removeClass('glyphicon glyphicon-chevron-down');
+                                                        $('#chevronIcon').toggleClass('glyphicon glyphicon-chevron-up');
+
+                                                    }
+
+
+                                                });
+
+
+                                            </script>
+
+
+
+
+
+                                        </td>
+
+                                        <td>@item.ScreeningID</td>
+                                        <td>
+                                        
+                                            <span>@item.ContractTypeName - @Html.Raw(string.Join(",<br/>", item.MessageScreeningList))</span> 
+
+                                        </td>
+                                        
+                                        <td><b>@item.ContractTypeName</b><div style="height: 60px; width: 200px; overflow: scroll; overflow-y: auto; overflow-x: hidden;
+                        padding: 2px; margin: 2px">
+                                            
+                                                                             <span>@Html.Raw(string.Join(",<br/>", item.MessageScreeningList))</span>
+
+
+</div></td>
+
+            
+
+
+                                        @if (@ViewBag.RoleName != "ReadOnly")
+                                        {
+
+                                            <td>@item.ClientName</td>
+
+                                        }
+
+
+
+
+                                        <td>
+
+                                            @item.CancerTypeBinName
+                                        </td>
+                                        <td>@item.ClientID</td>
+                                   
+                                        
+                                      
+
+                                        <td>
+                                         
+                                                 @Html.DisplayFor(modelItem => item.DateUpdated)
+                                               
+                                                  
+                                            </td>
+
+                                        <td>
+                                            <div style="height: 40px; width: 180px; overflow: scroll; overflow-y: auto; overflow-x: hidden;padding: 2px; margin: 2px">
+                                                <span data-toggle="tooltip" data-placement="left" style="cursor:pointer" title="@item.ClinicName">@item.ClinicName</span>
+
+                                            </div>
+                                        </td>
+
+
+
+                                    </tr>
+
+                                }
+
+                            </table>
+                        </div>
+                    
+
+                    </div>
+
+                </div>
+
+            </div>
+           
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<script type="text/javascript" charset="utf-8">
+
+
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+
+
+    $(document).ready(function () {
+        oTable = $('#ScreeningErrorList').dataTable({
+            "sPaginationType": "full_numbers",
+            "bSortClasses": false,
+            // "aoColumnDefs": [{ "bVisible": false, "aTargets": [1] }],
+            "aLengthMenu": [[5, 10, 25, 50, 100, 250, 500, -1], [5, 10, 25, 50, 100, 250, 500, "All"]],
+            "bPaginate": true,
+            "bAutoWidth": false,
+            "bDestroy": true,
+            "bSort": true,
+            "iDisplayLength": 10,
+          
+            dom: 'Bfrtip',
+
+            buttons: [
+
+            {
+                extend: 'excelHtml5',
+                title: 'eCaST - @ViewBag.TileLabel',
+                exportOptions: {
+                    columns: ':hidden',
+                    columns: [2,3,5,6,7,8,9]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                title: 'eCaST - @ViewBag.TileLabel',
+                exportOptions: {
+                    columns: ':hidden',
+                    columns: [2,3,5,6,7,8,9]
+                }
+            }
+            ],
+
+            responsive: {
+                details: {
+                    type: 'column'
+                }
+            }
+            ,
+            columnDefs: [ {
+                className: 'control',
+                orderable: false,
+                targets:   0
+            },
+            {
+            
+                targets: 2,
+                visible: false
+            
+            },
+             {
+            
+                 targets: 3,
+                 visible: false
+            
+             }
+               ],
+
+
+            "oLanguage": { "sSearch": "Filter: " }
+        }).addClass( 'nowrap' );
+
+        oTable.fnSort([[8, 'desc']]); // Sort by first column descending
+
+
+    });
+
+    $("#HideErrorsButton").click(function () {
+
+        $('#ErrorsContainer').html('');
+
+
+    });
+
+
+</script>

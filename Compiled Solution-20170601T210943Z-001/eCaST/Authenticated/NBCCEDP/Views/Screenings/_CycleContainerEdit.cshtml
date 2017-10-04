@@ -1,0 +1,269 @@
+﻿@model eCaST.ViewModels.ScreeningViewModel
+
+<style type="text/css">
+    .searchOption {
+        margin: 4px 4px 2px 4px;
+        display: inline;
+    }
+
+    .form-field * {
+        vertical-align: middle;
+    }
+
+    .form-field input {
+        clear: left;
+    }
+
+    .form-field label {
+        width: 800px;
+        display: inline-block;
+    }
+
+    input.big {
+        height: 2.1em;
+        width: 2.1em;
+    }
+
+
+
+    .error a {
+        background-color: #d9ffff !important;
+        border: 1px solid #ccc !important;
+        width: 100%;
+        color: #666 !important;
+    }
+
+    .requiredText {
+        background-color: #d9ffff;
+        border: 1px solid #999;
+    }
+
+    .requiredSelect {
+        background-color: #d9ffff;
+    }
+</style>
+
+
+
+@using (Html.BeginForm("_UpdateCycleF", "Screenings", FormMethod.Post, new { id = "ScreeningCycleUpdateForm" }))
+{
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+       <h4><i class="fa fa-female fa-fw"></i> Screening Information</h4> 
+
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+        
+        <div align="right">
+
+            <button id="CancelCycEditButton" class="btn btn-default" type="button"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Cancel</button><text>&nbsp;</text>
+            <button class="btn btn-success" id="UpdateAccordionProcButton" type="submit">Update</button>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-2">
+                @*@Html.Hidden("EnrollmentID",(int?)ViewBag.EnrollmentID)*@
+                @Html.LabelFor(model => model.OfficeVisitDate,"Office Visit Date")
+
+            </div>
+            <div class="col-md-10">
+
+                @Html.TextBoxFor(model => model.OfficeVisitDate, new { id = "OfficeVisitDate", @class = "requiredText" })
+                @Html.ValidationMessageFor(model => model.OfficeVisitDate)
+
+
+            </div>
+
+
+        </div>
+      
+        <br />
+
+        <div class="row">
+
+            <div class="col-md-2">
+
+                @Html.LabelFor(model => model.SiteID,"Location")
+
+
+
+            </div>
+            <div class="col-md-10">
+
+                @Html.DropDownList("SiteID", (IEnumerable<SelectListItem>)ViewBag.SiteID, new { @id = "SiteID", @class = "requiredSelect" })
+                @Html.ValidationMessageFor(model => model.SiteID)
+
+
+            </div>
+
+
+        </div>
+        <br />
+
+       
+    </div>
+
+</div>
+
+    @Html.Hidden("ScreeningID", (int?)@ViewBag.ScreeningID)
+   
+
+
+}
+
+<script type="text/javascript">
+
+
+
+    $('#CancelCycEditButton').click(function () {
+
+       
+        $('#CycContainer').html("");
+
+    });
+
+
+    (function ($) {
+
+        $.fn.extend({
+            detachOptions: function (o) {
+                var s = this;
+                return s.each(function () {
+                    var d = s.data('selectOptions') || [];
+                    s.find(o).each(function () {
+                        d.push($(this).detach());
+                    });
+                    s.data('selectOptions', d);
+                });
+            }, attachOptions: function (o) {
+                var s = this;
+                return s.each(function () {
+                    var d = s.data('selectOptions') || [];
+                    for (var i in d) {
+                        if (d[i].is(o)) {
+                            s.append(d[i]);
+                            //console.log(d[i]);
+                            // TODO: remove option from data array
+                        }
+                    }
+                });
+            }
+        });
+
+    })(jQuery);
+
+
+    $(function () {
+
+
+        $("#OfficeVisitDate").kendoDatePicker({ max: new Date() });
+
+
+        $(document).ready(function () {
+            $("#OfficeVisitDate").keyup(function (e) {
+                if (e.keyCode != 8) {
+                    if ($(this).val().length == 2) {
+                        $(this).val($(this).val() + "/");
+                    } else if ($(this).val().length == 5) {
+                        $(this).val($(this).val() + "/");
+                    }
+                }
+            });
+        });
+
+
+        $("#SiteID").select2({ width: "60%" });
+        $("#SiteID").select2({ width: "100%" }).select2('val', '@ViewBag.FirstSiteID');
+        //$("#ScreeningMethodBinID").select2({ width: "60%" });
+
+
+        $("#SiteID").select2({
+            containerCssClass: "error",
+            width: "100%"
+        });
+
+     
+    });
+
+    $("#UpdateAccordionProcButton").click(function (e) {
+
+
+        var iStopSub = 0;
+        var sErr = "Please correct the following issues:\n\n";
+
+
+        if ($("#OfficeVisitDate").val() == "") {
+            iStopSub = 1;
+            sErr += "-Please enter and Office Date.\n";
+        }
+
+        var iCurOVDate = $("#OfficeVisitDate").val();
+        // Check for valid date
+        var timestamp = kendo.parseDate(iCurOVDate, "mm/dd/yyyy");
+
+        if (timestamp == null) {
+
+            iStopSub = 1;
+            sErr += "Please enter a valid Office Visit Date\n";
+
+        }
+
+        if (new Date(iCurOVDate).getTime() > new Date(iCurDate).getTime()) {
+            iStopSub = 1;
+            sErr += "You cannot enter an office date in the future\n";
+        }
+
+        var iSiteID = $("#SiteID option:selected").val();
+
+        if (iSiteID < 1) {
+            iStopSub = 1;
+            sErr += "You must enter a Site" + "\n";
+
+        }
+
+
+        if (iStopSub != 0) {
+            alert(sErr);
+            e.preventDefault();
+
+        }
+
+
+    });
+
+    $('#ScreeningCycleUpdateForm').on("submit", function (evt) {
+        evt.preventDefault();
+        if ($('#ScreeningCycleUpdateForm').valid()) {
+            //  $("#SaveExitButton").prop("disabled", true);
+            $.ajax({
+                url: $("#ScreeningCycleUpdateForm").attr('action'),
+                type: $("#ScreeningCycleUpdateForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#ScreeningCycleUpdateForm").serialize(),
+                success: function (data) {
+
+                    var clientid = data.Modified;
+                    var screeningid = data.Modified2;
+
+
+
+                    $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ScreeningID })');
+
+
+
+                }
+            });
+        }
+
+    });
+
+
+</script>

@@ -1,0 +1,34 @@
+﻿@model eCaST.Models.Request
+<br />
+<br />
+<br />
+<br />
+<br />
+<div id="RequestTrackerContainer"></div>
+
+
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        $("#RequestTrackerContainer").load("@Url.Action("_TrackerList", "RequestTrackers", new { id = ViewBag.ClientID, id2 = ViewBag.ScreeningID })",
+        function (response, status, xhr) {
+            if (status == "error") {
+                //   alert("An error occurred while loading the results.");
+            }
+
+        });
+
+
+
+
+
+    });
+
+
+
+
+</script>

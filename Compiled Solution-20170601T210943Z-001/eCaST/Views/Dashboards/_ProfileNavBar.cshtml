@@ -1,0 +1,46 @@
+﻿
+<style type="text/css">
+
+    a:link {
+    color: #666;
+}
+
+a:visited {
+    color: #666;
+}
+
+a:hover {
+   color: #333;
+}
+
+a:active {
+    color: #666;
+}
+
+
+
+</style>
+
+
+@if (ViewBag.FTLoggedIn == true) { 
+
+<br />
+<br />
+<div style="z-index:999;" class="navbar-default sidebar breadcrumb" role="navigation">
+    <div class="sidebar-nav navbar-collapse breadcrumb">
+    
+        <ul class="nav" id="side-menu">
+           
+
+                <li style="border-width:1px">
+                    <a href="@Url.Action("Manage","Dashboards")" id="DashboardButton0"><i style="color:#666" class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                </li>
+
+       
+        </ul>
+    </div>
+    <!-- /.sidebar-collapse -->
+</div>
+
+    
+}

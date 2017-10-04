@@ -1,0 +1,841 @@
+﻿@model eCaST.ViewModels.ScreenProcedureViewModel
+
+
+
+<style type="text/css">
+    .txtdiv {
+        /*width: 130px;
+        height: 50px;*/
+        -ms-transform: rotate(270deg); /* IE 9 */
+        -moz-transform: rotate(270deg); /* Firefox */
+        -webkit-transform: rotate(270deg); /* Safari and Chrome */
+        -o-transform: rotate(270deg); /* Opera */
+    }
+
+    .my-error-class {
+        color: #FF0000; /* red */
+    }
+
+    .my-valid-class {
+        color: #00CC00; /* green */
+    }
+</style>
+
+
+
+@using (Html.BeginForm("_AddTestF", "PatientInformation", FormMethod.Post, new { id = "AddTestForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+    <div style="background-color:#fff;border-radius:5px" class="form-horizontal">
+        
+        
+        <div style="padding:20px" align="center">
+
+
+            <div style="width:96%;text-align:left" class="alert alert-info">
+
+
+                <div>
+                    <label for="TestDD">Select Type of Test</label>
+
+                    @Html.DropDownListFor(model => model.ProcedureMethodBinID, ((IEnumerable<eCaST.Models.DDProcedureMethodBin>)ViewBag.PossibleProcedureMethodBins).Select(option => new SelectListItem
+              {
+                  //Text = Html.DisplayTextFor(_ => option).ToString(),
+                  Text = option.ProcedureMethodBinName,
+                  Value = option.ProcedureMethodBinID.ToString(),
+                  Selected = (Model != null) && (option.ProcedureMethodBinID == Model.ProcedureMethodBinID)
+              }), "Choose...", new { @id = "TestDD", @class = "requiredSelect" })
+                    @Html.ValidationMessageFor(model => model.ProcedureMethodBinID)
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+            <div style="display:none; color:#aeaeae;padding-left:34px; font-style:italic" id="NoTestSection"><h4 style="color:#ccc">Please select a test type above</h4></div>
+            <div style="display:none;padding-left:34px" id="TestSection"></div>
+
+
+        
+
+        <br />
+        <div class="modal-footer">
+            @*data-dismiss="modal"*@
+            <button id="CloseNewTestButton" type="button" class="btn btn-default">Cancel</button>
+            <button style="display:none;float:right" type="submit" id="AddTestingButton" class="btn btn-success">Add</button>
+        </div>
+
+
+    </div>
+    <br />
+
+  
+
+
+
+    @Html.Hidden("Saveid", 1)
+    @Html.Hidden("ClinicalCycleID", (int?)ViewBag.CCID)
+    @Html.Hidden("ClientID", (int?)ViewBag.CLID)
+    @Html.Hidden("SiteID", (int?)ViewBag.SiteID)
+    @Html.Hidden("ScreeningTypeID", (int?)ViewBag.ScreeningTypeID)
+    @Html.Hidden("EnrollID", (int?)ViewBag.EnrollID)
+    @Html.Hidden("ScreeningID", (int?)ViewBag.ScreeningID)
+    @Html.Hidden("ScreenProcedureID", null)
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+<script type="text/javascript">
+
+
+
+
+        (function ($) {
+
+            $.fn.extend({
+                detachOptions: function (o) {
+                    var s = this;
+                    return s.each(function () {
+                        var d = s.data('selectOptions') || [];
+                        s.find(o).each(function () {
+                            d.push($(this).detach());
+                        });
+                        s.data('selectOptions', d);
+                    });
+                }, attachOptions: function (o) {
+                    var s = this;
+                    return s.each(function () {
+                        var d = s.data('selectOptions') || [];
+                        for (var i in d) {
+                            if (d[i].is(o)) {
+                                s.append(d[i]);
+                                //console.log(d[i]);
+                                // TODO: remove option from data array
+                            }
+                        }
+                    });
+                }
+            });
+
+        })(jQuery);
+
+
+        $("#CloseNewTestButton").click(function () {
+
+
+           
+            $('#TestListContainer').load('@Url.Action("_TestList", "PatientInformation", new { id = ViewBag.ScreeningID })');
+
+
+
+        });
+
+
+    $(document).ready(function () {
+
+        $("#TestDD").select2({ width: "100%" });
+
+
+        $("#NoTestSection").css("display", "block");
+
+
+        if ('@ViewBag.BPCount' > 0) {
+            $('#TestDD').detachOptions('[value=58]');
+
+        }
+
+        if ('@ViewBag.CholCount' > 0 ) {
+
+            $('#TestDD').detachOptions('[value=59]');
+
+
+        }
+
+        if ('@ViewBag.GlucoseCount' > 0) {
+
+            $('#TestDD').detachOptions('[value=60]');
+        }
+
+
+
+    });
+
+
+    $(function () {
+
+
+
+        if ('@ViewBag.TotalTestCount' < 1) {
+
+
+
+            $("#TestDD").select2({ width: "100%" }).select2('val', 58);
+            $("#NoTestSection").css("display", "none");
+            $("#TestSection").css("display", "block");
+            $('#TestSection').load('@Url.Action("_BPTest", "PatientInformation", new { id = ViewBag.ScreeningID })');
+            // Activate Save Button
+            $("#AddTestingButton").css("display", "block");
+
+        }
+
+
+
+        $("#TestDD").change(function () {
+
+
+
+            // Activate Save Button
+            $("#AddTestingButton").css("display", "block");
+
+
+            // Blood Pressure
+            if ($("#TestDD").val() == 58) {
+
+
+
+                $("#NoTestSection").css("display", "none");
+                $("#TestSection").css("display", "block");
+                $('#TestSection').load('@Url.Action("_BPTest", "PatientInformation", new { id = ViewBag.ScreeningID })');
+
+
+            }
+
+            // Cholesterol
+            else if ($("#TestDD").val() == 59) {
+
+
+
+                $("#NoTestSection").css("display", "none");
+                $("#TestSection").css("display", "block");
+                $('#TestSection').load('@Url.Action("_CholTest", "PatientInformation", new { id = ViewBag.ScreeningID })');
+
+
+            }
+
+                // Glucose
+            else if ($("#TestDD").val() == 60) {
+
+
+
+                $("#NoTestSection").css("display", "none");
+                $("#TestSection").css("display", "block");
+                $('#TestSection').load('@Url.Action("_GlucoseTest", "PatientInformation", new { id = ViewBag.ScreeningID })');
+
+
+            }
+
+            else {
+
+
+
+                $("#NoTestSection").css("display", "block");
+                $("#TestSection").css("display", "none");
+
+
+
+            }
+
+        });
+
+
+
+
+
+    });
+
+</script>
+
+
+
+<script type="text/javascript">
+
+
+    @*$(function () {
+
+
+          var checkSys1FieldSelected = function () {
+              return $("SystolicBinID1").val() != 0 || $("TestDD").val() == 58;
+          };
+
+          var checkDia1FieldSelected = function () {
+              return $("DiastolicBinID1").val() != 0 || $("TestDD").val() == 58;
+          };
+
+          var checkSys2FieldSelected = function () {
+              return $("SystolicBinID2").val() != 0 || $("TestDD").val() == 58;
+          };
+
+          var checkDia2FieldSelected = function () {
+              return $("DiastolicBinID2").val() != 0 || $("TestDD").val() == 58;
+          };
+
+          var checkTCFieldSelected = function () {
+              return $("TotalCholesterolBinID").val() != 0 || $("TestDD").val() == 59;
+          };
+
+          var checkHDLFieldSelected = function () {
+              return $("HDLCholesterolBinID").val() != 0 || $("TestDD").val() == 59;
+          };
+
+          var checkFAFieldSelected = function () {
+              return $('input[id="FastingStatusBinID"]').attr('checked')
+
+          };
+
+          var checkBSFieldSelected = function () {
+              //return ($('input[id="BloodSample"]').attr('checked') == false)
+              return $('#BloodSample').not(':checked');
+
+          };
+
+          var checkFABSFieldSelected = function () {
+              //return ($('input[id="BloodSample"]').attr('checked') == false)
+              return $('input[id*="BloodSample"]:not(:checked)').length > 0 && $('input[id="FastingStatusBinID"]').attr('checked');
+
+          };
+
+          var checkGluFieldSelected = function () {
+
+
+              if ($('input[id="NoGlucose"]').attr('checked')) {
+
+                  return
+
+              }
+
+              else {
+
+
+                  if ('@ViewBag.DiaCheck' != "1") {
+
+                    return $("GlucoseBinID").val() != 0 || $("TestDD").val() == 60;
+
+                }
+                else {
+
+                    return
+                }
+
+            }
+        };
+
+        var checkA1CFieldSelected = function () {
+
+            if ($('input[id="NoA1C"]').attr('checked')) {
+
+                return
+
+            }
+
+            else {
+
+                return $("A1CPercentageBinID").val() != -1 || $("TestDD").val() == 60;
+
+            }
+
+        };
+
+        var checkWorkupFieldSelected = function () {
+            return $("WorkupStatusBinID").val() != -1 || $("DeleteCheck").val() != 1;
+        };
+
+        var checkWorkupResultFieldSelected = function () {
+            return $("WorkupStatusBinID").val() == 2;
+        };
+
+
+        $("#AddTestForm").validate({
+
+            errorClass: "my-error-class",
+            validClass: "my-valid-class",
+
+
+            rules: {
+
+                TestDate: {
+                    //required: { depends: checkTestFieldSelected }
+                    required: true
+
+                },
+                SystolicBinID1: {
+                    required: { depends: checkSys1FieldSelected },
+                    range: [10, 260]
+                    //required: true
+
+                },
+                DiastolicBinID1: {
+                    required: { depends: checkDia1FieldSelected },
+                    range: [10, 200]
+                    //required: true
+
+                },
+                //SystolicBinID2: {
+                //    required: { depends: checkSys2FieldSelected },
+                //    range: [10, 260]
+                //    //required: true
+
+                //},
+                //DiastolicBinID2: {
+                //    required: { depends: checkDia2FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                TotalCholesterolBinID: {
+                    required: { depends: checkTCFieldSelected },
+                    range: [10, 700]
+                    //required: true
+
+                },
+                HDLCholesterolBinID: {
+                    required: { depends: checkHDLFieldSelected },
+                    range: [10, 700]
+                    //required: true
+
+                },
+                LDLCholesterolBinID: {
+                    required: { depends: checkFABSFieldSelected },
+                    range: [10, 700]
+                    //required: true
+
+                },
+                TriglyceridesBinID: {
+                    required: { depends: checkFAFieldSelected },
+                    range: [10, 3000]
+                    //required: true
+
+                },
+
+                GlucoseBinID: {
+                    required: { depends: checkGluFieldSelected },
+                    //range: [10, 600]
+                    //required: true
+
+                },
+                A1CPercentageBinID: {
+                    required: { depends: checkA1CFieldSelected }
+
+
+                },
+                //WorkupStatusBinID: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupStatusDate: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupResultBinID: {
+                //    required: { depends: checkWorkupResultFieldSelected }
+
+
+                //}
+
+
+            },
+            messages: {
+
+                TestDate: {
+                    required: "Please select a test date"
+
+                },
+                SystolicBinID1: {
+                    required: "Please enter a value greater than 0 for the Systolic Value"
+
+                },
+                DiastolicBinID1: {
+                    required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                },
+                //SystolicBinID2: {
+                //    required: "Please enter a value greater than 0 for the Systolic Value"
+
+                //},
+                //DiastolicBinID2: {
+                //    required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                //},
+                TotalCholesterolBinID: {
+                    required: "Please enter a value greater than 0 for the Total Cholesterol Value"
+
+                },
+                HDLCholesterolBinID: {
+                    required: "Please enter a value greater than 0 for the HDL Cholesterol Value"
+
+                },
+                LDLCholesterolBinID: {
+                    required: "Please enter a value greater than 0 for the LDL Cholesterol Value"
+
+                },
+
+                TriglyceridesBinID: {
+
+                    required: "Please enter a value greater than 0 for the Triglycerides Value"
+
+                },
+                GlucoseBinID: {
+
+                    required: "Please enter a value greater than 0 for the Glucose Value"
+
+                },
+
+                A1CPercentageBinID: {
+
+                    required: "Please enter a value for the A1C Percentage Value"
+
+                },
+                //WorkupStatusBinID: {
+
+                //    required: "Please enter a value for Workup Status"
+
+                //},
+                //WorkupStatusDate: {
+
+                //    required: "Please enter a value for Workup Status Date"
+
+                //},
+                //WorkupResultBinID: {
+
+                //    required: "Please enter a value for Workup Result"
+
+                //}
+
+            }
+        });*@
+
+
+    $(function () {
+
+        $("#AddTestingButton").click(function (e) {
+
+            // Validation
+            var iCurDate = new Date();
+            var iStopSub = 0;
+            var sErr = "Please correct the following issues:\n\n";
+
+            // Blood Pressure
+            if ($("#TestDD").val() == 58) {
+
+                // Blood Pressure
+                var hvS1 = $("#SystolicBinID1HIDDEN").val();
+                document.getElementById("SystolicBinID1").value = hvS1;
+
+                var hvD1 = $("#DiastolicBinID1HIDDEN").val();
+                document.getElementById("DiastolicBinID1").value = hvD1;
+
+                var hvS21 = $("#SystolicBinID2HIDDEN").val();
+                document.getElementById("SystolicBinID2").value = hvS21;
+
+                var hvD21 = $("#DiastolicBinID2HIDDEN").val();
+                document.getElementById("DiastolicBinID2").value = hvD21;
+
+                //Add Test Screen
+                var hvBPDate1 = $("#BPTestDateHIDDEN").val();
+                document.getElementById("BPTestDate").value = hvBPDate1;
+
+
+                var iSystolicBinID1 = $("#SystolicBinID1").val();
+                if (iSystolicBinID1 == "") {
+
+                    iStopSub = 1;
+                    sErr += "You must enter Systolic Reading 1" + "\n";
+
+                }
+
+                if (iSystolicBinID1 < 1) {
+
+                    iStopSub = 1;
+                    sErr += "The systolic reading cannot be 0 " + "\n";
+
+                }
+
+                var iDiastolicBinID1 = $("#DiastolicBinID1").val();
+                if (iDiastolicBinID1 == "") {
+
+                    iStopSub = 1;
+                    sErr += "You must enter Diastolic Reading 1" + "\n";
+
+                }
+
+                if (iDiastolicBinID1 < 1) {
+
+                    iStopSub = 1;
+                    sErr += "The diastolic reading cannot be 0" + "\n";
+
+                }
+
+
+
+
+            }
+                // Cholesterol
+            else if ($("#TestDD").val() == 59) {
+
+
+                // Cholesterol
+                var hvSC1 = $("#TotalCholesterolBinIDHIDDEN").val();
+                document.getElementById("TotalCholesterolBinID").value = hvSC1;
+
+                var hvDC1 = $("#HDLCholesterolBinIDHIDDEN").val();
+                document.getElementById("HDLCholesterolBinID").value = hvDC1;
+
+                var hvS2C1 = $("#LDLCholesterolBinIDHIDDEN").val();
+                document.getElementById("LDLCholesterolBinID").value = hvS2C1;
+
+                var hvD2C1 = $("#TriglyceridesBinIDHIDDEN").val();
+                document.getElementById("TriglyceridesBinID").value = hvD2C1;
+
+                //Add Test Screen
+                var hvCLDate1 = $("#CLTestDateHIDDEN").val();
+                document.getElementById("CLTestDate").value = hvCLDate1;
+
+
+                var iCLTestDateHIDDEN = $("#CLTestDateHIDDEN").val();
+                iCLTestDateHIDDENLen = iCLTestDateHIDDEN.length;
+                if (iCLTestDateHIDDENLen < 1) {
+                    iStopSub = 1;
+                    sErr += "You must enter a date for cholesterol test" + "\n";
+                }
+
+                if (new Date(iCLTestDateHIDDEN).getTime() > new Date(iCurDate).getTime()) {
+                    iStopSub = 1;
+                    sErr += "You cannot enter a date of cholesterol test in the future\n";
+                }
+
+                // Check for valid date
+                var timestamp = kendo.parseDate(iCLTestDateHIDDEN, "mm/dd/yyyy");
+
+                if (timestamp == null) {
+
+                    iStopSub = 1;
+                    sErr += "Please enter a valid date of cholesterol\n";
+
+                }
+
+
+                var iTotalCholesterolBinID = $("#TotalCholesterolBinID").val();
+                if (iTotalCholesterolBinID == "") {
+
+                    iStopSub = 1;
+                    sErr += "You must enter a value for total cholesterol" + "\n";
+
+                }
+
+                var iHDLCholesterolBinID = $("#HDLCholesterolBinID").val();
+                if (iHDLCholesterolBinID == "") {
+
+                    iStopSub = 1;
+                    sErr += "You must enter a value for hdl cholesterol" + "\n";
+
+                }
+
+                // If Adding Screening Information
+                if ($("#FastingStatusBinID").is(':checked')) {
+
+
+                    // If Adding Screening Information
+                    if ($("#BloodSample").is(':checked')) {
+
+                       // Do Nothing
+
+                    }
+                    else {
+
+
+                        var iLDLCholesterolBinID = $("#LDLCholesterolBinID").val();
+                        if (iLDLCholesterolBinID == "") {
+
+                            iStopSub = 1;
+                            sErr += "You must enter a value for ldl cholesterol" + "\n";
+
+                        }
+
+                    }
+
+                        var iTriglyceridesBinID = $("#TriglyceridesBinID").val();
+                        if (iTriglyceridesBinID == "") {
+
+                            iStopSub = 1;
+                            sErr += "You must enter a value for trigilycerides" + "\n";
+
+                        }
+
+                   
+
+                }
+
+
+            }
+                // Glucose
+            else {
+
+                // Glucose
+                var hvG1 = $("#GlucoseBinIDHIDDEN").val();
+                document.getElementById("GlucoseBinID").value = hvG1;
+
+                //var hvA = $("#A1CPercentageBinIDHIDDEN").val();
+                //document.getElementById("A1CPercentageBinID").value = hvA;
+
+                //Add Test Screen
+                var hvGLUDate1 = $("#GLUTestDateHIDDEN").val();
+                document.getElementById("GLUTestDate").value = hvGLUDate1;
+
+
+                var iGLUTestDateHIDDEN = $("#GLUTestDateHIDDEN").val();
+                iGLUTestDateHIDDENLen = iGLUTestDateHIDDEN.length;
+                if (iGLUTestDateHIDDENLen < 1) {
+                    iStopSub = 1;
+                    sErr += "You must enter a date for glucose test" + "\n";
+                }
+
+                if (new Date(iGLUTestDateHIDDEN).getTime() > new Date(iCurDate).getTime()) {
+                    iStopSub = 1;
+                    sErr += "You cannot enter a date of glucose test in the future\n";
+                }
+
+                // Check for valid date
+                var timestamp = kendo.parseDate(iGLUTestDateHIDDEN, "mm/dd/yyyy");
+
+                if (timestamp == null) {
+
+                    iStopSub = 1;
+                    sErr += "Please enter a valid date of glucose\n";
+
+                }
+
+                
+                if ($("#NoGlucose").is(':checked')) {
+
+                    var iGlucoseBinID = $("#GlucoseBinID").val();
+                    if (iGlucoseBinID == "") {
+
+                        iStopSub = 1;
+                        sErr += "You must enter a value for glucose" + "\n";
+
+                    }
+
+                }
+
+                if ($("#NoA1C").is(':checked')) {
+
+                    var iA1CPercentageID = $("#A1CPercentageID option:selected").val();
+
+                    if (iA1CPercentageID < 1) {
+                        iStopSub = 1;
+                        sErr += "You must enter A1C percentage information" + "\n";
+
+                    }
+
+                }
+
+            }
+
+            if (iStopSub != 0) {
+                alert(sErr);
+                e.preventDefault();
+
+            }
+
+
+        });
+
+    });
+
+
+    $('#AddTestForm').on("submit", function (evt44) {
+        evt44.preventDefault();
+        if ($('#AddTestForm').valid()) {
+
+            $("#AddTestingButton").prop("disabled", true);
+
+
+            $.ajax({
+
+                url: $("#AddTestForm").attr('action'),
+                type: $("#AddTestForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#AddTestForm").serialize(),
+                success: function (data) {
+
+                    //var clinicalcycleid = data.Modified;
+                    //var siteid = data.Modified2;
+                    //var screeningtypeid = data.Modified3;
+                    //var clientid = data.Modified4;
+                    //var enrollid = data.Modified5;
+                    var screeningid = data.Modified;
+                    var screenprocedureid = data.Modified2;
+                    var operationid = data.Modified3;
+                   
+                    @*$('#ClinicalMeasurementsSection').load('@Url.Action("_ClinicalMeasurements", "PatientInformation")', { id: screeningid });
+                    $('#ScreeningMessageContainer').load('@Url.Action("Index", "Messages")', { id: screeningid });*@
+                    @*$('#ContentContainer').load('@Url.Action("Edit", "Screenings")', { id: screeningid });*@
+
+                    $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ScreeningID })');
+
+
+                    //if (screenprocedureid == null && operationid == null) {
+
+                    //    toastr.success('You have successfully added a test.')
+
+
+                    //}
+                    //else if (screenprocedureid != null && operationid == 2) {
+
+                    //    toastr.success('You have successfully updated a test.')
+
+                    //}
+                    //else if (screenprocedureid != null && operationid == 4) {
+
+
+                    //    toastr.success('You have successfully updated the workup for this alert value.');
+
+
+                    //}
+                    //else if (screenprocedureid != null && operationid == 1) {
+
+                    //    toastr.warning('You have successfully removed a test.')
+
+                    //}
+                    //else {
+
+                    //    // Nothing
+                    //}
+
+
+                  
+
+                }
+
+            });
+        }
+
+    });
+
+
+
+
+    //});
+
+
+
+
+
+</script>     

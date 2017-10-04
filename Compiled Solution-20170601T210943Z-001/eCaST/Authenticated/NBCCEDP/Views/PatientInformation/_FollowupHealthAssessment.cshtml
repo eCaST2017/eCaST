@@ -1,0 +1,1671 @@
+﻿@model IEnumerable<eCaST.ViewModels.PatientInfoViewModel>
+
+
+@*<link href="@Url.Content("~/Content/bootstrap.custom.css")" rel="stylesheet" type="text/css" />*@
+<link href="@Url.Content("~/Content/slider.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/themes/base/jquery.ui.slider.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/app/patientinfo.js")" type="text/javascript"></script>
+@*<script src="@Url.Content("~/Scripts/bootstrap.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap-multiselect.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/Content/bootstrap-multiselect.css")" rel="stylesheet" type="text/css" />*@
+
+
+
+@foreach (var item in Model)
+{
+
+
+    <div class="alert alert-default breadcrumb">
+
+
+        <div>
+
+
+            @if (ViewBag.BPPlusCheck == true)
+            {
+                <text>This is a</text> <img id="BBPPlusIcon" src="@Url.Content(String.Format("~/Images/CoverageIconBPPLUS.png"))" /> <text>Followup Assessment.</text>
+
+
+            }
+
+            @*else{ *@
+            <div align="left">
+
+
+
+
+                @* <div class="btn-group" role="group">
+
+                  <button id="EditPatientInfoButtonFU" type="button" class="btn btn-default btn-xs">Edit</button>
+                  <button style="width:30px" type="RemovePatientInfoButtonFU" class="btn btn-default btn-xs"><span  class="glyphicon glyphicon-trash"></span></button>
+                </div>*@
+
+                <!-- Extra small button group -->
+                <div class="btn-group">
+                    <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                        <span class="glyphicon glyphicon-pencil"></span> Edit <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+
+
+                        @if (@ViewBag.PowerUser == 1 || @ViewBag.PowerUser == 13)
+                            {
+
+                            <li>
+                                <div style="text-align:left">
+
+                                    <a id="DeleteAssessmentButton" href="#"><span class="glyphicon glyphicon-trash"></span> Delete Followup</a>
+
+
+                                </div>
+
+
+                            </li>
+
+                            }
+                        <li>
+                            <div style="text-align:left">
+
+                                <a id="EditPatientInfoButtonI" href="#"><span class="glyphicon glyphicon-pencil"></span> Initial Assessment</a>
+
+
+                            </div>
+
+
+                        </li>
+                        <li>
+                            <div style="text-align:left">
+
+                                <a id="EditPatientInfoButtonFU" href="#"><span class="glyphicon glyphicon-pencil"></span> Followup Assessment</a>
+
+
+                            </div>
+
+
+                        </li>
+                    </ul>
+                </div>
+
+
+                <!-- Delete Error Info Modal -->
+                <div class="modal fade" id="deleteAssessmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div style="text-align:left" class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="modal-title" id="myModalLabel">Delete Followup Assessment</h2>
+                            </div>
+
+
+                            <div>
+
+
+                                <div id="DeleteAssessmentContainer"></div>
+
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+
+
+
+                @*}
+                else
+                {
+
+                    <button id="EditPatientInfoButtonFU" class="btn btn-default btn-xs"> <span class="glyphicon glyphicon-pencil"></span> Edit</button>
+
+
+                }*@
+
+                @*   <div class="col-md-5">
+                <button id="EditPatientInfoButtonFU" class ="btn btn-success btn-xs">Edit</button>
+                                </div>
+                                       @if(@ViewBag.PowerUser == true){
+
+
+
+                                 <div class="col-md-3">
+                                        <button id="DeleteFollowupButton" class ="btn btn-danger btn-xs"><span  class="glyphicon glyphicon-trash"></span></button>
+                                 </div>
+
+
+                                       }*@
+
+            </div>
+
+
+            @* } *@
+
+            <br />
+            <div class="row">
+                <div align="center" class="col-md-12">
+                    <h4 style="font-family:'Lato', sans-serif; color:#3c9eb4; font-weight:300"><i class="fa fa-heartbeat"></i>&nbsp;Complete Cardio Health Assessment</h4>
+                </div>
+
+
+
+            </div>
+
+
+            <hr class="style-two" />
+
+
+
+            @*<div class="alert alert-success">
+                 <div class="row">
+
+                    <div class="col-md-12"><span style="font-size:medium;color:#fff; width:100%" class="badge">Demographics</span></div>
+
+
+                </div>
+                 <hr class="style-two" />
+                <div align="left">Education: <b>@item.EducationBinName</b></div>
+                  <div align="left">Primary Language: <b>@item.LanguageBinName</b></div>
+
+            </div>*@
+
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+                            <div>Initial Health Assessment</div>
+                            <div><label style="color:#68ae2a">Completed on @(((DateTime)ViewBag.AssessmentDate1).ToString("MM/dd/yyyy"))</label></div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+                </div>
+
+
+                <div class="col-md-6">
+
+
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+                            <div>Followup Health Assessment</div>
+                            <div><label style="color:#3c9eb4">Completed on @(((DateTime)ViewBag.FollowupAssessmentDate).ToString("MM/dd/yyyy"))</label></div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+                </div>
+
+
+
+            </div>
+
+            <br />
+            <div class="row">
+
+
+                <div class="col-md-12">
+
+
+
+                    <div style="text-align:center"><h4 style="color:#68ae2a">Cholesterol</h4></div>
+
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    @if (ViewBag.CholCheckID1 == 1)
+                    {
+
+
+                        <div style="text-align:center"><i style="color:red" class="fa fa-exclamation-circle fa-3x"></i></div>
+
+
+
+                    }
+                    else
+                    {
+
+
+                        <div style="text-align:center"><i style="color:#68ae2a;" class="fa fa-check-circle-o fa-3x"></i></div>
+
+                    }
+
+                </div>
+
+             
+
+                <div class="col-md-6">
+
+
+
+                    @if (ViewBag.CholCheckID == 1)
+                    {
+
+                        <div style="text-align:center"><i style="color:red" class="fa fa-exclamation-circle fa-3x"></i></div>
+
+
+
+
+                    }
+                    else
+                    {
+
+
+                        <div style="text-align:center"><i style="color:#68ae2a;" class="fa fa-check-circle-o fa-3x"></i></div>
+
+                    }
+
+
+
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    @if (ViewBag.CholCheckID1 == 1)
+                   {
+
+
+
+                        <div align="left">Taking Medication: <b>@ViewBag.CholMedCheck1</b></div>
+
+
+                       if (ViewBag.CholMedCheck1 == "Yes")
+                       {
+
+                        <div align="left">Days a week: <b>@ViewBag.CholMedDaysCheck1</b></div>
+
+                       }
+
+
+
+                   }
+
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    @if (ViewBag.CholCheckID == 1)
+                    {
+
+
+
+                        <div align="left">Taking Medication: <b>@ViewBag.CholMedCheck</b></div>
+
+
+                        if (ViewBag.CholMedCheck == "Yes")
+                        {
+
+                            <div align="left">Days a week: <b>@ViewBag.CholMedDaysCheck</b></div>
+
+                        }
+
+
+
+                    }
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <hr class="style-two" />
+
+            @*<div class="alert alert-@ViewBag.CholAlert">
+
+                <div class="row">
+
+                    <div class="col-md-12"><span style="font-size:medium;color:#fff; width:100%" class="badge">Cholesterol</span></div>
+
+
+                </div>
+                <hr class="style-two" />
+                <div align="left">High cholesterol?: <b>@ViewBag.CholCheck</b></div>
+
+
+                @{if (ViewBag.CholCheckID == 1)
+                {
+
+
+                    <div align="left">Taking Medication?: <b>@ViewBag.CholMedCheck</b></div>
+
+
+                    if (ViewBag.CholMedCheck == "Yes")
+                    {
+
+                        <div align="left">Days a week?: <b>@ViewBag.CholMedDaysCheck</b></div>
+
+                    }
+
+
+
+                }
+
+                }
+
+            </div>*@
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+
+
+                    <div style="text-align:center"><h4 style="color:#68ae2a">Hypertension</h4></div>
+
+
+
+                </div>
+
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    @if (ViewBag.HyperCheckID1 == 1)
+                    {
+
+
+                        <div style="text-align:center"><i style="color:red" class="fa fa-exclamation-circle fa-3x"></i></div>
+
+
+
+                    }
+                    else
+                    {
+
+
+                        <div style="text-align:center"><i style="color:#68ae2a;" class="fa fa-check-circle-o fa-3x"></i></div>
+
+                    }
+
+                </div>
+
+               
+
+                <div class="col-md-6">
+
+
+
+                    @if (ViewBag.HyperCheckID == 1)
+                    {
+
+
+                        <div style="text-align:center"><i style="color:red" class="fa fa-exclamation-circle fa-3x"></i></div>
+
+
+
+
+
+                    }
+                    else
+                    {
+
+
+                        <div style="text-align:center"><i style="color:#68ae2a;" class="fa fa-check-circle-o fa-3x"></i></div>
+
+                    }
+
+
+
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    @if (ViewBag.HyperCheckID1 == 1)
+                         {
+
+
+                   
+                        <div align="left">Taking Medication: <b>@ViewBag.HyperMedCheck1</b></div>
+
+
+                        if (ViewBag.HyperMedCheck1 == "Yes")
+                        {
+
+                            <div align="left">Days a week: <b>@ViewBag.HyperMedDaysCheck1</b></div>
+
+                        }
+
+                        if (ViewBag.HyperMeasureCheck1 == "Yes")
+                        {
+
+                            <div align="left">Do they measure blood pressure: <b>@ViewBag.HyperMeasureCheck1</b></div>
+
+                        }
+
+                        if (ViewBag.HyperMeasureYesCheck1 != "Not Applicable" || ViewBag.HyperMeasureYesCheck1 != "Don't know/Not sure" || ViewBag.HyperMeasureYesCheck1 != "Don't want to answer" || ViewBag.HyperMeasureYesCheck1 != "No answer recorded")
+                        {
+
+                            <div align="left">How often: <b>@ViewBag.HyperMeasureYesCheck1</b></div>
+
+                        }
+
+                        if (ViewBag.HyperShareCheck1 == "Yes")
+                        {
+
+                            <div align="left">Do they share blood pressure reading with a provider: <b>@ViewBag.HyperShareCheck1</b></div>
+
+                        }
+
+
+
+                    }
+                    
+                    
+                    </div>
+
+                <div class="col-md-6">
+
+                    @if (ViewBag.HyperCheckID == 1)
+                    {
+
+
+
+                        <div align="left">Taking Medication: <b>@ViewBag.HyperMedCheck</b></div>
+
+
+                        if (ViewBag.HyperMedCheck == "Yes")
+                        {
+
+                            <div align="left">Days a week: <b>@ViewBag.HyperMedDaysCheck</b></div>
+
+                        }
+
+                        if (ViewBag.HyperMeasureCheck == "Yes")
+                        {
+
+                            <div align="left">Do they measure blood pressure: <b>@ViewBag.HyperMeasureCheck</b></div>
+
+                        }
+
+                        if (ViewBag.HyperMeasureYesCheck != "Not Applicable" || ViewBag.HyperMeasureYesCheck != "Don't know/Not sure" || ViewBag.HyperMeasureYesCheck != "Don't want to answer" || ViewBag.HyperMeasureYesCheck != "No answer recorded")
+                        {
+
+                            <div align="left">How often: <b>@ViewBag.HyperMeasureYesCheck</b></div>
+
+                        }
+
+                        if (ViewBag.HyperShareCheck == "Yes")
+                        {
+
+                            <div align="left">Do they share blood pressure reading with a provider: <b>@ViewBag.HyperShareCheck</b></div>
+
+                        }
+
+
+
+                    }
+
+
+                </div>
+
+
+
+                </div>
+
+                  <hr class="style-two" />
+
+
+                    @*<div class="alert alert-@ViewBag.HyperAlert">
+                        <div class="row">
+
+                            <div class="col-md-12"><span style="font-size:medium;color:#fff; width:100%" class="badge">Hypertension</span></div>
+
+
+                        </div>
+
+                        <hr class="style-two" />
+
+                        <div align="left">High blood pressure?: <b>@ViewBag.HyperCheck</b></div>
+
+
+                        @{if (ViewBag.HyperCheckID == 1)
+                        {
+
+
+                            <div align="left">Taking Medication?: <b>@ViewBag.HyperMedCheck</b></div>
+
+
+                            if (ViewBag.HyperMedCheck == "Yes")
+                            {
+
+                                <div align="left">Days a week?: <b>@ViewBag.HyperMedDaysCheck</b></div>
+
+                            }
+
+
+
+                            if (ViewBag.HyperMeasureCheck == "Yes")
+                            {
+
+                                <div align="left">Do they measure blood pressure?: <b>@ViewBag.HyperMeasureCheck</b></div>
+
+                            }
+
+                            if (ViewBag.HyperMeasureYesCheck != "Not Applicable" || ViewBag.HyperMeasureYesCheck != "Don't know/Not sure" || ViewBag.HyperMeasureYesCheck != "Don't want to answer" || ViewBag.HyperMeasureYesCheck != "No answer recorded")
+                            {
+
+                                <div align="left">How often?: <b>@ViewBag.HyperMeasureYesCheck</b></div>
+
+                            }
+
+                            if (ViewBag.HyperShareCheck == "Yes")
+                            {
+
+                                <div align="left">Do they share blood pressure reading with a provider?: <b>@ViewBag.HyperShareCheck</b></div>
+
+                            }
+
+
+
+                        }
+
+                        }
+
+                    </div>*@
+
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+
+
+                    <div style="text-align:center"><h4 style="color:#68ae2a">Diabetes</h4></div>
+
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    @if (ViewBag.DiaCheckID1 == 1)
+                    {
+
+
+                        <div style="text-align:center"><i style="color:red" class="fa fa-exclamation-circle fa-3x"></i></div>
+
+
+
+                    }
+                    else
+                    {
+
+
+                        <div style="text-align:center"><i style="color:#68ae2a;" class="fa fa-check-circle-o fa-3x"></i></div>
+
+                    }
+
+                </div>
+
+              
+
+                <div class="col-md-6">
+
+
+
+                    @if (ViewBag.DiaCheckID == 1)
+                    {
+
+
+                        <div style="text-align:center"><i style="color:red" class="fa fa-exclamation-circle fa-3x"></i></div>
+
+
+
+
+
+                    }
+                    else
+                    {
+
+
+                        <div style="text-align:center"><i style="color:#68ae2a;" class="fa fa-check-circle-o fa-3x"></i></div>
+
+                    }
+
+
+
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    @if (ViewBag.DiaCheckID1 == 1)
+                    {
+
+
+
+                        if (ViewBag.DiaCheckID1 == 1)
+                        {
+
+
+                            <div align="left">Taking Medication: <b>@ViewBag.DiaMedCheck1</b></div>
+
+
+                            if (ViewBag.DiaMedCheck1 == "Yes")
+                            {
+
+                                <div align="left">Days a week: <b>@ViewBag.DiaMedDaysCheck1</b></div>
+
+                            }
+
+
+
+                        }
+
+                        
+
+
+
+                    }
+
+
+                </div>
+
+                <div class="col-md-6">
+
+                    @if (ViewBag.DiaCheckID == 1)
+                    {
+
+
+
+                        if (ViewBag.DiaCheckID == 1)
+                        {
+
+
+                            <div align="left">Taking Medication: <b>@ViewBag.DiaMedCheck</b></div>
+
+
+                            if (ViewBag.DiaMedCheck == "Yes")
+                            {
+
+                                <div align="left">Days a week: <b>@ViewBag.DiaMedDaysCheck</b></div>
+
+                            }
+
+
+
+                        
+
+                    }
+
+
+
+                    }
+
+
+                </div>
+
+
+
+            </div>
+
+            <hr class="style-two" />
+
+
+
+
+
+                    @*<div class="alert alert-@ViewBag.DiaAlert">
+
+
+                        <div class="row">
+
+                            <div class="col-md-12"><span style="font-size:medium;color:#fff; width:100%" class="badge">Diabetes</span></div>
+
+
+                        </div>
+
+
+                        <hr class="style-two" />
+
+
+                        <div align="left">Diabetes?: <b>@ViewBag.DiaCheck</b></div>
+
+
+                        @{if (ViewBag.DiaCheckID == 1)
+                {
+
+
+                            <div align="left">Taking Medication?: <b>@ViewBag.DiaMedCheck</b></div>
+
+
+                    if (ViewBag.DiaMedCheck == "Yes")
+                    {
+
+                        <div align="left">Days a week?: <b>@ViewBag.DiaMedDaysCheck</b></div>
+
+                    }
+
+
+
+                }
+
+                        }
+
+
+
+
+                    </div>*@
+
+
+            <br />
+            <div class="row">
+
+
+                <div class="col-md-12">
+
+
+
+                    <div style="text-align:center"><h4 style="color:#68ae2a">History of Heart Attack</h4></div>
+
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    @if (@ViewBag.HeartAlert1 == "danger")
+                    {
+
+
+                        <div style="text-align:center"><i style="color:red" class="fa fa-exclamation-circle fa-3x"></i></div>
+
+
+
+                    }
+                    else
+                    {
+
+
+                        <div style="text-align:center"><i style="color:#68ae2a;" class="fa fa-check-circle-o fa-3x"></i></div>
+
+                    }
+
+                </div>
+
+
+
+                <div class="col-md-6">
+
+
+
+                    @if (@ViewBag.HeartAlert == "danger")
+                    {
+
+                        <div style="text-align:center"><i style="color:red" class="fa fa-exclamation-circle fa-3x"></i></div>
+
+
+
+
+                    }
+                    else
+                    {
+
+
+                        <div style="text-align:center"><i style="color:#68ae2a;" class="fa fa-check-circle-o fa-3x"></i></div>
+
+                    }
+
+
+
+                </div>
+
+            </div>
+
+
+           
+            <hr class="style-two" />
+
+
+
+                    @*<div class="alert alert-@ViewBag.HeartAlert">
+
+
+                        <div class="row">
+
+                            <div class="col-md-12"><span style="font-size:medium;color:#fff; width:100%" class="badge">Heart Attack</span></div>
+
+
+                        </div>
+
+
+                        <hr class="style-two" />
+
+
+                        <div align="left">History of Heart Attack?: <b>@ViewBag.HeartCheck</b></div>
+
+                    </div>*@
+
+
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+
+
+                    <div style="text-align:center"><h4 style="color:#68ae2a">Diet/Physical Activity</h4></div>
+
+
+
+                </div>
+
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    @if (@ViewBag.HealthyAlert1 == "danger")
+                    {
+
+
+                        <div style="text-align:center"><i style="color:red" class="fa fa-exclamation-circle fa-3x"></i></div>
+
+
+
+                    }
+                    else
+                    {
+
+
+                        <div style="text-align:center"><i style="color:#68ae2a;" class="fa fa-check-circle-o fa-3x"></i></div>
+
+                    }
+
+                </div>
+
+
+
+                <div class="col-md-6">
+
+
+
+                    @if (@ViewBag.HealthyAlert == "danger")
+                    {
+
+
+                        <div style="text-align:center"><i style="color:red" class="fa fa-exclamation-circle fa-3x"></i></div>
+
+
+
+
+
+                    }
+                    else
+                    {
+
+
+                        <div style="text-align:center"><i style="color:#68ae2a;" class="fa fa-check-circle-o fa-3x"></i></div>
+
+                    }
+
+
+
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div align="left">Cups of fruit per day: <b>@ViewBag.FruitCheck1</b></div>
+
+                    <div align="left">Cups of vegetables per day: <b>@ViewBag.VegCheck1</b></div>
+
+                    <div align="left">2 servings or more of fish weekly: <b>@ViewBag.FishCheck1</b></div>
+
+                    <div align="left">3 ounces or more of whole grains daily: <b>@ViewBag.GrainCheck1</b></div>
+
+                    <div align="left">Drink less than 36 oz. of sugar added beverages weekly: <b>@ViewBag.DrinkCheck1</b></div>
+
+                    <div align="left">Watching sodium intake: <b>@ViewBag.SodiumCheck1</b></div>
+
+                    <div align="left">Hours of moderate activity per week: <b>@ViewBag.ModPhysicalCheck1</b></div>
+
+                    <div align="left">Hours of vigorous activity per week: <b>@ViewBag.VigPhysicalCheck1</b></div>
+
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div align="left">Cups of fruit per day: <b>@ViewBag.FruitCheck</b></div>
+
+                    <div align="left">Cups of vegetables per day: <b>@ViewBag.VegCheck</b></div>
+
+                    <div align="left">2 servings or more of fish weekly: <b>@ViewBag.FishCheck</b></div>
+
+                    <div align="left">3 ounces or more of whole grains daily: <b>@ViewBag.GrainCheck</b></div>
+
+                    <div align="left">Drink less than 36 oz. of sugar added beverages weekly: <b>@ViewBag.DrinkCheck</b></div>
+
+                    <div align="left">Watching sodium intake: <b>@ViewBag.SodiumCheck</b></div>
+
+                    <div align="left">Hours of moderate activity per week: <b>@ViewBag.ModPhysicalCheck</b></div>
+
+                    <div align="left">Hours of vigorous activity per week: <b>@ViewBag.VigPhysicalCheck</b></div>
+
+
+                </div>
+
+
+
+            </div>
+
+            <hr class="style-two" />
+
+
+
+
+
+
+                    @*<div class="alert alert-@ViewBag.HealthyAlert">
+
+
+                        <div class="row">
+
+                            <div class="col-md-12"><span style="font-size:medium;color:#fff; width:100%" class="badge">Diet/Phys. Activity</span></div>
+
+
+                        </div>
+
+
+
+                        <hr class="style-two" />
+
+
+                        <div align="left">Cups of fruit per day?: <b>@ViewBag.FruitCheck</b></div>
+
+                        <div align="left">Cups of vegetables per day?: <b>@ViewBag.VegCheck</b></div>
+
+                        <div align="left">2 servings or more of fish weekly?: <b>@ViewBag.FishCheck</b></div>
+
+                        <div align="left">3 ounces or more of whole grains daily?: <b>@ViewBag.GrainCheck</b></div>
+
+                        <div align="left">Drink less than 36 oz. of sugar added beverages weekly?: <b>@ViewBag.DrinkCheck</b></div>
+
+                        <div align="left">Watching sodium intake?: <b>@ViewBag.SodiumCheck</b></div>
+
+                        <div align="left">Hours of moderate activity per week?: <b>@ViewBag.ModPhysicalCheck</b></div>
+
+                        <div align="left">Hours of vigorous activity per week?: <b>@ViewBag.VigPhysicalCheck</b></div>
+
+                    </div>*@
+
+
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+
+
+                    <div style="text-align:center"><h4 style="color:#68ae2a">Smoking Status</h4></div>
+
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    @if (@ViewBag.SmokeAlert1 == "danger")
+                    {
+
+
+                        <div style="text-align:center"><i style="color:red" class="fa fa-exclamation-circle fa-3x"></i></div>
+
+
+
+                    }
+                    else
+                    {
+
+
+                        <div style="text-align:center"><i style="color:#68ae2a;" class="fa fa-check-circle-o fa-3x"></i></div>
+
+                    }
+
+                </div>
+
+
+
+                <div class="col-md-6">
+
+
+
+                    @if (@ViewBag.SmokeAlert == "danger")
+                    {
+
+
+                        <div style="text-align:center"><i style="color:red" class="fa fa-exclamation-circle fa-3x"></i></div>
+
+
+
+
+
+                    }
+                    else
+                    {
+
+
+                        <div style="text-align:center"><i style="color:#68ae2a;" class="fa fa-check-circle-o fa-3x"></i></div>
+
+                    }
+
+
+
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    @if (ViewBag.SecondSmokeCheck1 < 25)
+                    {
+
+
+                        <div align="left">Hours around secondhand smoke: <b>@ViewBag.SecondSmokeCheck1</b></div>
+
+                    }
+                    else if (ViewBag.SecondSmokeCheck1 == 66)
+                    {
+
+                        <div align="left">Hours around secondhand smoke: <b>Less than one hour</b></div>
+
+
+                    }
+                    else if (ViewBag.SecondSmokeCheck1 == 88)
+                    {
+
+
+                        <div align="left">Hours around secondhand smoke: <b>Don't want to answer</b></div>
+
+                    }
+                    else if (ViewBag.SecondSmokeCheck1 == 99)
+                    {
+
+
+                        <div align="left">Hours around secondhand smoke: <b>No answer recorded</b></div>
+
+                    }
+
+
+                </div>
+
+                <div class="col-md-6">
+
+                    @if (ViewBag.SecondSmokeCheck < 25)
+                    {
+
+
+                        <div align="left">Hours around secondhand smoke: <b>@ViewBag.SecondSmokeCheck</b></div>
+
+                    }
+                    else if (ViewBag.SecondSmokeCheck == 66)
+                    {
+
+                        <div align="left">Hours around secondhand smoke: <b>Less than one hour</b></div>
+
+
+                    }
+                    else if (ViewBag.SecondSmokeCheck == 88)
+                    {
+
+
+                        <div align="left">Hours around secondhand smoke: <b>Don't want to answer</b></div>
+
+                    }
+                    else if (ViewBag.SecondSmokeCheck == 99)
+                    {
+
+
+                        <div align="left">Hours around secondhand smoke: <b>No answer recorded</b></div>
+
+                    }
+
+
+                </div>
+
+
+
+            </div>
+
+            <hr class="style-two" />
+
+
+
+
+                    @*<div class="alert alert-@ViewBag.SmokeAlert">
+
+
+                        <div class="row">
+
+                            <div class="col-md-12"><span style="font-size:medium;color:#fff; width:100%" class="badge">Smoking Status</span></div>
+
+
+                        </div>
+
+
+                        <hr class="style-two" />
+
+
+                        <div align="left">Do they smoke?: <b>@ViewBag.SmokeCheck</b></div>
+
+
+                        @if (ViewBag.SecondSmokeCheck < 25)
+                {
+
+
+                            <div align="left">Hours around secondhand smoke?: <b>@ViewBag.SecondSmokeCheck</b></div>
+
+                }
+                else if (ViewBag.SecondSmokeCheck == 66)
+                {
+
+                    <div align="left">Hours around secondhand smoke?: <b>Less than one hour</b></div>
+
+
+                }
+                else if (ViewBag.SecondSmokeCheck == 88)
+                {
+
+
+                    <div align="left">Hours around secondhand smoke?: <b>Don't want to answer</b></div>
+
+                }
+                else if (ViewBag.SecondSmokeCheck == 99)
+                {
+
+
+                    <div align="left">Hours around secondhand smoke?: <b>No answer recorded</b></div>
+
+                }
+
+
+                    </div>*@
+
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+
+
+                    <div style="text-align:center"><h4 style="color:#68ae2a">Quality of Life</h4></div>
+
+
+
+                </div>
+
+
+            </div>
+
+
+
+       
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    @if (ViewBag.PhysicalHealthCheck1 < 31)
+                    {
+
+
+
+                        <div align="left">Bad physical health days in last 30 days: <b>@ViewBag.PhysicalHealthCheck1</b></div>
+
+
+                    }
+                    else if (ViewBag.PhysicalHealthCheck1 == 77)
+                    {
+
+                        <div align="left">Bad physical health days in last 30 days: <b>Don't know/Not Sure</b></div>
+
+
+                    }
+                    else if (ViewBag.PhysicalHealthCheck1 == 88)
+                    {
+
+
+                        <div align="left">Bad physical health days in last 30 days: <b>Don't want to answer</b></div>
+
+                    }
+                    else if (ViewBag.PhysicalHealthCheck1 == 99)
+                    {
+
+
+                        <div align="left">Bad physical health days in last 30 days: <b>No answer recorded</b></div>
+
+                    }
+
+
+                    @if (ViewBag.MentalHealthCheck1 < 31)
+                    {
+
+
+
+                        <div align="left">Bad mental health days in last 30 days: <b>@ViewBag.MentalHealthCheck1</b></div>
+
+
+                    }
+                    else if (ViewBag.MentalHealthCheck1 == 77)
+                    {
+
+                        <div align="left">Bad mental health days in last 30 days: <b>Don't know/Not Sure</b></div>
+
+
+                    }
+                    else if (ViewBag.MentalHealthCheck1 == 88)
+                    {
+
+
+                        <div align="left">Bad mental health days in last 30 days: <b>Don't want to answer</b></div>
+
+                    }
+                    else if (ViewBag.MentalHealthCheck1 == 99)
+                    {
+
+
+                        <div align="left">Bad mental health days in last 30 days: <b>No answer recorded</b></div>
+
+                    }
+
+
+                    @if (ViewBag.MentalPhysicalHealthCheck1 < 31)
+                    {
+
+
+
+                        <div align="left">Bad mental/physical health days in last 30 days: <b>@ViewBag.MentalPhysicalHealthCheck1</b></div>
+
+
+                    }
+                    else if (ViewBag.MentalPhysicalHealthCheck1 == 77)
+                    {
+
+                        <div align="left">Bad mental/physical health days in last 30 days: <b>Don't know/Not Sure</b></div>
+
+
+                    }
+                    else if (ViewBag.MentalPhysicalHealthCheck1 == 88)
+                    {
+
+
+                        <div align="left">Bad mental/physical health days in last 30 days: <b>Don't want to answer</b></div>
+
+                    }
+                    else if (ViewBag.MentalPhysicalHealthCheck1 == 99)
+                    {
+
+
+                        <div align="left">Bad mental/physical health days in last 30 days: <b>No answer recorded</b></div>
+
+                    }
+
+
+                </div>
+
+                <div class="col-md-6">
+
+                    @if (ViewBag.PhysicalHealthCheck < 31)
+                    {
+
+
+
+                        <div align="left">Bad physical health days in last 30 days: <b>@ViewBag.PhysicalHealthCheck</b></div>
+
+
+                    }
+                    else if (ViewBag.PhysicalHealthCheck == 77)
+                    {
+
+                        <div align="left">Bad physical health days in last 30 days: <b>Don't know/Not Sure</b></div>
+
+
+                    }
+                    else if (ViewBag.PhysicalHealthCheck == 88)
+                    {
+
+
+                        <div align="left">Bad physical health days in last 30 days: <b>Don't want to answer</b></div>
+
+                    }
+                    else if (ViewBag.PhysicalHealthCheck == 99)
+                    {
+
+
+                        <div align="left">Bad physical health days in last 30 days: <b>No answer recorded</b></div>
+
+                    }
+
+
+                    @if (ViewBag.MentalHealthCheck < 31)
+                    {
+
+
+
+                        <div align="left">Bad mental health days in last 30 days: <b>@ViewBag.MentalHealthCheck</b></div>
+
+
+                    }
+                    else if (ViewBag.MentalHealthCheck == 77)
+                    {
+
+                        <div align="left">Bad mental health days in last 30 days: <b>Don't know/Not Sure</b></div>
+
+
+                    }
+                    else if (ViewBag.MentalHealthCheck == 88)
+                    {
+
+
+                        <div align="left">Bad mental health days in last 30 days: <b>Don't want to answer</b></div>
+
+                    }
+                    else if (ViewBag.MentalHealthCheck == 99)
+                    {
+
+
+                        <div align="left">Bad mental health days in last 30 days: <b>No answer recorded</b></div>
+
+                    }
+
+
+                    @if (ViewBag.MentalPhysicalHealthCheck < 31)
+                    {
+
+
+
+                        <div align="left">Bad mental/physical health days in last 30 days: <b>@ViewBag.MentalPhysicalHealthCheck</b></div>
+
+
+                    }
+                    else if (ViewBag.MentalPhysicalHealthCheck == 77)
+                    {
+
+                        <div align="left">Bad mental/physical health days in last 30 days: <b>Don't know/Not Sure</b></div>
+
+
+                    }
+                    else if (ViewBag.MentalPhysicalHealthCheck == 88)
+                    {
+
+
+                        <div align="left">Bad mental/physical health days in last 30 days: <b>Don't want to answer</b></div>
+
+                    }
+                    else if (ViewBag.MentalPhysicalHealthCheck == 99)
+                    {
+
+
+                        <div align="left">Bad mental/physical health days in last 30 days: <b>No answer recorded</b></div>
+
+                    }
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+
+
+                    @*<div class="alert alert-info">
+
+                        <div class="row">
+
+                            <div class="col-md-12"><span style="font-size:medium;color:#fff; width:100%" class="badge">Quality of Life</span></div>
+
+
+                        </div>
+
+                        <hr class="style-two" />
+
+
+                        @if (ViewBag.PhysicalHealthCheck < 31)
+                {
+
+
+
+                            <div align="left">Bad physical health days in last 30 days?: <b>@ViewBag.PhysicalHealthCheck</b></div>
+
+
+                }
+                else if (ViewBag.PhysicalHealthCheck == 77)
+                {
+
+                    <div align="left">Bad physical health days in last 30 days?: <b>Don't know/Not Sure</b></div>
+
+
+                }
+                else if (ViewBag.PhysicalHealthCheck == 88)
+                {
+
+
+                    <div align="left">Bad physical health days in last 30 days?: <b>Don't want to answer</b></div>
+
+                }
+                else if (ViewBag.PhysicalHealthCheck == 99)
+                {
+
+
+                    <div align="left">Bad physical health days in last 30 days?: <b>No answer recorded</b></div>
+
+                }
+
+
+                @if (ViewBag.MentalHealthCheck < 31)
+                {
+
+
+
+                    <div align="left">Bad mental health days in last 30 days?: <b>@ViewBag.MentalHealthCheck</b></div>
+
+
+                }
+                else if (ViewBag.MentalHealthCheck == 77)
+                {
+
+                    <div align="left">Bad mental health days in last 30 days?: <b>Don't know/Not Sure</b></div>
+
+
+                }
+                else if (ViewBag.MentalHealthCheck == 88)
+                {
+
+
+                    <div align="left">Bad mental health days in last 30 days?: <b>Don't want to answer</b></div>
+
+                }
+                else if (ViewBag.MentalHealthCheck == 99)
+                {
+
+
+                    <div align="left">Bad mental health days in last 30 days?: <b>No answer recorded</b></div>
+
+                }
+
+
+                @if (ViewBag.MentalPhysicalHealthCheck < 31)
+                {
+
+
+
+                    <div align="left">Bad mental/physical health days in last 30 days?: <b>@ViewBag.MentalPhysicalHealthCheck</b></div>
+
+
+                }
+                else if (ViewBag.MentalPhysicalHealthCheck == 77)
+                {
+
+                    <div align="left">Bad mental/physical health days in last 30 days?: <b>Don't know/Not Sure</b></div>
+
+
+                }
+                else if (ViewBag.MentalPhysicalHealthCheck == 88)
+                {
+
+
+                    <div align="left">Bad mental/physical health days in last 30 days?: <b>Don't want to answer</b></div>
+
+                }
+                else if (ViewBag.MentalPhysicalHealthCheck == 99)
+                {
+
+
+                    <div align="left">Bad mental/physical health days in last 30 days?: <b>No answer recorded</b></div>
+
+                }
+
+            </div>*@
+
+
+
+        </div>
+
+    </div>
+
+
+
+    }
+
+
+
+    <script type="text/javascript">
+
+
+        $(function () {
+
+            $("#EditPatientInfoButtonI").click(function (evt) {
+
+                evt.preventDefault();
+
+                $('#AccordionMasterContainer').load('@Url.Action("_PatientInfoEdit", "PatientInformation", new { id = ViewBag.ScreeningID, id2 = ViewBag.AssessmentID1 })');
+
+
+
+            });
+
+        });
+
+
+
+        $(function () {
+
+            $("#EditPatientInfoButtonFU").click(function (evtFU) {
+
+                evtFU.preventDefault();
+
+
+                $('#AccordionMasterContainer').load('@Url.Action("_FollowupEdit", "PatientInformation", new { id = ViewBag.ScreeningID, id2 = ViewBag.AssessmentID })');
+
+
+
+            });
+
+        });
+
+
+        $(function () {
+
+            $("#DeleteAssessmentButton").click(function () {
+
+
+                //alert('wtf');
+
+                $('#AccordionMasterContainer').load('@Url.Action("_DeleteAssessment", "PatientInformation", new { id = ViewBag.ScreeningID, id2 = ViewBag.AssessmentID })');
+
+                @*  $('#DiagInvoiceDetailSection_@item.MessageID@item.ScreenProcedureID').load('@Url.Action("_InvoiceDetailList", "InvoiceDetails", new { id = item.ScreeningID, id2 = item.MessageID })');*@
+
+            });
+
+        });
+
+
+
+    </script>

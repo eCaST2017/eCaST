@@ -1,0 +1,124 @@
+﻿@model eCaST.ViewModels.ClientViewModel
+
+@{
+    ViewBag.Title = "Enrollment Details";
+}
+
+
+
+<div class="btn-group" role="group" aria-label="...">
+
+
+    <button style="background-color:#F5F5F5" id="ClientEditButton" type="button" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+    <button style="background-color:#F5F5F5;cursor:text" type="button" class="btn btn-default"><i class="fa fa-user" aria-hidden="true"></i>&nbsp; Client Profile</button>
+    <button style="cursor:text" type="button" class="btn btn-default"><i class="fa fa-calendar-o" aria-hidden="true"></i>&nbsp;DOB&nbsp;@Html.FormatValue(Model.DOB, "{0:MM/dd/yyyy}") Age: @Model.Age</button>
+    <button style="cursor:text" type="button" class="btn btn-default">@Model.EthnicityHispanicBinName</button>
+    <button style="cursor:text" type="button" class="btn btn-default">@string.Join(",", Model.RaceList.ToArray())</button>
+   
+</div>
+
+
+
+
+@*<div class="row">
+
+        <div style="text-align:left" class="col-md-8"><h5 style="color:#333"><i class="fa fa-calendar-o" aria-hidden="true"></i>&nbsp; Enrollment Information</h5></div>
+
+        <div class="col-md-4"><div style="padding-top:8px" class="pull-right"><span class="glyphicon glyphicon-usd"></span>&nbsp;@Model.MonthlyIncome &nbsp; <i class="fa fa-users" aria-hidden="true"></i>&nbsp;@Model.NumberLivingOnIncome &nbsp; @Model.PercentPoverty &nbsp;<i class="fa fa-percent" aria-hidden="true"></i></div></div>
+
+        </div>
+
+
+    <div class="row">
+
+        <div style="text-align:left" class="col-md-12">
+
+            <span style="background-color:#999" class="badge">@Model.InsuranceBinName</span>&nbsp;<span style="background-color:#999" class="badge">@Model.MedicareBinName</span>&nbsp;<span style="background-color:#999" class="badge">@Model.UninsuredClientReferredBinName</span>
+
+        </div>
+
+
+    </div>*@
+
+
+<script type="text/javascript">
+
+
+    $('#ClientEditButton').click(function () {
+
+
+        $('#AccordionContentContainer').load('@Url.Action("Edit", "Clients", new { id = Model.ClientID, id2 = ViewBag.ScreeningID })');
+        $('#AccGlowContainer').addClass("glowdiv");
+        // Lock Screen
+        $("#txtSearch").attr("disabled", "disabled");
+        $('#EditMessageContainer').css("display", "block");
+        $('#ScreeningToolbarContainer').css("display", "none");
+        $('#FooterMenuBarContainer').css("display", "none");
+        $('#ScreenProcedureListContainer').load('@Url.Action("_StaticScreenProcedureList", "ScreenProcedures", new { id = ViewBag.ScreeningID, id2 = ViewBag.CancerTypeBinID })');
+
+        $('#HomeLinkContainer').css("display", "none");
+        $('#HomeNoLinkContainer').css("display", "block");
+
+        $("#ClientButton").attr("disabled", "disabled");
+        $("#ClientButton").css("opacity", "0.5");
+
+        $("#ScreeningButton").attr("disabled", "disabled");
+        $("#ScreeningButton").css("opacity", "0.5");
+
+        // $("#ProfileButtonDown").attr("disabled", "disabled");
+        $('#ProfileButtonDown').css("display", "none");
+        $("#ProfileButtonDown").css("opacity", "0.5");
+
+        $("#ClientHistoryButton").attr("disabled", "disabled");
+        $("#ClientHistoryButton").css("opacity", "0.5");
+
+        $("#SmallProfileButton").attr("disabled", "disabled");
+        $("#SmallProfileButton").css("opacity", "0.5");
+
+        $("#SmallScreeningButton").attr("disabled", "disabled");
+        $("#SmallScreeningButton").css("opacity", "0.5");
+
+        $("#SmallEnrollmentButton").attr("disabled", "disabled");
+        $("#SmallEnrollmentButton").css("opacity", "0.5");
+
+        $("#SmallLocationButton").attr("disabled", "disabled");
+        $("#SmallLocationButton").css("opacity", "0.5");
+
+        $("#ClientEditButton").attr("disabled", "disabled");
+        $("#ClientEditButton").css("opacity", "0.5");
+
+        $("#EnrollmentEditButton").attr("disabled", "disabled");
+        $("#EnrollmentEditButton").css("opacity", "0.5");
+
+        $("#MedicalHistoryEditButton").attr("disabled", "disabled");
+        $("#MedicalHistoryEditButton").css("opacity", "0.5");
+
+
+
+    });
+
+
+    $(function () {
+
+
+        if ('@ViewBag.ExpiredScreenChecker' == 1) {
+
+
+           
+            $("#ClientEditButton").attr("disabled", "disabled");
+            $("#ClientEditButton").css("opacity", "0.5");
+
+        
+
+        }
+        else {
+
+            $("#ClientEditButton").removeAttr("disabled", "disabled");
+            $("#ClientEditButton").css("opacity", "1.0");
+
+        }
+
+    });
+  
+
+</script>

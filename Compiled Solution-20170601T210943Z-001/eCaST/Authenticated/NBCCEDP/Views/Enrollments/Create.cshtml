@@ -1,0 +1,645 @@
+﻿@model eCaST.ViewModels.ClientViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<style type="text/css">
+
+
+    .searchOption {
+        margin: 4px 4px 2px 4px;
+        display: inline;
+    }
+
+    .form-field * {
+        vertical-align: middle;
+    }
+
+    .form-field input {
+        clear: left;
+    }
+
+    .form-field label {
+        width: 800px;
+        display: inline-block;
+    }
+
+    input.big {
+        height: 2.1em;
+        width: 2.1em;
+    }
+
+    .error a {
+        background-color: #d9ffff !important;
+        border: 1px solid #ccc !important;
+        width: 100%;
+        color: #666 !important;
+    }
+
+    .requiredText {
+        background-color: #d9ffff;
+        border: 1px solid #999;
+    }
+
+    .requiredSelect {
+        background-color: #d9ffff;
+    }
+</style>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+     <h4><i class="fa fa-calendar-o fa-fw"></i>Add Enrollment</h4>   
+
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+
+        <div style="background-color: #d9ffff;" class="row">
+
+
+            <div class="col-md-12">
+
+                <div style="float:left">@Html.CheckBoxFor(model => model.LegalPresence, new { @class = "big" })</div> <h4>&nbsp;&nbsp;Legal Presence Verified and Documented</h4>
+                @Html.ValidationMessageFor(model => model.LegalPresence)
+
+            </div>
+
+        </div>
+
+        <br />
+        <div class="row">
+
+
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.ProgramBinID, "Program")
+            </div>
+
+            <div class="col-md-4">
+
+                @Html.DropDownList("ProgramBinID", (IEnumerable<SelectListItem>)ViewBag.ProgramBinID, new { @id = "ProgramBID", @class = "requiredSelect" })
+                @Html.ValidationMessageFor(model => model.ProgramBinID)
+
+            </div>
+
+
+            <div class="col-md-2">
+
+
+                @Html.LabelFor(model => model.EnrollmentDate, "Enrollment Date")
+
+
+            </div>
+
+            <div class="col-md-4">
+              
+                @Html.TextBoxFor(model => model.EnrollmentDate, new { @class = "requiredText" })
+                @Html.ValidationMessageFor(model => model.EnrollmentDate)
+
+            </div>
+
+
+
+        </div>
+
+
+
+        <div id="InsMedSection" style="display:none">
+
+            <br />
+
+            <div class="row">
+
+
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.InsuranceBinID, "Type of Insurance")
+                </div>
+
+                <div class="col-md-4">
+
+                    @Html.DropDownListFor(model => model.InsuranceBinID, ((IEnumerable<eCaST.Models.DDInsuranceBin>)ViewBag.PossibleInsuranceBins).Select(option => new SelectListItem
+                           {
+                               // Text = Html.DisplayTextFor(_ => option).ToString(),
+                               Text = option.InsuranceBinName,
+                               Value = option.InsuranceBinID.ToString(),
+                               Selected = (Model != null) && (option.InsuranceBinID == Model.InsuranceBinID)
+                           }), "Choose...", new { @class = "requiredSelect" })
+                    @Html.ValidationMessageFor(model => model.InsuranceBinID)
+
+
+                </div>
+
+                <div class="col-md-2">
+
+                    @Html.LabelFor(model => model.MedicareBinID, "Type of Medicare")
+
+                </div>
+
+                <div class="col-md-4">
+
+                    @Html.DropDownListFor(model => model.MedicareBinID, ((IEnumerable<eCaST.Models.DDMedicareBin>)ViewBag.PossibleMedicareBins).Select(option => new SelectListItem
+                           {
+                               //Text = Html.DisplayTextFor(_ => option).ToString(),
+                               Text = option.MedicareBinName,
+                               Value = option.MedicareBinID.ToString(),
+                               Selected = (Model != null) && (option.MedicareBinID == Model.MedicareBinID)
+                           }), "Choose...", new { @class = "requiredSelect" })
+                    @Html.ValidationMessageFor(model => model.MedicareBinID)
+
+                </div>
+
+
+            </div>
+            <br />
+
+
+
+
+            <div id="UninsMedSection" style="display:none">
+
+                <div class="row">
+
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.UninsuredClientReferredBinID, "Uninsured Client Referred")
+                    </div>
+
+                    <div class="col-md-4">
+
+                        @Html.DropDownListFor(model => model.UninsuredClientReferredBinID, ((IEnumerable<eCaST.Models.DDUninsuredClientReferredBin>)ViewBag.PossibleUninsuredClientReferredBins).Select(option => new SelectListItem
+                               {
+                                   // Text = Html.DisplayTextFor(_ => option).ToString(),
+                                   Text = option.UninsuredClientReferredBinName,
+                                   Value = option.UninsuredClientReferredBinID.ToString(),
+                                   Selected = (Model != null) && (option.UninsuredClientReferredBinID == Model.UninsuredClientReferredBinID)
+                               }), "Choose...", new { @class = "requiredSelect" })
+                        @Html.ValidationMessageFor(model => model.UninsuredClientReferredBinID)
+
+
+                    </div>
+
+                </div>
+                <br />
+
+            </div>
+
+
+
+
+        </div>
+
+
+        <div id="ClientIncomeSection" style="display:none">
+
+
+            <div class="row">
+
+
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.MonthlyIncome, "Monthly Income")
+                </div>
+
+                <div class="col-md-4">
+                    @Html.TextBoxFor(model => model.MonthlyIncome, new { @class = "requiredText form-control", @onkeyup = "valid(this)", @onkeypress = "return isNumberKey(event)", @placeholder = "$" })
+                    @Html.ValidationMessageFor(model => model.MonthlyIncome)
+                </div>
+
+                @*<div class="col-md-1">
+                    @Html.LabelFor(model => model.NumberLivingOnIncome)
+                      </div>*@
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.NumberLivingOnIncome, "# On Income")
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBoxFor(model => model.NumberLivingOnIncome, new { @type="number", @class = "requiredText form-control", @onkeyup = "valid(this)", @onkeypress = "return isNumberKey(event)", @placeholder = "# Living on Income" })
+                    @Html.ValidationMessageFor(model => model.NumberLivingOnIncome)
+
+
+                </div>
+
+                <div class="col-md-2"><span id="ppov"></span></div>
+
+              
+
+
+            </div>
+
+            <br />
+        </div>
+
+        <div id="ClientEligibleSection" style="display:none">
+
+            <div class="row">
+
+
+                <div class="col-md-2">
+
+                    @Html.EditorFor(model => model.IncomeEligible, new { })&nbsp; @Html.LabelFor(model => model.IncomeEligible) <span id="reqTextIE" class="requiredText">(Required)</span>
+                    @Html.ValidationMessageFor(model => model.IncomeEligible)
+
+                </div>
+
+                <div class="col-md-4">
+
+                    @Html.EditorFor(model => model.InsuranceEligible, new { })&nbsp;  @Html.LabelFor(model => model.InsuranceEligible) <span id="reqTextINS" class="requiredText">(Required)</span>
+                    @Html.ValidationMessageFor(model => model.InsuranceEligible)
+
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+
+
+        <div id="FPLSection" style="display:none">
+
+
+            <div class="row">
+
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.FPL)
+                </div>
+
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.FPL, new { })&nbsp;<span id="reqTextFPL" class="requiredText">(Required)</span>
+                    @Html.ValidationMessageFor(model => model.FPL)
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+
+        <div id="RemindHeardSection" style="display:block">
+            <br />
+
+            <div class="row">
+
+
+                <div class="col-md-2">
+
+                    @Html.LabelFor(model => model.TobaccoUseBinID, "Tobacco Use")
+                </div>
+
+                <div class="col-md-2">
+                    @Html.DropDownListFor(model => model.TobaccoUseBinID, ((IEnumerable<eCaST.Models.DDTobaccoUseBin>)ViewBag.PossibleTobaccoUseBinIDs).Select(option => new SelectListItem
+                               {
+                                   //Text = Html.DisplayTextFor(_ => option).ToString(),
+                                   Text = option.TobaccoUseBinName,
+                                   Value = option.TobaccoUseBinID.ToString(),
+                                   Selected = (Model != null) && (option.TobaccoUseBinID == Model.TobaccoUseBinID)
+                               }), "Choose...", new { })
+
+                </div>
+
+
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.ReminderBinID, "Reminder")
+                </div>
+
+                <div class="col-md-2">
+                    @Html.DropDownListFor(model => model.ReminderBinID, ((IEnumerable<eCaST.Models.DDReminderBin>)ViewBag.PossibleReminderBins).Select(option => new SelectListItem
+                           {
+                               //Text = Html.DisplayTextFor(_ => option).ToString(),
+                               Text = option.ReminderBinName,
+                               Value = option.ReminderBinID.ToString(),
+                               Selected = (Model != null) && (option.ReminderBinID == Model.ReminderBinID)
+                           }), "Choose...", new { })
+                    @Html.ValidationMessageFor(model => model.ReminderBinID)
+                </div>
+
+
+                <div class="col-md-2">
+
+                    @Html.LabelFor(model => model.HeardOfProgramBinID, "Heard of Program")
+                </div>
+
+                <div class="col-md-2">
+
+
+                    @Html.DropDownListFor(model => model.HeardOfProgramBinID, ((IEnumerable<eCaST.Models.DDHeardOfProgramBin>)ViewBag.PossibleHeardOfProgramBins).Select(option => new SelectListItem
+                           {
+                               //Text = Html.DisplayTextFor(_ => option).ToString(),
+                               Text = option.HeardOfProgramBinName,
+                               Value = option.HeardOfProgramBinID.ToString(),
+                               Selected = (Model != null) && (option.HeardOfProgramBinID == Model.HeardOfProgramBinID)
+                           }), "Choose...", new { })
+                    @Html.ValidationMessageFor(model => model.HeardOfProgramBinID)
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+</div>
+
+      
+
+
+<script type="text/JavaScript">
+    function valid(f) {
+        !(/^[A-z&#209;&#241;0-9]*$/i).test(f.value) ? f.value = f.value.replace(/[^A-z&#209;&#241;0-9]/ig, '') : null;
+    }
+</script>
+
+
+<script type="text/javascript">
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+
+</script>
+
+
+<script type="text/javascript">
+
+
+    $("input[type=checkbox]").bootstrapSwitch({
+
+        onText: 'YES',
+        offText: 'NO',
+        offColor: 'danger',
+        onColor: 'success'
+
+
+    });
+
+    $(document).ready(function () {
+        $("#EnrollmentDate").keyup(function (e) {
+            if (e.keyCode != 8) {
+                if ($(this).val().length == 2) {
+                    $(this).val($(this).val() + "/");
+                } else if ($(this).val().length == 5) {
+                    $(this).val($(this).val() + "/");
+                }
+            }
+        });
+    });
+
+    $(function () {
+
+       
+        // Check Legal Presence Box if History Valid
+        if('@ViewBag.LegalPresenceCount' > 0){
+            
+           // alert('@ViewBag.LegalPresenceCount');
+        
+            //$('#LegalPresence').bootstrapSwitch('state'); // true || false
+            //$('#LegalPresence').bootstrapSwitch('toggleState');
+            $('#LegalPresence').bootstrapSwitch('state', true); 
+        }
+        else
+        {
+
+            //$('#LegalPresence').bootstrapSwitch('state'); // true || false
+            //$('#LegalPresence').bootstrapSwitch('toggleState');
+            $('#LegalPresence').bootstrapSwitch('state', false);
+        }
+
+
+                           
+        $("#InsuranceBinID").change(function () {
+            if ($("#InsuranceBinID").val() == 1) {
+
+                $("#UninsMedSection").css("display", "block");
+
+            }
+            else {
+
+                $("#UninsMedSection").css("display", "none");
+
+            }
+        });
+
+
+    });
+
+    $("#NumberLivingOnIncome").change(function () {
+        $(function () {
+            var two = parseInt($("#NumberLivingOnIncome").val());
+            var three = "";
+                
+                @{
+                        
+                    int cnt = 0;
+                    List<eCaST.ViewModels.AssignedPovertyGuidelines> pfgs = ViewBag.PovertyGuidelines;
+                    foreach (var pfg in pfgs) {
+                        cnt = cnt + 1;
+                        if (cnt == 1)
+                        {
+                            @:if (two == @pfg.numberInFamily){three = parseFloat((($("#MonthlyIncome").val() * 12 / @pfg.PovertyAmount) * 100));}
+                                                                                                                                                                                                                
+                        }
+                        else
+                        {
+                            @: else if (two == @pfg.numberInFamily) { three = parseFloat((($("#MonthlyIncome").val() * 12 / @pfg.PovertyAmount) * 100));}
+                                                                                                                    
+                        }
+                    
+                    }
+
+                }
+        else {
+                    var three = "&nbsp;";
+        }
+three = three.toString();
+        var n = three.length;
+        if (three >= 6) {
+            three = three.substr(0, 6);
+        }
+        $("#ppov").html("% of Poverty: <font color='brown'><b>" + three + "</b></font>");
+    });
+    });
+
+
+   
+        $("#MonthlyIncome").change(function () {
+            $(function () {
+                var two1 = parseInt($("#NumberLivingOnIncome").val());
+                var three1 = "";
+                
+                    @{
+                        
+                    int cnt1 = 0;
+                    List<eCaST.ViewModels.AssignedPovertyGuidelines> pfgs1 = ViewBag.PovertyGuidelines;
+                    foreach (var pfg in pfgs1) {
+                        cnt1 = cnt1 + 1;
+                        if (cnt1 == 1)
+                        {
+                            @:if (two1 == @pfg.numberInFamily){three1 = parseFloat((($("#MonthlyIncome").val() * 12 / @pfg.PovertyAmount) * 100));}
+                                                                                                                                                                                                                
+                        }
+                        else
+                        {
+                            @: else if (two1 == @pfg.numberInFamily) { three1 = parseFloat((($("#MonthlyIncome").val() * 12 / @pfg.PovertyAmount) * 100));}
+                                                                                                                    
+                    }
+                    
+                }
+
+                }
+                else {
+                        var three1 = "&nbsp;";
+                    }
+    three1 = three1.toString();
+    var n = three1.length;
+    if (three1 >= 6) {
+        three1 = three1.substr(0, 6);
+    }
+    $("#ppov").html("% of Poverty: <font color='brown'><b>" + three1 + "</b></font>");
+    });
+    });
+
+
+        $(function () {
+
+            $("#EnrollmentDate").kendoDatePicker({ max: new Date() });
+            $("#ProgramBID").select2({ width: "100%" });
+            $("#ReminderBinID").select2({ width: "100%" });
+            $("#HeardOfProgramBinID").select2({ width: "100%" });
+            $("#TobaccoUseBinID").select2({ width: "100%" });
+            $("#ProgramBID").select2({ width: "100%" }).select2('val', 20);
+            $('#ProgramBID').select2('disable');
+            $("#InsuranceBinID").select2({ width: "100%" });
+            $("#UninsuredClientReferredBinID").select2({ width: "100%" });
+            $("#MedicareBinID").select2({ width: "100%" });
+
+
+            $("#InsuranceBinID").select2({
+                containerCssClass: "error",
+                width: "100%"
+            });
+
+            $("#MedicareBinID").select2({
+                containerCssClass: "error",
+                width: "100%"
+            });
+
+
+        });
+
+        $(document).ready(function () {
+            $("#EnrollmentDate").keyup(function (e) {
+                if (e.keyCode != 8) {
+                    if ($(this).val().length == 2) {
+                        $(this).val($(this).val() + "/");
+                    } else if ($(this).val().length == 5) {
+                        $(this).val($(this).val() + "/");
+                    }
+                }
+            });
+        });
+
+        $(function () {
+
+
+            if ($("#ProgramBID").val() == 18)
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#ClientEligibleSection").css("display", "none"),
+                $("#ClientIncomeSection").css("display", "none"),
+                $("#FPLSection").css("display", "block"),
+                $("#InsMedSection").css("display", "block"),
+                $("#reqTextLP").css("display", "block"),
+                $('#Male').attr("disabled", false);
+
+
+            else if ($("#ProgramBID").val() == 19)
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#ClientEligibleSection").css("display", "block"),
+                $("#ClientIncomeSection").css("display", "none"),
+                $("#FPLSection").css("display", "none"),
+                $("#InsMedSection").css("display", "none"),
+                $("#reqTextLP").css("display", "none"),
+                $('#Male').attr("disabled", false);
+
+
+
+            else if ($("#ProgramBID").val() == 20)
+                //$('input[type="submit"]').removeAttr('disabled'),
+                $("#ClientIncomeSection").css("display", "block"),
+                $("#ClientEligibleSection").css("display", "none"),
+                $("#FPLSection").css("display", "none"),
+                $("#InsMedSection").css("display", "block"),
+                $("#reqTextLP").css("display", "block"),
+                $('#Male').attr("disabled", true),
+                $('#Female').prop("checked", true)
+
+            else
+                //$('input[type="submit"]').attr('disabled', 'disabled');
+                $("#ClientIncomeSection").css("display", "none"),
+                $("#ClientEligibleSection").css("display", "none"),
+                $("#FPLSection").css("display", "none"),
+                $("#InsMedSection").css("display", "none"),
+                $("#reqTextLP").css("display", "none");
+            //$('#Male').attr("disabled", false);
+
+
+
+
+            $("#ProgramBID").change(function () {
+
+
+                if ($("#ProgramBID").val() == 18) {
+                    //$('input[type="submit"]').removeAttr('disabled'),
+                    $("#ClientEligibleSection").css("display", "none"),
+                    $("#ClientIncomeSection").css("display", "none"),
+                    $("#FPLSection").css("display", "block"),
+                    $("#InsMedSection").css("display", "block"),
+                    $("#reqTextLP").css("display", "block");
+                    $("#HeardOfProgramBinID").addClass("requiredSelect");
+                }
+                else if ($("#ProgramBID").val() == 19) {
+                    //$('input[type="submit"]').removeAttr('disabled'),
+                    $("#ClientEligibleSection").css("display", "block"),
+                    $("#ClientIncomeSection").css("display", "none"),
+                    $("#FPLSection").css("display", "none"),
+                    $("#InsMedSection").css("display", "none"),
+                    $("#reqTextLP").css("display", "none");
+                    $("#HeardOfProgramBinID").removeClass("requiredSelect");
+                }
+                else if ($("#ProgramBID").val() == 20) {
+                    //$('input[type="submit"]').removeAttr('disabled'),
+                    $("#ClientIncomeSection").css("display", "block"),
+                    $("#ClientEligibleSection").css("display", "none"),
+                    $("#FPLSection").css("display", "none"),
+                    $("#InsMedSection").css("display", "block"),
+                    $("#reqTextLP").css("display", "block");
+                    $("#HeardOfProgramBinID").removeClass("requiredSelect");
+                }
+                else {
+                    //$('input[type="submit"]').attr('disabled', 'disabled');
+                    $("#ClientIncomeSection").css("display", "none"),
+                    $("#ClientEligibleSection").css("display", "none"),
+                    $("#FPLSection").css("display", "none"),
+                    $("#InsMedSection").css("display", "none"),
+                    $("#reqTextLP").css("display", "none");
+                    $("#HeardOfProgramBinID").removeClass("requiredSelect");
+                }
+
+            });
+
+
+
+
+        });
+
+
+</script>

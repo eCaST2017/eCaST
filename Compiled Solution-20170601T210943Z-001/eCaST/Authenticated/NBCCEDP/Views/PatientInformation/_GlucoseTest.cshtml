@@ -1,0 +1,517 @@
+﻿@model eCaST.ViewModels.ScreenProcedureViewModel
+
+<link href="@Url.Content("~/Content/slider.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/themes/base/jquery.ui.slider.css")" rel="stylesheet" type="text/css" />
+
+<script src="@Url.Content("~/Scripts/bootstrap-slider.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/app/patientinfo.js")" type="text/javascript"></script>
+
+<style type="text/css">
+    .txtdiv {
+        /*width: 130px;
+        height: 50px;*/
+        -ms-transform: rotate(270deg); /* IE 9 */
+        -moz-transform: rotate(270deg); /* Firefox */
+        -webkit-transform: rotate(270deg); /* Safari and Chrome */
+        -o-transform: rotate(270deg); /* Opera */
+    }
+</style>
+
+
+<div id="GlucoseSection">
+
+
+    <div style="padding:20px" align="center">
+
+        <div style="width:96%;text-align:left" class="alert alert-info">
+            @Html.Hidden("GLUTestDate")
+            <span><i class="fa fa-heartbeat"></i> Glucose Test Date:&nbsp;<input style="color:#ccc;" type="text" id="GLUTestDateHIDDEN" placeholder="Date Test Taken"> </span>
+        </div>
+
+    </div>
+    <br />
+    <br />
+
+    <div style="padding-left:34px" class="row">
+
+        <div class="col-md-6">
+
+            @*@if (@ViewBag.DiaCheck != 1)
+            {*@
+
+
+                <div>fasting glucose result collected    @Html.CheckBox("NoGlucose", new { @checked = "checked" })</div>
+                <br />
+                <div><input class="requiredSelect" style="width:45px; border:none; color:#666; display:block;" type="text" id="GlucoseBinIDHIDDEN"></div>
+                <br />
+                <div>Glucose (fasting)</div>
+                <br />
+                <div style="color:#f5f5f5;">
+                    @Html.Hidden("GlucoseBinID")
+                    <input type="text" id="glucose" class="span2" value="" data-slider-min="@ViewBag.GMINSLIDERFIRST" data-slider-max="@ViewBag.GMINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">
+                </div>
+
+            @*}
+            else
+            {
+
+                <div>
+                    @Html.Hidden("GlucoseBinID")
+                    <input style="width:45px; border:none; color:#666; display:block;" type="text" id="GlucoseBinIDHIDDEN">
+                </div>
+
+            }*@
+
+        </div>
+
+
+        <div class="col-md-6">
+
+
+            @*@if (@ViewBag.DiaCheck != 1)
+            {*@
+
+                <div>A1C Percentage collected @Html.CheckBox("NoA1C", new { @checked = "checked" })</div>
+                <br />
+
+            @*}*@
+
+            <div>A1C Percentage %</div>
+            <br />
+            <div>
+                @Html.DropDownListFor(model => model.A1CPercentageBinID, ((IEnumerable<eCaST.Models.DDA1CPercentageBin>)ViewBag.DDA1CPercentageBinIDs).Select(option => new SelectListItem
+                     {
+                         //Text = Html.DisplayTextFor(_ => option).ToString(),
+                         Text = option.A1CPercentageBinName,
+                         Value = option.A1CPercentageBinID.ToString(),
+                         Selected = (Model != null) && (option.A1CPercentageBinID == ViewBag.A1CPercentageBinID)
+                     }), "Choose...", new { @id = "A1CPercentageID", @class = "requiredSelect" })
+                @Html.ValidationMessageFor(model => model.A1CPercentageBinID)
+            </div>
+
+
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+
+
+@*<table style="width:100%; padding:2px">
+        <tr>
+            <td style="border:none" colspan="2"><h3>Glucose&nbsp;<i style="color:#ccc">Date:</i></h3></td>
+
+            <td style="border:none">
+
+                <div class="input-group">
+
+                    @Html.Hidden("GLUTestDate")    <input style="color:#ccc" type="text" id="GLUTestDateHIDDEN" placeholder="Date Test Taken">
+
+
+
+
+                </div>
+
+
+
+
+            </td>
+
+
+        </tr>
+
+
+
+    </table>*@
+
+
+@*@if (@ViewBag.DiaCheck != 1)
+    {
+
+        <table style="width:100%; padding:2px">
+            <tr><td style="border:none" colspan="2"><hr class="style-two" /></td></tr>
+
+            <tr>
+                <td colspan="2" style="border:none">
+
+                    fasting glucose result collected    @Html.CheckBox("NoGlucose", new { @checked = "checked" })
+
+                    <br />
+                </td>
+
+
+            </tr>
+
+
+
+            <tr>
+                <td colspan="2" style="border:none">
+
+                    <input class="requiredSelect" style="width:45px; border:none; color:#666; display:block;" type="text" id="GlucoseBinIDHIDDEN">
+
+
+                </td>
+
+
+            </tr>
+
+            <tr>
+
+                <td style="border:none">
+
+                    <div>Glucose (fasting)</div>
+                    <div> @Html.Hidden("GlucoseBinID")<br /><br /></div>
+                    <div style="color:#f5f5f5;"><input type="text" id="glucose" class="span2" value="" data-slider-min="@ViewBag.GMINSLIDERFIRST" data-slider-max="@ViewBag.GMINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+
+                    <br />
+                    <br />
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    }
+    else
+    {
+
+        <input style="width:45px; border:none; color:#666; display:block;" type="text" id="GlucoseBinIDHIDDEN">
+        @Html.Hidden("GlucoseBinID")
+
+    }*@
+
+@*<table style="width:100%; padding:2px">*@
+
+@*   <tr>
+        <td colspan="2" style="border:none">
+
+             <input style="width:45px; border:none; color:transparent; display:block;" type="text" id="A1CPercentageBinIDHIDDEN">
+
+
+        </td>
+
+
+    </tr>*@
+@*@if (@ViewBag.DiaCheck != 1)
+    {
+        <tr>
+            <td colspan="2" style="border:none">
+
+                A1C Percentage collected @Html.CheckBox("NoA1C", new { @checked = "checked" })
+                <br />
+
+            </td>
+
+
+        </tr>
+    }*@
+
+@*<tr>
+
+        <td style="border:none">
+
+            <div>A1C Percentage %</div>
+            <br />
+            <div>
+
+
+
+
+                @Html.DropDownListFor(model => model.A1CPercentageBinID, ((IEnumerable<eCaST.Models.DDA1CPercentageBin>)ViewBag.DDA1CPercentageBinIDs).Select(option => new SelectListItem
+         {
+             //Text = Html.DisplayTextFor(_ => option).ToString(),
+             Text = option.A1CPercentageBinName,
+             Value = option.A1CPercentageBinID.ToString(),
+             Selected = (Model != null) && (option.A1CPercentageBinID == ViewBag.A1CPercentageBinID)
+         }), "Choose...", new { @id = "A1CPercentageID", @class = "requiredSelect" })
+                @Html.ValidationMessageFor(model => model.A1CPercentageBinID)
+
+
+            </div>
+
+            <br />
+            <br />
+
+        </td>
+
+    </tr>*@
+
+@*</table>*@
+
+
+</div>
+
+
+
+
+        @*  @Html.Hidden("A1CPercentageBinID")*@
+
+        <script type="text/javascript">
+
+
+            $(document).ready(function () {
+
+
+                $("input[type=checkbox]").bootstrapSwitch({
+
+                    onText: 'YES',
+                    offText: 'NO',
+                    offColor: 'default',
+                    onColor: 'success'
+
+
+                });
+
+
+                $("#A1CPercentageID").select2({ width: "70%" });
+
+
+                // Set default Glucose Value
+                $("#GlucoseBinIDHIDDEN").val('@ViewBag.GMINSLIDERFIRST');
+
+                // Set default A1C Value
+                $("#A1CPercentageBinIDHIDDEN").val('@ViewBag.A1CMINSLIDERFIRST');
+
+                $("#GLUTestDateHIDDEN").val('@(((DateTime)ViewBag.ClinicalCycleDate).ToString("MM/dd/yyyy"))');
+
+                $("#GLUTestDateHIDDEN").kendoDatePicker({ max: new Date() });
+
+
+                if ('@ViewBag.ProcedureID' != null) {
+
+
+
+                    // Set Glucose
+                    $slider = $('#glucose');
+                    $slider.slider('setValue', '@ViewBag.G1MINSLIDERVALUE');
+                    $("#GlucoseBinIDHIDDEN").val('@ViewBag.G1MINSLIDERVALUE');
+
+
+
+
+                }
+
+
+                $("#GlucoseBinIDHIDDEN").on("keyup", function () {
+                    var val = Math.abs(parseInt(this.value, 10) || 0);
+                    this.value = val > 600 ? 600 : val;
+                    $('#glucose').slider('setValue', val);
+                });
+
+
+
+
+            });
+
+            $(function () {
+
+                $("#UpdateTestingButton").click(function (e) {
+
+
+                    // Validation
+                    var iCurDate = new Date();
+                    var iStopSub = 0;
+                    var sErr = "Please correct the following issues:\n\n";
+
+
+                    if ('@ViewBag.ProcMethod' == 59) {
+
+
+                        // Cholesterol
+                        var hvSC1 = $("#TotalCholesterolBinIDHIDDEN").val();
+                        document.getElementById("TotalCholesterolBinID").value = hvSC1;
+
+                        var hvDC1 = $("#HDLCholesterolBinIDHIDDEN").val();
+                        document.getElementById("HDLCholesterolBinID").value = hvDC1;
+
+                        var hvS2C1 = $("#LDLCholesterolBinIDHIDDEN").val();
+                        document.getElementById("LDLCholesterolBinID").value = hvS2C1;
+
+                        var hvD2C1 = $("#TriglyceridesBinIDHIDDEN").val();
+                        document.getElementById("TriglyceridesBinID").value = hvD2C1;
+
+                        //Add Test Screen
+                        var hvCLDate1 = $("#CLTestDateHIDDEN").val();
+                        document.getElementById("CLTestDate").value = hvCLDate1;
+
+
+                    }
+
+                    else if ('@ViewBag.ProcMethod' == 58) {
+
+                        // Blood Pressure
+                        var hvS1 = $("#SystolicBinID1HIDDEN").val();
+                        document.getElementById("SystolicBinID1").value = hvS1;
+
+                        var hvD1 = $("#DiastolicBinID1HIDDEN").val();
+                        document.getElementById("DiastolicBinID1").value = hvD1;
+
+                        var hvS21 = $("#SystolicBinID2HIDDEN").val();
+                        document.getElementById("SystolicBinID2").value = hvS21;
+
+                        var hvD21 = $("#DiastolicBinID2HIDDEN").val();
+                        document.getElementById("DiastolicBinID2").value = hvD21;
+
+                        //Add Test Screen
+                        var hvBPDate1 = $("#BPTestDateHIDDEN").val();
+                        document.getElementById("BPTestDate").value = hvBPDate1;
+
+                    }
+
+                    else {
+
+                        // Glucose
+                        var hvG1 = $("#GlucoseBinIDHIDDEN").val();
+                        document.getElementById("GlucoseBinID").value = hvG1;
+
+                        //var hvA = $("#A1CPercentageBinIDHIDDEN").val();
+                        //document.getElementById("A1CPercentageBinID").value = hvA;
+
+                        //Add Test Screen
+                        var hvGLUDate1 = $("#GLUTestDateHIDDEN").val();
+                        document.getElementById("GLUTestDate").value = hvGLUDate1;
+
+
+                        var iGLUTestDateHIDDEN = $("#GLUTestDateHIDDEN").val();
+                        iGLUTestDateHIDDENLen = iGLUTestDateHIDDEN.length;
+                        if (iGLUTestDateHIDDENLen < 1) {
+                            iStopSub = 1;
+                            sErr += "You must enter a date for glucose test" + "\n";
+                        }
+
+                        if (new Date(iGLUTestDateHIDDEN).getTime() > new Date(iCurDate).getTime()) {
+                            iStopSub = 1;
+                            sErr += "You cannot enter a date of glucose test in the future\n";
+                        }
+
+                        // Check for valid date
+                        var timestamp = kendo.parseDate(iGLUTestDateHIDDEN, "mm/dd/yyyy");
+
+                        if (timestamp == null) {
+
+                            iStopSub = 1;
+                            sErr += "Please enter a valid date of glucose\n";
+
+                        }
+
+
+                        if ($("#NoGlucose").is(':checked')) {
+
+                            var iGlucoseBinID = $("#GlucoseBinID").val();
+                            if (iGlucoseBinID == "") {
+
+                                iStopSub = 1;
+                                sErr += "You must enter a value for glucose" + "\n";
+
+                            }
+
+                        }
+
+                        if ($("#NoA1C").is(':checked')) {
+
+                            var iA1CPercentageID = $("#A1CPercentageID option:selected").val();
+
+                            if (iA1CPercentageID < 1) {
+                                iStopSub = 1;
+                                sErr += "You must enter A1C percentage information" + "\n";
+
+                            }
+
+                        }
+
+
+                    }
+
+
+                    if (iStopSub != 0) {
+                        alert(sErr);
+                        e.preventDefault();
+
+                    }
+
+
+
+                });
+
+
+            });
+
+            $(function () {
+
+
+                if ($("#NoGlucose").is(':checked')) {
+
+
+                    // $("#NoA1C").attr('disabled', 'disabled');
+                    $("#NoA1C").bootstrapSwitch('disabled', false);
+
+                }
+                else {
+
+                    // $("#NoA1C").removeAttr("disabled");
+                    $("#NoA1C").bootstrapSwitch('disabled', true);
+                }
+
+
+                $('#NoGlucose').on('switchChange.bootstrapSwitch', function () {
+
+                    if ($("#NoGlucose").is(':checked')) {
+
+
+                        //  $("#NoA1C").attr('disabled', 'disabled');
+                        $("#NoA1C").bootstrapSwitch('disabled', false);
+
+                    }
+                    else {
+
+                        // $("#NoA1C").removeAttr("disabled");
+                        $("#NoA1C").bootstrapSwitch('disabled', true);
+
+                    }
+
+                });
+
+                //$("#NoA1C").click(function () {
+
+                //    if ($('#NoA1C').attr('checked')) {
+
+
+                if ($("#NoA1C").is(':checked')) {
+
+                    // $("#NoGlucose").attr('disabled', 'disabled');
+                    $("#NoGlucose").bootstrapSwitch('disabled', false);
+
+                }
+                else {
+
+                    $("#NoGlucose").bootstrapSwitch('disabled', true);
+
+                }
+
+
+                $('#NoA1C').on('switchChange.bootstrapSwitch', function () {
+
+                    if ($("#NoA1C").is(':checked')) {
+
+                        $("#NoGlucose").bootstrapSwitch('disabled', false);
+
+                    }
+                    else {
+
+                        $("#NoGlucose").bootstrapSwitch('disabled', true);
+
+                    }
+
+                });
+
+
+            });
+
+        </script>

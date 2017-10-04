@@ -1,0 +1,455 @@
+﻿@model IEnumerable<eCaST.ViewModels.EnrollmentViewModel>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<style type="text/css">
+    table.dataTable td.sorting_1 {
+        background-color: white;
+        border-top: 1px #666;
+        border: 2px #666;
+    }
+
+    table.dataTable td {
+        background-color: white;
+        border-top: 1px #666;
+        border: 1px #666;
+    }
+
+    table.dataTable tr.odd {
+        background-color: white;
+        border-top: 1px #666;
+        border: 1px #666;
+    }
+
+    table.dataTable tr.even {
+        background-color: white;
+        border-top: 1px #666;
+        border: 1px #666;
+    }
+</style>
+
+
+
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4><i class="fa fa-calendar-o fa-fw"></i>&nbsp;Configure Enrollment</h4>
+
+
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+
+
+
+            <div align="right"><button id="CancelEditEnrollButton" class="btn btn-default" type="button"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Cancel</button></div>
+
+     
+
+        <br />
+        <table style="width:100%" class="table table-striped table-bordered" id="EnrollList">
+
+            <thead>
+                <tr>
+
+                    <th></th>
+                   
+                    <th>
+                        % of Poverty
+                    </th>
+
+                    <th>
+                        Expires
+                    </th>
+
+                    <th>
+                        Insurance?
+                    </th>
+                    <th>
+                        Medicare?
+                    </th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+
+                    <td>
+
+                        @if (ViewBag.PowerUser == 1)
+                        {
+
+                          
+                                using (Html.BeginForm("_UpdateEnrollConfigF", "Screenings", FormMethod.Post, new { id = "ScreeningInfoForm_" + @item.EnrollmentID }))
+                                {
+
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true)
+
+
+                                    <button type="submit" class="btn btn-default" id="LoadButton_@item.EnrollmentID" href="#">Use @Html.FormatValue(item.EnrollmentDate, "{0:MM/dd/yyyy}")</button>
+
+                                    @Html.Hidden("EnrollmentID", (int?)item.EnrollmentID)
+                                    @Html.Hidden("ScreeningID", (int?)ViewBag.ScreeningID)
+                                    @Html.Hidden("ClientID", (int?)ViewBag.ClientID)
+
+                                }
+
+
+
+                                <script type="text/javascript">
+
+                                    $(function () {
+
+                                        $('#ScreeningInfoForm_@item.EnrollmentID').on("submit", function (evt) {
+                                            evt.preventDefault();
+                                            if ($('#ScreeningInfoForm_@item.EnrollmentID').valid()) {
+                                                //  $("#SaveExitButton").prop("disabled", true);
+                                                $.ajax({
+                                                    url: $("#ScreeningInfoForm_@item.EnrollmentID").attr('action'),
+                                                    type: $("#ScreeningInfoForm_@item.EnrollmentID").attr('method'),
+                                                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                                                    data: $("#ScreeningInfoForm_@item.EnrollmentID").serialize(),
+                                                    success: function (data) {
+
+                                                        var clientid = data.Modified;
+                                                        var screeningid = data.Modified2;
+
+
+                                                        $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ScreeningID })');
+
+                                                        // Reset Fields
+
+                                                        $('#AccGlowContainer').removeClass("glowdiv");
+                                                        $("#txtSearch").removeAttr("disabled", "disabled");
+                                                        $('#EditMessageContainer').css("display", "none");
+                                                        $('#ScreeningToolbarContainer').css("display", "block");
+                                                        $('#FooterMenuBarContainer').css("display", "block");
+
+                                                        $('#HomeLinkContainer').css("display", "block");
+                                                        $('#HomeNoLinkContainer').css("display", "none");
+
+                                                        $("#ClientButton").removeAttr("disabled", "disabled");
+                                                        $("#ClientButton").css("opacity", "1.0");
+
+                                                        $("#ScreeningButton").removeAttr("disabled", "disabled");
+                                                        $("#ScreeningButton").css("opacity", "1.0");
+
+                                                        $('#ProfileButtonDown').css("display", "block");
+                                                        $("#ProfileButtonDown").css("opacity", "1.0");
+
+                                                        $("#ClientHistoryButton").removeAttr("disabled", "disabled");
+                                                        $("#ClientHistoryButton").css("opacity", "1.0");
+
+                                                        $("#SmallProfileButton").removeAttr("disabled", "disabled");
+                                                        $("#SmallProfileButton").css("opacity", "1.0");
+
+                                                        $("#SmallScreeningButton").removeAttr("disabled", "disabled");
+                                                        $("#SmallScreeningButton").css("opacity", "1.0");
+
+                                                        $("#SmallEnrollmentButton").removeAttr("disabled", "disabled");
+                                                        $("#SmallEnrollmentButton").css("opacity", "1.0");
+
+                                                        $("#SmallLocationButton").removeAttr("disabled", "disabled");
+                                                        $("#SmallLocationButton").css("opacity", "1.0");
+
+                                                        $("#ClientEditButton").removeAttr("disabled", "disabled");
+                                                        $("#ClientEditButton").css("opacity", "1.0");
+
+                                                        $("#EnrollmentEditButton").removeAttr("disabled", "disabled");
+                                                        $("#EnrollmentEditButton").css("opacity", "1.0");
+
+                                                        $("#MedicalHistoryEditButton").removeAttr("disabled", "disabled");
+                                                        $("#MedicalHistoryEditButton").css("opacity", "1.0");
+
+
+                                                    }
+                                                });
+                                            }
+
+                                        });
+
+                                    });
+
+
+
+                                </script>
+
+
+
+
+                            
+
+
+                        }
+                        else
+                        {
+
+                            if (item.ExpirationDate > ViewBag.Today)
+                            {
+
+                                using (Html.BeginForm("_UpdateEnrollConfigF", "Screenings", FormMethod.Post, new { id = "ScreeningInfoForm_" + @item.EnrollmentID }))
+                                {
+
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true)
+
+
+                            <button type="submit" class="btn btn-default" id="LoadButton_@item.EnrollmentID" href="#">Use @Html.FormatValue(item.EnrollmentDate, "{0:MM/dd/yyyy}")</button>
+                             
+                            @Html.Hidden("EnrollmentID",(int?)item.EnrollmentID)
+                             @Html.Hidden("ScreeningID",(int?)ViewBag.ScreeningID)
+                             @Html.Hidden("ClientID", (int?)ViewBag.ClientID)
+                            
+                                }
+                                
+                                
+                                
+                                <script type="text/javascript">
+
+                    $(function () {
+
+        $('#ScreeningInfoForm_@item.EnrollmentID').on("submit", function (evt) {
+            evt.preventDefault();
+            if ($('#ScreeningInfoForm_@item.EnrollmentID').valid()) {
+                //  $("#SaveExitButton").prop("disabled", true);
+                $.ajax({
+                    url: $("#ScreeningInfoForm_@item.EnrollmentID").attr('action'),
+                    type: $("#ScreeningInfoForm_@item.EnrollmentID").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#ScreeningInfoForm_@item.EnrollmentID").serialize(),
+                    success: function (data) {
+
+                        var clientid = data.Modified;
+                        var screeningid = data.Modified2;
+
+
+                        $('#ContentContainer').load('@Url.Action("Edit", "Screenings", new { id = ViewBag.ScreeningID })');
+
+                        // Reset Fields
+
+                        $('#AccGlowContainer').removeClass("glowdiv");
+                        $("#txtSearch").removeAttr("disabled", "disabled");
+                        $('#EditMessageContainer').css("display", "none");
+                        $('#ScreeningToolbarContainer').css("display", "block");
+                        $('#FooterMenuBarContainer').css("display", "block");
+
+                        $('#HomeLinkContainer').css("display", "block");
+                        $('#HomeNoLinkContainer').css("display", "none");
+
+                        $("#ClientButton").removeAttr("disabled", "disabled");
+                        $("#ClientButton").css("opacity", "1.0");
+
+                        $("#ScreeningButton").removeAttr("disabled", "disabled");
+                        $("#ScreeningButton").css("opacity", "1.0");
+
+                        $('#ProfileButtonDown').css("display", "block");
+                        $("#ProfileButtonDown").css("opacity", "1.0");
+
+                        $("#ClientHistoryButton").removeAttr("disabled", "disabled");
+                        $("#ClientHistoryButton").css("opacity", "1.0");
+
+                        $("#SmallProfileButton").removeAttr("disabled", "disabled");
+                        $("#SmallProfileButton").css("opacity", "1.0");
+
+                        $("#SmallScreeningButton").removeAttr("disabled", "disabled");
+                        $("#SmallScreeningButton").css("opacity", "1.0");
+
+                        $("#SmallEnrollmentButton").removeAttr("disabled", "disabled");
+                        $("#SmallEnrollmentButton").css("opacity", "1.0");
+
+                        $("#SmallLocationButton").removeAttr("disabled", "disabled");
+                        $("#SmallLocationButton").css("opacity", "1.0");
+
+                        $("#ClientEditButton").removeAttr("disabled", "disabled");
+                        $("#ClientEditButton").css("opacity", "1.0");
+
+                        $("#EnrollmentEditButton").removeAttr("disabled", "disabled");
+                        $("#EnrollmentEditButton").css("opacity", "1.0");
+
+                        $("#MedicalHistoryEditButton").removeAttr("disabled", "disabled");
+                        $("#MedicalHistoryEditButton").css("opacity", "1.0");
+
+
+                    }
+                });
+            }
+
+        });
+
+    });
+
+
+
+                                </script>
+                                
+                                
+                                
+                              
+                        }
+
+    
+                      }
+                       
+
+                    </td>
+                   
+                    <td>
+                        
+                        @Html.DisplayFor(modelItem => item.PercentPoverty)
+                    </td>
+
+                    <td>
+                        @Html.FormatValue(item.ExpirationDate, "{0:MM/dd/yyyy}")
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InsuranceBinName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MedicareBinName)
+                    </td>
+
+                    <td>
+
+                        @if (ViewBag.Today > item.ExpirationDate)
+                        {
+
+                            <span style="color:#ff0000">Expired</span>
+
+                        }
+                        else
+                        {
+
+                            <span style="color:#22a23f">Active</span>
+
+                        }
+
+
+
+                    </td>
+
+                </tr>
+
+            }
+
+        </table>
+
+
+    </div>
+
+</div>
+
+
+
+<script type="text/javascript">
+
+
+ 
+    $('#CancelEditEnrollButton').click(function () {
+
+        $('#AccGlowContainer').removeClass("glowdiv");
+        $("#txtSearch").removeAttr("disabled", "disabled");
+        $('#EditMessageContainer').css("display", "none");
+        $('#ScreeningToolbarContainer').css("display", "block");
+        $('#FooterMenuBarContainer').css("display", "block");
+        $('#ScreenProcedureListContainer').load('@Url.Action("_ScreenProcedureList", "ScreenProcedures", new { id = ViewBag.ScreeningID, id2 = ViewBag.CancerTypeBinID })');
+
+        $('#HomeLinkContainer').css("display", "block");
+        $('#HomeNoLinkContainer').css("display", "none");
+
+        $("#ClientButton").removeAttr("disabled", "disabled");
+        $("#ClientButton").css("opacity", "1.0");
+
+        $("#ScreeningButton").removeAttr("disabled", "disabled");
+        $("#ScreeningButton").css("opacity", "1.0");
+
+        $('#ProfileButtonDown').css("display", "block");
+        $("#ProfileButtonDown").css("opacity", "1.0");
+
+        $("#ClientHistoryButton").removeAttr("disabled", "disabled");
+        $("#ClientHistoryButton").css("opacity", "1.0");
+
+        $("#SmallProfileButton").removeAttr("disabled", "disabled");
+        $("#SmallProfileButton").css("opacity", "1.0");
+
+        $("#SmallScreeningButton").removeAttr("disabled", "disabled");
+        $("#SmallScreeningButton").css("opacity", "1.0");
+
+        $("#SmallEnrollmentButton").removeAttr("disabled", "disabled");
+        $("#SmallEnrollmentButton").css("opacity", "1.0");
+
+        $("#SmallLocationButton").removeAttr("disabled", "disabled");
+        $("#SmallLocationButton").css("opacity", "1.0");
+
+        $("#ClientEditButton").removeAttr("disabled", "disabled");
+        $("#ClientEditButton").css("opacity", "1.0");
+
+        $("#EnrollmentEditButton").removeAttr("disabled", "disabled");
+        $("#EnrollmentEditButton").css("opacity", "1.0");
+
+        $("#MedicalHistoryEditButton").removeAttr("disabled", "disabled");
+        $("#MedicalHistoryEditButton").css("opacity", "1.0");
+
+        $('#AccordionContentContainer').load('@Url.Action("Create", "ScreenProcedures", new { id = ViewBag.ScreeningID, id2 = 1 })');
+
+
+    });
+
+
+</script>
+
+
+@*<script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            oTable = $('#EnrollList').dataTable({
+                "sPaginationType": "full_numbers",
+                "bSortClasses": false,
+                // "aoColumnDefs": [{ "bVisible": false, "aTargets": [1] }],
+                "aLengthMenu": [[5, 10, 25, 50, 100, 250, 500, -1], [5, 10, 25, 50, 100, 250, 500, "All"]],
+                "bPaginate": true,
+                "bAutoWidth": false,
+                "bDestroy": true,
+                "iDisplayLength": 10,
+                dom: 'Bfrtip',
+
+                buttons: [
+
+                {
+                    extend: 'excelHtml5',
+                    title: 'eCaST - @ViewBag.TileLabel',
+                    exportOptions: {
+                        columns: ':visible',
+                        columns: [1, 2, 3, 4]
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'eCaST - @ViewBag.TileLabel',
+                    exportOptions: {
+                        columns: ':visible',
+                        columns: [1, 2, 3, 4]
+                    }
+                }
+                ],
+                "oLanguage": { "sSearch": "Filter: " }
+            });
+
+            oTable.fnSort([[1, 'desc']]); // Sort by first column descending
+
+
+        });
+
+
+
+    </script>*@
+
+
+

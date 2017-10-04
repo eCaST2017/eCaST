@@ -1,0 +1,95 @@
+﻿@model IEnumerable<eCaST.ViewModels.EnrollmentViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@*<h2>Current Enrollments</h2>
+
+    <div align="right"><button class="btn btn-success">Add Enrollment</button></div>
+    <br />*@
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4><i class="fa fa-calendar-o fa-fw"></i>&nbsp;Enrollment Information</h4>
+
+    
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+
+
+      
+        <div class="row">
+
+
+            <div class="col-md-12">
+
+                <div id="EnrollmentListContainer"></div>
+
+            </div>
+
+            @*<div class="col-md-6">
+
+
+                <div id="EnrollEditContainer"></div>
+                <div align="right"><button id="CancelEnrollButton" class="btn btn-default" type="button"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Cancel</button>&nbsp;<button class="btn btn-success" id="CreateButton" type="submit"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add</button></div>
+            </div>*@
+
+
+        </div>
+
+        @*@if (ViewBag.ScreeningID == 0)
+        {
+
+            <div class="pull-right">
+
+                <div style="padding-bottom:25px"><button type="button" id="HideEditEnrollmentButton" class="btn btn-default">Cancel</button></div>
+
+            </div>
+            <br />
+
+        }*@
+
+</div>
+
+</div>
+
+
+
+<script type="text/javascript">
+
+  
+
+
+    $(function () {
+
+     
+
+       
+
+     
+            $("#EnrollmentListContainer").load("@Url.Action("_EnrollmentList", "Enrollments")", { 'id': @ViewBag.ClientID, 'id2':@ViewBag.ScreeningID, 'id3': 1 },
+                           function (response, status, xhr) {
+                               if (status == "error") {
+                                   alert("An error occurred while loading the results.");
+                               }
+
+                      });
+
+
+
+    });
+
+
+    @*$('#CancelButton').click(function () {
+
+
+        $('#ExistingScreeningContainer').html("");
+        $('#ContentContainer').load('@Url.Action("Create", "Screenings", new { id = ViewBag.ClientID, id2 = ViewBag.ScreeningID })');
+
+
+    });*@
+
+</script>

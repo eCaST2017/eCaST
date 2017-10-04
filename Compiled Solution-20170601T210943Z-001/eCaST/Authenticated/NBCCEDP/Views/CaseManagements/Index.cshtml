@@ -1,0 +1,111 @@
+﻿@model IEnumerable<eCaST.Models.CaseManagement>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ScreeningProcedureID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScreeningProcGuidID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScreeningID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SiteID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScreeningGuidID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OfficeVisitID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EnrollmentID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClinicalCycleID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InterventionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DDInterventionTypeBin.InterventionTypeBinName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScreeningProcedureID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScreeningProcGuidID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScreeningID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SiteID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScreeningGuidID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OfficeVisitID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnrollmentID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClinicalCycleID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InterventionDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateUpdated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DDInterventionTypeBin.InterventionTypeBinName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CaseManagementID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CaseManagementID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CaseManagementID })
+        </td>
+    </tr>
+}
+
+</table>

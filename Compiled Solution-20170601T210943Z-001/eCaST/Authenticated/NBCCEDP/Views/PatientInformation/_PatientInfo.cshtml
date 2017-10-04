@@ -1,0 +1,2298 @@
+﻿@model eCaST.ViewModels.PatientInfoViewModel
+
+
+
+<style type="text/css">
+    .txtdiv {
+        /*width: 130px;
+        height: 50px;*/
+        -ms-transform: rotate(270deg); /* IE 9 */
+        -moz-transform: rotate(270deg); /* Firefox */
+        -webkit-transform: rotate(270deg); /* Safari and Chrome */
+        -o-transform: rotate(270deg); /* Opera */
+    }
+
+    .field-validation-error {
+        color: #e80c4d;
+        font-weight: bold;
+    }
+
+    .my-error-class {
+        color: #FF0000; /* red */
+    }
+
+    .my-valid-class {
+        color: #00CC00; /* green */
+    }
+
+    .fixedElement {
+        position: fixed;
+        top: 154px;
+        left: 0px;
+        width: 100%;
+        z-index: 1;
+    }
+
+    input.big {
+        height: 1.1em;
+        width: 1.1em;
+    }
+</style>
+
+
+
+<link href="@Url.Content("~/Content/slider.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/themes/base/jquery.ui.slider.css")" rel="stylesheet" type="text/css" />
+
+<script src="@Url.Content("~/Scripts/bootstrap-slider.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/app/patientinfo.js")" type="text/javascript"></script>
+
+
+ @if (ViewBag.ScreeningID == 0) { 
+
+    <div id="InitialAssessmentBannerContainer" class="alert alert-success">
+
+
+        <h4><span class="glyphicon glyphicon-user"></span>&nbsp;Cardio Initial Health Assessment</h4>
+
+
+    </div>
+
+ }
+ else
+ {
+
+    <div class="alert alert-success">
+
+
+        <h4><span class="glyphicon glyphicon-user"></span>&nbsp;Cardio Followup Health Assessment</h4>
+
+
+    </div>
+
+
+
+ }
+ 
+
+
+
+
+
+
+@*@using (Html.BeginForm("_PatientInfoF", "PatientInformation", FormMethod.Post, new { id = "PatientInfoForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)*@
+
+
+    @*  @Html.Partial("_CreateOrEdit", Model)
+
+
+        <div style="height: 680px; width: 98%; overflow: scroll; overflow-y: auto; overflow-x: hidden; padding: 2px; margin: 2px"> *@
+
+
+
+    <div class="form-horizontal">
+
+
+        @if (ViewBag.ScreeningID != 0)
+        {
+
+            <div>
+
+                <label>Followup Assessment Date</label> &nbsp;<input style="color:#ccc;" type="text" id="AssessmentDateHIDDEN" placeholder="Date of Followup">   @Html.Hidden("AssessmentDate")
+
+
+                <br />
+                <br />
+
+            </div>
+
+
+        }
+       
+        <div id="BPAlertSection" class="alert alert-info">
+            <div style="padding-top:6px; padding-right:12px">
+
+                @*   @using (Html.BeginForm("_BPPlusF", "PatientInformation", FormMethod.Post, new { id = "BPPlusForm" }))
+                {  *@
+
+
+
+
+                <div>
+                    <div style="font-size:large" class="row">
+
+                        <div class="col-md-12"> <input class="big" type="checkbox" id="BPPlus"> &nbsp;*Make this a <img src="~/Images/CoverageIconBPPLUS.png" /> Screening</div>
+
+
+                    </div>
+
+                    <div style="font-size:medium;color:#999;font-style:italic" class="row">
+
+                        <div class="col-md-12">*Selecting BP+ for this client will allow reimbursement, provided that AT A MINIMUM the questions with a BP+ Icon next to them are submitted.</div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+
+                @*   }  *@
+
+
+
+            </div>
+
+
+
+            <br />
+
+
+        </div>
+
+
+        <div style="background-color: #575454; color: #fff; padding: 6px">Patient Information</div>
+
+
+
+
+
+        <div>
+
+            @if (ViewBag.FollowUpFlag == 0)
+            {
+
+
+
+
+                <div id="DemoSection">
+
+
+                    <div class="alert alert-success">
+
+                        <div class="row">
+
+                            <div class="col-md-3"><span style="font-size:medium;color:#fff; width:70%" class="badge">Demographics</span></div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div style="border-radius: 5px; background-color: #eeecec; padding: 12px" class="form-group">
+                        <label for="EducationBinID">@Html.LabelFor(model => model.EducationBinID)</label>
+                        @Html.DropDownListFor(model => model.EducationBinID, ((IEnumerable<eCaST.Models.DDEducationBin>)ViewBag.PossibleEducationBinIDs).Select(option => new SelectListItem
+           {
+               //Text = Html.DisplayTextFor(_ => option).ToString(),
+               Text = option.EducationBinName,
+               Value = option.EducationBinID.ToString(),
+               Selected = (Model != null) && (option.EducationBinID == Model.EducationBinID)
+           }), "Choose...", new { @id = "EducationBinID", @class = "requiredSelect" })
+                        @Html.ValidationMessageFor(model => model.EducationBinID, String.Empty, new { @style = "color:red;!important" })
+                    </div>
+                    <br />
+
+
+                    <div style="border-radius: 5px; background-color: #eeecec; padding: 12px" class="form-group">
+                        <label for="LanguageBinID">@Html.LabelFor(model => model.LanguageBinID)</label>
+                        @Html.DropDownListFor(model => model.LanguageBinID, ((IEnumerable<eCaST.Models.DDLanguageBin>)ViewBag.PossibleLanguageBinIDs).Select(option => new SelectListItem
+           {
+               //Text = Html.DisplayTextFor(_ => option).ToString(),
+               Text = option.LanguageBinName,
+               Value = option.LanguageBinID.ToString(),
+               Selected = (Model != null) && (option.LanguageBinID == Model.LanguageBinID)
+           }), "Choose...", new { @id = "LanguageBinID", @class = "requiredSelect" })
+                        @Html.ValidationMessageFor(model => model.LanguageBinID)
+                    </div>
+                    <br />
+
+                </div>
+
+
+                <script type="text/javascript">
+
+                       $(function () {
+
+
+                           $("#EducationBinID").select2({ width: "30%" });
+                           $("#LanguageBinID").select2({ width: "30%" });
+
+
+                           $("#EducationBinID").select2({
+                               containerCssClass: "error",
+                               width: "30%"
+                           });
+
+                           $("#LanguageBinID").select2({
+                               containerCssClass: "error",
+                               width: "30%"
+                           });
+
+
+
+                       });
+
+
+
+                </script>
+
+
+
+
+            }
+
+            <div class="alert alert-info">
+
+                <div class="row">
+
+                    <div class="col-md-3"><span style="font-size:medium;color:#fff; width:70%" class="badge">Cholesterol</span></div>
+
+
+                </div>
+
+
+
+
+            </div>
+
+
+
+
+            <div style="border-radius: 5px; background-color: #eeecec; padding: 12px" class="form-group">
+
+                <div class="bpalert alert alert-info" style="display:none"> <img id="Chol1BPP" src="~/Images/CoverageIconBPPLUS.png" /> Required Field</div>
+
+                <label for="HighCholValueID">@Html.LabelFor(model => model.HighCholValueID)</label>
+                @Html.DropDownListFor(model => model.HighCholValueID, ((IEnumerable<eCaST.Models.DDPatientInfoBin>)ViewBag.PossiblePatientInfoBinIDs).Select(option => new SelectListItem
+           {
+               //Text = Html.DisplayTextFor(_ => option).ToString(),
+               Text = option.PatientInfoBinName,
+               Value = option.PatientInfoBinID.ToString(),
+               Selected = (Model != null) && (option.PatientInfoBinID == Model.HighCholValueID)
+           }), "Choose...", new { @id = "HighCholValueID", @class = "requiredSelect" })
+                @Html.ValidationMessageFor(model => model.HighCholValueID)
+            </div>
+            <br />
+
+
+
+
+
+
+            <div style="display: none" id="CholMedSection">
+
+                <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+
+
+                    <div style="border-radius: 5px; background-color: #eeecec; padding: 12px" class="form-group">
+
+                        <div class="bpalert alert alert-info" style="display:none"> <img id="Chol1BPP" src="~/Images/CoverageIconBPPLUS.png" /> Required Field</div>
+
+                        <label for="CholMedValueID">@Html.LabelFor(model => model.CholMedValueID)</label>
+                        @Html.DropDownListFor(model => model.CholMedValueID, ((IEnumerable<eCaST.Models.DDPatientInfoBin>)ViewBag.PossiblePatientInfoBinIDs).Select(option => new SelectListItem
+                   {
+                       //Text = Html.DisplayTextFor(_ => option).ToString(),
+                       Text = option.PatientInfoBinName,
+                       Value = option.PatientInfoBinID.ToString(),
+                       Selected = (Model != null) && (option.PatientInfoBinID == Model.CholMedValueID)
+                   }), "Choose...", new { @id = "CholMedValueID", @class = "requiredSelect" })
+                        @Html.ValidationMessageFor(model => model.CholMedValueID)
+                    </div>
+
+
+
+
+
+
+                    <div id="CholMedYesSection" style="display: none">
+
+                        <div style="border-radius: 5px; background-color: #eeecec; padding: 12px" class="form-group">
+                            <label for="CholMedYesDays">@Html.LabelFor(model => model.CholMedYesValueID)</label>
+                            <div>
+                                <input class="requiredSelect" onkeyup="valid(this)" onkeypress="return isNumberKey(event)" style="border: none; color:#666; width:30px;" type="text" id="CholMedYesValueIDHIDDEN">
+                                Days&nbsp; @Html.Hidden("CholMedYesValueID")
+                            </div>
+                            <div style="color:#f5f5f5;"> <input style="width:137px" type="text" id="CholMedYesDays" class="span2" value="" data-slider-min="0" data-slider-max="7" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+                            <br />
+                            <br />
+
+                            <br />
+                        </div>
+
+
+
+
+
+
+
+
+                    </div>
+                    <div id="CholMedNoSection" style="display: none">
+                        <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+
+
+                            <div style="border-radius: 5px; background-color: #eeecec; padding: 12px" class="form-group">
+                                <label for="CholMedNoValueID">@Html.LabelFor(model => model.CholMedNoValueID)</label>
+                                @Html.DropDownListFor(model => model.CholMedNoValueID, ((IEnumerable<eCaST.Models.DDPatientInfoBin>)ViewBag.PossiblePatientInfoBinIDs).Select(option => new SelectListItem
+                           {
+                               //Text = Html.DisplayTextFor(_ => option).ToString(),
+                               Text = option.PatientInfoBinName,
+                               Value = option.PatientInfoBinID.ToString(),
+                               Selected = (Model != null) && (option.PatientInfoBinID == Model.CholMedNoValueID)
+                           }), "Choose...", new { @id = "CholMedNoValueID", @class = "requiredSelect" })
+                                @Html.ValidationMessageFor(model => model.CholMedNoValueID)
+                            </div>
+
+
+
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <br />
+
+            <div class="alert alert-warning">
+
+                <div class="row">
+
+                    <div class="col-md-3"><span style="font-size:medium;color:#fff; width:70%" class="badge">Hypertension</span></div>
+
+
+                </div>
+
+
+
+            </div>
+
+
+            <div style="border-radius: 5px; background-color: #eeecec; padding: 12px" class="form-group">
+
+                <div class="bpalert alert alert-info" style="display:none"> <img src="~/Images/CoverageIconBPPLUS.png" /> Required Field</div>
+
+                <label for="HyperTensionValueID">@Html.LabelFor(model => model.HyperTensionValueID)</label>
+                @Html.DropDownListFor(model => model.HyperTensionValueID, ((IEnumerable<eCaST.Models.DDPatientInfoBin>)ViewBag.PossiblePatientInfoBinIDs).Select(option => new SelectListItem
+           {
+               //Text = Html.DisplayTextFor(_ => option).ToString(),
+               Text = option.PatientInfoBinName,
+               Value = option.PatientInfoBinID.ToString(),
+               Selected = (Model != null) && (option.PatientInfoBinID == Model.HyperTensionValueID)
+           }), "Choose...", new { @id = "HyperTensionValueID", @class = "requiredSelect" })
+                @Html.ValidationMessageFor(model => model.HyperTensionValueID)
+            </div>
+
+
+
+
+
+
+
+
+            <div style="display: none" id="HyperTensionMedSection">
+
+
+                <br />
+
+
+                <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+
+                    <div class="bpalert alert alert-info" style="display:none"> <img src="~/Images/CoverageIconBPPLUS.png" /> Required Field</div>
+
+
+                    <label for="HyperTensionMedValueID">@Html.LabelFor(model => model.HyperTensionMedValueID) </label>
+
+                    @Html.DropDownListFor(model => model.HyperTensionMedValueID, ((IEnumerable<eCaST.Models.DDPatientInfoBin>)ViewBag.PossiblePatientInfoBinIDs).Select(option => new SelectListItem
+               {
+                   //Text = Html.DisplayTextFor(_ => option).ToString(),
+                   Text = option.PatientInfoBinName,
+                   Value = option.PatientInfoBinID.ToString(),
+                   Selected = (Model != null) && (option.PatientInfoBinID == Model.HyperTensionMedValueID)
+               }), "Choose...", new { @id = "HyperTensionMedValueID", @class = "requiredSelect" })
+                    @Html.ValidationMessageFor(model => model.HyperTensionMedValueID)
+
+
+                    <div id="HyperTensionMedYesSection" style="display: none">
+
+
+                        <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+
+                            <div class="bpalert alert alert-info" style="display:none"> <img src="~/Images/CoverageIconBPPLUS.png" /> Required Field</div>
+
+
+
+                            <label for="HyperTensionMedYesDays">@Html.LabelFor(model => model.HyperTensionMedYesValueID) </label>
+
+
+                            <div>
+                                <input class="requiredSelect" onkeyup="valid(this)" onkeypress="return isNumberKey(event)" style="border: none; color:#666; width: 30px;" type="text" id="HyperTensionMedYesValueIDHIDDEN">
+                                Days&nbsp;@Html.Hidden("HyperTensionMedYesValueID")
+                            </div>
+                            <div style="color:#f5f5f5;">  <input style="width:137px" type="text" id="HyperTensionMedYesDays" class="span2" value="" data-slider-min="0" data-slider-max="7" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+                            <br />
+                            <br />
+
+                            <br />
+
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+
+            </div>
+
+
+
+            <div style="display: none" id="HyperTensionMeasureSection">
+
+                <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+                    <label for="HyperTensionMeasureValueID">@Html.LabelFor(model => model.HyperTensionMeasureValueID) </label>
+
+                    @Html.DropDownListFor(model => model.HyperTensionMeasureValueID, ((IEnumerable<eCaST.Models.DDPatientInfoBin>)ViewBag.PossiblePatientInfoBinIDs).Select(option => new SelectListItem
+               {
+                   //Text = Html.DisplayTextFor(_ => option).ToString(),
+                   Text = option.PatientInfoBinName,
+                   Value = option.PatientInfoBinID.ToString(),
+                   Selected = (Model != null) && (option.PatientInfoBinID == Model.HyperTensionMeasureValueID)
+               }), "Choose...", new { @id = "HyperTensionMeasureValueID", @class = "requiredSelect" })
+                    @Html.ValidationMessageFor(model => model.HyperTensionMeasureValueID)
+
+
+                    <div id="HyperTensionMeasureYesSection" style="display: none">
+
+
+
+                        <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+                            <label for="HyperTensionMeasureYesValueID">@Html.LabelFor(model => model.HyperTensionMeasureYesValueID) </label>
+
+                            @Html.DropDownListFor(model => model.HyperTensionMeasureYesValueID, ((IEnumerable<eCaST.Models.DDBPFrequencyBin>)ViewBag.PossibleNABPFrequencyBinIDs).Select(option => new SelectListItem
+                       {
+                           //Text = Html.DisplayTextFor(_ => option).ToString(),
+                           Text = option.BPFrequencyBinName,
+                           Value = option.BPFrequencyBinID.ToString(),
+                           Selected = (Model != null) && (option.BPFrequencyBinID == Model.HyperTensionMeasureYesValueID)
+                       }), "Choose...", new { @id = "HyperTensionMeasureYesValueID", @class = "requiredSelect" })
+                            @Html.ValidationMessageFor(model => model.HyperTensionMeasureYesValueID)
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <br />
+
+
+
+                <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+                    <label for="HyperTensionShareValueID">@Html.LabelFor(model => model.HyperTensionShareValueID) </label>
+
+                    @Html.DropDownListFor(model => model.HyperTensionShareValueID, ((IEnumerable<eCaST.Models.DDPatientInfoBin>)ViewBag.PossibleNAPatientInfoBinIDs).Select(option => new SelectListItem
+               {
+                   //Text = Html.DisplayTextFor(_ => option).ToString(),
+                   Text = option.PatientInfoBinName,
+                   Value = option.PatientInfoBinID.ToString(),
+                   Selected = (Model != null) && (option.PatientInfoBinID == Model.HyperTensionShareValueID)
+               }), "Choose...", new { @id = "HyperTensionShareValueID", @class = "requiredSelect" })
+                    @Html.ValidationMessageFor(model => model.HyperTensionShareValueID)
+
+
+                </div>
+            </div>
+
+            <br />
+
+
+
+            <div class="alert alert-danger">
+
+                <div class="row">
+
+                    <div class="col-md-3"><span style="font-size:medium;color:#fff; width:70%" class="badge">Diabetes</span></div>
+
+
+                </div>
+
+
+
+            </div>
+
+            <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+
+                <div class="bpalert alert alert-info" style="display:none"> <img src="~/Images/CoverageIconBPPLUS.png" /> Required Field</div>
+
+                <label for="DiabetesValueID">@Html.LabelFor(model => model.DiabetesValueID) </label>
+
+                @Html.DropDownListFor(model => model.DiabetesValueID, ((IEnumerable<eCaST.Models.DDPatientInfoBin>)ViewBag.PossiblePatientInfoBinIDs).Select(option => new SelectListItem
+           {
+               //Text = Html.DisplayTextFor(_ => option).ToString(),
+               Text = option.PatientInfoBinName,
+               Value = option.PatientInfoBinID.ToString(),
+               Selected = (Model != null) && (option.PatientInfoBinID == Model.DiabetesValueID)
+           }), "Choose...", new { @id = "DiabetesValueID", @class = "requiredSelect" })
+                @Html.ValidationMessageFor(model => model.DiabetesValueID)
+
+
+            </div>
+
+            <div style="display: none" id="DiabetesMedSection">
+
+                <br />
+                <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+
+                    <div class="bpalert alert alert-info" style="display:none"> <img src="~/Images/CoverageIconBPPLUS.png" /> Required Field</div>
+
+                    <label for="DiabetesMedValueID">@Html.LabelFor(model => model.DiabetesMedValueID) </label>
+
+                    @Html.DropDownListFor(model => model.DiabetesMedValueID, ((IEnumerable<eCaST.Models.DDPatientInfoBin>)ViewBag.PossiblePatientInfoBinIDs).Select(option => new SelectListItem
+               {
+                   //Text = Html.DisplayTextFor(_ => option).ToString(),
+                   Text = option.PatientInfoBinName,
+                   Value = option.PatientInfoBinID.ToString(),
+                   Selected = (Model != null) && (option.PatientInfoBinID == Model.DiabetesMedValueID)
+               }), "Choose...", new { @id = "DiabetesMedValueID", @class = "requiredSelect" })
+                    @Html.ValidationMessageFor(model => model.DiabetesMedValueID)
+
+
+                    <div id="DiabetesMedYesSection" style="display: none">
+
+
+                        <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+                            <label for="DiabetesMedYesDays">@Html.LabelFor(model => model.DiabetesMedYesValueID) </label>
+
+
+                            <div>
+                                <input class="requiredSelect" onkeyup="valid(this)" onkeypress="return isNumberKey(event)" style="border: none; color:#666; width: 30px;" type="text" id="DiabetesMedYesValueIDHIDDEN">
+                                Days&nbsp;@Html.Hidden("DiabetesMedYesValueID")
+                            </div>
+                            <div style="color:#f5f5f5;"> <input style="width:137px" type="text" id="DiabetesMedYesDays" class="span2" value="" data-slider-min="0" data-slider-max="7" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+                            <br />
+                            <br />
+
+                            <br />
+
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+
+            <br />
+
+            <div class="alert alert-danger">
+
+                <div class="row">
+
+                    <div class="col-md-3"><span style="font-size:medium;color:#fff; width:70%" class="badge">Heart Attack</span></div>
+
+
+                </div>
+
+
+
+            </div>
+
+            <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+
+                <div class="bpalert alert alert-info" style="display:none"> <img src="~/Images/CoverageIconBPPLUS.png" /> Required Field</div>
+
+
+                <label for="HeartAttackValueID">@Html.LabelFor(model => model.HeartAttackValueID) </label>
+
+                <br />
+                <br />
+                <div>
+                    @Html.DropDownListFor(model => model.HeartAttackValueID, ((IEnumerable<eCaST.Models.DDPatientInfoBin>)ViewBag.PossiblePatientInfoBinIDs).Select(option => new SelectListItem
+               {
+                   //Text = Html.DisplayTextFor(_ => option).ToString(),
+                   Text = option.PatientInfoBinName,
+                   Value = option.PatientInfoBinID.ToString(),
+                   Selected = (Model != null) && (option.PatientInfoBinID == Model.HeartAttackValueID)
+               }), "Choose...", new { @id = "HeartAttackValueID", @class = "requiredSelect" })
+                    @Html.ValidationMessageFor(model => model.HeartAttackValueID)
+
+                </div>
+
+
+
+            </div>
+
+
+            <br />
+
+            <div class="alert alert-success">
+
+                <div class="row">
+
+                    <div class="col-md-3"><span style="font-size:medium;color:#fff; width:70%" class="badge">Diet and Physical Activity</span></div>
+
+
+                </div>
+
+
+
+
+            </div>
+
+            <div id="FruitSection" style="display: block">
+                <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+
+
+                    <label for="FruitCups">@Html.LabelFor(model => model.FruitValueID) </label>
+
+
+                    <div>
+                        <input type="text" onkeypress="return isNumberKey(event)" onkeyup="valid(this)" style="border: none; color:#666; width: 30px;" class="requiredSelect" id="FruitValueIDHIDDEN">
+                        Cups    &nbsp;@Html.Hidden("FruitValueID")
+                    </div>
+                    <div style="color:#f5f5f5;"> <input type="text" id="FruitCups" class="span2" value="" data-slider-min="0" data-slider-max="50" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">&nbsp;</div>
+                    <br />
+                    <br />
+
+                    <br />
+
+
+                </div>
+            </div>
+            <br />
+
+            <div id="VegSection" style="display: block">
+                <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+                    <label for="VegCups">@Html.LabelFor(model => model.VegValueID) </label>
+
+
+                    <div>
+                        <input class="requiredSelect" onkeyup="valid(this)" onkeypress="return isNumberKey(event)" style="border: none; color: #666; width: 30px;" type="text" id="VegValueIDHIDDEN">
+                        Cups&nbsp;@Html.Hidden("VegValueID")
+                    </div>
+                    <div style="color:#f5f5f5;"> <input type="text" id="VegCups" class="span2" value="" data-slider-min="0" data-slider-max="15" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+                    <br />
+                    <br />
+
+                    <br />
+
+                </div>
+            </div>
+
+
+            <br />
+
+            <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+                <label for="FishValueID">@Html.LabelFor(model => model.FishValueID) </label>
+
+                @Html.DropDownListFor(model => model.FishValueID, ((IEnumerable<eCaST.Models.DDPatientInfoBin>)ViewBag.PossiblePatientInfoBinIDs).Select(option => new SelectListItem
+           {
+               //Text = Html.DisplayTextFor(_ => option).ToString(),
+               Text = option.PatientInfoBinName,
+               Value = option.PatientInfoBinID.ToString(),
+               Selected = (Model != null) && (option.PatientInfoBinID == Model.FishValueID)
+           }), "Choose...", new { @id = "FishValueID", @class = "requiredSelect" })
+                @Html.ValidationMessageFor(model => model.FishValueID)
+
+
+            </div>
+            <br />
+
+            <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+                <label for="WholeGrainsValueID">@Html.LabelFor(model => model.WholeGrainsValueID) </label>
+
+                @Html.DropDownListFor(model => model.WholeGrainsValueID, ((IEnumerable<eCaST.Models.DDPatientInfoBin>)ViewBag.PossiblePatientInfoBinIDs).Select(option => new SelectListItem
+           {
+               //Text = Html.DisplayTextFor(_ => option).ToString(),
+               Text = option.PatientInfoBinName,
+               Value = option.PatientInfoBinID.ToString(),
+               Selected = (Model != null) && (option.PatientInfoBinID == Model.WholeGrainsValueID)
+           }), "Choose...", new { @id = "WholeGrainsValueID", @class = "requiredSelect" })
+                @Html.ValidationMessageFor(model => model.WholeGrainsValueID)
+
+
+            </div>
+            <br />
+
+            <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+                <label for="DrinkValueID">@Html.LabelFor(model => model.DrinkValueID) </label>
+
+                @Html.DropDownListFor(model => model.DrinkValueID, ((IEnumerable<eCaST.Models.DDPatientInfoBin>)ViewBag.PossiblePatientInfoBinIDs).Select(option => new SelectListItem
+           {
+               //Text = Html.DisplayTextFor(_ => option).ToString(),
+               Text = option.PatientInfoBinName,
+               Value = option.PatientInfoBinID.ToString(),
+               Selected = (Model != null) && (option.PatientInfoBinID == Model.DrinkValueID)
+           }), "Choose...", new { @id = "DrinkValueID", @class = "requiredSelect" })
+                @Html.ValidationMessageFor(model => model.DrinkValueID)
+
+
+            </div>
+            <br />
+
+            @*  <div class="form-group" style="border-radius:5px; background-color:#eeecec;padding:12px">
+                    <label for="SodiumValueID">  @Html.LabelFor(model => model.SodiumValueID) </label>
+
+                        @Html.DropDownListFor(model => model.SodiumValueID, ((IEnumerable<eCaST.Models.DDPatientInfoBin>)ViewBag.PossiblePatientInfoBinIDs).Select(option => new SelectListItem
+                         {
+                             //Text = Html.DisplayTextFor(_ => option).ToString(),
+                             Text = option.PatientInfoBinName,
+                             Value = option.PatientInfoBinID.ToString(),
+                             Selected = (Model != null) && (option.PatientInfoBinID == Model.SodiumValueID)
+                         }), "Choose...", new { @id = "SodiumValueID", @class = "requiredSelect" })
+                        @Html.ValidationMessageFor(model => model.SodiumValueID)
+
+
+                </div>
+                <br />*@
+
+            <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+                <label for="SodiumReducedValueID">@Html.LabelFor(model => model.SodiumReducedValueID) </label>
+
+                @Html.DropDownListFor(model => model.SodiumReducedValueID, ((IEnumerable<eCaST.Models.DDPatientInfoBin>)ViewBag.PossiblePatientInfoBinIDs).Select(option => new SelectListItem
+           {
+               //Text = Html.DisplayTextFor(_ => option).ToString(),
+               Text = option.PatientInfoBinName,
+               Value = option.PatientInfoBinID.ToString(),
+               Selected = (Model != null) && (option.PatientInfoBinID == Model.SodiumReducedValueID)
+           }), "Choose...", new { @id = "SodiumReducedValueID", @class = "requiredSelect" })
+                @Html.ValidationMessageFor(model => model.SodiumReducedValueID)
+
+
+            </div>
+            <br />
+
+            <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+                <label for="ModActivity">@Html.LabelFor(model => model.ModerateActivityValueID) </label>
+
+
+                <div>
+                    <input onkeyup="valid(this)" onkeypress="return isNumberKey(event)" class="requiredSelect" style="border: none; color: #666; width: 40px;" type="text" id="ModerateActivityValueIDHIDDEN">
+                    Minutes&nbsp;@Html.Hidden("ModerateActivityValueID")
+                </div>
+                <div style="color:#f5f5f5;"> <input type="text" id="ModActivity" class="span2" value="" data-slider-min="0" data-slider-max="10080" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+                <br />
+                <br />
+
+                <br />
+
+
+
+            </div>
+            <br />
+
+            <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+                <label for="VigActivity">@Html.LabelFor(model => model.VigorousActivityValueID) </label>
+
+
+                <div>
+                    <input class="requiredSelect" onkeyup="valid(this)" onkeypress="return isNumberKey(event)" style="border: none; color: #666; width: 40px;" type="text" id="VigorousActivityValueIDHIDDEN">
+                    Minutes&nbsp;@Html.Hidden("VigorousActivityValueID")
+                </div>
+                <div style="color:#f5f5f5;">  <input type="text" id="VigActivity" class="span2" value="" data-slider-min="0" data-slider-max="10080" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+                <br />
+                <br />
+
+                <br />
+
+
+
+            </div>
+            <br />
+
+            <div class="alert alert-danger">
+
+                <div class="row">
+
+                    <div class="col-md-3"><span style="font-size:medium;color:#fff; width:70%" class="badge">Smoking Status</span></div>
+
+
+                </div>
+
+
+
+            </div>
+
+            <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+
+                <div class="bpalert alert alert-info" style="display:none"> <img src="~/Images/CoverageIconBPPLUS.png" /> Required Field</div>
+
+                <label for="SmokingValueID">@Html.LabelFor(model => model.SmokingValueID) </label>
+
+                @Html.DropDownListFor(model => model.SmokingValueID, ((IEnumerable<eCaST.Models.DDSmokingBin>)ViewBag.PossibleSmokingBinIDs).Select(option => new SelectListItem
+           {
+               //Text = Html.DisplayTextFor(_ => option).ToString(),
+               Text = option.SmokingBinName,
+               Value = option.SmokingBinID.ToString(),
+               Selected = (Model != null) && (option.SmokingBinID == Model.SmokingValueID)
+           }), "Choose...", new { @id = "SmokingValueID", @class = "requiredSelect" })
+                @Html.ValidationMessageFor(model => model.SmokingValueID)
+
+
+            </div>
+            <br />
+            <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+                <label for="SecondHand">@Html.LabelFor(model => model.SmokingSecondHandValueID) </label>
+
+
+                <div class="row">
+
+
+
+                    <div id="SmokingSecondHandContainer" class="col-md-2">
+
+
+                        <div>
+                            <input class="requiredSelect" onkeyup="valid(this)" onkeypress="return isNumberKey(event)" style="border: none; color:#666; width: 30px;" type="text" id="SmokingSecondHandValueIDHIDDEN">
+                            Hours&nbsp;@Html.Hidden("SmokingSecondHandValueID")
+                        </div>
+                        <div style="color:#f5f5f5;"> <input type="text" id="SecondHand" class="span2" value="" data-slider-min="0" data-slider-max="24" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+
+                        Not able to get answer or less than one hour of exposure?  <input type="checkbox" id="checkboxSMOKINGSECONDHANDCHECK">
+
+
+                        <div style="display:none" id="SmokingSecondHandCheckboxContainer">
+
+                            @Html.DropDownListFor(model => model.SmokingSecondHandValueIDNS, ((IEnumerable<eCaST.Models.DDPatientInfoBin>)ViewBag.PossibleSmokingNotSureBinIDs).Select(option => new SelectListItem
+                    {
+                        //Text = Html.DisplayTextFor(_ => option).ToString(),
+                        Text = option.PatientInfoBinName,
+                        Value = option.PatientInfoBinID.ToString(),
+                        Selected = (Model != null) && (option.PatientInfoBinID == Model.SmokingSecondHandValueIDNS)
+                    }), "Choose...", new { @id = "SmokingSecondHandValueIDNS", @class = "requiredSelect" })
+                            @Html.ValidationMessageFor(model => model.SmokingSecondHandValueIDNS)
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <br />
+                <br />
+
+                <br />
+
+
+
+            </div>
+            <br />
+
+            @if (ViewBag.FollowUpFlag == 1)
+            {
+
+
+                if (ViewBag.TobDateCheck != null)
+                {
+
+                    <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+
+
+                        <label for="TobCompletedBinID">@Html.LabelFor(model => model.TobCompletedBinID)</label>
+                        @Html.DropDownListFor(model => model.TobCompletedBinID, ((IEnumerable<eCaST.Models.DDTobCompletedBin>)ViewBag.PossibleCessationCompletedBinIDs).Select(option => new SelectListItem
+       {
+           //Text = Html.DisplayTextFor(_ => option).ToString(),
+           Text = option.TobCompletedBinName,
+           Value = option.TobCompletedBinID.ToString(),
+           Selected = (Model != null) && (option.TobCompletedBinID == @ViewBag.TobaccoActivityCompleted)
+       }), "Choose...", new { @id = "TobCompletedBinID", @class = "requiredSelect" })
+                        @Html.ValidationMessageFor(model => model.TobCompletedBinID)
+
+
+                    </div>
+
+                    <br />
+
+
+                }
+
+
+            }
+
+            <div class="alert alert-info">
+
+                <div class="row">
+
+                    <div class="col-md-3"><span style="font-size:medium;color:#fff; width:70%" class="badge">Quality of Life</span></div>
+
+
+                </div>
+
+
+
+            </div>
+
+            <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+                <label for="PhysicalHealth">@Html.LabelFor(model => model.PhysicalHealthValueID)  </label>
+
+
+                <div class="row">
+
+
+
+                    <div id="PhysicalHealthContainer" class="col-md-2">
+
+
+
+                        <div>
+                            <input class="requiredSelect" onkeyup="valid(this)" onkeypress="return isNumberKey(event)" style="border: none; color:#666; width: 30px;" type="text" id="PhysicalHealthValueIDHIDDEN">
+                            Days&nbsp;@Html.Hidden("PhysicalHealthValueID")
+                        </div>
+                        <div style="color:#f5f5f5;"> <input type="text" id="PhysicalHealth" class="span2" value="" data-slider-min="0" data-slider-max="30" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+                        <br />
+                        <br />
+
+                        <br />
+
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+
+                        Not able to get answer?  <input type="checkbox" id="checkboxPHYSICALHEALTHCHECK">
+
+
+                        <div style="display:none" id="PhysicalHealthCheckboxContainer">
+
+                            @Html.DropDownListFor(model => model.PhysicalHealthValueIDNS, ((IEnumerable<eCaST.Models.DDPatientInfoBin>)ViewBag.PossibleNotSureBinIDs).Select(option => new SelectListItem
+                    {
+                        //Text = Html.DisplayTextFor(_ => option).ToString(),
+                        Text = option.PatientInfoBinName,
+                        Value = option.PatientInfoBinID.ToString(),
+                        Selected = (Model != null) && (option.PatientInfoBinID == Model.PhysicalHealthValueIDNS)
+                    }), "Choose...", new { @id = "PhysicalHealthValueIDNS", @class = "requiredSelect" })
+                            @Html.ValidationMessageFor(model => model.PhysicalHealthValueIDNS)
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+            <br />
+            <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+                <label for="MentalHealth">@Html.LabelFor(model => model.MentalHealthValueID) </label>
+
+
+
+                <div class="row">
+
+
+
+                    <div id="MentalHealthContainer" class="col-md-2">
+
+
+
+
+                        <div>
+                            <input class="requiredSelect" onkeyup="valid(this)" onkeypress="return isNumberKey(event)" style="border: none; color:#666; width: 30px;" type="text" id="MentalHealthValueIDHIDDEN">
+                            Days&nbsp;@Html.Hidden("MentalHealthValueID")
+                        </div>
+                        <div style="color:#f5f5f5;">  <input type="text" id="MentalHealth" class="span2" value="" data-slider-min="0" data-slider-max="30" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+
+
+
+                    </div>
+
+                    <div class="col-md-6">
+
+
+                        Not able to get answer?  <input type="checkbox" id="checkboxMENTALHEALTHCHECK">
+
+
+                        <div style="display:none" id="MentalHealthCheckboxContainer">
+
+                            @Html.DropDownListFor(model => model.MentalHealthValueIDNS, ((IEnumerable<eCaST.Models.DDPatientInfoBin>)ViewBag.PossibleNotSureBinIDs).Select(option => new SelectListItem
+                    {
+                        //Text = Html.DisplayTextFor(_ => option).ToString(),
+                        Text = option.PatientInfoBinName,
+                        Value = option.PatientInfoBinID.ToString(),
+                        Selected = (Model != null) && (option.PatientInfoBinID == Model.MentalHealthValueIDNS)
+                    }), "Choose...", new { @id = "MentalHealthValueIDNS", @class = "requiredSelect" })
+                            @Html.ValidationMessageFor(model => model.MentalHealthValueIDNS)
+
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+
+
+                <br />
+                <br />
+
+                <br />
+
+
+
+            </div>
+            <br />
+
+            <div class="form-group" style="border-radius: 5px; background-color: #eeecec; padding: 12px">
+                <label for="MentalPhysicalHealth">@Html.LabelFor(model => model.MentalPhysicalHealthValueID) </label>
+
+
+                <div class="row">
+
+
+
+                    <div id="MentalPhysicalHealthContainer" class="col-md-2">
+
+
+
+                        <div>
+                            <input class="requiredSelect" onkeyup="valid(this)" onkeypress="return isNumberKey(event)" style="border: none; color: #666; width: 30px;" type="text" id="MentalPhysicalHealthValueIDHIDDEN">
+                            Days&nbsp;@Html.Hidden("MentalPhysicalHealthValueID")
+                        </div>
+                        <div style="color:#f5f5f5;"> <input type="text" id="MentalPhysicalHealth" class="span2" value="" data-slider-min="0" data-slider-max="30" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+
+                        Not able to get answer?  <input type="checkbox" id="checkboxMENTALPHYSICALHEALTHCHECK">
+
+
+                        <div style="display:none" id="MentalPhysicalHealthCheckboxContainer">
+
+                            @Html.DropDownListFor(model => model.MentalPhysicalHealthValueIDNS, ((IEnumerable<eCaST.Models.DDPatientInfoBin>)ViewBag.PossibleNotSureBinIDs).Select(option => new SelectListItem
+                    {
+                        //Text = Html.DisplayTextFor(_ => option).ToString(),
+                        Text = option.PatientInfoBinName,
+                        Value = option.PatientInfoBinID.ToString(),
+                        Selected = (Model != null) && (option.PatientInfoBinID == Model.MentalPhysicalHealthValueIDNS)
+                    }), "Choose...", new { @id = "MentalPhysicalHealthValueIDNS", @class = "requiredSelect" })
+                            @Html.ValidationMessageFor(model => model.MentalPhysicalHealthValueIDNS)
+
+                        </div>
+
+                    </div>
+
+
+
+
+
+                </div>
+
+
+
+
+                <br />
+                <br />
+
+                <br />
+
+
+
+            </div>
+
+            <br />
+
+            @*  @if (ViewBag.FollowUpFlag == 0)
+                {*@
+
+
+            <div style="display:none" id="CMContainer" class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Clinical Measurements</h4>
+                </div>
+                <div class="panel-body">
+
+                    <table>
+
+
+                        <tr>
+                            <td style="border: none; text-align: left">
+
+
+                                <div class="bpalert alert alert-info" style="display:none"> <img src="~/Images/CoverageIconBPPLUS.png" /> Required Field</div>
+                                <div>
+                                    <input class="requiredSelect" onkeyup="valid(this)" onkeypress="return isNumberKey(event)" style="border: none; color:#666; font-size: 24px; height: 60px" type="text" id="DDHeightBinIDHIDDEN">Height (inches)
+                                </div>
+
+                                <div>@Html.Hidden("DDHeightBinID")</div>
+
+
+                            </td>
+
+                            <td style="border: none; text-align:left">
+
+
+                                <div class="bpalert alert alert-info" style="display:none"> <img src="~/Images/CoverageIconBPPLUS.png" /> Required Field</div>
+                                <div>
+                                    <input class="requiredSelect" onkeyup="valid(this)" onkeypress="return isNumberKey(event)" style="border: none; color:#666; font-size: 24px; height: 60px" type="text" id="DDWeightBinIDHIDDEN">Weight (pounds)
+                                </div>
+
+
+                                <div>@Html.Hidden("DDWeightBinID")</div>
+
+
+
+                            </td>
+
+                            <td style="border: none; text-align: left">
+
+
+
+                                <div>
+                                    <input onkeyup="valid(this)" onkeypress="return isNumberKey(event)" style="border: none; color:#666; font-size: 24px; height: 60px" type="text" id="DDWaistBinIDHIDDEN">Waist Circumference (inches)
+                                </div>
+
+                                <div>@Html.Hidden("DDWaistBinID")</div>
+
+
+                            </td>
+
+
+                            <td style="border: none; text-align: left">
+
+
+
+                                <div>
+                                    <input onkeyup="valid(this)" onkeypress="return isNumberKey(event)" style="border: none; color:#666; font-size: 24px; height: 60px" type="text" id="DDHipBinIDHIDDEN">Hip Circumference (inches)
+                                </div>
+
+                                <div>@Html.Hidden("DDHipBinID")</div>
+
+
+                            </td>
+
+
+                        </tr>
+
+                        <tr>
+
+
+
+                            <td style="border: none;">
+
+
+
+                                @* <div>Height (inches)</div>*@
+                                <div style="color: #f5f5f5;">
+                                    <input type="text" id="height" class="span2" value="" data-slider-min="@ViewBag.HMINSLIDERFIRST" data-slider-max="@ViewBag.HMINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">
+                                </div>
+
+
+
+
+
+                            </td>
+
+
+                            <td style="border: none">
+
+
+
+                                @* <div>Weight (pounds)</div>*@
+                                <div style="color: #f5f5f5">
+                                    <input type="text" id="weight" class="span2" value="" data-slider-min="@ViewBag.WMINSLIDERFIRST" data-slider-max="@ViewBag.WMINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">
+                                </div>
+
+
+
+
+                            </td>
+
+
+                            <td style="border: none">
+
+
+
+                                @* <div>Waist Circumference (inches)</div>*@
+                                <div style="color: #f5f5f5">
+                                    <input type="text" id="waist" class="span2" value="" data-slider-min="@ViewBag.WAMINSLIDERFIRST" data-slider-max="@ViewBag.WAMINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">
+                                </div>
+
+
+
+
+
+                            </td>
+
+
+                            <td style="border: none">
+
+
+
+                                @*<div>Hip Circumference (inches)</div>*@
+                                <div style="color: #f5f5f5">
+                                    <input type="text" id="hip" class="span2" value="" data-slider-min="@ViewBag.HIMINSLIDERFIRST" data-slider-max="@ViewBag.HIMINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">
+                                </div>
+
+
+
+
+
+                            </td>
+
+
+
+                        </tr>
+                    </table>
+
+
+                </div>
+            </div>
+
+            @*}
+                else
+                { *@
+
+            <div style="display:none" id="CMFUContainer">
+
+                <input tabindex="-1" readonly="readonly" style="border: none; color: #fff;" type="text" id="DDHeightBinIDHIDDEN">
+                <input tabindex="-1" readonly="readonly" style="border: none; color: #fff;" type="text" id="DDWeightBinIDHIDDEN">
+                <input tabindex="-1" readonly="readonly" style="border: none; color: #fff;" type="text" id="DDWaistBinIDHIDDEN">
+                <input tabindex="-1" readonly="readonly" style="border: none; color: #fff;" type="text" id="DDHipBinIDHIDDEN">
+
+                @Html.Hidden("EducationBinID")
+                @Html.Hidden("LanguageBinID")
+                @Html.Hidden("DDHeightBinID")
+                @Html.Hidden("DDWeightBinID")
+                @Html.Hidden("DDWaistBinID")
+                @Html.Hidden("DDHipBinID")
+
+
+            </div>
+            @*}*@
+
+
+            <br />
+
+            <div class="bpalert alert alert-info" style="display:none"> <img src="~/Images/CoverageIconBPPLUS.png" /> Required Fields</div>
+
+            <div class="bpalert" style="display:none">
+                <div>Blood Pressure Reading</div>
+                <br />
+                <div class="row">
+
+
+                    <div class="col-md-2">
+
+
+                        <input type="text" id="BPTestDateHIDDEN" class="requiredText" placeholder="Date of Reading">
+
+
+                    </div>
+
+
+
+                    <div class="col-md-5">
+                        <input class="requiredSelect" style="width:45px; border:none; color:#666; display:block; height: 22px; margin: 0; float: left;" type="text" id="SystolicBinID1HIDDEN">
+                        @*  @Html.TextBoxFor(m => m.SystolicReading, new { @style = "width: 94%;", @placeholder = "Systolic", @class="form-control" })*@
+                        <div>Systolic Pressure </div>
+                        <div>@Html.Hidden("SystolicReading")<br /><br /></div>
+                        <div style="color:#f5f5f5;"><input style="width:137px" type="text" id="systolic1" class="span2" value="" data-slider-min="@ViewBag.S1MINSLIDERFIRST" data-slider-max="@ViewBag.S1MINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+                    </div>
+
+
+
+                    <div class="col-md-5">
+                        <input class="requiredSelect" style=" width:45px; border:none; color:#666; display:block;height: 22px; margin 0; float: left;" type="text" id="DiastolicBinID1HIDDEN">
+                        @*  @Html.TextBoxFor(m => m.DiastolicReading, new { @style = "width: 94%;", @placeholder = "Diastolic", @class="form-control" })*@
+                        <div>Diastolic Pressure </div>
+                        <div>@Html.Hidden("DiastolicReading")<br /><br /></div>
+                        <div style="color:#f5f5f5;"><input style="width:137px" type="text" id="diastolic1" class="span2" value="" data-slider-min="@ViewBag.D1MINSLIDERFIRST" data-slider-max="@ViewBag.D1MINSLIDERLAST" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></div>
+                    </div>
+
+
+
+                </div>
+
+                <br />
+
+            </div>
+
+
+
+
+            @Html.Hidden("ScreeningIDDUP", (int?)ViewBag.ScreeningID)
+            @Html.Hidden("FUFlag", (int?)ViewBag.FollowUpFlag)
+            @Html.Hidden("Saveid", 1)
+
+
+            @if (ViewBag.Pending == true)
+            {
+
+                @Html.Hidden("CCID", (long?)ViewBag.CCID)
+
+            }
+            else {
+
+                @Html.Hidden("CCID", (long?)ViewBag.CycID)
+
+            }
+
+
+            @Html.Hidden("ClientID", (int?)ViewBag.CLID)
+            @Html.Hidden("SiteID", (int?)ViewBag.SiteID)
+            @Html.Hidden("ScreeningTypeID", (int?)ViewBag.ScreeningTypeID)
+            @Html.Hidden("EnrollID", (int?)ViewBag.EnrollID)
+            @Html.Hidden("Pending", (bool?)ViewBag.Pending)
+            @Html.Hidden("AssessmentTypeBinID", 1)
+            @Html.Hidden("BPDate")
+
+            @*     @if (ViewBag.Pending == true)
+                {
+
+
+                    @Html.Hidden("RedirectTo", Url.Action("Edit", "ClinicalCycles", new { id = Html.Hidden("CycID"), id2 = (int?)ViewBag.SiteID, id3 = (int?)ViewBag.ScreeningTypeID }))
+
+
+                }
+                else
+                {
+
+                     @Html.Hidden("RedirectTo", Url.Action("Edit", "ClinicalCycles", new { id = (int?)ViewBag.CCID, id2 = (int?)ViewBag.SiteID, id3 = (int?)ViewBag.ScreeningTypeID }))
+
+                }*@
+
+
+
+           
+
+
+        </div>
+
+    </div>
+
+@*}*@
+
+
+<script type="text/JavaScript">
+    function valid(f) {
+        !(/^[A-z&#209;&#241;0-9]*$/i).test(f.value) ? f.value = f.value.replace(/[^A-z&#209;&#241;0-9]/ig, '') : null;
+    }
+</script>
+
+
+<script type="text/javascript">
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+
+</script>
+
+
+
+<script type="text/javascript">
+
+
+
+     $(function () {
+         // BP+ Changes
+
+         $("input[type=checkbox]").bootstrapSwitch({
+
+             onText: 'YES',
+             offText: 'NO',
+             offColor: 'default',
+             onColor: 'success'
+
+
+         });
+
+         // Show/Hide ClinicalMeasures if Followup
+
+         if ('@ViewBag.FollowUpFlag' == 0) {
+
+             $("#CMContainer").css("display", "block");
+             $("#CMFUContainer").css("display", "none");
+
+
+             // Create Screen
+             $('#height').slider()
+           .on('slide', function (ev) {
+               $('#DDHeightBinIDHIDDEN').val(ev.value);
+           });
+
+
+             $('#weight').slider()
+         .on('slide', function (ev) {
+             $('#DDWeightBinIDHIDDEN').val(ev.value);
+         });
+
+
+             $('#waist').slider()
+         .on('slide', function (ev) {
+             $('#DDWaistBinIDHIDDEN').val(ev.value);
+         });
+
+
+             $('#hip').slider()
+         .on('slide', function (ev) {
+             $('#DDHipBinIDHIDDEN').val(ev.value);
+         });
+
+        
+         }
+         else {
+
+             $("#CMContainer").css("display", "none");
+             $("#CMFUContainer").css("display", "block");
+
+         }
+
+
+         $('#BPPlus').on('switchChange.bootstrapSwitch', function () {
+
+
+             if ($("#BPPlus").is(':checked')) {
+
+                 var ovdate = $("#OfficeVisitDate").val();
+                 $("#BPTestDateHIDDEN").val(ovdate);
+                 $("#BPTestDateHIDDEN").attr("disabled", "disabled");
+
+
+                 if ('@ViewBag.FollowUpFlag' == 0) {
+
+                    
+                     $("#HyperTensionMeasureValueID").select2({ width: "30%" }).removeClass("requiredSelect");
+                     $("#HyperTensionMeasureYesValueID").select2({ width: "30%" }).removeClass("requiredSelect");
+                     $("#HyperTensionShareValueID").select2({ width: "30%" }).removeClass("requiredSelect");
+                     $("#FruitValueIDHIDDEN").removeClass("requiredSelect");
+                     $("#VegValueIDHIDDEN").removeClass("requiredSelect");
+                     $("#FishValueID").select2({ width: "30%" }).removeClass("requiredSelect");
+                     $("#WholeGrainsValueID").select2({ width: "30%" }).removeClass("requiredSelect");
+                     $("#DrinkValueID").select2({ width: "30%" }).removeClass("requiredSelect");
+                     $("#SodiumReducedValueID").select2({ width: "30%" }).removeClass("requiredSelect");
+                     $("#ModerateActivityValueIDHIDDEN").removeClass("requiredSelect");
+                     $("#VigorousActivityValueIDHIDDEN").removeClass("requiredSelect");
+                     $("#SmokingSecondHandValueIDHIDDEN").removeClass("requiredSelect");
+                     $("#PhysicalHealthValueIDHIDDEN").removeClass("requiredSelect");
+                     $("#MentalHealthValueIDHIDDEN").removeClass("requiredSelect");
+                     $("#MentalPhysicalHealthValueIDHIDDEN").removeClass("requiredSelect");
+
+                 }
+                 else {
+
+                     var ovdate = $("#AssessmentDateHIDDEN").val();
+                     $("#BPTestDateHIDDEN").val(ovdate);
+                     $("#BPTestDateHIDDEN").attr("disabled", "disabled");
+
+
+                 }
+
+                if ('@ViewBag.FollowUpFlag' == 0) {
+
+                     $("#EducationBinID").select2({ width: "30%" }).removeClass("requiredSelect");
+                     $("#LanguageBinID").select2({ width: "30%" }).removeClass("requiredSelect");
+
+                     $("#CMContainer").css("display", "block");
+                     $("#CMFUContainer").css("display", "none");
+
+                 }
+                 else {
+
+                     $("#CMContainer").css("display", "none");
+                     $("#CMFUContainer").css("display", "block");
+
+                 }
+
+
+              $("#CMContainer").css("display", "block");
+                 $("#CMFUContainer").css("display", "none");
+
+                
+             
+                 $(".bpalert").css("display", "block");
+                 $("#BPTestDateHIDDEN").kendoDatePicker({ max: new Date() });
+
+                 
+
+                 $(document).ready(function () {
+
+                     $("#BPTestDateHIDDEN").keyup(function (e) {
+                         if (e.keyCode != 8) {
+                             if ($(this).val().length == 2) {
+                                 $(this).val($(this).val() + "/");
+                             } else if ($(this).val().length == 5) {
+                                 $(this).val($(this).val() + "/");
+                             }
+                         }
+                     });
+                 });
+
+                 // Create Screen
+                 $('#height').slider()
+               .on('slide', function (ev) {
+                   $('#DDHeightBinIDHIDDEN').val(ev.value);
+               });
+
+
+                 $('#weight').slider()
+             .on('slide', function (ev) {
+                 $('#DDWeightBinIDHIDDEN').val(ev.value);
+             });
+
+
+                 $('#waist').slider()
+             .on('slide', function (ev) {
+                 $('#DDWaistBinIDHIDDEN').val(ev.value);
+             });
+
+
+                 $('#hip').slider()
+             .on('slide', function (ev) {
+                 $('#DDHipBinIDHIDDEN').val(ev.value);
+             });
+
+                 // Blood Pressure
+                 $('#systolic1').slider()
+                 .on('slide', function (ev) {
+                     $('#SystolicBinID1HIDDEN').val(ev.value);
+                 });
+
+                 $('#diastolic1').slider()
+                 .on('slide', function (ev) {
+                     $('#DiastolicBinID1HIDDEN').val(ev.value);
+                 });
+               
+
+                 $("#SystolicBinID1HIDDEN").on("keyup", function () {
+                     var val = Math.abs(parseInt(this.value, 10) || 0);
+                     this.value = val > 260 ? 260 : val;
+                     $('#systolic1').slider('setValue', val);
+                 });
+
+
+                 $("#DiastolicBinID1HIDDEN").on("keyup", function () {
+                     var val = Math.abs(parseInt(this.value, 10) || 0);
+                     this.value = val > 200 ? 200 : val;
+                     $('#diastolic1').slider('setValue', val);
+                 });
+
+
+             } else {
+
+
+
+                 $("#HyperTensionMeasureValueID").select2({ width: "30%" }).addClass("requiredSelect");
+                 $("#HyperTensionMeasureYesValueID").select2({ width: "30%" }).addClass("requiredSelect");
+                 $("#HyperTensionShareValueID").select2({ width: "30%" }).addClass("requiredSelect");
+                 $("#FruitValueIDHIDDEN").addClass("requiredSelect");
+                 $("#VegValueIDHIDDEN").addClass("requiredSelect");
+                 $("#FishValueID").select2({ width: "30%" }).addClass("requiredSelect");
+                 $("#WholeGrainsValueID").select2({ width: "30%" }).addClass("requiredSelect");
+                 $("#DrinkValueID").select2({ width: "30%" }).addClass("requiredSelect");
+                 $("#SodiumReducedValueID").select2({ width: "30%" }).addClass("requiredSelect");
+                 $("#ModerateActivityValueIDHIDDEN").addClass("requiredSelect");
+                 $("#VigorousActivityValueIDHIDDEN").addClass("requiredSelect");
+                 $("#SmokingSecondHandValueIDHIDDEN").addClass("requiredSelect");
+                 $("#PhysicalHealthValueIDHIDDEN").addClass("requiredSelect");
+                 $("#MentalHealthValueIDHIDDEN").addClass("requiredSelect");
+                 $("#MentalPhysicalHealthValueIDHIDDEN").addClass("requiredSelect");
+
+                 if ('@ViewBag.FollowUpFlag' == 0) {
+
+                     $("#EducationBinID").select2({ width: "30%" }).addClass("requiredSelect");
+                     $("#LanguageBinID").select2({ width: "30%" }).addClass("requiredSelect");
+
+                     $("#CMContainer").css("display", "block");
+                     $("#CMFUContainer").css("display", "none");
+                     $('#WiseWomanSection').load('@Url.Action("_PatientInfo", "PatientInformation", new { id = ViewBag.CCID, id2 = ViewBag.SiteID, id3 = ViewBag.ScreeningTypeID, id4 = ViewBag.CLID, id5 = ViewBag.EnrollID, id6 = 0, id7 = 0, id8 = ViewBag.Pending })', function () { $("#imgProg").hide(); });
+
+                 }
+                 else {
+                     //alert('@ViewBag.ScreeningID');
+                     $("#CMContainer").css("display", "none");
+                     $("#CMFUContainer").css("display", "block");
+                     $('#WiseWomanSection').load('@Url.Action("_PatientInfo", "PatientInformation", new { id = ViewBag.CCID, id2 = ViewBag.SiteID, id3 = ViewBag.ScreeningTypeID, id4 = ViewBag.CLID, id5 = ViewBag.EnrollID, id6 = 0, id7 = ViewBag.ScreeningID, id8 = ViewBag.Pending })', function () { $("#imgProg").hide(); });
+                 }
+
+
+                 $('#BPAlertSection').removeClass('fixedElement alert alert-info');
+                 $('#BPAlertSection').addClass('alert alert-info');
+                 $(".bpalert").css("display", "none");
+
+             }
+
+
+         });
+
+
+     });
+     // End BP+ Changes
+
+     $(function () {
+
+
+         $("#CancelFUButton").click(function () {
+
+             $('#WiseWomanSection').load('@Url.Action("_PatientInfoDashboard", "PatientInformation", new { id = ViewBag.CCID, id2 = ViewBag.SiteID, id3 = ViewBag.ScreeningTypeID, id4 = ViewBag.CLID, id5 = ViewBag.EnrollID, id6 = ViewBag.ScreeningID })');
+
+
+         });
+
+
+
+     });
+
+
+</script>
+
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+
+        $("#CholMedYesValueIDHIDDEN").on("keyup", function () {
+            var val = Math.abs(parseInt(this.value, 10) || 0);
+            this.value = val > 7 ? 7 : val;
+            $('#CholMedYesDays').slider('setValue', val);
+        });
+
+        $("#HyperTensionMedYesValueIDHIDDEN").on("keyup", function () {
+            var val = Math.abs(parseInt(this.value, 10) || 0);
+            this.value = val > 7 ? 7 : val;
+            $('#HyperTensionMedYesDays').slider('setValue', val);
+        });
+     
+        $("#DiabetesMedYesValueIDHIDDEN").on("keyup", function () {
+            var val = Math.abs(parseInt(this.value, 10) || 0);
+            this.value = val > 7 ? 7 : val;
+            $('#DiabetesMedYesDays').slider('setValue', val);
+        });
+
+        $("#FruitValueIDHIDDEN").on("keyup", function () {
+            var val = Math.abs(parseInt(this.value, 10) || 0);
+            this.value = val > 50 ? 50 : val;
+            $('#FruitCups').slider('setValue', val);
+        });
+
+        $("#VegValueIDHIDDEN").on("keyup", function () {
+            var val = Math.abs(parseInt(this.value, 10) || 0);
+            this.value = val > 15 ? 15 : val;
+            $('#VegCups').slider('setValue', val);
+        });
+
+        $("#ModerateActivityValueIDHIDDEN").on("keyup", function () {
+            var val = Math.abs(parseInt(this.value, 10) || 0);
+            this.value = val > 10080 ? 10080 : val;
+            $('#ModActivity').slider('setValue', val);
+        });
+
+        $("#VigorousActivityValueIDHIDDEN").on("keyup", function () {
+            var val = Math.abs(parseInt(this.value, 10) || 0);
+            this.value = val > 10080 ? 10080 : val;
+            $('#VigActivity').slider('setValue', val);
+        });
+
+        $("#SmokingSecondHandValueIDHIDDEN").on("keyup", function () {
+            var val = Math.abs(parseInt(this.value, 10) || 0);
+            this.value = val > 24 ? 24 : val;
+            $('#SecondHand').slider('setValue', val);
+        });
+
+        $("#PhysicalHealthValueIDHIDDEN").on("keyup", function () {
+            var val = Math.abs(parseInt(this.value, 10) || 0);
+            this.value = val > 30 ? 30 : val;
+            $('#PhysicalHealth').slider('setValue', val);
+        });
+
+        $("#MentalHealthValueIDHIDDEN").on("keyup", function () {
+            var val = Math.abs(parseInt(this.value, 10) || 0);
+            this.value = val > 30 ? 30 : val;
+            $('#MentalHealth').slider('setValue', val);
+        });
+
+        $("#MentalPhysicalHealthValueIDHIDDEN").on("keyup", function () {
+            var val = Math.abs(parseInt(this.value, 10) || 0);
+            this.value = val > 30 ? 30 : val;
+            $('#MentalPhysicalHealth').slider('setValue', val);
+        });
+
+        $("#DDHeightBinIDHIDDEN").on("keyup", function () {
+            var val = Math.abs(parseInt(this.value, 10) || 0);
+            this.value = val > 80 ? 80 : val;
+            $('#height').slider('setValue', val);
+        });
+
+        $("#DDWeightBinIDHIDDEN").on("keyup", function () {
+            var val = Math.abs(parseInt(this.value, 10) || 0);
+            this.value = val > 460 ? 460 : val;
+            $('#weight').slider('setValue', val);
+        });
+
+        $("#DDWaistBinIDHIDDEN").on("keyup", function () {
+            var val = Math.abs(parseInt(this.value, 10) || 0);
+            this.value = val > 72 ? 72 : val;
+            $('#waist').slider('setValue', val);
+        });
+
+
+        $("#DDHipBinIDHIDDEN").on("keyup", function () {
+            var val = Math.abs(parseInt(this.value, 10) || 0);
+            this.value = val > 72 ? 72 : val;
+            $('#hip').slider('setValue', val);
+        });
+
+
+       
+
+        $("#HighCholValueID").select2({ width: "30%" });
+        $("#CholMedValueID").select2({ width: "30%" });
+        $("#CholMedNoValueID").select2({ width: "30%" });
+        $("#HyperTensionValueID").select2({ width: "30%" });
+        $("#HyperTensionMedValueID").select2({ width: "30%" });
+        $("#HyperTensionMeasureValueID").select2({ width: "30%" });
+        $("#HyperTensionMeasureYesValueID").select2({ width: "30%" });
+        $("#HyperTensionShareValueID").select2({ width: "30%" });
+        $("#DiabetesValueID").select2({ width: "30%" });
+        $("#DiabetesMedValueID").select2({ width: "30%" });
+        $("#HeartAttackValueID").select2({ width: "30%" });
+        $("#FishValueID").select2({ width: "30%" });
+        $("#WholeGrainsValueID").select2({ width: "30%" });
+        $("#DrinkValueID").select2({ width: "30%" });
+        $("#SodiumReducedValueID").select2({ width: "30%" });
+        $("#SodiumValueID").select2({ width: "30%" });
+        $("#SmokingValueID").select2({ width: "30%" });
+        $("#TobCompletedBinID").select2({ width: "30%" });
+        $("#PhysicalHealthValueIDNS").select2({ width: "30%" });
+        $("#MentalHealthValueIDNS").select2({ width: "30%" });
+        $("#MentalPhysicalHealthValueIDNS").select2({ width: "30%" });
+        $("#SmokingSecondHandValueIDNS").select2({ width: "30%" });
+
+      
+
+      
+
+    });
+
+   
+
+
+
+    $(document).ready(function () {
+
+
+        if ('@ViewBag.ScreeningID' != null) {
+
+
+            $("#AssessmentDateHIDDEN").kendoDatePicker({ max: new Date() });
+
+
+            $(document).ready(function () {
+                $("#AssessmentDateHIDDEN").keyup(function (e) {
+                    if (e.keyCode != 8) {
+                        if ($(this).val().length == 2) {
+                            $(this).val($(this).val() + "/");
+                        } else if ($(this).val().length == 5) {
+                            $(this).val($(this).val() + "/");
+                        }
+                    }
+                });
+            });
+
+
+
+        }
+      
+
+        // $("#AssessmentDateHIDDEN").kendoDatePicker({ max: new Date() });
+        // Set default Height Value
+        $("#DDHeightBinIDHIDDEN").val('@ViewBag.HMINSLIDERFIRST');
+
+        // Set default Weight Value
+        $("#DDWeightBinIDHIDDEN").val('@ViewBag.WMINSLIDERFIRST');
+
+        // Set default Waist Value
+        $("#DDWaistBinIDHIDDEN").val('@ViewBag.WAMINSLIDERFIRST');
+
+        // Set default Hip Value
+        $("#DDHipBinIDHIDDEN").val('@ViewBag.HIMINSLIDERFIRST');
+
+        (function ($) {
+
+            $.fn.extend({
+                detachOptions: function (o) {
+                    var s = this;
+                    return s.each(function () {
+                        var d = s.data('selectOptions') || [];
+                        s.find(o).each(function () {
+                            d.push($(this).detach());
+                        });
+                        s.data('selectOptions', d);
+                    });
+                }, attachOptions: function (o) {
+                    var s = this;
+                    return s.each(function () {
+                        var d = s.data('selectOptions') || [];
+                        for (var i in d) {
+                            if (d[i].is(o)) {
+                                s.append(d[i]);
+                                //console.log(d[i]);
+                                // TODO: remove option from data array
+                            }
+                        }
+                    });
+                }
+            });
+
+        })(jQuery);
+
+        // Control options in high Chol DD
+        $('#HighCholValueID').attachOptions('[value=1]'),
+        $('#HighCholValueID').attachOptions('[value=2]'),
+        $('#HighCholValueID').detachOptions('[value=3]');
+        $('#HighCholValueID').detachOptions('[value=4]');
+        $('#HighCholValueID').detachOptions('[value=5]');
+        $('#HighCholValueID').detachOptions('[value=6]');
+        $('#HighCholValueID').attachOptions('[value=77]'),
+        $('#HighCholValueID').attachOptions('[value=88]'),
+        $('#HighCholValueID').attachOptions('[value=99]');
+        $('#HighCholValueID').detachOptions('[value=10]');
+        $('#HighCholValueID').detachOptions('[value=12]');
+        $('#HighCholValueID').detachOptions('[value=66]');
+
+        // Control options in Hypertension DD
+        $('#HyperTensionValueID').attachOptions('[value=1]'),
+        $('#HyperTensionValueID').attachOptions('[value=2]'),
+        $('#HyperTensionValueID').detachOptions('[value=3]');
+        $('#HyperTensionValueID').detachOptions('[value=4]');
+        $('#HyperTensionValueID').detachOptions('[value=5]');
+        $('#HyperTensionValueID').detachOptions('[value=6]');
+        $('#HyperTensionValueID').attachOptions('[value=77]'),
+        $('#HyperTensionValueID').attachOptions('[value=88]'),
+        $('#HyperTensionValueID').attachOptions('[value=99]');
+        $('#HyperTensionValueID').detachOptions('[value=10]');
+        $('#HyperTensionValueID').detachOptions('[value=12]');
+        $('#HyperTensionValueID').detachOptions('[value=66]');
+
+        // Control options in Diabetes DD
+        $('#DiabetesValueID').attachOptions('[value=1]'),
+        $('#DiabetesValueID').attachOptions('[value=2]'),
+        $('#DiabetesValueID').detachOptions('[value=3]');
+        $('#DiabetesValueID').detachOptions('[value=4]');
+        $('#DiabetesValueID').detachOptions('[value=5]');
+        $('#DiabetesValueID').detachOptions('[value=6]');
+        $('#DiabetesValueID').attachOptions('[value=77]'),
+        $('#DiabetesValueID').attachOptions('[value=88]'),
+        $('#DiabetesValueID').attachOptions('[value=99]');
+        $('#DiabetesValueID').detachOptions('[value=10]');
+        $('#DiabetesValueID').detachOptions('[value=12]');
+        $('#DiabetesValueID').detachOptions('[value=66]');
+
+        // Control options in Heart Attack DD
+        $('#HeartAttackValueID').attachOptions('[value=1]'),
+        $('#HeartAttackValueID').attachOptions('[value=2]'),
+        $('#HeartAttackValueID').detachOptions('[value=3]');
+        $('#HeartAttackValueID').detachOptions('[value=4]');
+        $('#HeartAttackValueID').detachOptions('[value=5]');
+        $('#HeartAttackValueID').detachOptions('[value=6]');
+        $('#HeartAttackValueID').attachOptions('[value=77]'),
+        $('#HeartAttackValueID').attachOptions('[value=88]'),
+        $('#HeartAttackValueID').attachOptions('[value=99]');
+        $('#HeartAttackValueID').detachOptions('[value=10]');
+        $('#HeartAttackValueID').detachOptions('[value=12]');
+        $('#HeartAttackValueID').detachOptions('[value=66]');
+
+        // Control options in Chol Med DD
+        $('#CholMedValueID').attachOptions('[value=1]'),
+        $('#CholMedValueID').attachOptions('[value=2]'),
+        $('#CholMedValueID').attachOptions('[value=3]');
+        $('#CholMedValueID').detachOptions('[value=4]');
+        $('#CholMedValueID').attachOptions('[value=5]');
+        $('#CholMedValueID').detachOptions('[value=6]');
+        $('#CholMedValueID').attachOptions('[value=77]'),
+        $('#CholMedValueID').attachOptions('[value=88]'),
+        $('#CholMedValueID').attachOptions('[value=99]');
+        $('#CholMedValueID').detachOptions('[value=10]');
+        $('#CholMedValueID').detachOptions('[value=12]');
+        $('#CholMedValueID').detachOptions('[value=66]');
+
+        // Control options in HyperTension Med DD
+        $('#HyperTensionMedValueID').attachOptions('[value=1]'),
+        $('#HyperTensionMedValueID').attachOptions('[value=2]'),
+        $('#HyperTensionMedValueID').attachOptions('[value=3]');
+        $('#HyperTensionMedValueID').detachOptions('[value=4]');
+        $('#HyperTensionMedValueID').attachOptions('[value=5]');
+        $('#HyperTensionMedValueID').detachOptions('[value=6]');
+        $('#HyperTensionMedValueID').attachOptions('[value=77]'),
+        $('#HyperTensionMedValueID').attachOptions('[value=88]'),
+        $('#HyperTensionMedValueID').attachOptions('[value=99]');
+        $('#HyperTensionMedValueID').detachOptions('[value=10]');
+        $('#HyperTensionMedValueID').detachOptions('[value=12]');
+        $('#HyperTensionMedValueID').detachOptions('[value=66]');
+
+
+        // Control options in HyperTension Measure DD
+        $('#HyperTensionMeasureValueID').attachOptions('[value=1]'),
+        $('#HyperTensionMeasureValueID').detachOptions('[value=2]'),
+        $('#HyperTensionMeasureValueID').detachOptions('[value=3]');
+        $('#HyperTensionMeasureValueID').attachOptions('[value=4]');
+        $('#HyperTensionMeasureValueID').attachOptions('[value=5]');
+        $('#HyperTensionMeasureValueID').detachOptions('[value=6]');
+        $('#HyperTensionMeasureValueID').attachOptions('[value=77]'),
+        $('#HyperTensionMeasureValueID').attachOptions('[value=88]'),
+        $('#HyperTensionMeasureValueID').attachOptions('[value=99]');
+        $('#HyperTensionMeasureValueID').attachOptions('[value=10]');
+        $('#HyperTensionMeasureValueID').attachOptions('[value=12]');
+        $('#HyperTensionMeasureValueID').attachOptions('[value=66]');
+
+        // Control options in HyperTension Share DD
+        $('#HyperTensionShareValueID').attachOptions('[value=1]'),
+        $('#HyperTensionShareValueID').attachOptions('[value=2]'),
+        $('#HyperTensionShareValueID').detachOptions('[value=3]');
+        $('#HyperTensionShareValueID').detachOptions('[value=4]');
+        $('#HyperTensionShareValueID').attachOptions('[value=5]');
+        $('#HyperTensionShareValueID').detachOptions('[value=6]');
+        $('#HyperTensionShareValueID').attachOptions('[value=77]'),
+        $('#HyperTensionShareValueID').attachOptions('[value=88]'),
+        $('#HyperTensionShareValueID').attachOptions('[value=99]');
+        $('#HyperTensionShareValueID').detachOptions('[value=10]');
+        $('#HyperTensionShareValueID').detachOptions('[value=12]');
+        $('#HyperTensionShareValueID').detachOptions('[value=66]');
+
+        // Control options in Diabetes Med DD
+        $('#DiabetesMedValueID').attachOptions('[value=1]'),
+        $('#DiabetesMedValueID').attachOptions('[value=2]'),
+        $('#DiabetesMedValueID').attachOptions('[value=3]');
+        $('#DiabetesMedValueID').detachOptions('[value=4]');
+        $('#DiabetesMedValueID').attachOptions('[value=5]');
+        $('#DiabetesMedValueID').detachOptions('[value=6]');
+        $('#DiabetesMedValueID').attachOptions('[value=77]'),
+        $('#DiabetesMedValueID').attachOptions('[value=88]'),
+        $('#DiabetesMedValueID').attachOptions('[value=99]');
+        $('#DiabetesMedValueID').detachOptions('[value=10]');
+        $('#DiabetesMedValueID').detachOptions('[value=12]');
+        $('#DiabetesMedValueID').detachOptions('[value=66]');
+
+        // Control options in Fish DD
+        $('#FishValueID').attachOptions('[value=1]'),
+        $('#FishValueID').attachOptions('[value=2]'),
+        $('#FishValueID').detachOptions('[value=3]');
+        $('#FishValueID').detachOptions('[value=4]');
+        $('#FishValueID').detachOptions('[value=5]');
+        $('#FishValueID').detachOptions('[value=6]');
+        $('#FishValueID').detachOptions('[value=77]'),
+        $('#FishValueID').attachOptions('[value=88]'),
+        $('#FishValueID').attachOptions('[value=99]');
+        $('#FishValueID').detachOptions('[value=10]');
+        $('#FishValueID').detachOptions('[value=12]');
+        $('#FishValueID').detachOptions('[value=66]');
+
+
+        // Control options in Fish DD
+        $('#WholeGrainsValueID').attachOptions('[value=1]'),
+        $('#WholeGrainsValueID').attachOptions('[value=2]'),
+        $('#WholeGrainsValueID').detachOptions('[value=3]');
+        $('#WholeGrainsValueID').detachOptions('[value=4]');
+        $('#WholeGrainsValueID').detachOptions('[value=5]');
+        $('#WholeGrainsValueID').detachOptions('[value=6]');
+        $('#WholeGrainsValueID').detachOptions('[value=77]'),
+        $('#WholeGrainsValueID').attachOptions('[value=88]'),
+        $('#WholeGrainsValueID').attachOptions('[value=99]');
+        $('#WholeGrainsValueID').detachOptions('[value=10]');
+        $('#WholeGrainsValueID').detachOptions('[value=12]');
+        $('#WholeGrainsValueID').detachOptions('[value=66]');
+
+        // Control options in Drink DD
+        $('#DrinkValueID').attachOptions('[value=1]'),
+        $('#DrinkValueID').attachOptions('[value=2]'),
+        $('#DrinkValueID').detachOptions('[value=3]');
+        $('#DrinkValueID').detachOptions('[value=4]');
+        $('#DrinkValueID').detachOptions('[value=5]');
+        $('#DrinkValueID').detachOptions('[value=6]');
+        $('#DrinkValueID').detachOptions('[value=77]'),
+        $('#DrinkValueID').attachOptions('[value=88]'),
+        $('#DrinkValueID').attachOptions('[value=99]');
+        $('#DrinkValueID').detachOptions('[value=10]');
+        $('#DrinkValueID').detachOptions('[value=12]');
+        $('#DrinkValueID').detachOptions('[value=66]');
+
+        // Control options in Sodium Reduced DD
+        $('#SodiumValueID').attachOptions('[value=1]'),
+        $('#SodiumValueID').attachOptions('[value=2]'),
+        $('#SodiumValueID').detachOptions('[value=3]');
+        $('#SodiumValueID').detachOptions('[value=4]');
+        $('#SodiumValueID').detachOptions('[value=5]');
+        $('#SodiumValueID').detachOptions('[value=6]');
+        $('#SodiumValueID').detachOptions('[value=77]'),
+        $('#SodiumValueID').attachOptions('[value=88]'),
+        $('#SodiumValueID').attachOptions('[value=99]');
+        $('#SodiumValueID').detachOptions('[value=10]');
+        $('#SodiumValueID').detachOptions('[value=12]');
+        $('#SodiumValueID').detachOptions('[value=66]');
+
+
+
+        // Control options in Sodium Reduced DD
+        $('#SodiumReducedValueID').attachOptions('[value=1]'),
+        $('#SodiumReducedValueID').attachOptions('[value=2]'),
+        $('#SodiumReducedValueID').detachOptions('[value=3]');
+        $('#SodiumReducedValueID').detachOptions('[value=4]');
+        $('#SodiumReducedValueID').detachOptions('[value=5]');
+        $('#SodiumReducedValueID').detachOptions('[value=6]');
+        $('#SodiumReducedValueID').detachOptions('[value=77]'),
+        $('#SodiumReducedValueID').attachOptions('[value=88]'),
+        $('#SodiumReducedValueID').attachOptions('[value=99]');
+        $('#SodiumReducedValueID').detachOptions('[value=10]');
+        $('#SodiumReducedValueID').detachOptions('[value=12]');
+        $('#SodiumReducedValueID').detachOptions('[value=66]');
+
+    });
+
+    $(function () {
+
+
+        //   $("#checkboxPHYSICALHEALTHCHECK").click(function () {
+        $('#checkboxPHYSICALHEALTHCHECK').on('switchChange.bootstrapSwitch', function () {
+
+            if ($("#checkboxPHYSICALHEALTHCHECK").is(':checked')) {
+
+
+                $("#PhysicalHealthCheckboxContainer").css("display", "block");
+                // Set Physical Health Value
+                $slider = $('#PhysicalHealth');
+                $slider.slider('setValue', null);
+                $("#PhysicalHealthValueIDHIDDEN").val(null);
+                $("#PhysicalHealthContainer").css("display", "none");
+                //$('#checkboxPHYSICALHEALTHCHECK').attr('checked', false);
+                $("#PhysicalHealthValueIDNS").select2("val", "Choose...");
+
+            } else {
+
+
+                $("#PhysicalHealthContainer").css("display", "block");
+                $("#PhysicalHealthCheckboxContainer").css("display", "none");
+
+            }
+
+        });
+
+        // $("#checkboxMENTALHEALTHCHECK").click(function () {
+        $('#checkboxMENTALHEALTHCHECK').on('switchChange.bootstrapSwitch', function () {
+
+            if ($("#checkboxMENTALHEALTHCHECK").is(':checked')) {
+
+
+                $("#MentalHealthCheckboxContainer").css("display", "block");
+                // Set Physical Health Value
+                $slider = $('#MentalHealth');
+                $slider.slider('setValue', null);
+                $("#MentalHealthValueIDHIDDEN").val(null);
+                $("#MentalHealthContainer").css("display", "none");
+                //$('#checkboxPHYSICALHEALTHCHECK').attr('checked', false);
+                $("#MentalHealthValueIDNS").select2("val", "Choose...");
+
+            } else {
+
+
+                $("#MentalHealthContainer").css("display", "block");
+                $("#MentalHealthCheckboxContainer").css("display", "none");
+
+            }
+
+        });
+
+        // $("#checkboxMENTALPHYSICALHEALTHCHECK").click(function () {
+        $('#checkboxMENTALPHYSICALHEALTHCHECK').on('switchChange.bootstrapSwitch', function () {
+
+            if ($("#checkboxMENTALPHYSICALHEALTHCHECK").is(':checked')) {
+
+
+                $("#MentalPhysicalHealthCheckboxContainer").css("display", "block");
+                // Set Physical Health Value
+                $slider = $('#MentalPysicalHealth');
+                $slider.slider('setValue', null);
+                $("#MentalPhysicalHealthValueIDHIDDEN").val(null);
+                $("#MentalPhysicalHealthContainer").css("display", "none");
+                //$('#checkboxPHYSICALHEALTHCHECK').attr('checked', false);
+                $("#MentalPhysicalHealthValueIDNS").select2("val", "Choose...");
+
+            } else {
+
+
+                $("#MentalPhysicalHealthContainer").css("display", "block");
+                $("#MentalPhysicalHealthCheckboxContainer").css("display", "none");
+
+            }
+
+        });
+
+
+        //  $("#checkboxSMOKINGSECONDHANDCHECK").click(function () {
+        $('#checkboxSMOKINGSECONDHANDCHECK').on('switchChange.bootstrapSwitch', function () {
+
+            if ($("#checkboxSMOKINGSECONDHANDCHECK").is(':checked')) {
+
+
+                $("#SmokingSecondHandCheckboxContainer").css("display", "block");
+                // Set Second Hand Smoking
+                $slider = $('#SecondHand');
+                $slider.slider('setValue', null);
+                $("#SmokingSecondHandValueIDHIDDEN").val(null);
+                $("#SmokingSecondHandContainer").css("display", "none");
+                //$('#checkboxPHYSICALHEALTHCHECK').attr('checked', false);
+                $("#SmokingSecondHandValueIDNS").select2("val", "Choose...");
+
+            } else {
+
+
+                $("#SmokingSecondHandContainer").css("display", "block");
+                $("#SmokingSecondHandCheckboxContainer").css("display", "none");
+
+            }
+
+        });
+
+
+
+    });
+
+
+    $(document).ready(function () {
+
+
+
+        $('#FollowupCompletenessBinID').detachOptions('[value=1]');
+
+
+
+    });
+
+
+ 
+
+    $(function () {
+
+
+
+        $("#HighCholValueID").select2({
+            containerCssClass: "error",
+            width: "30%"
+        });
+
+        $("#CholMedValueID").select2({
+            containerCssClass: "error",
+            width: "30%"
+        });
+
+        $("#CholMedNoValueID").select2({
+            containerCssClass: "error",
+            width: "30%"
+        });
+
+        $("#HyperTensionValueID").select2({
+            containerCssClass: "error",
+            width: "30%"
+        });
+
+        $("#HyperTensionMedValueID").select2({
+            containerCssClass: "error",
+            width: "30%"
+        });
+
+        $("#HyperTensionMeasureValueID").select2({
+            containerCssClass: "error",
+            width: "30%"
+        });
+
+        $("#HyperTensionMeasureYesValueID").select2({
+            containerCssClass: "error",
+            width: "30%"
+        });
+
+        $("#HyperTensionShareValueID").select2({
+            containerCssClass: "error",
+            width: "30%"
+        });
+
+        $("#DiabetesValueID").select2({
+            containerCssClass: "error",
+            width: "30%"
+        });
+
+        $("#DiabetesMedValueID").select2({
+            containerCssClass: "error",
+            width: "30%"
+        });
+
+        $("#HeartAttackValueID").select2({
+            containerCssClass: "error",
+            width: "30%"
+        });
+
+        $("#FishValueID").select2({
+            containerCssClass: "error",
+            width: "30%"
+        });
+
+        $("#WholeGrainsValueID").select2({
+            containerCssClass: "error",
+            width: "30%"
+        });
+
+        $("#DrinkValueID").select2({
+            containerCssClass: "error",
+            width: "30%"
+        });
+
+        $("#SodiumReducedValueID").select2({
+            containerCssClass: "error",
+            width: "30%"
+        });
+
+        $("#SodiumValueID").select2({
+            containerCssClass: "error",
+            width: "30%"
+        });
+
+        $("#SmokingValueID").select2({
+            containerCssClass: "error",
+            width: "30%"
+        });
+
+        $("#TobCompletedValueID").select2({
+            containerCssClass: "error",
+            width: "30%"
+        });
+
+    });
+
+
+</script>
+
