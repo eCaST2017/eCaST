@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WHModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="PersonID" />
+    </Key>
+    <Property Name="PersonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProgramCode" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="SiteID" Type="Int32" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SuffixID" Type="Int32" />
+    <Property Name="GenderID" Type="Int32" />
+    <Property Name="Patient" Type="Boolean" />
+    <Property Name="AKALastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AKAMiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AKAFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="OriginCountry" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="EthnicityHispanic" Type="Int32" />
+    <Property Name="LanguageSpokenID" Type="Int32" />
+    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+    <Property Name="DateStatus" Type="DateTime" Precision="0" />
+    <Property Name="Deceased" Type="Boolean" />
+    <Property Name="DateDeceased" Type="DateTime" Precision="0" />
+    <Property Name="SourceID" Type="Int32" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="0" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DateCreated" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EthnicityID" Type="Int32" />
+    <Property Name="DateEnrollment" Type="DateTime" Precision="3" />
+    <Property Name="MaidenName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EthnicityConfidential" Type="Boolean" />
+    <Property Name="NoSSN" Type="Int32" />
+    <Property Name="LimitedEnglish" Type="Boolean" />
+    <Property Name="ResponsibleParty" Type="Boolean" />
+    <Property Name="InterpreterNeeded" Type="Int32" />
+    <Property Name="InactiveReasonID" Type="Int32" />
+    <Property Name="DeidentifiedID" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="WHEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="People" EntityType="Self.Person" />
+  </EntityContainer>
+</Schema>

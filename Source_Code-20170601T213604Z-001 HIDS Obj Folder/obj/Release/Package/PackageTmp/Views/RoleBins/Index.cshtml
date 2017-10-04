@@ -1,0 +1,63 @@
+﻿@model IEnumerable<CTL.Models.RoleBin>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RoleBinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LegacyRoleID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LegacyRoleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsPortalUser)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AgencyTypeRoleBinID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoleBinName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LegacyRoleID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LegacyRoleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsPortalUser)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AgencyTypeRoleBinID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RoleBinID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RoleBinID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RoleBinID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,664 @@
+﻿@model IEnumerable<CTL.ViewModels.UserProfileViewModel>
+
+@{
+    ViewBag.Title = "Active Members";
+}
+
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        oTable = $('#ActiveUserList').dataTable({
+            "bPaginate": false
+            //"bJQueryUI": true,
+            //"sPaginationType": "full_numbers",
+            //"aaSorting": [[1, "desc"]]
+        });
+
+        oTable.fnSort([[6, 'desc']]); // Sort by first column descending
+
+    });
+</script>
+
+<style type="text/css">
+    .bg_mask {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        margin-top: 0px;
+        width: 981px;
+        height: 610px;
+        background: url("img_dot_white.jpg") center;
+        z-index: 0;
+        visibility: hidden;
+    }
+
+    .frontlayer {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: 70px 140px 175px 140px;
+        padding: 30px;
+        width: 700px;
+        height: 400px;
+        background-color: orange;
+        visibility: hidden;
+        border: 1px solid black;
+        z-index: 1;
+    }
+
+
+
+    label, div {
+        color: #666;
+    }
+
+
+    #ActiveUserList td.sorting_1 {
+        background-color: #fff;
+        border: 1px lightgrey;
+    }
+    /*table.dataTable td{ background-color: aliceblue;  border:1px lightgrey;}*/
+    #ActiveUserList tr {
+        background-color: #fff;
+        color: #666;
+    }
+
+        #ActiveUserList tr:nth-child(even) {
+            background-color: #f7f7f6;
+        }
+
+
+    .img-circle {
+        border-radius: 50%;
+    }
+
+
+</style>
+
+<div class="w3-card-2">
+
+
+    <div style="background-color:cornflowerblue" class="panel-heading w3-card-2">
+        <span style="color:#fff;font-family: 'Roboto', sans-serif; font-size:16px"><i style="color:#fff" class="fa fa-users fa-fw"></i>&nbsp;Users &nbsp;<span style="font-size:18px;background-color:#fff;color:cornflowerblue" class="badge">@ViewBag.UserCount</span></span>
+
+    </div>
+    <!-- /.panel-heading -->
+    <div style="background-color:#fff" class="panel-body">
+
+
+
+        <table style="width:100%;  font-size:14px" id="ActiveUserList">
+            <thead>
+                <tr style="background-color:#f7f7f6;">
+                    <th></th>
+                    @*<th > Profile Updated</th>*@
+                    <th>
+                        Name
+                    </th>
+
+                    <th>
+                        Email
+                    </th>
+
+
+                    <th>
+                        Program(s)
+                    </th>
+
+                    <th>
+                        Role
+                    </th>
+                    <th>Site Access</th>
+                    <th>
+                        Status
+                    </th>
+
+
+                    @*<th></th>*@
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="width:13%">
+
+
+                        @if (item.Active == false)
+                        {
+
+                            
+                            if (ViewBag.RoleID == 1 || ViewBag.RoleID == 3 || ViewBag.RoleID == 13)
+                            {
+                            
+                            <div id="ExternalApproval_@item.Id"></div><text>&nbsp;</text>
+
+                            <script type="text/javascript">
+
+                                $(function () {
+
+                                    $('#ExternalApproval_@item.Id').load('@Url.Action("_ExternalApprovalCheck", "UserProfiles", new { id = @item.Id })');
+
+                                });
+
+                            </script>
+
+                            <a id='ActivateDetailButton_@item.Id' style="text-decoration:none;color:#35a923; cursor:pointer"><span class="btn btn-danger"><i class="fa fa-bell"></i></span></a>
+
+
+           
+                            <div class="modal fade" id="ActivateD_@item.Id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div style="text-align:left" class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h3 class="modal-title" id="myModalLabel">@item.FirstName @item.LastName </h3>
+                                        </div>
+
+                                        <div id="ActivateDetailContainer_@item.Id"></div>
+
+                                    
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script type="text/javascript">
+
+                                $(function () {
+
+
+                                    $("#ActivateDetailButton_@item.Id").click(function () {
+
+
+
+                                        $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+
+                                        $("#ContentContainer").load("@Url.Action("_Activate","UserProfiles")", { 'id': '@item.Id' },
+                                                                  function (response, status, xhr) {
+                                                                      if (status == "error") {
+
+                                                                      }
+                                                                      $("#ContentContainer").show(500);
+                                                                  });
+
+                                    });
+
+
+                                });
+
+
+
+                                $(function () {
+
+                                    $('#ActivateD_@item.Id').on('shown.bs.modal', function () {
+                                        $(this).find('.modal-dialog').css({
+                                            //width: 'auto',
+                                            width: '92%',
+                                            height: 'auto',
+                                            'max-height': '100%'
+                                        });
+                                    });
+
+                                });
+
+                            </script>
+
+                        }
+
+                        }
+                        else
+                        {
+
+
+                            if (ViewBag.RoleID == 1 || ViewBag.RoleID == 3 || ViewBag.RoleID == 13)
+                            {
+
+                                
+                            
+
+
+
+
+
+                                <a id="loginUserLink_@item.Id" style="text-decoration:none" class="loginUserLink" data-toggle="modal" title="Login as @item.FirstName @item.LastName" data-target="#loginUser_@item.Id">
+
+
+                                    <span class="btn btn-default" style="font-size:14px"><i class="fa fa-laptop"></i></span>
+
+                                </a>
+
+                                <div class="modal fade" id="loginUser_@item.Id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div style="text-align:left" class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3 class="modal-title" id="myModalLabel">Login User </h3>
+                                            </div>
+
+                                            <div id="LoginUserContainer_@item.Id"></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <script type="text/javascript">
+
+                                    $(function () {
+
+
+                                        $("#loginUserLink_@item.Id").click(function () {
+
+
+                                         
+                                            $('#LoginUserContainer_@item.Id').load('@Url.Action("LoginUser", "UserProfiles", new { id = @item.Id })');
+
+
+
+                                        });
+
+
+                                    });
+
+                                </script>
+
+
+                            }
+
+
+                        }
+
+                        @if (ViewBag.RoleID == 1 || ViewBag.RoleID == 13)
+                        {
+
+                        <a id="delete1Link_@item.Id" style="text-decoration:none" data-toggle="modal" data-target="#DeleteUserModal_@item.Id" href="#">
+
+
+                            <span class="btn btn-default" style="font-size:14px"><span class="glyphicon glyphicon-trash"></span></span>
+                        </a>
+
+
+
+                        <div class="modal fade" id="DeleteUserModal_@item.Id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div style="text-align:left" class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 style="color:#4a6ddc; font-family: 'Roboto', sans-serif;" class="modal-title" id="myModalLabel">Are you sure you want to delete this user?</h3>
+                                    </div>
+
+                                    <div id="DeleteUserContainer_@item.Id"></div>
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <script type="text/javascript">
+
+
+                            $(function () {
+
+
+                                $("#delete1Link_@item.Id").click(function () {
+
+
+                                    $('#DeleteUserContainer_@item.Id').load('@Url.Action("Delete", "UserProfiles", new { id = @item.Id })');
+
+
+                                });
+
+                            });
+
+
+                        </script>
+
+                        }
+
+
+                    </td>
+
+                 
+
+                    <td style="width:20%">
+
+
+                        @if (ViewBag.RoleID == 1 || ViewBag.RoleID == 13)
+                        {
+
+ 
+                            <span style="width:30px">
+
+
+                                <a id="edit1Link" style="text-decoration:none" class="edit1Link" href="@Url.Action("Edit", "UserProfiles", new { id = item.Id })">
+
+                                    <img class="img-circle" style="width:30px;height:30px" src="@Html.Raw(item.profilePic)" /><span style="color:#333; font-size:large"> @item.FirstName </span>
+
+                                </a>
+
+
+                            </span>
+
+                        }
+                        else
+                        {
+
+                            <span>
+
+                                <img class="img-circle" style="width:30px;height:30px" src="@Html.Raw(item.profilePic)" /><span style="color:#333; font-size:large"> @item.FirstName </span>
+
+                            </span>
+
+
+                        }
+
+                        
+                    </td>
+
+                    <td>
+
+                        <span>@item.UserName</span>
+                    </td>
+
+
+                    <td>
+                        <a style="text-decoration:none" href="#" data-toggle="tooltip" title='@string.Join(",", item.RoleAList.ToArray())'> @string.Join(",", item.RoleAList.ToArray()).Substring(0, 10)...</a>
+                    </td>
+
+
+                    <td>
+                    
+
+                        @if (item.Coordinator == true)
+                        {
+
+                        <span>@item.AgencySiteName - Access Coordinator</span>
+
+                        }
+                        else
+                        {
+                            if (item.RoleBinName == "User")
+                            {
+
+                                <span>@string.Join(",", item.AgencyRoleAList.ToArray())</span>
+
+                            }
+                            else
+                            {
+
+                                <span>@item.AgencySiteName</span>
+
+                            }
+
+
+
+                        }
+
+
+                    
+                    </td>
+
+                  
+                    <td style="width:10%">
+                        <a style="text-decoration:none" href="#" data-toggle="tooltip" title='@string.Join(",", item.SiteAList.ToArray())'> @string.Join(",", item.SiteAList.ToArray()).Substring(0, 3)...</a>
+                    </td>
+
+                
+
+
+
+                    <td>
+                        @if (item.Active == true)
+                        {
+
+                            <span>Active</span>
+
+
+                        }
+                        else
+                        {
+
+                            <span style="color:red">Pending</span>
+
+                        }
+                    </td>
+
+
+                    @*<td>
+
+
+
+                        </td>*@
+
+
+                </tr>
+            }
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<div id="delete1Dialog" title="Delete User"></div>
+<div id="update1Dialog" title="User Profile"></div>
+<div id="createDialogUSER" title="Add User"></div>
+
+
+
+<div class="modal fade" id="EmailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 style="font-family:'Roboto', sans-serif; font-size:28px" class="modal-title" id="myModalLabel">Send Message</h4>
+            </div>
+            <div class="modal-body">
+
+                <div id="EmailSection"></div>
+
+
+            </div>
+
+            <div class="modal-footer">
+                <div style="float:right">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="AddPostButton" type="submit" class="btn btn-success">Send</button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+
+
+        $(document).ready(function () {
+
+
+
+            $('#EmailSection').load('@Url.Action("Create", "Messages")');
+            $('[data-toggle="tooltip"]').tooltip();
+
+
+        });
+
+    </script>
+
+
+
+
+    <script type="text/javascript">
+
+        var linkObj4;
+        $(function () {
+
+
+            $('#createDialogUSER').dialog({
+                autoOpen: false,
+                width: 900,
+                height: 400,
+                resizable: true,
+                modal: true,
+                buttons: {
+                    "Add": function () {
+                        $("#update-message").html(''); //make sure there is nothing on the message before we continue
+                        $("#addUSERForm").submit();
+
+                    },
+                    "Cancel": function () {
+                        $(this).dialog("close");
+                    }
+
+
+
+                }
+            });
+
+            $(".createLinkUSER").click(function () {
+                //change the title of the dialog
+                linkObj4 = $(this);
+                var dialogDiv = $('#createDialogUSER');
+                var viewUrl = linkObj4.attr('href');
+                $.get(viewUrl, function (data) {
+                    dialogDiv.html(data);
+                    //validation
+                    var $form = $("#addUSERForm");
+                    // Unbind existing validation
+                    //$form.unbind();
+                    //$form.data("validator", null);
+                    // Check document for changes
+                    //$.validator.unobtrusive.parse(document);
+                    // Re add validation with changes
+                    //$form.validate($form.data("unobtrusiveValidation").options);
+                    //open dialog
+                    dialogDiv.dialog('open');
+                });
+                return false;
+            });
+
+        });
+
+
+
+        var linkObj;
+        $(function () {
+            $(".edit1Link").button();
+            $(".detailsLink").button();
+            $(".createLinkUSER").button();
+            //$(".delete1Link").button();
+            $(".passwordLink").button();
+
+            $('#update1Dialog').dialog({
+                autoOpen: false,
+                width: 950,
+                height: 840,
+                resizable: true,
+                modal: true,
+                buttons: {
+                    "Update": function () {
+                        $("#update-message").html(''); //make sure there is nothing on the message before we continue
+                        $("#updateUserForm").submit();
+
+                    },
+                    "Cancel": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            $(".edit1Link").click(function () {
+                //change the title of the dialog
+                linkObj = $(this);
+                var dialogDiv = $('#update1Dialog');
+                var viewUrl = linkObj.attr('href');
+                $.get(viewUrl, function (data) {
+                    dialogDiv.html(data);
+                    //validation
+                    var $form = $("#updateCarForm");
+                    // Unbind existing validation
+                    //$form.unbind();
+                    //$form.data("validator", null);
+                    // Check document for changes
+                    //$.validator.unobtrusive.parse(document);
+                    // Re add validation with changes
+                    //$form.validate($form.data("unobtrusiveValidation").options);
+                    //open dialog
+                    dialogDiv.dialog('open');
+                });
+                return false;
+            });
+
+
+        });
+
+
+        var linkObj3;
+        $(function () {
+            $(".delete1Link").button();
+
+            $('#delete1Dialog').dialog({
+                autoOpen: false,
+                width: 900,
+                height: 400,
+                resizable: true,
+                modal: true,
+                buttons: {
+                    "Delete": function () {
+                        $("#update-message").html(''); //make sure there is nothing on the message before we continue
+                        $("#deleteUserForm").submit();
+
+                    },
+                    "Cancel": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            $(".delete1Link").click(function () {
+                //change the title of the dialog
+                linkObj3 = $(this);
+                var dialogDiv = $('#delete1Dialog');
+                var viewUrl = linkObj3.attr('href');
+                $.get(viewUrl, function (data) {
+                    dialogDiv.html(data);
+                    //open dialog
+                    dialogDiv.dialog('open');
+                });
+                return false;
+            });
+
+        });
+
+        function updateSuccess(data) {
+            if (data.Success == true) {
+                //we update the table's info
+                var parent = linkObj.closest("tr");
+                parent.find(".carName").html(data.Object.Name);
+                parent.find(".carDescription").html(data.Object.Description);
+                //now we can close the dialog
+                $('#delete1Dialog').dialog('close');
+                //twitter type notification
+                $('#commonMessage').html("Update Complete");
+                $('#commonMessage').delay(400).slideDown(400).delay(3000).slideUp(400);
+            }
+            else {
+                $("#update-message").html(data.ErrorMessage);
+                $("#update-message").show();
+            }
+        }
+
+    </script>
+}
+

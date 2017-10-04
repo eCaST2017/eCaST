@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HIDSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="DDCityBin">
+    <Key>
+      <PropertyRef Name="CityBinID" />
+    </Key>
+    <Property Name="CityBinID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CityBinName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DDCountyBin">
+    <Key>
+      <PropertyRef Name="CountyBinID" />
+    </Key>
+    <Property Name="CountyBinID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CountyCode" Type="Int32" Nullable="false" />
+    <Property Name="CountyBinName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Fips_Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="RegionStatusBinID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="DDStateBin">
+    <Key>
+      <PropertyRef Name="StateBinID" />
+    </Key>
+    <Property Name="StateBinID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StateCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="StateBinName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FIPS" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="HIDSEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="DDCityBins" EntityType="Self.DDCityBin" />
+    <EntitySet Name="DDCountyBins" EntityType="Self.DDCountyBin" />
+    <EntitySet Name="DDStateBins" EntityType="Self.DDStateBin" />
+    <EntitySet Name="DDAgencyRoleBins" EntityType="HIDSModel.DDAgencyRoleBin" />
+    <EntitySet Name="DDAgencyRoleTypeBins" EntityType="HIDSModel.DDAgencyRoleTypeBin" />
+  </EntityContainer>
+  <EntityType Name="DDAgencyRoleBin">
+    <Key>
+      <PropertyRef Name="AgencyRoleBinID" />
+    </Key>
+    <Property Name="AgencyRoleBinID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AgencyRoleBinName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="AgencyRoleTypeBinID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="DDAgencyRoleTypeBin">
+    <Key>
+      <PropertyRef Name="AgencyRoleTypeBinID" />
+    </Key>
+    <Property Name="AgencyRoleTypeBinID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AgencyRoleTypeBinName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+  </EntityType>
+</Schema>

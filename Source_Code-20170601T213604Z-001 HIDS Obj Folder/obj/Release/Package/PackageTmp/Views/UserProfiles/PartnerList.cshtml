@@ -1,0 +1,446 @@
+﻿@model IEnumerable<CTL.ViewModels.UserProfileViewModel>
+
+
+<script type="text/javascript" charset="utf-8">
+    (function ($) {
+        /* 
+         * Function: fnGetColumnData
+         * Purpose:  Return an array of table values from a particular column.
+         * Returns:  array string: 1d data array
+         * Inputs:   object:oSettings - dataTable settings object. This is always the last argument past to the function
+         *           int:iColumn - the id of the column to extract the data from
+         *           bool:bUnique - optional - if set to false duplicated values are not filtered out
+         *           bool:bFiltered - optional - if set to false all the table data is used (not only the filtered)
+         *           bool:bIgnoreEmpty - optional - if set to false empty values are not filtered from the result array
+         * Author:   Benedikt Forchhammer <b.forchhammer /AT\ mind2.de>
+         */
+        $.fn.dataTableExt.oApi.fnGetColumnData = function (oSettings, iColumn, bUnique, bFiltered, bIgnoreEmpty) {
+            // check that we have a column id
+            if (typeof iColumn == "undefined") return new Array();
+
+            // by default we only want unique data
+            if (typeof bUnique == "undefined") bUnique = true;
+
+            // by default we do want to only look at filtered data
+            if (typeof bFiltered == "undefined") bFiltered = true;
+
+            // by default we do not want to include empty values
+            if (typeof bIgnoreEmpty == "undefined") bIgnoreEmpty = true;
+
+            // list of rows which we're going to loop through
+            var aiRows;
+
+            // use only filtered rows
+            if (bFiltered == true) aiRows = oSettings.aiDisplay;
+                // use all rows
+            else aiRows = oSettings.aiDisplayMaster; // all row numbers
+
+            // set up data array
+            var asResultData = new Array();
+
+            for (var i = 0, c = aiRows.length; i < c; i++) {
+                iRow = aiRows[i];
+                var aData = this.fnGetData(iRow);
+                var sValue = aData[iColumn];
+
+                // ignore empty values?
+                if (bIgnoreEmpty == true && sValue.length == 0) continue;
+
+                    // ignore unique values?
+                else if (bUnique == true && jQuery.inArray(sValue, asResultData) > -1) continue;
+
+                    // else push the value onto the result data array
+                else asResultData.push(sValue);
+            }
+
+            return asResultData;
+        }
+    }(jQuery));
+
+
+    function fnCreateSelect(aData) {
+        var r = '<div class="input-control select"><select style="font-size:11px"><option value="">--Show All--</option>', i, iLen = aData.length;
+        for (i = 0 ; i < iLen ; i++) {
+            r += '<option value="' + aData[i] + '">' + aData[i] + '</option>';
+        }
+        var b = "  <span style='font-size:11px'></span>  ";
+        return b + r + '</select></div>';
+    }
+
+
+    $(document).ready(function () {
+        /* Initialise the DataTable */
+        var oTable = $('#example').dataTable({
+            "oLanguage": {
+                "sSearch": "Search:"
+            },
+            "bPaginate": false,
+            "bSort": false,
+            "bAutoWidth": false,
+            //"aoColumnDefs": [{ "bVisible": false, "aTargets": [0] }]
+        });
+
+        /* Add a select menu for each TH element in the table footer */
+        //$(".Group").each(function (i) {
+        //    this.innerHTML = fnCreateSelect(oTable.fnGetColumnData(i));
+        //    $('select', this).change(function () {
+        //        oTable.fnFilter($(this).val(), i);
+        //    });
+        //});
+    });
+</script>
+
+<style type="text/css">
+    table.dataTable td.sorting_1 {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+
+    table.dataTable td {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+
+    table.dataTable tr.odd {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+
+    table.dataTable tr.even {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+</style>
+
+ <div style="width:100%;">
+        <!--Main Content-->
+                 <h3 style="font-family:'Roboto', sans-serif;padding-left:20px" >Find Organizations</h3>
+                 <hr />
+      @*  <ul class="nav nav-pills nav-stacked" style="max-width:100%;">
+            <li style="background-color:#449b21;border-radius:5px;color:#fff;opacity:0.7">
+                <a style="color:#fff;" href="#">
+                    <span class="badge pull-right">2</span>
+                     Family Leader Tracker
+                </a>
+            </li>
+           
+
+        </ul>*@
+
+                 
+
+
+	<div style="padding-left:20px" class="container">
+
+		
+		
+	@*<div class="bs-example">
+    <div class="row">
+      <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+      <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+         <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+      <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+         <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+      <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+         <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+      <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+         <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+      <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+         <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+      <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+         <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+      <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+    </div>
+  </div>*@<!-- /.bs-example -->
+
+
+    </div><!-- /.container -->
+
+
+
+
+       
+      @*  @{ Html.RenderAction("PartnerList", "UserProfiles");}*@
+    </div>
+
+ @* <div style="width:100%;border-radius:5px;background-color:#449b21; color:#fff; padding:12px; opacity:0.7; font-size:20px" ><span class="glyphicon glyphicon-search"></span>&nbsp;Find Organizations</div>*@
+
+        <br />
+
+
+
+<div id="holder">
+    <table style="width:100%; font-family:'Roboto', sans-serif" cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+        <thead>
+            <tr>
+                <th class="Group">Partners</th>
+                <th></th>
+                @*<th></th>*@
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+
+
+
+            <tr>
+               
+
+                <td style="color:#ccc; width:0px; font-size:14px; border:none">
+
+                
+                   @item.PartnerTypeName
+
+               
+
+</td>
+
+                <td style="border:none">
+
+
+                    <div class="alert alert-default">
+
+                        <div data-role="listview">
+                            <div class="list marked" style="text-decoration:none" data-toggle="modal" data-target="#@item.UserId" href="#">
+                            
+                                
+                                
+                                <div style="width:100%" class="list-content">
+
+
+                                <div class="row">
+                                    <div class="col-md-3">
+
+                                        @Html.Raw(item.profilePic)
+
+                                    </div>
+
+                                    <div class="col-md-9">
+
+
+
+
+                                        <div><h3>@item.FirstName @item.LastName</h3></div>
+
+
+                                        <div style="font-size:medium" class="form-group">
+                                            <label style="padding-right:6px" for="UserName">Organization:</label>
+                                            @item.OrganizationName
+                                        </div>
+
+
+                                        <div style="font-size:medium" class="form-group">
+                                            <label style="padding-right:6px" for="UserName">Specialties:</label>
+                                            @item.PartnerTypeName
+                                        </div>
+
+
+
+
+
+
+                                        <br />
+                                        <div align="right">
+                                            
+                                            <ul class="nav nav-pills nav-stacked" >
+                                               
+                                                
+                                                 <li>
+                                                    <a href="#">
+                                                       
+                                                        Make Connection
+                                                    </a>
+                                                </li>
+                                              
+
+                                            </ul>
+
+</div>
+                                    </div>
+
+                                </div>
+
+
+
+                                @*<div style="float:left;">
+
+
+                        @Html.Raw(item.profilePic)
+
+
+                    </div>
+
+                    <div style="float:right; width:60%;font-family:'Roboto', sans-serif">
+                        <span class="list-title"><h2 style="font-family:'Roboto', sans-serif">@item.FirstName @item.LastName</h2> </span>
+                        <span> @item.OrganizationName </span>
+                        <div style="vertical-align:bottom" align="right">
+
+                            @Html.ActionLink("Connect","Connect","UserProfiles", new { @class = "btn btn-info", @style="color:#fff" })
+
+                        </div>
+                    </div>*@
+
+                            </div>
+                            </div>
+
+
+                        </div>
+
+
+                        </div>
+
+
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="@item.UserId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 style="font-family:'Roboto', sans-serif; font-size:28px" class="modal-title" id="myModalLabel">@item.FirstName @item.LastName</h4>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <div>
+
+
+
+                                @Html.Raw(item.profilePic)
+
+                            </div>
+
+
+
+                            <div>
+                                @item.OrganizationName
+                            </div>
+                            <div class="modal-footer">
+
+                                <div style="width:100%">
+
+                                    <div style="float:left">
+
+                                        <span class="list-title"><h2 style="font-family:'Roboto', sans-serif">@item.UserName</h2> </span>
+
+
+                                    </div>
+
+                                    <div style="float:right; padding-top:24px">
+
+                                        <ul class="nav nav-pills nav-stacked">
+
+
+                                            <li class="active">
+                                                <a href="#" data-dismiss="modal">
+
+                                                    Request Connection
+                                                </a>
+                                            </li>
+
+
+                                        </ul>
+
+
+
+                                      
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+                         <div style="width:100%"><hr style="height:1px;border:none;color:#ccc;background-color:#ccc;" /></div>
+
+
+</td>
+
+
+
+
+                @*  <td>@item.groupName</td>
+                    <td><a href="@item.linkPath" target="_blank">@item.linkDisplayName</a></td>
+                    <td>@item.description</td>*@
+            </tr>
+
+        }
+    </table>
+    <br />
+</div>
+
+
+<script type="text/javascript">
+
+    $(function () {
+        $(".purchaseLink").button();
+
+    });
+
+
+</script>

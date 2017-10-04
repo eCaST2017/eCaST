@@ -1,0 +1,18 @@
+﻿@model IEnumerable<CTL.ViewModels.SiteViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<ul style="font-family: 'Roboto', sans-serif;color:#666">
+
+    @foreach (var item in Model)
+    {
+
+
+        <li style="text-decoration:none"><h3 style="font-family: 'Roboto', sans-serif;color:#666">@Html.DisplayFor(modelItem => item.SiteName)</h3></li>
+
+    }
+
+</ul>

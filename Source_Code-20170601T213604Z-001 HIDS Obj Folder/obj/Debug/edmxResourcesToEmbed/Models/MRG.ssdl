@@ -1,0 +1,510 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MarriageModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DD_AgencyFunction">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Program" Type="varchar" MaxLength="3" />
+    <Property Name="Code" Type="varchar" MaxLength="50" />
+    <Property Name="Description" Type="varchar" MaxLength="100" />
+    <Property Name="System" Type="bit" Nullable="false" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="DD_AgencyType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Program" Type="varchar" MaxLength="3" />
+    <Property Name="Code" Type="varchar" MaxLength="50" />
+    <Property Name="Description" Type="varchar" MaxLength="100" />
+    <Property Name="System" Type="bit" Nullable="false" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="DD_Counties">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Program" Type="varchar" MaxLength="3" />
+    <Property Name="Code" Type="varchar" MaxLength="50" />
+    <Property Name="Description" Type="varchar" MaxLength="100" />
+    <Property Name="System" Type="bit" Nullable="false" />
+    <Property Name="Active" Type="bit" />
+    <Property Name="AgencyDesignationID" Type="int" />
+  </EntityType>
+  <EntityType Name="DD_DisolutionDecreeType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Program" Type="varchar" MaxLength="3" />
+    <Property Name="Code" Type="varchar" MaxLength="50" />
+    <Property Name="Description" Type="varchar" MaxLength="100" />
+    <Property Name="System" Type="bit" Nullable="false" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="DD_MaritalCeremonyType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Program" Type="varchar" MaxLength="3" />
+    <Property Name="Code" Type="varchar" MaxLength="50" />
+    <Property Name="Description" Type="varchar" MaxLength="100" />
+    <Property Name="System" Type="bit" Nullable="false" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="DD_MaritalPartiesRelated">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Program" Type="varchar" MaxLength="3" />
+    <Property Name="Code" Type="varchar" MaxLength="50" />
+    <Property Name="Description" Type="varchar" MaxLength="100" />
+    <Property Name="System" Type="bit" Nullable="false" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="DD_MaritalRecordType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Program" Type="varchar" MaxLength="3" />
+    <Property Name="Code" Type="varchar" MaxLength="50" />
+    <Property Name="Description" Type="varchar" MaxLength="100" />
+    <Property Name="System" Type="bit" Nullable="false" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="DD_MaritalStatus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="100" />
+    <Property Name="Active" Type="bit" />
+    <Property Name="Program" Type="varchar" MaxLength="3" />
+    <Property Name="System" Type="bit" Nullable="false" />
+    <Property Name="Code" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="DD_States">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Program" Type="varchar" MaxLength="3" />
+    <Property Name="Code" Type="varchar" MaxLength="50" />
+    <Property Name="Description" Type="varchar" MaxLength="100" />
+    <Property Name="System" Type="bit" Nullable="false" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="tblDissolutionAudit">
+    <Key>
+      <PropertyRef Name="AID" />
+    </Key>
+    <Property Name="AID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DissolutionID" Type="int" />
+    <Property Name="PetitionerFirstName" Type="varchar" MaxLength="500" />
+    <Property Name="PetitionerMiddleName" Type="varchar" MaxLength="500" />
+    <Property Name="PetitionerLastName" Type="varchar" MaxLength="500" />
+    <Property Name="RespondentFirstName" Type="varchar" MaxLength="500" />
+    <Property Name="RespondentMiddleName" Type="varchar" MaxLength="500" />
+    <Property Name="RespondentLastName" Type="varchar" MaxLength="500" />
+    <Property Name="DecreeDate" Type="datetime" />
+    <Property Name="DecreeYear" Type="int" />
+    <Property Name="DecreeMonth" Type="int" />
+    <Property Name="DecreeDay" Type="int" />
+    <Property Name="DecreeCode" Type="varchar" MaxLength="500" />
+    <Property Name="CountyCode" Type="int" />
+    <Property Name="DocketNumber" Type="int" />
+    <Property Name="Void" Type="int" />
+    <Property Name="DateAdded" Type="datetime" />
+    <Property Name="LastCorrectionDate" Type="datetime" />
+    <Property Name="CorrectionNote" Type="varchar" MaxLength="500" />
+    <Property Name="DataEntryCorrection" Type="varchar" MaxLength="500" />
+    <Property Name="DateRecordSaved" Type="datetime" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+    <Property Name="FlagRecord" Type="tinyint" />
+    <Property Name="FlagNotes" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="tblDissolutionData">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DissolutionID" Type="int" />
+    <Property Name="PetitionerFirstName" Type="varchar" MaxLength="500" />
+    <Property Name="PetitionerMiddleName" Type="varchar" MaxLength="500" />
+    <Property Name="PetitionerLastName" Type="varchar" MaxLength="500" />
+    <Property Name="RespondentFirstName" Type="varchar" MaxLength="500" />
+    <Property Name="RespondentMiddleName" Type="varchar" MaxLength="500" />
+    <Property Name="RespondentLastName" Type="varchar" MaxLength="500" />
+    <Property Name="DecreeDate" Type="datetime" />
+    <Property Name="DecreeYear" Type="int" />
+    <Property Name="DecreeMonth" Type="int" />
+    <Property Name="DecreeDay" Type="int" />
+    <Property Name="DecreeCode" Type="varchar" MaxLength="500" />
+    <Property Name="CountyCode" Type="int" />
+    <Property Name="DocketNumber" Type="int" />
+    <Property Name="Void" Type="int" />
+    <Property Name="DateAdded" Type="datetime" />
+    <Property Name="LastCorrectionDate" Type="datetime" />
+    <Property Name="CorrectionNote" Type="varchar" MaxLength="500" />
+    <Property Name="DataEntryCorrection" Type="varchar" MaxLength="500" />
+    <Property Name="DateRecordSaved" Type="datetime" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+    <Property Name="FlagRecord" Type="tinyint" />
+    <Property Name="FlagNotes" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="tblMarriageAudit">
+    <Key>
+      <PropertyRef Name="AID" />
+    </Key>
+    <Property Name="AID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="MarriageID" Type="int" />
+    <Property Name="RecordType" Type="varchar" MaxLength="1" />
+    <Property Name="Record" Type="varchar" MaxLength="50" />
+    <Property Name="RecordYear" Type="int" />
+    <Property Name="StateFileNumber" Type="int" />
+    <Property Name="RecordConstant" Type="int" />
+    <Property Name="County" Type="varchar" MaxLength="50" />
+    <Property Name="CountyFileNumber" Type="varchar" MaxLength="50" />
+    <Property Name="PartyOneFN" Type="varchar" MaxLength="50" />
+    <Property Name="PartyOneMN" Type="varchar" MaxLength="50" />
+    <Property Name="PartyOneLN" Type="varchar" MaxLength="50" />
+    <Property Name="PartyOneDOB" Type="datetime" />
+    <Property Name="PartyOneDOBDay" Type="int" />
+    <Property Name="PartyOneDOBMonth" Type="int" />
+    <Property Name="PartyOneDOBYear" Type="int" />
+    <Property Name="PartyOneMaritalStatus" Type="varchar" MaxLength="1" />
+    <Property Name="PartyOneDissolutionDate" Type="varchar" MaxLength="50" />
+    <Property Name="PartyOnePriorDissolutionMonth" Type="int" />
+    <Property Name="PartyOnePriorDissolutionDay" Type="int" />
+    <Property Name="PartyOnePriorDissolutionYear" Type="int" />
+    <Property Name="PartyTwoFN" Type="varchar" MaxLength="50" />
+    <Property Name="PartyTwoMN" Type="varchar" MaxLength="50" />
+    <Property Name="PartyTwoLN" Type="varchar" MaxLength="50" />
+    <Property Name="PartyTwoDOB" Type="datetime" />
+    <Property Name="PartyTwoDOBDay" Type="int" />
+    <Property Name="PartyTwoDOBMonth" Type="int" />
+    <Property Name="PartyTwoDOBYear" Type="int" />
+    <Property Name="PartyTwoMaritalStatus" Type="varchar" MaxLength="1" />
+    <Property Name="PartyTwoPriorDissolutionDate" Type="varchar" MaxLength="50" />
+    <Property Name="PartyTwoPriorDissolutionMonth" Type="int" />
+    <Property Name="PartyTwoPriorDissolutionDay" Type="int" />
+    <Property Name="PartyTwoPriorDissolutionYear" Type="int" />
+    <Property Name="CeremonyType" Type="varchar" MaxLength="1" />
+    <Property Name="CeremonyDate" Type="datetime" />
+    <Property Name="CeremonyDay" Type="int" />
+    <Property Name="CeremonyMonth" Type="int" />
+    <Property Name="CeremonyYear" Type="int" />
+    <Property Name="PartiesRelated" Type="varchar" MaxLength="1" />
+    <Property Name="PartyOneResidenceState" Type="varchar" MaxLength="50" />
+    <Property Name="PartyOneBirthState" Type="varchar" MaxLength="50" />
+    <Property Name="PartyTwoResidenceState" Type="varchar" MaxLength="50" />
+    <Property Name="PartyTwoBirthState" Type="varchar" MaxLength="50" />
+    <Property Name="PartyOneSex" Type="varchar" MaxLength="1" />
+    <Property Name="PartyTwoSex" Type="varchar" MaxLength="1" />
+    <Property Name="VoidID" Type="varchar" MaxLength="50" />
+    <Property Name="VoidInd" Type="int" />
+    <Property Name="Void" Type="int" />
+    <Property Name="VoidDate" Type="varchar" MaxLength="50" />
+    <Property Name="CreateDt" Type="varchar" MaxLength="50" />
+    <Property Name="DateAdded" Type="datetime" />
+    <Property Name="LastCorrectionDate" Type="datetime" />
+    <Property Name="LastCorrectionYear" Type="int" />
+    <Property Name="LastCorrectionMonth" Type="int" />
+    <Property Name="LastCorrectionDay" Type="int" />
+    <Property Name="CorrectionNote" Type="varchar" MaxLength="500" />
+    <Property Name="FirstDateofCorrection" Type="varchar" MaxLength="500" />
+    <Property Name="DataEntryCorrection" Type="int" />
+    <Property Name="DateRecordSaved" Type="datetime" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+    <Property Name="FlagRecord" Type="tinyint" />
+    <Property Name="FlagNotes" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="tblMarriageData">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="MarriageID" Type="int" />
+    <Property Name="RecordType" Type="varchar" MaxLength="1" />
+    <Property Name="Record" Type="varchar" MaxLength="50" />
+    <Property Name="RecordYear" Type="int" />
+    <Property Name="StateFileNumber" Type="int" />
+    <Property Name="RecordConstant" Type="int" />
+    <Property Name="County" Type="varchar" MaxLength="50" />
+    <Property Name="CountyFileNumber" Type="varchar" MaxLength="50" />
+    <Property Name="PartyOneFN" Type="varchar" MaxLength="50" />
+    <Property Name="PartyOneMN" Type="varchar" MaxLength="50" />
+    <Property Name="PartyOneLN" Type="varchar" MaxLength="50" />
+    <Property Name="PartyOneDOB" Type="datetime" />
+    <Property Name="PartyOneDOBDay" Type="int" />
+    <Property Name="PartyOneDOBMonth" Type="int" />
+    <Property Name="PartyOneDOBYear" Type="int" />
+    <Property Name="PartyOneMaritalStatus" Type="varchar" MaxLength="1" />
+    <Property Name="PartyOneDissolutionDate" Type="varchar" MaxLength="50" />
+    <Property Name="PartyOnePriorDissolutionMonth" Type="int" />
+    <Property Name="PartyOnePriorDissolutionDay" Type="int" />
+    <Property Name="PartyOnePriorDissolutionYear" Type="int" />
+    <Property Name="PartyTwoFN" Type="varchar" MaxLength="50" />
+    <Property Name="PartyTwoMN" Type="varchar" MaxLength="50" />
+    <Property Name="PartyTwoLN" Type="varchar" MaxLength="50" />
+    <Property Name="PartyTwoDOB" Type="datetime" />
+    <Property Name="PartyTwoDOBDay" Type="int" />
+    <Property Name="PartyTwoDOBMonth" Type="int" />
+    <Property Name="PartyTwoDOBYear" Type="int" />
+    <Property Name="PartyTwoMaritalStatus" Type="varchar" MaxLength="1" />
+    <Property Name="PartyTwoPriorDissolutionDate" Type="varchar" MaxLength="50" />
+    <Property Name="PartyTwoPriorDissolutionMonth" Type="int" />
+    <Property Name="PartyTwoPriorDissolutionDay" Type="int" />
+    <Property Name="PartyTwoPriorDissolutionYear" Type="int" />
+    <Property Name="CeremonyType" Type="varchar" MaxLength="1" />
+    <Property Name="CeremonyDate" Type="datetime" />
+    <Property Name="CeremonyDay" Type="int" />
+    <Property Name="CeremonyMonth" Type="int" />
+    <Property Name="CeremonyYear" Type="int" />
+    <Property Name="PartiesRelated" Type="varchar" MaxLength="1" />
+    <Property Name="PartyOneResidenceState" Type="varchar" MaxLength="50" />
+    <Property Name="PartyOneBirthState" Type="varchar" MaxLength="50" />
+    <Property Name="PartyTwoResidenceState" Type="varchar" MaxLength="50" />
+    <Property Name="PartyTwoBirthState" Type="varchar" MaxLength="50" />
+    <Property Name="PartyOneSex" Type="varchar" MaxLength="1" />
+    <Property Name="PartyTwoSex" Type="varchar" MaxLength="1" />
+    <Property Name="VoidID" Type="varchar" MaxLength="50" />
+    <Property Name="VoidInd" Type="int" />
+    <Property Name="Void" Type="int" />
+    <Property Name="VoidDate" Type="varchar" MaxLength="50" />
+    <Property Name="CreateDt" Type="varchar" MaxLength="50" />
+    <Property Name="DateAdded" Type="datetime" />
+    <Property Name="LastCorrectionDate" Type="datetime" />
+    <Property Name="LastCorrectionYear" Type="int" />
+    <Property Name="LastCorrectionMonth" Type="int" />
+    <Property Name="LastCorrectionDay" Type="int" />
+    <Property Name="CorrectionNote" Type="varchar" MaxLength="500" />
+    <Property Name="FirstDateofCorrection" Type="varchar" MaxLength="500" />
+    <Property Name="DataEntryCorrection" Type="int" />
+    <Property Name="DateRecordSaved" Type="datetime" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+    <Property Name="FlagRecord" Type="tinyint" />
+    <Property Name="FlagNotes" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="tblMarriageFileUploadData">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MarriageID" Type="varchar" MaxLength="500" />
+    <Property Name="RecordType" Type="varchar" MaxLength="500" />
+    <Property Name="Record" Type="varchar" MaxLength="500" />
+    <Property Name="RecordYear" Type="varchar" MaxLength="500" />
+    <Property Name="StateFileNumber" Type="varchar" MaxLength="500" />
+    <Property Name="RecordConstant" Type="varchar" MaxLength="500" />
+    <Property Name="County" Type="varchar" MaxLength="500" />
+    <Property Name="CountyFileNumber" Type="varchar" MaxLength="500" />
+    <Property Name="PartyOneFN" Type="varchar" MaxLength="500" />
+    <Property Name="PartyOneMN" Type="varchar" MaxLength="500" />
+    <Property Name="PartyOneLN" Type="varchar" MaxLength="500" />
+    <Property Name="PartyOneDOB" Type="varchar" MaxLength="500" />
+    <Property Name="PartyOneDOBDay" Type="varchar" MaxLength="500" />
+    <Property Name="PartyOneDOBMonth" Type="varchar" MaxLength="500" />
+    <Property Name="PartyOneDOBYear" Type="varchar" MaxLength="500" />
+    <Property Name="PartyOneMaritalStatus" Type="varchar" MaxLength="500" />
+    <Property Name="PartyOneDissolutionDate" Type="varchar" MaxLength="500" />
+    <Property Name="PartyOnePriorDissolutionMonth" Type="varchar" MaxLength="500" />
+    <Property Name="PartyOnePriorDissolutionDay" Type="varchar" MaxLength="500" />
+    <Property Name="PartyOnePriorDissolutionYear" Type="varchar" MaxLength="500" />
+    <Property Name="PartyTwoFN" Type="varchar" MaxLength="500" />
+    <Property Name="PartyTwoMN" Type="varchar" MaxLength="500" />
+    <Property Name="PartyTwoLn" Type="varchar" MaxLength="500" />
+    <Property Name="PartyTwoDOB" Type="varchar" MaxLength="500" />
+    <Property Name="PartyTwoDOBDay" Type="varchar" MaxLength="500" />
+    <Property Name="PartyTwoDOBMonth" Type="varchar" MaxLength="500" />
+    <Property Name="PartyTwoDOBYear" Type="varchar" MaxLength="500" />
+    <Property Name="PartyTwoMaritalStatus" Type="varchar" MaxLength="500" />
+    <Property Name="PartyTwoPriorDissolutionDate" Type="varchar" MaxLength="500" />
+    <Property Name="PartyTwoPriorDissolutionMonth" Type="varchar" MaxLength="500" />
+    <Property Name="PartyTwoPriorDissolutionDay" Type="varchar" MaxLength="500" />
+    <Property Name="PartyTwoPriorDissolutionYear" Type="varchar" MaxLength="500" />
+    <Property Name="CeremonyType" Type="varchar" MaxLength="500" />
+    <Property Name="CeremonyDate" Type="varchar" MaxLength="500" />
+    <Property Name="CeremonyDay" Type="varchar" MaxLength="500" />
+    <Property Name="CeremonyMonth" Type="varchar" MaxLength="500" />
+    <Property Name="CeremonyYear" Type="varchar" MaxLength="500" />
+    <Property Name="PartiesRelated" Type="varchar" MaxLength="500" />
+    <Property Name="PartyOneResidenceState" Type="varchar" MaxLength="500" />
+    <Property Name="PartyOneBirthState" Type="varchar" MaxLength="500" />
+    <Property Name="PartyTwoResidenceState" Type="varchar" MaxLength="500" />
+    <Property Name="PartyTwoBirthState" Type="varchar" MaxLength="500" />
+    <Property Name="PartyOneSex" Type="varchar" MaxLength="500" />
+    <Property Name="PartyTwoSex" Type="varchar" MaxLength="500" />
+    <Property Name="VoidID" Type="varchar" MaxLength="500" />
+    <Property Name="VoidInd" Type="varchar" MaxLength="500" />
+    <Property Name="Void" Type="varchar" MaxLength="500" />
+    <Property Name="VoidDate" Type="varchar" MaxLength="500" />
+    <Property Name="CreateDt" Type="varchar" MaxLength="500" />
+    <Property Name="DateAdded" Type="datetime" />
+    <Property Name="LastCorrectionDate" Type="varchar" MaxLength="500" />
+    <Property Name="LastCorrectionYear" Type="varchar" MaxLength="500" />
+    <Property Name="LastCorrectionMonth" Type="varchar" MaxLength="500" />
+    <Property Name="LastCorrectionDay" Type="varchar" MaxLength="500" />
+    <Property Name="CorrectionNote" Type="varchar" MaxLength="500" />
+    <Property Name="FirstDateofCorrection" Type="varchar" MaxLength="500" />
+    <Property Name="DataEntryCorrection" Type="varchar" MaxLength="500" />
+    <Property Name="FileID" Type="int" />
+    <Property Name="DateEntered" Type="datetime" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+    <Property Name="RowStatus" Type="int" />
+    <Property Name="ErrMsg" Type="varchar" MaxLength="5000" />
+  </EntityType>
+  <EntityType Name="tblMarriageFileUploads">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FileName" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="County" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="DateEntered" Type="datetime" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblMarriageFTPFilesToProcess">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FileFullPath" Type="varchar" MaxLength="500" />
+    <Property Name="FileName" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="DateEntered" Type="datetime" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="Processed" Type="tinyint" />
+    <Property Name="UserIdProcessing" Type="nvarchar" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="tblMarriagePrintLog">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="PrintType" Type="varchar" MaxLength="5" />
+    <Property Name="DateAdded" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblMarriageSearchLog">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="SearchType" Type="varchar" MaxLength="5" />
+    <Property Name="DateAdded" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblUserAccount">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="Agency" Type="varchar" MaxLength="500" />
+    <Property Name="Type" Type="int" />
+    <Property Name="ChargeMember" Type="tinyint" />
+    <Property Name="MemberExpDate" Type="datetime" />
+    <Property Name="AccountLocked" Type="tinyint" />
+    <Property Name="AgencyName" Type="varchar" MaxLength="500" />
+    <Property Name="AgencyType" Type="int" />
+    <Property Name="AgencyTypeOther" Type="varchar" MaxLength="500" />
+    <Property Name="AgencyFunction" Type="int" />
+    <Property Name="AgencyFunctionOther" Type="varchar" MaxLength="500" />
+    <Property Name="AgencyFunctionCountyName" Type="varchar" MaxLength="500" />
+    <Property Name="AgencyFunctionCountyCode" Type="varchar" MaxLength="50" />
+    <Property Name="AgencyLocation" Type="varchar" MaxLength="500" />
+    <Property Name="SupFirstName" Type="varchar" MaxLength="500" />
+    <Property Name="SupLastName" Type="varchar" MaxLength="500" />
+    <Property Name="SupEmail" Type="varchar" MaxLength="500" />
+    <Property Name="AccessRequestReason" Type="varchar" MaxLength="500" />
+    <Property Name="SupApproval" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="tblUserCountyAccess">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="CountyName" Type="varchar" MaxLength="500" />
+    <Property Name="CountyCode" Type="varchar" MaxLength="50" />
+    <Property Name="DateEntered" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblUserPermissions">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="EditUser" Type="tinyint" />
+    <Property Name="AccessRpts" Type="tinyint" />
+    <Property Name="SearchMrg" Type="tinyint" />
+    <Property Name="AddMrg" Type="tinyint" />
+    <Property Name="EditMrg" Type="tinyint" />
+    <Property Name="DelMrg" Type="tinyint" />
+    <Property Name="PrintMrg" Type="tinyint" />
+    <Property Name="ImportMrg" Type="tinyint" />
+    <Property Name="SearchDis" Type="tinyint" />
+    <Property Name="AddDis" Type="tinyint" />
+    <Property Name="EditDis" Type="tinyint" />
+    <Property Name="DelDis" Type="tinyint" />
+    <Property Name="PrintDis" Type="tinyint" />
+    <Property Name="ImportDis" Type="tinyint" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+    <Property Name="AccessFinRpts" Type="tinyint" />
+    <Property Name="FlagMrg" Type="tinyint" />
+    <Property Name="FlagDis" Type="tinyint" />
+  </EntityType>
+  <Function Name="App_DropDown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Table" Type="varchar" Mode="In" />
+    <Parameter Name="OrderBy" Type="varchar" Mode="In" />
+    <Parameter Name="ProgramCode" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="App_ReturnDropDown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Table" Type="varchar" Mode="In" />
+    <Parameter Name="OrderBy" Type="varchar" Mode="In" />
+    <Parameter Name="ProgramCode" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="GetCertificateData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GetCertificateDataP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MrgID" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="MarriageModelStoreContainer">
+    <EntitySet Name="DD_AgencyFunction" EntityType="Self.DD_AgencyFunction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DD_AgencyType" EntityType="Self.DD_AgencyType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DD_Counties" EntityType="Self.DD_Counties" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DD_DisolutionDecreeType" EntityType="Self.DD_DisolutionDecreeType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DD_MaritalCeremonyType" EntityType="Self.DD_MaritalCeremonyType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DD_MaritalPartiesRelated" EntityType="Self.DD_MaritalPartiesRelated" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DD_MaritalRecordType" EntityType="Self.DD_MaritalRecordType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DD_MaritalStatus" EntityType="Self.DD_MaritalStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DD_States" EntityType="Self.DD_States" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblDissolutionAudit" EntityType="Self.tblDissolutionAudit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblDissolutionData" EntityType="Self.tblDissolutionData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblMarriageAudit" EntityType="Self.tblMarriageAudit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblMarriageData" EntityType="Self.tblMarriageData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblMarriageFileUploadData" EntityType="Self.tblMarriageFileUploadData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblMarriageFileUploads" EntityType="Self.tblMarriageFileUploads" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblMarriageFTPFilesToProcess" EntityType="Self.tblMarriageFTPFilesToProcess" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblMarriagePrintLog" EntityType="Self.tblMarriagePrintLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblMarriageSearchLog" EntityType="Self.tblMarriageSearchLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUserAccount" EntityType="Self.tblUserAccount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUserCountyAccess" EntityType="Self.tblUserCountyAccess" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUserPermissions" EntityType="Self.tblUserPermissions" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

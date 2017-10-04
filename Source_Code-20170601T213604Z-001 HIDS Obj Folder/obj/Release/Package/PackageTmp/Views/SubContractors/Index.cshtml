@@ -1,0 +1,123 @@
+﻿@model IEnumerable<CTL.Models.SubContractor>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LegacySubContractorCodeCCSP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LegacySubContractorCodeWWC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LegacySubContractorCodeCRCCP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubContractorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CityBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StateBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ZipCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CountyBinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DigitalMamIndicator)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DigitalTechCode)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LegacySubContractorCodeCCSP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LegacySubContractorCodeWWC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LegacySubContractorCodeCRCCP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubContractorName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CityBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StateBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ZipCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CountyBinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateUpdated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DigitalMamIndicator)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DigitalTechCode)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SubContractorID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SubContractorID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SubContractorID })
+        </td>
+    </tr>
+}
+
+</table>

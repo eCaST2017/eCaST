@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WHModelStoreContainer" CdmEntityContainer="WHEntities">
+    <EntitySetMapping Name="People">
+      <EntityTypeMapping TypeName="WHModel.Person">
+        <MappingFragment StoreEntitySet="Person">
+          <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+          <ScalarProperty Name="ProgramCode" ColumnName="ProgramCode" />
+          <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="SuffixID" ColumnName="SuffixID" />
+          <ScalarProperty Name="GenderID" ColumnName="GenderID" />
+          <ScalarProperty Name="Patient" ColumnName="Patient" />
+          <ScalarProperty Name="AKALastName" ColumnName="AKALastName" />
+          <ScalarProperty Name="AKAMiddleName" ColumnName="AKAMiddleName" />
+          <ScalarProperty Name="AKAFirstName" ColumnName="AKAFirstName" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="OriginCountry" ColumnName="OriginCountry" />
+          <ScalarProperty Name="EthnicityHispanic" ColumnName="EthnicityHispanic" />
+          <ScalarProperty Name="LanguageSpokenID" ColumnName="LanguageSpokenID" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="DateStatus" ColumnName="DateStatus" />
+          <ScalarProperty Name="Deceased" ColumnName="Deceased" />
+          <ScalarProperty Name="DateDeceased" ColumnName="DateDeceased" />
+          <ScalarProperty Name="SourceID" ColumnName="SourceID" />
+          <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="EthnicityID" ColumnName="EthnicityID" />
+          <ScalarProperty Name="DateEnrollment" ColumnName="DateEnrollment" />
+          <ScalarProperty Name="MaidenName" ColumnName="MaidenName" />
+          <ScalarProperty Name="EthnicityConfidential" ColumnName="EthnicityConfidential" />
+          <ScalarProperty Name="NoSSN" ColumnName="NoSSN" />
+          <ScalarProperty Name="LimitedEnglish" ColumnName="LimitedEnglish" />
+          <ScalarProperty Name="ResponsibleParty" ColumnName="ResponsibleParty" />
+          <ScalarProperty Name="InterpreterNeeded" ColumnName="InterpreterNeeded" />
+          <ScalarProperty Name="InactiveReasonID" ColumnName="InactiveReasonID" />
+          <ScalarProperty Name="DeidentifiedID" ColumnName="DeidentifiedID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

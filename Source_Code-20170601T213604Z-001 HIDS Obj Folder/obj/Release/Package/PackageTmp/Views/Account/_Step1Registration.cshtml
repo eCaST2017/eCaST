@@ -1,0 +1,1416 @@
+﻿@model CTL.Models.RegisterViewModel
+
+
+<style type="text/css">
+    input.big {
+        height: 2.1em;
+        width: 2.1em;
+    }
+</style>
+
+@Html.Hidden("StepID", 1)
+@Html.Hidden("UserIdentity", (string)ViewBag.UserId)
+@Html.Hidden("StateStaffCheck")
+@Html.Hidden("AgencySiteAccess")
+@Html.Hidden("Coordinator")
+<div align="center">
+
+    <div class="w3-card-2" style="padding-left:30px;width:94%;text-align:left">
+        <br />
+
+        @if (!Request.IsAuthenticated)
+        {
+
+            <div style="display:block" id="UserSection">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+
+                            <h3 style="font-family: 'Roboto', sans-serif;color:#666"><span class="glyphicon glyphicon-user"></span>&nbsp;Personal Information</h3>
+
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+                <div class="row">
+                    <div class="col-md-3">
+
+                        <div>
+                            <label style="padding-right:35px" for="FirstName">First Name</label>
+                            @Html.TextBoxFor(m => m.FirstName, new { id = "FirstName", @class = "form-control", placeholder = "First Name" })
+                            @Html.ValidationMessageFor(m => m.FirstName)
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <div>
+                            <label style="padding-right:35px" for="LastName">Last Name</label>
+                            @Html.TextBoxFor(m => m.LastName, new { id = "LastName", @class = "form-control", placeholder = "Last Name" })
+                            @Html.ValidationMessageFor(m => m.LastName)
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <div>
+                            <label style="padding-right:35px" for="LastName">Middle Name</label>
+                            @Html.TextBoxFor(m => m.MiddleName, new { id = "MiddleName", @class = "form-control", placeholder = "Middle Name" })
+                            @Html.ValidationMessageFor(m => m.MiddleName)
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <div>
+                            <label style="padding-right:6px" for="UserName">Email address</label>
+                            @Html.TextBoxFor(m => m.Email, new { id = "Email", @class = "form-control", placeholder = "Email Address (This will be your username)" })
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <div>
+                            <label style="padding-right:35px" for="Telephone Number">Telephone Number</label>
+                            @Html.TextBoxFor(m => m.TelephoneNumber, new { id = "TelephoneNumber", @class = "form-control phone", placeholder = "Telephone Number" })
+                            @Html.ValidationMessageFor(m => m.TelephoneNumber)
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <br />
+                <div class="row">
+                    <div class="col-md-3">
+
+                        <div>
+                            <label style="padding-right:6px" for="Password">Password</label>
+                            @Html.PasswordFor(m => m.Password, new { id = "Password", @class = "form-control", placeholder = "Password" })
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <div>
+                            <label style="padding-right:35px" for="ConfirmPassword">Confirm Password</label>
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { id = "ConfirmPassword", @class = "form-control", placeholder = "Confirm Password" })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="alert alert-warning"><span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;Password must have AT LEAST 6 characters including 1 number, 1 uppercase letter and 1 special character</div>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+            <br />
+            <br />
+
+
+        }
+
+
+        <div>
+
+            <div id="SSCBContainer" class="pull-left" style="padding-top:0px;display:none"><input class="big" type="checkbox" id="StateStaffChkBox"></div>
+            <div id="SSLabelContainer" style="padding-top:2px;display:none"><h4 style="font-family: 'Roboto', sans-serif;color:#666">&nbsp;&nbsp;*All Agency/System Access (<span style="color:red">*This is for STATE STAFF ONLY</span>)</h4></div>
+
+        </div>
+
+
+        <div style="display:none" id="StateStaffContainer">
+            <br />
+
+            @if (!Request.IsAuthenticated)
+            {
+
+
+
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="form-group">
+
+                            <h3 style="font-family: 'Roboto', sans-serif;color:#666"> <span class="glyphicon glyphicon-user"></span>&nbsp;Select your Role</h3>
+
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <br />
+
+                <div class="row">
+
+                    <div class="col-md-2">
+
+
+                        Select the Role you would like for the system
+
+
+                    </div>
+
+                    <div class="col-md-10">
+
+
+                        @Html.DropDownList("RoleBinID", null, new { style = "font-size:20px" })
+                        @Html.ValidationMessageFor(m => m.RoleBinID)
+
+
+                    </div>
+
+                </div>
+                <br />
+                <div id="CoordinatorContainer" style="display:none;">
+
+                    <div class="pull-left" style="padding-top:0px;"><input class="big" type="checkbox" id="CoordinatorChkBox"></div>
+                    <div style="padding-top:2px"><h4 style="font-family: 'Roboto', sans-serif;color:#666">&nbsp;&nbsp;Access Coordinator (Will Receive User Access Requests)</h4></div>
+
+                </div>
+
+
+            }
+            else
+            {
+
+
+                if (ViewBag.UserRoleBinID == 3 || ViewBag.UserRoleBinID == 13)
+                {
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+
+                                <h3 style="font-family: 'Roboto', sans-serif;color:#666"> <span class="glyphicon glyphicon-user"></span>&nbsp;Select your Role</h3>
+
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <br />
+
+                    <div class="row">
+
+                        <div class="col-md-2">
+
+
+                            Select the Role you would like for the system
+
+
+                        </div>
+
+                        <div class="col-md-10">
+
+
+                            @Html.DropDownList("RoleBinID", null, new { style = "font-size:20px" })
+                            @Html.ValidationMessageFor(m => m.RoleBinID)
+
+
+                        </div>
+
+                    </div>
+
+
+                    <div id="CoordinatorContainer" style="display:none">
+
+                        <div class="pull-left" style="padding-top:0px;"><input class="big" type="checkbox" id="CoordinatorChkBox"></div>
+                        <div style="padding-top:2px"><h4 style="font-family: 'Roboto', sans-serif;color:#666">&nbsp;&nbsp;Access Coordinator (Will Receive User Access Requests)</h4></div>
+
+                    </div>
+
+
+                }
+
+
+
+
+
+
+            }
+
+
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="form-group">
+
+                        <h3 style="font-family: 'Roboto', sans-serif;color:#666"> <span class="glyphicon glyphicon-play-circle"></span>&nbsp;Select your Program Access</h3>
+
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <br />
+            <div style="padding-left:12px" class="row">
+
+                <div class="col-md-2">
+
+
+                    Select the Programs you would like to access
+
+
+
+                </div>
+                <div class="col-md-4">
+
+                    <div class="input-group btn-group">
+
+
+                        @Html.DropDownList("testFF", (SelectList)ViewData["OptionListF"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+                        <input type="hidden" id="selectedIDsFF" />
+
+
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+
+
+        </div>
+
+        <br />
+        @if (!Request.IsAuthenticated)
+        {
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+
+                    <div style="display:block" id="OrgSection">
+
+
+                        <div class="row">
+
+
+                            <div class="col-md-12">
+
+                                <h3 style="font-family: 'Roboto', sans-serif;color:#666"> <span class="glyphicon glyphicon-map-marker"></span>&nbsp;Agency/System Access</h3>
+
+                            </div>
+
+                        </div>
+                        <hr />
+                        <br />
+
+                        <div style="display:block" id="ProgramContainer">
+
+                            <div class="row">
+
+                                <div class="col-md-2">
+
+
+                                    Select the Agency you would like to access
+
+
+
+                                </div>
+
+
+                                <div class="col-md-10">
+
+
+                                    @Html.DropDownList("testAS", (SelectList)ViewData["OptionListAS"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+                                    <input type="hidden" id="selectedIDsAS" />
+
+                                    <div>
+                                        <input type="checkbox" id="checkboxAS">
+                                        Select All
+
+
+                                    </div>
+                                    @*@Html.DropDownList("AgencySiteID", null, new { style = "font-size:20px" })
+                                        @Html.ValidationMessageFor(m => m.AgencySiteID)*@
+
+
+
+
+
+                                </div>
+
+                            </div>
+                            <br />
+                            <br />
+
+
+                        </div>
+
+
+                        <div id="ProgramListContainer"></div>
+
+                    </div>
+
+
+
+                    <br />
+
+                </div>
+            </div>
+
+
+        }
+        else
+        {
+
+            if (ViewBag.UserRoleBinID == 2 || ViewBag.UserRoleBinID == 6)
+            {
+
+
+                <div class="row">
+
+                    <div class="col-md-12">
+
+
+                        <div style="display:block" id="OrgSection">
+
+
+                            <div class="row">
+
+
+                                <div class="col-md-12">
+
+                                    <h3 style="font-family: 'Roboto', sans-serif;color:#666"> <span class="glyphicon glyphicon-map-marker"></span>&nbsp;Agency Access</h3>
+
+                                </div>
+
+                            </div>
+                            <hr />
+                            <br />
+
+                            <div style="display:block" id="ProgramContainer">
+
+                                <div class="row">
+
+                                    <div class="col-md-2">
+
+
+                                        Select the Agency you would like to access
+
+
+
+                                    </div>
+
+
+                                    <div class="col-md-10">
+
+
+                                        @Html.DropDownList("testAS", (SelectList)ViewData["OptionListAS"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+                                        <input type="hidden" id="selectedIDsAS" />
+
+                                        <div>
+                                            <input type="checkbox" id="checkboxAS">
+                                            Select All
+
+
+                                        </div>
+                                        @*@Html.DropDownList("AgencySiteID", null, new { style = "font-size:20px" })
+                                            @Html.ValidationMessageFor(m => m.AgencySiteID)*@
+
+
+
+
+
+                                    </div>
+
+                                </div>
+                                <br />
+                                <br />
+
+
+                            </div>
+
+
+                            <div id="ProgramListContainer"></div>
+
+                        </div>
+
+
+
+                        <br />
+
+                    </div>
+                </div>
+
+
+
+
+            }
+
+
+
+
+        }
+
+
+
+
+
+
+        <hr />
+        <div style="padding-left:30px">
+
+
+            <div style="padding-right:30px" align="right">
+
+
+
+                @if (!Request.IsAuthenticated)
+                {
+
+                    <a style="text-decoration:none" href='@Url.Action("Index", new { Controller = "Home" })'>
+
+
+                        <span class="btn btn-primary">Return to Home</span>
+
+                    </a>
+
+
+                }
+                else
+                {
+
+                    <a style="text-decoration:none" href='@Url.Action("Edit","UserProfiles", new { id = @ViewBag.UserId, id2 = "" })'>
+
+
+                        <span class="btn btn-primary">Return to Profile</span>
+
+                    </a>
+
+
+                }
+
+
+                <input id="ProceedButton" class="btn btn-success" type="submit" value="Next Step >" />
+
+
+            </div>
+
+        </div>
+        <br />
+        <br />
+    </div>
+
+</div>
+
+
+@if (!Request.IsAuthenticated)
+{
+
+
+
+    <script type="text/javascript">
+
+
+        $(function () {
+
+
+            var dataAS = '@ViewBag.OptionsAS';
+
+            //Make an array
+            var dataarrayAS = dataAS.split(",");
+
+            // Set the value
+            $("#testAS").val(dataarrayAS);
+
+
+            var testAS = $('#testAS');
+            $(testAS).select2({
+
+                width: "300px"
+            });
+
+            document.getElementById("testAS").onchange = function () {
+
+
+                var idsAS = $(testAS).val();
+                $('#selectedIDsAS').val(idsAS);
+                var agVal = $('#selectedIDsAS').val();
+                $('#AgencySiteAccess').val(agVal);
+
+
+                if (idsAS == null) {
+
+                    $("#ProgramListContainer").html("");
+
+
+                }
+                else {
+
+                    var id = $('#selectedIDsAS').val();
+                    $("#ProgramListContainer").load("@Url.Action("_ProgramPartial","Account")", { 'id': id },
+          function (response, status, xhr) {
+              if (status == "error") {
+
+              }
+
+
+          });
+
+
+                }
+
+            };
+
+
+
+            $("#checkboxAS").click(function () {
+                if ($("#checkboxAS").is(':checked')) {
+                    $("#testAS > option").prop("selected", "selected");
+                    $("#testAS").trigger("change");
+                } else {
+                    $("#testAS > option").removeAttr("selected");
+                    $("#testAS").trigger("change");
+                }
+            });
+
+
+        });
+
+
+
+        $(function () {
+
+
+            var data = '@ViewBag.Options';
+
+            //Make an array
+            var dataarrayFF = data.split(",");
+
+            // Set the value
+            $("#testFF").val(dataarrayFF);
+
+
+            var testFF = $('#testFF');
+            $(testFF).select2({
+
+                width: "300px"
+            });
+
+            document.getElementById("testFF").onchange = function () {
+
+
+                var idsFF = $(testFF).val();
+                $('#selectedIDsFF').val(idsFF);
+
+            };
+
+
+        });
+
+
+        @*$(function () {
+
+                    // var id = $('select#AgencySiteID').val();
+
+                    var id = $('#selectedIDsAS').val();
+                    $("#ProgramListContainer").load("@Url.Action("_ProgramPartial","Account")", { 'id': id },
+                       function (response, status, xhr) {
+                           if (status == "error") {
+
+                           }
+
+
+                       });
+
+
+                });*@
+
+
+        @*$(function () {
+
+                    $("#AgencySiteID").change(function () {
+                        var id = $(this).val();
+
+
+                        $("#ProgramListContainer").load("@Url.Action("_ProgramPartial","Account")", { 'id': id },
+                 function (response, status, xhr) {
+                     if (status == "error") {
+
+                     }
+
+
+                 });
+
+
+                    });
+
+                });*@
+
+        $(function () {
+
+
+
+            $("#RoleBinID").change(function () {
+                var id = $(this).val();
+
+                if (id == 13) {
+
+
+                    $("#CoordinatorContainer").css("display", "block");
+
+
+                }
+                else {
+
+                    $("#CoordinatorContainer").css("display", "none");
+
+                }
+
+            });
+
+
+
+            $("#StateStaffChkBox").click(function () {
+
+
+                if ($("#StateStaffChkBox").is(':checked')) {
+
+
+                    $("#StateStaffContainer").css("display", "block");
+                    $("#OrgSection").css("display", "none");
+
+
+
+
+
+                }
+                else {
+
+                    $("#StateStaffContainer").css("display", "none");
+                    $("#OrgSection").css("display", "block");
+
+
+                    @*$(function () {
+
+                                var id = $('select#AgencySiteID').val();
+                                $("#ProgramListContainer").load("@Url.Action("_ProgramPartial","Account")", { 'id': id },
+                                   function (response, status, xhr) {
+                                       if (status == "error") {
+
+                                       }
+
+
+                                   });
+
+
+                            });*@
+
+
+                    $(function () {
+
+                        $("#AgencySiteID").change(function () {
+                            var id = $(this).val();
+
+
+                            $("#ProgramListContainer").load("@Url.Action("_ProgramPartial","Account")", { 'id': id },
+                                 function (response, status, xhr) {
+                                     if (status == "error") {
+
+                                     }
+
+
+                                 });
+
+
+                        });
+
+                    });
+
+
+                }
+
+            });
+
+        });
+
+
+        $(document).ready(function () {
+
+
+            $('.Phone').mask('(999) 999-9999? x99999');
+            $('.zip').mask('99999');
+            $('#TelephoneNumber').mask('(999) 999-9999? x99999');
+
+
+
+            $("#ProceedButton").click(function (e) {
+
+
+
+
+
+                if ($("#StateStaffChkBox").is(':checked')) {
+
+
+
+                    var iStopSub0 = 0;
+                    var sErr0 = "Please correct the following issues:\n\n";
+
+                    if ($("#selectedIDsFF").val() == "") {
+                        iStopSub0 = 1;
+                        sErr0 += "-Please enter at least 1 program .\n";
+                    }
+
+                    if (iStopSub0 != 0) {
+                        alert(sErr0);
+                        e.preventDefault();
+
+                    }
+
+
+                    //Add Programs
+                    var outFF = document.getElementById('selectedIDsFF').value;
+                    document.getElementById("ProgramAccess").value = outFF;
+
+                    document.getElementById("StateStaffCheck").value = 1;
+
+                    if ($("#CoordinatorChkBox").is(':checked')) {
+
+                        document.getElementById("Coordinator").value = true;
+
+                    }
+                    else {
+
+                        document.getElementById("Coordinator").value = false;
+
+                    }
+
+
+
+                }
+                else {
+
+
+                    var iStopSub000 = 0;
+                    var sErr000 = "Please correct the following issues:\n\n";
+
+                    if ($("#selectedIDsAS").val() == "") {
+                        iStopSub000 = 1;
+                        sErr000 += "-Please enter at least 1 agency.\n";
+                    }
+
+                    if (iStopSub000 != 0) {
+                        alert(sErr000);
+                        e.preventDefault();
+
+                    }
+                    else {
+
+                        var iStopSub00 = 0;
+                        var sErr00 = "Please correct the following issues:\n\n";
+
+                        if ($("#selectedIDsF").val() == "") {
+                            iStopSub00 = 1;
+                            sErr00 += "-Please enter at least 1 program.\n";
+                        }
+
+                        if (iStopSub00 != 0) {
+                            alert(sErr00);
+                            e.preventDefault();
+
+                        }
+
+                        //Add Programs
+                        var outF = document.getElementById('selectedIDsF').value;
+                        document.getElementById("ProgramAccess").value = outF;
+
+                        document.getElementById("StateStaffCheck").value = 0;
+
+                    }
+
+
+
+                }
+
+                // Validation
+
+
+
+
+
+                var iStopSub = 0;
+                var sErr = "Please correct the following issues:\n\n";
+
+                if ($('#FirstName').val() == "") {
+                    iStopSub = 1;
+                    sErr += "-Please enter a first name.\n";
+                }
+
+                if ($('#LastName').val() == "") {
+                    iStopSub = 1;
+                    sErr += "-Please enter a last name.\n";
+                }
+
+                if ($('#Email').val() == "") {
+                    iStopSub = 1;
+                    sErr += "-Please enter an email address.\n";
+                }
+
+                if ($('#TelephoneNumber').val() == "") {
+                    iStopSub = 1;
+                    sErr += "-Please enter a telephone number.\n";
+                }
+                else {
+
+                    var tel = $('#TelephoneNumber').val();
+                    var targ = tel.replace(/[^\d]/g, ''); // remove all non-digits
+                    if (targ.length != 10) {
+                        // targ is a valid phone number
+
+                        iStopSub = 1;
+                        sErr += "-Please enter a valid telephone number.\n";
+
+                    }
+
+
+                }
+                if ($('#Password').val() == "") {
+                    iStopSub = 1;
+                    sErr += "-Please enter a password.\n";
+                }
+                else {
+
+                    var ps = $('#Password').val();
+                    var myRegEx = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@@$%^&*-]).{6,}$');
+
+                    if (ps != myRegEx.exec(ps)) {
+
+                        iStopSub = 1;
+                        sErr += "-Password must be at least 6 characters long and have at least 1 number, 1 uppercase letter and 1 special character.\n";
+
+                    }
+
+
+                }
+                if ($('#ConfirmPassword').val() == "") {
+                    iStopSub = 1;
+                    sErr += "-Please enter a confirm password.\n";
+                }
+
+                if ($('#Password').val() != $('#ConfirmPassword').val()) {
+                    iStopSub = 1;
+                    sErr += "-Passwords must match.\n";
+                }
+
+
+                if (iStopSub != 0) {
+                    alert(sErr);
+                    e.preventDefault();
+
+                }
+
+
+            });
+
+
+        });
+
+    </script>
+
+
+}
+else
+{
+
+
+    <script type="text/javascript">
+
+
+
+        $(function () {
+
+
+            if ('@ViewBag.UserRoleBinID' == 2 || '@ViewBag.UserRoleBinID' == 6) {
+
+
+                var dataAS = '@ViewBag.OptionsAS';
+
+                //Make an array
+                var dataarrayAS = dataAS.split(",");
+
+                // Set the value
+                $("#testAS").val(dataarrayAS);
+
+
+                var testAS = $('#testAS');
+
+                $(testAS).select2({
+
+                    width: "300px"
+                });
+
+
+                var idsAS = $(testAS).val();
+
+                $('#selectedIDsAS').val(idsAS);
+
+                var id = $('#selectedIDsAS').val();
+
+                $('#AgencySiteAccess').val(id);
+
+
+                $("#ProgramListContainer").load("@Url.Action("_ProgramPartial","Account")", { 'id': id, 'id2': '@ViewBag.UserId' },
+                function (response, status, xhr) {
+                    if (status == "error") {
+
+                    }
+
+
+                });
+
+
+
+
+                document.getElementById("testAS").onchange = function () {
+
+
+                    var idsAS = $(testAS).val();
+                    $('#selectedIDsAS').val(idsAS);
+                    var agVal = $('#selectedIDsAS').val();
+                    $('#AgencySiteAccess').val(agVal);
+
+
+                    if (idsAS == null) {
+
+                        $("#ProgramListContainer").html("");
+
+
+                    }
+                    else {
+
+                        var id = $('#selectedIDsAS').val();
+                        $("#ProgramListContainer").load("@Url.Action("_ProgramPartial","Account")", { 'id': id, 'id2': '@ViewBag.UserId' },
+                          function (response, status, xhr) {
+                              if (status == "error") {
+
+                              }
+
+
+                          });
+
+
+                    }
+
+                };
+
+
+                $("#checkboxAS").click(function () {
+                    if ($("#checkboxAS").is(':checked')) {
+                        $("#testAS > option").prop("selected", "selected");
+                        $("#testAS").trigger("change");
+                    } else {
+                        $("#testAS > option").removeAttr("selected");
+                        $("#testAS").trigger("change");
+                    }
+                });
+
+
+            }
+
+
+        });
+
+
+        $(function () {
+
+
+            var data = '@ViewBag.Options';
+
+            //Make an array
+            var dataarrayFF = data.split(",");
+
+            // Set the value
+            $("#testFF").val(dataarrayFF);
+            $('#selectedIDsFF').val(dataarrayFF);
+
+            var testFF = $('#testFF');
+            $(testFF).select2({
+
+                width: "300px"
+            });
+
+            document.getElementById("testFF").onchange = function () {
+
+
+                var idsFF = $(testFF).val();
+                $('#selectedIDsFF').val(idsFF);
+
+            };
+
+
+        });
+
+
+
+
+        $(function () {
+
+
+            if ('@ViewBag.UserRoleBinID' == 3 || '@ViewBag.UserRoleBinID' == 13 || '@ViewBag.UserRoleBinID' == 39) {
+
+
+
+                $('#StateStaffChkBox').prop('checked', true);
+
+                if ($("#StateStaffChkBox").is(':checked')) {
+
+
+                    $("#StateStaffContainer").css("display", "block");
+                    $("#OrgSection").css("display", "none");
+
+
+                    var idR = $('select#RoleBinID').val();
+                    if (idR == 13) {
+
+
+                        $("#CoordinatorContainer").css("display", "block");
+
+                        if ('@ViewBag.Coordinator' == 'True') {
+
+
+                            $('#CoordinatorChkBox').prop('checked', true);
+
+                        }
+
+                    }
+                    else {
+
+                        $("#CoordinatorContainer").css("display", "none");
+
+                    }
+
+
+
+
+
+                }
+                else {
+
+
+                    $("#StateStaffContainer").css("display", "none");
+                    $("#OrgSection").css("display", "block");
+
+                }
+
+
+
+
+
+            }
+
+
+            $("#StateStaffChkBox").click(function () {
+
+
+                if ($("#StateStaffChkBox").is(':checked')) {
+
+
+                    $("#StateStaffContainer").css("display", "block");
+                    $("#OrgSection").css("display", "none");
+
+
+
+
+                }
+                else {
+
+                    $("#StateStaffContainer").css("display", "none");
+                    $("#OrgSection").css("display", "block");
+
+
+                    $(function () {
+
+                        var id = $('select#AgencySiteID').val();
+
+
+                        if (id != null) {
+
+
+                            $("#ProgramListContainer").load("@Url.Action("_ProgramPartial","Account")", { 'id': id },
+                          function (response, status, xhr) {
+                              if (status == "error") {
+
+                              }
+
+
+                          });
+
+
+
+                        }
+
+
+                    });
+
+
+                    $(function () {
+
+                        $("#AgencySiteID").change(function () {
+                            var id = $(this).val();
+
+
+                            $("#ProgramListContainer").load("@Url.Action("_ProgramPartial","Account")", { 'id': id },
+                     function (response, status, xhr) {
+                         if (status == "error") {
+
+                         }
+
+
+                     });
+
+
+                        });
+
+                    });
+
+
+                }
+
+            });
+
+
+
+
+
+            $("#StateStaffChkBox").click(function () {
+
+
+                if ($("#StateStaffChkBox").is(':checked')) {
+
+
+                    $("#StateStaffContainer").css("display", "block");
+                    $("#OrgSection").css("display", "none");
+
+
+
+
+                }
+                else {
+
+                    $("#StateStaffContainer").css("display", "none");
+                    $("#OrgSection").css("display", "block");
+
+
+                    @*$(function () {
+
+                    var id = $('select#AgencySiteID').val();
+                    $("#ProgramListContainer").load("@Url.Action("_ProgramPartial","Account")", { 'id': id },
+                       function (response, status, xhr) {
+                           if (status == "error") {
+
+                           }
+
+
+                       });
+
+
+                });*@
+
+
+                    $(function () {
+
+                        $("#AgencySiteID").change(function () {
+                            var id = $(this).val();
+
+
+                            $("#ProgramListContainer").load("@Url.Action("_ProgramPartial","Account")", { 'id': id },
+                     function (response, status, xhr) {
+                         if (status == "error") {
+
+                         }
+
+
+                     });
+
+
+                        });
+
+                    });
+
+
+
+                }
+
+            });
+
+
+
+
+
+        });
+
+
+        $(document).ready(function () {
+
+
+            $("#ProceedButton").click(function (e) {
+
+
+                if ($("#StateStaffChkBox").is(':checked')) {
+
+
+                    //Add Programs
+                    var outFF = document.getElementById('selectedIDsFF').value;
+                    document.getElementById("ProgramAccess").value = outFF;
+
+
+                    if ($("#CoordinatorChkBox").is(':checked')) {
+
+                        document.getElementById("Coordinator").value = true;
+
+                    }
+                    else {
+
+                        document.getElementById("Coordinator").value = false;
+
+                    }
+
+
+
+
+                }
+                else {
+
+                    //Add Programs
+                    var outF = document.getElementById('selectedIDsF').value;
+                    document.getElementById("ProgramAccess").value = outF;
+
+
+                }
+
+
+                // Validation
+
+                var iStopSub = 0;
+                var sErr = "Please correct the following issues:\n\n";
+
+                //if ($('#FirstName').val() == "") {
+                //    iStopSub = 1;
+                //    sErr += "-Please enter a first name.\n";
+                //}
+
+
+                //if ($('#LastName').val() == "") {
+                //    iStopSub = 1;
+                //    sErr += "-Please enter a last name.\n";
+                //}
+
+                //if ($('#Email').val() == "") {
+                //    iStopSub = 1;
+                //    sErr += "-Please enter an email address.\n";
+                //}
+
+                //if ($('#TelephoneNumber').val() == "") {
+                //    iStopSub = 1;
+                //    sErr += "-Please enter a telephone number.\n";
+                //}
+
+                //if ($('#Password').val() == "") {
+                //    iStopSub = 1;
+                //    sErr += "-Please enter a password.\n";
+                //}
+
+                //if ($('#ConfirmPassword').val() == "") {
+                //    iStopSub = 1;
+                //    sErr += "-Please enter a confirm password.\n";
+                //}
+
+
+                if ($("#selectedIDsF").val() == "") {
+                    iStopSub = 1;
+                    sErr += "-Please enter at least 1 program.\n";
+                }
+
+                //if ($('#Password').val() != $('#ConfirmPassword').val()) {
+                //    iStopSub = 1;
+                //    sErr += "-Passwords must match.\n";
+                //}
+
+
+                if (iStopSub != 0) {
+                    alert(sErr);
+                    e.preventDefault();
+
+                }
+
+
+            });
+
+
+
+
+        });
+
+
+    </script>
+
+
+
+}
+
+
+<script type="text/javascript">
+
+    $('#Email').bind('change', function (e) {
+
+
+        var val = $('#Email').val();
+        //alert(val);
+        if (val.indexOf("state.co.us") > 0) {
+            $('#SSCBContainer').css("display", "block");
+            $('#SSLabelContainer').css("display", "block");
+
+        } else {
+
+            $('#SSCBContainer').css("display", "none");
+            $('#SSLabelContainer').css("display", "none");
+
+        }
+
+
+    });
+
+
+
+</script>
+
+

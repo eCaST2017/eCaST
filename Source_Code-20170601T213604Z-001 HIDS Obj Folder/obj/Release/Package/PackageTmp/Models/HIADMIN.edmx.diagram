@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6315bb6b020c46848d9a37ef9dcdbc21" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="HIADMINModel.AccountCompromised" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.AccountDeleted" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.aspnet_Applications" Width="1.5" PointX="0.75" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.aspnet_Membership" Width="1.5" PointX="8.25" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.aspnet_Paths" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.aspnet_PersonalizationAllUsers" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.aspnet_PersonalizationPerUser" Width="1.5" PointX="5.25" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.aspnet_Profile" Width="1.5" PointX="5.25" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.aspnet_Roles" Width="1.5" PointX="3" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.aspnet_SchemaVersions" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.aspnet_Users" Width="1.5" PointX="3" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.aspnet_UsersInRoles" Width="1.5" PointX="8.25" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.aspnet_WebEvent_Events" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.DataSystemUpdate" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.DD_AccountErrors" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.DD_SecurityQuestion" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.DocumentDownload" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.ImportantMessage" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.InvalidLogin" Width="1.5" PointX="6.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.NEST_Activity" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.NEST_Communication" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.NEST_DD_ActivityLevels" Width="1.5" PointX="11.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.NEST_DD_ActivityTypes" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.NEST_DD_AuthorizationCodes" Width="1.5" PointX="12.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.NEST_DD_ProviderTypes" Width="1.5" PointX="13.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.NEST_DD_ResultTypes" Width="1.5" PointX="13.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.NEST_DD_StageStatus" Width="1.5" PointX="12.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.NEST_DD_TransactionDirections" Width="1.5" PointX="14.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.NEST_DD_TransactionStatus" Width="1.5" PointX="14.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.NEST_DD_TransactionTypes" Width="1.5" PointX="14.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.NEST_Transaction" Width="1.5" PointX="14.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.NEST_ValueConversion" Width="1.5" PointX="15.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.NEST_VitalRecords_Deaths" Width="1.5" PointX="15.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.NESTMissingProcedure" Width="1.5" PointX="16.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.ThirdPartyFile" Width="1.5" PointX="16.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.UsedPassword" Width="1.5" PointX="17.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.UserIPAddress" Width="1.5" PointX="17.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.UserProfile" Width="1.5" PointX="18.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.UserRoleProgram" Width="1.5" PointX="18.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.UsersCurrentActivity" Width="1.5" PointX="5.25" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.vw_aspnet_Applications" Width="1.5" PointX="18.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.vw_aspnet_MembershipUsers" Width="1.5" PointX="18.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.vw_aspnet_Profiles" Width="1.5" PointX="19.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.vw_aspnet_Roles" Width="1.5" PointX="19.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.vw_aspnet_Users" Width="1.5" PointX="20.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.vw_aspnet_UsersInRoles" Width="1.5" PointX="20.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.vw_aspnet_WebPartState_Paths" Width="1.5" PointX="20.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.vw_aspnet_WebPartState_Shared" Width="1.5" PointX="20.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIADMINModel.vw_aspnet_WebPartState_User" Width="1.5" PointX="20.75" PointY="19.75" IsExpanded="true" />
+        <AssociationConnector Association="HIADMINModel.FK__aspnet_Me__Appli__75A278F5" ManuallyRouted="false" />
+        <AssociationConnector Association="HIADMINModel.FK__aspnet_Pa__Appli__2739D489" ManuallyRouted="false" />
+        <AssociationConnector Association="HIADMINModel.FK__aspnet_Ro__Appli__14270015" ManuallyRouted="false" />
+        <AssociationConnector Association="HIADMINModel.FK__aspnet_Us__Appli__656C112C" ManuallyRouted="false" />
+        <AssociationConnector Association="HIADMINModel.FK__aspnet_Me__UserI__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="HIADMINModel.FK__aspnet_Pe__PathI__2CF2ADDF" ManuallyRouted="false" />
+        <AssociationConnector Association="HIADMINModel.FK__aspnet_Pe__PathI__30C33EC3" ManuallyRouted="false" />
+        <AssociationConnector Association="HIADMINModel.FK__aspnet_Pe__UserI__31B762FC" ManuallyRouted="false" />
+        <AssociationConnector Association="HIADMINModel.FK__aspnet_Pr__UserI__0A9D95DB" ManuallyRouted="false" />
+        <AssociationConnector Association="HIADMINModel.FK__aspnet_Us__RoleI__18EBB532" ManuallyRouted="false" />
+        <AssociationConnector Association="HIADMINModel.FK__aspnet_Us__UserI__17F790F9" ManuallyRouted="false" />
+        <AssociationConnector Association="HIADMINModel.FK_UsersCurrentActivity_aspnet_Users" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

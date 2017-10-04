@@ -1,0 +1,26 @@
+@model CTL.Models.Dashboard
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Dashboard</legend>
+
+    <div class="display-label">DashboardName</div>
+    <div class="display-field">@Model.DashboardName</div>
+
+    <div class="display-label">Theme</div>
+    <div class="display-field">@Model.Theme</div>
+
+    <div class="display-label">Active</div>
+    <div class="display-field">@Model.Active</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.DashboardID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+

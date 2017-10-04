@@ -1,0 +1,420 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="eCaSTBillingModelStoreContainer" CdmEntityContainer="eCaSTBillingEntities">
+    <EntitySetMapping Name="Contacts">
+      <EntityTypeMapping TypeName="eCaSTBillingModel.Contact">
+        <MappingFragment StoreEntitySet="Contact">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="AgencySiteID" ColumnName="AgencySiteID" />
+          <ScalarProperty Name="AgencySiteName" ColumnName="AgencySiteName" />
+          <ScalarProperty Name="ContactTypeID" ColumnName="ContactTypeID" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhoneExtension" ColumnName="PhoneExtension" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Contracts">
+      <EntityTypeMapping TypeName="eCaSTBillingModel.Contract">
+        <MappingFragment StoreEntitySet="Contract">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="AgencySiteID" ColumnName="AgencySiteID" />
+          <ScalarProperty Name="RoutingNumber" ColumnName="RoutingNumber" />
+          <ScalarProperty Name="FiscalYear" ColumnName="FiscalYear" />
+          <ScalarProperty Name="DateFYStart" ColumnName="DateFYStart" />
+          <ScalarProperty Name="DateFYEnd" ColumnName="DateFYEnd" />
+          <ScalarProperty Name="ObjectCode" ColumnName="ObjectCode" />
+          <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+          <ScalarProperty Name="RateState" ColumnName="RateState" />
+          <ScalarProperty Name="RateFederal" ColumnName="RateFederal" />
+          <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Contract_CancerTypes">
+      <EntityTypeMapping TypeName="eCaSTBillingModel.Contract_CancerTypes">
+        <MappingFragment StoreEntitySet="Contract_CancerTypes">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+          <ScalarProperty Name="CancerTypeID" ColumnName="CancerTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DD_BillingPaid">
+      <EntityTypeMapping TypeName="eCaSTBillingModel.DD_BillingPaid">
+        <MappingFragment StoreEntitySet="DD_BillingPaid">
+          <ScalarProperty Name="BillingPaidBinID" ColumnName="BillingPaidBinID" />
+          <ScalarProperty Name="BillingPaidBinName" ColumnName="BillingPaidBinName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DD_ContractTypes">
+      <EntityTypeMapping TypeName="eCaSTBillingModel.DD_ContractTypes">
+        <MappingFragment StoreEntitySet="DD_ContractTypes">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ProgramBinID" ColumnName="ProgramBinID" />
+          <ScalarProperty Name="StateRatio" ColumnName="StateRatio" />
+          <ScalarProperty Name="FederalRatio" ColumnName="FederalRatio" />
+          <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+          <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+          <ScalarProperty Name="StateAccount" ColumnName="StateAccount" />
+          <ScalarProperty Name="FederalAccount" ColumnName="FederalAccount" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DD_DetailType">
+      <EntityTypeMapping TypeName="eCaSTBillingModel.DD_DetailType">
+        <MappingFragment StoreEntitySet="DD_DetailType">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DetailType" ColumnName="DetailType" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DD_LedgerTypes">
+      <EntityTypeMapping TypeName="eCaSTBillingModel.DD_LedgerTypes">
+        <MappingFragment StoreEntitySet="DD_LedgerTypes">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DD_LevelRate">
+      <EntityTypeMapping TypeName="eCaSTBillingModel.DD_LevelRate">
+        <MappingFragment StoreEntitySet="DD_LevelRate">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="FiscalYear" ColumnName="FiscalYear" />
+          <ScalarProperty Name="ContractTypeID" ColumnName="ContractTypeID" />
+          <ScalarProperty Name="CancerTypeID" ColumnName="CancerTypeID" />
+          <ScalarProperty Name="BillingLevelID" ColumnName="BillingLevelID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DD_ProcedureRate">
+      <EntityTypeMapping TypeName="eCaSTBillingModel.DD_ProcedureRate">
+        <MappingFragment StoreEntitySet="DD_ProcedureRate">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ProcedureMethodBinID" ColumnName="ProcedureMethodBinID" />
+          <ScalarProperty Name="FiscalYear" ColumnName="FiscalYear" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="CPTCodeUsed" ColumnName="CPTCodeUsed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FiscalYears">
+      <EntityTypeMapping TypeName="eCaSTBillingModel.FiscalYear">
+        <MappingFragment StoreEntitySet="FiscalYear">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ContractTypeID" ColumnName="ContractTypeID" />
+          <ScalarProperty Name="FiscalYear1" ColumnName="FiscalYear" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Invoices">
+      <EntityTypeMapping TypeName="eCaSTBillingModel.Invoice">
+        <MappingFragment StoreEntitySet="Invoice">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+          <ScalarProperty Name="FiscalYear" ColumnName="FiscalYear" />
+          <ScalarProperty Name="DateFrom" ColumnName="DateFrom" />
+          <ScalarProperty Name="DateTo" ColumnName="DateTo" />
+          <ScalarProperty Name="DatePosted" ColumnName="DatePosted" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InvoiceDetails">
+      <EntityTypeMapping TypeName="eCaSTBillingModel.InvoiceDetail">
+        <MappingFragment StoreEntitySet="InvoiceDetail">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="DetailTypeID" ColumnName="DetailTypeID" />
+          <ScalarProperty Name="DetailID" ColumnName="DetailID" />
+          <ScalarProperty Name="CancerTypeID" ColumnName="CancerTypeID" />
+          <ScalarProperty Name="BillingLevelID" ColumnName="BillingLevelID" />
+          <ScalarProperty Name="DateLastService" ColumnName="DateLastService" />
+          <ScalarProperty Name="FederalAllocation" ColumnName="FederalAllocation" />
+          <ScalarProperty Name="StateAllocation" ColumnName="StateAllocation" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MasterLedgers">
+      <EntityTypeMapping TypeName="eCaSTBillingModel.MasterLedger">
+        <MappingFragment StoreEntitySet="MasterLedger">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+          <ScalarProperty Name="ContractTypeID" ColumnName="ContractTypeID" />
+          <ScalarProperty Name="LedgerTypeID" ColumnName="LedgerTypeID" />
+          <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+          <ScalarProperty Name="FiscalYear" ColumnName="FiscalYear" />
+          <ScalarProperty Name="Debit" ColumnName="Debit" />
+          <ScalarProperty Name="Credit" ColumnName="Credit" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PercentFiscalYears">
+      <EntityTypeMapping TypeName="eCaSTBillingModel.PercentFiscalYear">
+        <MappingFragment StoreEntitySet="PercentFiscalYear">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="FiscalYear" ColumnName="FiscalYear" />
+          <ScalarProperty Name="DateOfBillRun" ColumnName="DateOfBillRun" />
+          <ScalarProperty Name="PercentOfFiscalYear" ColumnName="PercentOfFiscalYear" />
+          <ScalarProperty Name="ContractTypeID" ColumnName="ContractTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="f90Day_BreastClosure" FunctionName="eCaSTBillingModel.Store.f90Day_BreastClosure" />
+    <FunctionImportMapping FunctionImportName="CopyOf_Report_ScreeningBudgetTracking" FunctionName="eCaSTBillingModel.Store.CopyOf_Report_ScreeningBudgetTracking" />
+    <FunctionImportMapping FunctionImportName="CopyOf_Report_ScreeningBudgetTracking_dbg" FunctionName="eCaSTBillingModel.Store.CopyOf_Report_ScreeningBudgetTracking_dbg" />
+    <FunctionImportMapping FunctionImportName="DeleteBill" FunctionName="eCaSTBillingModel.Store.DeleteBill" />
+    <FunctionImportMapping FunctionImportName="eCaST_Get_FiscalYear_StartDate_By_Agency" FunctionName="eCaSTBillingModel.Store.eCaST_Get_FiscalYear_StartDate_By_Agency" />
+    <FunctionImportMapping FunctionImportName="eCaST_Get_Percent_ContractTypes" FunctionName="eCaSTBillingModel.Store.eCaST_Get_Percent_ContractTypes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="eCaSTBillingModel.eCaST_Get_Percent_ContractTypes_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ProgramBinID" ColumnName="ProgramBinID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="eCaST_Get_Percent_FiscalYear" FunctionName="eCaSTBillingModel.Store.eCaST_Get_Percent_FiscalYear" />
+    <FunctionImportMapping FunctionImportName="Insert_MasterLedger" FunctionName="eCaSTBillingModel.Store.Insert_MasterLedger" />
+    <FunctionImportMapping FunctionImportName="Insert_MasterLedger_BACKUP_X" FunctionName="eCaSTBillingModel.Store.Insert_MasterLedger_BACKUP_X" />
+    <FunctionImportMapping FunctionImportName="MasterBilling" FunctionName="eCaSTBillingModel.Store.MasterBilling" />
+    <FunctionImportMapping FunctionImportName="MasterCleanDuplicateInvoices" FunctionName="eCaSTBillingModel.Store.MasterCleanDuplicateInvoices" />
+    <FunctionImportMapping FunctionImportName="MasterCleanDuplicateScreens" FunctionName="eCaSTBillingModel.Store.MasterCleanDuplicateScreens" />
+    <FunctionImportMapping FunctionImportName="MasterCleanNegative" FunctionName="eCaSTBillingModel.Store.MasterCleanNegative" />
+    <FunctionImportMapping FunctionImportName="MasterProcedures" FunctionName="eCaSTBillingModel.Store.MasterProcedures" />
+    <FunctionImportMapping FunctionImportName="MasterProcedures_Backup_12162015" FunctionName="eCaSTBillingModel.Store.MasterProcedures_Backup_12162015" />
+    <FunctionImportMapping FunctionImportName="MasterScreening" FunctionName="eCaSTBillingModel.Store.MasterScreening" />
+    <FunctionImportMapping FunctionImportName="MasterScreening_BK_X" FunctionName="eCaSTBillingModel.Store.MasterScreening_BK_X" />
+    <FunctionImportMapping FunctionImportName="Procedure_Rules" FunctionName="eCaSTBillingModel.Store.Procedure_Rules" />
+    <FunctionImportMapping FunctionImportName="Report_Clients_Served_Bundled_Reimbursement_Level" FunctionName="eCaSTBillingModel.Store.Report_Clients_Served_Bundled_Reimbursement_Level">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="eCaSTBillingModel.Report_Clients_Served_Bundled_Reimbursement_Level_Result">
+          <ScalarProperty Name="AgencySiteName" ColumnName="AgencySiteName" />
+          <ScalarProperty Name="ClinicName" ColumnName="ClinicName" />
+          <ScalarProperty Name="BreastScreenings" ColumnName="BreastScreenings" />
+          <ScalarProperty Name="B1" ColumnName="B1" />
+          <ScalarProperty Name="B2" ColumnName="B2" />
+          <ScalarProperty Name="B3" ColumnName="B3" />
+          <ScalarProperty Name="B4" ColumnName="B4" />
+          <ScalarProperty Name="B5" ColumnName="B5" />
+          <ScalarProperty Name="B6" ColumnName="B6" />
+          <ScalarProperty Name="B7" ColumnName="B7" />
+          <ScalarProperty Name="B8" ColumnName="B8" />
+          <ScalarProperty Name="CervicalScreenigs" ColumnName="CervicalScreenigs" />
+          <ScalarProperty Name="C1" ColumnName="C1" />
+          <ScalarProperty Name="C2" ColumnName="C2" />
+          <ScalarProperty Name="C3" ColumnName="C3" />
+          <ScalarProperty Name="C4" ColumnName="C4" />
+          <ScalarProperty Name="C5" ColumnName="C5" />
+          <ScalarProperty Name="C7" ColumnName="C7" />
+          <ScalarProperty Name="C8" ColumnName="C8" />
+          <ScalarProperty Name="CardioVascularScreenings" ColumnName="CardioVascularScreenings" />
+          <ScalarProperty Name="W1" ColumnName="W1" />
+          <ScalarProperty Name="W2" ColumnName="W2" />
+          <ScalarProperty Name="W3" ColumnName="W3" />
+          <ScalarProperty Name="W4" ColumnName="W4" />
+          <ScalarProperty Name="W5" ColumnName="W5" />
+          <ScalarProperty Name="W6" ColumnName="W6" />
+          <ScalarProperty Name="W7" ColumnName="W7" />
+          <ScalarProperty Name="W8" ColumnName="W8" />
+          <ScalarProperty Name="W9" ColumnName="W9" />
+          <ScalarProperty Name="W10" ColumnName="W10" />
+          <ScalarProperty Name="ColorectalScreenings" ColumnName="ColorectalScreenings" />
+          <ScalarProperty Name="R1" ColumnName="R1" />
+          <ScalarProperty Name="R2" ColumnName="R2" />
+          <ScalarProperty Name="R3" ColumnName="R3" />
+          <ScalarProperty Name="R4" ColumnName="R4" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Report_GrantActivity" FunctionName="eCaSTBillingModel.Store.Report_GrantActivity">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="eCaSTBillingModel.Report_GrantActivity_Result">
+          <ScalarProperty Name="BillingDate" ColumnName="BillingDate" />
+          <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+          <ScalarProperty Name="AgencySiteName" ColumnName="AgencySiteName" />
+          <ScalarProperty Name="AgencyLegalName" ColumnName="AgencyLegalName" />
+          <ScalarProperty Name="FEIN" ColumnName="FEIN" />
+          <ScalarProperty Name="MailAddress" ColumnName="MailAddress" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CityBinName" ColumnName="CityBinName" />
+          <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="MailZipCode" ColumnName="MailZipCode" />
+          <ScalarProperty Name="FiscalContactFirst" ColumnName="FiscalContactFirst" />
+          <ScalarProperty Name="FiscalContactLast" ColumnName="FiscalContactLast" />
+          <ScalarProperty Name="FiscalPhone" ColumnName="FiscalPhone" />
+          <ScalarProperty Name="FiscalEmail" ColumnName="FiscalEmail" />
+          <ScalarProperty Name="ContactStart" ColumnName="ContactStart" />
+          <ScalarProperty Name="ContractEnd" ColumnName="ContractEnd" />
+          <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+          <ScalarProperty Name="PayableObjectCode" ColumnName="PayableObjectCode" />
+          <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+          <ScalarProperty Name="InvoicePosted" ColumnName="InvoicePosted" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="ClientLastName" ColumnName="ClientLastName" />
+          <ScalarProperty Name="ClientFirstName" ColumnName="ClientFirstName" />
+          <ScalarProperty Name="ClientDOB" ColumnName="ClientDOB" />
+          <ScalarProperty Name="DateLastProcedure" ColumnName="DateLastProcedure" />
+          <ScalarProperty Name="BillingLevel" ColumnName="BillingLevel" />
+          <ScalarProperty Name="CancerTypeID" ColumnName="CancerTypeID" />
+          <ScalarProperty Name="Payment" ColumnName="Payment" />
+          <ScalarProperty Name="COFERSFederal" ColumnName="COFERSFederal" />
+          <ScalarProperty Name="COFERSState" ColumnName="COFERSState" />
+          <ScalarProperty Name="TotalGrantPayment" ColumnName="TotalGrantPayment" />
+          <ScalarProperty Name="FederalTotal" ColumnName="FederalTotal" />
+          <ScalarProperty Name="StateTotal" ColumnName="StateTotal" />
+          <ScalarProperty Name="FederalAccount" ColumnName="FederalAccount" />
+          <ScalarProperty Name="StateAccount" ColumnName="StateAccount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Report_GrantActivityWeb" FunctionName="eCaSTBillingModel.Store.Report_GrantActivityWeb">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="eCaSTBillingModel.Report_GrantActivityWeb_Result">
+          <ScalarProperty Name="BillingDate" ColumnName="BillingDate" />
+          <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+          <ScalarProperty Name="AgencySiteName" ColumnName="AgencySiteName" />
+          <ScalarProperty Name="AgencyLegalName" ColumnName="AgencyLegalName" />
+          <ScalarProperty Name="FEIN" ColumnName="FEIN" />
+          <ScalarProperty Name="MailAddress" ColumnName="MailAddress" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CityBinName" ColumnName="CityBinName" />
+          <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="MailZipCode" ColumnName="MailZipCode" />
+          <ScalarProperty Name="FiscalContactFirst" ColumnName="FiscalContactFirst" />
+          <ScalarProperty Name="FiscalContactLast" ColumnName="FiscalContactLast" />
+          <ScalarProperty Name="FiscalPhone" ColumnName="FiscalPhone" />
+          <ScalarProperty Name="FiscalEmail" ColumnName="FiscalEmail" />
+          <ScalarProperty Name="ContactStart" ColumnName="ContactStart" />
+          <ScalarProperty Name="ContractEnd" ColumnName="ContractEnd" />
+          <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+          <ScalarProperty Name="PayableObjectCode" ColumnName="PayableObjectCode" />
+          <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+          <ScalarProperty Name="InvoicePosted" ColumnName="InvoicePosted" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="ClientLastName" ColumnName="ClientLastName" />
+          <ScalarProperty Name="ClientFirstName" ColumnName="ClientFirstName" />
+          <ScalarProperty Name="ClientDOB" ColumnName="ClientDOB" />
+          <ScalarProperty Name="DateLastProcedure" ColumnName="DateLastProcedure" />
+          <ScalarProperty Name="BillingLevel" ColumnName="BillingLevel" />
+          <ScalarProperty Name="CancerTypeID" ColumnName="CancerTypeID" />
+          <ScalarProperty Name="Payment" ColumnName="Payment" />
+          <ScalarProperty Name="COFERSFederal" ColumnName="COFERSFederal" />
+          <ScalarProperty Name="COFERSState" ColumnName="COFERSState" />
+          <ScalarProperty Name="TotalGrantPayment" ColumnName="TotalGrantPayment" />
+          <ScalarProperty Name="FederalTotal" ColumnName="FederalTotal" />
+          <ScalarProperty Name="StateTotal" ColumnName="StateTotal" />
+          <ScalarProperty Name="FederalAccount" ColumnName="FederalAccount" />
+          <ScalarProperty Name="StateAccount" ColumnName="StateAccount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Report_GrantActivityWebFull" FunctionName="eCaSTBillingModel.Store.Report_GrantActivityWebFull">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="eCaSTBillingModel.Report_GrantActivityWebFull_Result">
+          <ScalarProperty Name="BillingDate" ColumnName="BillingDate" />
+          <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+          <ScalarProperty Name="AgencySiteName" ColumnName="AgencySiteName" />
+          <ScalarProperty Name="AgencyLegalName" ColumnName="AgencyLegalName" />
+          <ScalarProperty Name="FEIN" ColumnName="FEIN" />
+          <ScalarProperty Name="MailAddress" ColumnName="MailAddress" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CityBinName" ColumnName="CityBinName" />
+          <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="MailZipCode" ColumnName="MailZipCode" />
+          <ScalarProperty Name="FiscalContactFirst" ColumnName="FiscalContactFirst" />
+          <ScalarProperty Name="FiscalContactLast" ColumnName="FiscalContactLast" />
+          <ScalarProperty Name="FiscalPhone" ColumnName="FiscalPhone" />
+          <ScalarProperty Name="FiscalEmail" ColumnName="FiscalEmail" />
+          <ScalarProperty Name="ContactStart" ColumnName="ContactStart" />
+          <ScalarProperty Name="ContractEnd" ColumnName="ContractEnd" />
+          <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+          <ScalarProperty Name="PayableObjectCode" ColumnName="PayableObjectCode" />
+          <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+          <ScalarProperty Name="InvoicePosted" ColumnName="InvoicePosted" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="ClientLastName" ColumnName="ClientLastName" />
+          <ScalarProperty Name="ClientFirstName" ColumnName="ClientFirstName" />
+          <ScalarProperty Name="ClientDOB" ColumnName="ClientDOB" />
+          <ScalarProperty Name="DateLastProcedure" ColumnName="DateLastProcedure" />
+          <ScalarProperty Name="BillingLevel" ColumnName="BillingLevel" />
+          <ScalarProperty Name="CancerTypeID" ColumnName="CancerTypeID" />
+          <ScalarProperty Name="Payment" ColumnName="Payment" />
+          <ScalarProperty Name="COFERSFederal" ColumnName="COFERSFederal" />
+          <ScalarProperty Name="COFERSState" ColumnName="COFERSState" />
+          <ScalarProperty Name="TotalGrantPayment" ColumnName="TotalGrantPayment" />
+          <ScalarProperty Name="FederalTotal" ColumnName="FederalTotal" />
+          <ScalarProperty Name="StateTotal" ColumnName="StateTotal" />
+          <ScalarProperty Name="FederalAccount" ColumnName="FederalAccount" />
+          <ScalarProperty Name="StateAccount" ColumnName="StateAccount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Report_ScreeningBudgetTracking" FunctionName="eCaSTBillingModel.Store.Report_ScreeningBudgetTracking" />
+    <FunctionImportMapping FunctionImportName="Report_ScreeningBudgetTrackingWeb" FunctionName="eCaSTBillingModel.Store.Report_ScreeningBudgetTrackingWeb" />
+    <FunctionImportMapping FunctionImportName="Report_ScreeningBudgetTrackingWeb_APP" FunctionName="eCaSTBillingModel.Store.Report_ScreeningBudgetTrackingWeb_APP">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="eCaSTBillingModel.Report_ScreeningBudgetTrackingWeb_APP_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+          <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+          <ScalarProperty Name="ScreenCapAmount" ColumnName="ScreenCapAmount" />
+          <ScalarProperty Name="TotalPaidAmount" ColumnName="TotalPaidAmount" />
+          <ScalarProperty Name="PercentFY" ColumnName="PercentFY" />
+          <ScalarProperty Name="PercentSpent" ColumnName="PercentSpent" />
+          <ScalarProperty Name="Diff" ColumnName="Diff" />
+          <ScalarProperty Name="BreastScreeningsCount" ColumnName="BreastScreeningsCount" />
+          <ScalarProperty Name="BreastTotalSpent" ColumnName="BreastTotalSpent" />
+          <ScalarProperty Name="CPB" ColumnName="CPB" />
+          <ScalarProperty Name="CervicalScreeningsCount" ColumnName="CervicalScreeningsCount" />
+          <ScalarProperty Name="CervicalTotalSpent" ColumnName="CervicalTotalSpent" />
+          <ScalarProperty Name="CPC" ColumnName="CPC" />
+          <ScalarProperty Name="WomenCount" ColumnName="WomenCount" />
+          <ScalarProperty Name="CPW" ColumnName="CPW" />
+          <ScalarProperty Name="Estimate" ColumnName="Estimate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Reset_BillingLevels" FunctionName="eCaSTBillingModel.Store.Reset_BillingLevels" />
+    <FunctionImportMapping FunctionImportName="Return_SelectedItems" FunctionName="eCaSTBillingModel.Store.Return_SelectedItems" />
+    <FunctionImportMapping FunctionImportName="Screening_Rules" FunctionName="eCaSTBillingModel.Store.Screening_Rules" />
+    <FunctionImportMapping FunctionImportName="Set_Adjustments" FunctionName="eCaSTBillingModel.Store.Set_Adjustments" />
+    <FunctionImportMapping FunctionImportName="Set_Adjustments_CCGP" FunctionName="eCaSTBillingModel.Store.Set_Adjustments_CCGP" />
+    <FunctionImportMapping FunctionImportName="Set_Allocations" FunctionName="eCaSTBillingModel.Store.Set_Allocations" />
+    <FunctionImportMapping FunctionImportName="Update_ScreeningAlreadyPaid" FunctionName="eCaSTBillingModel.Store.Update_ScreeningAlreadyPaid" />
+    <FunctionImportMapping FunctionImportName="Update_ScreeningPaid" FunctionName="eCaSTBillingModel.Store.Update_ScreeningPaid" />
+    <FunctionImportMapping FunctionImportName="Update_ScreeningProcedurePaid" FunctionName="eCaSTBillingModel.Store.Update_ScreeningProcedurePaid" />
+  </EntityContainerMapping>
+</Mapping>

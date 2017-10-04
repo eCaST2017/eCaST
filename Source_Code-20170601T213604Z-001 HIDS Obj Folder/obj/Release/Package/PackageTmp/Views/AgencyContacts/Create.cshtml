@@ -1,0 +1,163 @@
+﻿@model CTL.ViewModels.AgencyContactViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+@using (Html.BeginForm("_AddAgencyContactF", "AgencyContacts", FormMethod.Post, new { id = "AddAgencyContactForm_" + @ViewBag.SiteID + @ViewBag.ProgramID }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+
+    <div class="w3-card-2">
+        <div style="background-color:#666" class="panel-heading w3-card-2">
+            <span style="color:#fff;font-family: 'Roboto', sans-serif; font-size:16px"><span id="AddEditLabel_@ViewBag.SiteID@ViewBag.ProgramID"><i style="color:#fff" class="fa fa-plus-circle fa-fw"></i>&nbsp;Add Contact</span></span>
+
+            <div class="pull-right"><a id="ACCollapsePanelButton_@ViewBag.SiteID@ViewBag.ProgramID" href="#"><i id="ACCollapsePanelButtonIcon_@ViewBag.SiteID@ViewBag.ProgramID" style="color:#fff" class="fa fa-arrow-circle-right fa-fw"></i></a></div>
+
+        </div>
+        <!-- /.panel-heading -->
+
+        <div style="display:none" id="ContactHolderContainer_@ViewBag.SiteID@ViewBag.ProgramID">
+
+
+            <div style="background-color:#fff" class="panel-body">
+
+                <div id="ContactInfoContainer_@ViewBag.SiteID@ViewBag.ProgramID"></div>
+
+              
+
+            </div>
+
+
+        </div>
+
+
+
+         </div>
+
+    
+    @Html.Hidden("ProgramBinID", (int?)ViewBag.ProgramID)
+    @Html.Hidden("SiteID", (int?)ViewBag.SiteID)
+   
+}
+
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        $("#ACCollapsePanelButtonIcon_@ViewBag.SiteID@ViewBag.ProgramID").rotate({
+            bind: {
+                click: function () {
+
+
+                    if ($('#ContactHolderContainer_@ViewBag.SiteID@ViewBag.ProgramID').css('display') == 'none') {
+
+                        $(this).rotate({
+                            duration: 4000,
+                            angle: 0,
+                            animateTo: 90
+                        })
+
+
+                    }
+                    else {
+
+                        $(this).rotate({
+                            duration: 4000,
+                            angle: 0,
+                            animateTo: 0
+                        })
+
+                    }
+
+                }
+            }
+        });
+
+        $('#ContactInfoContainer_@ViewBag.SiteID@ViewBag.ProgramID').load('@Url.Action("_ContactInfo", "AgencyContacts", new { id = ViewBag.SiteID, id2 = ViewBag.ProgramID, id3 = ViewBag.AgencyContactID })');
+
+
+        $("#ACCollapsePanelButton_@ViewBag.SiteID@ViewBag.ProgramID").click(function (e) {
+
+
+            if ($('#ContactHolderContainer_@ViewBag.SiteID@ViewBag.ProgramID').css('display') == 'none') {
+
+
+                $('#ContactHolderContainer_@ViewBag.SiteID@ViewBag.ProgramID').css("display", "block");
+
+
+            }
+            else {
+
+
+                $('#ContactHolderContainer_@ViewBag.SiteID@ViewBag.ProgramID').css("display", "none");
+
+            }
+
+            e.preventDefault(); //Prevent default click action which is causing the 
+            return false;       //page to scroll back to the top
+
+
+        });
+
+
+     
+
+
+        $('#AddAgencyContactForm_@ViewBag.SiteID@ViewBag.ProgramID').on("submit", function (evt44) {
+            evt44.preventDefault();
+            if ($('#AddAgencyContactForm_@ViewBag.SiteID@ViewBag.ProgramID').valid()) {
+                $.ajax({
+
+                    url: $("#AddAgencyContactForm_@ViewBag.SiteID@ViewBag.ProgramID").attr('action'),
+                    type: $("#AddAgencyContactForm_@ViewBag.SiteID@ViewBag.ProgramID").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#AddAgencyContactForm_@ViewBag.SiteID@ViewBag.ProgramID").serialize(),
+                    success: function (data) {
+
+                        var status = data.Status;
+                        var agid = data.Modified;
+
+                        $('#ProgramListSection').load('@Url.Action("_ProgramManagement", "Programs", new { id = ViewBag.SiteID })');
+
+                        if (agid == "") {
+
+                            toastr.success('You have successfully added a new contact.')
+
+                        }
+                        else {
+
+
+                            toastr.success('You have successfully updated a contact.')
+
+
+                        }
+
+                    }
+
+                });
+            }
+
+        });
+
+
+
+
+    });
+
+
+    $(document).ready(function () {
+        $('.SitePhone').mask('(999) 999-9999? x99999');
+        $('.cep').mask('99999');
+    });
+
+</script>

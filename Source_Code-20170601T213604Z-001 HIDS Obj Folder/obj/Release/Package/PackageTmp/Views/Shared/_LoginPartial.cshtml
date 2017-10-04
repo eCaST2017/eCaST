@@ -1,0 +1,110 @@
+﻿@using Microsoft.AspNet.Identity
+
+<style type="text/css">
+
+ .user-avatar {
+  position: relative
+}
+
+.status {
+  position: absolute;
+  left: 25px;
+  bottom: 10px;
+   
+}
+
+
+</style>
+
+
+
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOffPortal", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+   
+
+
+    <ul class="nav navbar-nav navbar-right">
+
+    
+        <li>
+        
+
+            <a id="logoutButton" style="color:#999" href="javascript:document.getElementById('logoutForm').submit()">
+
+
+                <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;Log off
+            </a>
+        
+        
+        
+        </li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-left">
+        <li>@Html.ActionLink("Home", "Index", "Home", routeValues: null, htmlAttributes: new { id = "homeLink", @style = "color:#fff;font-family: 'Roboto', sans-serif;font-size:large" })</li>
+       
+        
+
+           
+
+            @*<div style="padding-top:12px" class="row">
+            <div class="col-md-12">
+                @Html.ActionLink("Opportunities", "Index", "Posts", routeValues: null, htmlAttributes: new { id = "postLink", @style = "color:#fff;font-family: 'Source Sans Pro', sans-serif;font-size:large" })
+               &nbsp;
+                
+                @if(@ViewBag.PostCount < 1){
+                
+                 <span class="badge pull-right">@ViewBag.PostCount</span>
+
+
+                }
+                else
+                {
+
+
+                    <span style="background-color:red" class="badge pull-right">@ViewBag.PostCount</span>
+
+                } 
+                
+                  
+            </div>
+            </div>*@
+        
+
+            
+        
+        
+      
+        <li>@Html.ActionLink("Request Access", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @style = "color:#fff;font-family: 'Roboto', sans-serif;font-size:large" })</li>
+        @*<li>@Html.ActionLink("Training", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @style = "color:#fff;font-family: 'Roboto', sans-serif;font-size:large" })</li>*@
+        <li>@Html.ActionLink("Help Desk", "Contact", "Home", routeValues: null, htmlAttributes: new { id = "registerLink", @style = "color:#fff;font-family: 'Roboto', sans-serif;font-size:large" })</li>
+        <li>@Html.ActionLink("WWC Locations", "_WWCLocations", "Home", routeValues: null, htmlAttributes: new { id = "wwcLink", @style = "color:#fff;font-family: 'Roboto', sans-serif;font-size:large" })</li>
+        @*<li style="padding-left:8px; padding-top:14px"><span style="background-color:#44b336" class="badge"> <a id="LoginButton" style="color:#fff; padding:12px; text-decoration:none;font-family: 'Source Sans Pro', sans-serif;font-size:medium" data-toggle="modal" data-target="#LoginModal" href="#">Login</a></span></li>*@
+        
+    </ul>
+
+    if (ViewBag.NoticeCount > 0)
+    {
+
+        <div class="pull-right user-avatar"><i style="color:#666;font-size:30px;padding:10px" class="fa fa-bell"></i><span style="background-color:#ff0000;color:#fff;font-weight:bold" class="badge status">@ViewBag.NoticeCount</span></div>
+
+    }
+    else
+    {
+
+        <div class="pull-right user-avatar"><i style="color:#666;font-size:30px;padding:10px" class="fa fa-bell"></i><span style="background-color:#666;color:#999;font-weight:bold" class="badge status">@ViewBag.NoticeCount</span></div>
+
+    }
+
+}
+
+
+

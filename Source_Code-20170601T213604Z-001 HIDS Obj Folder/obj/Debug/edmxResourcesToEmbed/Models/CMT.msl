@@ -1,0 +1,509 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PortalRequestEntitiesModelStoreContainer" CdmEntityContainer="PortalRequestEntitiesEntities">
+    <EntitySetMapping Name="C__MigrationHistory">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.C__MigrationHistory">
+        <MappingFragment StoreEntitySet="__MigrationHistory">
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ApplicationDivisions">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.ApplicationDivision">
+        <MappingFragment StoreEntitySet="ApplicationDivisions">
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Assets">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.Asset">
+        <MappingFragment StoreEntitySet="Assets">
+          <ScalarProperty Name="AssetID" ColumnName="AssetID" />
+          <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+          <ScalarProperty Name="AssetTitle" ColumnName="AssetTitle" />
+          <ScalarProperty Name="AssetURL" ColumnName="AssetURL" />
+          <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Divisions">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.Division">
+        <MappingFragment StoreEntitySet="Divisions">
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
+          <ScalarProperty Name="DivisionName" ColumnName="DivisionName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EdmMetadatas">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.EdmMetadata">
+        <MappingFragment StoreEntitySet="EdmMetadata">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ModelHash" ColumnName="ModelHash" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GanttDependencies">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.GanttDependency">
+        <MappingFragment StoreEntitySet="GanttDependencies">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="PredecessorID" ColumnName="PredecessorID" />
+          <ScalarProperty Name="SuccessorID" ColumnName="SuccessorID" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GanttResourceAssignments">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.GanttResourceAssignment">
+        <MappingFragment StoreEntitySet="GanttResourceAssignments">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+          <ScalarProperty Name="ResourceID" ColumnName="ResourceID" />
+          <ScalarProperty Name="Units" ColumnName="Units" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GanttResources">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.GanttResource">
+        <MappingFragment StoreEntitySet="GanttResources">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GanttTasks">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.GanttTask">
+        <MappingFragment StoreEntitySet="GanttTasks">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Start" ColumnName="Start" />
+          <ScalarProperty Name="End" ColumnName="End" />
+          <ScalarProperty Name="PercentComplete" ColumnName="PercentComplete" />
+          <ScalarProperty Name="Expanded" ColumnName="Expanded" />
+          <ScalarProperty Name="Summary" ColumnName="Summary" />
+          <ScalarProperty Name="GanttTask1_ID" ColumnName="GanttTask1_ID" />
+          <ScalarProperty Name="SeenOnCreate" ColumnName="SeenOnCreate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModuleApplications">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.ModuleApplication">
+        <MappingFragment StoreEntitySet="ModuleApplications">
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Modules">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.Module">
+        <MappingFragment StoreEntitySet="Modules">
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Notifications">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.Notification">
+        <MappingFragment StoreEntitySet="Notifications">
+          <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+          <ScalarProperty Name="NotificationName" ColumnName="NotificationName" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Priorities">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.Priority">
+        <MappingFragment StoreEntitySet="Priorities">
+          <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
+          <ScalarProperty Name="PriorityName" ColumnName="PriorityName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectApplications">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.ProjectApplication">
+        <MappingFragment StoreEntitySet="ProjectApplications">
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.Project">
+        <MappingFragment StoreEntitySet="Projects">
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="ProjectTypeID" ColumnName="ProjectTypeID" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectSubApplications">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.ProjectSubApplication">
+        <MappingFragment StoreEntitySet="ProjectSubApplications">
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="SubApplicationID" ColumnName="SubApplicationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectTypes">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.ProjectType">
+        <MappingFragment StoreEntitySet="ProjectTypes">
+          <ScalarProperty Name="ProjectTypeID" ColumnName="ProjectTypeID" />
+          <ScalarProperty Name="ProjectTypeName" ColumnName="ProjectTypeName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QANotes">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.QANote">
+        <MappingFragment StoreEntitySet="QANotes">
+          <ScalarProperty Name="QANoteID" ColumnName="QANoteID" />
+          <ScalarProperty Name="QANoteName" ColumnName="QANoteName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QANotesQualityAssurances">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.QANotesQualityAssurance">
+        <MappingFragment StoreEntitySet="QANotesQualityAssurances">
+          <ScalarProperty Name="QANotesID" ColumnName="QANotesID" />
+          <ScalarProperty Name="QualityAssuranceID" ColumnName="QualityAssuranceID" />
+          <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QualityAssuranceRequests">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.QualityAssuranceRequest">
+        <MappingFragment StoreEntitySet="QualityAssuranceRequests">
+          <ScalarProperty Name="QualityAssuranceID" ColumnName="QualityAssuranceID" />
+          <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QualityAssurances">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.QualityAssurance">
+        <MappingFragment StoreEntitySet="QualityAssurances">
+          <ScalarProperty Name="QualityAssuranceID" ColumnName="QualityAssuranceID" />
+          <ScalarProperty Name="QualityAssuranceName" ColumnName="QualityAssuranceName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReleaseApplications">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.ReleaseApplication">
+        <MappingFragment StoreEntitySet="ReleaseApplications">
+          <ScalarProperty Name="ReleaseID" ColumnName="ReleaseID" />
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Releases">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.Release">
+        <MappingFragment StoreEntitySet="Releases">
+          <ScalarProperty Name="ReleaseID" ColumnName="ReleaseID" />
+          <ScalarProperty Name="ReleaseName" ColumnName="ReleaseName" />
+          <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestActions">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.RequestAction">
+        <MappingFragment StoreEntitySet="RequestActions">
+          <ScalarProperty Name="RequestActionID" ColumnName="RequestActionID" />
+          <ScalarProperty Name="RequestActionName" ColumnName="RequestActionName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestActionTypes">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.RequestActionType">
+        <MappingFragment StoreEntitySet="RequestActionTypes">
+          <ScalarProperty Name="RequestActionTypeID" ColumnName="RequestActionTypeID" />
+          <ScalarProperty Name="RequestActionTypeName" ColumnName="RequestActionTypeName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestClients">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.RequestClient">
+        <MappingFragment StoreEntitySet="RequestClients">
+          <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestModes">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.RequestMode">
+        <MappingFragment StoreEntitySet="RequestModes">
+          <ScalarProperty Name="RequestModeID" ColumnName="RequestModeID" />
+          <ScalarProperty Name="RequestModeName" ColumnName="RequestModeName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestPersons">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.RequestPerson">
+        <MappingFragment StoreEntitySet="RequestPersons">
+          <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+          <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestPrograms">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.RequestProgram">
+        <MappingFragment StoreEntitySet="RequestPrograms">
+          <ScalarProperty Name="RequestProgramID" ColumnName="RequestProgramID" />
+          <ScalarProperty Name="RequestProgramDivisionID" ColumnName="RequestProgramDivisionID" />
+          <ScalarProperty Name="RequestProgramName" ColumnName="RequestProgramName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestProjects">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.RequestProject">
+        <MappingFragment StoreEntitySet="RequestProjects">
+          <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestReleases">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.RequestReleas">
+        <MappingFragment StoreEntitySet="RequestReleases">
+          <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+          <ScalarProperty Name="ReleaseID" ColumnName="ReleaseID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestReports">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.RequestReport">
+        <MappingFragment StoreEntitySet="RequestReports">
+          <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+          <ScalarProperty Name="ReportID" ColumnName="ReportID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Requests">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.Request">
+        <MappingFragment StoreEntitySet="Requests">
+          <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+          <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+          <ScalarProperty Name="RequestDateActual" ColumnName="RequestDateActual" />
+          <ScalarProperty Name="RequestorID" ColumnName="RequestorID" />
+          <ScalarProperty Name="RequestTitle" ColumnName="RequestTitle" />
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
+          <ScalarProperty Name="RequestProgramID" ColumnName="RequestProgramID" />
+          <ScalarProperty Name="RequestTypeID" ColumnName="RequestTypeID" />
+          <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
+          <ScalarProperty Name="StateID" ColumnName="StateID" />
+          <ScalarProperty Name="RequestDesc" ColumnName="RequestDesc" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="DeveloperNotes" ColumnName="DeveloperNotes" />
+          <ScalarProperty Name="TestLog" ColumnName="TestLog" />
+          <ScalarProperty Name="TimeToComplete" ColumnName="TimeToComplete" />
+          <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
+          <ScalarProperty Name="BroadcastDate" ColumnName="BroadcastDate" />
+          <ScalarProperty Name="TrainingIssue" ColumnName="TrainingIssue" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+          <ScalarProperty Name="RequestorNotes" ColumnName="RequestorNotes" />
+          <ScalarProperty Name="RequestedByID" ColumnName="RequestedByID" />
+          <ScalarProperty Name="Overdue" ColumnName="Overdue" />
+          <ScalarProperty Name="RequestModeID" ColumnName="RequestModeID" />
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+          <ScalarProperty Name="OverdueWarning" ColumnName="OverdueWarning" />
+          <ScalarProperty Name="RequestorViewed" ColumnName="RequestorViewed" />
+          <ScalarProperty Name="AssigneeViewed" ColumnName="AssigneeViewed" />
+          <ScalarProperty Name="Requestor" ColumnName="Requestor" />
+          <ScalarProperty Name="TestingMode" ColumnName="TestingMode" />
+          <ScalarProperty Name="Participants" ColumnName="Participants" />
+          <ScalarProperty Name="SubApplicationID" ColumnName="SubApplicationID" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="Urgent" ColumnName="Urgent" />
+          <ScalarProperty Name="RequestActionID" ColumnName="RequestActionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestScreenings">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.RequestScreening">
+        <MappingFragment StoreEntitySet="RequestScreenings">
+          <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+          <ScalarProperty Name="ScreeningID" ColumnName="ScreeningID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestsDUMPs">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.RequestsDUMP">
+        <MappingFragment StoreEntitySet="RequestsDUMP">
+          <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+          <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+          <ScalarProperty Name="RequestDateActual" ColumnName="RequestDateActual" />
+          <ScalarProperty Name="RequestorID" ColumnName="RequestorID" />
+          <ScalarProperty Name="RequestTitle" ColumnName="RequestTitle" />
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
+          <ScalarProperty Name="RequestProgramID" ColumnName="RequestProgramID" />
+          <ScalarProperty Name="RequestTypeID" ColumnName="RequestTypeID" />
+          <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
+          <ScalarProperty Name="StateID" ColumnName="StateID" />
+          <ScalarProperty Name="RequestDesc" ColumnName="RequestDesc" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="DeveloperNotes" ColumnName="DeveloperNotes" />
+          <ScalarProperty Name="TestLog" ColumnName="TestLog" />
+          <ScalarProperty Name="TimeToComplete" ColumnName="TimeToComplete" />
+          <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
+          <ScalarProperty Name="BroadcastDate" ColumnName="BroadcastDate" />
+          <ScalarProperty Name="TrainingIssue" ColumnName="TrainingIssue" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+          <ScalarProperty Name="RequestorNotes" ColumnName="RequestorNotes" />
+          <ScalarProperty Name="RequestedByID" ColumnName="RequestedByID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestTrackers">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.RequestTracker">
+        <MappingFragment StoreEntitySet="RequestTrackers">
+          <ScalarProperty Name="RequestTrackerID" ColumnName="RequestTrackerID" />
+          <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+          <ScalarProperty Name="Assignee" ColumnName="Assignee" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="RequestDesc" ColumnName="RequestDesc" />
+          <ScalarProperty Name="DeveloperNotes" ColumnName="DeveloperNotes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestTypeApplications">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.RequestTypeApplication">
+        <MappingFragment StoreEntitySet="RequestTypeApplications">
+          <ScalarProperty Name="RequestTypeID" ColumnName="RequestTypeID" />
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestTypeNotifications">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.RequestTypeNotification">
+        <MappingFragment StoreEntitySet="RequestTypeNotifications">
+          <ScalarProperty Name="RequestTypeID" ColumnName="RequestTypeID" />
+          <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+          <ScalarProperty Name="SubApplicationID" ColumnName="SubApplicationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestTypes">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.RequestType">
+        <MappingFragment StoreEntitySet="RequestTypes">
+          <ScalarProperty Name="RequestTypeID" ColumnName="RequestTypeID" />
+          <ScalarProperty Name="RequestTypeName" ColumnName="RequestTypeName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="RequestModeID" ColumnName="RequestModeID" />
+          <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestTypeSubApplications">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.RequestTypeSubApplication">
+        <MappingFragment StoreEntitySet="RequestTypeSubApplications">
+          <ScalarProperty Name="RequestTypeID" ColumnName="RequestTypeID" />
+          <ScalarProperty Name="SubApplicationID" ColumnName="SubApplicationID" />
+          <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SiteDivisions">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.SiteDivision">
+        <MappingFragment StoreEntitySet="SiteDivisions">
+          <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="States">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.State">
+        <MappingFragment StoreEntitySet="States">
+          <ScalarProperty Name="StateID" ColumnName="StateID" />
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubApplicationApplications">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.SubApplicationApplication">
+        <MappingFragment StoreEntitySet="SubApplicationApplications">
+          <ScalarProperty Name="SubApplicationID" ColumnName="SubApplicationID" />
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubApplications">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.SubApplication">
+        <MappingFragment StoreEntitySet="SubApplications">
+          <ScalarProperty Name="SubApplicationID" ColumnName="SubApplicationID" />
+          <ScalarProperty Name="SubApplicationName" ColumnName="SubApplicationName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserIdApplications">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.UserIdApplication">
+        <MappingFragment StoreEntitySet="UserIdApplications">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+          <ScalarProperty Name="DefaultView" ColumnName="DefaultView" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserIdRequests">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.UserIdRequest">
+        <MappingFragment StoreEntitySet="UserIdRequests">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserIdSubApplications">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.UserIdSubApplication">
+        <MappingFragment StoreEntitySet="UserIdSubApplications">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="SubApplicationID" ColumnName="SubApplicationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserOptions">
+      <EntityTypeMapping TypeName="PortalRequestEntitiesModel.UserOption">
+        <MappingFragment StoreEntitySet="UserOptions">
+          <ScalarProperty Name="UserOptionID" ColumnName="UserOptionID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ToolbarCode" ColumnName="ToolbarCode" />
+          <ScalarProperty Name="QuickViewCode" ColumnName="QuickViewCode" />
+          <ScalarProperty Name="Theme" ColumnName="Theme" />
+          <ScalarProperty Name="CalendarEventDisplay" ColumnName="CalendarEventDisplay" />
+          <ScalarProperty Name="StartTimeCalendar" ColumnName="StartTimeCalendar" />
+          <ScalarProperty Name="EndTimeCalendar" ColumnName="EndTimeCalendar" />
+          <ScalarProperty Name="NotificationViewID" ColumnName="NotificationViewID" />
+          <ScalarProperty Name="DataEntryID" ColumnName="DataEntryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

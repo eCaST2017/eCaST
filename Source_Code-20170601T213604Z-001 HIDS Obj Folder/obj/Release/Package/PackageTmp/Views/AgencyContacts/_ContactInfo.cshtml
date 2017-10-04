@@ -1,0 +1,635 @@
+﻿@model CTL.ViewModels.AgencyContactViewModel
+
+@{
+    ViewBag.Title = "Contact Info";
+}
+
+
+
+
+
+<div style="height: 360px; width:98%; overflow: scroll; overflow-y: auto; overflow-x: hidden;padding: 2px; margin: 2px">
+
+    <br />
+    <div class="row">
+        <div class="col-md-4">First Name</div>
+        <div class="col-md-8">@Html.TextBoxFor(model => model.FirstName, new { @id = "FirstName_" + @ViewBag.SiteID + @ViewBag.ProgramID, @style = "width: 94%;", @placeholder = "Enter First Name", @class = "form-control" }) @Html.ValidationMessageFor(model => model.FirstName)</div>
+
+
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4">Last Name</div>
+        <div class="col-md-8">@Html.TextBoxFor(model => model.LastName, new { @id = "LastName_" + @ViewBag.SiteID + @ViewBag.ProgramID, @style = "width: 94%;", @placeholder = "Enter Last Name", @class = "form-control" }) @Html.ValidationMessageFor(model => model.LastName)</div>
+
+    </div>
+
+    <br />
+
+
+    @if (ViewBag.AgencyContactID == null)
+    {
+
+        <div class="row">
+            <div class="col-md-2">
+
+                Type of Contact
+            </div>
+
+            <div class="col-md-10">
+
+                @Html.DropDownListFor(model => model.AgencyRoleTypeBinID, ((IEnumerable<CTL.Models.DDAgencyRoleTypeBin>)ViewBag.PossibleAgencyRoleTypeBins).Select(option => new SelectListItem
+                    {
+                        Text = option.AgencyRoleTypeBinName,
+                        Value = option.AgencyRoleTypeBinID.ToString(),
+                        Selected = (Model != null) && (option.AgencyRoleTypeBinID == Model.AgencyRoleTypeBinID)
+                    }), "Choose...", new { @id = "AddAgencyRoleTypeBinID_" + @ViewBag.SiteID + @ViewBag.ProgramID })
+                @Html.ValidationMessageFor(model => model.AgencyRoleTypeBinID)
+
+
+
+
+
+
+            </div>
+
+        </div>
+
+
+        <br />
+
+        <div id="AgencyRoleContainer_@ViewBag.SiteID@ViewBag.ProgramID" class="row">
+
+            <div class="col-md-2">
+
+                Role
+            </div>
+
+            <div class="col-md-10">
+
+                @Html.DropDownListFor(model => model.AgencyRoleBinID, ((IEnumerable<CTL.Models.RoleBin>)ViewBag.PossibleAgencyRoleBins).Select(option => new SelectListItem
+{
+    Text = option.RoleBinName,
+    Value = option.RoleBinID.ToString(),
+    Selected = (Model != null) && (option.RoleBinID == Model.AgencyRoleBinID)
+}), "Choose...", new { @id = "AddAgencyRoleBinID_" + @ViewBag.SiteID + @ViewBag.ProgramID })
+                @Html.ValidationMessageFor(model => model.AgencyRoleBinID)
+
+
+            </div>
+
+
+
+        </div>
+
+        <div style="display:none" id="AgencyRoleListContainer_@ViewBag.SiteID@ViewBag.ProgramID">
+
+
+            <div>Agency roles</div>
+            <br />
+
+            <div class="col-md-12">
+
+                <div class="input-group btn-group">
+
+
+
+                    @Html.DropDownList("testFSA", (SelectList)ViewData["OptionListFSA"], new { @id = "testFSA_" + @ViewBag.SiteID + @ViewBag.ProgramID, @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+                    <input type="hidden" id="selectedIDsFSA_@ViewBag.SiteID@ViewBag.ProgramID" />
+
+                    @Html.Hidden("AgencyRoleName")
+
+                </div>
+
+            </div>
+
+            <br />
+
+        </div>
+
+
+        <div style="display:none" id="SiteListContainer_@ViewBag.SiteID@ViewBag.ProgramID">
+            <br />
+
+            <div>Assigned to sites</div>
+            <br />
+
+            <div class="col-md-12">
+
+                <div class="input-group btn-group">
+
+
+                    @Html.DropDownList("testFS", (SelectList)ViewData["OptionListFS"], new { @id = "testFS_" + @ViewBag.SiteID + @ViewBag.ProgramID, @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+                    <input type="hidden" id="selectedIDsFS_@ViewBag.SiteID@ViewBag.ProgramID" />
+
+                    @Html.Hidden("SiteName")
+
+                </div>
+
+            </div>
+
+            <br />
+
+        </div>
+
+
+    }
+
+
+    <div style="display:block" id="newContactSection">
+
+
+       
+        <div class="row">
+            <div class="col-md-12">@Html.LabelFor(model => model.Title)</div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                @Html.TextAreaFor(model => model.Title, new { @id = "Title_" + @ViewBag.SiteID + @ViewBag.ProgramID, @style = "width: 94%", @placeholder = "Enter a Title", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Title)
+            </div>
+
+        </div>
+
+        <br />
+
+        <div class="row">
+            <div class="col-md-4">Phone #</div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.Phone, new { @id = "Phone_" + @ViewBag.SiteID + @ViewBag.ProgramID, @style = "width: 94%", @placeholder = "Enter a Phone #", @class = "form-control ClinicPhone" })
+                @Html.ValidationMessageFor(model => model.Phone)
+            </div>
+
+        </div>
+
+        <br />
+
+
+        <div class="row">
+            <div class="col-md-4">Fax #</div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.Fax, new { @id = "Fax_" + @ViewBag.SiteID + @ViewBag.ProgramID, @style = "width: 94%", @placeholder = "Enter a Fax #", @class = "form-control ClinicPhone" })
+                @Html.ValidationMessageFor(model => model.Fax)
+            </div>
+
+        </div>
+
+        <br />
+
+        <div class="row">
+            <div class="col-md-4">Email Address</div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.Email, new { @id = "Email_" + @ViewBag.SiteID + @ViewBag.ProgramID, @style = "width: 94%", @placeholder = "Enter an Email Address", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+
+        </div>
+
+        <br />
+
+
+        <div class="row">
+            <div class="col-md-4">Last motivational interview training</div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.MITrainingDate, new { @id = "MITrainingDate_" + @ViewBag.SiteID + @ViewBag.ProgramID, @style = "width: 94%", @placeholder = "Training Date" })
+                @Html.ValidationMessageFor(model => model.MITrainingDate)
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+</div>
+
+<div class="modal-footer">
+    <div align="right">
+
+        @if (ViewBag.AgencyContactID != null)
+        {
+
+            <button id="CancelAgencyContactButton_@ViewBag.SiteID@ViewBag.ProgramID" type="button" class="btn btn-default">Cancel</button>
+            <button id="AddAgencyContactButton_@ViewBag.SiteID@ViewBag.ProgramID" type="submit" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button>
+
+
+        }
+        else
+        {
+
+
+            <button id="AddAgencyContactButton_@ViewBag.SiteID@ViewBag.ProgramID" type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add</button>
+
+        }
+
+
+    </div>
+</div>
+
+
+
+@Html.Hidden("AgencyContactID", (int?)ViewBag.AgencyContactID)
+
+<script type="text/javascript">
+
+    $(function () {
+
+        
+        $("#MITrainingDate_@ViewBag.SiteID@ViewBag.ProgramID").kendoDatePicker({ max: new Date() });
+        $("#AddAgencyRoleTypeBinID_@ViewBag.SiteID@ViewBag.ProgramID").select2({ width: "90%" });
+        $("#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID").select2({ width: "90%" });
+        $("#AgencyContactID_@ViewBag.SiteID@ViewBag.ProgramID").select2({ width: "90%" });
+        $('#CActive').attr('checked', 'checked');
+
+
+  
+    });
+
+
+    $("#CancelAgencyContactButton_@ViewBag.SiteID@ViewBag.ProgramID").click(function (e) {
+
+        $('#ContactInfoContainer_@ViewBag.SiteID@ViewBag.ProgramID').load('@Url.Action("_ContactInfo", "AgencyContacts", new { id = ViewBag.SiteID, id2 = ViewBag.ProgramID, id3 = "" })');
+        $('#ContactHolderContainer_@ViewBag.SiteID@ViewBag.ProgramID').css("display", "none");
+        $('#AddEditLabel_@ViewBag.SiteID@ViewBag.ProgramID').html("<i style='color:#fff' class='fa fa-plus-circle fa-fw'></i> Add Contact");
+
+        e.preventDefault();
+
+    });
+
+
+    $("#AddAgencyContactButton_@ViewBag.SiteID@ViewBag.ProgramID").click(function (e) {
+
+        //Add Site
+        var out = document.getElementById('selectedIDsFS_@ViewBag.SiteID@ViewBag.ProgramID').value;
+        document.getElementById("SiteName").value = out;
+
+        //Add Role
+        var outA = document.getElementById('selectedIDsFSA_@ViewBag.SiteID@ViewBag.ProgramID').value;
+        document.getElementById("AgencyRoleName").value = outA;
+
+        var iStopSub = 0;
+        var sErr = "Please correct the following issues:\n\n";
+
+
+        var iAgencyRoleTypeBinID = $("#AddAgencyRoleTypeBinID_@ViewBag.SiteID@ViewBag.ProgramID option:selected").val();
+
+        if (iAgencyRoleTypeBinID < 1) {
+            iStopSub = 1;
+            sErr += "You must enter a type of agency role" + "\n";
+
+        }
+
+
+        if ($("#AddAgencyRoleTypeBinID_@ViewBag.SiteID@ViewBag.ProgramID").val() == 6) {
+
+
+            
+            var iAgencyRoleBinID = $("#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID option:selected").val();
+
+            if (iAgencyRoleBinID < 1) {
+                iStopSub = 1;
+                sErr += "You must enter a agency role" + "\n";
+
+            }
+
+
+            if ($("#selectedIDsFS_@ViewBag.SiteID@ViewBag.ProgramID").val() == "") {
+                iStopSub = 1;
+                sErr += "-Please select at least 1 site.\n";
+
+            }
+
+         
+
+        }
+        else {
+
+            if ($("#selectedIDsFSA_@ViewBag.SiteID@ViewBag.ProgramID").val() == "") {
+                iStopSub = 1;
+                sErr += "-Please select at least 1 role.\n";
+
+            }
+
+
+        }
+      
+        var iFirstName = $("#FirstName_@ViewBag.SiteID@ViewBag.ProgramID").val();
+
+        if (iFirstName == "") {
+
+            iStopSub = 1;
+            sErr += "You must enter an First Name" + "\n";
+
+        }
+
+        var iLastName = $("#LastName_@ViewBag.SiteID@ViewBag.ProgramID").val();
+
+        if (iLastName == "") {
+
+            iStopSub = 1;
+            sErr += "You must enter an Last Name" + "\n";
+
+        }
+
+
+        var iTitle = $("#Title_@ViewBag.SiteID@ViewBag.ProgramID").val();
+
+        if (iLastName == "") {
+
+            iStopSub = 1;
+            sErr += "You must enter an Title" + "\n";
+
+        }
+
+        var iPhone = $("#Phone_@ViewBag.SiteID@ViewBag.ProgramID").val();
+
+        if (iPhone == "") {
+
+            iStopSub = 1;
+            sErr += "You must enter a Phone Number" + "\n";
+
+        }
+
+        @*var iFax = $("#Fax_@ViewBag.SiteID@ViewBag.ProgramID").val();
+
+        if (iFax == "") {
+
+            iStopSub = 1;
+            sErr += "You must enter a Phone Number" + "\n";
+
+        }*@
+
+        var iEmail = $("#Email_@ViewBag.SiteID@ViewBag.ProgramID").val();
+
+        if (iEmail == "") {
+
+            iStopSub = 1;
+            sErr += "You must enter an Email Address" + "\n";
+
+        }
+
+        @*var iMITrainingDate = $("#MITrainingDate_@ViewBag.SiteID@ViewBag.ProgramID").val();
+
+        if (iMITrainingDate == "") {
+
+            iStopSub = 1;
+            sErr += "You must enter an MITrainingDate" + "\n";
+
+        }*@
+
+
+        if (iStopSub != 0) {
+            alert(sErr);
+            e.preventDefault();
+
+        }
+
+
+    });
+
+
+    (function ($) {
+        $.fn.extend({
+            detachOptions: function (o) {
+                var s = this;
+                return s.each(function () {
+                    var d = s.data('selectOptions') || [];
+                    s.find(o).each(function () {
+                        d.push($(this).detach());
+                    });
+                    s.data('selectOptions', d);
+                });
+            }, attachOptions: function (o) {
+                var s = this;
+                return s.each(function () {
+                    var d = s.data('selectOptions') || [];
+                    for (var i in d) {
+                        if (d[i].is(o)) {
+                            s.append(d[i]);
+                            //console.log(d[i]);
+                            // TODO: remove option from data array
+                        }
+                    }
+                });
+            }
+        });
+
+    })(jQuery);
+
+    $(function () {
+
+        var iAgencyRoleTypeBinID = $("#AddAgencyRoleTypeBinID_@ViewBag.SiteID@ViewBag.ProgramID option:selected").val();
+
+        if (iAgencyRoleTypeBinID > 0) {
+
+            if ($("#AddAgencyRoleTypeBinID_@ViewBag.SiteID@ViewBag.ProgramID").val() == 6) {
+
+
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=50]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=51]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=52]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=53]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=54]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=55]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=56]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=57]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=62]');
+
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=58]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=59]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=60]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=61]');
+
+                $('#SiteListContainer_@ViewBag.SiteID@ViewBag.ProgramID').css('display', 'block');
+                $('#AgencyRoleListContainer_@ViewBag.SiteID@ViewBag.ProgramID').css('display', 'none');
+                $('#AgencyRoleContainer_@ViewBag.SiteID@ViewBag.ProgramID').css('display', 'block');
+
+
+
+            }
+            else {
+
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=50]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=51]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=52]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=53]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=54]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=55]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=56]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=57]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=62]');
+
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=58]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=59]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=60]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=61]');
+
+                $('#SiteListContainer_@ViewBag.SiteID@ViewBag.ProgramID').css('display', 'none');
+                $('#AgencyRoleListContainer_@ViewBag.SiteID@ViewBag.ProgramID').css('display', 'block');
+                $('#AgencyRoleContainer_@ViewBag.SiteID@ViewBag.ProgramID').css('display', 'none');
+
+            }
+
+        }
+
+
+        $("#AddAgencyRoleTypeBinID_@ViewBag.SiteID@ViewBag.ProgramID").click(function () {
+
+            if ($(this).val() == 6) {
+
+
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=50]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=51]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=52]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=53]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=54]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=55]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=56]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=57]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=62]');
+
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=58]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=59]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=60]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=61]');
+
+                $('#SiteListContainer_@ViewBag.SiteID@ViewBag.ProgramID').css('display', 'block');
+                $('#AgencyRoleListContainer_@ViewBag.SiteID@ViewBag.ProgramID').css('display', 'none');
+                $('#AgencyRoleContainer_@ViewBag.SiteID@ViewBag.ProgramID').css('display', 'block');
+            }
+            else {
+
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=50]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=51]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=52]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=53]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=54]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=55]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=56]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=57]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').attachOptions('[value=62]');
+
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=58]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=59]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=60]');
+                $('#AddAgencyRoleBinID_@ViewBag.SiteID@ViewBag.ProgramID').detachOptions('[value=61]');
+
+                $('#SiteListContainer_@ViewBag.SiteID@ViewBag.ProgramID').css('display', 'none');
+                $('#AgencyRoleListContainer_@ViewBag.SiteID@ViewBag.ProgramID').css('display', 'block');
+                $('#AgencyRoleContainer_@ViewBag.SiteID@ViewBag.ProgramID').css('display', 'none');
+            }
+
+
+        });
+
+
+    });
+
+
+    $(function () {
+
+
+        $('input[id="NewCheck"]').bind('change', function () {
+
+
+            if ($('input[id="NewCheck"]').attr('checked')) {
+
+
+                $("#newContactSection").css("display", "block");
+                $("#existingContactSection").css("display", "none");
+
+
+            }
+            else {
+
+
+                $("#newContactSection").css("display", "none");
+                $("#AgencyContactID option[value=" + -1 + "]").attr("selected", "selected");
+                $("#existingContactSection").css("display", "block");
+
+
+            }
+
+
+        });
+
+    });
+
+    $(document).ready(function () {
+        $('.ClinicPhone').mask('(999) 999-9999? x99999');
+        $('.cep').mask('99999');
+    });
+
+
+    if ('@ViewBag.AgencyContactID' == "") {
+
+
+        $(function () {
+
+            var data = '@ViewBag.Options';
+
+            //Make an array
+            var dataarrayFS = data.split(",");
+
+            // Set the value
+            $("#testFS_@ViewBag.SiteID@ViewBag.ProgramID").val(dataarrayFS);
+
+
+            var testFS = $('#testFS_@ViewBag.SiteID@ViewBag.ProgramID');
+            $(testFS).select2({
+
+                width: "300px"
+            });
+
+            document.getElementById("testFS_@ViewBag.SiteID@ViewBag.ProgramID").onchange = function () {
+
+                var idsFS = $(testFS).val();
+                $('#selectedIDsFS_@ViewBag.SiteID@ViewBag.ProgramID').val(idsFS);
+
+            };
+
+
+        });
+
+        $(function () {
+
+
+            var data = '@ViewBag.OptionsA';
+
+            //Make an array
+            var dataarrayFSA = data.split(",");
+
+            // Set the value
+            $("#testFSA_@ViewBag.SiteID@ViewBag.ProgramID").val(dataarrayFSA);
+
+
+            var testFSA = $('#testFSA_@ViewBag.SiteID@ViewBag.ProgramID');
+            $(testFSA).select2({
+
+                width: "300px"
+            });
+
+            document.getElementById("testFSA_@ViewBag.SiteID@ViewBag.ProgramID").onchange = function () {
+
+                var idsFSA = $(testFSA).val();
+                $('#selectedIDsFSA_@ViewBag.SiteID@ViewBag.ProgramID').val(idsFSA);
+
+            };
+
+
+        });
+
+
+
+
+
+    }
+
+</script>

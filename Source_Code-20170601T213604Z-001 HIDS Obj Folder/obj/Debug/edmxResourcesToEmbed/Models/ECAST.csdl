@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="eCaSTContextModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="ClientID" />
+    </Key>
+    <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EnrollmentDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Gender" Type="Boolean" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MiddleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MaidenName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SSN" Type="Int32" />
+    <Property Name="DOB" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Age" Type="Int32" />
+    <Property Name="EthnicityHispanicBinID" Type="Int32" Nullable="false" />
+    <Property Name="ProgramBinID" Type="Int32" />
+    <Property Name="InsuranceBinID" Type="Int32" />
+    <Property Name="MedicareBinID" Type="Int32" />
+    <Property Name="ReminderBinID" Type="Int32" />
+    <Property Name="ChartNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LegalPresence" Type="Boolean" Nullable="false" />
+    <Property Name="IncomeEligible" Type="Boolean" Nullable="false" />
+    <Property Name="InsuranceEligible" Type="Boolean" Nullable="false" />
+    <Property Name="MonthlyIncome" Type="Int32" />
+    <Property Name="NumberLivingOnIncome" Type="Int32" />
+    <Property Name="PercentPoverty" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="HeardOfProgramBinID" Type="Int32" />
+    <Property Name="ActiveBinID" Type="Int32" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreated" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Tribe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Other" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Street" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CityBinID" Type="Int32" />
+    <Property Name="StateBinID" Type="Int32" Nullable="false" />
+    <Property Name="ZipCode" Type="Int32" Nullable="false" />
+    <Property Name="CountyBinID" Type="Int32" Nullable="false" />
+    <Property Name="EmailAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneBinID" Type="Int32" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EmergencyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FPL" Type="Boolean" Nullable="false" />
+    <Property Name="TobaccoUseBinID" Type="Int32" />
+    <Property Name="Race_RaceID" Type="Int32" />
+    <Property Name="EducationBinID" Type="Int32" />
+    <Property Name="LanguageBinID" Type="Int32" />
+    <Property Name="UninsuredClientReferredBinID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="ClinicalCycle">
+    <Key>
+      <PropertyRef Name="ClinicalCycleID" />
+    </Key>
+    <Property Name="ClinicalCycleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OfficeVisitGuidID" Type="Int64" />
+    <Property Name="ClientID" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Guid" />
+    <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SiteID" Type="Int32" Nullable="false" />
+    <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClinicalCycleDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreated" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Pending" Type="Boolean" Nullable="false" />
+    <Property Name="ScreeningMethodBinID" Type="Int32" />
+    <Property Name="LegacyID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="DDCancerTypeBin">
+    <Key>
+      <PropertyRef Name="CancerTypeBinID" />
+    </Key>
+    <Property Name="CancerTypeBinID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CancerTypeBinName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Screenings" Relationship="Self.FK_dbo_Screening_dbo_DDCancerTypeBin_CancerTypeBinID" FromRole="DDCancerTypeBin" ToRole="Screening" />
+  </EntityType>
+  <EntityType Name="Screening">
+    <Key>
+      <PropertyRef Name="ScreeningID" />
+    </Key>
+    <Property Name="ScreeningID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ScreeningGuidID" Type="Int64" />
+    <Property Name="OfficeVisitID" Type="Int64" />
+    <Property Name="ClinicalCycleID" Type="Int32" />
+    <Property Name="EnrollmentID" Type="Int32" />
+    <Property Name="TobaccoUseBinID" Type="Int32" />
+    <Property Name="SiteID" Type="Int32" />
+    <Property Name="ScreeningMethodBinID" Type="Int32" Nullable="false" />
+    <Property Name="PrevScreenTestBinID" Type="Int32" />
+    <Property Name="HistPolypsBinID" Type="Int32" />
+    <Property Name="PolypPreCancerBinID" Type="Int32" />
+    <Property Name="PrevCancerBinID" Type="Int32" />
+    <Property Name="AgeDiagCancerBinID" Type="Int32" />
+    <Property Name="SuspectedGeneticDxBinID" Type="Int32" />
+    <Property Name="InflamBowelDisBinID" Type="Int32" />
+    <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ReferralDate" Type="DateTime" Precision="3" />
+    <Property Name="SchedDate" Type="DateTime" Precision="3" />
+    <Property Name="CurrentStatusBinID" Type="Int32" />
+    <Property Name="RecScreenBinID" Type="Int32" />
+    <Property Name="ScreenReasonBinID" Type="Int32" />
+    <Property Name="KitDistMethodBinID" Type="Int32" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreated" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="BillingLevel" Type="Int32" />
+    <Property Name="PersonalHistoryCancer" Type="Boolean" Nullable="false" />
+    <Property Name="RelativeHistoryCancer" Type="Boolean" Nullable="false" />
+    <Property Name="PrevMamBinID" Type="Int32" />
+    <Property Name="PrevPapBinID" Type="Int32" />
+    <Property Name="CurrentMamReasonBinID" Type="Int32" />
+    <Property Name="CurrentPapReasonBinID" Type="Int32" />
+    <Property Name="HysterectomyStatusBinID" Type="Int32" />
+    <Property Name="PrevCBEDate" Type="DateTime" Precision="3" />
+    <Property Name="PrevMamDate" Type="DateTime" Precision="3" />
+    <Property Name="PrevPapDate" Type="DateTime" Precision="3" />
+    <Property Name="MamRefDate" Type="DateTime" Precision="3" />
+    <Property Name="PapRefDate" Type="DateTime" Precision="3" />
+    <Property Name="CancerTypeBinID" Type="Int32" />
+    <Property Name="ScreenLockDate" Type="DateTime" Precision="3" />
+    <Property Name="NoMamExplanationBinID" Type="Int32" />
+    <Property Name="NoPapExplanationBinID" Type="Int32" />
+    <Property Name="BillingUpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="BillingPaidBinID" Type="Int32" />
+    <Property Name="FundedOfficeVisit" Type="Boolean" />
+    <Property Name="StateStaffOverride" Type="Boolean" Nullable="false" />
+    <Property Name="Symptom_SymptomID" Type="Int32" />
+    <Property Name="DDHistoryQuestionBin_HistoryQuestionBinID" Type="Int32" />
+    <Property Name="IrisScreenID" Type="Int32" />
+    <Property Name="SuppressMDE" Type="Boolean" Nullable="false" />
+    <Property Name="BillingHold" Type="Boolean" />
+    <Property Name="DDHeightBinID" Type="Int32" />
+    <Property Name="DDWeightBinID" Type="Int32" />
+    <Property Name="DDWaistBinID" Type="Int32" />
+    <Property Name="DDHipBinID" Type="Int32" />
+    <Property Name="HeightBin_HeightBinID" Type="Int32" />
+    <Property Name="HipWaistBin_HipWaistBinID" Type="Int32" />
+    <Property Name="WeightBin_WeightBinID" Type="Int32" />
+    <Property Name="HBReferralDate" Type="DateTime" Precision="3" />
+    <Property Name="HBSessionTypeBinID" Type="Int32" />
+    <Property Name="HBSessionCompletionTypeBinID" Type="Int32" />
+    <Property Name="HBSessionBarrierTypeBinID" Type="Int32" />
+    <Property Name="FollowupCompletenessBinID" Type="Int32" />
+    <Property Name="ContractTypeID" Type="Int32" />
+    <NavigationProperty Name="DDCancerTypeBin" Relationship="Self.FK_dbo_Screening_dbo_DDCancerTypeBin_CancerTypeBinID" FromRole="Screening" ToRole="DDCancerTypeBin" />
+  </EntityType>
+  <Association Name="FK_dbo_Screening_dbo_DDCancerTypeBin_CancerTypeBinID">
+    <End Role="DDCancerTypeBin" Type="Self.DDCancerTypeBin" Multiplicity="0..1" />
+    <End Role="Screening" Type="Self.Screening" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DDCancerTypeBin">
+        <PropertyRef Name="CancerTypeBinID" />
+      </Principal>
+      <Dependent Role="Screening">
+        <PropertyRef Name="CancerTypeBinID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="eCaSTContextEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Clients" EntityType="Self.Client" />
+    <EntitySet Name="ClinicalCycles" EntityType="Self.ClinicalCycle" />
+    <EntitySet Name="DDCancerTypeBins" EntityType="Self.DDCancerTypeBin" />
+    <EntitySet Name="Screenings" EntityType="Self.Screening" />
+    <AssociationSet Name="FK_dbo_Screening_dbo_DDCancerTypeBin_CancerTypeBinID" Association="Self.FK_dbo_Screening_dbo_DDCancerTypeBin_CancerTypeBinID">
+      <End Role="DDCancerTypeBin" EntitySet="DDCancerTypeBins" />
+      <End Role="Screening" EntitySet="Screenings" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

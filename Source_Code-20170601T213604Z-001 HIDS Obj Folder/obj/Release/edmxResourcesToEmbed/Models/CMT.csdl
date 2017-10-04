@@ -1,0 +1,533 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PortalRequestEntitiesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+    </Key>
+    <Property Name="MigrationId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ApplicationDivision">
+    <Key>
+      <PropertyRef Name="ApplicationID" />
+      <PropertyRef Name="DivisionID" />
+    </Key>
+    <Property Name="ApplicationID" Type="Int32" Nullable="false" />
+    <Property Name="DivisionID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Asset">
+    <Key>
+      <PropertyRef Name="AssetID" />
+    </Key>
+    <Property Name="AssetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RequestID" Type="Int32" Nullable="false" />
+    <Property Name="AssetTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AssetURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreated" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Division">
+    <Key>
+      <PropertyRef Name="DivisionID" />
+    </Key>
+    <Property Name="DivisionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DivisionName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EdmMetadata">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ModelHash" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="GanttDependency">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PredecessorID" Type="Int32" Nullable="false" />
+    <Property Name="SuccessorID" Type="Int32" Nullable="false" />
+    <Property Name="Type" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GanttResourceAssignment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TaskID" Type="Int32" Nullable="false" />
+    <Property Name="ResourceID" Type="Int32" />
+    <Property Name="Units" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="GanttResource">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Color" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="GanttTask">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ParentID" Type="Int32" />
+    <Property Name="ApplicationID" Type="Int32" />
+    <Property Name="OrderID" Type="Int32" />
+    <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Start" Type="DateTime" Precision="3" />
+    <Property Name="End" Type="DateTime" Precision="3" />
+    <Property Name="PercentComplete" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Expanded" Type="Boolean" />
+    <Property Name="Summary" Type="Boolean" />
+    <Property Name="GanttTask1_ID" Type="Int32" />
+    <Property Name="SeenOnCreate" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="ModuleApplication">
+    <Key>
+      <PropertyRef Name="ModuleID" />
+      <PropertyRef Name="ApplicationID" />
+    </Key>
+    <Property Name="ModuleID" Type="Int32" Nullable="false" />
+    <Property Name="ApplicationID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Module">
+    <Key>
+      <PropertyRef Name="ModuleID" />
+    </Key>
+    <Property Name="ModuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ModuleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Notification">
+    <Key>
+      <PropertyRef Name="NotificationID" />
+    </Key>
+    <Property Name="NotificationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NotificationName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Subject" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" />
+    <Property Name="ApplicationID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Priority">
+    <Key>
+      <PropertyRef Name="PriorityID" />
+    </Key>
+    <Property Name="PriorityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PriorityName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProjectApplication">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="ApplicationID" />
+    </Key>
+    <Property Name="ProjectID" Type="Int32" Nullable="false" />
+    <Property Name="ApplicationID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+    </Key>
+    <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectTypeID" Type="Int32" Nullable="false" />
+    <Property Name="ProjectName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProjectSubApplication">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="SubApplicationID" />
+    </Key>
+    <Property Name="ProjectID" Type="Int32" Nullable="false" />
+    <Property Name="SubApplicationID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProjectType">
+    <Key>
+      <PropertyRef Name="ProjectTypeID" />
+    </Key>
+    <Property Name="ProjectTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectTypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="QANote">
+    <Key>
+      <PropertyRef Name="QANoteID" />
+    </Key>
+    <Property Name="QANoteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QANoteName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="QANotesQualityAssurance">
+    <Key>
+      <PropertyRef Name="QANotesID" />
+      <PropertyRef Name="QualityAssuranceID" />
+      <PropertyRef Name="RequestID" />
+    </Key>
+    <Property Name="QANotesID" Type="Int32" Nullable="false" />
+    <Property Name="QualityAssuranceID" Type="Int32" Nullable="false" />
+    <Property Name="RequestID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="QualityAssuranceRequest">
+    <Key>
+      <PropertyRef Name="QualityAssuranceID" />
+      <PropertyRef Name="RequestID" />
+    </Key>
+    <Property Name="QualityAssuranceID" Type="Int32" Nullable="false" />
+    <Property Name="RequestID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="QualityAssurance">
+    <Key>
+      <PropertyRef Name="QualityAssuranceID" />
+    </Key>
+    <Property Name="QualityAssuranceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QualityAssuranceName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReleaseApplication">
+    <Key>
+      <PropertyRef Name="ReleaseID" />
+      <PropertyRef Name="ApplicationID" />
+    </Key>
+    <Property Name="ReleaseID" Type="Int32" Nullable="false" />
+    <Property Name="ApplicationID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Release">
+    <Key>
+      <PropertyRef Name="ReleaseID" />
+    </Key>
+    <Property Name="ReleaseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ReleaseName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ReleaseDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestAction">
+    <Key>
+      <PropertyRef Name="RequestActionID" />
+    </Key>
+    <Property Name="RequestActionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RequestActionName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestActionType">
+    <Key>
+      <PropertyRef Name="RequestActionTypeID" />
+    </Key>
+    <Property Name="RequestActionTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RequestActionTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" />
+    <Property Name="Action" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="RequestClient">
+    <Key>
+      <PropertyRef Name="RequestID" />
+      <PropertyRef Name="ClientID" />
+    </Key>
+    <Property Name="RequestID" Type="Int32" Nullable="false" />
+    <Property Name="ClientID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestMode">
+    <Key>
+      <PropertyRef Name="RequestModeID" />
+    </Key>
+    <Property Name="RequestModeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RequestModeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestPerson">
+    <Key>
+      <PropertyRef Name="RequestID" />
+      <PropertyRef Name="PersonID" />
+    </Key>
+    <Property Name="RequestID" Type="Int32" Nullable="false" />
+    <Property Name="PersonID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestProgram">
+    <Key>
+      <PropertyRef Name="RequestProgramID" />
+    </Key>
+    <Property Name="RequestProgramID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RequestProgramDivisionID" Type="Int32" Nullable="false" />
+    <Property Name="RequestProgramName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestProject">
+    <Key>
+      <PropertyRef Name="RequestID" />
+      <PropertyRef Name="ProjectID" />
+    </Key>
+    <Property Name="RequestID" Type="Int32" Nullable="false" />
+    <Property Name="ProjectID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestReleas">
+    <Key>
+      <PropertyRef Name="RequestID" />
+      <PropertyRef Name="ReleaseID" />
+    </Key>
+    <Property Name="RequestID" Type="Int32" Nullable="false" />
+    <Property Name="ReleaseID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestReport">
+    <Key>
+      <PropertyRef Name="RequestID" />
+      <PropertyRef Name="ReportID" />
+    </Key>
+    <Property Name="RequestID" Type="Int32" Nullable="false" />
+    <Property Name="ReportID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Request">
+    <Key>
+      <PropertyRef Name="RequestID" />
+    </Key>
+    <Property Name="RequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RequestDate" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="RequestDateActual" Type="DateTime" Precision="3" />
+    <Property Name="RequestorID" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="RequestTitle" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DivisionID" Type="Int32" />
+    <Property Name="RequestProgramID" Type="Int32" />
+    <Property Name="RequestTypeID" Type="Int32" />
+    <Property Name="PriorityID" Type="Int32" />
+    <Property Name="StateID" Type="Int32" />
+    <Property Name="RequestDesc" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DeveloperNotes" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="TestLog" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="TimeToComplete" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ReleaseDate" Type="DateTime" Precision="3" />
+    <Property Name="BroadcastDate" Type="DateTime" Precision="3" />
+    <Property Name="TrainingIssue" Type="Boolean" Nullable="false" />
+    <Property Name="DueDate" Type="DateTime" Precision="3" />
+    <Property Name="RequestorNotes" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="RequestedByID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Overdue" Type="Boolean" />
+    <Property Name="RequestModeID" Type="Int32" />
+    <Property Name="ApplicationID" Type="Int32" />
+    <Property Name="OverdueWarning" Type="Boolean" />
+    <Property Name="RequestorViewed" Type="Boolean" />
+    <Property Name="AssigneeViewed" Type="Boolean" />
+    <Property Name="Requestor" Type="Int32" />
+    <Property Name="TestingMode" Type="Boolean" />
+    <Property Name="Participants" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SubApplicationID" Type="Int32" />
+    <Property Name="ProjectID" Type="Int32" />
+    <Property Name="Urgent" Type="Boolean" />
+    <Property Name="RequestActionID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="RequestScreening">
+    <Key>
+      <PropertyRef Name="RequestID" />
+      <PropertyRef Name="ScreeningID" />
+    </Key>
+    <Property Name="RequestID" Type="Int32" Nullable="false" />
+    <Property Name="ScreeningID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestsDUMP">
+    <Key>
+      <PropertyRef Name="RequestID" />
+    </Key>
+    <Property Name="RequestID" Type="Int32" Nullable="false" />
+    <Property Name="RequestDate" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="RequestDateActual" Type="DateTime" Precision="3" />
+    <Property Name="RequestorID" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="RequestTitle" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DivisionID" Type="Int32" Nullable="false" />
+    <Property Name="RequestProgramID" Type="Int32" Nullable="false" />
+    <Property Name="RequestTypeID" Type="Int32" Nullable="false" />
+    <Property Name="PriorityID" Type="Int32" Nullable="false" />
+    <Property Name="StateID" Type="Int32" Nullable="false" />
+    <Property Name="RequestDesc" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserID" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DeveloperNotes" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="TestLog" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="TimeToComplete" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ReleaseDate" Type="DateTime" Precision="3" />
+    <Property Name="BroadcastDate" Type="DateTime" Precision="3" />
+    <Property Name="TrainingIssue" Type="Boolean" Nullable="false" />
+    <Property Name="DueDate" Type="DateTime" Precision="3" />
+    <Property Name="RequestorNotes" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="RequestedByID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="RequestTracker">
+    <Key>
+      <PropertyRef Name="RequestTrackerID" />
+    </Key>
+    <Property Name="RequestTrackerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RequestID" Type="Int32" Nullable="false" />
+    <Property Name="Assignee" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="Priority" Type="Int32" />
+    <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="RequestDesc" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="DeveloperNotes" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="RequestTypeApplication">
+    <Key>
+      <PropertyRef Name="RequestTypeID" />
+      <PropertyRef Name="ApplicationID" />
+    </Key>
+    <Property Name="RequestTypeID" Type="Int32" Nullable="false" />
+    <Property Name="ApplicationID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestTypeNotification">
+    <Key>
+      <PropertyRef Name="RequestTypeID" />
+      <PropertyRef Name="NotificationID" />
+      <PropertyRef Name="ApplicationID" />
+      <PropertyRef Name="SubApplicationID" />
+    </Key>
+    <Property Name="RequestTypeID" Type="Int32" Nullable="false" />
+    <Property Name="NotificationID" Type="Int32" Nullable="false" />
+    <Property Name="ApplicationID" Type="Int32" Nullable="false" />
+    <Property Name="SubApplicationID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestType">
+    <Key>
+      <PropertyRef Name="RequestTypeID" />
+    </Key>
+    <Property Name="RequestTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RequestTypeName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Int32" Nullable="false" />
+    <Property Name="RequestModeID" Type="Int32" />
+    <Property Name="NotificationID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="RequestTypeSubApplication">
+    <Key>
+      <PropertyRef Name="RequestTypeID" />
+      <PropertyRef Name="SubApplicationID" />
+    </Key>
+    <Property Name="RequestTypeID" Type="Int32" Nullable="false" />
+    <Property Name="SubApplicationID" Type="Int32" Nullable="false" />
+    <Property Name="NotificationID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="SiteDivision">
+    <Key>
+      <PropertyRef Name="SiteID" />
+      <PropertyRef Name="DivisionID" />
+    </Key>
+    <Property Name="SiteID" Type="Int32" Nullable="false" />
+    <Property Name="DivisionID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="State">
+    <Key>
+      <PropertyRef Name="StateID" />
+    </Key>
+    <Property Name="StateID" Type="Int32" Nullable="false" />
+    <Property Name="StateName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SubApplicationApplication">
+    <Key>
+      <PropertyRef Name="SubApplicationID" />
+      <PropertyRef Name="ApplicationID" />
+    </Key>
+    <Property Name="SubApplicationID" Type="Int32" Nullable="false" />
+    <Property Name="ApplicationID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SubApplication">
+    <Key>
+      <PropertyRef Name="SubApplicationID" />
+    </Key>
+    <Property Name="SubApplicationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubApplicationName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserIdApplication">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="ApplicationID" />
+    </Key>
+    <Property Name="UserId" Type="Guid" Nullable="false" />
+    <Property Name="ApplicationID" Type="Int32" Nullable="false" />
+    <Property Name="DefaultView" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="UserIdRequest">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RequestID" />
+    </Key>
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RequestID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserIdSubApplication">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="SubApplicationID" />
+    </Key>
+    <Property Name="UserId" Type="Guid" Nullable="false" />
+    <Property Name="SubApplicationID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserOption">
+    <Key>
+      <PropertyRef Name="UserOptionID" />
+    </Key>
+    <Property Name="UserOptionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Guid" />
+    <Property Name="ToolbarCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="QuickViewCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Theme" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CalendarEventDisplay" Type="Boolean" />
+    <Property Name="StartTimeCalendar" Type="DateTime" Precision="3" />
+    <Property Name="EndTimeCalendar" Type="DateTime" Precision="3" />
+    <Property Name="NotificationViewID" Type="Int32" />
+    <Property Name="DataEntryID" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="PortalRequestEntitiesEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+    <EntitySet Name="ApplicationDivisions" EntityType="Self.ApplicationDivision" />
+    <EntitySet Name="Assets" EntityType="Self.Asset" />
+    <EntitySet Name="Divisions" EntityType="Self.Division" />
+    <EntitySet Name="EdmMetadatas" EntityType="Self.EdmMetadata" />
+    <EntitySet Name="GanttDependencies" EntityType="Self.GanttDependency" />
+    <EntitySet Name="GanttResourceAssignments" EntityType="Self.GanttResourceAssignment" />
+    <EntitySet Name="GanttResources" EntityType="Self.GanttResource" />
+    <EntitySet Name="GanttTasks" EntityType="Self.GanttTask" />
+    <EntitySet Name="ModuleApplications" EntityType="Self.ModuleApplication" />
+    <EntitySet Name="Modules" EntityType="Self.Module" />
+    <EntitySet Name="Notifications" EntityType="Self.Notification" />
+    <EntitySet Name="Priorities" EntityType="Self.Priority" />
+    <EntitySet Name="ProjectApplications" EntityType="Self.ProjectApplication" />
+    <EntitySet Name="Projects" EntityType="Self.Project" />
+    <EntitySet Name="ProjectSubApplications" EntityType="Self.ProjectSubApplication" />
+    <EntitySet Name="ProjectTypes" EntityType="Self.ProjectType" />
+    <EntitySet Name="QANotes" EntityType="Self.QANote" />
+    <EntitySet Name="QANotesQualityAssurances" EntityType="Self.QANotesQualityAssurance" />
+    <EntitySet Name="QualityAssuranceRequests" EntityType="Self.QualityAssuranceRequest" />
+    <EntitySet Name="QualityAssurances" EntityType="Self.QualityAssurance" />
+    <EntitySet Name="ReleaseApplications" EntityType="Self.ReleaseApplication" />
+    <EntitySet Name="Releases" EntityType="Self.Release" />
+    <EntitySet Name="RequestActions" EntityType="Self.RequestAction" />
+    <EntitySet Name="RequestActionTypes" EntityType="Self.RequestActionType" />
+    <EntitySet Name="RequestClients" EntityType="Self.RequestClient" />
+    <EntitySet Name="RequestModes" EntityType="Self.RequestMode" />
+    <EntitySet Name="RequestPersons" EntityType="Self.RequestPerson" />
+    <EntitySet Name="RequestPrograms" EntityType="Self.RequestProgram" />
+    <EntitySet Name="RequestProjects" EntityType="Self.RequestProject" />
+    <EntitySet Name="RequestReleases" EntityType="Self.RequestReleas" />
+    <EntitySet Name="RequestReports" EntityType="Self.RequestReport" />
+    <EntitySet Name="Requests" EntityType="Self.Request" />
+    <EntitySet Name="RequestScreenings" EntityType="Self.RequestScreening" />
+    <EntitySet Name="RequestsDUMPs" EntityType="Self.RequestsDUMP" />
+    <EntitySet Name="RequestTrackers" EntityType="Self.RequestTracker" />
+    <EntitySet Name="RequestTypeApplications" EntityType="Self.RequestTypeApplication" />
+    <EntitySet Name="RequestTypeNotifications" EntityType="Self.RequestTypeNotification" />
+    <EntitySet Name="RequestTypes" EntityType="Self.RequestType" />
+    <EntitySet Name="RequestTypeSubApplications" EntityType="Self.RequestTypeSubApplication" />
+    <EntitySet Name="SiteDivisions" EntityType="Self.SiteDivision" />
+    <EntitySet Name="States" EntityType="Self.State" />
+    <EntitySet Name="SubApplicationApplications" EntityType="Self.SubApplicationApplication" />
+    <EntitySet Name="SubApplications" EntityType="Self.SubApplication" />
+    <EntitySet Name="UserIdApplications" EntityType="Self.UserIdApplication" />
+    <EntitySet Name="UserIdRequests" EntityType="Self.UserIdRequest" />
+    <EntitySet Name="UserIdSubApplications" EntityType="Self.UserIdSubApplication" />
+    <EntitySet Name="UserOptions" EntityType="Self.UserOption" />
+  </EntityContainer>
+</Schema>

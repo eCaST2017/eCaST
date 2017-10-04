@@ -1,0 +1,316 @@
+﻿@model IEnumerable<CTL.Models.Contract>
+
+
+@{
+    ViewBag.Title = "Contracts";
+}
+
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        oTable =
+          $('#ContractList').dataTable({
+              "bPaginate": false,
+              "oLanguage": {
+                  "sSearch": "<i class='fa fa-filter fa-fw'></i> Filter: "
+              },
+              "aaSorting": [[0, "desc"]]
+          });
+    });
+</script>
+
+
+<style type="text/css">
+    label, div {
+        color: #666;
+    }
+
+
+    #ContractList td.sorting_1 {
+        background-color: #fff;
+        border: 1px lightgrey;
+    }
+    /*table.dataTable td{ background-color: aliceblue;  border:1px lightgrey;}*/
+    #ContractList tr {
+        background-color: #fff;
+        color: #666;
+    }
+
+        #ContractList tr:nth-child(even) {
+            background-color: #f7f7f6;
+        }
+</style>
+
+
+
+
+<div>
+    <div style="background-color:#999;" class="panel-heading w3-card-2">
+        <span style="color:#fff;font-family: 'Roboto', sans-serif; font-size:16px"><i style="color:#fff" class="fa fa-dollar fa-fw"></i>&nbsp;Contracts &nbsp;<span style="font-size:18px;background-color:#fff;color:#0F9D58" class="badge">@ViewBag.ContractCount</span></span>
+
+
+        @if (ViewBag.RoleID == 1 || ViewBag.RoleID == 13 )
+        {
+
+        <div class="pull-right"><button disabled="disabled" id="AddContractButton" type="button" class="btn btn-default btn-sm">Add Contract</button></div>
+
+        }
+
+    </div>
+    <!-- /.panel-heading -->
+    <div style="background-color:#fff" class="panel-body">
+
+
+
+        <table style="width:100%;  font-size:14px" id="ContractList">
+            <thead>
+                <tr style="background-color:#f7f7f6;">
+                    <th>Fiscal Year</th>
+                    <th>
+                        State Rate
+                    </th>
+                    <th>Federal Rate</th>
+                    <th></th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @item.FiscalYear
+                    </td>
+                    <td>
+                        @item.RateState
+                    </td>
+                    <td>
+
+                     @item.RateFederal
+
+
+
+                    </td>
+                    <td style="width:38%; text-align:right">
+
+
+                        <button disabled="disabled" class="btn btn-default" id="EditContractInfoButton_@item.ID" data-toggle="modal" data-target="#EditContractInfoModal_@item.ID">Edit Info</button>
+
+
+                        <!-- Edit Agency Info Modal -->
+                        <div class="modal fade" id="EditContractInfoModal_@item.ID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div style="text-align:left" class="modal-content">
+                                    <div class="modal-header">
+                                        <h2 class="modal-title" id="myModalLabel">Edit Contract Info</h2>
+                                    </div>
+
+                                    <div id="EditContractInfoContainer_@item.ID"></div>
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                        <script type="text/javascript">
+
+
+
+                            $(function () {
+
+                                $("#EditContractInfoButton_@item.ID").click(function () {
+
+
+                                    $('#EditContractInfoContainer_@item.ID').load('@Url.Action("Details", "Contracts", new { id = @item.ID })');
+
+
+                                });
+
+
+                                $('#ContractList').dataTable().fnSettings().aoDrawCallback.push({
+                                    "fn": function () {
+
+                                        $("#EditContractInfoButton_@item.ID").click(function () {
+
+
+                                            $('#EditContractInfoContainer_@item.ID').load('@Url.Action("Details", "Contracts", new { id = @item.ID })');
+
+
+                                        });
+
+
+
+                                    }
+
+
+                                });
+
+
+
+
+                            });
+
+                        </script>
+
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+
+    </div>
+</div>
+
+
+
+<!-- Add Agency Modal -->
+<div class="modal fade" id="AddContractModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div style="text-align:left" class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="myModalLabel">Add Contract</h2>
+            </div>
+
+            <div id="AddContractContainer"></div>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+
+
+    $(function () {
+
+        $("#AddContractButton").click(function () {
+
+
+            $('#AddContractContainer').load('@Url.Action("Create", "Contracts")');
+
+
+        });
+
+    });
+
+
+
+
+
+
+</script>
+
+
+
+
+
+@*@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AgencySiteID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoutingNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FiscalYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateFYStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateFYEnd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ObjectCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RateState)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RateFederal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AgencySiteID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoutingNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FiscalYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateFYStart)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateFYEnd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ObjectCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RateState)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RateFederal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateUpdated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdateBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>*@

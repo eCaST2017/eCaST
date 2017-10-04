@@ -1,0 +1,404 @@
+﻿@using Microsoft.AspNet.Identity
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Description"
+          content="  The Colorado Family Leadership Registry: Providing leadership and advisory opportunities for family leaders in Colorado.  " />
+    <meta name="Keywords" content="FLTI, family leaders, health, CDPHE, Medical Home, Leadership, Colorado, opportunities" />
+    <title>@ViewBag.Title - Colorado Family Leadership Registry</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href='https://fonts.googleapis.com/css?family=Roboto:700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Sonsie+One' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+   
+   
+
+    <style type="text/css">
+                body {
+                    background-color: #333;
+                    font-family: 'Roboto', sans-serif;
+                }
+
+                .img-responsive {
+                    display: block;
+                    height: auto;
+                    max-width: 100%;
+                }
+
+                /* Fade transition for carousel items */
+                .carousel .item {
+                    left: 0 !important;
+                    -webkit-transition: opacity .9s; /*adjust timing here */
+                    -moz-transition: opacity .9s;
+                    -o-transition: opacity .9s;
+                    transition: opacity .9s;
+                }
+
+                .carousel-control {
+                    background-image: none !important; /* remove background gradients on controls */
+                }
+                /* Fade controls with items */
+                .next.left,
+                .prev.right {
+                    opacity: 1;
+                    z-index: 1;
+                }
+
+                .active.left,
+                .active.right {
+                    opacity: 0;
+                    z-index: 2;
+                }
+
+
+
+
+
+
+
+                .index {
+                    margin-top: 40px;
+                }
+
+                a:hover {
+                    text-decoration: none;
+                }
+
+                .modal-body p {
+                    text-align: center;
+                    font-size: 20px;
+                }
+
+                .modal-title p {
+                    text-align: center;
+                }
+
+                .panel-default > .panel-heading, .panel-footer {
+                    background-color: #666;
+                }
+
+                body, h3, p {
+                    color: #666;
+                }
+
+                .modal-content p {
+                    color: #fff;
+                }
+
+                .modal-content {
+                    background-color: #333;
+                }
+
+                body {
+                    background: #666;
+                }
+
+                body, html, p {
+                    font-family: 'Roboto', sans-serif;
+                }
+
+                h1, h3, h3, h4, h5 {
+                    font-family: 'Open Sans', sans-serif;
+                }
+
+                .panel {
+                    border: 0px;
+                    box-shadow: 5px 5px 2px rgba(95,79,89,0.15);
+                    -webkit-box-shadow: 5px 5px 2px rgba(95,79,89,0.15);
+                    -moz-box-shadow: 5px 5px 2px rgba(95,79,89,0.15);
+                }
+
+                .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+                    background-color: #333;
+                    border: 0px;
+                    color: #fff;
+                }
+
+                .btn-default {
+                    background-color: #1abc9c;
+                    border: 0px;
+                    color: #34495E;
+                    -webkit-transition: border .25s linear, color .25s linear, background-color .25s linear;
+                    transition: border .25s linear, color .25s linear, background-color .25s linear;
+                }
+
+                .modal-footer {
+                    border-top: 0px solid #1abc9c;
+                }
+
+                .modal-header {
+                    border-bottom: 0px solid #1abc9c;
+                }
+
+                .btn {
+                    border-radius: 0px;
+                }
+
+                .panel-body img {
+                    width: 100%;
+                }
+
+                .panel-title {
+                    font-size: 30px;
+                }
+
+                .header {
+                    color: #fff !important;
+                    font-size: 70px;
+                    text-shadow: 5px 5px 2px rgba(95,79,89,0.15);
+                }
+
+                .headerpad {
+                    padding: 40px;
+                    padding-top: 0px;
+                }
+
+                .modal-open {
+                    -webkit-transform: scale( 0.9 );
+                    -moz-transform: scale( 0.9 );
+                    -ms-transform: scale( 0.9 );
+                    -o-transform: scale( 0.9 );
+                    transform: scale( 0.9 );
+                    overflow: hidden;
+                    -webkit-transform-origin: 50% 50%;
+                    -moz-transform-origin: 50% 50%;
+                    -ms-transform-origin: 50% 50%;
+                    -o-transform-origin: 50% 50%;
+                    transform-origin: 50% 50%;
+                    -webkit-transition: 0.3s all cubic-bezier(0.250, 0.460, 0.450, 0.940);
+                    -moz-transition: 0.3s all cubic-bezier(0.250, 0.460, 0.450, 0.940);
+                    -ms-transition: 0.3s all cubic-bezier(0.250, 0.460, 0.450, 0.940);
+                    -o-transition: 0.3s all cubic-bezier(0.250, 0.460, 0.450, 0.940);
+                    transition: 0.3s all cubic-bezier(0.250, 0.460, 0.450, 0.940);
+                }
+
+                .modal {
+                    overflow-y: hidden;
+                    -webkit-box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+                    -moz-box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+                    -webkit-transition: 0.3s all;
+                    -moz-transition: 0.3s all;
+                    -ms-transition: 0.3s all;
+                    -o-transition: 0.3s all;
+                    transition: 0.3s all;
+                }
+
+
+                /*html, body {
+            height: 100%;
+            overflow: hidden;
+            -webkit-transition: 0.3s all;
+            -moz-transition: 0.3s all;
+            -ms-transition: 0.3s all;
+            -o-transition: 0.3s all;
+            transition: 0.3s all;
+        }*/
+
+                html {
+                    background: #333;
+                }
+
+                code {
+                    border-radius: 0px;
+                }
+
+                .close, .close:hover {
+                    color: #fff;
+                    opacity: 1;
+                }
+    </style>
+
+
+
+
+</head>
+<body>
+
+
+
+    <div style="border-bottom-color:transparent; opacity:0.9" class="navbar navbar-inverse navbar-fixed-top">
+        <div style="width:100%">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+
+                @*<h1 style="font-family: 'Sonsie One', cursive; color:#fff;text-shadow: #666 0 0 10px;">Colorado Family Leadership Registry</h1>*@
+                <div style="padding-top:10px;padding-left:8px">
+
+                    <a style="text-decoration:none" href="@Url.Action("Index","Home")">
+                        <img src="~/Content/images/iconCL2.png" />&nbsp;<span style="color:#fff; font-family: 'Source Sans Pro', sans-serif; font-size:large;">Health Informatics Data Systems</span>
+
+                    </a>
+                </div>
+            </div>
+            <div class="navbar-collapse collapse">
+                @*<ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+                    </ul>*@
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 style="font-family: 'Source Sans Pro', sans-serif;color:#fff;" class=" modal-title" id="myModalLabel">Access Your Account</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div id="Login1Section"></div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+  
+
+
+    <div style="width:100%" class="container body-content">
+        @RenderBody()
+
+
+        @if (!Request.IsAuthenticated)
+        {
+
+
+            <div style="background-color:#fff;opacity:0.5" class="footer navbar-fixed-bottom">
+
+
+                <div align="right">
+
+                    <div style="padding-right:10px"><span>© 2015 Colorado Department of Public Health and Environment</span></div>
+
+                </div>
+
+            </div>
+
+
+        }
+
+
+    </div>
+
+
+
+
+
+    <script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-65083906-1', 'auto');
+    ga('send', 'pageview');
+
+    </script>
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jquerycustom")
+    @RenderSection("scripts", required: false)
+
+
+
+
+
+</body>
+</html>
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+
+        $("#LoginButton").click(function () {
+
+            $('#Login1Section').load('@Url.Action("Login", "Account")');
+
+        });
+
+        @*$("#OpportunityButton").click(function () {
+
+            $('#OpportunitySection').load('@Url.Action("_ExternalPostList", "Posts")');
+
+        });*@
+
+
+
+    });
+
+
+
+
+</script>
+
+
+
+
+
+<script type="text/javascript">
+
+
+
+    $(function () {
+
+        $('#LoginModal').on('shown.bs.modal', function () {
+            $(this).find('.modal-dialog').css({
+                //width: 'auto',
+                width: '92%',
+                height: 'auto',
+                'max-height': '100%'
+            });
+        });
+
+
+        //$('#OpportunityModal').on('shown.bs.modal', function () {
+        //    $(this).find('.modal-dialog').css({
+        //        //width: 'auto',
+        //        width: '92%',
+        //        height: 'auto',
+        //        'max-height': '100%'
+        //    });
+        //});
+
+
+    });
+
+
+
+
+
+</script>
+

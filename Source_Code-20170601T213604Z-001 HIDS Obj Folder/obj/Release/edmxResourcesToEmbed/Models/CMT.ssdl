@@ -1,0 +1,533 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PortalRequestEntitiesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ApplicationDivisions">
+    <Key>
+      <PropertyRef Name="ApplicationID" />
+      <PropertyRef Name="DivisionID" />
+    </Key>
+    <Property Name="ApplicationID" Type="int" Nullable="false" />
+    <Property Name="DivisionID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Assets">
+    <Key>
+      <PropertyRef Name="AssetID" />
+    </Key>
+    <Property Name="AssetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RequestID" Type="int" Nullable="false" />
+    <Property Name="AssetTitle" Type="nvarchar(max)" />
+    <Property Name="AssetURL" Type="nvarchar(max)" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar(max)" />
+    <Property Name="DateCreated" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Divisions">
+    <Key>
+      <PropertyRef Name="DivisionID" />
+    </Key>
+    <Property Name="DivisionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DivisionName" Type="nvarchar" MaxLength="4000" />
+    <Property Name="Active" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EdmMetadata">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ModelHash" Type="nvarchar" MaxLength="4000" />
+  </EntityType>
+  <EntityType Name="GanttDependencies">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PredecessorID" Type="int" Nullable="false" />
+    <Property Name="SuccessorID" Type="int" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GanttResourceAssignments">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TaskID" Type="int" Nullable="false" />
+    <Property Name="ResourceID" Type="int" />
+    <Property Name="Units" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="GanttResources">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Color" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="GanttTasks">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentID" Type="int" />
+    <Property Name="ApplicationID" Type="int" />
+    <Property Name="OrderID" Type="int" />
+    <Property Name="Title" Type="nvarchar" MaxLength="100" />
+    <Property Name="Start" Type="datetime" />
+    <Property Name="End" Type="datetime" />
+    <Property Name="PercentComplete" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Expanded" Type="bit" />
+    <Property Name="Summary" Type="bit" />
+    <Property Name="GanttTask1_ID" Type="int" />
+    <Property Name="SeenOnCreate" Type="bit" />
+  </EntityType>
+  <EntityType Name="ModuleApplications">
+    <Key>
+      <PropertyRef Name="ModuleID" />
+      <PropertyRef Name="ApplicationID" />
+    </Key>
+    <Property Name="ModuleID" Type="int" Nullable="false" />
+    <Property Name="ApplicationID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Modules">
+    <Key>
+      <PropertyRef Name="ModuleID" />
+    </Key>
+    <Property Name="ModuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ModuleName" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Notifications">
+    <Key>
+      <PropertyRef Name="NotificationID" />
+    </Key>
+    <Property Name="NotificationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NotificationName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Subject" Type="nchar" MaxLength="200" />
+    <Property Name="Message" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" />
+    <Property Name="ApplicationID" Type="int" />
+  </EntityType>
+  <EntityType Name="Priorities">
+    <Key>
+      <PropertyRef Name="PriorityID" />
+    </Key>
+    <Property Name="PriorityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PriorityName" Type="nvarchar" MaxLength="4000" />
+    <Property Name="Active" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProjectApplications">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="ApplicationID" />
+    </Key>
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="ApplicationID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Projects">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+    </Key>
+    <Property Name="ProjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectTypeID" Type="int" Nullable="false" />
+    <Property Name="ProjectName" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProjectSubApplications">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="SubApplicationID" />
+    </Key>
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="SubApplicationID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProjectTypes">
+    <Key>
+      <PropertyRef Name="ProjectTypeID" />
+    </Key>
+    <Property Name="ProjectTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectTypeName" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="QANotes">
+    <Key>
+      <PropertyRef Name="QANoteID" />
+    </Key>
+    <Property Name="QANoteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QANoteName" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="QANotesQualityAssurances">
+    <Key>
+      <PropertyRef Name="QANotesID" />
+      <PropertyRef Name="QualityAssuranceID" />
+      <PropertyRef Name="RequestID" />
+    </Key>
+    <Property Name="QANotesID" Type="int" Nullable="false" />
+    <Property Name="QualityAssuranceID" Type="int" Nullable="false" />
+    <Property Name="RequestID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="QualityAssuranceRequests">
+    <Key>
+      <PropertyRef Name="QualityAssuranceID" />
+      <PropertyRef Name="RequestID" />
+    </Key>
+    <Property Name="QualityAssuranceID" Type="int" Nullable="false" />
+    <Property Name="RequestID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="QualityAssurances">
+    <Key>
+      <PropertyRef Name="QualityAssuranceID" />
+    </Key>
+    <Property Name="QualityAssuranceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QualityAssuranceName" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReleaseApplications">
+    <Key>
+      <PropertyRef Name="ReleaseID" />
+      <PropertyRef Name="ApplicationID" />
+    </Key>
+    <Property Name="ReleaseID" Type="int" Nullable="false" />
+    <Property Name="ApplicationID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Releases">
+    <Key>
+      <PropertyRef Name="ReleaseID" />
+    </Key>
+    <Property Name="ReleaseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReleaseName" Type="nvarchar(max)" />
+    <Property Name="ReleaseDate" Type="datetime" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestActions">
+    <Key>
+      <PropertyRef Name="RequestActionID" />
+    </Key>
+    <Property Name="RequestActionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RequestActionName" Type="nvarchar" MaxLength="4000" />
+    <Property Name="Active" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestActionTypes">
+    <Key>
+      <PropertyRef Name="RequestActionTypeID" />
+    </Key>
+    <Property Name="RequestActionTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RequestActionTypeName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Active" Type="bit" />
+    <Property Name="Action" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="RequestClients">
+    <Key>
+      <PropertyRef Name="RequestID" />
+      <PropertyRef Name="ClientID" />
+    </Key>
+    <Property Name="RequestID" Type="int" Nullable="false" />
+    <Property Name="ClientID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestModes">
+    <Key>
+      <PropertyRef Name="RequestModeID" />
+    </Key>
+    <Property Name="RequestModeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RequestModeName" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestPersons">
+    <Key>
+      <PropertyRef Name="RequestID" />
+      <PropertyRef Name="PersonID" />
+    </Key>
+    <Property Name="RequestID" Type="int" Nullable="false" />
+    <Property Name="PersonID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestPrograms">
+    <Key>
+      <PropertyRef Name="RequestProgramID" />
+    </Key>
+    <Property Name="RequestProgramID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RequestProgramDivisionID" Type="int" Nullable="false" />
+    <Property Name="RequestProgramName" Type="nvarchar" MaxLength="4000" />
+    <Property Name="Active" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestProjects">
+    <Key>
+      <PropertyRef Name="RequestID" />
+      <PropertyRef Name="ProjectID" />
+    </Key>
+    <Property Name="RequestID" Type="int" Nullable="false" />
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestReleases">
+    <Key>
+      <PropertyRef Name="RequestID" />
+      <PropertyRef Name="ReleaseID" />
+    </Key>
+    <Property Name="RequestID" Type="int" Nullable="false" />
+    <Property Name="ReleaseID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestReports">
+    <Key>
+      <PropertyRef Name="RequestID" />
+      <PropertyRef Name="ReportID" />
+    </Key>
+    <Property Name="RequestID" Type="int" Nullable="false" />
+    <Property Name="ReportID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Requests">
+    <Key>
+      <PropertyRef Name="RequestID" />
+    </Key>
+    <Property Name="RequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RequestDate" Type="nvarchar" MaxLength="4000" />
+    <Property Name="RequestDateActual" Type="datetime" />
+    <Property Name="RequestorID" Type="nvarchar" MaxLength="4000" />
+    <Property Name="RequestTitle" Type="nvarchar" MaxLength="4000" Nullable="false" />
+    <Property Name="DivisionID" Type="int" />
+    <Property Name="RequestProgramID" Type="int" />
+    <Property Name="RequestTypeID" Type="int" />
+    <Property Name="PriorityID" Type="int" />
+    <Property Name="StateID" Type="int" />
+    <Property Name="RequestDesc" Type="nvarchar" MaxLength="4000" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="DeveloperNotes" Type="nvarchar" MaxLength="4000" />
+    <Property Name="TestLog" Type="nvarchar" MaxLength="4000" />
+    <Property Name="TimeToComplete" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="ReleaseDate" Type="datetime" />
+    <Property Name="BroadcastDate" Type="datetime" />
+    <Property Name="TrainingIssue" Type="bit" Nullable="false" />
+    <Property Name="DueDate" Type="datetime" />
+    <Property Name="RequestorNotes" Type="nvarchar" MaxLength="4000" />
+    <Property Name="RequestedByID" Type="nvarchar(max)" />
+    <Property Name="Overdue" Type="bit" />
+    <Property Name="RequestModeID" Type="int" />
+    <Property Name="ApplicationID" Type="int" />
+    <Property Name="OverdueWarning" Type="bit" />
+    <Property Name="RequestorViewed" Type="bit" />
+    <Property Name="AssigneeViewed" Type="bit" />
+    <Property Name="Requestor" Type="int" />
+    <Property Name="TestingMode" Type="bit" />
+    <Property Name="Participants" Type="nvarchar(max)" />
+    <Property Name="SubApplicationID" Type="int" />
+    <Property Name="ProjectID" Type="int" />
+    <Property Name="Urgent" Type="bit" />
+    <Property Name="RequestActionID" Type="int" />
+  </EntityType>
+  <EntityType Name="RequestScreenings">
+    <Key>
+      <PropertyRef Name="RequestID" />
+      <PropertyRef Name="ScreeningID" />
+    </Key>
+    <Property Name="RequestID" Type="int" Nullable="false" />
+    <Property Name="ScreeningID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestsDUMP">
+    <Key>
+      <PropertyRef Name="RequestID" />
+    </Key>
+    <Property Name="RequestID" Type="int" Nullable="false" />
+    <Property Name="RequestDate" Type="nvarchar" MaxLength="4000" />
+    <Property Name="RequestDateActual" Type="datetime" />
+    <Property Name="RequestorID" Type="nvarchar" MaxLength="4000" />
+    <Property Name="RequestTitle" Type="nvarchar" MaxLength="4000" Nullable="false" />
+    <Property Name="DivisionID" Type="int" Nullable="false" />
+    <Property Name="RequestProgramID" Type="int" Nullable="false" />
+    <Property Name="RequestTypeID" Type="int" Nullable="false" />
+    <Property Name="PriorityID" Type="int" Nullable="false" />
+    <Property Name="StateID" Type="int" Nullable="false" />
+    <Property Name="RequestDesc" Type="nvarchar" MaxLength="4000" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="4000" Nullable="false" />
+    <Property Name="DeveloperNotes" Type="nvarchar" MaxLength="4000" />
+    <Property Name="TestLog" Type="nvarchar" MaxLength="4000" />
+    <Property Name="TimeToComplete" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="ReleaseDate" Type="datetime" />
+    <Property Name="BroadcastDate" Type="datetime" />
+    <Property Name="TrainingIssue" Type="bit" Nullable="false" />
+    <Property Name="DueDate" Type="datetime" />
+    <Property Name="RequestorNotes" Type="nvarchar" MaxLength="4000" />
+    <Property Name="RequestedByID" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="RequestTrackers">
+    <Key>
+      <PropertyRef Name="RequestTrackerID" />
+    </Key>
+    <Property Name="RequestTrackerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RequestID" Type="int" Nullable="false" />
+    <Property Name="Assignee" Type="nvarchar" MaxLength="4000" />
+    <Property Name="Status" Type="int" />
+    <Property Name="Priority" Type="int" />
+    <Property Name="DateUpdated" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="4000" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="4000" />
+    <Property Name="RequestDesc" Type="nvarchar" MaxLength="4000" />
+    <Property Name="DeveloperNotes" Type="nvarchar" MaxLength="4000" />
+  </EntityType>
+  <EntityType Name="RequestTypeApplications">
+    <Key>
+      <PropertyRef Name="RequestTypeID" />
+      <PropertyRef Name="ApplicationID" />
+    </Key>
+    <Property Name="RequestTypeID" Type="int" Nullable="false" />
+    <Property Name="ApplicationID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestTypeNotifications">
+    <Key>
+      <PropertyRef Name="RequestTypeID" />
+      <PropertyRef Name="NotificationID" />
+      <PropertyRef Name="ApplicationID" />
+      <PropertyRef Name="SubApplicationID" />
+    </Key>
+    <Property Name="RequestTypeID" Type="int" Nullable="false" />
+    <Property Name="NotificationID" Type="int" Nullable="false" />
+    <Property Name="ApplicationID" Type="int" Nullable="false" />
+    <Property Name="SubApplicationID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestTypes">
+    <Key>
+      <PropertyRef Name="RequestTypeID" />
+    </Key>
+    <Property Name="RequestTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RequestTypeName" Type="nvarchar" MaxLength="4000" />
+    <Property Name="Active" Type="int" Nullable="false" />
+    <Property Name="RequestModeID" Type="int" />
+    <Property Name="NotificationID" Type="int" />
+  </EntityType>
+  <EntityType Name="RequestTypeSubApplications">
+    <Key>
+      <PropertyRef Name="RequestTypeID" />
+      <PropertyRef Name="SubApplicationID" />
+    </Key>
+    <Property Name="RequestTypeID" Type="int" Nullable="false" />
+    <Property Name="SubApplicationID" Type="int" Nullable="false" />
+    <Property Name="NotificationID" Type="int" />
+  </EntityType>
+  <EntityType Name="SiteDivisions">
+    <Key>
+      <PropertyRef Name="SiteID" />
+      <PropertyRef Name="DivisionID" />
+    </Key>
+    <Property Name="SiteID" Type="int" Nullable="false" />
+    <Property Name="DivisionID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="States">
+    <Key>
+      <PropertyRef Name="StateID" />
+    </Key>
+    <Property Name="StateID" Type="int" Nullable="false" />
+    <Property Name="StateName" Type="nvarchar" MaxLength="4000" />
+    <Property Name="Active" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SubApplicationApplications">
+    <Key>
+      <PropertyRef Name="SubApplicationID" />
+      <PropertyRef Name="ApplicationID" />
+    </Key>
+    <Property Name="SubApplicationID" Type="int" Nullable="false" />
+    <Property Name="ApplicationID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SubApplications">
+    <Key>
+      <PropertyRef Name="SubApplicationID" />
+    </Key>
+    <Property Name="SubApplicationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubApplicationName" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserIdApplications">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="ApplicationID" />
+    </Key>
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ApplicationID" Type="int" Nullable="false" />
+    <Property Name="DefaultView" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="UserIdRequests">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RequestID" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RequestID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserIdSubApplications">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="SubApplicationID" />
+    </Key>
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SubApplicationID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserOptions">
+    <Key>
+      <PropertyRef Name="UserOptionID" />
+    </Key>
+    <Property Name="UserOptionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="uniqueidentifier" />
+    <Property Name="ToolbarCode" Type="varchar(max)" />
+    <Property Name="QuickViewCode" Type="varchar(max)" />
+    <Property Name="Theme" Type="varchar" MaxLength="50" />
+    <Property Name="CalendarEventDisplay" Type="bit" />
+    <Property Name="StartTimeCalendar" Type="datetime" />
+    <Property Name="EndTimeCalendar" Type="datetime" />
+    <Property Name="NotificationViewID" Type="int" />
+    <Property Name="DataEntryID" Type="int" />
+  </EntityType>
+  <EntityContainer Name="PortalRequestEntitiesModelStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ApplicationDivisions" EntityType="Self.ApplicationDivisions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Assets" EntityType="Self.Assets" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Divisions" EntityType="Self.Divisions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EdmMetadata" EntityType="Self.EdmMetadata" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GanttDependencies" EntityType="Self.GanttDependencies" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GanttResourceAssignments" EntityType="Self.GanttResourceAssignments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GanttResources" EntityType="Self.GanttResources" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GanttTasks" EntityType="Self.GanttTasks" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ModuleApplications" EntityType="Self.ModuleApplications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Modules" EntityType="Self.Modules" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Priorities" EntityType="Self.Priorities" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProjectApplications" EntityType="Self.ProjectApplications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProjectSubApplications" EntityType="Self.ProjectSubApplications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProjectTypes" EntityType="Self.ProjectTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QANotes" EntityType="Self.QANotes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QANotesQualityAssurances" EntityType="Self.QANotesQualityAssurances" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QualityAssuranceRequests" EntityType="Self.QualityAssuranceRequests" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QualityAssurances" EntityType="Self.QualityAssurances" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReleaseApplications" EntityType="Self.ReleaseApplications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Releases" EntityType="Self.Releases" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestActions" EntityType="Self.RequestActions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestActionTypes" EntityType="Self.RequestActionTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestClients" EntityType="Self.RequestClients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestModes" EntityType="Self.RequestModes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestPersons" EntityType="Self.RequestPersons" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestPrograms" EntityType="Self.RequestPrograms" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestProjects" EntityType="Self.RequestProjects" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestReleases" EntityType="Self.RequestReleases" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestReports" EntityType="Self.RequestReports" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Requests" EntityType="Self.Requests" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestScreenings" EntityType="Self.RequestScreenings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestsDUMP" EntityType="Self.RequestsDUMP" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestTrackers" EntityType="Self.RequestTrackers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestTypeApplications" EntityType="Self.RequestTypeApplications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestTypeNotifications" EntityType="Self.RequestTypeNotifications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestTypes" EntityType="Self.RequestTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestTypeSubApplications" EntityType="Self.RequestTypeSubApplications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SiteDivisions" EntityType="Self.SiteDivisions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="States" EntityType="Self.States" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SubApplicationApplications" EntityType="Self.SubApplicationApplications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SubApplications" EntityType="Self.SubApplications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserIdApplications" EntityType="Self.UserIdApplications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserIdRequests" EntityType="Self.UserIdRequests" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserIdSubApplications" EntityType="Self.UserIdSubApplications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserOptions" EntityType="Self.UserOptions" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

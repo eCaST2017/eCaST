@@ -1,0 +1,609 @@
+﻿@model IEnumerable<CTL.ViewModels.ProgramViewModel>
+
+
+<script type="text/javascript" charset="utf-8">
+    (function ($) {
+        /*
+         * Function: fnGetColumnData
+         * Purpose:  Return an array of table values from a particular column.
+         * Returns:  array string: 1d data array
+         * Inputs:   object:oSettings - dataTable settings object. This is always the last argument past to the function
+         *           int:iColumn - the id of the column to extract the data from
+         *           bool:bUnique - optional - if set to false duplicated values are not filtered out
+         *           bool:bFiltered - optional - if set to false all the table data is used (not only the filtered)
+         *           bool:bIgnoreEmpty - optional - if set to false empty values are not filtered from the result array
+         * Author:   Benedikt Forchhammer <b.forchhammer /AT\ mind2.de>
+         */
+        $.fn.dataTableExt.oApi.fnGetColumnData = function (oSettings, iColumn, bUnique, bFiltered, bIgnoreEmpty) {
+            // check that we have a column id
+            if (typeof iColumn == "undefined") return new Array();
+
+            // by default we only want unique data
+            if (typeof bUnique == "undefined") bUnique = true;
+
+            // by default we do want to only look at filtered data
+            if (typeof bFiltered == "undefined") bFiltered = true;
+
+            // by default we do not want to include empty values
+            if (typeof bIgnoreEmpty == "undefined") bIgnoreEmpty = true;
+
+            // list of rows which we're going to loop through
+            var aiRows;
+
+            // use only filtered rows
+            if (bFiltered == true) aiRows = oSettings.aiDisplay;
+                // use all rows
+            else aiRows = oSettings.aiDisplayMaster; // all row numbers
+
+            // set up data array
+            var asResultData = new Array();
+
+            for (var i = 0, c = aiRows.length; i < c; i++) {
+                iRow = aiRows[i];
+                var aData = this.fnGetData(iRow);
+                var sValue = aData[iColumn];
+
+                // ignore empty values?
+                if (bIgnoreEmpty == true && sValue.length == 0) continue;
+
+                    // ignore unique values?
+                else if (bUnique == true && jQuery.inArray(sValue, asResultData) > -1) continue;
+
+                    // else push the value onto the result data array
+                else asResultData.push(sValue);
+            }
+
+            return asResultData;
+        }
+    }(jQuery));
+
+
+    function fnCreateSelect(aData) {
+        var r = '<div class="input-control select"><select style="font-size:11px"><option value="">--Show All--</option>', i, iLen = aData.length;
+        for (i = 0 ; i < iLen ; i++) {
+            r += '<option value="' + aData[i] + '">' + aData[i] + '</option>';
+        }
+        var b = "  <span style='font-size:11px'></span>  ";
+        return b + r + '</select></div>';
+    }
+
+
+    $(document).ready(function () {
+        /* Initialise the DataTable */
+        var oTable = $('#example').dataTable({
+            "oLanguage": {
+                "sSearch": "Search:"
+            },
+            "bPaginate": false,
+            "bSort": false,
+            "bAutoWidth": false,
+            //"aoColumnDefs": [{ "bVisible": false, "aTargets": [2] }],
+            "bFilter": false,
+            "bInfo": false,
+            //"fnDrawCallback": function (oSettings) {
+            //    for (var i = 0, iLen = oSettings.aoData.length ; i < iLen ; i++) {
+            //        var status = oSettings.aoData[i]._aData[2];
+            //        var colorCSS;
+            //        if (status == '23') {
+            //            colorCSS = 'statusGreen';
+            //        } else if (status === '4' || status === '12') {
+            //            colorCSS = 'statusBlue';
+            //        } else if (status === '1' || status === '2' || status === '11') {
+            //            colorCSS = 'statusRed';
+            //        } else if (status === '3' || status === '7' || status === '14') {
+            //            colorCSS = 'statusOrange';
+            //        } else {
+            //            colorCSS = 'statusBlack';
+            //        }
+            //        oSettings.aoData[i].nTr.className += " " + colorCSS;
+            //    }
+            //},
+            //"aoColumnDefs": [{ "bVisible": false, "aTargets": [0] }]
+        });
+
+        /* Add a select menu for each TH element in the table footer */
+        //$(".Group").each(function (i) {
+        //    this.innerHTML = fnCreateSelect(oTable.fnGetColumnData(i));
+        //    $('select', this).change(function () {
+        //        oTable.fnFilter($(this).val(), i);
+        //    });
+        //});
+    });
+</script>
+
+<style type="text/css">
+    table.dataTable td.sorting_1 {
+        background-color: white;
+        border: 1px white;
+    }
+
+    table.dataTable td {
+        background-color: white;
+        border: 1px white;
+    }
+
+    table.dataTable tr.odd {
+        background-color: white;
+        border: 1px white;
+    }
+
+    table.dataTable tr.even {
+        background-color: white;
+        border: 1px white;
+    }
+
+    .statusBlack {
+        color: black;
+    }
+
+    .statusRed {
+        color: red;
+    }
+
+    .statusBlue {
+        color: orange;
+    }
+
+    .statusGreen {
+        color: limegreen;
+    }
+
+    .statusOrange {
+        color: goldenrod;
+    }
+
+    .follow-scroll{
+
+  padding-bottom:300px;
+
+    }
+
+</style>
+
+
+
+
+    @*<div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-pencil"></span>&nbsp; Edit <span class="caret"></span>
+        </button>
+        <ul style="text-align:left" class="dropdown-menu" role="menu">
+            <li>
+
+                <a id="EditFacButton" style="text-decoration:none" href="#">Edit Facilities</a>
+
+
+            </li>
+            <li>
+
+
+                <a style="text-decoration:none" id="EditConButton" href="#">Edit Contacts</a>
+
+
+
+            </li>
+
+
+            <li>
+
+
+                <a style="text-decoration:none" id="EditProvButton" href="#">Edit Providers</a>
+
+
+
+            </li>
+
+        </ul>
+    </div>*@
+
+
+
+
+
+
+
+    @*  <button id="AddFacButton" data-toggle="modal" data-target="#AddFacModal" class="btn btn-default">
+        <span class="glyphicon glyphicon-plus-sign"></span>
+        &nbsp;Add Facility</button>*@
+
+
+
+    @*<div class="btn-group">
+        <button  type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-plus-sign"></span>&nbsp; Add <span class="caret"></span>
+        </button>
+        <ul style="text-align:left" class="dropdown-menu" role="menu">
+            <li>
+
+                <a id="AddFacButton"  style="text-decoration:none" href="#">Add Facility</a>
+
+
+            </li>
+
+
+            @if (@ViewBag.RoleName == "Power")
+            {
+
+                <li>
+
+
+                    <a id="AddConButton" style="text-decoration:none" href="#">Add Contact</a>
+
+
+
+                </li>
+
+            }
+
+
+            <li>
+
+
+                <a id="AddProvButton" style="text-decoration:none" href="#">Add Provider</a>
+
+
+
+            </li>
+
+        </ul>
+    </div>*@
+
+
+
+    @*  <button id="SearchClinicButton" data-toggle="modal" data-target="#SearchClinicModal" class="btn btn-default">
+        <span class="glyphicon glyphicon-search"></span>&nbsp;Search</button>*@
+
+    @*<div class="btn-group">
+        <button  type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-search"></span>&nbsp; Search <span class="caret"></span>
+        </button>
+        <ul style="text-align:left" class="dropdown-menu" role="menu">
+            <li>
+
+                <a id="SearchClinicButton" style="text-decoration:none" href="#">Search Clinics</a>
+
+
+            </li>
+         
+
+        </ul>
+    </div>*@
+
+
+
+@*</div>
+
+
+
+
+
+
+<br />*@
+
+<div id="holder">
+    <table style="width:100%;color:#ccc;font-size:18px; font-family:'Lato', sans-serif" cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+        <thead>
+            <tr>
+                <th></th>
+
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+
+
+
+            <tr>
+
+                <td style="border:none">
+
+                    <div class="alert alert-info">  @item.ProgramName  </div>
+
+
+                    @if (item.ProgramID == 20) { 
+
+                    <div class="row">
+
+                        <div class="col-md-8">
+
+                            @{Html.RenderAction("_CancerTypeList", "DDCancerTypeBins", new { id = @item.SiteID, id2 = @item.ProgramID });}
+
+                        </div>
+
+
+
+
+                        <div class="col-md-4">
+                         
+                            <div id="CreateFacilityContainer_@item.SiteID@item.ProgramID"></div>
+
+                            <script type="text/javascript">
+
+                                $(function () {
+
+                                    $('#CreateFacilityContainer_@item.SiteID@item.ProgramID').load('@Url.Action("Create", "SubContractors", new { id = @item.SiteID, id2 = @item.ProgramID, id3 = "" })');
+
+                                });
+                                
+                            </script>
+
+                            
+                        </div>
+
+
+                    </div>
+
+                    }
+
+
+                    <a name="CreateAgencyContactContainerAnchor_@item.SiteID@item.ProgramID"/>
+                    <div class="row">
+
+                        <div class="col-md-8">
+
+                            @{Html.RenderAction("_AgencyRoleList", "RoleBins", new { id = @item.SiteID, id2 = @item.ProgramID });}
+
+                        </div>
+
+
+                        <div class="col-md-4">
+                           @if (ViewBag.RoleBinID == 1 || ViewBag.RoleBinID == 3 || ViewBag.RoleBinID == 13)
+                            {
+                            <div id="CreateAgencyContactContainer_@item.SiteID@item.ProgramID"></div>
+
+                            <script type="text/javascript">
+
+                                $(function () {
+
+                                    $('#CreateAgencyContactContainer_@item.SiteID@item.ProgramID').load('@Url.Action("Create", "AgencyContacts", new { id = @item.SiteID, id2 = @item.ProgramID, id3 = "" })');
+
+                                });
+
+                                @*(function ($) {
+                                    var element = $('#CreateAgencyContactContainer_@item.SiteID@item.ProgramID'),
+                                        originalY = element.offset().top;
+
+                                    // Space between element and top of screen (when scrolling)
+                                    var topMargin = 0;
+
+                                    // Should probably be set in CSS; but here just for emphasis
+                                    element.css('position', 'relative');
+
+                                    $(window).on('scroll', function (event) {
+                                        var scrollTop = $(window).scrollTop();
+
+                                        element.stop(false, false).animate({
+                                            top: scrollTop < originalY
+                                                    ? 0
+                                                    : scrollTop - originalY + topMargin
+                                        }, 300);
+                                    });
+                                })(jQuery);*@
+
+
+
+
+                            </script>
+                           }
+
+                        </div>
+
+                        </div>
+
+                </td>
+
+
+            </tr>
+
+
+        }
+    </table>
+    <br />
+    <br />
+
+
+
+</div>
+
+
+<!-- Add Facility Modal -->
+<div class="modal fade" id="AddFacModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Add A Facility</h3>
+            </div>
+
+            <div id="AddFacilityContainer"></div>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+
+<!-- Edit Facility Modal -->
+<div class="modal fade" id="EditFacModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Edit A Facility</h3>
+            </div>
+
+            <div id="EditFacilityContainer"></div>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+
+<!-- Add Contact Modal -->
+<div class="modal fade" id="AddConModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Add A Contact</h3>
+            </div>
+
+            <div id="AddContactContainer"></div>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+
+<!-- Edit Contact Modal -->
+<div class="modal fade" id="EditConModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Edit A Contact</h3>
+            </div>
+
+            <div id="EditContactContainer"></div>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+
+<!-- Add Provider Modal -->
+<div class="modal fade" id="AddProvModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Add A Provider</h3>
+            </div>
+
+            <div id="AddProvContainer"></div>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+
+<!-- Edit Provider Modal -->
+<div class="modal fade" id="EditProvModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Edit A Provider</h3>
+            </div>
+
+            <div id="EditProvContainer"></div>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<!-- Search Modal -->
+<div class="modal fade" id="SearchClinicModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Search for Clinics</h3>
+            </div>
+            <div style="height: 440px; width: 100%; overflow: scroll; overflow-y: auto; overflow-x: hidden; padding: 0px; margin: 0px">
+                <div id="SearchClinicContainer"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="SearchClinicCloseButton" class="btn btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+
+
+  
+
+                        $("#AddFacButton").click(function () {
+
+
+                            $('#AddFacilityContainer').load('@Url.Action("Create", "SubContractors", new { id = @ViewBag.SiteID })');
+
+
+                        });
+
+    $("#AddConButton").click(function () {
+
+
+        $('#AddContactContainer').load('@Url.Action("Create", "AgencyContacts", new { id = @ViewBag.SiteID })');
+
+
+    });
+
+    $("#AddProvButton").click(function () {
+
+
+        $('#AddProvContainer').load('@Url.Action("Create", "Providers", new { id = @ViewBag.SiteID })');
+
+
+    });
+
+
+    $("#EditFacButton").click(function () {
+
+
+        $('#EditFacilityContainer').load('@Url.Action("InlineEdit", "SubContractors", new { id = @ViewBag.SiteID })');
+
+
+    });
+
+
+    $("#EditConButton").click(function () {
+
+
+        $('#EditContactContainer').load('@Url.Action("Edit", "AgencyContacts", new { id = @ViewBag.SiteID })');
+
+
+    });
+
+
+    $("#EditProvButton").click(function () {
+
+
+        $('#EditProvContainer').load('@Url.Action("Edit", "Providers", new { id = @ViewBag.SiteID })');
+
+
+    });
+
+
+
+    $("#SearchClinicButton").click(function () {
+
+
+        $('#SearchClinicContainer').load('@Url.Action("_SearchClinicList", "Clinics")');
+
+
+    });
+
+</script>

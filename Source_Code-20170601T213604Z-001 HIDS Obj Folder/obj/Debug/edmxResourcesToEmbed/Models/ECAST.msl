@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="eCaSTContextModelStoreContainer" CdmEntityContainer="eCaSTContextEntities">
+    <EntitySetMapping Name="Clients">
+      <EntityTypeMapping TypeName="eCaSTContextModel.Client">
+        <MappingFragment StoreEntitySet="Client">
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="EnrollmentDate" ColumnName="EnrollmentDate" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="MaidenName" ColumnName="MaidenName" />
+          <ScalarProperty Name="SSN" ColumnName="SSN" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="EthnicityHispanicBinID" ColumnName="EthnicityHispanicBinID" />
+          <ScalarProperty Name="ProgramBinID" ColumnName="ProgramBinID" />
+          <ScalarProperty Name="InsuranceBinID" ColumnName="InsuranceBinID" />
+          <ScalarProperty Name="MedicareBinID" ColumnName="MedicareBinID" />
+          <ScalarProperty Name="ReminderBinID" ColumnName="ReminderBinID" />
+          <ScalarProperty Name="ChartNumber" ColumnName="ChartNumber" />
+          <ScalarProperty Name="LegalPresence" ColumnName="LegalPresence" />
+          <ScalarProperty Name="IncomeEligible" ColumnName="IncomeEligible" />
+          <ScalarProperty Name="InsuranceEligible" ColumnName="InsuranceEligible" />
+          <ScalarProperty Name="MonthlyIncome" ColumnName="MonthlyIncome" />
+          <ScalarProperty Name="NumberLivingOnIncome" ColumnName="NumberLivingOnIncome" />
+          <ScalarProperty Name="PercentPoverty" ColumnName="PercentPoverty" />
+          <ScalarProperty Name="HeardOfProgramBinID" ColumnName="HeardOfProgramBinID" />
+          <ScalarProperty Name="ActiveBinID" ColumnName="ActiveBinID" />
+          <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Tribe" ColumnName="Tribe" />
+          <ScalarProperty Name="Other" ColumnName="Other" />
+          <ScalarProperty Name="Street" ColumnName="Street" />
+          <ScalarProperty Name="CityBinID" ColumnName="CityBinID" />
+          <ScalarProperty Name="StateBinID" ColumnName="StateBinID" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="CountyBinID" ColumnName="CountyBinID" />
+          <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+          <ScalarProperty Name="PhoneBinID" ColumnName="PhoneBinID" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="EmergencyName" ColumnName="EmergencyName" />
+          <ScalarProperty Name="FPL" ColumnName="FPL" />
+          <ScalarProperty Name="TobaccoUseBinID" ColumnName="TobaccoUseBinID" />
+          <ScalarProperty Name="Race_RaceID" ColumnName="Race_RaceID" />
+          <ScalarProperty Name="EducationBinID" ColumnName="EducationBinID" />
+          <ScalarProperty Name="LanguageBinID" ColumnName="LanguageBinID" />
+          <ScalarProperty Name="UninsuredClientReferredBinID" ColumnName="UninsuredClientReferredBinID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ClinicalCycles">
+      <EntityTypeMapping TypeName="eCaSTContextModel.ClinicalCycle">
+        <MappingFragment StoreEntitySet="ClinicalCycle">
+          <ScalarProperty Name="ClinicalCycleID" ColumnName="ClinicalCycleID" />
+          <ScalarProperty Name="OfficeVisitGuidID" ColumnName="OfficeVisitGuidID" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="ClinicalCycleDate" ColumnName="ClinicalCycleDate" />
+          <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Pending" ColumnName="Pending" />
+          <ScalarProperty Name="ScreeningMethodBinID" ColumnName="ScreeningMethodBinID" />
+          <ScalarProperty Name="LegacyID" ColumnName="LegacyID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DDCancerTypeBins">
+      <EntityTypeMapping TypeName="eCaSTContextModel.DDCancerTypeBin">
+        <MappingFragment StoreEntitySet="DDCancerTypeBin">
+          <ScalarProperty Name="CancerTypeBinID" ColumnName="CancerTypeBinID" />
+          <ScalarProperty Name="CancerTypeBinName" ColumnName="CancerTypeBinName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Screenings">
+      <EntityTypeMapping TypeName="eCaSTContextModel.Screening">
+        <MappingFragment StoreEntitySet="Screening">
+          <ScalarProperty Name="ScreeningID" ColumnName="ScreeningID" />
+          <ScalarProperty Name="ScreeningGuidID" ColumnName="ScreeningGuidID" />
+          <ScalarProperty Name="OfficeVisitID" ColumnName="OfficeVisitID" />
+          <ScalarProperty Name="ClinicalCycleID" ColumnName="ClinicalCycleID" />
+          <ScalarProperty Name="EnrollmentID" ColumnName="EnrollmentID" />
+          <ScalarProperty Name="TobaccoUseBinID" ColumnName="TobaccoUseBinID" />
+          <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+          <ScalarProperty Name="ScreeningMethodBinID" ColumnName="ScreeningMethodBinID" />
+          <ScalarProperty Name="PrevScreenTestBinID" ColumnName="PrevScreenTestBinID" />
+          <ScalarProperty Name="HistPolypsBinID" ColumnName="HistPolypsBinID" />
+          <ScalarProperty Name="PolypPreCancerBinID" ColumnName="PolypPreCancerBinID" />
+          <ScalarProperty Name="PrevCancerBinID" ColumnName="PrevCancerBinID" />
+          <ScalarProperty Name="AgeDiagCancerBinID" ColumnName="AgeDiagCancerBinID" />
+          <ScalarProperty Name="SuspectedGeneticDxBinID" ColumnName="SuspectedGeneticDxBinID" />
+          <ScalarProperty Name="InflamBowelDisBinID" ColumnName="InflamBowelDisBinID" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="ReferralDate" ColumnName="ReferralDate" />
+          <ScalarProperty Name="SchedDate" ColumnName="SchedDate" />
+          <ScalarProperty Name="CurrentStatusBinID" ColumnName="CurrentStatusBinID" />
+          <ScalarProperty Name="RecScreenBinID" ColumnName="RecScreenBinID" />
+          <ScalarProperty Name="ScreenReasonBinID" ColumnName="ScreenReasonBinID" />
+          <ScalarProperty Name="KitDistMethodBinID" ColumnName="KitDistMethodBinID" />
+          <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="BillingLevel" ColumnName="BillingLevel" />
+          <ScalarProperty Name="PersonalHistoryCancer" ColumnName="PersonalHistoryCancer" />
+          <ScalarProperty Name="RelativeHistoryCancer" ColumnName="RelativeHistoryCancer" />
+          <ScalarProperty Name="PrevMamBinID" ColumnName="PrevMamBinID" />
+          <ScalarProperty Name="PrevPapBinID" ColumnName="PrevPapBinID" />
+          <ScalarProperty Name="CurrentMamReasonBinID" ColumnName="CurrentMamReasonBinID" />
+          <ScalarProperty Name="CurrentPapReasonBinID" ColumnName="CurrentPapReasonBinID" />
+          <ScalarProperty Name="HysterectomyStatusBinID" ColumnName="HysterectomyStatusBinID" />
+          <ScalarProperty Name="PrevCBEDate" ColumnName="PrevCBEDate" />
+          <ScalarProperty Name="PrevMamDate" ColumnName="PrevMamDate" />
+          <ScalarProperty Name="PrevPapDate" ColumnName="PrevPapDate" />
+          <ScalarProperty Name="MamRefDate" ColumnName="MamRefDate" />
+          <ScalarProperty Name="PapRefDate" ColumnName="PapRefDate" />
+          <ScalarProperty Name="CancerTypeBinID" ColumnName="CancerTypeBinID" />
+          <ScalarProperty Name="ScreenLockDate" ColumnName="ScreenLockDate" />
+          <ScalarProperty Name="NoMamExplanationBinID" ColumnName="NoMamExplanationBinID" />
+          <ScalarProperty Name="NoPapExplanationBinID" ColumnName="NoPapExplanationBinID" />
+          <ScalarProperty Name="BillingUpdatedDate" ColumnName="BillingUpdatedDate" />
+          <ScalarProperty Name="BillingPaidBinID" ColumnName="BillingPaidBinID" />
+          <ScalarProperty Name="FundedOfficeVisit" ColumnName="FundedOfficeVisit" />
+          <ScalarProperty Name="StateStaffOverride" ColumnName="StateStaffOverride" />
+          <ScalarProperty Name="Symptom_SymptomID" ColumnName="Symptom_SymptomID" />
+          <ScalarProperty Name="DDHistoryQuestionBin_HistoryQuestionBinID" ColumnName="DDHistoryQuestionBin_HistoryQuestionBinID" />
+          <ScalarProperty Name="IrisScreenID" ColumnName="IrisScreenID" />
+          <ScalarProperty Name="SuppressMDE" ColumnName="SuppressMDE" />
+          <ScalarProperty Name="BillingHold" ColumnName="BillingHold" />
+          <ScalarProperty Name="DDHeightBinID" ColumnName="DDHeightBinID" />
+          <ScalarProperty Name="DDWeightBinID" ColumnName="DDWeightBinID" />
+          <ScalarProperty Name="DDWaistBinID" ColumnName="DDWaistBinID" />
+          <ScalarProperty Name="DDHipBinID" ColumnName="DDHipBinID" />
+          <ScalarProperty Name="HeightBin_HeightBinID" ColumnName="HeightBin_HeightBinID" />
+          <ScalarProperty Name="HipWaistBin_HipWaistBinID" ColumnName="HipWaistBin_HipWaistBinID" />
+          <ScalarProperty Name="WeightBin_WeightBinID" ColumnName="WeightBin_WeightBinID" />
+          <ScalarProperty Name="HBReferralDate" ColumnName="HBReferralDate" />
+          <ScalarProperty Name="HBSessionTypeBinID" ColumnName="HBSessionTypeBinID" />
+          <ScalarProperty Name="HBSessionCompletionTypeBinID" ColumnName="HBSessionCompletionTypeBinID" />
+          <ScalarProperty Name="HBSessionBarrierTypeBinID" ColumnName="HBSessionBarrierTypeBinID" />
+          <ScalarProperty Name="FollowupCompletenessBinID" ColumnName="FollowupCompletenessBinID" />
+          <ScalarProperty Name="ContractTypeID" ColumnName="ContractTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

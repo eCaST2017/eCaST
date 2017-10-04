@@ -1,0 +1,1894 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HIADMINModelStoreContainer" CdmEntityContainer="HIADMINEntities">
+    <EntitySetMapping Name="AccountCompromiseds">
+      <EntityTypeMapping TypeName="HIADMINModel.AccountCompromised">
+        <MappingFragment StoreEntitySet="AccountCompromised">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="DateLastLogin" ColumnName="DateLastLogin" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="ReportedInfo" ColumnName="ReportedInfo" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AccountDeleteds">
+      <EntityTypeMapping TypeName="HIADMINModel.AccountDeleted">
+        <MappingFragment StoreEntitySet="AccountDeleted">
+          <ScalarProperty Name="DeleteID" ColumnName="DeleteID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="ProgramAccess" ColumnName="ProgramAccess" />
+          <ScalarProperty Name="SiteAccess" ColumnName="SiteAccess" />
+          <ScalarProperty Name="DateLastLogon" ColumnName="DateLastLogon" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="aspnet_Applications">
+      <EntityTypeMapping TypeName="HIADMINModel.aspnet_Applications">
+        <MappingFragment StoreEntitySet="aspnet_Applications">
+          <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+          <ScalarProperty Name="LoweredApplicationName" ColumnName="LoweredApplicationName" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="aspnet_Membership">
+      <EntityTypeMapping TypeName="HIADMINModel.aspnet_Membership">
+        <MappingFragment StoreEntitySet="aspnet_Membership">
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="PasswordFormat" ColumnName="PasswordFormat" />
+          <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+          <ScalarProperty Name="MobilePIN" ColumnName="MobilePIN" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="LoweredEmail" ColumnName="LoweredEmail" />
+          <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+          <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+          <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+          <ScalarProperty Name="LastLockoutDate" ColumnName="LastLockoutDate" />
+          <ScalarProperty Name="FailedPasswordAttemptCount" ColumnName="FailedPasswordAttemptCount" />
+          <ScalarProperty Name="FailedPasswordAttemptWindowStart" ColumnName="FailedPasswordAttemptWindowStart" />
+          <ScalarProperty Name="FailedPasswordAnswerAttemptCount" ColumnName="FailedPasswordAnswerAttemptCount" />
+          <ScalarProperty Name="FailedPasswordAnswerAttemptWindowStart" ColumnName="FailedPasswordAnswerAttemptWindowStart" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="aspnet_Paths">
+      <EntityTypeMapping TypeName="HIADMINModel.aspnet_Paths">
+        <MappingFragment StoreEntitySet="aspnet_Paths">
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="PathId" ColumnName="PathId" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="LoweredPath" ColumnName="LoweredPath" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="aspnet_PersonalizationAllUsers">
+      <EntityTypeMapping TypeName="HIADMINModel.aspnet_PersonalizationAllUsers">
+        <MappingFragment StoreEntitySet="aspnet_PersonalizationAllUsers">
+          <ScalarProperty Name="PathId" ColumnName="PathId" />
+          <ScalarProperty Name="PageSettings" ColumnName="PageSettings" />
+          <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="aspnet_PersonalizationPerUser">
+      <EntityTypeMapping TypeName="HIADMINModel.aspnet_PersonalizationPerUser">
+        <MappingFragment StoreEntitySet="aspnet_PersonalizationPerUser">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PathId" ColumnName="PathId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PageSettings" ColumnName="PageSettings" />
+          <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="aspnet_Profile">
+      <EntityTypeMapping TypeName="HIADMINModel.aspnet_Profile">
+        <MappingFragment StoreEntitySet="aspnet_Profile">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PropertyNames" ColumnName="PropertyNames" />
+          <ScalarProperty Name="PropertyValuesString" ColumnName="PropertyValuesString" />
+          <ScalarProperty Name="PropertyValuesBinary" ColumnName="PropertyValuesBinary" />
+          <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="aspnet_Roles">
+      <EntityTypeMapping TypeName="HIADMINModel.aspnet_Roles">
+        <MappingFragment StoreEntitySet="aspnet_Roles">
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="LoweredRoleName" ColumnName="LoweredRoleName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="aspnet_SchemaVersions">
+      <EntityTypeMapping TypeName="HIADMINModel.aspnet_SchemaVersions">
+        <MappingFragment StoreEntitySet="aspnet_SchemaVersions">
+          <ScalarProperty Name="Feature" ColumnName="Feature" />
+          <ScalarProperty Name="CompatibleSchemaVersion" ColumnName="CompatibleSchemaVersion" />
+          <ScalarProperty Name="IsCurrentVersion" ColumnName="IsCurrentVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="aspnet_Users">
+      <EntityTypeMapping TypeName="HIADMINModel.aspnet_Users">
+        <MappingFragment StoreEntitySet="aspnet_Users">
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="LoweredUserName" ColumnName="LoweredUserName" />
+          <ScalarProperty Name="MobileAlias" ColumnName="MobileAlias" />
+          <ScalarProperty Name="IsAnonymous" ColumnName="IsAnonymous" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="aspnet_UsersInRoles">
+      <EntityTypeMapping TypeName="HIADMINModel.aspnet_UsersInRoles">
+        <MappingFragment StoreEntitySet="aspnet_UsersInRoles">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="aspnet_WebEvent_Events">
+      <EntityTypeMapping TypeName="HIADMINModel.aspnet_WebEvent_Events">
+        <MappingFragment StoreEntitySet="aspnet_WebEvent_Events">
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
+          <ScalarProperty Name="EventTimeUtc" ColumnName="EventTimeUtc" />
+          <ScalarProperty Name="EventTime" ColumnName="EventTime" />
+          <ScalarProperty Name="EventType" ColumnName="EventType" />
+          <ScalarProperty Name="EventSequence" ColumnName="EventSequence" />
+          <ScalarProperty Name="EventOccurrence" ColumnName="EventOccurrence" />
+          <ScalarProperty Name="EventCode" ColumnName="EventCode" />
+          <ScalarProperty Name="EventDetailCode" ColumnName="EventDetailCode" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="ApplicationPath" ColumnName="ApplicationPath" />
+          <ScalarProperty Name="ApplicationVirtualPath" ColumnName="ApplicationVirtualPath" />
+          <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+          <ScalarProperty Name="RequestUrl" ColumnName="RequestUrl" />
+          <ScalarProperty Name="ExceptionType" ColumnName="ExceptionType" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DataSystemUpdates">
+      <EntityTypeMapping TypeName="HIADMINModel.DataSystemUpdate">
+        <MappingFragment StoreEntitySet="DataSystemUpdates">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="DateUpdate" ColumnName="DateUpdate" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DD_AccountErrors">
+      <EntityTypeMapping TypeName="HIADMINModel.DD_AccountErrors">
+        <MappingFragment StoreEntitySet="DD_AccountErrors">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DD_SecurityQuestion">
+      <EntityTypeMapping TypeName="HIADMINModel.DD_SecurityQuestion">
+        <MappingFragment StoreEntitySet="DD_SecurityQuestion">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DocumentDownloads">
+      <EntityTypeMapping TypeName="HIADMINModel.DocumentDownload">
+        <MappingFragment StoreEntitySet="DocumentDownloads">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="FileContent" ColumnName="FileContent" />
+          <ScalarProperty Name="FileType" ColumnName="FileType" />
+          <ScalarProperty Name="FileExtension" ColumnName="FileExtension" />
+          <ScalarProperty Name="DateFile" ColumnName="DateFile" />
+          <ScalarProperty Name="Usage" ColumnName="Usage" />
+          <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+          <ScalarProperty Name="Updatedby" ColumnName="Updatedby" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ImportantMessages">
+      <EntityTypeMapping TypeName="HIADMINModel.ImportantMessage">
+        <MappingFragment StoreEntitySet="ImportantMessage">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="msgHeader" ColumnName="msgHeader" />
+          <ScalarProperty Name="msgBody" ColumnName="msgBody" />
+          <ScalarProperty Name="msgFooter" ColumnName="msgFooter" />
+          <ScalarProperty Name="msgVisible" ColumnName="msgVisible" />
+          <ScalarProperty Name="DateExpires" ColumnName="DateExpires" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InvalidLogins">
+      <EntityTypeMapping TypeName="HIADMINModel.InvalidLogin">
+        <MappingFragment StoreEntitySet="InvalidLogin">
+          <ScalarProperty Name="InvalidLogID" ColumnName="InvalidLogID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+          <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+          <ScalarProperty Name="DateAttempt" ColumnName="DateAttempt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NEST_Activity">
+      <EntityTypeMapping TypeName="HIADMINModel.NEST_Activity">
+        <MappingFragment StoreEntitySet="NEST_Activity">
+          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+          <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="StatusDate" ColumnName="StatusDate" />
+          <ScalarProperty Name="StageStatusID" ColumnName="StageStatusID" />
+          <ScalarProperty Name="StageDate" ColumnName="StageDate" />
+          <ScalarProperty Name="ActivityTypeID" ColumnName="ActivityTypeID" />
+          <ScalarProperty Name="AuthorizationCodeID" ColumnName="AuthorizationCodeID" />
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="ActivityLevelID" ColumnName="ActivityLevelID" />
+          <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+          <ScalarProperty Name="ResultTypeID" ColumnName="ResultTypeID" />
+          <ScalarProperty Name="UserResultCode" ColumnName="UserResultCode" />
+          <ScalarProperty Name="UserResultCode2" ColumnName="UserResultCode2" />
+          <ScalarProperty Name="UserResultValue" ColumnName="UserResultValue" />
+          <ScalarProperty Name="UserResultValue2" ColumnName="UserResultValue2" />
+          <ScalarProperty Name="UserResultSequence" ColumnName="UserResultSequence" />
+          <ScalarProperty Name="UserResultComment" ColumnName="UserResultComment" />
+          <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+          <ScalarProperty Name="NESTProviderID" ColumnName="NESTProviderID" />
+          <ScalarProperty Name="SourceProviderID" ColumnName="SourceProviderID" />
+          <ScalarProperty Name="SourceProvBusinessName" ColumnName="SourceProvBusinessName" />
+          <ScalarProperty Name="SourceProviderTypeID" ColumnName="SourceProviderTypeID" />
+          <ScalarProperty Name="SourceProvContactName" ColumnName="SourceProvContactName" />
+          <ScalarProperty Name="SourceActivityID" ColumnName="SourceActivityID" />
+          <ScalarProperty Name="OriginalActivityID" ColumnName="OriginalActivityID" />
+          <ScalarProperty Name="ResearchNumber" ColumnName="ResearchNumber" />
+          <ScalarProperty Name="ResponseDate" ColumnName="ResponseDate" />
+          <ScalarProperty Name="OriginUSERID" ColumnName="OriginUSERID" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NEST_Communication">
+      <EntityTypeMapping TypeName="HIADMINModel.NEST_Communication">
+        <MappingFragment StoreEntitySet="NEST_Communication">
+          <ScalarProperty Name="NCID" ColumnName="NCID" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="DateOBPrepared" ColumnName="DateOBPrepared" />
+          <ScalarProperty Name="DateOBtoFile" ColumnName="DateOBtoFile" />
+          <ScalarProperty Name="DateIBProcess" ColumnName="DateIBProcess" />
+          <ScalarProperty Name="FileSourceName" ColumnName="FileSourceName" />
+          <ScalarProperty Name="FileDate" ColumnName="FileDate" />
+          <ScalarProperty Name="UpdatedDateTime" ColumnName="UpdatedDateTime" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NEST_DD_ActivityLevels">
+      <EntityTypeMapping TypeName="HIADMINModel.NEST_DD_ActivityLevels">
+        <MappingFragment StoreEntitySet="NEST_DD_ActivityLevels">
+          <ScalarProperty Name="ActivityLevelID" ColumnName="ActivityLevelID" />
+          <ScalarProperty Name="ActivityLevelCode" ColumnName="ActivityLevelCode" />
+          <ScalarProperty Name="ActivityLevelDescription" ColumnName="ActivityLevelDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NEST_DD_ActivityTypes">
+      <EntityTypeMapping TypeName="HIADMINModel.NEST_DD_ActivityTypes">
+        <MappingFragment StoreEntitySet="NEST_DD_ActivityTypes">
+          <ScalarProperty Name="ActivityTypeID" ColumnName="ActivityTypeID" />
+          <ScalarProperty Name="ActivityTypeCode" ColumnName="ActivityTypeCode" />
+          <ScalarProperty Name="ActivityTypeDescription" ColumnName="ActivityTypeDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NEST_DD_AuthorizationCodes">
+      <EntityTypeMapping TypeName="HIADMINModel.NEST_DD_AuthorizationCodes">
+        <MappingFragment StoreEntitySet="NEST_DD_AuthorizationCodes">
+          <ScalarProperty Name="AuthorizationCodeID" ColumnName="AuthorizationCodeID" />
+          <ScalarProperty Name="AuthorizationCode" ColumnName="AuthorizationCode" />
+          <ScalarProperty Name="AuthorizationCodeDesc" ColumnName="AuthorizationCodeDesc" />
+          <ScalarProperty Name="AuthorizationPriority" ColumnName="AuthorizationPriority" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NEST_DD_ProviderTypes">
+      <EntityTypeMapping TypeName="HIADMINModel.NEST_DD_ProviderTypes">
+        <MappingFragment StoreEntitySet="NEST_DD_ProviderTypes">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="System" ColumnName="System" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NEST_DD_ResultTypes">
+      <EntityTypeMapping TypeName="HIADMINModel.NEST_DD_ResultTypes">
+        <MappingFragment StoreEntitySet="NEST_DD_ResultTypes">
+          <ScalarProperty Name="ResultTypeID" ColumnName="ResultTypeID" />
+          <ScalarProperty Name="ResultTypeCode" ColumnName="ResultTypeCode" />
+          <ScalarProperty Name="ResultTypeDescription" ColumnName="ResultTypeDescription" />
+          <ScalarProperty Name="ActivityTypeCode" ColumnName="ActivityTypeCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NEST_DD_StageStatus">
+      <EntityTypeMapping TypeName="HIADMINModel.NEST_DD_StageStatus">
+        <MappingFragment StoreEntitySet="NEST_DD_StageStatus">
+          <ScalarProperty Name="StageStatusID" ColumnName="StageStatusID" />
+          <ScalarProperty Name="StageStatusCode" ColumnName="StageStatusCode" />
+          <ScalarProperty Name="StageDescription" ColumnName="StageDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NEST_DD_TransactionDirections">
+      <EntityTypeMapping TypeName="HIADMINModel.NEST_DD_TransactionDirections">
+        <MappingFragment StoreEntitySet="NEST_DD_TransactionDirections">
+          <ScalarProperty Name="TransactionDirectionID" ColumnName="TransactionDirectionID" />
+          <ScalarProperty Name="TransactionDirectionCode" ColumnName="TransactionDirectionCode" />
+          <ScalarProperty Name="TransactionDirectionDescription" ColumnName="TransactionDirectionDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NEST_DD_TransactionStatus">
+      <EntityTypeMapping TypeName="HIADMINModel.NEST_DD_TransactionStatus">
+        <MappingFragment StoreEntitySet="NEST_DD_TransactionStatus">
+          <ScalarProperty Name="TransactionStatusID" ColumnName="TransactionStatusID" />
+          <ScalarProperty Name="TransactionStatusCode" ColumnName="TransactionStatusCode" />
+          <ScalarProperty Name="TransactionStatusDescription" ColumnName="TransactionStatusDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NEST_DD_TransactionTypes">
+      <EntityTypeMapping TypeName="HIADMINModel.NEST_DD_TransactionTypes">
+        <MappingFragment StoreEntitySet="NEST_DD_TransactionTypes">
+          <ScalarProperty Name="TransactionTypeID" ColumnName="TransactionTypeID" />
+          <ScalarProperty Name="TransactionTypeCode" ColumnName="TransactionTypeCode" />
+          <ScalarProperty Name="TransactionDescription" ColumnName="TransactionDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NEST_Transaction">
+      <EntityTypeMapping TypeName="HIADMINModel.NEST_Transaction">
+        <MappingFragment StoreEntitySet="NEST_Transaction">
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="StatusDate" ColumnName="StatusDate" />
+          <ScalarProperty Name="TransactionDirectionID" ColumnName="TransactionDirectionID" />
+          <ScalarProperty Name="TransactionTypeID" ColumnName="TransactionTypeID" />
+          <ScalarProperty Name="AuthorizationCodeID" ColumnName="AuthorizationCodeID" />
+          <ScalarProperty Name="DestinationNESTProgramID" ColumnName="DestinationNESTProgramID" />
+          <ScalarProperty Name="OriginNESTProgramID" ColumnName="OriginNESTProgramID" />
+          <ScalarProperty Name="DestinationPID" ColumnName="DestinationPID" />
+          <ScalarProperty Name="OriginPID" ColumnName="OriginPID" />
+          <ScalarProperty Name="NESTPID" ColumnName="NESTPID" />
+          <ScalarProperty Name="EBCNumber" ColumnName="EBCNumber" />
+          <ScalarProperty Name="SSN" ColumnName="SSN" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="Nickname" ColumnName="Nickname" />
+          <ScalarProperty Name="NameSuffixID" ColumnName="NameSuffixID" />
+          <ScalarProperty Name="TitleID" ColumnName="TitleID" />
+          <ScalarProperty Name="AKALastName" ColumnName="AKALastName" />
+          <ScalarProperty Name="AKAFirstName" ColumnName="AKAFirstName" />
+          <ScalarProperty Name="AKAMiddleName" ColumnName="AKAMiddleName" />
+          <ScalarProperty Name="AKANameSuffixID" ColumnName="AKANameSuffixID" />
+          <ScalarProperty Name="AKATitleID" ColumnName="AKATitleID" />
+          <ScalarProperty Name="GenderID" ColumnName="GenderID" />
+          <ScalarProperty Name="RaceID" ColumnName="RaceID" />
+          <ScalarProperty Name="EthnicityID" ColumnName="EthnicityID" />
+          <ScalarProperty Name="FederalRaceID" ColumnName="FederalRaceID" />
+          <ScalarProperty Name="FederalEthnicityID" ColumnName="FederalEthnicityID" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="TimeOfBirth" ColumnName="TimeOfBirth" />
+          <ScalarProperty Name="BirthOrderID" ColumnName="BirthOrderID" />
+          <ScalarProperty Name="BirthTypeID" ColumnName="BirthTypeID" />
+          <ScalarProperty Name="BirthStateID" ColumnName="BirthStateID" />
+          <ScalarProperty Name="BirthCountyName" ColumnName="BirthCountyName" />
+          <ScalarProperty Name="BirthCountyID" ColumnName="BirthCountyID" />
+          <ScalarProperty Name="ResidentStateID" ColumnName="ResidentStateID" />
+          <ScalarProperty Name="ResidentCountyName" ColumnName="ResidentCountyName" />
+          <ScalarProperty Name="ResidentCountyID" ColumnName="ResidentCountyID" />
+          <ScalarProperty Name="BirthMotherLastName" ColumnName="BirthMotherLastName" />
+          <ScalarProperty Name="BirthMotherFirstName" ColumnName="BirthMotherFirstName" />
+          <ScalarProperty Name="BirthMotherMiddleName" ColumnName="BirthMotherMiddleName" />
+          <ScalarProperty Name="MotherMaidenName" ColumnName="MotherMaidenName" />
+          <ScalarProperty Name="MotherLastName" ColumnName="MotherLastName" />
+          <ScalarProperty Name="MotherFirstName" ColumnName="MotherFirstName" />
+          <ScalarProperty Name="MotherMiddleName" ColumnName="MotherMiddleName" />
+          <ScalarProperty Name="MotherSuffixID" ColumnName="MotherSuffixID" />
+          <ScalarProperty Name="MotherDateOfBirth" ColumnName="MotherDateOfBirth" />
+          <ScalarProperty Name="MotherGenderID" ColumnName="MotherGenderID" />
+          <ScalarProperty Name="MotherTitleID" ColumnName="MotherTitleID" />
+          <ScalarProperty Name="MotherPgmSourceID" ColumnName="MotherPgmSourceID" />
+          <ScalarProperty Name="MotherPgmEffectiveDate" ColumnName="MotherPgmEffectiveDate" />
+          <ScalarProperty Name="MotherSSN" ColumnName="MotherSSN" />
+          <ScalarProperty Name="Relationship1ID" ColumnName="Relationship1ID" />
+          <ScalarProperty Name="FatherLastName" ColumnName="FatherLastName" />
+          <ScalarProperty Name="FatherFirstName" ColumnName="FatherFirstName" />
+          <ScalarProperty Name="FatherMiddleName" ColumnName="FatherMiddleName" />
+          <ScalarProperty Name="FatherSuffixID" ColumnName="FatherSuffixID" />
+          <ScalarProperty Name="FatherDateOfBirth" ColumnName="FatherDateOfBirth" />
+          <ScalarProperty Name="FatherGenderID" ColumnName="FatherGenderID" />
+          <ScalarProperty Name="FatherTitleID" ColumnName="FatherTitleID" />
+          <ScalarProperty Name="FatherPgmSourceID" ColumnName="FatherPgmSourceID" />
+          <ScalarProperty Name="FatherPgmEffectiveDate" ColumnName="FatherPgmEffectiveDate" />
+          <ScalarProperty Name="FatherSSN" ColumnName="FatherSSN" />
+          <ScalarProperty Name="Relationship2ID" ColumnName="Relationship2ID" />
+          <ScalarProperty Name="StreetAddress1" ColumnName="StreetAddress1" />
+          <ScalarProperty Name="StreetAddress2" ColumnName="StreetAddress2" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="StateID" ColumnName="StateID" />
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
+          <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+          <ScalarProperty Name="ResAddrPgmSourceID" ColumnName="ResAddrPgmSourceID" />
+          <ScalarProperty Name="ResAddrPgmEffectiveDate" ColumnName="ResAddrPgmEffectiveDate" />
+          <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
+          <ScalarProperty Name="MailingAddress1" ColumnName="MailingAddress1" />
+          <ScalarProperty Name="MailingAddress2" ColumnName="MailingAddress2" />
+          <ScalarProperty Name="MailingCity" ColumnName="MailingCity" />
+          <ScalarProperty Name="MailingStateID" ColumnName="MailingStateID" />
+          <ScalarProperty Name="MailingZip" ColumnName="MailingZip" />
+          <ScalarProperty Name="MailAddrPgmSourceID" ColumnName="MailAddrPgmSourceID" />
+          <ScalarProperty Name="MailAddrPgmEffectiveDate" ColumnName="MailAddrPgmEffectiveDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NEST_ValueConversion">
+      <EntityTypeMapping TypeName="HIADMINModel.NEST_ValueConversion">
+        <MappingFragment StoreEntitySet="NEST_ValueConversion">
+          <ScalarProperty Name="vcID" ColumnName="vcID" />
+          <ScalarProperty Name="vcValue" ColumnName="vcValue" />
+          <ScalarProperty Name="vcConvert" ColumnName="vcConvert" />
+          <ScalarProperty Name="vcNotes" ColumnName="vcNotes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NEST_VitalRecords_Deaths">
+      <EntityTypeMapping TypeName="HIADMINModel.NEST_VitalRecords_Deaths">
+        <MappingFragment StoreEntitySet="NEST_VitalRecords_Deaths">
+          <ScalarProperty Name="ChildID" ColumnName="ChildID" />
+          <ScalarProperty Name="VersionID" ColumnName="VersionID" />
+          <ScalarProperty Name="EBC" ColumnName="EBC" />
+          <ScalarProperty Name="DOD" ColumnName="DOD" />
+          <ScalarProperty Name="DCert" ColumnName="DCert" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NESTMissingProcedures">
+      <EntityTypeMapping TypeName="HIADMINModel.NESTMissingProcedure">
+        <MappingFragment StoreEntitySet="NESTMissingProcedures">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NESTPID" ColumnName="NESTPID" />
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+          <ScalarProperty Name="DateVisit" ColumnName="DateVisit" />
+          <ScalarProperty Name="ProcedureCode" ColumnName="ProcedureCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ThirdPartyFiles">
+      <EntityTypeMapping TypeName="HIADMINModel.ThirdPartyFile">
+        <MappingFragment StoreEntitySet="ThirdPartyFiles">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="DateFile" ColumnName="DateFile" />
+          <ScalarProperty Name="FileContent" ColumnName="FileContent" />
+          <ScalarProperty Name="FileType" ColumnName="FileType" />
+          <ScalarProperty Name="FileExtension" ColumnName="FileExtension" />
+          <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+          <ScalarProperty Name="Updatedby" ColumnName="Updatedby" />
+          <ScalarProperty Name="DisplayInGrid" ColumnName="DisplayInGrid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsedPasswords">
+      <EntityTypeMapping TypeName="HIADMINModel.UsedPassword">
+        <MappingFragment StoreEntitySet="UsedPassword">
+          <ScalarProperty Name="PasswordStoreID" ColumnName="PasswordStoreID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserIPAddresses">
+      <EntityTypeMapping TypeName="HIADMINModel.UserIPAddress">
+        <MappingFragment StoreEntitySet="UserIPAddress">
+          <ScalarProperty Name="LogActivityID" ColumnName="LogActivityID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="InitialLoginIP" ColumnName="InitialLoginIP" />
+          <ScalarProperty Name="SecondLoginIP" ColumnName="SecondLoginIP" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserProfiles">
+      <EntityTypeMapping TypeName="HIADMINModel.UserProfile">
+        <MappingFragment StoreEntitySet="UserProfile">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="ProgramAccess" ColumnName="ProgramAccess" />
+          <ScalarProperty Name="SiteAccess" ColumnName="SiteAccess" />
+          <ScalarProperty Name="PowerUser" ColumnName="PowerUser" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="SecurityQuestionID" ColumnName="SecurityQuestionID" />
+          <ScalarProperty Name="LoginChangePassword" ColumnName="LoginChangePassword" />
+          <ScalarProperty Name="TemporaryPIN" ColumnName="TemporaryPIN" />
+          <ScalarProperty Name="SiteApproved" ColumnName="SiteApproved" />
+          <ScalarProperty Name="NewApproved" ColumnName="NewApproved" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Confidentiality" ColumnName="Confidentiality" />
+          <ScalarProperty Name="DateConfidentiality" ColumnName="DateConfidentiality" />
+          <ScalarProperty Name="DateLastLogon" ColumnName="DateLastLogon" />
+          <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRolePrograms">
+      <EntityTypeMapping TypeName="HIADMINModel.UserRoleProgram">
+        <MappingFragment StoreEntitySet="UserRoleProgram">
+          <ScalarProperty Name="RoleSiteID" ColumnName="RoleSiteID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsersCurrentActivities">
+      <EntityTypeMapping TypeName="HIADMINModel.UsersCurrentActivity">
+        <MappingFragment StoreEntitySet="UsersCurrentActivity">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vw_aspnet_Applications">
+      <EntityTypeMapping TypeName="HIADMINModel.vw_aspnet_Applications">
+        <MappingFragment StoreEntitySet="vw_aspnet_Applications">
+          <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+          <ScalarProperty Name="LoweredApplicationName" ColumnName="LoweredApplicationName" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vw_aspnet_MembershipUsers">
+      <EntityTypeMapping TypeName="HIADMINModel.vw_aspnet_MembershipUsers">
+        <MappingFragment StoreEntitySet="vw_aspnet_MembershipUsers">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PasswordFormat" ColumnName="PasswordFormat" />
+          <ScalarProperty Name="MobilePIN" ColumnName="MobilePIN" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="LoweredEmail" ColumnName="LoweredEmail" />
+          <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+          <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+          <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+          <ScalarProperty Name="LastLockoutDate" ColumnName="LastLockoutDate" />
+          <ScalarProperty Name="FailedPasswordAttemptCount" ColumnName="FailedPasswordAttemptCount" />
+          <ScalarProperty Name="FailedPasswordAttemptWindowStart" ColumnName="FailedPasswordAttemptWindowStart" />
+          <ScalarProperty Name="FailedPasswordAnswerAttemptCount" ColumnName="FailedPasswordAnswerAttemptCount" />
+          <ScalarProperty Name="FailedPasswordAnswerAttemptWindowStart" ColumnName="FailedPasswordAnswerAttemptWindowStart" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="MobileAlias" ColumnName="MobileAlias" />
+          <ScalarProperty Name="IsAnonymous" ColumnName="IsAnonymous" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vw_aspnet_Profiles">
+      <EntityTypeMapping TypeName="HIADMINModel.vw_aspnet_Profiles">
+        <MappingFragment StoreEntitySet="vw_aspnet_Profiles">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+          <ScalarProperty Name="DataSize" ColumnName="DataSize" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vw_aspnet_Roles">
+      <EntityTypeMapping TypeName="HIADMINModel.vw_aspnet_Roles">
+        <MappingFragment StoreEntitySet="vw_aspnet_Roles">
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="LoweredRoleName" ColumnName="LoweredRoleName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vw_aspnet_Users">
+      <EntityTypeMapping TypeName="HIADMINModel.vw_aspnet_Users">
+        <MappingFragment StoreEntitySet="vw_aspnet_Users">
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="LoweredUserName" ColumnName="LoweredUserName" />
+          <ScalarProperty Name="MobileAlias" ColumnName="MobileAlias" />
+          <ScalarProperty Name="IsAnonymous" ColumnName="IsAnonymous" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vw_aspnet_UsersInRoles">
+      <EntityTypeMapping TypeName="HIADMINModel.vw_aspnet_UsersInRoles">
+        <MappingFragment StoreEntitySet="vw_aspnet_UsersInRoles">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vw_aspnet_WebPartState_Paths">
+      <EntityTypeMapping TypeName="HIADMINModel.vw_aspnet_WebPartState_Paths">
+        <MappingFragment StoreEntitySet="vw_aspnet_WebPartState_Paths">
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="PathId" ColumnName="PathId" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="LoweredPath" ColumnName="LoweredPath" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vw_aspnet_WebPartState_Shared">
+      <EntityTypeMapping TypeName="HIADMINModel.vw_aspnet_WebPartState_Shared">
+        <MappingFragment StoreEntitySet="vw_aspnet_WebPartState_Shared">
+          <ScalarProperty Name="PathId" ColumnName="PathId" />
+          <ScalarProperty Name="DataSize" ColumnName="DataSize" />
+          <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vw_aspnet_WebPartState_User">
+      <EntityTypeMapping TypeName="HIADMINModel.vw_aspnet_WebPartState_User">
+        <MappingFragment StoreEntitySet="vw_aspnet_WebPartState_User">
+          <ScalarProperty Name="PathId" ColumnName="PathId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="DataSize" ColumnName="DataSize" />
+          <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="aspnet_CheckSchemaVersion" FunctionName="HIADMINModel.Store.aspnet_CheckSchemaVersion" />
+    <FunctionImportMapping FunctionImportName="aspnet_Membership_ChangePasswordQuestionAndAnswer" FunctionName="HIADMINModel.Store.aspnet_Membership_ChangePasswordQuestionAndAnswer" />
+    <FunctionImportMapping FunctionImportName="aspnet_Membership_CreateUser" FunctionName="HIADMINModel.Store.aspnet_Membership_CreateUser" />
+    <FunctionImportMapping FunctionImportName="aspnet_Membership_FindUsersByEmail" FunctionName="HIADMINModel.Store.aspnet_Membership_FindUsersByEmail" />
+    <FunctionImportMapping FunctionImportName="aspnet_Membership_FindUsersByName" FunctionName="HIADMINModel.Store.aspnet_Membership_FindUsersByName" />
+    <FunctionImportMapping FunctionImportName="aspnet_Membership_GetAllUsers" FunctionName="HIADMINModel.Store.aspnet_Membership_GetAllUsers" />
+    <FunctionImportMapping FunctionImportName="aspnet_Membership_GetNumberOfUsersOnline" FunctionName="HIADMINModel.Store.aspnet_Membership_GetNumberOfUsersOnline" />
+    <FunctionImportMapping FunctionImportName="aspnet_Membership_GetPassword" FunctionName="HIADMINModel.Store.aspnet_Membership_GetPassword">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.aspnet_Membership_GetPassword_Result">
+          <ScalarProperty Name="Column1" ColumnName="Column1" />
+          <ScalarProperty Name="Column2" ColumnName="Column2" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="aspnet_Membership_GetPasswordWithFormat" FunctionName="HIADMINModel.Store.aspnet_Membership_GetPasswordWithFormat">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.aspnet_Membership_GetPasswordWithFormat_Result">
+          <ScalarProperty Name="Column1" ColumnName="Column1" />
+          <ScalarProperty Name="Column2" ColumnName="Column2" />
+          <ScalarProperty Name="Column3" ColumnName="Column3" />
+          <ScalarProperty Name="Column4" ColumnName="Column4" />
+          <ScalarProperty Name="Column5" ColumnName="Column5" />
+          <ScalarProperty Name="Column6" ColumnName="Column6" />
+          <ScalarProperty Name="Column7" ColumnName="Column7" />
+          <ScalarProperty Name="Column8" ColumnName="Column8" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="aspnet_Membership_GetUserByEmail" FunctionName="HIADMINModel.Store.aspnet_Membership_GetUserByEmail" />
+    <FunctionImportMapping FunctionImportName="aspnet_Membership_GetUserByName" FunctionName="HIADMINModel.Store.aspnet_Membership_GetUserByName">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.aspnet_Membership_GetUserByName_Result">
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+          <ScalarProperty Name="LastLockoutDate" ColumnName="LastLockoutDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="aspnet_Membership_GetUserByUserId" FunctionName="HIADMINModel.Store.aspnet_Membership_GetUserByUserId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.aspnet_Membership_GetUserByUserId_Result">
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+          <ScalarProperty Name="LastLockoutDate" ColumnName="LastLockoutDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="aspnet_Membership_ResetPassword" FunctionName="HIADMINModel.Store.aspnet_Membership_ResetPassword" />
+    <FunctionImportMapping FunctionImportName="aspnet_Membership_SetPassword" FunctionName="HIADMINModel.Store.aspnet_Membership_SetPassword" />
+    <FunctionImportMapping FunctionImportName="aspnet_Membership_UnlockUser" FunctionName="HIADMINModel.Store.aspnet_Membership_UnlockUser" />
+    <FunctionImportMapping FunctionImportName="aspnet_Membership_UpdateUser" FunctionName="HIADMINModel.Store.aspnet_Membership_UpdateUser" />
+    <FunctionImportMapping FunctionImportName="aspnet_Membership_UpdateUserInfo" FunctionName="HIADMINModel.Store.aspnet_Membership_UpdateUserInfo" />
+    <FunctionImportMapping FunctionImportName="aspnet_Paths_CreatePath" FunctionName="HIADMINModel.Store.aspnet_Paths_CreatePath" />
+    <FunctionImportMapping FunctionImportName="aspnet_Personalization_GetApplicationId" FunctionName="HIADMINModel.Store.aspnet_Personalization_GetApplicationId" />
+    <FunctionImportMapping FunctionImportName="aspnet_PersonalizationAdministration_DeleteAllState" FunctionName="HIADMINModel.Store.aspnet_PersonalizationAdministration_DeleteAllState" />
+    <FunctionImportMapping FunctionImportName="aspnet_PersonalizationAdministration_FindState" FunctionName="HIADMINModel.Store.aspnet_PersonalizationAdministration_FindState" />
+    <FunctionImportMapping FunctionImportName="aspnet_PersonalizationAdministration_GetCountOfState" FunctionName="HIADMINModel.Store.aspnet_PersonalizationAdministration_GetCountOfState" />
+    <FunctionImportMapping FunctionImportName="aspnet_PersonalizationAdministration_ResetSharedState" FunctionName="HIADMINModel.Store.aspnet_PersonalizationAdministration_ResetSharedState" />
+    <FunctionImportMapping FunctionImportName="aspnet_PersonalizationAdministration_ResetUserState" FunctionName="HIADMINModel.Store.aspnet_PersonalizationAdministration_ResetUserState" />
+    <FunctionImportMapping FunctionImportName="aspnet_PersonalizationAllUsers_GetPageSettings" FunctionName="HIADMINModel.Store.aspnet_PersonalizationAllUsers_GetPageSettings" />
+    <FunctionImportMapping FunctionImportName="aspnet_PersonalizationAllUsers_ResetPageSettings" FunctionName="HIADMINModel.Store.aspnet_PersonalizationAllUsers_ResetPageSettings" />
+    <FunctionImportMapping FunctionImportName="aspnet_PersonalizationAllUsers_SetPageSettings" FunctionName="HIADMINModel.Store.aspnet_PersonalizationAllUsers_SetPageSettings" />
+    <FunctionImportMapping FunctionImportName="aspnet_PersonalizationPerUser_GetPageSettings" FunctionName="HIADMINModel.Store.aspnet_PersonalizationPerUser_GetPageSettings" />
+    <FunctionImportMapping FunctionImportName="aspnet_PersonalizationPerUser_ResetPageSettings" FunctionName="HIADMINModel.Store.aspnet_PersonalizationPerUser_ResetPageSettings" />
+    <FunctionImportMapping FunctionImportName="aspnet_PersonalizationPerUser_SetPageSettings" FunctionName="HIADMINModel.Store.aspnet_PersonalizationPerUser_SetPageSettings" />
+    <FunctionImportMapping FunctionImportName="aspnet_Profile_DeleteInactiveProfiles" FunctionName="HIADMINModel.Store.aspnet_Profile_DeleteInactiveProfiles" />
+    <FunctionImportMapping FunctionImportName="aspnet_Profile_DeleteProfiles" FunctionName="HIADMINModel.Store.aspnet_Profile_DeleteProfiles" />
+    <FunctionImportMapping FunctionImportName="aspnet_Profile_GetNumberOfInactiveProfiles" FunctionName="HIADMINModel.Store.aspnet_Profile_GetNumberOfInactiveProfiles" />
+    <FunctionImportMapping FunctionImportName="aspnet_Profile_GetProfiles" FunctionName="HIADMINModel.Store.aspnet_Profile_GetProfiles" />
+    <FunctionImportMapping FunctionImportName="aspnet_Profile_GetProperties" FunctionName="HIADMINModel.Store.aspnet_Profile_GetProperties">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.aspnet_Profile_GetProperties_Result">
+          <ScalarProperty Name="PropertyNames" ColumnName="PropertyNames" />
+          <ScalarProperty Name="PropertyValuesString" ColumnName="PropertyValuesString" />
+          <ScalarProperty Name="PropertyValuesBinary" ColumnName="PropertyValuesBinary" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="aspnet_Profile_SetProperties" FunctionName="HIADMINModel.Store.aspnet_Profile_SetProperties" />
+    <FunctionImportMapping FunctionImportName="aspnet_RegisterSchemaVersion" FunctionName="HIADMINModel.Store.aspnet_RegisterSchemaVersion" />
+    <FunctionImportMapping FunctionImportName="aspnet_Roles_CreateRole" FunctionName="HIADMINModel.Store.aspnet_Roles_CreateRole" />
+    <FunctionImportMapping FunctionImportName="aspnet_Roles_DeleteRole" FunctionName="HIADMINModel.Store.aspnet_Roles_DeleteRole" />
+    <FunctionImportMapping FunctionImportName="aspnet_Roles_GetAllRoles" FunctionName="HIADMINModel.Store.aspnet_Roles_GetAllRoles" />
+    <FunctionImportMapping FunctionImportName="aspnet_Roles_RoleExists" FunctionName="HIADMINModel.Store.aspnet_Roles_RoleExists" />
+    <FunctionImportMapping FunctionImportName="aspnet_UnRegisterSchemaVersion" FunctionName="HIADMINModel.Store.aspnet_UnRegisterSchemaVersion" />
+    <FunctionImportMapping FunctionImportName="aspnet_Users_DeleteUser" FunctionName="HIADMINModel.Store.aspnet_Users_DeleteUser" />
+    <FunctionImportMapping FunctionImportName="aspnet_UsersInRoles_AddUsersToRoles" FunctionName="HIADMINModel.Store.aspnet_UsersInRoles_AddUsersToRoles" />
+    <FunctionImportMapping FunctionImportName="aspnet_UsersInRoles_FindUsersInRole" FunctionName="HIADMINModel.Store.aspnet_UsersInRoles_FindUsersInRole" />
+    <FunctionImportMapping FunctionImportName="aspnet_UsersInRoles_GetRolesForUser" FunctionName="HIADMINModel.Store.aspnet_UsersInRoles_GetRolesForUser" />
+    <FunctionImportMapping FunctionImportName="aspnet_UsersInRoles_GetUsersInRoles" FunctionName="HIADMINModel.Store.aspnet_UsersInRoles_GetUsersInRoles" />
+    <FunctionImportMapping FunctionImportName="aspnet_UsersInRoles_IsUserInRole" FunctionName="HIADMINModel.Store.aspnet_UsersInRoles_IsUserInRole" />
+    <FunctionImportMapping FunctionImportName="aspnet_UsersInRoles_RemoveUsersFromRoles" FunctionName="HIADMINModel.Store.aspnet_UsersInRoles_RemoveUsersFromRoles">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.aspnet_UsersInRoles_RemoveUsersFromRoles_Result">
+          <ScalarProperty Name="Column1" ColumnName="Column1" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="aspnet_WebEvent_LogEvent" FunctionName="HIADMINModel.Store.aspnet_WebEvent_LogEvent" />
+    <FunctionImportMapping FunctionImportName="AccessSite" FunctionName="HIADMINModel.Store.AccessSite">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.AccessSite_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SiteValue" ColumnName="SiteValue" />
+          <ScalarProperty Name="SiteName" ColumnName="SiteName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="AccountCompromised1" FunctionName="HIADMINModel.Store.AccountCompromised1" />
+    <FunctionImportMapping FunctionImportName="AccountCompromisedDetail" FunctionName="HIADMINModel.Store.AccountCompromisedDetail">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.AccountCompromisedDetail_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="DateLastLogin" ColumnName="DateLastLogin" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="ReportedInfo" ColumnName="ReportedInfo" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="AccountCompromisedListing" FunctionName="HIADMINModel.Store.AccountCompromisedListing">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.AccountCompromisedListing_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="DateLastLogin" ColumnName="DateLastLogin" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="ReportedInfo" ColumnName="ReportedInfo" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="App_ApplicationVariables" FunctionName="HIADMINModel.Store.App_ApplicationVariables">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.App_ApplicationVariables_Result">
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="ProgramCode" ColumnName="ProgramCode" />
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="App_DisplayBroadcast" FunctionName="HIADMINModel.Store.App_DisplayBroadcast" />
+    <FunctionImportMapping FunctionImportName="App_ProgramBySite" FunctionName="HIADMINModel.Store.App_ProgramBySite">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.App_ProgramBySite_Result">
+          <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+          <ScalarProperty Name="ProgramCode" ColumnName="ProgramCode" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="PrimaryContact" ColumnName="PrimaryContact" />
+          <ScalarProperty Name="PrimaryPhone" ColumnName="PrimaryPhone" />
+          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+          <ScalarProperty Name="SecondaryContact" ColumnName="SecondaryContact" />
+          <ScalarProperty Name="SecondaryPhone" ColumnName="SecondaryPhone" />
+          <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Announcements" ColumnName="Announcements" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="App_ProgramDropdown" FunctionName="HIADMINModel.Store.App_ProgramDropdown">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.App_ProgramDropdown_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="App_ProgramList" FunctionName="HIADMINModel.Store.App_ProgramList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.App_ProgramList_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="App_ProgramListing" FunctionName="HIADMINModel.Store.App_ProgramListing">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.App_ProgramListing_Result">
+          <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+          <ScalarProperty Name="ProgramCode" ColumnName="ProgramCode" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="PrimaryContact" ColumnName="PrimaryContact" />
+          <ScalarProperty Name="PrimaryPhone" ColumnName="PrimaryPhone" />
+          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+          <ScalarProperty Name="SecondaryContact" ColumnName="SecondaryContact" />
+          <ScalarProperty Name="SecondaryPhone" ColumnName="SecondaryPhone" />
+          <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Announcements" ColumnName="Announcements" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="App_ReturnProgramEmail" FunctionName="HIADMINModel.Store.App_ReturnProgramEmail" />
+    <FunctionImportMapping FunctionImportName="App_SiteVariables" FunctionName="HIADMINModel.Store.App_SiteVariables">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.App_SiteVariables_Result">
+          <ScalarProperty Name="Site" ColumnName="Site" />
+          <ScalarProperty Name="ProgramSite" ColumnName="ProgramSite" />
+          <ScalarProperty Name="ProgramCode" ColumnName="ProgramCode" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="App_UserVariables" FunctionName="HIADMINModel.Store.App_UserVariables">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.App_UserVariables_Result">
+          <ScalarProperty Name="UserLog" ColumnName="UserLog" />
+          <ScalarProperty Name="ProgramAccess" ColumnName="ProgramAccess" />
+          <ScalarProperty Name="SiteAccess" ColumnName="SiteAccess" />
+          <ScalarProperty Name="PowerUser" ColumnName="PowerUser" />
+          <ScalarProperty Name="DateLastLogon" ColumnName="DateLastLogon" />
+          <ScalarProperty Name="Confidentiality" ColumnName="Confidentiality" />
+          <ScalarProperty Name="DateConfidentiality" ColumnName="DateConfidentiality" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ApplicationPath" FunctionName="HIADMINModel.Store.ApplicationPath">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.ApplicationPath_Result">
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="HTTP" ColumnName="HTTP" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="App" ColumnName="App" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ApproveUserAccount" FunctionName="HIADMINModel.Store.ApproveUserAccount" />
+    <FunctionImportMapping FunctionImportName="ChangePassword" FunctionName="HIADMINModel.Store.ChangePassword" />
+    <FunctionImportMapping FunctionImportName="CleanUser" FunctionName="HIADMINModel.Store.CleanUser">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.CleanUser_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ColumnName" ColumnName="ColumnName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="CleanUserRoles" FunctionName="HIADMINModel.Store.CleanUserRoles" />
+    <FunctionImportMapping FunctionImportName="CodeList" FunctionName="HIADMINModel.Store.CodeList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.CodeList_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ColumnName" ColumnName="ColumnName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="CreateNewUser" FunctionName="HIADMINModel.Store.CreateNewUser" />
+    <FunctionImportMapping FunctionImportName="CreateNewUser_IDS" FunctionName="HIADMINModel.Store.CreateNewUser_IDS" />
+    <FunctionImportMapping FunctionImportName="CreateNewUser_MMR" FunctionName="HIADMINModel.Store.CreateNewUser_MMR" />
+    <FunctionImportMapping FunctionImportName="CreateNewUser_WH" FunctionName="HIADMINModel.Store.CreateNewUser_WH" />
+    <FunctionImportMapping FunctionImportName="Delete_Errors" FunctionName="HIADMINModel.Store.Delete_Errors" />
+    <FunctionImportMapping FunctionImportName="Delete_Record" FunctionName="HIADMINModel.Store.Delete_Record" />
+    <FunctionImportMapping FunctionImportName="DeleteUser" FunctionName="HIADMINModel.Store.DeleteUser" />
+    <FunctionImportMapping FunctionImportName="DropDown" FunctionName="HIADMINModel.Store.DropDown">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.DropDown_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAccess" FunctionName="HIADMINModel.Store.GetAccess">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetAccess_Result">
+          <ScalarProperty Name="HTTP" ColumnName="HTTP" />
+          <ScalarProperty Name="App" ColumnName="App" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetActive" FunctionName="HIADMINModel.Store.GetActive">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetActive_Result">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="ProgramAccess" ColumnName="ProgramAccess" />
+          <ScalarProperty Name="SiteAccess" ColumnName="SiteAccess" />
+          <ScalarProperty Name="PowerUser" ColumnName="PowerUser" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="SecurityQuestionID" ColumnName="SecurityQuestionID" />
+          <ScalarProperty Name="LoginChangePassword" ColumnName="LoginChangePassword" />
+          <ScalarProperty Name="TemporaryPIN" ColumnName="TemporaryPIN" />
+          <ScalarProperty Name="SiteApproved" ColumnName="SiteApproved" />
+          <ScalarProperty Name="NewApproved" ColumnName="NewApproved" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Confidentiality" ColumnName="Confidentiality" />
+          <ScalarProperty Name="DateConfidentiality" ColumnName="DateConfidentiality" />
+          <ScalarProperty Name="DateLastLogon" ColumnName="DateLastLogon" />
+          <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllSecurityQs" FunctionName="HIADMINModel.Store.GetAllSecurityQs">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetAllSecurityQs_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetApplication_ByName" FunctionName="HIADMINModel.Store.GetApplication_ByName">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetApplication_ByName_Result">
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="HTTP" ColumnName="HTTP" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetApplication_ByProgramID" FunctionName="HIADMINModel.Store.GetApplication_ByProgramID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetApplication_ByProgramID_Result">
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="HTTP" ColumnName="HTTP" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+          <ScalarProperty Name="ApplicationID1" ColumnName="ApplicationID1" />
+          <ScalarProperty Name="ProgramCode" ColumnName="ProgramCode" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="PrimaryContact" ColumnName="PrimaryContact" />
+          <ScalarProperty Name="PrimaryPhone" ColumnName="PrimaryPhone" />
+          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+          <ScalarProperty Name="SecondaryContact" ColumnName="SecondaryContact" />
+          <ScalarProperty Name="SecondaryPhone" ColumnName="SecondaryPhone" />
+          <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+          <ScalarProperty Name="Active1" ColumnName="Active1" />
+          <ScalarProperty Name="Announcements" ColumnName="Announcements" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetApplicationProgram" FunctionName="HIADMINModel.Store.GetApplicationProgram">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetApplicationProgram_Result">
+          <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+          <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetApplications" FunctionName="HIADMINModel.Store.GetApplications">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetApplications_Result">
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="HTTP" ColumnName="HTTP" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetDataSystemUpdates" FunctionName="HIADMINModel.Store.GetDataSystemUpdates">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetDataSystemUpdates_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="DateUpdate" ColumnName="DateUpdate" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetDocumentDownload" FunctionName="HIADMINModel.Store.GetDocumentDownload">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetDocumentDownload_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="FileContent" ColumnName="FileContent" />
+          <ScalarProperty Name="FileType" ColumnName="FileType" />
+          <ScalarProperty Name="FileExtension" ColumnName="FileExtension" />
+          <ScalarProperty Name="DateFile" ColumnName="DateFile" />
+          <ScalarProperty Name="Usage" ColumnName="Usage" />
+          <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+          <ScalarProperty Name="Updatedby" ColumnName="Updatedby" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetDocumentDownloadList" FunctionName="HIADMINModel.Store.GetDocumentDownloadList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetDocumentDownloadList_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="FileDetail" ColumnName="FileDetail" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetError_Detail" FunctionName="HIADMINModel.Store.GetError_Detail">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetError_Detail_Result">
+          <ScalarProperty Name="AppErrorID" ColumnName="AppErrorID" />
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+          <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+          <ScalarProperty Name="InnerException" ColumnName="InnerException" />
+          <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="DateError" ColumnName="DateError" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="SiteName" ColumnName="SiteName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetErrors" FunctionName="HIADMINModel.Store.GetErrors">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetErrors_Result">
+          <ScalarProperty Name="AppErrorID" ColumnName="AppErrorID" />
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+          <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+          <ScalarProperty Name="InnerException" ColumnName="InnerException" />
+          <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="DateError" ColumnName="DateError" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="SiteName" ColumnName="SiteName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetFileDownload" FunctionName="HIADMINModel.Store.GetFileDownload">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetFileDownload_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="DateFile" ColumnName="DateFile" />
+          <ScalarProperty Name="FileContent" ColumnName="FileContent" />
+          <ScalarProperty Name="FileType" ColumnName="FileType" />
+          <ScalarProperty Name="FileExtension" ColumnName="FileExtension" />
+          <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+          <ScalarProperty Name="Updatedby" ColumnName="Updatedby" />
+          <ScalarProperty Name="DisplayInGrid" ColumnName="DisplayInGrid" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetImportantMessage" FunctionName="HIADMINModel.Store.GetImportantMessage">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetImportantMessage_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="msgHeader" ColumnName="msgHeader" />
+          <ScalarProperty Name="msgBody" ColumnName="msgBody" />
+          <ScalarProperty Name="msgFooter" ColumnName="msgFooter" />
+          <ScalarProperty Name="msgVisible" ColumnName="msgVisible" />
+          <ScalarProperty Name="DateExpires" ColumnName="DateExpires" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetInvalidCredentialAttempts" FunctionName="HIADMINModel.Store.GetInvalidCredentialAttempts">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetInvalidCredentialAttempts_Result">
+          <ScalarProperty Name="Past24" ColumnName="Past24" />
+          <ScalarProperty Name="PastWeek" ColumnName="PastWeek" />
+          <ScalarProperty Name="PastMonth" ColumnName="PastMonth" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetInvalidCredentials" FunctionName="HIADMINModel.Store.GetInvalidCredentials">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetInvalidCredentials_Result">
+          <ScalarProperty Name="InvalidLogID" ColumnName="InvalidLogID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+          <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+          <ScalarProperty Name="DateAttempt" ColumnName="DateAttempt" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetInvalidUsernameBreakdown" FunctionName="HIADMINModel.Store.GetInvalidUsernameBreakdown">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetInvalidUsernameBreakdown_Result">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Attempts" ColumnName="Attempts" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetNewBroadcast" FunctionName="HIADMINModel.Store.GetNewBroadcast" />
+    <FunctionImportMapping FunctionImportName="GetNewBroadcastbyID" FunctionName="HIADMINModel.Store.GetNewBroadcastbyID" />
+    <FunctionImportMapping FunctionImportName="GetProgram_ByCode" FunctionName="HIADMINModel.Store.GetProgram_ByCode">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetProgram_ByCode_Result">
+          <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+          <ScalarProperty Name="ProgramCode" ColumnName="ProgramCode" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="PrimaryContact" ColumnName="PrimaryContact" />
+          <ScalarProperty Name="PrimaryPhone" ColumnName="PrimaryPhone" />
+          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+          <ScalarProperty Name="SecondaryContact" ColumnName="SecondaryContact" />
+          <ScalarProperty Name="SecondaryPhone" ColumnName="SecondaryPhone" />
+          <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Announcements" ColumnName="Announcements" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetProgram_ByName" FunctionName="HIADMINModel.Store.GetProgram_ByName">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetProgram_ByName_Result">
+          <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+          <ScalarProperty Name="ProgramCode" ColumnName="ProgramCode" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="PrimaryContact" ColumnName="PrimaryContact" />
+          <ScalarProperty Name="PrimaryPhone" ColumnName="PrimaryPhone" />
+          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+          <ScalarProperty Name="SecondaryContact" ColumnName="SecondaryContact" />
+          <ScalarProperty Name="SecondaryPhone" ColumnName="SecondaryPhone" />
+          <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Announcements" ColumnName="Announcements" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetProgramAccess" FunctionName="HIADMINModel.Store.GetProgramAccess">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetProgramAccess_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ProgramValue" ColumnName="ProgramValue" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetProgramAccess_2" FunctionName="HIADMINModel.Store.GetProgramAccess_2">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetProgramAccess_2_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetProgramID" FunctionName="HIADMINModel.Store.GetProgramID" />
+    <FunctionImportMapping FunctionImportName="GetPrograms" FunctionName="HIADMINModel.Store.GetPrograms">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetPrograms_Result">
+          <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+          <ScalarProperty Name="ProgramCode" ColumnName="ProgramCode" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="PrimaryContact" ColumnName="PrimaryContact" />
+          <ScalarProperty Name="PrimaryPhone" ColumnName="PrimaryPhone" />
+          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+          <ScalarProperty Name="SecondaryContact" ColumnName="SecondaryContact" />
+          <ScalarProperty Name="SecondaryPhone" ColumnName="SecondaryPhone" />
+          <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Announcements" ColumnName="Announcements" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetProgramsActive" FunctionName="HIADMINModel.Store.GetProgramsActive">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetProgramsActive_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetRoles" FunctionName="HIADMINModel.Store.GetRoles">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetRoles_Result">
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetRoles_All" FunctionName="HIADMINModel.Store.GetRoles_All">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetRoles_All_Result">
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetSecurityQuestions" FunctionName="HIADMINModel.Store.GetSecurityQuestions">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetSecurityQuestions_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetSite_ByName" FunctionName="HIADMINModel.Store.GetSite_ByName" />
+    <FunctionImportMapping FunctionImportName="GetSiteAccess" FunctionName="HIADMINModel.Store.GetSiteAccess">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetSiteAccess_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ProgramValue" ColumnName="ProgramValue" />
+          <ScalarProperty Name="ProgramName" ColumnName="ProgramName" />
+          <ScalarProperty Name="SiteValue" ColumnName="SiteValue" />
+          <ScalarProperty Name="Site" ColumnName="Site" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetSiteAccess_Selected" FunctionName="HIADMINModel.Store.GetSiteAccess_Selected">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetSiteAccess_Selected_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ProgramValue" ColumnName="ProgramValue" />
+          <ScalarProperty Name="ProgramName" ColumnName="ProgramName" />
+          <ScalarProperty Name="SiteValue" ColumnName="SiteValue" />
+          <ScalarProperty Name="Site" ColumnName="Site" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetSiteAccessAll" FunctionName="HIADMINModel.Store.GetSiteAccessAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetSiteAccessAll_Result">
+          <ScalarProperty Name="SiteValue" ColumnName="SiteValue" />
+          <ScalarProperty Name="Site" ColumnName="Site" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetSites" FunctionName="HIADMINModel.Store.GetSites">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetSites_Result">
+          <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+          <ScalarProperty Name="Site" ColumnName="Site" />
+          <ScalarProperty Name="ProgramSite" ColumnName="ProgramSite" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetThirdPartyFileList" FunctionName="HIADMINModel.Store.GetThirdPartyFileList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetThirdPartyFileList_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="FileDetail" ColumnName="FileDetail" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetUser_ByName" FunctionName="HIADMINModel.Store.GetUser_ByName">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetUser_ByName_Result">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="ProgramAccess" ColumnName="ProgramAccess" />
+          <ScalarProperty Name="SiteAccess" ColumnName="SiteAccess" />
+          <ScalarProperty Name="PowerUser" ColumnName="PowerUser" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="SecurityQuestionID" ColumnName="SecurityQuestionID" />
+          <ScalarProperty Name="LoginChangePassword" ColumnName="LoginChangePassword" />
+          <ScalarProperty Name="TemporaryPIN" ColumnName="TemporaryPIN" />
+          <ScalarProperty Name="SiteApproved" ColumnName="SiteApproved" />
+          <ScalarProperty Name="NewApproved" ColumnName="NewApproved" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Confidentiality" ColumnName="Confidentiality" />
+          <ScalarProperty Name="DateConfidentiality" ColumnName="DateConfidentiality" />
+          <ScalarProperty Name="DateLastLogon" ColumnName="DateLastLogon" />
+          <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetUserInfo" FunctionName="HIADMINModel.Store.GetUserInfo">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetUserInfo_Result">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+          <ScalarProperty Name="LastLockoutDate" ColumnName="LastLockoutDate" />
+          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+          <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+          <ScalarProperty Name="LoginChangePassword" ColumnName="LoginChangePassword" />
+          <ScalarProperty Name="TemporaryPIN" ColumnName="TemporaryPIN" />
+          <ScalarProperty Name="SecurityQuestionID" ColumnName="SecurityQuestionID" />
+          <ScalarProperty Name="PowerUser" ColumnName="PowerUser" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="NewApproved" ColumnName="NewApproved" />
+          <ScalarProperty Name="SiteApproved" ColumnName="SiteApproved" />
+          <ScalarProperty Name="Confidentiality" ColumnName="Confidentiality" />
+          <ScalarProperty Name="DateConfidentiality" ColumnName="DateConfidentiality" />
+          <ScalarProperty Name="SiteAccess" ColumnName="SiteAccess" />
+          <ScalarProperty Name="ProgramAccess" ColumnName="ProgramAccess" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetUserIsOnline" FunctionName="HIADMINModel.Store.GetUserIsOnline">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetUserIsOnline_Result">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetUsername_PIN" FunctionName="HIADMINModel.Store.GetUsername_PIN">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetUsername_PIN_Result">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="SecurityQuestionID" ColumnName="SecurityQuestionID" />
+          <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetUserProgramRequest" FunctionName="HIADMINModel.Store.GetUserProgramRequest">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetUserProgramRequest_Result">
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetUserRoles" FunctionName="HIADMINModel.Store.GetUserRoles">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetUserRoles_Result">
+          <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetUsersCurrentActivity" FunctionName="HIADMINModel.Store.GetUsersCurrentActivity">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetUsersCurrentActivity_Result">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="MinutesSinceAction" ColumnName="MinutesSinceAction" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetUserSites" FunctionName="HIADMINModel.Store.GetUserSites">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GetUserSites_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SiteValue" ColumnName="SiteValue" />
+          <ScalarProperty Name="SiteName" ColumnName="SiteName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GridBroadcastNavigation" FunctionName="HIADMINModel.Store.GridBroadcastNavigation">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GridBroadcastNavigation_Result">
+          <ScalarProperty Name="FirstID" ColumnName="FirstID" />
+          <ScalarProperty Name="PrevID" ColumnName="PrevID" />
+          <ScalarProperty Name="NextID" ColumnName="NextID" />
+          <ScalarProperty Name="LastID" ColumnName="LastID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GridDataSystemUpdates" FunctionName="HIADMINModel.Store.GridDataSystemUpdates">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GridDataSystemUpdates_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Updated" ColumnName="Updated" />
+          <ScalarProperty Name="By" ColumnName="By" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GridDocumentDownload" FunctionName="HIADMINModel.Store.GridDocumentDownload">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GridDocumentDownload_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Document" ColumnName="Document" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GridThirdPartyFiles" FunctionName="HIADMINModel.Store.GridThirdPartyFiles">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.GridThirdPartyFiles_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Document" ColumnName="Document" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="HideFileInGrid" FunctionName="HIADMINModel.Store.HideFileInGrid" />
+    <FunctionImportMapping FunctionImportName="Insert_ThirdPartyFile" FunctionName="HIADMINModel.Store.Insert_ThirdPartyFile" />
+    <FunctionImportMapping FunctionImportName="InsertAccountDeleted" FunctionName="HIADMINModel.Store.InsertAccountDeleted" />
+    <FunctionImportMapping FunctionImportName="InsertDataSystemUpdates" FunctionName="HIADMINModel.Store.InsertDataSystemUpdates" />
+    <FunctionImportMapping FunctionImportName="InsertDocumentDownload_DELETE" FunctionName="HIADMINModel.Store.InsertDocumentDownload_DELETE" />
+    <FunctionImportMapping FunctionImportName="InsertDocumentDownloadContent" FunctionName="HIADMINModel.Store.InsertDocumentDownloadContent" />
+    <FunctionImportMapping FunctionImportName="InsertInvalidLogin" FunctionName="HIADMINModel.Store.InsertInvalidLogin" />
+    <FunctionImportMapping FunctionImportName="InsertPasswordLast5" FunctionName="HIADMINModel.Store.InsertPasswordLast5" />
+    <FunctionImportMapping FunctionImportName="InsertUserIPAddress" FunctionName="HIADMINModel.Store.InsertUserIPAddress" />
+    <FunctionImportMapping FunctionImportName="ManageUserRoles" FunctionName="HIADMINModel.Store.ManageUserRoles">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.ManageUserRoles_Result">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
+          <ScalarProperty Name="First_Name" ColumnName="First Name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ManageUserRolesProgram" FunctionName="HIADMINModel.Store.ManageUserRolesProgram" />
+    <FunctionImportMapping FunctionImportName="ManageUserRolesSearch" FunctionName="HIADMINModel.Store.ManageUserRolesSearch">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.ManageUserRolesSearch_Result">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="NEST_Application_Inbound" FunctionName="HIADMINModel.Store.NEST_Application_Inbound" />
+    <FunctionImportMapping FunctionImportName="NEST_Application_Outbound" FunctionName="HIADMINModel.Store.NEST_Application_Outbound" />
+    <FunctionImportMapping FunctionImportName="NEST_Create_Notification" FunctionName="HIADMINModel.Store.NEST_Create_Notification" />
+    <FunctionImportMapping FunctionImportName="NEST_Delete_VR_Deaths" FunctionName="HIADMINModel.Store.NEST_Delete_VR_Deaths" />
+    <FunctionImportMapping FunctionImportName="NEST_Get_VR_DeathsStructure" FunctionName="HIADMINModel.Store.NEST_Get_VR_DeathsStructure">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.NEST_Get_VR_DeathsStructure_Result">
+          <ScalarProperty Name="ChildID" ColumnName="ChildID" />
+          <ScalarProperty Name="VersionID" ColumnName="VersionID" />
+          <ScalarProperty Name="EBC" ColumnName="EBC" />
+          <ScalarProperty Name="DOD" ColumnName="DOD" />
+          <ScalarProperty Name="DCert" ColumnName="DCert" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="NEST_IB_Xml1_Existing" FunctionName="HIADMINModel.Store.NEST_IB_Xml1_Existing">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.NEST_IB_Xml1_Existing_Result">
+          <ScalarProperty Name="TransID" ColumnName="TransID" />
+          <ScalarProperty Name="TransStatus" ColumnName="TransStatus" />
+          <ScalarProperty Name="TransDir" ColumnName="TransDir" />
+          <ScalarProperty Name="StatusDate" ColumnName="StatusDate" />
+          <ScalarProperty Name="PgmCode" ColumnName="PgmCode" />
+          <ScalarProperty Name="Column1" ColumnName="Column1" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="DateBirth" ColumnName="DateBirth" />
+          <ScalarProperty Name="NESTPID" ColumnName="NESTPID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="NEST_IB_Xml2_BeginProcess" FunctionName="HIADMINModel.Store.NEST_IB_Xml2_BeginProcess" />
+    <FunctionImportMapping FunctionImportName="NEST_IB_Xml3_Transactions" FunctionName="HIADMINModel.Store.NEST_IB_Xml3_Transactions" />
+    <FunctionImportMapping FunctionImportName="NEST_IB_Xml4_Activities" FunctionName="HIADMINModel.Store.NEST_IB_Xml4_Activities" />
+    <FunctionImportMapping FunctionImportName="NEST_IB_Xml5_UpdateNestComm" FunctionName="HIADMINModel.Store.NEST_IB_Xml5_UpdateNestComm" />
+    <FunctionImportMapping FunctionImportName="NEST_IB_Xml6_GetDbID" FunctionName="HIADMINModel.Store.NEST_IB_Xml6_GetDbID" />
+    <FunctionImportMapping FunctionImportName="NEST_IB_Xml6_GetDbIDAdd" FunctionName="HIADMINModel.Store.NEST_IB_Xml6_GetDbIDAdd" />
+    <FunctionImportMapping FunctionImportName="NEST_IB_Xml7_PrevProcessed" FunctionName="HIADMINModel.Store.NEST_IB_Xml7_PrevProcessed" />
+    <FunctionImportMapping FunctionImportName="NEST_IB_Xml8_GetInBoundFileList" FunctionName="HIADMINModel.Store.NEST_IB_Xml8_GetInBoundFileList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.NEST_IB_Xml8_GetInBoundFileList_Result">
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="DateIBProcess" ColumnName="DateIBProcess" />
+          <ScalarProperty Name="FileSourceName" ColumnName="FileSourceName" />
+          <ScalarProperty Name="FileDate" ColumnName="FileDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="NEST_IB_Xml9_PendingInBoundToProcess" FunctionName="HIADMINModel.Store.NEST_IB_Xml9_PendingInBoundToProcess">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.NEST_IB_Xml9_PendingInBoundToProcess_Result">
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="TransID" ColumnName="TransID" />
+          <ScalarProperty Name="TransStatus" ColumnName="TransStatus" />
+          <ScalarProperty Name="TransDir" ColumnName="TransDir" />
+          <ScalarProperty Name="StatusDate" ColumnName="StatusDate" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="DateBirth" ColumnName="DateBirth" />
+          <ScalarProperty Name="NESTPID" ColumnName="NESTPID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="NEST_InBoundTranSummary" FunctionName="HIADMINModel.Store.NEST_InBoundTranSummary">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.NEST_InBoundTranSummary_Result">
+          <ScalarProperty Name="PGM" ColumnName="PGM" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Tran_Count" ColumnName="Tran Count" />
+          <ScalarProperty Name="MM" ColumnName="MM" />
+          <ScalarProperty Name="DD" ColumnName="DD" />
+          <ScalarProperty Name="YY" ColumnName="YY" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="NEST_OB_GetProviderDetail" FunctionName="HIADMINModel.Store.NEST_OB_GetProviderDetail" />
+    <FunctionImportMapping FunctionImportName="NEST_OB_PrepareTrans_Existing" FunctionName="HIADMINModel.Store.NEST_OB_PrepareTrans_Existing" />
+    <FunctionImportMapping FunctionImportName="NEST_OB_PrepareTrans_GetCount" FunctionName="HIADMINModel.Store.NEST_OB_PrepareTrans_GetCount" />
+    <FunctionImportMapping FunctionImportName="NEST_OB_PrepareTrans_GetCountByPgm" FunctionName="HIADMINModel.Store.NEST_OB_PrepareTrans_GetCountByPgm">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.NEST_OB_PrepareTrans_GetCountByPgm_Result">
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="TrxCount" ColumnName="TrxCount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="NEST_OB_TransPendingXML" FunctionName="HIADMINModel.Store.NEST_OB_TransPendingXML" />
+    <FunctionImportMapping FunctionImportName="NEST_OBTrans_GetConversions" FunctionName="HIADMINModel.Store.NEST_OBTrans_GetConversions">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.NEST_OBTrans_GetConversions_Result">
+          <ScalarProperty Name="vcValue" ColumnName="vcValue" />
+          <ScalarProperty Name="vcConvert" ColumnName="vcConvert" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="NEST_OBTrans_GetPrograms" FunctionName="HIADMINModel.Store.NEST_OBTrans_GetPrograms" />
+    <FunctionImportMapping FunctionImportName="NEST_OBTrans_GetTrans_App" FunctionName="HIADMINModel.Store.NEST_OBTrans_GetTrans_App">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.NEST_OBTrans_GetTrans_App_Result">
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="TransactionTypeCode" ColumnName="TransactionTypeCode" />
+          <ScalarProperty Name="TransactionStatusCode" ColumnName="TransactionStatusCode" />
+          <ScalarProperty Name="SourceUserID" ColumnName="SourceUserID" />
+          <ScalarProperty Name="AuthorizationCode" ColumnName="AuthorizationCode" />
+          <ScalarProperty Name="DestinationProgramCode" ColumnName="DestinationProgramCode" />
+          <ScalarProperty Name="OriginProgramCode" ColumnName="OriginProgramCode" />
+          <ScalarProperty Name="DestinationPID" ColumnName="DestinationPID" />
+          <ScalarProperty Name="OriginPID" ColumnName="OriginPID" />
+          <ScalarProperty Name="NESTPID" ColumnName="NESTPID" />
+          <ScalarProperty Name="EBCNumber" ColumnName="EBCNumber" />
+          <ScalarProperty Name="SSN" ColumnName="SSN" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="NameSuffix" ColumnName="NameSuffix" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="AKALastName" ColumnName="AKALastName" />
+          <ScalarProperty Name="AKAFirstName" ColumnName="AKAFirstName" />
+          <ScalarProperty Name="AKAMiddleName" ColumnName="AKAMiddleName" />
+          <ScalarProperty Name="AKANameSuffix" ColumnName="AKANameSuffix" />
+          <ScalarProperty Name="AKANameTitle" ColumnName="AKANameTitle" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Race" ColumnName="Race" />
+          <ScalarProperty Name="Ethnicity" ColumnName="Ethnicity" />
+          <ScalarProperty Name="FederalRaceID" ColumnName="FederalRaceID" />
+          <ScalarProperty Name="FederalEthnicityID" ColumnName="FederalEthnicityID" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="TimeOfBirth" ColumnName="TimeOfBirth" />
+          <ScalarProperty Name="BirthOrderCode" ColumnName="BirthOrderCode" />
+          <ScalarProperty Name="BirthTypeCode" ColumnName="BirthTypeCode" />
+          <ScalarProperty Name="BirthStateCode" ColumnName="BirthStateCode" />
+          <ScalarProperty Name="BirthCountyName" ColumnName="BirthCountyName" />
+          <ScalarProperty Name="ResidentStateCode" ColumnName="ResidentStateCode" />
+          <ScalarProperty Name="ResidentCountyName" ColumnName="ResidentCountyName" />
+          <ScalarProperty Name="BirthMotherLastName" ColumnName="BirthMotherLastName" />
+          <ScalarProperty Name="BirthMotherFirstName" ColumnName="BirthMotherFirstName" />
+          <ScalarProperty Name="BirthMotherMiddleName" ColumnName="BirthMotherMiddleName" />
+          <ScalarProperty Name="MotherMaidenName" ColumnName="MotherMaidenName" />
+          <ScalarProperty Name="MotherLastName" ColumnName="MotherLastName" />
+          <ScalarProperty Name="MotherFirstName" ColumnName="MotherFirstName" />
+          <ScalarProperty Name="MotherMiddleName" ColumnName="MotherMiddleName" />
+          <ScalarProperty Name="MotherSuffix" ColumnName="MotherSuffix" />
+          <ScalarProperty Name="MotherDateOfBirth" ColumnName="MotherDateOfBirth" />
+          <ScalarProperty Name="MotherGender" ColumnName="MotherGender" />
+          <ScalarProperty Name="MotherTitle" ColumnName="MotherTitle" />
+          <ScalarProperty Name="MotherPgmSource" ColumnName="MotherPgmSource" />
+          <ScalarProperty Name="MotherPgmEffectiveDate" ColumnName="MotherPgmEffectiveDate" />
+          <ScalarProperty Name="MotherSSN" ColumnName="MotherSSN" />
+          <ScalarProperty Name="Relationship1Code" ColumnName="Relationship1Code" />
+          <ScalarProperty Name="FatherLastName" ColumnName="FatherLastName" />
+          <ScalarProperty Name="FatherFirstName" ColumnName="FatherFirstName" />
+          <ScalarProperty Name="FatherMiddleName" ColumnName="FatherMiddleName" />
+          <ScalarProperty Name="FatherSuffix" ColumnName="FatherSuffix" />
+          <ScalarProperty Name="FatherDateOfBirth" ColumnName="FatherDateOfBirth" />
+          <ScalarProperty Name="FatherGender" ColumnName="FatherGender" />
+          <ScalarProperty Name="FatherTitle" ColumnName="FatherTitle" />
+          <ScalarProperty Name="FatherPgmSource" ColumnName="FatherPgmSource" />
+          <ScalarProperty Name="FatherPgmEffectiveDate" ColumnName="FatherPgmEffectiveDate" />
+          <ScalarProperty Name="FatherSSN" ColumnName="FatherSSN" />
+          <ScalarProperty Name="Relationship2Code" ColumnName="Relationship2Code" />
+          <ScalarProperty Name="StreetAddress1" ColumnName="StreetAddress1" />
+          <ScalarProperty Name="StreetAddress2" ColumnName="StreetAddress2" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
+          <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+          <ScalarProperty Name="ResAddrPgmSource" ColumnName="ResAddrPgmSource" />
+          <ScalarProperty Name="ResAddrPgmEffectiveDate" ColumnName="ResAddrPgmEffectiveDate" />
+          <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
+          <ScalarProperty Name="MailingAddress1" ColumnName="MailingAddress1" />
+          <ScalarProperty Name="MailingAddress2" ColumnName="MailingAddress2" />
+          <ScalarProperty Name="MailingCity" ColumnName="MailingCity" />
+          <ScalarProperty Name="MailingState" ColumnName="MailingState" />
+          <ScalarProperty Name="MailingZip" ColumnName="MailingZip" />
+          <ScalarProperty Name="MailAddrPgmSource" ColumnName="MailAddrPgmSource" />
+          <ScalarProperty Name="MailAddrPgmEffectiveDate" ColumnName="MailAddrPgmEffectiveDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="NEST_OBTrans_GetTransActivities" FunctionName="HIADMINModel.Store.NEST_OBTrans_GetTransActivities">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.NEST_OBTrans_GetTransActivities_Result">
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="ActivityStatusCode" ColumnName="ActivityStatusCode" />
+          <ScalarProperty Name="ActivityStatusDate" ColumnName="ActivityStatusDate" />
+          <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+          <ScalarProperty Name="StageStatusCode" ColumnName="StageStatusCode" />
+          <ScalarProperty Name="StageStatusDate" ColumnName="StageStatusDate" />
+          <ScalarProperty Name="ActivityTypeCode" ColumnName="ActivityTypeCode" />
+          <ScalarProperty Name="AuthorizationCode" ColumnName="AuthorizationCode" />
+          <ScalarProperty Name="ActivityLevel" ColumnName="ActivityLevel" />
+          <ScalarProperty Name="ResultTypeCode" ColumnName="ResultTypeCode" />
+          <ScalarProperty Name="UserResultCode" ColumnName="UserResultCode" />
+          <ScalarProperty Name="UserResultCode2" ColumnName="UserResultCode2" />
+          <ScalarProperty Name="UserResultValue" ColumnName="UserResultValue" />
+          <ScalarProperty Name="UserResultValue2" ColumnName="UserResultValue2" />
+          <ScalarProperty Name="UserResultSequence" ColumnName="UserResultSequence" />
+          <ScalarProperty Name="UserResultComment" ColumnName="UserResultComment" />
+          <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+          <ScalarProperty Name="OriginalActivityID" ColumnName="OriginalActivityID" />
+          <ScalarProperty Name="SourceActivityID" ColumnName="SourceActivityID" />
+          <ScalarProperty Name="ResearchNumber" ColumnName="ResearchNumber" />
+          <ScalarProperty Name="ResponseDate" ColumnName="ResponseDate" />
+          <ScalarProperty Name="NestProviderID" ColumnName="NestProviderID" />
+          <ScalarProperty Name="SourceProviderID" ColumnName="SourceProviderID" />
+          <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+          <ScalarProperty Name="ProviderTypeCode" ColumnName="ProviderTypeCode" />
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+          <ScalarProperty Name="OriginUSERID" ColumnName="OriginUSERID" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="NEST_OBTrans_UpdateNestCommunication" FunctionName="HIADMINModel.Store.NEST_OBTrans_UpdateNestCommunication" />
+    <FunctionImportMapping FunctionImportName="NEST_OBTrans_UpdateSent" FunctionName="HIADMINModel.Store.NEST_OBTrans_UpdateSent" />
+    <FunctionImportMapping FunctionImportName="NEST_OutBoundTranSummary" FunctionName="HIADMINModel.Store.NEST_OutBoundTranSummary">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.NEST_OutBoundTranSummary_Result">
+          <ScalarProperty Name="PGM" ColumnName="PGM" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Tran_Count" ColumnName="Tran Count" />
+          <ScalarProperty Name="MM" ColumnName="MM" />
+          <ScalarProperty Name="DD" ColumnName="DD" />
+          <ScalarProperty Name="YY" ColumnName="YY" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="NEST_UpdatedLast" FunctionName="HIADMINModel.Store.NEST_UpdatedLast" />
+    <FunctionImportMapping FunctionImportName="NEST_UpdatedLast_List" FunctionName="HIADMINModel.Store.NEST_UpdatedLast_List" />
+    <FunctionImportMapping FunctionImportName="NEST_UpdatedLast_Person" FunctionName="HIADMINModel.Store.NEST_UpdatedLast_Person" />
+    <FunctionImportMapping FunctionImportName="RequestNewUser" FunctionName="HIADMINModel.Store.RequestNewUser" />
+    <FunctionImportMapping FunctionImportName="ResetPower" FunctionName="HIADMINModel.Store.ResetPower" />
+    <FunctionImportMapping FunctionImportName="ReturnCode" FunctionName="HIADMINModel.Store.ReturnCode" />
+    <FunctionImportMapping FunctionImportName="ReturnDropDown" FunctionName="HIADMINModel.Store.ReturnDropDown" />
+    <FunctionImportMapping FunctionImportName="ReturnManageRoleSearch" FunctionName="HIADMINModel.Store.ReturnManageRoleSearch" />
+    <FunctionImportMapping FunctionImportName="ReturnPasswordLast5" FunctionName="HIADMINModel.Store.ReturnPasswordLast5" />
+    <FunctionImportMapping FunctionImportName="ReturnProgramAccess" FunctionName="HIADMINModel.Store.ReturnProgramAccess" />
+    <FunctionImportMapping FunctionImportName="ReturnSiteAccess" FunctionName="HIADMINModel.Store.ReturnSiteAccess" />
+    <FunctionImportMapping FunctionImportName="ReturnUserEmailAddress" FunctionName="HIADMINModel.Store.ReturnUserEmailAddress">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.ReturnUserEmailAddress_Result">
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ReturnUserLocationAccess" FunctionName="HIADMINModel.Store.ReturnUserLocationAccess" />
+    <FunctionImportMapping FunctionImportName="ReturnUserProgramListing" FunctionName="HIADMINModel.Store.ReturnUserProgramListing" />
+    <FunctionImportMapping FunctionImportName="ReturnUserPrograms" FunctionName="HIADMINModel.Store.ReturnUserPrograms" />
+    <FunctionImportMapping FunctionImportName="ReturnUserProgramSiteListing" FunctionName="HIADMINModel.Store.ReturnUserProgramSiteListing" />
+    <FunctionImportMapping FunctionImportName="ReturnUserSearch" FunctionName="HIADMINModel.Store.ReturnUserSearch" />
+    <FunctionImportMapping FunctionImportName="ReturnUserSiteAccessLocations" FunctionName="HIADMINModel.Store.ReturnUserSiteAccessLocations" />
+    <FunctionImportMapping FunctionImportName="ReturnUserSiteAccessLocationsSelected" FunctionName="HIADMINModel.Store.ReturnUserSiteAccessLocationsSelected" />
+    <FunctionImportMapping FunctionImportName="SetActive" FunctionName="HIADMINModel.Store.SetActive" />
+    <FunctionImportMapping FunctionImportName="SetPower" FunctionName="HIADMINModel.Store.SetPower" />
+    <FunctionImportMapping FunctionImportName="SetRole" FunctionName="HIADMINModel.Store.SetRole" />
+    <FunctionImportMapping FunctionImportName="SetTemporaryPwd" FunctionName="HIADMINModel.Store.SetTemporaryPwd" />
+    <FunctionImportMapping FunctionImportName="SetupNewUser" FunctionName="HIADMINModel.Store.SetupNewUser" />
+    <FunctionImportMapping FunctionImportName="TRUNCATETABLES" FunctionName="HIADMINModel.Store.TRUNCATETABLES" />
+    <FunctionImportMapping FunctionImportName="UpdateDataSystemUpdates" FunctionName="HIADMINModel.Store.UpdateDataSystemUpdates" />
+    <FunctionImportMapping FunctionImportName="UpdateDocumentDownload" FunctionName="HIADMINModel.Store.UpdateDocumentDownload" />
+    <FunctionImportMapping FunctionImportName="UpdatePasswordChanged" FunctionName="HIADMINModel.Store.UpdatePasswordChanged" />
+    <FunctionImportMapping FunctionImportName="UpdateProgram" FunctionName="HIADMINModel.Store.UpdateProgram" />
+    <FunctionImportMapping FunctionImportName="UpdateSecurity" FunctionName="HIADMINModel.Store.UpdateSecurity" />
+    <FunctionImportMapping FunctionImportName="UpdateUser" FunctionName="HIADMINModel.Store.UpdateUser" />
+    <FunctionImportMapping FunctionImportName="UpdateUser90Day" FunctionName="HIADMINModel.Store.UpdateUser90Day" />
+    <FunctionImportMapping FunctionImportName="UpdateUserAccountApprove" FunctionName="HIADMINModel.Store.UpdateUserAccountApprove" />
+    <FunctionImportMapping FunctionImportName="UpdateUserBasic" FunctionName="HIADMINModel.Store.UpdateUserBasic" />
+    <FunctionImportMapping FunctionImportName="UpdateUserConfidentiality" FunctionName="HIADMINModel.Store.UpdateUserConfidentiality" />
+    <FunctionImportMapping FunctionImportName="UpdateUserLogonDate" FunctionName="HIADMINModel.Store.UpdateUserLogonDate" />
+    <FunctionImportMapping FunctionImportName="UpdateUserRoles" FunctionName="HIADMINModel.Store.UpdateUserRoles" />
+    <FunctionImportMapping FunctionImportName="UpdateUsersCurrentActivity" FunctionName="HIADMINModel.Store.UpdateUsersCurrentActivity" />
+    <FunctionImportMapping FunctionImportName="UserListing" FunctionName="HIADMINModel.Store.UserListing">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.UserListing_Result">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Last_Login" ColumnName="Last Login" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UserListingAccountApproval" FunctionName="HIADMINModel.Store.UserListingAccountApproval">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.UserListingAccountApproval_Result">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UserListingSearch" FunctionName="HIADMINModel.Store.UserListingSearch">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HIADMINModel.UserListingSearch_Result">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Last_Login" ColumnName="Last Login" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

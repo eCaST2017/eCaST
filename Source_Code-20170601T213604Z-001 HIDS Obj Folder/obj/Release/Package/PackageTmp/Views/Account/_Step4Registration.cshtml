@@ -1,0 +1,166 @@
+﻿@model CTL.Models.RegisterViewModel
+
+@Html.Hidden("StepID", 4)
+@Html.Hidden("Id",(string)ViewBag.Id)
+<div align="center">
+
+    <div class="w3-card-2" style="padding-left:30px;width:94%;text-align:left">
+        <br />
+        <div style="display:block" id="UserSection">
+
+
+
+
+            <iframe frameborder="0" scrolling="no" style="width:100%;height:700px" src="https://www.healthinformatics.dphe.state.co.us/NonAuthenticated/MarriagePub/AccessRequest.aspx?uid=@ViewBag.Id"></iframe>
+
+
+
+            @*<div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+
+
+                        @if (!Request.IsAuthenticated)
+                        {
+
+                        <h2 style="font-family: 'Roboto', sans-serif;color:#33b331"><span class="glyphicon glyphicon-check"></span>&nbsp;YOU HAVE SUCCESSFULLY SET UP YOUR ACCOUNT! - your request will be processed within 3 business days. </h2>
+
+                        }
+                        else
+                        {
+
+                            <h2 style="font-family: 'Roboto', sans-serif;color:#33b331"><span class="glyphicon glyphicon-check"></span>&nbsp;YOU HAVE SUCCESSFULLY UPDATED THIS ACCOUNT. </h2>
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <h3 style="font-family: 'Roboto', sans-serif;color:#666"><span class="glyphicon glyphicon-edit"></span>&nbsp;Registration Summary:</h3>
+
+            <hr />
+            
+            <div><h3 style="font-family: 'Roboto', sans-serif;color:#666"><span class="glyphicon glyphicon-user"></span>&nbsp;Personal Information:</h3></div>
+            <hr />
+            <div><h3 style="font-family: 'Roboto', sans-serif;color:#666">@ViewBag.FullName</h3></div>
+
+            <div><h3 style="font-family: 'Roboto', sans-serif;color:#666">@ViewBag.Email</h3></div>
+
+            <div><h3 style="font-family: 'Roboto', sans-serif;color:#666">@ViewBag.PhoneNumber</h3></div>
+            <hr />
+
+
+            @if (ViewBag.RoleBinID == 3 || ViewBag.RoleBinID == 13 || ViewBag.RoleBinID == 39)
+            {
+
+                <div><h3 style="font-family: 'Roboto', sans-serif;color:#666"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Role Requested :</h3></div>
+                <hr />
+
+                <div id="ProgramRoleContainer"></div>
+
+
+            }
+            else
+            {
+
+                <div><h3 style="font-family: 'Roboto', sans-serif;color:#666"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Programs/Sites Selected :</h3></div>
+                <hr />
+
+                <div id="ProgramContainer"></div>
+
+
+
+            }*@
+          
+
+
+        </div>
+
+
+        <hr />
+        <div style="padding-left:30px">
+
+
+            <div style="padding-right:30px" align="right">
+
+               @*@if (!Request.IsAuthenticated)
+               {
+
+                <a style="text-decoration:none" href='@Url.Action("Index", new { Controller = "Home" })'>
+
+
+                    <span class="btn btn-primary">Return to Home</span>
+
+                </a>
+
+
+               }
+               else
+               {
+
+                <a style="text-decoration:none" href='@Url.Action("Edit","UserProfiles", new { id = @ViewBag.Id, id2 = "" })'>
+
+
+                    <span class="btn btn-primary">Return to Profile</span>
+
+                </a>
+
+
+               }*@
+
+                <input id="Proceed3Button" class="btn btn-success" type="submit" value="Finalize >" />
+
+
+            </div>
+
+        </div>
+
+        <br />
+        <br />
+
+
+    </div>
+
+   
+
+    </div>
+
+
+
+    <script type="text/javascript">
+
+
+    $(function () {
+
+       // alert('@ViewBag.Id');
+
+        if ('@ViewBag.RoleBinID' == 3 || '@ViewBag.RoleBinID' == 13 || '@ViewBag.RoleBinID' == 39) {
+
+                $("#ProgramRoleContainer").load("@Url.Action("_ProgramRoleList","Programs")", { 'id': '@ViewBag.Id' },
+               function (response, status, xhr) {
+                   if (status == "error") {
+
+                   }
+
+
+               });
+        }
+        else {
+
+            $("#ProgramContainer").load("@Url.Action("_ProgramList","Programs")", { 'id': '@ViewBag.Id' },
+            function (response, status, xhr) {
+                if (status == "error") {
+
+                }
+
+
+            });
+
+
+        }
+
+    });
+
+
+    </script>

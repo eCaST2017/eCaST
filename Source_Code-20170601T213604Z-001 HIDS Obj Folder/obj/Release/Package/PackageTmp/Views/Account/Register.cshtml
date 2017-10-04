@@ -1,0 +1,513 @@
+﻿@model CTL.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+
+    body{
+overflow-x: hidden;
+overflow-y: scroll;
+}
+
+
+
+</style>
+
+
+
+
+
+@using (Html.BeginForm("_RegisterF", "Account", FormMethod.Post, new { id = "RegisterForm" }))
+    {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    if (!Request.IsAuthenticated)
+    {
+
+        
+        <div id="NoticeContainer"></div>
+        
+       
+        
+    <div style="padding-left:30px;"><h2 style="font-family: 'Roboto', sans-serif; color:#666"><i class="fa fa-edit"></i>&nbsp;Request Access</h2></div>
+
+    }
+    else
+    {
+
+        <div style="padding-left:30px;"><h2 style="font-family: 'Roboto', sans-serif; color:#666"><i class="fa fa-edit"></i>&nbsp;Configure Access</h2></div>
+        
+    }
+
+    <hr />
+
+
+    <div style="min-height:700px">
+
+    <div id="StepContainer"></div>
+
+   </div>
+
+
+
+
+            <div style="color:White" class="editor">
+
+
+                @Html.Hidden("DateUpdated", (DateTime?)ViewBag.DateUpdated)
+                @Html.Hidden("DateCreated", (DateTime?)ViewBag.DateCreated)
+                @Html.Hidden("UpdatedBy", (string)ViewBag.UpdatedBy)
+                @Html.Hidden("CreatedBy", (string)ViewBag.CreatedBy)
+                @Html.Hidden("Status", true, new { @id = "Status" })
+
+
+                @if (!Request.IsAuthenticated)
+                    {
+
+
+                @Html.Hidden("RoleBinID", 2)
+               
+                
+                    }
+                
+                
+                
+                 @Html.Hidden("ProgramAccess")
+                
+            </div>
+
+
+
+            }
+
+            @section Scripts {
+
+
+
+                @Scripts.Render("~/bundles/jqueryval")
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+
+        $('#NoticeContainer').load('@Url.Action("Details", "Notices", new { id = 43 })');
+
+
+
+    });
+
+
+
+
+</script>
+
+
+
+         <script type="text/javascript">
+
+
+    (function ($) {
+
+        $.session = {
+
+            _id: null,
+
+            _cookieCache: undefined,
+
+            _init: function () {
+                if (!window.name) {
+                    window.name = Math.random();
+                }
+                this._id = window.name;
+                this._initCache();
+
+                // See if we've changed protcols
+
+                var matches = (new RegExp(this._generatePrefix() + "=([^;]+);")).exec(document.cookie);
+                if (matches && document.location.protocol !== matches[1]) {
+                    this._clearSession();
+                    for (var key in this._cookieCache) {
+                        try {
+                            window.sessionStorage.setItem(key, this._cookieCache[key]);
+                        } catch (e) { };
+                    }
+                }
+
+                document.cookie = this._generatePrefix() + "=" + document.location.protocol + ';path=/;expires=' + (new Date((new Date).getTime() + 120000)).toUTCString();
+
+            },
+
+            _generatePrefix: function () {
+                return '__session:' + this._id + ':';
+            },
+
+            _initCache: function () {
+                var cookies = document.cookie.split(';');
+                this._cookieCache = {};
+                for (var i in cookies) {
+                    var kv = cookies[i].split('=');
+                    if ((new RegExp(this._generatePrefix() + '.+')).test(kv[0]) && kv[1]) {
+                        this._cookieCache[kv[0].split(':', 3)[2]] = kv[1];
+                    }
+                }
+            },
+
+            _setFallback: function (key, value, onceOnly) {
+                var cookie = this._generatePrefix() + key + "=" + value + "; path=/";
+                if (onceOnly) {
+                    cookie += "; expires=" + (new Date(Date.now() + 120000)).toUTCString();
+                }
+                document.cookie = cookie;
+                this._cookieCache[key] = value;
+                return this;
+            },
+
+            _getFallback: function (key) {
+                if (!this._cookieCache) {
+                    this._initCache();
+                }
+                return this._cookieCache[key];
+            },
+
+            _clearFallback: function () {
+                for (var i in this._cookieCache) {
+                    document.cookie = this._generatePrefix() + i + '=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                }
+                this._cookieCache = {};
+            },
+
+            _deleteFallback: function (key) {
+                document.cookie = this._generatePrefix() + key + '=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                delete this._cookieCache[key];
+            },
+
+            get: function (key) {
+                return window.sessionStorage.getItem(key) || this._getFallback(key);
+            },
+
+            set: function (key, value, onceOnly) {
+                try {
+                    window.sessionStorage.setItem(key, value);
+                } catch (e) { }
+                this._setFallback(key, value, onceOnly || false);
+                return this;
+            },
+
+            'delete': function (key) {
+                return this.remove(key);
+            },
+
+            remove: function (key) {
+                try {
+                    window.sessionStorage.removeItem(key);
+                } catch (e) { };
+                this._deleteFallback(key);
+                return this;
+            },
+
+            _clearSession: function () {
+                try {
+                    window.sessionStorage.clear();
+                } catch (e) {
+                    for (var i in window.sessionStorage) {
+                        window.sessionStorage.removeItem(i);
+                    }
+                }
+            },
+
+            clear: function () {
+                this._clearSession();
+                this._clearFallback();
+                return this;
+            }
+
+        };
+
+        $.session._init();
+
+    })(jQuery);
+
+
+    $(document).ready(function () {
+
+
+        //   alert('@ViewBag.UID');
+
+
+        $("#StepContainer").load("@Url.Action("_Step1Registration","Account")", { 'id': 1, 'id2': '@ViewBag.UserId' },
+              function (response, status, xhr) {
+                  if (status == "error") {
+
+                  }
+
+
+              });
+
+
+
+
+        $('#RegisterForm').on("submit", function (evt44) {
+            //$("#UpdateProfileButton").click(function (evt44) {
+            evt44.preventDefault();
+            //evt44.stopPropagation();
+
+
+
+            if ($('#RegisterForm').valid()) {
+
+                var token = $('[name=__RequestVerificationToken]').val();
+
+                $.ajax({
+
+                    url: $("#RegisterForm").attr('action'),
+                    type: $("#RegisterForm").attr('method'),
+                    // headers: headersadr,
+                    cache: false,
+                    dataType: 'json',
+                    headers: { "__RequestVerificationToken": token },
+                    //contentType: 'application/json; charset=utf-8',
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    //data: "__RequestVerificationToken=" + token + "" + $("#RegisterForm").serialize(),
+                    data: $("#RegisterForm").serialize(),
+                    //data: formData,
+                    success: function (data) {
+
+                        var userid = data.Modified;
+                        var stepid = data.Modified2;
+                        var programcount = data.Modified3;
+                        var pid = data.Modified4;
+                        var rid = data.Modified5;
+                        var nid = data.Modified6;
+                        var status = data.Status;
+                        var agid = data.Modified7;
+                        var aglist = data.Modified8;
+
+
+
+                        if (status == 'Success') {
+
+
+                            if (stepid == 1 && programcount == 1) {
+
+                                $("#StepContainer").hide("slide", { direction: "right" }, 500);
+                                $("#StepContainer").load("@Url.Action("_Step2Registration","Account")", { 'id': userid, 'id2': stepid, 'id3': pid, 'id4': rid, 'id5': nid, 'id6': agid, 'id7': aglist },
+                                 function (response, status, xhr) {
+                                     if (status == "error") {
+
+                                     }
+
+
+                                     $("#StepContainer").show(500);
+
+                                 });
+
+                            }
+
+                            else if (stepid == 2 && programcount == 1) {
+
+                                $("#StepContainer").hide("slide", { direction: "right" }, 500);
+
+
+                                if (pid == 53) {
+
+
+                                    //$.session.set('UID', userid);
+                                    //var value = $.session.get('UID');
+                                    //alert(value);
+                                    //var url = 'https://www.test.healthinformatics.dphe.state.co.us/NonAuthenticated/MarriagePub/AccessRequest.aspx';
+                                    //window.location.href = url;
+
+                                    $("#StepContainer").load("@Url.Action("_Step4Registration","Account")", { 'id': userid, 'id2': stepid, 'id3': pid, 'id4': rid, 'id5': nid, 'id6': agid, 'id7': aglist },
+                                   function (response, status, xhr) {
+                                       if (status == "error") {
+
+                                       }
+
+
+
+                                       $("#StepContainer").show(500);
+
+
+                                   });
+
+
+
+                                }
+                                else {
+
+                                    $("#StepContainer").load("@Url.Action("_Step2Registration","Account")", { 'id': userid, 'id2': stepid, 'id3': pid, 'id4': rid, 'id5': nid, 'id6': agid, 'id7': aglist },
+                                    function (response, status, xhr) {
+                                        if (status == "error") {
+
+                                        }
+
+
+
+                                        $("#StepContainer").show(500);
+
+
+                                    });
+
+
+                                }
+
+
+
+                            }
+                            else if (stepid == 1 && programcount == 0) {
+
+                                $("#StepContainer").hide("slide", { direction: "right" }, 500);
+
+                                if (pid == 53) {
+
+                                    $.session.set('UID', userid);
+                                    //var value = $.session.get('UID');
+                                    //alert(value);
+                                    //var url = 'https://www.test.healthinformatics.dphe.state.co.us/NonAuthenticated/MarriagePub/AccessRequest.aspx';
+                                    //window.location.href = url;
+
+                                    $("#StepContainer").load("@Url.Action("_Step4Registration","Account")", { 'id': userid, 'id2': stepid, 'id3': pid, 'id4': rid, 'id5': nid, 'id6': agid, 'id7': aglist },
+                                function (response, status, xhr) {
+                                    if (status == "error") {
+
+                                    }
+
+
+
+                                    $("#StepContainer").show(500);
+
+
+                                });
+
+
+                                }
+                                else {
+
+                                    $("#StepContainer").load("@Url.Action("_Step3Registration","Account")", { 'id': userid, 'id2': stepid },
+                                function (response, status, xhr) {
+                                    if (status == "error") {
+
+                                    }
+
+
+
+                                    $("#StepContainer").show(500);
+
+
+                                });
+
+
+                                }
+
+
+
+                            }
+                            else if (stepid == 2 && programcount == 0) {
+
+                                $("#StepContainer").hide("slide", { direction: "right" }, 500);
+
+
+                                if (pid == 53) {
+
+                                    $.session.set('UID', userid);
+                                    //var value = $.session.get('UID');
+                                    //alert(value);
+                                    //var url = 'https://www.test.healthinformatics.dphe.state.co.us/NonAuthenticated/MarriagePub/AccessRequest.aspx';
+                                    //window.location.href = url;
+                                    $("#StepContainer").load("@Url.Action("_Step4Registration","Account")", { 'id': userid, 'id2': stepid, 'id3': pid, 'id4': rid, 'id5': nid, 'id6': agid, 'id7': aglist },
+                                function (response, status, xhr) {
+                                    if (status == "error") {
+
+                                    }
+
+                                    $("#StepContainer").show(500);
+
+
+                                });
+
+
+                                }
+                                else {
+
+                                    $("#StepContainer").load("@Url.Action("_Step3Registration","Account")", { 'id': userid, 'id2': stepid },
+                                        function (response, status, xhr) {
+                                            if (status == "error") {
+
+                                            }
+
+
+
+                                            $("#StepContainer").show(500);
+
+
+                                        });
+
+
+                                }
+
+
+                            }
+                            else if (stepid == 4 && programcount == 1) {
+
+                                $("#StepContainer").hide("slide", { direction: "right" }, 500);
+
+
+                                var value = $.session.get('UID');
+                               // alert(value);
+                                $("#StepContainer").load("@Url.Action("_Step3Registration","Account")", { 'id': value, 'id2': stepid },
+                                        function (response, status, xhr) {
+                                            if (status == "error") {
+
+                                            }
+
+                                            $("#StepContainer").show(500);
+
+
+                                        });
+
+
+                            }
+
+
+
+                        }
+                        else {
+
+
+                            alert('This Email Address already exists in this system. Please contact system support for further assistance.');
+
+
+
+                        }
+
+
+
+                    }
+
+                });
+            }
+
+        });
+
+
+
+    });
+
+
+
+
+
+
+</script>
+
+
+
+
+
+            }

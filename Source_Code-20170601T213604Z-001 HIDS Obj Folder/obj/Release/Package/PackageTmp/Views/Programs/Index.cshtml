@@ -1,0 +1,138 @@
+﻿@model IEnumerable<CTL.ViewModels.ProgramViewModel>
+
+@{
+    ViewBag.Title = "Programs";
+}
+
+
+
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        oTable = $('#ProgramList').dataTable({
+            "bPaginate": false,
+            "oLanguage": {
+                "sSearch": "<i class='fa fa-filter fa-fw'></i> Filter: "
+            }
+            //"bJQueryUI": true,
+            //"sPaginationType": "full_numbers",
+            //"aaSorting": [[1, "desc"]]
+        });
+    });
+</script>
+
+<style type="text/css">
+    label, div {
+        color: #666;
+    }
+
+
+    #ProgramList td.sorting_1 {
+        background-color: #fff;
+        border: 1px lightgrey;
+    }
+    /*table.dataTable td{ background-color: aliceblue;  border:1px lightgrey;}*/
+    #ProgramList tr {
+        background-color: #fff;
+        color: #666;
+    }
+
+        #ProgramList tr:nth-child(even) {
+            background-color: #f7f7f6;
+        }
+</style>
+
+
+
+
+<div class="w3-card-2">
+    <div style="background-color:#0F9D58" class="panel-heading w3-card-2">
+        <span style="color:#fff;font-family: 'Roboto', sans-serif; font-size:16px"><i style="color:#fff" class="fa fa-tasks fa-fw"></i>&nbsp;Programs &nbsp;<span style="font-size:18px;background-color:#fff;color:#0F9D58" class="badge">@ViewBag.ProgramCount</span></span>
+
+    </div>
+    <!-- /.panel-heading -->
+    <div style="background-color:#fff" class="panel-body">
+
+
+
+        <table style="width:100%;  font-size:14px" id="ProgramList">
+            <thead>
+                <tr style="background-color:#f7f7f6;">
+                    <th></th>
+                    <th>
+                        Program
+                    </th>
+                    <th>
+                        Code
+                    </th>
+                    <th>
+                       Contact
+                    </th>
+
+                    <th>Applications</th>
+
+                    <th>
+                        Active?
+                    </th>
+                    <th>
+                        Last Updated
+                    </th>
+                    <th>
+                        By
+                    </th>
+                    @*<th></th>*@
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td style="width:12%">
+
+
+                        @if (item.RoleBinID == 1 || item.RoleBinID == 13)
+                        {
+
+
+                            <a class="btn btn-default" href="@Url.Action("Edit", "Programs", new { id = item.ProgramID })"><span class="glyphicon glyphicon-pencil"></span> </a>
+                      <a class="btn btn-default" href="@Url.Action("Index", "Notices", new { id = item.ProgramID })"><i style="color:#D9534F;font-size:18px" class="fa fa-bell"></i></a>
+                        }
+                        @if (item.RoleBinID == 1)
+                        {
+
+                            <a style="color:#fff" class="btn btn-danger" href="@Url.Action("Delete", "Programs", new { id = item.ProgramID })"><span class="glyphicon glyphicon-trash"></span> </a>
+
+                        }
+
+                    </td>
+
+                    <td>
+                       @Html.DisplayFor(modelItem => item.ProgramName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProgramCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProgramContact)
+                    </td>
+                    <td>
+                        <span> @string.Join(",", item.ApplicationAList.ToArray())</span>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Active)
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.DateUpdated)*@@(((DateTime)item.DateUpdated).ToString("MM/dd/yyyy"))
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UpdatedBy)
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+
+
+    </div>
+</div>

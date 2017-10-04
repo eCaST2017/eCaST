@@ -1,0 +1,537 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MarriageModelStoreContainer" CdmEntityContainer="MarriageEntities">
+    <EntitySetMapping Name="DD_AgencyFunction">
+      <EntityTypeMapping TypeName="MarriageModel.DD_AgencyFunction">
+        <MappingFragment StoreEntitySet="DD_AgencyFunction">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="System" ColumnName="System" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DD_AgencyType">
+      <EntityTypeMapping TypeName="MarriageModel.DD_AgencyType">
+        <MappingFragment StoreEntitySet="DD_AgencyType">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="System" ColumnName="System" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DD_Counties">
+      <EntityTypeMapping TypeName="MarriageModel.DD_Counties">
+        <MappingFragment StoreEntitySet="DD_Counties">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="System" ColumnName="System" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="AgencyDesignationID" ColumnName="AgencyDesignationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DD_DisolutionDecreeType">
+      <EntityTypeMapping TypeName="MarriageModel.DD_DisolutionDecreeType">
+        <MappingFragment StoreEntitySet="DD_DisolutionDecreeType">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="System" ColumnName="System" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DD_MaritalCeremonyType">
+      <EntityTypeMapping TypeName="MarriageModel.DD_MaritalCeremonyType">
+        <MappingFragment StoreEntitySet="DD_MaritalCeremonyType">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="System" ColumnName="System" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DD_MaritalPartiesRelated">
+      <EntityTypeMapping TypeName="MarriageModel.DD_MaritalPartiesRelated">
+        <MappingFragment StoreEntitySet="DD_MaritalPartiesRelated">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="System" ColumnName="System" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DD_MaritalRecordType">
+      <EntityTypeMapping TypeName="MarriageModel.DD_MaritalRecordType">
+        <MappingFragment StoreEntitySet="DD_MaritalRecordType">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="System" ColumnName="System" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DD_MaritalStatus">
+      <EntityTypeMapping TypeName="MarriageModel.DD_MaritalStatus">
+        <MappingFragment StoreEntitySet="DD_MaritalStatus">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="System" ColumnName="System" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DD_States">
+      <EntityTypeMapping TypeName="MarriageModel.DD_States">
+        <MappingFragment StoreEntitySet="DD_States">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="System" ColumnName="System" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblDissolutionAudits">
+      <EntityTypeMapping TypeName="MarriageModel.tblDissolutionAudit">
+        <MappingFragment StoreEntitySet="tblDissolutionAudit">
+          <ScalarProperty Name="AID" ColumnName="AID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DissolutionID" ColumnName="DissolutionID" />
+          <ScalarProperty Name="PetitionerFirstName" ColumnName="PetitionerFirstName" />
+          <ScalarProperty Name="PetitionerMiddleName" ColumnName="PetitionerMiddleName" />
+          <ScalarProperty Name="PetitionerLastName" ColumnName="PetitionerLastName" />
+          <ScalarProperty Name="RespondentFirstName" ColumnName="RespondentFirstName" />
+          <ScalarProperty Name="RespondentMiddleName" ColumnName="RespondentMiddleName" />
+          <ScalarProperty Name="RespondentLastName" ColumnName="RespondentLastName" />
+          <ScalarProperty Name="DecreeDate" ColumnName="DecreeDate" />
+          <ScalarProperty Name="DecreeYear" ColumnName="DecreeYear" />
+          <ScalarProperty Name="DecreeMonth" ColumnName="DecreeMonth" />
+          <ScalarProperty Name="DecreeDay" ColumnName="DecreeDay" />
+          <ScalarProperty Name="DecreeCode" ColumnName="DecreeCode" />
+          <ScalarProperty Name="CountyCode" ColumnName="CountyCode" />
+          <ScalarProperty Name="DocketNumber" ColumnName="DocketNumber" />
+          <ScalarProperty Name="Void" ColumnName="Void" />
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+          <ScalarProperty Name="LastCorrectionDate" ColumnName="LastCorrectionDate" />
+          <ScalarProperty Name="CorrectionNote" ColumnName="CorrectionNote" />
+          <ScalarProperty Name="DataEntryCorrection" ColumnName="DataEntryCorrection" />
+          <ScalarProperty Name="DateRecordSaved" ColumnName="DateRecordSaved" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FlagRecord" ColumnName="FlagRecord" />
+          <ScalarProperty Name="FlagNotes" ColumnName="FlagNotes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblDissolutionDatas">
+      <EntityTypeMapping TypeName="MarriageModel.tblDissolutionData">
+        <MappingFragment StoreEntitySet="tblDissolutionData">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DissolutionID" ColumnName="DissolutionID" />
+          <ScalarProperty Name="PetitionerFirstName" ColumnName="PetitionerFirstName" />
+          <ScalarProperty Name="PetitionerMiddleName" ColumnName="PetitionerMiddleName" />
+          <ScalarProperty Name="PetitionerLastName" ColumnName="PetitionerLastName" />
+          <ScalarProperty Name="RespondentFirstName" ColumnName="RespondentFirstName" />
+          <ScalarProperty Name="RespondentMiddleName" ColumnName="RespondentMiddleName" />
+          <ScalarProperty Name="RespondentLastName" ColumnName="RespondentLastName" />
+          <ScalarProperty Name="DecreeDate" ColumnName="DecreeDate" />
+          <ScalarProperty Name="DecreeYear" ColumnName="DecreeYear" />
+          <ScalarProperty Name="DecreeMonth" ColumnName="DecreeMonth" />
+          <ScalarProperty Name="DecreeDay" ColumnName="DecreeDay" />
+          <ScalarProperty Name="DecreeCode" ColumnName="DecreeCode" />
+          <ScalarProperty Name="CountyCode" ColumnName="CountyCode" />
+          <ScalarProperty Name="DocketNumber" ColumnName="DocketNumber" />
+          <ScalarProperty Name="Void" ColumnName="Void" />
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+          <ScalarProperty Name="LastCorrectionDate" ColumnName="LastCorrectionDate" />
+          <ScalarProperty Name="CorrectionNote" ColumnName="CorrectionNote" />
+          <ScalarProperty Name="DataEntryCorrection" ColumnName="DataEntryCorrection" />
+          <ScalarProperty Name="DateRecordSaved" ColumnName="DateRecordSaved" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FlagRecord" ColumnName="FlagRecord" />
+          <ScalarProperty Name="FlagNotes" ColumnName="FlagNotes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMarriageAudits">
+      <EntityTypeMapping TypeName="MarriageModel.tblMarriageAudit">
+        <MappingFragment StoreEntitySet="tblMarriageAudit">
+          <ScalarProperty Name="AID" ColumnName="AID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="MarriageID" ColumnName="MarriageID" />
+          <ScalarProperty Name="RecordType" ColumnName="RecordType" />
+          <ScalarProperty Name="Record" ColumnName="Record" />
+          <ScalarProperty Name="RecordYear" ColumnName="RecordYear" />
+          <ScalarProperty Name="StateFileNumber" ColumnName="StateFileNumber" />
+          <ScalarProperty Name="RecordConstant" ColumnName="RecordConstant" />
+          <ScalarProperty Name="County" ColumnName="County" />
+          <ScalarProperty Name="CountyFileNumber" ColumnName="CountyFileNumber" />
+          <ScalarProperty Name="PartyOneFN" ColumnName="PartyOneFN" />
+          <ScalarProperty Name="PartyOneMN" ColumnName="PartyOneMN" />
+          <ScalarProperty Name="PartyOneLN" ColumnName="PartyOneLN" />
+          <ScalarProperty Name="PartyOneDOB" ColumnName="PartyOneDOB" />
+          <ScalarProperty Name="PartyOneDOBDay" ColumnName="PartyOneDOBDay" />
+          <ScalarProperty Name="PartyOneDOBMonth" ColumnName="PartyOneDOBMonth" />
+          <ScalarProperty Name="PartyOneDOBYear" ColumnName="PartyOneDOBYear" />
+          <ScalarProperty Name="PartyOneMaritalStatus" ColumnName="PartyOneMaritalStatus" />
+          <ScalarProperty Name="PartyOneDissolutionDate" ColumnName="PartyOneDissolutionDate" />
+          <ScalarProperty Name="PartyOnePriorDissolutionMonth" ColumnName="PartyOnePriorDissolutionMonth" />
+          <ScalarProperty Name="PartyOnePriorDissolutionDay" ColumnName="PartyOnePriorDissolutionDay" />
+          <ScalarProperty Name="PartyOnePriorDissolutionYear" ColumnName="PartyOnePriorDissolutionYear" />
+          <ScalarProperty Name="PartyTwoFN" ColumnName="PartyTwoFN" />
+          <ScalarProperty Name="PartyTwoMN" ColumnName="PartyTwoMN" />
+          <ScalarProperty Name="PartyTwoLN" ColumnName="PartyTwoLN" />
+          <ScalarProperty Name="PartyTwoDOB" ColumnName="PartyTwoDOB" />
+          <ScalarProperty Name="PartyTwoDOBDay" ColumnName="PartyTwoDOBDay" />
+          <ScalarProperty Name="PartyTwoDOBMonth" ColumnName="PartyTwoDOBMonth" />
+          <ScalarProperty Name="PartyTwoDOBYear" ColumnName="PartyTwoDOBYear" />
+          <ScalarProperty Name="PartyTwoMaritalStatus" ColumnName="PartyTwoMaritalStatus" />
+          <ScalarProperty Name="PartyTwoPriorDissolutionDate" ColumnName="PartyTwoPriorDissolutionDate" />
+          <ScalarProperty Name="PartyTwoPriorDissolutionMonth" ColumnName="PartyTwoPriorDissolutionMonth" />
+          <ScalarProperty Name="PartyTwoPriorDissolutionDay" ColumnName="PartyTwoPriorDissolutionDay" />
+          <ScalarProperty Name="PartyTwoPriorDissolutionYear" ColumnName="PartyTwoPriorDissolutionYear" />
+          <ScalarProperty Name="CeremonyType" ColumnName="CeremonyType" />
+          <ScalarProperty Name="CeremonyDate" ColumnName="CeremonyDate" />
+          <ScalarProperty Name="CeremonyDay" ColumnName="CeremonyDay" />
+          <ScalarProperty Name="CeremonyMonth" ColumnName="CeremonyMonth" />
+          <ScalarProperty Name="CeremonyYear" ColumnName="CeremonyYear" />
+          <ScalarProperty Name="PartiesRelated" ColumnName="PartiesRelated" />
+          <ScalarProperty Name="PartyOneResidenceState" ColumnName="PartyOneResidenceState" />
+          <ScalarProperty Name="PartyOneBirthState" ColumnName="PartyOneBirthState" />
+          <ScalarProperty Name="PartyTwoResidenceState" ColumnName="PartyTwoResidenceState" />
+          <ScalarProperty Name="PartyTwoBirthState" ColumnName="PartyTwoBirthState" />
+          <ScalarProperty Name="PartyOneSex" ColumnName="PartyOneSex" />
+          <ScalarProperty Name="PartyTwoSex" ColumnName="PartyTwoSex" />
+          <ScalarProperty Name="VoidID" ColumnName="VoidID" />
+          <ScalarProperty Name="VoidInd" ColumnName="VoidInd" />
+          <ScalarProperty Name="Void" ColumnName="Void" />
+          <ScalarProperty Name="VoidDate" ColumnName="VoidDate" />
+          <ScalarProperty Name="CreateDt" ColumnName="CreateDt" />
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+          <ScalarProperty Name="LastCorrectionDate" ColumnName="LastCorrectionDate" />
+          <ScalarProperty Name="LastCorrectionYear" ColumnName="LastCorrectionYear" />
+          <ScalarProperty Name="LastCorrectionMonth" ColumnName="LastCorrectionMonth" />
+          <ScalarProperty Name="LastCorrectionDay" ColumnName="LastCorrectionDay" />
+          <ScalarProperty Name="CorrectionNote" ColumnName="CorrectionNote" />
+          <ScalarProperty Name="FirstDateofCorrection" ColumnName="FirstDateofCorrection" />
+          <ScalarProperty Name="DataEntryCorrection" ColumnName="DataEntryCorrection" />
+          <ScalarProperty Name="DateRecordSaved" ColumnName="DateRecordSaved" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FlagRecord" ColumnName="FlagRecord" />
+          <ScalarProperty Name="FlagNotes" ColumnName="FlagNotes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMarriageDatas">
+      <EntityTypeMapping TypeName="MarriageModel.tblMarriageData">
+        <MappingFragment StoreEntitySet="tblMarriageData">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="MarriageID" ColumnName="MarriageID" />
+          <ScalarProperty Name="RecordType" ColumnName="RecordType" />
+          <ScalarProperty Name="Record" ColumnName="Record" />
+          <ScalarProperty Name="RecordYear" ColumnName="RecordYear" />
+          <ScalarProperty Name="StateFileNumber" ColumnName="StateFileNumber" />
+          <ScalarProperty Name="RecordConstant" ColumnName="RecordConstant" />
+          <ScalarProperty Name="County" ColumnName="County" />
+          <ScalarProperty Name="CountyFileNumber" ColumnName="CountyFileNumber" />
+          <ScalarProperty Name="PartyOneFN" ColumnName="PartyOneFN" />
+          <ScalarProperty Name="PartyOneMN" ColumnName="PartyOneMN" />
+          <ScalarProperty Name="PartyOneLN" ColumnName="PartyOneLN" />
+          <ScalarProperty Name="PartyOneDOB" ColumnName="PartyOneDOB" />
+          <ScalarProperty Name="PartyOneDOBDay" ColumnName="PartyOneDOBDay" />
+          <ScalarProperty Name="PartyOneDOBMonth" ColumnName="PartyOneDOBMonth" />
+          <ScalarProperty Name="PartyOneDOBYear" ColumnName="PartyOneDOBYear" />
+          <ScalarProperty Name="PartyOneMaritalStatus" ColumnName="PartyOneMaritalStatus" />
+          <ScalarProperty Name="PartyOneDissolutionDate" ColumnName="PartyOneDissolutionDate" />
+          <ScalarProperty Name="PartyOnePriorDissolutionMonth" ColumnName="PartyOnePriorDissolutionMonth" />
+          <ScalarProperty Name="PartyOnePriorDissolutionDay" ColumnName="PartyOnePriorDissolutionDay" />
+          <ScalarProperty Name="PartyOnePriorDissolutionYear" ColumnName="PartyOnePriorDissolutionYear" />
+          <ScalarProperty Name="PartyTwoFN" ColumnName="PartyTwoFN" />
+          <ScalarProperty Name="PartyTwoMN" ColumnName="PartyTwoMN" />
+          <ScalarProperty Name="PartyTwoLN" ColumnName="PartyTwoLN" />
+          <ScalarProperty Name="PartyTwoDOB" ColumnName="PartyTwoDOB" />
+          <ScalarProperty Name="PartyTwoDOBDay" ColumnName="PartyTwoDOBDay" />
+          <ScalarProperty Name="PartyTwoDOBMonth" ColumnName="PartyTwoDOBMonth" />
+          <ScalarProperty Name="PartyTwoDOBYear" ColumnName="PartyTwoDOBYear" />
+          <ScalarProperty Name="PartyTwoMaritalStatus" ColumnName="PartyTwoMaritalStatus" />
+          <ScalarProperty Name="PartyTwoPriorDissolutionDate" ColumnName="PartyTwoPriorDissolutionDate" />
+          <ScalarProperty Name="PartyTwoPriorDissolutionMonth" ColumnName="PartyTwoPriorDissolutionMonth" />
+          <ScalarProperty Name="PartyTwoPriorDissolutionDay" ColumnName="PartyTwoPriorDissolutionDay" />
+          <ScalarProperty Name="PartyTwoPriorDissolutionYear" ColumnName="PartyTwoPriorDissolutionYear" />
+          <ScalarProperty Name="CeremonyType" ColumnName="CeremonyType" />
+          <ScalarProperty Name="CeremonyDate" ColumnName="CeremonyDate" />
+          <ScalarProperty Name="CeremonyDay" ColumnName="CeremonyDay" />
+          <ScalarProperty Name="CeremonyMonth" ColumnName="CeremonyMonth" />
+          <ScalarProperty Name="CeremonyYear" ColumnName="CeremonyYear" />
+          <ScalarProperty Name="PartiesRelated" ColumnName="PartiesRelated" />
+          <ScalarProperty Name="PartyOneResidenceState" ColumnName="PartyOneResidenceState" />
+          <ScalarProperty Name="PartyOneBirthState" ColumnName="PartyOneBirthState" />
+          <ScalarProperty Name="PartyTwoResidenceState" ColumnName="PartyTwoResidenceState" />
+          <ScalarProperty Name="PartyTwoBirthState" ColumnName="PartyTwoBirthState" />
+          <ScalarProperty Name="PartyOneSex" ColumnName="PartyOneSex" />
+          <ScalarProperty Name="PartyTwoSex" ColumnName="PartyTwoSex" />
+          <ScalarProperty Name="VoidID" ColumnName="VoidID" />
+          <ScalarProperty Name="VoidInd" ColumnName="VoidInd" />
+          <ScalarProperty Name="Void" ColumnName="Void" />
+          <ScalarProperty Name="VoidDate" ColumnName="VoidDate" />
+          <ScalarProperty Name="CreateDt" ColumnName="CreateDt" />
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+          <ScalarProperty Name="LastCorrectionDate" ColumnName="LastCorrectionDate" />
+          <ScalarProperty Name="LastCorrectionYear" ColumnName="LastCorrectionYear" />
+          <ScalarProperty Name="LastCorrectionMonth" ColumnName="LastCorrectionMonth" />
+          <ScalarProperty Name="LastCorrectionDay" ColumnName="LastCorrectionDay" />
+          <ScalarProperty Name="CorrectionNote" ColumnName="CorrectionNote" />
+          <ScalarProperty Name="FirstDateofCorrection" ColumnName="FirstDateofCorrection" />
+          <ScalarProperty Name="DataEntryCorrection" ColumnName="DataEntryCorrection" />
+          <ScalarProperty Name="DateRecordSaved" ColumnName="DateRecordSaved" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FlagRecord" ColumnName="FlagRecord" />
+          <ScalarProperty Name="FlagNotes" ColumnName="FlagNotes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMarriageFileUploadDatas">
+      <EntityTypeMapping TypeName="MarriageModel.tblMarriageFileUploadData">
+        <MappingFragment StoreEntitySet="tblMarriageFileUploadData">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="MarriageID" ColumnName="MarriageID" />
+          <ScalarProperty Name="RecordType" ColumnName="RecordType" />
+          <ScalarProperty Name="Record" ColumnName="Record" />
+          <ScalarProperty Name="RecordYear" ColumnName="RecordYear" />
+          <ScalarProperty Name="StateFileNumber" ColumnName="StateFileNumber" />
+          <ScalarProperty Name="RecordConstant" ColumnName="RecordConstant" />
+          <ScalarProperty Name="County" ColumnName="County" />
+          <ScalarProperty Name="CountyFileNumber" ColumnName="CountyFileNumber" />
+          <ScalarProperty Name="PartyOneFN" ColumnName="PartyOneFN" />
+          <ScalarProperty Name="PartyOneMN" ColumnName="PartyOneMN" />
+          <ScalarProperty Name="PartyOneLN" ColumnName="PartyOneLN" />
+          <ScalarProperty Name="PartyOneDOB" ColumnName="PartyOneDOB" />
+          <ScalarProperty Name="PartyOneDOBDay" ColumnName="PartyOneDOBDay" />
+          <ScalarProperty Name="PartyOneDOBMonth" ColumnName="PartyOneDOBMonth" />
+          <ScalarProperty Name="PartyOneDOBYear" ColumnName="PartyOneDOBYear" />
+          <ScalarProperty Name="PartyOneMaritalStatus" ColumnName="PartyOneMaritalStatus" />
+          <ScalarProperty Name="PartyOneDissolutionDate" ColumnName="PartyOneDissolutionDate" />
+          <ScalarProperty Name="PartyOnePriorDissolutionMonth" ColumnName="PartyOnePriorDissolutionMonth" />
+          <ScalarProperty Name="PartyOnePriorDissolutionDay" ColumnName="PartyOnePriorDissolutionDay" />
+          <ScalarProperty Name="PartyOnePriorDissolutionYear" ColumnName="PartyOnePriorDissolutionYear" />
+          <ScalarProperty Name="PartyTwoFN" ColumnName="PartyTwoFN" />
+          <ScalarProperty Name="PartyTwoMN" ColumnName="PartyTwoMN" />
+          <ScalarProperty Name="PartyTwoLn" ColumnName="PartyTwoLn" />
+          <ScalarProperty Name="PartyTwoDOB" ColumnName="PartyTwoDOB" />
+          <ScalarProperty Name="PartyTwoDOBDay" ColumnName="PartyTwoDOBDay" />
+          <ScalarProperty Name="PartyTwoDOBMonth" ColumnName="PartyTwoDOBMonth" />
+          <ScalarProperty Name="PartyTwoDOBYear" ColumnName="PartyTwoDOBYear" />
+          <ScalarProperty Name="PartyTwoMaritalStatus" ColumnName="PartyTwoMaritalStatus" />
+          <ScalarProperty Name="PartyTwoPriorDissolutionDate" ColumnName="PartyTwoPriorDissolutionDate" />
+          <ScalarProperty Name="PartyTwoPriorDissolutionMonth" ColumnName="PartyTwoPriorDissolutionMonth" />
+          <ScalarProperty Name="PartyTwoPriorDissolutionDay" ColumnName="PartyTwoPriorDissolutionDay" />
+          <ScalarProperty Name="PartyTwoPriorDissolutionYear" ColumnName="PartyTwoPriorDissolutionYear" />
+          <ScalarProperty Name="CeremonyType" ColumnName="CeremonyType" />
+          <ScalarProperty Name="CeremonyDate" ColumnName="CeremonyDate" />
+          <ScalarProperty Name="CeremonyDay" ColumnName="CeremonyDay" />
+          <ScalarProperty Name="CeremonyMonth" ColumnName="CeremonyMonth" />
+          <ScalarProperty Name="CeremonyYear" ColumnName="CeremonyYear" />
+          <ScalarProperty Name="PartiesRelated" ColumnName="PartiesRelated" />
+          <ScalarProperty Name="PartyOneResidenceState" ColumnName="PartyOneResidenceState" />
+          <ScalarProperty Name="PartyOneBirthState" ColumnName="PartyOneBirthState" />
+          <ScalarProperty Name="PartyTwoResidenceState" ColumnName="PartyTwoResidenceState" />
+          <ScalarProperty Name="PartyTwoBirthState" ColumnName="PartyTwoBirthState" />
+          <ScalarProperty Name="PartyOneSex" ColumnName="PartyOneSex" />
+          <ScalarProperty Name="PartyTwoSex" ColumnName="PartyTwoSex" />
+          <ScalarProperty Name="VoidID" ColumnName="VoidID" />
+          <ScalarProperty Name="VoidInd" ColumnName="VoidInd" />
+          <ScalarProperty Name="Void" ColumnName="Void" />
+          <ScalarProperty Name="VoidDate" ColumnName="VoidDate" />
+          <ScalarProperty Name="CreateDt" ColumnName="CreateDt" />
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+          <ScalarProperty Name="LastCorrectionDate" ColumnName="LastCorrectionDate" />
+          <ScalarProperty Name="LastCorrectionYear" ColumnName="LastCorrectionYear" />
+          <ScalarProperty Name="LastCorrectionMonth" ColumnName="LastCorrectionMonth" />
+          <ScalarProperty Name="LastCorrectionDay" ColumnName="LastCorrectionDay" />
+          <ScalarProperty Name="CorrectionNote" ColumnName="CorrectionNote" />
+          <ScalarProperty Name="FirstDateofCorrection" ColumnName="FirstDateofCorrection" />
+          <ScalarProperty Name="DataEntryCorrection" ColumnName="DataEntryCorrection" />
+          <ScalarProperty Name="FileID" ColumnName="FileID" />
+          <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="RowStatus" ColumnName="RowStatus" />
+          <ScalarProperty Name="ErrMsg" ColumnName="ErrMsg" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMarriageFileUploads">
+      <EntityTypeMapping TypeName="MarriageModel.tblMarriageFileUpload">
+        <MappingFragment StoreEntitySet="tblMarriageFileUploads">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="County" ColumnName="County" />
+          <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMarriageFTPFilesToProcesses">
+      <EntityTypeMapping TypeName="MarriageModel.tblMarriageFTPFilesToProcess">
+        <MappingFragment StoreEntitySet="tblMarriageFTPFilesToProcess">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="FileFullPath" ColumnName="FileFullPath" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Processed" ColumnName="Processed" />
+          <ScalarProperty Name="UserIdProcessing" ColumnName="UserIdProcessing" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMarriagePrintLogs">
+      <EntityTypeMapping TypeName="MarriageModel.tblMarriagePrintLog">
+        <MappingFragment StoreEntitySet="tblMarriagePrintLog">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PrintType" ColumnName="PrintType" />
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMarriageSearchLogs">
+      <EntityTypeMapping TypeName="MarriageModel.tblMarriageSearchLog">
+        <MappingFragment StoreEntitySet="tblMarriageSearchLog">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="SearchType" ColumnName="SearchType" />
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUserAccounts">
+      <EntityTypeMapping TypeName="MarriageModel.tblUserAccount">
+        <MappingFragment StoreEntitySet="tblUserAccount">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Agency" ColumnName="Agency" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="ChargeMember" ColumnName="ChargeMember" />
+          <ScalarProperty Name="MemberExpDate" ColumnName="MemberExpDate" />
+          <ScalarProperty Name="AccountLocked" ColumnName="AccountLocked" />
+          <ScalarProperty Name="AgencyName" ColumnName="AgencyName" />
+          <ScalarProperty Name="AgencyType" ColumnName="AgencyType" />
+          <ScalarProperty Name="AgencyTypeOther" ColumnName="AgencyTypeOther" />
+          <ScalarProperty Name="AgencyFunction" ColumnName="AgencyFunction" />
+          <ScalarProperty Name="AgencyFunctionOther" ColumnName="AgencyFunctionOther" />
+          <ScalarProperty Name="AgencyFunctionCountyName" ColumnName="AgencyFunctionCountyName" />
+          <ScalarProperty Name="AgencyFunctionCountyCode" ColumnName="AgencyFunctionCountyCode" />
+          <ScalarProperty Name="AgencyLocation" ColumnName="AgencyLocation" />
+          <ScalarProperty Name="SupFirstName" ColumnName="SupFirstName" />
+          <ScalarProperty Name="SupLastName" ColumnName="SupLastName" />
+          <ScalarProperty Name="SupEmail" ColumnName="SupEmail" />
+          <ScalarProperty Name="AccessRequestReason" ColumnName="AccessRequestReason" />
+          <ScalarProperty Name="SupApproval" ColumnName="SupApproval" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUserCountyAccesses">
+      <EntityTypeMapping TypeName="MarriageModel.tblUserCountyAccess">
+        <MappingFragment StoreEntitySet="tblUserCountyAccess">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CountyName" ColumnName="CountyName" />
+          <ScalarProperty Name="CountyCode" ColumnName="CountyCode" />
+          <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUserPermissions">
+      <EntityTypeMapping TypeName="MarriageModel.tblUserPermission">
+        <MappingFragment StoreEntitySet="tblUserPermissions">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="EditUser" ColumnName="EditUser" />
+          <ScalarProperty Name="AccessRpts" ColumnName="AccessRpts" />
+          <ScalarProperty Name="SearchMrg" ColumnName="SearchMrg" />
+          <ScalarProperty Name="AddMrg" ColumnName="AddMrg" />
+          <ScalarProperty Name="EditMrg" ColumnName="EditMrg" />
+          <ScalarProperty Name="DelMrg" ColumnName="DelMrg" />
+          <ScalarProperty Name="PrintMrg" ColumnName="PrintMrg" />
+          <ScalarProperty Name="ImportMrg" ColumnName="ImportMrg" />
+          <ScalarProperty Name="SearchDis" ColumnName="SearchDis" />
+          <ScalarProperty Name="AddDis" ColumnName="AddDis" />
+          <ScalarProperty Name="EditDis" ColumnName="EditDis" />
+          <ScalarProperty Name="DelDis" ColumnName="DelDis" />
+          <ScalarProperty Name="PrintDis" ColumnName="PrintDis" />
+          <ScalarProperty Name="ImportDis" ColumnName="ImportDis" />
+          <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="AccessFinRpts" ColumnName="AccessFinRpts" />
+          <ScalarProperty Name="FlagMrg" ColumnName="FlagMrg" />
+          <ScalarProperty Name="FlagDis" ColumnName="FlagDis" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="App_DropDown" FunctionName="MarriageModel.Store.App_DropDown">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarriageModel.App_DropDown_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="App_ReturnDropDown" FunctionName="MarriageModel.Store.App_ReturnDropDown" />
+    <FunctionImportMapping FunctionImportName="GetCertificateData" FunctionName="MarriageModel.Store.GetCertificateData">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarriageModel.GetCertificateData_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="County" ColumnName="County" />
+          <ScalarProperty Name="PartyOneFN" ColumnName="PartyOneFN" />
+          <ScalarProperty Name="PartyOneMN" ColumnName="PartyOneMN" />
+          <ScalarProperty Name="PartyOneLN" ColumnName="PartyOneLN" />
+          <ScalarProperty Name="PartyTwoFN" ColumnName="PartyTwoFN" />
+          <ScalarProperty Name="PartyTwoMN" ColumnName="PartyTwoMN" />
+          <ScalarProperty Name="PartyTwoLN" ColumnName="PartyTwoLN" />
+          <ScalarProperty Name="CeremonyDate" ColumnName="CeremonyDate" />
+          <ScalarProperty Name="CurrentDateTime" ColumnName="CurrentDateTime" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetCertificateDataP" FunctionName="MarriageModel.Store.GetCertificateDataP">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarriageModel.GetCertificateDataP_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="County" ColumnName="County" />
+          <ScalarProperty Name="PartyOneFN" ColumnName="PartyOneFN" />
+          <ScalarProperty Name="PartyOneMN" ColumnName="PartyOneMN" />
+          <ScalarProperty Name="PartyOneLN" ColumnName="PartyOneLN" />
+          <ScalarProperty Name="PartyTwoFN" ColumnName="PartyTwoFN" />
+          <ScalarProperty Name="PartyTwoMN" ColumnName="PartyTwoMN" />
+          <ScalarProperty Name="PartyTwoLN" ColumnName="PartyTwoLN" />
+          <ScalarProperty Name="CeremonyDate" ColumnName="CeremonyDate" />
+          <ScalarProperty Name="CurrentDateTime" ColumnName="CurrentDateTime" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

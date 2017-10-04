@@ -1,0 +1,523 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CTLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" />
+    <Property Name="LastName" Type="nvarchar(max)" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="City" Type="nvarchar(max)" />
+    <Property Name="StateBinID" Type="int" />
+    <Property Name="ZipCode" Type="nvarchar(max)" />
+    <Property Name="ProfilePic" Type="nvarchar(max)" />
+    <Property Name="Fax" Type="nvarchar(max)" />
+    <Property Name="RoleBinID" Type="int" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="OrganizationID" Type="int" />
+    <Property Name="OrganizationName" Type="nvarchar(max)" />
+    <Property Name="firstTimeLoggedIn" Type="bit" />
+    <Property Name="Active" Type="bit" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar(max)" />
+    <Property Name="DateCreated" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar(max)" />
+    <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Assets">
+    <Key>
+      <PropertyRef Name="AssetID" />
+    </Key>
+    <Property Name="AssetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AssetName" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="ContentBody" Type="nvarchar(max)" />
+    <Property Name="ContentFooter" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AttributeParents">
+    <Key>
+      <PropertyRef Name="AttributeParentID" />
+    </Key>
+    <Property Name="AttributeParentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AttributeParentName" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AttributePosts">
+    <Key>
+      <PropertyRef Name="AttributeID" />
+      <PropertyRef Name="PostID" />
+    </Key>
+    <Property Name="AttributeID" Type="int" Nullable="false" />
+    <Property Name="PostID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Attributes">
+    <Key>
+      <PropertyRef Name="AttributeID" />
+    </Key>
+    <Property Name="AttributeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AttributeParentID" Type="int" />
+    <Property Name="AttributeName" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AttributeUsers">
+    <Key>
+      <PropertyRef Name="AttributeID" />
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="AttributeID" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ContentContentLists">
+    <Key>
+      <PropertyRef Name="Content_ContentID" />
+      <PropertyRef Name="ContentList_ContentListID" />
+    </Key>
+    <Property Name="Content_ContentID" Type="int" Nullable="false" />
+    <Property Name="ContentList_ContentListID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ContentContents">
+    <Key>
+      <PropertyRef Name="ContentListID" />
+      <PropertyRef Name="ContentID" />
+    </Key>
+    <Property Name="ContentListID" Type="int" Nullable="false" />
+    <Property Name="ContentID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ContentLists">
+    <Key>
+      <PropertyRef Name="ContentListID" />
+    </Key>
+    <Property Name="ContentListID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContentOID" Type="int" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Contents">
+    <Key>
+      <PropertyRef Name="ContentID" />
+    </Key>
+    <Property Name="ContentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContentTypeID" Type="int" />
+    <Property Name="ContentTitle" Type="nvarchar(max)" />
+    <Property Name="ContentBody" Type="nvarchar(max)" />
+    <Property Name="ContentFooter" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="IsMainPage" Type="bit" Nullable="false" />
+    <Property Name="IsSecure" Type="bit" Nullable="false" />
+    <Property Name="pageOrder" Type="int" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar(max)" />
+    <Property Name="DateCreated" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="ContentTypes">
+    <Key>
+      <PropertyRef Name="ContentTypeID" />
+    </Key>
+    <Property Name="ContentTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContentTypeName" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CountyBinPosts">
+    <Key>
+      <PropertyRef Name="CountyBinID" />
+      <PropertyRef Name="PostID" />
+    </Key>
+    <Property Name="CountyBinID" Type="int" Nullable="false" />
+    <Property Name="PostID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CountyBins">
+    <Key>
+      <PropertyRef Name="CountyBinID" />
+    </Key>
+    <Property Name="CountyBinID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CountyBinName" Type="nvarchar(max)" />
+    <Property Name="Active" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CountyBinUsers">
+    <Key>
+      <PropertyRef Name="CountyBinID" />
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="CountyBinID" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Dashboards">
+    <Key>
+      <PropertyRef Name="DashboardID" />
+    </Key>
+    <Property Name="DashboardID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DashboardName" Type="nvarchar(max)" />
+    <Property Name="Theme" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MessageAspNetUsers">
+    <Key>
+      <PropertyRef Name="MessageID" />
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="MessageID" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Messages">
+    <Key>
+      <PropertyRef Name="MessageID" />
+    </Key>
+    <Property Name="MessageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MessageEmail" Type="nvarchar(max)" />
+    <Property Name="MessageTitle" Type="nvarchar(max)" />
+    <Property Name="MessageContent" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar(max)" />
+    <Property Name="DateCreated" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Organizations">
+    <Key>
+      <PropertyRef Name="OrganizationID" />
+    </Key>
+    <Property Name="OrganizationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrganizationName" Type="nvarchar(max)" />
+    <Property Name="OrganizationSubName" Type="nvarchar(max)" />
+    <Property Name="MailingAddress" Type="nvarchar(max)" />
+    <Property Name="CityName" Type="nvarchar(max)" />
+    <Property Name="StateBinID" Type="int" Nullable="false" />
+    <Property Name="ZipCode" Type="int" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="OrgPic" Type="nvarchar(max)" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar(max)" />
+    <Property Name="DateCreated" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="ParentContentContents">
+    <Key>
+      <PropertyRef Name="ParentContentID" />
+      <PropertyRef Name="ContentID" />
+    </Key>
+    <Property Name="ParentContentID" Type="int" Nullable="false" />
+    <Property Name="ContentID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PartnerAspNetUsers">
+    <Key>
+      <PropertyRef Name="PartnerID" />
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="PartnerID" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PartnerPartners">
+    <Key>
+      <PropertyRef Name="PartnerID" />
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="PartnerID" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PartnerTypeAspNetUsers">
+    <Key>
+      <PropertyRef Name="PartnerTypeBinID" />
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="PartnerTypeBinID" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PartnerTypeBins">
+    <Key>
+      <PropertyRef Name="PartnerTypeBinID" />
+    </Key>
+    <Property Name="PartnerTypeBinID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PartnerTypeBinName" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PostOrganizations">
+    <Key>
+      <PropertyRef Name="PostID" />
+      <PropertyRef Name="OrganizationID" />
+    </Key>
+    <Property Name="PostID" Type="int" Nullable="false" />
+    <Property Name="OrganizationID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Posts">
+    <Key>
+      <PropertyRef Name="PostID" />
+    </Key>
+    <Property Name="PostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PostTypeID" Type="int" />
+    <Property Name="PostTitle" Type="nvarchar(max)" />
+    <Property Name="PostContent" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="OpenDate" Type="datetime" />
+    <Property Name="ExpirationDate" Type="datetime" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar(max)" />
+    <Property Name="DateCreated" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="PostTypes">
+    <Key>
+      <PropertyRef Name="PostTypeID" />
+    </Key>
+    <Property Name="PostTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PostTypeName" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reports">
+    <Key>
+      <PropertyRef Name="ReportID" />
+    </Key>
+    <Property Name="ReportID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReportTitle" Type="nvarchar(max)" />
+    <Property Name="ReportDesc" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar(max)" />
+    <Property Name="DateCreated" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="RoleBins">
+    <Key>
+      <PropertyRef Name="RoleBinID" />
+    </Key>
+    <Property Name="RoleBinID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleBinName" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StateBins">
+    <Key>
+      <PropertyRef Name="StateBinID" />
+    </Key>
+    <Property Name="StateBinID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StateBinName" Type="nvarchar(max)" />
+    <Property Name="Active" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SupportTickets">
+    <Key>
+      <PropertyRef Name="SupportTicketID" />
+    </Key>
+    <Property Name="SupportTicketID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SupportTicketEmail" Type="nvarchar(max)" />
+    <Property Name="SupportTicketTitle" Type="nvarchar(max)" />
+    <Property Name="SupportTicketContent" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_ContentContentLists_dbo_ContentLists_ContentList_ContentListID">
+    <End Role="ContentLists" Type="Self.ContentLists" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ContentContentLists" Type="Self.ContentContentLists" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContentLists">
+        <PropertyRef Name="ContentListID" />
+      </Principal>
+      <Dependent Role="ContentContentLists">
+        <PropertyRef Name="ContentList_ContentListID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_ContentContentLists_dbo_Contents_Content_ContentID">
+    <End Role="Contents" Type="Self.Contents" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ContentContentLists" Type="Self.ContentContentLists" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contents">
+        <PropertyRef Name="ContentID" />
+      </Principal>
+      <Dependent Role="ContentContentLists">
+        <PropertyRef Name="Content_ContentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Organizations_dbo_StateBins_StateBinID">
+    <End Role="StateBins" Type="Self.StateBins" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Organizations" Type="Self.Organizations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StateBins">
+        <PropertyRef Name="StateBinID" />
+      </Principal>
+      <Dependent Role="Organizations">
+        <PropertyRef Name="StateBinID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CTLModelStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Assets" EntityType="Self.Assets" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AttributeParents" EntityType="Self.AttributeParents" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AttributePosts" EntityType="Self.AttributePosts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Attributes" EntityType="Self.Attributes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AttributeUsers" EntityType="Self.AttributeUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContentContentLists" EntityType="Self.ContentContentLists" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContentContents" EntityType="Self.ContentContents" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContentLists" EntityType="Self.ContentLists" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contents" EntityType="Self.Contents" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContentTypes" EntityType="Self.ContentTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CountyBinPosts" EntityType="Self.CountyBinPosts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CountyBins" EntityType="Self.CountyBins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CountyBinUsers" EntityType="Self.CountyBinUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Dashboards" EntityType="Self.Dashboards" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MessageAspNetUsers" EntityType="Self.MessageAspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Organizations" EntityType="Self.Organizations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ParentContentContents" EntityType="Self.ParentContentContents" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PartnerAspNetUsers" EntityType="Self.PartnerAspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PartnerPartners" EntityType="Self.PartnerPartners" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PartnerTypeAspNetUsers" EntityType="Self.PartnerTypeAspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PartnerTypeBins" EntityType="Self.PartnerTypeBins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PostOrganizations" EntityType="Self.PostOrganizations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PostTypes" EntityType="Self.PostTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reports" EntityType="Self.Reports" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RoleBins" EntityType="Self.RoleBins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StateBins" EntityType="Self.StateBins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SupportTickets" EntityType="Self.SupportTickets" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_ContentContentLists_dbo_ContentLists_ContentList_ContentListID" Association="Self.FK_dbo_ContentContentLists_dbo_ContentLists_ContentList_ContentListID">
+      <End Role="ContentLists" EntitySet="ContentLists" />
+      <End Role="ContentContentLists" EntitySet="ContentContentLists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_ContentContentLists_dbo_Contents_Content_ContentID" Association="Self.FK_dbo_ContentContentLists_dbo_Contents_Content_ContentID">
+      <End Role="Contents" EntitySet="Contents" />
+      <End Role="ContentContentLists" EntitySet="ContentContentLists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Organizations_dbo_StateBins_StateBinID" Association="Self.FK_dbo_Organizations_dbo_StateBins_StateBinID">
+      <End Role="StateBins" EntitySet="StateBins" />
+      <End Role="Organizations" EntitySet="Organizations" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="eCaSTContextModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="ClientID" />
+    </Key>
+    <Property Name="ClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EnrollmentDate" Type="datetime" Nullable="false" />
+    <Property Name="Gender" Type="bit" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" />
+    <Property Name="MiddleName" Type="nvarchar(max)" />
+    <Property Name="MaidenName" Type="nvarchar(max)" />
+    <Property Name="SSN" Type="int" />
+    <Property Name="DOB" Type="datetime" Nullable="false" />
+    <Property Name="Age" Type="int" />
+    <Property Name="EthnicityHispanicBinID" Type="int" Nullable="false" />
+    <Property Name="ProgramBinID" Type="int" />
+    <Property Name="InsuranceBinID" Type="int" />
+    <Property Name="MedicareBinID" Type="int" />
+    <Property Name="ReminderBinID" Type="int" />
+    <Property Name="ChartNumber" Type="nvarchar(max)" />
+    <Property Name="LegalPresence" Type="bit" Nullable="false" />
+    <Property Name="IncomeEligible" Type="bit" Nullable="false" />
+    <Property Name="InsuranceEligible" Type="bit" Nullable="false" />
+    <Property Name="MonthlyIncome" Type="int" />
+    <Property Name="NumberLivingOnIncome" Type="int" />
+    <Property Name="PercentPoverty" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="HeardOfProgramBinID" Type="int" />
+    <Property Name="ActiveBinID" Type="int" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar(max)" />
+    <Property Name="DateCreated" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar(max)" />
+    <Property Name="Tribe" Type="nvarchar(max)" />
+    <Property Name="Other" Type="nvarchar(max)" />
+    <Property Name="Street" Type="nvarchar(max)" />
+    <Property Name="CityBinID" Type="int" />
+    <Property Name="StateBinID" Type="int" Nullable="false" />
+    <Property Name="ZipCode" Type="int" Nullable="false" />
+    <Property Name="CountyBinID" Type="int" Nullable="false" />
+    <Property Name="EmailAddress" Type="nvarchar(max)" />
+    <Property Name="PhoneBinID" Type="int" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="EmergencyName" Type="nvarchar(max)" />
+    <Property Name="FPL" Type="bit" Nullable="false" />
+    <Property Name="TobaccoUseBinID" Type="int" />
+    <Property Name="Race_RaceID" Type="int" />
+    <Property Name="EducationBinID" Type="int" />
+    <Property Name="LanguageBinID" Type="int" />
+    <Property Name="UninsuredClientReferredBinID" Type="int" />
+  </EntityType>
+  <EntityType Name="ClinicalCycle">
+    <Key>
+      <PropertyRef Name="ClinicalCycleID" />
+    </Key>
+    <Property Name="ClinicalCycleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OfficeVisitGuidID" Type="bigint" />
+    <Property Name="ClientID" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" />
+    <Property Name="UserName" Type="nvarchar(max)" />
+    <Property Name="SiteID" Type="int" Nullable="false" />
+    <Property Name="Comments" Type="nvarchar(max)" />
+    <Property Name="ClinicalCycleDate" Type="datetime" Nullable="false" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar(max)" />
+    <Property Name="DateCreated" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar(max)" />
+    <Property Name="Pending" Type="bit" Nullable="false" />
+    <Property Name="ScreeningMethodBinID" Type="int" />
+    <Property Name="LegacyID" Type="int" />
+  </EntityType>
+  <EntityType Name="DDCancerTypeBin">
+    <Key>
+      <PropertyRef Name="CancerTypeBinID" />
+    </Key>
+    <Property Name="CancerTypeBinID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CancerTypeBinName" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Screening">
+    <Key>
+      <PropertyRef Name="ScreeningID" />
+    </Key>
+    <Property Name="ScreeningID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ScreeningGuidID" Type="bigint" />
+    <Property Name="OfficeVisitID" Type="bigint" />
+    <Property Name="ClinicalCycleID" Type="int" />
+    <Property Name="EnrollmentID" Type="int" />
+    <Property Name="TobaccoUseBinID" Type="int" />
+    <Property Name="SiteID" Type="int" />
+    <Property Name="ScreeningMethodBinID" Type="int" Nullable="false" />
+    <Property Name="PrevScreenTestBinID" Type="int" />
+    <Property Name="HistPolypsBinID" Type="int" />
+    <Property Name="PolypPreCancerBinID" Type="int" />
+    <Property Name="PrevCancerBinID" Type="int" />
+    <Property Name="AgeDiagCancerBinID" Type="int" />
+    <Property Name="SuspectedGeneticDxBinID" Type="int" />
+    <Property Name="InflamBowelDisBinID" Type="int" />
+    <Property Name="Comments" Type="nvarchar(max)" />
+    <Property Name="ReferralDate" Type="datetime" />
+    <Property Name="SchedDate" Type="datetime" />
+    <Property Name="CurrentStatusBinID" Type="int" />
+    <Property Name="RecScreenBinID" Type="int" />
+    <Property Name="ScreenReasonBinID" Type="int" />
+    <Property Name="KitDistMethodBinID" Type="int" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar(max)" />
+    <Property Name="DateCreated" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar(max)" />
+    <Property Name="BillingLevel" Type="int" />
+    <Property Name="PersonalHistoryCancer" Type="bit" Nullable="false" />
+    <Property Name="RelativeHistoryCancer" Type="bit" Nullable="false" />
+    <Property Name="PrevMamBinID" Type="int" />
+    <Property Name="PrevPapBinID" Type="int" />
+    <Property Name="CurrentMamReasonBinID" Type="int" />
+    <Property Name="CurrentPapReasonBinID" Type="int" />
+    <Property Name="HysterectomyStatusBinID" Type="int" />
+    <Property Name="PrevCBEDate" Type="datetime" />
+    <Property Name="PrevMamDate" Type="datetime" />
+    <Property Name="PrevPapDate" Type="datetime" />
+    <Property Name="MamRefDate" Type="datetime" />
+    <Property Name="PapRefDate" Type="datetime" />
+    <Property Name="CancerTypeBinID" Type="int" />
+    <Property Name="ScreenLockDate" Type="datetime" />
+    <Property Name="NoMamExplanationBinID" Type="int" />
+    <Property Name="NoPapExplanationBinID" Type="int" />
+    <Property Name="BillingUpdatedDate" Type="datetime" />
+    <Property Name="BillingPaidBinID" Type="int" />
+    <Property Name="FundedOfficeVisit" Type="bit" />
+    <Property Name="StateStaffOverride" Type="bit" Nullable="false" />
+    <Property Name="Symptom_SymptomID" Type="int" />
+    <Property Name="DDHistoryQuestionBin_HistoryQuestionBinID" Type="int" />
+    <Property Name="IrisScreenID" Type="int" />
+    <Property Name="SuppressMDE" Type="bit" Nullable="false" />
+    <Property Name="BillingHold" Type="bit" />
+    <Property Name="DDHeightBinID" Type="int" />
+    <Property Name="DDWeightBinID" Type="int" />
+    <Property Name="DDWaistBinID" Type="int" />
+    <Property Name="DDHipBinID" Type="int" />
+    <Property Name="HeightBin_HeightBinID" Type="int" />
+    <Property Name="HipWaistBin_HipWaistBinID" Type="int" />
+    <Property Name="WeightBin_WeightBinID" Type="int" />
+    <Property Name="HBReferralDate" Type="datetime" />
+    <Property Name="HBSessionTypeBinID" Type="int" />
+    <Property Name="HBSessionCompletionTypeBinID" Type="int" />
+    <Property Name="HBSessionBarrierTypeBinID" Type="int" />
+    <Property Name="FollowupCompletenessBinID" Type="int" />
+    <Property Name="ContractTypeID" Type="int" />
+  </EntityType>
+  <Association Name="FK_dbo_Screening_dbo_DDCancerTypeBin_CancerTypeBinID">
+    <End Role="DDCancerTypeBin" Type="Self.DDCancerTypeBin" Multiplicity="0..1" />
+    <End Role="Screening" Type="Self.Screening" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DDCancerTypeBin">
+        <PropertyRef Name="CancerTypeBinID" />
+      </Principal>
+      <Dependent Role="Screening">
+        <PropertyRef Name="CancerTypeBinID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="eCaSTContextModelStoreContainer">
+    <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClinicalCycle" EntityType="Self.ClinicalCycle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DDCancerTypeBin" EntityType="Self.DDCancerTypeBin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Screening" EntityType="Self.Screening" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_Screening_dbo_DDCancerTypeBin_CancerTypeBinID" Association="Self.FK_dbo_Screening_dbo_DDCancerTypeBin_CancerTypeBinID">
+      <End Role="DDCancerTypeBin" EntitySet="DDCancerTypeBin" />
+      <End Role="Screening" EntitySet="Screening" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

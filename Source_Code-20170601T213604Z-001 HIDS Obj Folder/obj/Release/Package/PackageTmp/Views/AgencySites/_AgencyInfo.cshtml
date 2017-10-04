@@ -1,0 +1,281 @@
+﻿@model CTL.ViewModels.AgencySiteViewModel
+
+
+@if (ViewBag.AgencySiteID == null) { 
+
+<div class="row">
+    <div class="col-md-12">
+        <div>Programs (Select all that apply): &nbsp;<input type="checkbox" id="checkboxPROGRAM">Select All</div>
+    </div>
+
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+
+        @Html.DropDownList("ProgramList", (SelectList)ViewData["OptionList"], new { @class = "NewCssdropdown", multiple = "", @id = "ProgramList" })
+        @Html.ValidationMessageFor(model => model.ProgramName)
+        <input type="hidden" id="selectedIDsPROGRAM" />
+
+        @Html.Hidden("ProgramName")
+
+
+    </div>
+    <br />
+    <br />
+</div>
+
+
+}
+
+
+<br />
+
+<div class="form-horizontal">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.AgencySiteName, "Agency Name", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.AgencySiteName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.AgencySiteName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Address, "Physical Address", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SecondaryAddress, "Secondary Address", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SecondaryAddress, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SecondaryAddress, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CityBinID, "City", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.CityBinID, ((IEnumerable<CTL.ViewModels.AssignedCityData>)ViewBag.PossibleCityBins).Select(option => new SelectListItem
+                               {
+                                   Text = option.CityBinName,
+                                   Value = option.CityBinID.ToString(),
+                                   Selected = (Model != null) && (option.CityBinID == Model.CityBinID)
+                               }), "Choose...", new { })
+            @Html.ValidationMessageFor(model => model.CityBinID)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.StateBinID, "State", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.StateBinID, ((IEnumerable<CTL.ViewModels.AssignedStateData>)ViewBag.PossibleStateBins).Select(option => new SelectListItem
+                               {
+                                   Text = option.StateBinName,
+                                   Value = option.StateBinID.ToString(),
+                                   Selected = (Model != null) && (option.StateBinID == Model.StateBinID)
+                               }), "Choose...", new { @class = "requiredSelect" })
+            @Html.ValidationMessageFor(model => model.StateBinID)
+        </div>
+    </div>
+
+
+    <div class="form-group">
+
+
+       @Html.LabelFor(model => model.CountyCodeBinID, "County Served", htmlAttributes: new { @class = "control-label col-md-2" })
+
+
+        <div class="col-md-10">
+
+            @Html.DropDownListFor(model => model.CountyCodeBinID, ((IEnumerable<CTL.ViewModels.AssignedCountyData>)ViewBag.PossibleCountyBins).Select(option => new SelectListItem
+                     {
+                         Text = option.CountyBinName,
+                         Value = option.CountyBinID.ToString(),
+                         Selected = (Model != null) && (option.CountyBinID == Model.CountyCodeBinID)
+                     }), "Choose...", new { @id = "CountyCodeBinID" })
+            @Html.ValidationMessageFor(model => model.CountyCodeBinID)
+
+
+        </div>
+
+    </div>
+    
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ZipCode, "Zip Code", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { @class = "form-control cep" } })
+            @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="alert alert-info">
+
+        <div><h3>Mailing Address</h3></div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MailAddress, "Mailing Address", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MailAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SecondaryMailAddress, "Secondary Mail Address", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SecondaryMailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SecondaryMailAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MailCityBinID, "Mail Address City", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.MailCityBinID, ((IEnumerable<CTL.ViewModels.AssignedCityData>)ViewBag.PossibleCityBins).Select(option => new SelectListItem
+                               {
+                                   Text = option.CityBinName,
+                                   Value = option.CityBinID.ToString(),
+                                   Selected = (Model != null) && (option.CityBinID == Model.MailCityBinID)
+                               }), "Choose...", new { })
+                @Html.ValidationMessageFor(model => model.MailCityBinID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MailStateBinID, "Mail Address State", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.MailStateBinID, ((IEnumerable<CTL.ViewModels.AssignedStateData>)ViewBag.PossibleStateBins).Select(option => new SelectListItem
+                               {
+                                   Text = option.StateBinName,
+                                   Value = option.StateBinID.ToString(),
+                                   Selected = (Model != null) && (option.StateBinID == Model.MailStateBinID)
+                               }), "Choose...", new { @class = "requiredSelect" })
+                @Html.ValidationMessageFor(model => model.MailStateBinID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MailZipCode, "Mail Zip Code", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MailZipCode, new { htmlAttributes = new { @class = "form-control cep" } })
+                @Html.ValidationMessageFor(model => model.MailZipCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control SitePhone" } })
+            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Fax, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Fax, new { htmlAttributes = new { @class = "form-control SitePhone" } })
+            @Html.ValidationMessageFor(model => model.Fax, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FEIN, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.FEIN, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Fax, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Website, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Website, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Fax, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    </div>
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+        $("#CityBinID").select2({ width: "100%" });
+        $("#StateBinID").select2({ width: "100%" });
+        $("#CountyCodeBinID").select2({ width: "100%" });
+        $("#MailCityBinID").select2({ width: "100%" });
+        $("#MailStateBinID").select2({ width: "100%" });
+
+
+    });
+
+    $(function () {
+
+
+        if ('@ViewBag.AgencySiteID' == "") {
+
+
+
+            var data = '@ViewBag.Options';
+
+            //Make an array
+            var dataarray = data.split(",");
+
+            // Set the value
+            $("#ProgramList").val(dataarray);
+            $('#selectedIDsPROGRAM').val(dataarray);
+
+
+            var test = $('#ProgramList');
+            $(test).select2({
+                width: "300px"
+            });
+
+            $("#checkboxPROGRAM").click(function () {
+                if ($("#checkboxPROGRAM").is(':checked')) {
+                    $("#ProgramList > option").prop("selected", "selected");
+                    // $("#AgencySelect").attr('size', '3');
+                    $("#ProgramList").trigger("change");
+                } else {
+                    $("#ProgramList > option").removeAttr("selected");
+                    //$('#AgencySelect').attr("readonly", false);
+                    $("#ProgramList").trigger("change");
+
+                }
+            });
+
+
+            document.getElementById("ProgramList").onchange = function () {
+
+                var ids = $(test).val();
+                $('#selectedIDsPROGRAM').val(ids);
+
+            };
+
+
+        }
+
+
+    });
+
+    $(document).ready(function () {
+        $('.SitePhone').mask('(999) 999-9999? x99999');
+        $('.cep').mask('99999');
+    });
+
+</script>

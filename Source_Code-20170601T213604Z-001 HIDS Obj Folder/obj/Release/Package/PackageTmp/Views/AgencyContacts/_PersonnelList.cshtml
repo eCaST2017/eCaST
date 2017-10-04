@@ -1,0 +1,14 @@
+﻿@model IEnumerable<CTL.ViewModels.AgencyRoleViewModel>
+
+@Html.Hidden("listUrl", Url.Action("_ContactInfo", "AgencyContacts"))
+
+
+@foreach (var item in Model)
+{
+
+
+    <div> @Html.Raw(item.UserList) </div>
+
+
+
+}

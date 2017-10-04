@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HIDSModelStoreContainer" CdmEntityContainer="HIDSEntities">
+    <EntitySetMapping Name="DDCityBins">
+      <EntityTypeMapping TypeName="HIDSModel.DDCityBin">
+        <MappingFragment StoreEntitySet="DDCityBin">
+          <ScalarProperty Name="CityBinID" ColumnName="CityBinID" />
+          <ScalarProperty Name="CityBinName" ColumnName="CityBinName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DDCountyBins">
+      <EntityTypeMapping TypeName="HIDSModel.DDCountyBin">
+        <MappingFragment StoreEntitySet="DDCountyBin">
+          <ScalarProperty Name="CountyBinID" ColumnName="CountyBinID" />
+          <ScalarProperty Name="CountyCode" ColumnName="CountyCode" />
+          <ScalarProperty Name="CountyBinName" ColumnName="CountyBinName" />
+          <ScalarProperty Name="Fips_Code" ColumnName="Fips_Code" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="RegionStatusBinID" ColumnName="RegionStatusBinID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DDStateBins">
+      <EntityTypeMapping TypeName="HIDSModel.DDStateBin">
+        <MappingFragment StoreEntitySet="DDStateBin">
+          <ScalarProperty Name="StateBinID" ColumnName="StateBinID" />
+          <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+          <ScalarProperty Name="StateBinName" ColumnName="StateBinName" />
+          <ScalarProperty Name="FIPS" ColumnName="FIPS" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DDAgencyRoleBins">
+      <EntityTypeMapping TypeName="HIDSModel.DDAgencyRoleBin">
+        <MappingFragment StoreEntitySet="DDAgencyRoleBin">
+          <ScalarProperty Name="AgencyRoleTypeBinID" ColumnName="AgencyRoleTypeBinID" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="AgencyRoleBinName" ColumnName="AgencyRoleBinName" />
+          <ScalarProperty Name="AgencyRoleBinID" ColumnName="AgencyRoleBinID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DDAgencyRoleTypeBins">
+      <EntityTypeMapping TypeName="HIDSModel.DDAgencyRoleTypeBin">
+        <MappingFragment StoreEntitySet="DDAgencyRoleTypeBin">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="AgencyRoleTypeBinName" ColumnName="AgencyRoleTypeBinName" />
+          <ScalarProperty Name="AgencyRoleTypeBinID" ColumnName="AgencyRoleTypeBinID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
