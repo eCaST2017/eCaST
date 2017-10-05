@@ -1,0 +1,45 @@
+﻿@model IEnumerable<CTL.ViewModels.UserProfileViewModel>
+@{
+    ViewBag.Title = "Partner Profile";
+}
+
+
+@foreach (var item in Model)
+        {
+
+    
+  <div class="alert alert-default" >
+    
+<div style="padding-left:20px" class="row">
+
+    <div class="col-md-3">
+
+        @Html.Raw(item.profilePic)
+
+    </div>
+
+
+    <div class="col-md-9">
+
+        <ul class="nav nav-pills nav-stacked" style="max-width: 260px;">
+
+            <li><a href="#">@item.FirstName @item.LastName</a></li>
+
+            <li class="active">
+                <a href="#">
+                    <span class="badge pull-right">3</span>
+                    Messages
+                </a>
+            </li>
+            <li><a href="#">Send Message</a></li>
+
+        </ul>
+
+
+    </div>
+    
+</div>
+
+      </div>
+    
+}

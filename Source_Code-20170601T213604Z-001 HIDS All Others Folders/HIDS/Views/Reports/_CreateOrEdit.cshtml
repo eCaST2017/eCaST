@@ -1,0 +1,60 @@
+@model EncaustiCreations.Models.Report
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.ReportTitle)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.ReportTitle)
+    @Html.ValidationMessageFor(model => model.ReportTitle)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.ReportDesc)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.ReportDesc)
+    @Html.ValidationMessageFor(model => model.ReportDesc)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Active)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Active)
+    @Html.ValidationMessageFor(model => model.Active)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.DateUpdated)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.DateUpdated)
+    @Html.ValidationMessageFor(model => model.DateUpdated)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.UpdatedBy)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.UpdatedBy)
+    @Html.ValidationMessageFor(model => model.UpdatedBy)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.DateCreated)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.DateCreated)
+    @Html.ValidationMessageFor(model => model.DateCreated)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.CreatedBy)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.CreatedBy)
+    @Html.ValidationMessageFor(model => model.CreatedBy)
+</div>
+

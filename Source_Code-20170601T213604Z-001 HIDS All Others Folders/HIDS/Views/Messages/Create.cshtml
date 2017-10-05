@@ -1,0 +1,150 @@
+﻿@model CTL.Models.Message
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+@using (Html.BeginForm("_AddMessageF", "Messages", FormMethod.Post, new { id = "AddMessageForm_" + @ViewBag.Id }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+  
+    @Html.Hidden("Id", (string)ViewBag.Id)
+
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h4 style="font-family:'Lato', sans-serif">Send a Message</h4>
+            <hr />
+        </div>
+
+        <div class="col-md-12">
+        
+            @*@Html.TextBoxFor(model => model.MessageTitle, new { htmlAttributes = new { @class = "form-control", @placeholder="Message Subject" } })*@
+            @Html.TextBoxFor(m => m.MessageTitle, new { id = "MessageTitle_" + @ViewBag.Id, @class = "form-control", placeholder = "Subject" })
+            
+               @Html.ValidationMessageFor(model => model.MessageTitle, "", new { @class = "text-danger" })
+            
+        </div>
+        <br />
+        <div class="col-md-12">
+            @Html.TextAreaFor(model => model.MessageContent, new { @id = "MessageContent_" + @ViewBag.Id, @Style = "height:200px" })
+            
+            @*@Html.TextAreaFor(model => model.MessageContent, new { htmlAttributes = new { @class = "form-control", @style="width:100%;height:200px" } })*@
+            @Html.ValidationMessageFor(model => model.MessageContent, "", new { @class = "text-danger" })
+
+            <script type="text/javascript">
+
+
+                $(function () {
+
+
+                    $('#MessageContent_@ViewBag.Id').redactor();
+
+
+                });
+
+
+            </script>
+
+
+        </div>
+
+        <br />
+        <div align="right" class="col-md-12">
+
+            <input type="submit" value="Send Message" class="btn btn-primary" />
+
+        </div>
+
+
+        </div>
+
+
+   
+}
+
+
+<script type="text/javascript">
+
+
+
+
+    $(function () {
+
+
+
+        $("#AddMessageForm_@ViewBag.Id").validate({
+            rules: {
+
+                MessageTitle: {
+                    //required: { depends: checkTestFieldSelected }
+                    required: true
+
+                },
+                MessageContent: {
+
+                    required: true
+
+                }
+
+
+            },
+            messages: {
+
+                MessageTitle: {
+                    required: "Please enter a message title"
+
+                },
+                MessageContent: {
+                    required: "Please enter a message"
+
+                }
+
+            }
+        });
+
+
+        // $("#AddPostButton").click(function (e) { e.preventDefault(); })
+
+
+        $('#AddMessageForm_@ViewBag.Id').on("submit", function (e) {
+            e.preventDefault();
+
+            if ($('#AddMessageForm_@ViewBag.Id').valid()) {
+                $.ajax({
+
+                    url: $("#AddMessageForm_@ViewBag.Id").attr('action'),
+                    type: $("#AddMessageForm_@ViewBag.Id").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#AddMessageForm_@ViewBag.Id").serialize(),
+                    success: function (data) {
+
+                        var userid = data.Modified;
+
+
+                        $('#AccountControlContainer').load('@Url.Action("AccountControlUser", "Dashboards")', { id: userid });
+
+                        toastr.success('You have successfully sent a message.')
+
+
+                        //$('#myModal').modal('hide')
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+
+                    }
+
+                });
+            }
+
+        });
+
+
+    });
+
+
+</script>

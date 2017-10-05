@@ -1,0 +1,307 @@
+﻿@model IEnumerable<CTL.ViewModels.UserProfileViewModel>
+
+
+    <script type="text/javascript">
+
+        $(function () {
+            $(".purchaseLink").button();
+
+        });
+
+
+    </script>
+
+<script type="text/javascript" charset="utf-8">
+   
+
+    $(document).ready(function () {
+        /* Initialise the DataTable */
+        var oTable = $('#example1').dataTable({
+            "oLanguage": {
+                "sSearch": "Search:"
+            },
+            "bPaginate": false,
+            "bSort": false,
+            "bAutoWidth": false,
+            //"aoColumnDefs": [{ "bVisible": false, "aTargets": [0] }]
+        });
+
+    });
+</script>
+    
+
+
+<style type="text/css">
+    table.dataTable td.sorting_1 {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+
+    table.dataTable td {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+
+    table.dataTable tr.odd {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+
+    table.dataTable tr.even {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+</style>
+
+
+     <div style="width:100%;">
+        <!--Main Content-->
+                 <h3 style="font-family: 'Roboto', sans-serif;color:#3a53c7;padding-left:20px" >Organization Members</h3>
+                 <hr />
+   
+
+                
+	<div style="padding-left:20px" class="container">
+
+		
+		
+
+    </div><!-- /.container -->
+
+
+
+
+       
+    
+    </div>
+        
+
+        
+   
+
+             @* <div style="width:100%;border-radius:5px;background-color:#449b21; color:#fff; padding:12px; opacity:0.7; font-size:20px" ><span class="glyphicon glyphicon-search"></span>&nbsp;Find Family Leaders</div>*@
+
+          <br />
+
+
+
+<div id="holder1">
+    <table style="font-family: 'Roboto', sans-serif;color:#3a53c7;" cellpadding="0" cellspacing="0" border="0" id="example1">
+        <thead>
+            <tr>
+                @*<th class="Group1">Partners</th>*@
+                <th></th>
+                @*<th></th>*@
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+
+
+
+            <tr>
+
+
+                @* <td style="color:#ccc; width:0px; font-size:14px; border:none">
+
+
+                        @item.OrganizationName
+
+
+
+                    </td>*@
+
+                <td style="border:none">
+
+
+                    <div class="alert alert-default">
+
+                        <div data-role="listview">
+                            <div class="list marked" style="text-decoration:none" data-toggle="modal" data-target="#@item.Id" href="#">
+
+
+
+                                <div style="width:100%" class="list-content">
+
+
+                                    <div class="row">
+                                        <div class="col-md-3">
+
+                                            <div align="center">  @Html.Raw(item.profilePic)</div>
+
+                                        </div>
+
+                                        <div class="col-md-9">
+
+
+
+
+                                            <div><h3>@item.FirstName @item.LastName</h3></div>
+
+
+                                            <div style="font-size:medium" class="form-group">
+                                                <label style="padding-right:6px" for="UserName">Organization:</label>
+                                                @item.OrganizationName
+                                            </div>
+
+
+                                            <div style="font-size:medium" class="form-group">
+                                                <label style="padding-right:6px" for="UserName">Contact Info:</label>
+                                                <div>Phone: @item.TelephoneNumber</div> <div> Email: @item.UserName</div>
+                                            </div>
+
+
+
+
+                                            <br />
+                                            <div align="right">
+
+                                                <ul class="nav nav-pills nav-stacked ">
+
+
+                                                  
+                                                    <li>
+                                                        <a href="#">
+
+                                                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp; View/Connect
+
+
+                                                        </a>
+                                                    </li>
+
+
+                                                    @*  <li class="active">
+                                                            <a href="#">
+                                                                <span class="badge pull-right">2</span>
+                                                                Messages
+                                                            </a>
+                                                        </li>*@
+
+
+
+
+                                                </ul>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+                                    @*<div style="float:left;">
+
+
+                                            @Html.Raw(item.profilePic)
+
+
+                                        </div>
+
+                                        <div style="float:right; width:60%;font-family:'Roboto', sans-serif">
+                                            <span class="list-title"><h2 style="font-family:'Roboto', sans-serif">@item.FirstName @item.LastName</h2> </span>
+                                            <span> @item.OrganizationName </span>
+                                            <div style="vertical-align:bottom" align="right">
+
+                                                @Html.ActionLink("Connect","Connect","UserProfiles", new { @class = "btn btn-info", @style="color:#fff" })
+
+                                            </div>
+                                        </div>*@
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="@item.Id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 style="font-family:'Archivo Narrow'; font-size:28px" class="modal-title" id="myModalLabel">@item.FirstName @item.LastName</h4>
+                                </div>
+                                <div class="modal-body">
+
+
+                                    <div>
+
+
+
+                                        @Html.Raw(item.profilePic)
+
+                                    </div>
+
+
+
+                                    <div>
+                                        @item.OrganizationName
+                                    </div>
+                                    <div class="modal-footer">
+
+                                        <div style="width:100%">
+
+                                            <div style="float:left">
+
+                                                <span class="list-title"><h2 style="font-family:'Archivo Narrow'">@item.UserName</h2> </span>
+
+
+                                            </div>
+
+                                            <div style="float:right; padding-top:24px">
+
+                                                <ul class="nav nav-pills nav-stacked">
+
+
+                                                    <li class="active">
+                                                        <a href="#" data-dismiss="modal">
+
+                                                            Request Connection
+                                                        </a>
+                                                    </li>
+
+
+                                                </ul>
+
+
+
+
+
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div style="width:100%"><hr style="height:1px;border:none;color:#ccc;background-color:#ccc;" /></div>
+
+
+                </td>
+
+
+
+
+                @*  <td>@item.groupName</td>
+                    <td><a href="@item.linkPath" target="_blank">@item.linkDisplayName</a></td>
+                    <td>@item.description</td>*@
+            </tr>
+
+        }
+    </table>
+  
+</div>
+

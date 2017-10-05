@@ -1,0 +1,353 @@
+@using Microsoft.AspNet.Identity
+@model CTL.ViewModels.PostViewModel
+
+@{
+    ViewBag.Title = "Opportunity Details";
+}
+
+
+@using (Html.BeginForm("_FollowPostF", "Posts", FormMethod.Post, new { id = "FollowPostForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.Hidden("UserId", (string)User.Identity.GetUserId())
+    @Html.Hidden("PostID", @Model.PostID)
+    @Html.Hidden("PostTitle", @Model.PostTitle)
+<br />
+ <div style="padding-left:10px">
+
+
+     <div><h4>@Model.PostTitle - <span style="color:#aeaeae; font-style:italic">Closes: @((@Model.ExpirationDate).ToString("MM/dd/yyyy"))</span></h4></div>
+     <hr />
+
+
+   <div class="btn-group">
+  @if (Request.IsAuthenticated)
+{
+
+
+    if (ViewBag.FollowCheck > 0)
+    {
+        
+        
+         <button class="btn btn-info" type="submit" id="NameLinkInline"><span class="glyphicon glyphicon-random"></span>&nbsp;UnFollow</button>
+          @Html.Hidden("Unfollow", true)
+        
+    }
+    else
+    {
+        
+        
+         <button class="btn btn-info" type="submit" id="NameLinkInline"><span class="glyphicon glyphicon-random"></span>&nbsp;Follow</button>
+         @Html.Hidden("Unfollow", false)
+      
+      
+    }
+      
+      
+ 
+  }
+       
+        <button  id="ProfileLinkInline" type="button" class="btn btn-default"><span class="glyphicon glyphicon-share-alt"></span>&nbsp;Share</button>
+  <button   id="OrgLinkInline" type="button" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;View All Opportunities</button>
+</div>
+
+@if (Request.IsAuthenticated)
+{
+
+     if (ViewBag.FollowCheck < 1)
+     {
+
+     <div>Send a message to organization</div>
+   <div>  @Html.TextArea("FollowNotes", new { style="width:100%" })</div>
+     <div>*Note: By clicking Follow, email notification will be sent to the organization that posted this opportunity with your noted interest.</div>
+
+     }
+     
+}
+
+     </div>
+<br />
+
+    <div style="padding-left:10px">
+
+     
+
+          <table style="border:none"><tr>
+            <td>
+ @Html.Raw(Model.OrgPic)
+
+            </td>
+            
+            <td>
+
+              <h3>  @Model.OrganizationName</h3>
+            </td>
+
+
+               </tr></table>
+        <hr />
+    <div><h4>Description: @Html.Raw(Model.PostContent)</h4></div>
+        <hr />
+  <div><h4>Start Date: @(((DateTime)Model.OpportunityOpenDate).ToString("MM/dd/yyyy")) &nbsp;&nbsp;&nbsp; End Date: @(((DateTime)Model.OpportunityExpirationDate).ToString("MM/dd/yyyy"))</h4></div>
+        <br />
+        <div><h4>Focus Areas:</h4></div>
+        <div> @{ Html.RenderAction("_AttributeDetail", "Posts", new { id = @Model.PostID, id2 = 9 });}</div>
+        <hr />
+        <div><h4>Meeting Times:</h4></div>
+       <div> @{ Html.RenderAction("_AttributeDetail", "Posts", new { id = @Model.PostID, id2 = 4 });}</div>
+        <hr />
+           <div><h4>Meeting Format:</h4></div>
+         <div> @{ Html.RenderAction("_AttributeDetail", "Posts", new { id = @Model.PostID, id2 = 6 });}</div>
+        <hr />
+           <div><h4>Expected Deliverables:</h4></div>
+        <div> @{ Html.RenderAction("_AttributeDetail", "Posts", new { id = @Model.PostID, id2 = 7 });}</div>
+        <hr />
+           <div><h4>Compensation:</h4></div>
+        <div> @{ Html.RenderAction("_AttributeDetail", "Posts", new { id = @Model.PostID, id2 = 8 });}</div>
+        <hr />
+           <div><h4>Skills:</h4></div>
+       <div> @{ Html.RenderAction("_AttributeDetail", "Posts", new { id = @Model.PostID, id2 = 1 });}</div>
+        <hr />
+
+           <div><h4>Knowlwedge:</h4></div>
+       <div> @{ Html.RenderAction("_AttributeDetail", "Posts", new { id = @Model.PostID, id2 = 2 });}</div>
+        <hr />
+           <div><h4>Abilities:</h4></div>
+       <div> @{ Html.RenderAction("_AttributeDetail", "Posts", new { id = @Model.PostID, id2 = 3 });}</div>
+
+           <hr />
+           <div><h4>Location:</h4></div>
+       <div style="width:96%"> @{ Html.RenderAction("_LocationDetail", "Posts", new { id = @Model.PostID });}</div>
+
+
+     
+        </div>
+
+}
+
+
+<script type="text/javascript">
+
+
+
+
+    $(function () {
+
+
+        $("#FollowPostForm").validate({
+            rules: {
+
+                //TestDate: {
+                //    //required: { depends: checkTestFieldSelected }
+                //    required: true
+
+                //},
+                //SystolicBinID1: {
+                //    required: { depends: checkSys1FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //DiastolicBinID1: {
+                //    required: { depends: checkDia1FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //SystolicBinID2: {
+                //    required: { depends: checkSys2FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //DiastolicBinID2: {
+                //    required: { depends: checkDia2FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //TotalCholesterolBinID: {
+                //    required: { depends: checkTCFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //HDLCholesterolBinID: {
+                //    required: { depends: checkHDLFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //LDLCholesterolBinID: {
+                //    required: { depends: checkFAFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //TriglyceridesBinID: {
+                //    required: { depends: checkFAFieldSelected },
+                //    range: [10, 600]
+                //    //required: true
+
+                //},
+
+                //GlucoseBinID: {
+                //    required: { depends: checkGluFieldSelected },
+                //    //range: [10, 600]
+                //    //required: true
+
+                //},
+                //A1CPercentageBinID: {
+                //    required: { depends: checkA1CFieldSelected }
+
+
+                //},
+                //WorkupStatusBinID: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupStatusDate: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupResultBinID: {
+                //    required: { depends: checkWorkupResultFieldSelected }
+
+
+                //}
+
+
+            },
+            messages: {
+
+                //TestDate: {
+                //    required: "Please select a test date"
+
+                //},
+                //SystolicBinID1: {
+                //    required: "Please enter a value greater than 0 for the Systolic Value"
+
+                //},
+                //DiastolicBinID1: {
+                //    required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                //},
+                //SystolicBinID2: {
+                //    required: "Please enter a value greater than 0 for the Systolic Value"
+
+                //},
+                //DiastolicBinID2: {
+                //    required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                //},
+                //TotalCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the Total Cholesterol Value"
+
+                //},
+                //HDLCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the HDL Cholesterol Value"
+
+                //},
+                //LDLCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the LDL Cholesterol Value"
+
+                //},
+
+                //TriglyceridesBinID: {
+
+                //    required: "Please enter a value greater than 0 for the Triglycerides Value"
+
+                //},
+                //GlucoseBinID: {
+
+                //    required: "Please enter a value greater than 0 for the Glucose Value"
+
+                //},
+
+                //A1CPercentageBinID: {
+
+                //    required: "Please enter a value for the A1C Percentage Value"
+
+                //},
+                //WorkupStatusBinID: {
+
+                //    required: "Please enter a value for Workup Status"
+
+                //},
+                //WorkupStatusDate: {
+
+                //    required: "Please enter a value for Workup Status Date"
+
+                //},
+                //WorkupResultBinID: {
+
+                //    required: "Please enter a value for Workup Result"
+
+                //}
+
+            }
+        });
+
+
+       // $("#AddPostButton").click(function (e) { e.preventDefault(); })
+
+
+        $('#FollowPostForm').on("submit", function (e) {
+            e.preventDefault();
+
+            if ($('#FollowPostForm').valid()) {
+                $.ajax({
+
+                    url: $("#FollowPostForm").attr('action'),
+                    type: $("#FollowPostForm").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#FollowPostForm").serialize(),
+                    success: function (data) {
+
+                        var posttitle = data.Modified;
+                        var userid = data.Modified2;
+                        var unfollow = data.Modified3;
+                       
+
+                        $('#AccountControlContainer').load('@Url.Action("AccountControlUser", "Dashboards")', { id: userid });
+
+
+                        if (unfollow == false) {
+
+                            toastr.success('You are now following ' + posttitle + '.')
+
+                        }
+                        else {
+
+
+                            toastr.warning('You are no longer following ' + posttitle + '.')
+
+                        }
+
+                        
+
+
+
+
+
+
+                        //$('#myModal').modal('hide')
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+
+                    }
+
+                });
+            }
+
+        });
+
+
+    });
+
+
+</script>

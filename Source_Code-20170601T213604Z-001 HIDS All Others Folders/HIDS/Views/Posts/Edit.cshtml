@@ -1,0 +1,110 @@
+@model CTL.ViewModels.PostViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+
+    <div style="padding-left:10px">
+
+        <br />
+
+        @*@Html.HiddenFor(model => model.PostID)*@
+        @Html.Partial("_CreateOrEdit", Model)
+        @Html.Hidden("SaveId", 2)
+
+        </div>
+
+        }
+
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+
+
+        var x = [];
+        $('#testFA :selected').each(function (i, selected) {
+
+            x.push($(selected).val());
+
+        });
+
+
+        if ($.inArray('45', x) > -1) {
+
+
+            $("#MoreInfoSection").css("display", "block");
+            $("#WomenMoreInfoSection").css("display", "block");
+
+
+        }
+
+        else {
+
+
+
+            $("#WomenMoreInfoSection").css("display", "none");
+
+
+        };
+
+        if ($.inArray('49', x) > -1) {
+
+
+            $("#MoreInfoSection").css("display", "block");
+            $("#YoungChildrenMoreInfoSection").css("display", "block");
+
+
+        }
+
+        else {
+
+
+            $("#YoungChildrenMoreInfoSection").css("display", "none");
+
+
+        };
+
+        if ($.inArray('50', x) > -1) {
+
+
+            $("#MoreInfoSection").css("display", "block");
+            $("#YouthMoreInfoSection").css("display", "block");
+
+
+        }
+
+        else {
+
+
+
+            $("#YouthMoreInfoSection").css("display", "none");
+
+
+        };
+
+
+        if ($.inArray('50', x) > -1 || $.inArray('49', x) > -1 || $.inArray('45', x) > -1) {
+
+            $("#MoreInfoSection").css("display", "block");
+
+        }
+        else {
+
+
+            $("#MoreInfoSection").css("display", "none");
+
+        }
+
+
+    });
+
+</script>

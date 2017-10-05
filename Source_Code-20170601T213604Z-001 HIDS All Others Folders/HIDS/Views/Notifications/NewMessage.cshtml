@@ -1,0 +1,117 @@
+﻿<style type="text/css">
+
+body{
+
+
+    background-color:#fff;
+
+}
+
+
+
+
+</style>
+
+@{
+    ViewBag.Title = "Create Notification";
+}
+
+
+
+<div><h3 style="font-family: 'Lato', sans-serif;color:#3a53c7;padding-left:20px">Configure a New Notification</h3></div>
+
+
+<div class="alert alert-info">
+
+
+    <div class="btn-group">
+        @*<button class="btn btn-info" id="NameLinkInline" type="button">Connection Dashboard</button>*@
+
+        <a style="text-decoration:none" href='@Url.Action("Manage", new { Controller = "Dashboards" })'>
+            <span class="btn btn-default">Admin Dashboard</span>
+        </a>
+
+        <a style="text-decoration:none" href='#'>
+            <span class="btn btn-warning">New Notification</span>
+        </a>
+
+    </div>
+
+</div>
+<br />
+
+
+
+
+@*<div class="row">
+    <div class="col-md-2">
+
+
+        From
+
+
+
+    </div>
+    <div class="col-md-4">
+
+        <div class="input-group btn-group">
+
+
+
+            @ViewBag.From
+
+
+        </div>
+
+
+
+    </div>
+
+</div>
+
+<br />*@
+
+
+
+
+    <div id="MessageConfigContainer"></div>
+  
+
+@section Scripts{
+
+
+
+<script type="text/javascript">
+
+
+    //$(function () {
+
+    //    $("#SendNotificationButton").click(function () {
+
+    //        var emails = $('#selectedIDsTO').val();
+    //        var emailsCC = $('#selectedIDsCC').val();
+    //        var emailsBCC = $('#selectedIDsBCC').val();
+    //        var subject = $("#PostSubject").val();
+    //        var body = $("#PostBody").val();
+
+    //        $("#SendNotificationButton").attr("target", "_blank");
+    //        $("#SendNotificationButton").attr("href", "https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=" + emails + "&cc=" + emailsCC + "&bcc=" + emailsBCC + "&su=" + subject + "&body=" + body);
+
+
+
+    //    });
+
+    //});
+
+
+    $(function () {
+
+        $('#MessageConfigContainer').load('@Url.Action("_MessageConfig", "Notifications")');
+
+    });
+
+
+    </script>
+
+    }
+

@@ -1,0 +1,254 @@
+﻿@model CTL.Models.Organization
+
+
+
+@using (Html.BeginForm("_ActivateOrgF", "Organizations", FormMethod.Post, new { id = "ActivateOrgForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.Hidden("OrganizationID", (int?)ViewBag.AOrgID)
+    @Html.Hidden("OrganizationName", (string)ViewBag.AOrgName)
+    @Html.Hidden("Active", (bool)ViewBag.Activate)
+
+
+    <div style="padding-left:12px">
+
+        <div class="row">
+
+            <div class="col-md-3">
+                Organization
+
+            </div>
+
+            <div class="col-md-9">
+
+                @Model.OrganizationName
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+            <div style="float:right">
+
+                <button type="button" id="ActivateOrgCloseButton" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="ActivateOrgButton" type="submit" class="btn btn-waring">Activate</button>
+
+
+            </div>
+        </div>
+    </div>
+}
+
+
+<script type="text/javascript">
+
+
+
+
+    $(function () {
+
+
+        $("#ActivateOrgForm").validate({
+            rules: {
+
+                //TestDate: {
+                //    //required: { depends: checkTestFieldSelected }
+                //    required: true
+
+                //},
+                //SystolicBinID1: {
+                //    required: { depends: checkSys1FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //DiastolicBinID1: {
+                //    required: { depends: checkDia1FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //SystolicBinID2: {
+                //    required: { depends: checkSys2FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //DiastolicBinID2: {
+                //    required: { depends: checkDia2FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //TotalCholesterolBinID: {
+                //    required: { depends: checkTCFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //HDLCholesterolBinID: {
+                //    required: { depends: checkHDLFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //LDLCholesterolBinID: {
+                //    required: { depends: checkFAFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //TriglyceridesBinID: {
+                //    required: { depends: checkFAFieldSelected },
+                //    range: [10, 600]
+                //    //required: true
+
+                //},
+
+                //GlucoseBinID: {
+                //    required: { depends: checkGluFieldSelected },
+                //    //range: [10, 600]
+                //    //required: true
+
+                //},
+                //A1CPercentageBinID: {
+                //    required: { depends: checkA1CFieldSelected }
+
+
+                //},
+                //WorkupStatusBinID: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupStatusDate: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupResultBinID: {
+                //    required: { depends: checkWorkupResultFieldSelected }
+
+
+                //}
+
+
+            },
+            messages: {
+
+                //TestDate: {
+                //    required: "Please select a test date"
+
+                //},
+                //SystolicBinID1: {
+                //    required: "Please enter a value greater than 0 for the Systolic Value"
+
+                //},
+                //DiastolicBinID1: {
+                //    required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                //},
+                //SystolicBinID2: {
+                //    required: "Please enter a value greater than 0 for the Systolic Value"
+
+                //},
+                //DiastolicBinID2: {
+                //    required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                //},
+                //TotalCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the Total Cholesterol Value"
+
+                //},
+                //HDLCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the HDL Cholesterol Value"
+
+                //},
+                //LDLCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the LDL Cholesterol Value"
+
+                //},
+
+                //TriglyceridesBinID: {
+
+                //    required: "Please enter a value greater than 0 for the Triglycerides Value"
+
+                //},
+                //GlucoseBinID: {
+
+                //    required: "Please enter a value greater than 0 for the Glucose Value"
+
+                //},
+
+                //A1CPercentageBinID: {
+
+                //    required: "Please enter a value for the A1C Percentage Value"
+
+                //},
+                //WorkupStatusBinID: {
+
+                //    required: "Please enter a value for Workup Status"
+
+                //},
+                //WorkupStatusDate: {
+
+                //    required: "Please enter a value for Workup Status Date"
+
+                //},
+                //WorkupResultBinID: {
+
+                //    required: "Please enter a value for Workup Result"
+
+                //}
+
+            }
+        });
+
+
+       // $("#AddPostButton").click(function (e) { e.preventDefault(); })
+
+
+        $('#ActivateOrgForm').on("submit", function (e) {
+            e.preventDefault();
+
+            if ($('#ActivateOrgForm').valid()) {
+                $.ajax({
+
+                    url: $("#ActivateOrgForm").attr('action'),
+                    type: $("#ActivateOrgForm").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#ActivateOrgForm").serialize(),
+                    success: function (data) {
+
+                        var orgname = data.Modified;
+                        var orgid = data.Modified2;
+                        //var orgid = data.Modified3;
+
+
+
+                        $('#ActiveOrganizationContainer').load('@Url.Action("_ActiveOrganizations", "Organizations")');
+
+                            toastr.success('The organization has been successfully activated.')
+
+
+                        //$('#myModal').modal('hide')
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+
+                    }
+
+                });
+            }
+
+        });
+
+
+    });
+
+
+</script>
+

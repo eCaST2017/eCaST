@@ -1,0 +1,246 @@
+﻿@model IEnumerable<CTL.ViewModels.UserProfileViewModel>
+
+@{
+    ViewBag.Title = "Active Members";
+}
+
+
+
+
+<style type="text/css">
+    .bg_mask {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        margin-top: 0px;
+        width: 981px;
+        height: 610px;
+        background: url("img_dot_white.jpg") center;
+        z-index: 0;
+        visibility: hidden;
+    }
+
+    .frontlayer {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: 70px 140px 175px 140px;
+        padding: 30px;
+        width: 700px;
+        height: 400px;
+        background-color: orange;
+        visibility: hidden;
+        border: 1px solid black;
+        z-index: 1;
+    }
+
+
+
+    label, div {
+        color: #666;
+    }
+
+
+    #AccessCoordinatorList td.sorting_1 {
+        background-color: #fff;
+        border: 1px lightgrey;
+    }
+    /*table.dataTable td{ background-color: aliceblue;  border:1px lightgrey;}*/
+    #AccessCoordinatorList tr {
+        background-color: #fff;
+        color: #666;
+    }
+
+        #AccessCoordinatorList tr:nth-child(even) {
+            background-color: #f7f7f6;
+        }
+
+
+    .img-circle {
+        border-radius: 50%;
+    }
+
+
+    .user-avatar {
+        position: relative;
+    }
+
+    .status {
+        position: absolute;
+        left: 21px;
+        bottom: -10px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        width: 16px;
+        height: 16px;
+        background-color: lawngreen;
+    }
+</style>
+
+<div style="width:99%; padding-left:12px">
+<div class="w3-card-2">
+
+
+    <div style="background-color:cornflowerblue" class="panel-heading w3-card-2">
+        <span style="color:#fff;font-family: 'Roboto', sans-serif; font-size:16px"><i style="color:#fff" class="fa fa-users fa-fw"></i>&nbsp;Help Desk Contacts &nbsp;<span style="font-size:18px;background-color:#fff;color:cornflowerblue" class="badge">@ViewBag.UserCount</span></span>
+
+    </div>
+    <!-- /.panel-heading -->
+    <div style="background-color:#fff" class="panel-body">
+
+
+
+        <table style="width:100%;  font-size:14px" id="AccessCoordinatorList">
+            <thead>
+                <tr style="background-color:#f7f7f6;">
+                  
+                    <th>
+                        Name
+                    </th>
+
+                    <th>
+                        Email
+                    </th>
+
+
+                    <th>
+                        Program(s)
+                    </th>
+
+                    <th>
+                        Phone Number
+                    </th>
+
+                    @*<th>
+                        Status
+                    </th>*@
+
+
+                    @*<th></th>*@
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+                   
+
+                    <td style="width:20%">
+
+
+                        <span style="width:30px">
+
+
+                          <img class="img-circle" style="width:30px;height:30px" src="@Html.Raw(item.profilePic)" /><span style="color:#333; font-size:large"> @item.FirstName </span>
+
+                           
+                        </span>
+
+
+                    </td>
+
+                    <td>
+
+                        <span><a target="_blank" style="text-decoration:none" href="https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&to=@item.UserName"><span class="glyphicon glyphicon-envelope"></span>&nbsp;@item.UserName</a></span>
+                    </td>
+
+
+                    <td>
+                        <span> @string.Join(",", item.RoleAList.ToArray())</span>
+                    </td>
+
+
+                    <td>
+
+                       <span id="phoneHolder_@item.Id">@item.TelephoneNumber</span>
+
+                        @*<script type="text/javascript">
+
+                            $(function () {
+
+                                var regex = /((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}/g;
+
+                                var text = $("#phoneHolder_@item.Id").html();
+
+                                text = text.replace(regex, "<a href=\"tel:$&\">$&</a>");
+
+                                $("#phoneHolder_@item.Id").html(text);
+
+
+                            });
+
+                        </script>*@
+
+
+                    </td>
+
+                    @*<td>
+                        @if (item.Active == true)
+                        {
+
+                            <span>Active</span>
+
+
+                        }
+                        else
+                        {
+
+                            <span style="color:red">Pending</span>
+
+                        }
+                    </td>*@
+
+
+                    @*<td>
+
+
+
+                        </td>*@
+
+
+                </tr>
+            }
+
+        </table>
+
+    </div>
+
+</div>
+
+    </div>
+
+
+@section Scripts{
+
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+
+
+      
+        oTable = $('#AccessCoordinatorList').dataTable({
+            "bPaginate": false
+            //"bJQueryUI": true,
+            //"sPaginationType": "full_numbers",
+            //"aaSorting": [[1, "desc"]]
+        });
+
+        oTable.fnSort([[0, 'desc']]); // Sort by first column descending
+
+
+
+
+    });
+</script>
+
+
+
+}
+
+

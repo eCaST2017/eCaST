@@ -1,0 +1,345 @@
+﻿@model CTL.ViewModels.OrganizationViewModel
+
+
+
+@using (Html.BeginForm("_CreateOrgF", "Organizations", FormMethod.Post, new { id = "AddOrganizationForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+    <div class="row">
+        <div class="col-md-2">
+
+
+            Organization Name
+
+
+
+        </div>
+        <div class="col-md-3">
+
+            @Html.TextBoxFor(model => model.OrganizationName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.OrganizationName, null, new { @class = "text-danger" })
+
+
+
+        </div>
+        <div class="col-md-2">
+
+            Organization Sub Name
+
+
+        </div>
+        <div class="col-md-3">
+
+            @Html.TextBoxFor(model => model.OrganizationSubName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.OrganizationSubName)
+
+
+        </div>
+        <div class="col-md-2">
+
+            @Html.EditorFor(model => model.Active)&nbsp;&nbsp;Active
+            @Html.ValidationMessageFor(model => model.Active)
+
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-md-2">
+
+
+            Mailing Address
+
+
+
+        </div>
+        <div class="col-md-3">
+
+            @Html.TextBoxFor(model => model.MailingAddress, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MailingAddress, null, new { @class = "text-danger" })
+
+
+
+        </div>
+        <div class="col-md-2">
+
+            City
+
+
+        </div>
+        <div class="col-md-3">
+
+            @Html.TextBoxFor(model => model.CityName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CityName)
+
+
+        </div>
+       
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-md-2">
+
+
+            State
+
+
+
+        </div>
+        <div class="col-md-3">
+
+            @Html.DropDownListFor(model => model.StateBinID, ((IEnumerable<CTL.Models.StateBin>)ViewBag.PossibleStateBins).Select(option => new SelectListItem
+            {
+                //Text = Html.DisplayTextFor(_ => option).ToString(),
+                Text = option.StateBinName,
+                Value = option.StateBinID.ToString(),
+                Selected = (Model != null) && (option.StateBinID == Model.StateBinID)
+            }), "Choose...", new { @id = "StateBinID", @class = "input-control select" })
+            @Html.ValidationMessageFor(m => m.StateBinID)
+
+
+
+        </div>
+        <div class="col-md-2">
+
+           Zipcode
+
+
+        </div>
+        <div class="col-md-3">
+
+            @Html.TextBoxFor(model => model.ZipCode, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ZipCode)
+
+
+        </div>
+
+    </div>
+    <br />
+
+
+
+    <div class="modal-footer">
+        <div style="float:right">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button id="AddOrganizationButton" type="submit" class="btn btn-success">Add</button>
+        </div>
+    </div>
+
+
+}
+
+
+
+<script type="text/javascript">
+
+    $('#Active').attr('checked', true);
+    $("#StateBinID").select2({ width: "60%" });
+
+    $(function () {
+
+
+        $("#AddOrganizationForm").validate({
+            rules: {
+
+                OrganizationName: {
+                    
+                    required: true
+
+                },
+                MailingAddress: {
+                    
+                    required: true
+
+                },
+                //DiastolicBinID1: {
+                //    required: { depends: checkDia1FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //SystolicBinID2: {
+                //    required: { depends: checkSys2FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //DiastolicBinID2: {
+                //    required: { depends: checkDia2FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //TotalCholesterolBinID: {
+                //    required: { depends: checkTCFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //HDLCholesterolBinID: {
+                //    required: { depends: checkHDLFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //LDLCholesterolBinID: {
+                //    required: { depends: checkFAFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //TriglyceridesBinID: {
+                //    required: { depends: checkFAFieldSelected },
+                //    range: [10, 600]
+                //    //required: true
+
+                //},
+
+                //GlucoseBinID: {
+                //    required: { depends: checkGluFieldSelected },
+                //    //range: [10, 600]
+                //    //required: true
+
+                //},
+                //A1CPercentageBinID: {
+                //    required: { depends: checkA1CFieldSelected }
+
+
+                //},
+                //WorkupStatusBinID: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupStatusDate: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupResultBinID: {
+                //    required: { depends: checkWorkupResultFieldSelected }
+
+
+                //}
+
+
+            },
+            messages: {
+
+                OrganizationName: {
+                    required: "Please enter an organization name"
+
+                },
+                MailingAddress: {
+                    required: "Please enter a mailing address"
+
+                },
+                //DiastolicBinID1: {
+                //    required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                //},
+                //SystolicBinID2: {
+                //    required: "Please enter a value greater than 0 for the Systolic Value"
+
+                //},
+                //DiastolicBinID2: {
+                //    required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                //},
+                //TotalCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the Total Cholesterol Value"
+
+                //},
+                //HDLCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the HDL Cholesterol Value"
+
+                //},
+                //LDLCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the LDL Cholesterol Value"
+
+                //},
+
+                //TriglyceridesBinID: {
+
+                //    required: "Please enter a value greater than 0 for the Triglycerides Value"
+
+                //},
+                //GlucoseBinID: {
+
+                //    required: "Please enter a value greater than 0 for the Glucose Value"
+
+                //},
+
+                //A1CPercentageBinID: {
+
+                //    required: "Please enter a value for the A1C Percentage Value"
+
+                //},
+                //WorkupStatusBinID: {
+
+                //    required: "Please enter a value for Workup Status"
+
+                //},
+                //WorkupStatusDate: {
+
+                //    required: "Please enter a value for Workup Status Date"
+
+                //},
+                //WorkupResultBinID: {
+
+                //    required: "Please enter a value for Workup Result"
+
+                //}
+
+            }
+        });
+
+
+       // $("#AddPostButton").click(function (e) { e.preventDefault(); })
+
+
+        $('#AddOrganizationForm').on("submit", function (e) {
+            e.preventDefault();
+
+            if ($('#AddOrganizationForm').valid()) {
+                $.ajax({
+
+                    url: $("#AddOrganizationForm").attr('action'),
+                    type: $("#AddOrganizationForm").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#AddOrganizationForm").serialize(),
+                    success: function (data) {
+
+                        var organizationname = data.Modified;
+                        var organizationid = data.Modified2;
+                        //var orgid = data.Modified3;
+
+                        var hash = 'org';
+                        $('#ActiveOrganizationContainer').load('@Url.Action("_ActiveOrganizations", "Organizations")');
+                        $('.nav-tabs a[href=' + hash + ']').tab('show');
+
+
+                            toastr.success('You have successfully added ' + organizationname + ' as a new organization.')
+
+
+                        //$('#myModal').modal('hide')
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+
+                    }
+
+                });
+            }
+
+        });
+
+
+    });
+
+
+</script>

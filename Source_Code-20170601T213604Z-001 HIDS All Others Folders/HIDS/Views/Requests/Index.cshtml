@@ -1,0 +1,134 @@
+﻿@model IEnumerable<CTL.ViewModels.RequestViewModel>
+
+@{
+    ViewBag.Title = "CMT Requests";
+}
+
+<style type="text/css">
+    table.dataTable td.sorting_1 {
+        background-color: white;
+        border-top: 1px #666;
+        border: 2px #666;
+    }
+
+    table.dataTable td {
+        background-color: white;
+        border-top: 1px #666;
+        border: 1px #666;
+    }
+
+    table.dataTable tr.odd {
+        background-color: white;
+        border-top: 1px #666;
+        border: 1px #666;
+    }
+
+    table.dataTable tr.even {
+        background-color: white;
+        border-top: 1px #666;
+        border: 1px #666;
+    }
+
+    .statusBlack {
+        color: black;
+    }
+
+    .statusRed {
+        color: red;
+    }
+
+    .statusBlue {
+        color: blue;
+    }
+
+    .statusGreen {
+        color: green;
+    }
+
+    .statusOrange {
+        color: darkred;
+    }
+</style>
+
+<div class="w3-card-2">
+    <div style="background-color:darkorange" class="panel-heading w3-card-2">
+        <span style="color:#fff;font-family: 'Roboto', sans-serif; font-size:16px"><i style="color:#fff" class="fa fa-support fa-fw"></i>&nbsp;My Support Requests &nbsp;<span style="font-size:18px;background-color:#fff;color:#0F9D58" class="badge">@ViewBag.RequestCount</span></span>
+
+    </div>
+    <!-- /.panel-heading -->
+    <div style="background-color:#fff" class="panel-body">
+
+
+        @if (ViewBag.RoleBinID == 1 || ViewBag.RoleBinID == 13)
+        {
+
+            <div>@Html.DropDownList("ProgramID", (SelectList)ViewBag.ProgramID)</div>
+            <br />
+
+        }
+
+    
+
+
+
+        <div id="RequestListContainer"></div>
+
+
+    </div>
+
+</div>
+
+<script type="text/javascript" charset="utf-8">
+
+    $(function () {
+
+
+        if ('@ViewBag.RoleBinID' == 1 || '@ViewBag.RoleBinID' == 13) {
+
+            $("#ProgramID").select2({ width: "60%" });
+            $("#ProgramID").select2().select2("val", '@ViewBag.FirstProgramID');
+            $("#ProgramID").select2({ width: "60%" });
+
+
+            $("#RequestListContainer").load("@Url.Action("_RequestList","Requests")", { 'id': '@ViewBag.FirstProgramID' },
+                          function (response, status, xhr) {
+                              if (status == "error") {
+
+                              }
+                          });
+
+        }
+        else {
+
+            $("#RequestListContainer").load("@Url.Action("_RequestList","Requests")", { 'id': 0 },
+                         function (response, status, xhr) {
+                             if (status == "error") {
+
+                             }
+                         });
+
+
+        }
+
+
+    });
+
+
+    $("#ProgramID").change(function () {
+
+
+        var pid = $(this).val();
+        $("#RequestListContainer").load("@Url.Action("_RequestList","Requests")", { 'id': pid },
+                      function (response, status, xhr) {
+                          if (status == "error") {
+
+                          }
+                      });
+
+    });
+
+
+
+
+  
+</script>

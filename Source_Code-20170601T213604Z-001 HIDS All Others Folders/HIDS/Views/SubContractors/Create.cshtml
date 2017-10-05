@@ -1,0 +1,157 @@
+﻿@model CTL.ViewModels.SubContractorViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+@using (Html.BeginForm("_AddSubContractorF", "SubContractors", FormMethod.Post, new { id = "AddSubContractorForm_" + @ViewBag.SiteID + @ViewBag.ProgramID }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+    <div class="w3-card-2">
+        <div style="background-color:#666" class="panel-heading w3-card-2">
+            <span style="color:#fff;font-family: 'Roboto', sans-serif; font-size:16px"><span id="AddEditFacLabel_@ViewBag.SiteID@ViewBag.ProgramID"><i style="color:#fff" class="fa fa-plus-circle fa-fw"></i>&nbsp;Add Facility</span></span>
+       
+        
+            <div class="pull-right"><a id="FacCollapsePanelButton_@ViewBag.SiteID@ViewBag.ProgramID" href="#"><i id="FacCollapsePanelButtonIcon_@ViewBag.SiteID@ViewBag.ProgramID" style="color:#fff" class="fa fa-arrow-circle-right fa-fw"></i></a></div>
+        
+         </div>
+        <!-- /.panel-heading -->
+
+
+        <div style="display:none" id="FacHolderContainer_@ViewBag.SiteID@ViewBag.ProgramID">
+
+            <div style="background-color:#fff" class="panel-body">
+
+
+         
+                <div id="FacInfoContainer_@ViewBag.SiteID@ViewBag.ProgramID"></div>
+
+
+
+
+            </div>
+
+        </div>
+
+        </div>
+
+            }
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        $("#FacCollapsePanelButtonIcon_@ViewBag.SiteID@ViewBag.ProgramID").rotate({
+            bind: {
+                click: function () {
+
+
+                    if ($('#FacHolderContainer_@ViewBag.SiteID@ViewBag.ProgramID').css('display') == 'none') {
+
+                        $(this).rotate({
+                            duration: 4000,
+                            angle: 0,
+                            animateTo: 90
+                        })
+
+
+                    }
+                    else {
+
+                        $(this).rotate({
+                            duration: 4000,
+                            angle: 0,
+                            animateTo: 0
+                        })
+
+                    }
+
+                }
+            }
+        });
+
+   
+
+    $('#FacInfoContainer_@ViewBag.SiteID@ViewBag.ProgramID').load('@Url.Action("_FacilityInfo", "SubContractors", new { id = ViewBag.SiteID, id2 = ViewBag.ProgramID, id3 = ViewBag.CancerTypeBinID, id4 = ViewBag.SubContractorID })');
+
+
+    $("#FacCollapsePanelButton_@ViewBag.SiteID@ViewBag.ProgramID").click(function (e) {
+
+
+        if ($('#FacHolderContainer_@ViewBag.SiteID@ViewBag.ProgramID').css('display') == 'none') {
+
+
+            $('#FacHolderContainer_@ViewBag.SiteID@ViewBag.ProgramID').css("display", "block");
+
+
+        }
+        else {
+
+
+            $('#FacHolderContainer_@ViewBag.SiteID@ViewBag.ProgramID').css("display", "none");
+
+        }
+
+        e.preventDefault(); //Prevent default click action which is causing the 
+        return false;       //page to scroll back to the top
+
+
+    });
+
+
+    $('#AddSubContractorForm_@ViewBag.SiteID@ViewBag.ProgramID').on("submit", function (evt44) {
+        evt44.preventDefault();
+        if ($('#AddSubContractorForm_@ViewBag.SiteID@ViewBag.ProgramID').valid()) {
+            $.ajax({
+
+                url: $("#AddSubContractorForm_@ViewBag.SiteID@ViewBag.ProgramID").attr('action'),
+                type: $("#AddSubContractorForm_@ViewBag.SiteID@ViewBag.ProgramID").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#AddSubContractorForm_@ViewBag.SiteID@ViewBag.ProgramID").serialize(),
+                success: function (data) {
+
+                    var status = data.Status;
+                    var agid = data.Modified;
+
+                    $('#ProgramListSection').load('@Url.Action("_ProgramManagement", "Programs", new { id = ViewBag.SiteID })');
+
+                    if (agid == null) {
+
+                        toastr.success('You have successfully added a new facility.')
+
+                    }
+                    else {
+
+
+                        toastr.success('You have successfully updated a facility.')
+
+
+                    }
+
+                }
+
+            });
+        }
+
+    });
+
+    });
+
+
+    $(document).ready(function () {
+        $('.SitePhone').mask('(999) 999-9999? x99999');
+        $('.cep').mask('99999');
+    });
+
+</script>
+
+
+
+           

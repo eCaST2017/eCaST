@@ -1,0 +1,126 @@
+﻿@model CTL.Models.Content
+
+@{
+    ViewBag.Title = "Connect To Leadership " + @Model.ContentTitle;
+}
+
+
+
+@*<style type="text/css">.slide{
+    width:560px;
+    height:392px;
+    display:inline;
+    float:left;
+}​
+			</style>*@
+
+
+
+
+
+
+
+     
+​
+
+    <div>
+
+     
+
+@*<div style="width: 100%; text-align: left; padding-left: 18px; padding-top: 0px; border: 1px solid; border-color: #666666; border-radius: 15px; box-shadow: 0px 0px 0px #000000; background-color: #ffffff;">*@
+
+
+    @*<div class="display-field">@Model.ContentBody</div>*@
+        
+    
+  @*  @if (ViewBag.PageID != 1)
+    {
+       
+        <div style="padding-left:32px;">
+        
+    <div style="font-size:35px;font-weight:100;color:#0094ff;padding-left:8px;padding-bottom:10px">
+          
+         @Model.ContentTitle
+
+        </div>
+        
+        
+        </div>
+        
+     
+        
+    }*@
+
+
+@if (ViewBag.PageID == 5)
+    {
+
+    
+    
+    
+ 
+    
+        { Html.RenderAction("Login", "Account");}
+
+}
+
+
+
+          @if (ViewBag.PageID != 5)
+    {
+    
+    
+     <div> 
+        
+          @Html.Raw(HttpUtility.HtmlDecode(Model.ContentBody))
+
+     </div>
+
+          }
+          
+          else{
+              
+              <div> 
+        
+          @Html.Raw(HttpUtility.HtmlDecode(Model.ContentBody))
+
+     </div> 
+              
+          }
+
+   
+       
+  @*  </div>*@
+ 
+           
+
+
+
+
+
+           
+
+     @*        <div class="slide-out-div" style="width:500px; z-index:999">
+            <a class="handle" href="http://link-for-non-js-users.html">Content</a>
+            <h3>Comments:</h3>
+        
+            <p>
+                @{
+    
+    
+    Html.RenderAction("Create", "SupportTickets");}
+
+
+
+            </p>
+        </div>*@
+       
+    
+   
+
+
+
+
+    </div>
+
+

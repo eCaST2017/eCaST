@@ -1,0 +1,543 @@
+@model CTL.ViewModels.UserProfileViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_ProfileLayout.cshtml";
+}
+
+<style type="text/css">
+    .select2-container .select2-choice {
+        height: 34px;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        background-color: #fff;
+        background-image: none;
+        background: #f5f2f2;
+    }
+
+
+        .select2-container .select2-choice .select2-chosen {
+            margin-top: 4px;
+        }
+
+        .select2-container .select2-choice abbr {
+            top: 13px;
+        }
+
+        .select2-container .select2-choice,
+        .select2-container .select2-choice .select2-arrow {
+            -webkit-border-radius: 0;
+            border-radius: 0px;
+            border-color: #ccc;
+        }
+
+            .select2-container .select2-choice .select2-arrow {
+                background-color: #fafafa;
+                background-image: none;
+                background: #fafafa;
+                width: 22px;
+            }
+
+                .select2-container .select2-choice .select2-arrow b > span {
+                    margin: 4px 0 0 6px;
+                }
+
+    .select2-container.select2-container-active .select2-choice {
+        border-color: #91acce;
+    }
+
+    .select2-container.select2-dropdown-open .select2-choice {
+        border-bottom-color: #ccc;
+    }
+
+    .select2-drop {
+        -webkit-border-radius: 0 !important;
+        border-radius: 0 !important;
+    }
+
+        .select2-drop:not(.select2-drop-above) {
+            margin-top: -3px;
+        }
+
+        .select2-drop .select2-results {
+            max-height: 300px;
+        }
+
+            .select2-drop .select2-results li {
+                line-height: inherit;
+                margin: 0;
+                padding: 0;
+            }
+
+    .select2-search {
+        margin: 4px 0;
+    }
+
+        .select2-search input,
+        .select2-search input:focus {
+            background-color: #fff;
+            background-image: none;
+            background: #fff;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+            border: none;
+        }
+
+    .select2-container.form-control {
+        border: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        padding: 0;
+    }
+</style>
+
+<br />
+
+
+@using (Html.BeginForm("_UpdateProfilePic", "UserProfiles", FormMethod.Post, new { id = "UpdateUserProfilePicForm", enctype = "multipart/form-data" }))
+{
+
+    
+    <br />
+    @Html.HiddenFor(X => X.Id)
+    <div class="row">
+        <div class="col-md-12">
+
+
+
+
+            <div class="fileupload fileupload-new" data-provides="fileupload">
+                <div class="fileupload-preview thumbnail" style="width: 200px; height: 200px;">
+                   
+                    <img src="@Html.Raw(Model.profilePic)"></div>
+                <div>
+
+                    @*@Html.TextBoxFor(model => model.profilePic, new { style = "width:400px" })
+                        <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file"></span>
+                         <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>*@
+
+
+                    @if (ViewBag.UUID == ViewBag.UID)
+                    {
+
+                   
+                     <input type="file" id="file00" name="file00" /><br /> <button id="UpdateProfilePicButton" type="submit" class="btn btn-success">Update Photo</button>
+
+                   
+                    }
+
+
+
+                </div>
+            </div>
+            <br />
+        </div>
+        @*<div class="col-md-9"><br /> <img style="width:180px;height:180px" src="http://dphe338/Content/UploadedFolder/QRCode.qr?u=http://dphe338/UserProfiles/Edit/@Model.Id" /></div>*@
+    </div>
+
+}
+
+
+    
+    @using (Html.BeginForm("_UpdateUserProfileF", "UserProfiles", FormMethod.Post, new { id = "UpdateUserProfileForm" }))
+    {
+
+     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+   
+
+        <div id="ProfileContainer"></div>
+
+
+
+    }
+
+<div class="modal fade" id="FirstTimeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 style="font-family: 'Roboto', sans-serif;color:#3a53c7;" class=" modal-title" id="myModalLabel">Change Your Password</h4>
+            </div>
+            <div class="modal-body">
+
+                <div id="ChangePasswordContainer"></div>
+
+
+            </div>
+
+            <div class="modal-footer">
+                <div style="float:right">
+
+                    <button type="button" id="ClosePasswordButton" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts{
+
+<script type="text/javascript">
+
+
+    window.onbeforeunload = function () {
+
+        document.getElementById('logoutForm').submit();
+
+    };
+ 
+
+    $("#UpdateProfilePicButton").click(function (e) {
+
+
+        var iStopSub = 0;
+        var sErr = "Please correct the following issues:\n\n";
+
+        var ifile00 = $("#file00").val();
+
+        if (ifile00 == "") {
+
+            iStopSub = 1;
+            sErr += "You must enter a file location" + "\n";
+
+        }
+
+      
+        if (iStopSub != 0) {
+            alert(sErr);
+            e.preventDefault();
+
+        }
+
+
+    });
+
+
+
+
+    $(function () {
+        $(".se-pre-con").fadeIn("slow");
+        $('#ProfileContainer').load('@Url.Action("_Profile", "UserProfiles", new { id = Model.Id, id2 = @ViewBag.UserCheck })');
+        $(".se-pre-con").fadeOut("slow");
+    });
+
+
+
+
+    $(function () {
+
+
+        $("#UpdateUserProfileForm").validate({
+            rules: {
+
+                FirstName: {
+                    //required: { depends: checkTestFieldSelected }
+                    required: true
+
+                },
+                //SystolicBinID1: {
+                //    required: { depends: checkSys1FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //DiastolicBinID1: {
+                //    required: { depends: checkDia1FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //SystolicBinID2: {
+                //    required: { depends: checkSys2FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //DiastolicBinID2: {
+                //    required: { depends: checkDia2FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //TotalCholesterolBinID: {
+                //    required: { depends: checkTCFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //HDLCholesterolBinID: {
+                //    required: { depends: checkHDLFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //LDLCholesterolBinID: {
+                //    required: { depends: checkFAFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //TriglyceridesBinID: {
+                //    required: { depends: checkFAFieldSelected },
+                //    range: [10, 600]
+                //    //required: true
+
+                //},
+
+                //GlucoseBinID: {
+                //    required: { depends: checkGluFieldSelected },
+                //    //range: [10, 600]
+                //    //required: true
+
+                //},
+                //A1CPercentageBinID: {
+                //    required: { depends: checkA1CFieldSelected }
+
+
+                //},
+                //WorkupStatusBinID: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupStatusDate: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupResultBinID: {
+                //    required: { depends: checkWorkupResultFieldSelected }
+
+
+                //}
+
+
+            },
+            messages: {
+
+                FirstName: {
+                    required: "Please enter your first name"
+
+                }
+                //SystolicBinID1: {
+                //    required: "Please enter a value greater than 0 for the Systolic Value"
+
+                //},
+                //DiastolicBinID1: {
+                //    required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                //},
+                //SystolicBinID2: {
+                //    required: "Please enter a value greater than 0 for the Systolic Value"
+
+                //},
+                //DiastolicBinID2: {
+                //    required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                //},
+                //TotalCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the Total Cholesterol Value"
+
+                //},
+                //HDLCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the HDL Cholesterol Value"
+
+                //},
+                //LDLCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the LDL Cholesterol Value"
+
+                //},
+
+                //TriglyceridesBinID: {
+
+                //    required: "Please enter a value greater than 0 for the Triglycerides Value"
+
+                //},
+                //GlucoseBinID: {
+
+                //    required: "Please enter a value greater than 0 for the Glucose Value"
+
+                //},
+
+                //A1CPercentageBinID: {
+
+                //    required: "Please enter a value for the A1C Percentage Value"
+
+                //},
+                //WorkupStatusBinID: {
+
+                //    required: "Please enter a value for Workup Status"
+
+                //},
+                //WorkupStatusDate: {
+
+                //    required: "Please enter a value for Workup Status Date"
+
+                //},
+                //WorkupResultBinID: {
+
+                //    required: "Please enter a value for Workup Result"
+
+                //}
+
+            }
+        });
+
+        $('#UpdateUserProfileForm').on("submit", function (evt44) {
+        //$("#UpdateProfileButton").click(function (evt44) {
+            evt44.preventDefault();
+
+
+
+
+            if ('@ViewBag.UUID' == '@ViewBag.UID') {
+
+
+                if ($('#PrivacyAgreement').is(':checked')) {
+                    $('#UpdateUserProfileForm').valid()
+
+
+
+                    //if ($('#UpdateUserProfileForm').valid()) {
+                    $.ajax({
+
+                        url: $("#UpdateUserProfileForm").attr('action'),
+                        type: $("#UpdateUserProfileForm").attr('method'),
+                        contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                        data: $("#UpdateUserProfileForm").serialize(),
+                        success: function (data) {
+
+                            var userid = data.Modified;
+                            var uid2 = data.Modified2;
+
+
+                            // $('#ProfileContainer').load('@Url.Action("_Profile", "UserProfiles")', { id: userid, id2: uid2 });
+                            url = '@Url.Action("Manage", "Dashboards", new { id = "_userid_" })';
+                            url = url.replace('_userid_', encodeURIComponent(userid));
+                            location.href = url;
+
+                            toastr.success('You have successfully updated your profile.')
+
+                            //$('#myModal').modal('hide')
+                            $('body').removeClass('modal-open');
+                            $('.modal-backdrop').remove();
+
+                        }
+
+                    });
+                }
+                else {
+
+
+                    //$("#AgreementMeesage").css("display", "block");
+                    alert("You must agree to the terms and conditions of our security policy");
+
+                }
+
+
+            }
+            else {
+
+
+           
+                    $.ajax({
+
+                        url: $("#UpdateUserProfileForm").attr('action'),
+                        type: $("#UpdateUserProfileForm").attr('method'),
+                        contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                        data: $("#UpdateUserProfileForm").serialize(),
+                        success: function (data) {
+
+                            var userid = data.Modified;
+                            var uid2 = data.Modified2;
+
+
+                            // $('#ProfileContainer').load('@Url.Action("_Profile", "UserProfiles")', { id: userid, id2: uid2 });
+                            url = '@Url.Action("Manage", "Dashboards", new { id = "_userid_" })';
+                            url = url.replace('_userid_', encodeURIComponent(userid));
+                            location.href = url;
+
+                            toastr.success('You have successfully updated your profile.')
+
+                            //$('#myModal').modal('hide')
+                            $('body').removeClass('modal-open');
+                            $('.modal-backdrop').remove();
+
+                        }
+
+                    });
+                
+
+                  }
+
+
+        });
+
+
+
+
+    });
+
+
+  
+
+</script>
+
+<script type="text/javascript">
+
+
+
+    var images = [
+"../../Content/images/pic8.jpg"
+
+    ];
+
+
+    var index = 0, oldIndex;
+
+    //$(document).ready(function () {
+
+    $(function () {
+
+
+
+        // Call backstretch for the first time,
+        // In this case, I"m settings speed of 500ms for a fadeIn effect between images.
+        index = Math.floor((Math.random() * images.length));
+        $.backstretch(images[index], {
+            speed: 1000
+        });
+
+        // Set an interval that increments the index and sets the new image
+        // Note: The fadeIn speed set above will be inherited
+        //
+
+        //setInterval(function () {
+        //    oldIndex = index;
+        //    while (oldIndex == index) {
+        //        index = Math.floor((Math.random() * images.length));
+        //    }
+        //    $.backstretch(images[index]);
+        //}, 5000);
+
+        // A little script for preloading all of the images
+        // It"s not necessary, but generally a good idea
+        $(images).each(function () {
+            $("<img />")[0].src = this;
+        });
+
+    });
+
+</script>
+
+
+}

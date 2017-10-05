@@ -1,0 +1,753 @@
+﻿@model CTL.ViewModels.AgencyRoleViewModel
+
+
+@using (Html.BeginForm("_EmailAgencyRolesF", "Sites", FormMethod.Post, new { id = "EmailAgencyRolesForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+
+    @*<div class="pull-right"><button class="btn btn-success btn-lg" id="EmailButton"><i class="fa fa-envelope"></i>&nbsp;Create Email</button></div>
+    <br />
+    <br />
+    <br />*@
+    <div class="w3-card-2">
+        <div style="background-color:#666" class="panel-heading w3-card-2">
+            <span style="color:#fff;font-family: 'Roboto', sans-serif; font-size:16px"><i style="color:#fff" class="fa fa-envelope fa-fw"></i>&nbsp;Email Builder</span>
+
+          
+        </div>
+        <!-- /.panel-heading -->
+        <div style="background-color:#fff" class="panel-body">
+
+
+
+            <div style="padding-left:10px">
+
+
+                <div id="ProgramHolder" style="display:block">
+
+                    <br />
+
+                    @*<div>Programs (Select all that apply):&nbsp;<input type="checkbox" id="checkboxPROGRAM">Select All</div>
+                    <br />*@
+
+                    <div>
+
+
+                        @Html.DropDownListFor(model => model.ProgramID, ((IEnumerable<CTL.ViewModels.ProgramViewModel>)ViewBag.PossibleProgramIDs).Select(option => new SelectListItem
+                               {
+                                   Text = option.ProgramName,
+                                   Value = option.ProgramID.ToString(),
+                                   Selected = (Model != null) && (option.ProgramID == Model.ProgramID)
+                               }), "Choose Program...", new { @id = "ProgramSelect", @class = "requiredSelect" })
+                        @Html.ValidationMessageFor(model => model.ProgramID)
+
+
+
+
+                        @*<select id='ProgramSelect' name='ProgramID' multiple="" class="NewCssdropdown"></select>*@
+                        @*@Html.DropDownList("ProgramID", (SelectList)ViewData["OptionListP"], new { @class = "NewCssdropdown", multiple = "", @id = "ProgramSelect", @style = "max-height:60px" })
+
+
+
+                        <input type="hidden" id="selectedIDsPROGRAM" />
+
+                        @Html.Hidden("ProgramList")*@
+
+
+                    </div>
+
+                </div>
+
+                <div align="center" id="LoadingSectionCON" style="display:none"><img alt="Progress" src='@Url.Content("~/Content/themes/base/images/busy.gif")' id="imgProgCON" /> </div>
+                <div id="ContractHolder" style="display:none">
+
+                    <br />
+                    <div>Contracts (Select all that apply): &nbsp;<input type="checkbox" id="checkboxCON">Select All</div>
+                    <br />
+
+                    <div class="input-group btn-group">
+
+                        <div style="height: 60px; width: 440px; overflow: scroll; overflow-y: auto; overflow-x: hidden; padding: 2px; margin: 2px">
+                            @Html.DropDownList("ContractID", (SelectList)ViewData["OptionListCON"], new { @class = "NewCssdropdown", multiple = "", @id = "ContractSelect", @style = "max-height:60px" })
+                        </div>
+
+
+                        <input type="hidden" id="selectedIDsCON" />
+
+                        @Html.Hidden("ContractList")
+
+
+                    </div>
+                </div>
+
+
+                <div align="center" id="LoadingSectionA" style="display:none"><img alt="Progress" src='@Url.Content("~/Content/themes/base/images/busy.gif")' id="imgProgA" /> </div>
+                <div id="AgencyHolder" style="display:none">
+
+                    <br />
+                    <div>Agencies (Select all that apply): &nbsp;<input type="checkbox" id="checkboxAGENCY">Select All</div>
+                    <br />
+
+                    <div class="input-group btn-group">
+
+                        <div style="height: 60px; width: 440px; overflow: scroll; overflow-y: auto; overflow-x: hidden; padding: 2px; margin: 2px">
+                            <select id='AgencySelect' name='AgencySiteID' multiple="" class="NewCssdropdown"></select>
+                        </div>
+
+
+                        <input type="hidden" id="selectedIDsAGENCY" />
+
+                        @Html.Hidden("AgencyList")
+
+
+                    </div>
+                </div>
+
+
+                <div align="center" id="LoadingSection" style="display:none"><img alt="Progress" src='@Url.Content("~/Content/themes/base/images/busy.gif")' id="imgProg" /> </div>
+                <div id="ClinicHolder" style="display:none">
+
+                    <br />
+                    <div>Sites (Select all that apply):&nbsp; <input type="checkbox" id="checkboxCLINIC">Select All</div>
+                    <br />
+
+                    <div class="input-group btn-group">
+
+
+                        @*   @Html.DropDownList("ClinicID", (SelectList)ViewData["OptionListC"], new { @class = "NewCssdropdown", multiple = "", @id = "ClinicSelect"  })*@
+
+                        <div style="height: 60px; width: 440px; overflow: scroll; overflow-y: auto; overflow-x: hidden; padding: 2px; margin: 2px">
+
+
+
+                            <select style="max-height:60px" id='SiteSelect' name='SiteID' multiple="" class="NewCssdropdown"></select>
+
+                        </div>
+
+
+                        <input type="hidden" id="selectedIDsCLINIC" />
+
+                        @Html.Hidden("ClinicList")
+
+
+                    </div>
+
+
+                </div>
+
+               
+           
+                <div align="center" id="LoadingSectionR" style="display:none"><img alt="Progress" src='@Url.Content("~/Content/themes/base/images/busy.gif")' id="imgProgR" /> </div>
+                <div id="RolesHolder" style="display:none">
+
+                    <br />
+
+                    <div>Roles (Select all that apply):&nbsp;<input type="checkbox" id="checkboxROLES">Select All</div>
+                    <br />
+
+                    <div class="input-group btn-group">
+
+
+                        <select id='RolesSelect' name='RolesSelect' multiple="" class="NewCssdropdown"></select>
+
+
+
+
+                        <input type="hidden" id="selectedIDsROLES" />
+
+                        @Html.Hidden("RolesList")
+
+
+                    </div>
+
+
+                </div>
+
+                <div align="center" id="LoadingSectionC" style="display:none"><img alt="Progress" src='@Url.Content("~/Content/themes/base/images/busy.gif")' id="imgProgC" /> </div>
+                <div id="ContactHolder" style="display:none">
+
+
+                    <br />
+
+
+
+                    <div>Personnel (Select all that apply):&nbsp;<input type="checkbox" id="checkboxUSER">Select All</div>
+                    <br />
+
+                    <div class="input-group btn-group">
+
+
+                        @*    @Html.DropDownList("test", (SelectList)ViewData["OptionList"], new { @class = "NewCssdropdown", multiple = "", @id = "EmailSelect"  })*@
+
+                        <div style="height: 100px; width: 440px; overflow: scroll; overflow-y: auto; overflow-x: hidden; padding: 2px; margin: 2px">
+
+                            <select style="max-height:100px" id='UserSelect' name='UserSelect' multiple="" class="NewCssdropdown"></select>
+
+
+                        </div>
+
+                        <input type="hidden" id="selectedIDsUSER" />
+
+                        @Html.Hidden("UserList")
+
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="EmailAgencyCloseButton" class="btn btn-default" data-dismiss="modal">Close</button>
+
+
+                @* <button type="submit" id="EmailAgencyButton" class="btn btn-success">Create Email</button>*@
+
+                <button type="button" id="ClearAgencyButton" class="btn btn-warning">Clear</button>
+
+                <a style="text-decoration:none;" href="#" id="EmailAgencyButton"><span style="font-size:16px" class="btn btn-success">Create Email</span></a>
+
+
+
+
+            </div>
+
+            </div>
+
+        </div>
+
+            }
+
+
+
+      
+            <script type="text/javascript">
+
+    // Program
+    $(function () {
+
+        $("#ProgramSelect").select2({ width: "50%" });
+        
+    });
+
+    $(function () {
+
+        var testCON = $('#ContractSelect');
+        $(testCON).select2({
+
+            width: "300px"
+        });
+
+        document.getElementById("ContractSelect").onchange = function () {
+
+            var idsCON = $(testCON).val();
+            $('#selectedIDsCON').val(idsCON);
+
+        };
+
+
+    });
+
+
+    $("#ProgramSelect").click(function () {
+
+        if ($(this).val() == 20) {
+
+
+            $('#ContractHolder').css("display", "block");
+
+
+        }
+        else {
+
+
+            $('#ContractHolder').css("display", "none");
+
+        }
+
+    });
+
+    // Contracts
+    $(function () {
+
+
+        var testCON = $('#ContractSelect');
+        $(testCON).select2({
+            width: '400px'
+        });
+
+
+        document.getElementById("ContractSelect").onchange = function () {
+
+            var idsCON = $(testCON).val();
+            $('#selectedIDsCON').val(idsCON);
+
+            $("#LoadingSection").css("display", "block");
+            $("#imgProg").show();
+
+            var valueCON = $('#selectedIDsCON').val();
+            $.getJSON('@Url.Action("GetAgencySites", "Sites")', { Contracts: valueCON },
+           function (data) {
+               var select = $("#AgencySelect");
+               select.empty();
+               // select.append($('<option/>', {
+               //   value: -1,
+               //   text: "Choose..."
+               // }));
+               $.each(data, function (index, data) {
+
+                   select.append($('<option/>', {
+                       value: data.AgencySiteID,
+                       text: data.AgencySiteName
+                   }));
+               });
+
+
+               $('#AgencyHolder').css("display", "block");
+               $("#imgProg").hide();
+               $('#checkboxCON').attr('disabled', 'disabled');
+               //if ($('#checkboxAGENCY:checked').length) {
+               //    $('#checkboxAGENCY').attr('disabled', 'disabled');
+               //}
+
+           });
+
+        };
+
+
+        $("#checkboxCON").click(function () {
+            if ($("#checkboxCON").is(':checked')) {
+                $("#ContractSelect > option").prop("selected", "selected");
+                // $("#AgencySelect").attr('size', '3');
+                $("#ContractSelect").trigger("change");
+            } else {
+                $("#ContractSelect > option").removeAttr("selected");
+                //$('#AgencySelect').attr("readonly", false);
+                $("#ContractSelect").trigger("change");
+
+            }
+        });
+
+    });
+
+
+                // Agencies
+                $(function () {
+
+
+                    var testA = $('#AgencySelect');
+                    $(testA).select2({
+                        width: '400px'
+                    });
+
+
+                    document.getElementById("AgencySelect").onchange = function () {
+
+                        var idsA = $(testA).val();
+                        $('#selectedIDsAGENCY').val(idsA);
+
+                        $("#LoadingSection").css("display", "block");
+                        $("#imgProg").show();
+
+                        var valueA = $('#selectedIDsAGENCY').val();
+                        $.getJSON('@Url.Action("GetClinics", "Sites")', { AgencySites: valueA },
+                   function (data) {
+                       var select = $("#SiteSelect");
+                       select.empty();
+                       // select.append($('<option/>', {
+                       //   value: -1,
+                       //   text: "Choose..."
+                       // }));
+                       $.each(data, function (index, data) {
+
+                           select.append($('<option/>', {
+                               value: data.SiteID,
+                               text: data.SiteName
+                           }));
+                       });
+
+
+                       $('#ClinicHolder').css("display", "block");
+                       $("#imgProg").hide();
+                       $('#checkboxAGENCY').attr('disabled', 'disabled');
+                       //if ($('#checkboxAGENCY:checked').length) {
+                       //    $('#checkboxAGENCY').attr('disabled', 'disabled');
+                       //}
+
+                   });
+
+
+
+
+
+                    };
+
+
+                    $("#checkboxAGENCY").click(function () {
+                        if ($("#checkboxAGENCY").is(':checked')) {
+                            $("#AgencySelect > option").prop("selected", "selected");
+                            // $("#AgencySelect").attr('size', '3');
+                            $("#AgencySelect").trigger("change");
+                        } else {
+                            $("#AgencySelect > option").removeAttr("selected");
+                            //$('#AgencySelect').attr("readonly", false);
+                            $("#AgencySelect").trigger("change");
+
+                        }
+                    });
+
+                });
+
+
+
+    // Clinics
+    $(function () {
+
+        var testC = $('#SiteSelect');
+        $(testC).select2({
+            width: '400px'
+        });
+
+
+        document.getElementById("SiteSelect").onchange = function () {
+
+            var idsC = $(testC).val();
+            $('#selectedIDsCLINIC').val(idsC);
+            // $('#ClinicSelect').attr("readonly", "readonly");
+            $('#AgencySelect').attr("readonly", "readonly");
+
+
+
+            $("#LoadingSectionR").css("display", "block");
+            $("#imgProgR").show();
+
+
+            var idsPROGRAM = $("#ProgramSelect").val();
+            $('#selectedIDsPROGRAM').val(idsPROGRAM);
+
+            var valueP2 = $('#selectedIDsCLINIC').val();
+            // var valueR = $('#selectedIDsPROGRAM').val();
+            var valueR = $("#ProgramSelect option:selected").text();
+            $.getJSON('@Url.Action("GetRoles", "Sites")', { Programs: valueR, Clinics: valueP2 },
+           function (data) {
+               var select = $("#RolesSelect");
+               select.empty();
+               //select.append($('<option/>', {
+               //    value: -1,
+               //    text: "Choose..."
+               //}));
+               $.each(data, function (index, data) {
+
+                   select.append($('<option/>', {
+                       value: data.RoleBinID,
+                       text: data.RoleBinName
+                   }));
+               });
+
+               $('#RolesHolder').css("display", "block");
+    $("#imgProgR").hide();
+    $('#checkboxCLINIC').attr('disabled', 'disabled');
+
+
+
+});
+
+
+
+        };
+
+
+        $("#checkboxCLINIC").click(function () {
+            if ($("#checkboxCLINIC").is(':checked')) {
+                $("#SiteSelect > option").prop("selected", "selected");
+                $("#SiteSelect").trigger("change");
+            } else {
+                $("#SiteSelect > option").removeAttr("selected");
+                $("#SiteSelect").trigger("change");
+            }
+        });
+
+    });
+
+    // Programs
+    @*$(function () {
+
+
+        var testP = $('#ProgramSelect');
+        $(testP).select2({
+            width: '400px'
+        });
+
+
+        document.getElementById("ProgramSelect").onchange = function () {
+
+            var idsP = $(testP).val();
+            $('#selectedIDsPROGRAM').val(idsP);
+            $('#ClinicSelect').attr("readonly", "readonly");
+
+            $("#LoadingSectionR").css("display", "block");
+            $("#imgProgR").show();
+
+            var valueP2 = $('#selectedIDsCLINIC').val();
+            var valueR = $('#selectedIDsPROGRAM').val();
+            $.getJSON('@Url.Action("GetRoles", "Sites")', { Programs: valueR, Clinics: valueP2 },
+           function (data) {
+               var select = $("#RolesSelect");
+               select.empty();
+               //select.append($('<option/>', {
+               //    value: -1,
+               //    text: "Choose..."
+               //}));
+               $.each(data, function (index, data) {
+
+                   select.append($('<option/>', {
+                       value: data.RoleBinID,
+                       text: data.RoleBinName
+                   }));
+               });
+
+               $('#RolesHolder').css("display", "block");
+               $("#imgProgR").hide();
+               $('#checkboxPROGRAM').attr('disabled', 'disabled');
+
+           });
+
+
+
+        };
+
+
+        $("#checkboxPROGRAM").click(function () {
+            if ($("#checkboxPROGRAM").is(':checked')) {
+                $("#ProgramSelect > option").prop("selected", "selected");
+                $("#ProgramSelect").trigger("change");
+            } else {
+                $("#ProgramSelect > option").removeAttr("selected");
+                $("#ProgramSelect").trigger("change");
+            }
+        });
+
+    });*@
+
+
+    // Roles
+    $(function () {
+
+
+        var testR = $('#RolesSelect');
+        $(testR).select2({
+            width: '400px'
+        });
+
+
+        document.getElementById("RolesSelect").onchange = function () {
+
+            var idsR = $(testR).val();
+            $('#selectedIDsROLES').val(idsR);
+            $('#ProgramSelect').attr("readonly", "readonly");
+
+            $("#LoadingSectionC").css("display", "block");
+            $("#imgProgC").show();
+
+            var valueP2 = $('#selectedIDsCLINIC').val();
+            // var valueR = $('#selectedIDsPROGRAM').val();
+            var valueR = $("#ProgramSelect option:selected").text();
+            var valueR2 = $('#selectedIDsROLES').val();
+            $.post('@Url.Action("GetContacts", "Sites")', { Programs: valueR, Clinics: valueP2, Roles: valueR2 },
+           function (data) {
+               var select = $("#UserSelect");
+               select.empty();
+               //select.append($('<option/>', {
+               //    value: -1,
+               //    text: "Choose..."
+               //}));
+               $.each(data, function (index, data) {
+
+                   select.append($('<option/>', {
+                       value: data.Email,
+                       text: data.FirstName
+                   }));
+               });
+
+               $('#ContactHolder').css("display", "block");
+               $("#imgProgC").hide();
+               $('#checkboxROLES').attr('disabled', 'disabled');
+
+           });
+
+
+        };
+
+
+        $("#checkboxROLES").click(function () {
+            if ($("#checkboxROLES").is(':checked')) {
+                $("#RolesSelect > option").prop("selected", "selected");
+                $("#RolesSelect").trigger("change");
+            } else {
+                $("#RolesSelect > option").removeAttr("selected");
+                $("#RolesSelect").trigger("change");
+            }
+        });
+
+    });
+
+
+    // Users
+    $(function () {
+
+
+        var test = $('#UserSelect');
+        $(test).select2({
+            width: '400px'
+        });
+
+
+        document.getElementById("UserSelect").onchange = function () {
+
+            var ids = $(test).val();
+            $('#selectedIDsUSER').val(ids);
+            $('#RolesSelect').attr("readonly", "readonly");
+
+        };
+
+
+        $("#checkboxUSER").click(function () {
+            if ($("#checkboxUSER").is(':checked')) {
+                $("#UserSelect > option").prop("selected", "selected");
+                $("#UserSelect").trigger("change");
+            } else {
+                $("#UserSelect > option").removeAttr("selected");
+                $("#UserSelect").trigger("change");
+            }
+        });
+
+    });
+
+    $(function () {
+
+        $("#EmailAgencyButton").click(function () {
+
+            var emails = $('#selectedIDsUSER').val();
+
+            $("#EmailAgencyButton").attr("target", "_blank");
+            $("#EmailAgencyButton").attr("href", "https://mail.google.com/mail/?view=cm&fs=1&tf=1&bcc=" + emails);
+
+
+
+        });
+
+
+        $("#ClearAgencyButton").click(function () {
+
+
+            $('#ContentContainer').load('@Url.Action("_EmailBuilder", "Sites")');
+            $('#ClinicHolder').css("display", "none");
+            $('#ProgramHolder').css("display", "none");
+            $('#RolesHolder').css("display", "none");
+            $('#ContactHolder').css("display", "none");
+
+        });
+
+
+
+    });
+
+
+            </script>
+
+
+            <script type='text/javascript'>
+
+                @*$.getJSON('@Url.Action("GetAgencySites", "Sites")', {}, function (agencysites) {
+                    var list = $('select#AgencySelect');
+                    list.find('option').remove();
+                    //list.append($('<option/>', {
+                    //    value: -1,
+                    //    text: "Choose..."
+                    //}));
+                    $(agencysites).each(function (index, agencysite) {
+                        list.append('<option value="' + agencysite.AgencySiteID + '">' + agencysite.AgencySiteName + '</option>');
+
+                    });
+
+                });*@
+
+
+                $("#EmailAgencyCloseButton").click(function () {
+
+
+
+                        
+                        $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+                        $("#ContentContainer").load("@Url.Action("Index", "AgencySites")",
+                                                         function (response, status, xhr) {
+                                                             if (status == "error") {
+                                                                 //   alert("An error occurred while loading the results.");
+                                                             }
+                                                             $("#ContentContainer").show(500);
+                                                         });
+
+                      $("#EmailButton").css("display", "block");
+
+                    
+                });
+
+            </script>
+
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+
+        $("#EmailAgencyRolesForm").validate({
+            rules: {
+
+
+            },
+            messages: {
+
+
+
+            }
+        });
+
+        $('#EmailAgencyRolesForm').on("submit", function (evt44) {
+            evt44.preventDefault();
+            if ($('#EmailAgencyRolesForm').valid()) {
+                $.ajax({
+
+                    url: $("#EmailAgencyRolesForm").attr('action'),
+                    type: $("#EmailAgencyRolesForm").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#EmailAgencyRolesForm").serialize(),
+                    success: function (data) {
+
+                        var clinicid = data.Modified;
+
+
+                        $('#ProgramListSection').load('@Url.Action("_ProgramList", "Sites")', { id: clinicid });
+
+                        toastr.success('You have successfully updated facilities for this clinic.')
+
+                        //$('#myModal').modal('hide')
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+
+                    }
+
+                });
+            }
+
+        });
+
+
+    });
+
+
+</script>

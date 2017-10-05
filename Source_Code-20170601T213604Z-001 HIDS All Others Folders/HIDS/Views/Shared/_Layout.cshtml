@@ -1,0 +1,347 @@
+﻿@using Microsoft.AspNet.Identity
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Description"
+          content="Colorado Department of Public Health and Environment -  Health Informatics Data Systems  " />
+    <meta name="Keywords" content=" CDPHE, Colorado" />
+    <title>@ViewBag.Title - CDPHE Health Informatics Data Systems</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href='https://fonts.googleapis.com/css?family=Roboto:700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Sonsie+One' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href=' https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+   
+    <style type="text/css">
+
+        body{
+
+
+        background-color:#fff;
+        font-family: 'Roboto', sans-serif;
+        
+        }
+
+           /* Paste this css to your style sheet file or under head tag */
+/* This only works with JavaScript, 
+if it's not present, don't show loader */
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url(../../Content/images/loader-64x/Preloader_2.gif) center no-repeat #fff;
+}
+
+
+    </style>
+
+
+</head>
+<body>
+
+
+    <div class="se-pre-con"></div>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                @if (Request.IsAuthenticated)
+                {
+
+
+
+                    
+
+                        <div class="hidden-xs hidden-sm">
+                            <a style="font-family: 'Roboto', sans-serif;color:#666;font-weight:bold" class="navbar-brand" href="@Url.Action("Index","Home")"><img src="~/Content/images/HIDS.png" /></a>
+                        </div>
+
+                        <div class="visible-xs visible-sm">
+                            <a style="font-family: 'Roboto', sans-serif;color:#666;font-weight:bold" class="navbar-brand" href="@Url.Action("Index","Home")"><img src="~/Content/images/iconCL2.png" />&nbsp;<span style="color:#4679B2">Health Informatics</span></a>
+                        </div>
+
+                   
+
+
+
+                }
+                else
+                {
+
+                    <div class="hidden-xs hidden-sm">
+                        <a style="font-family: 'Roboto', sans-serif;color:#666;font-weight:bold" class="navbar-brand" href="@Url.Action("Index","Home")"><img src="~/Content/images/HIDS.png" /></a>
+                    </div>
+
+                    <div class="visible-xs visible-sm">
+                        <a style="font-family: 'Roboto', sans-serif;color:#666;font-weight:bold" class="navbar-brand" href="@Url.Action("Index","Home")"><img src="~/Content/images/iconCL2.png" />&nbsp;<span style="color:#4679B2;padding-top:10px">HIDS</span></a>
+                    </div>
+
+
+                }
+               
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+    <div class="hidden-xs hidden-sm visible">
+        <br />
+        <br />
+        <br />
+    </div>
+
+    <div style="padding:8px">
+
+        <div style="border-radius:5px" class="navbar-inverse navbar-collapse collapse">
+
+            @Html.Partial("_LoginPartial")
+        </div>
+
+
+    </div>
+
+
+
+    <div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 style="font-family: 'Source Sans Pro', sans-serif;color:#666;" class=" modal-title" id="myModalLabel">Access Your Account</h3>
+                </div>
+                <div class="modal-body">
+
+                    @*<div id="Login1Section"></div>*@
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Carousel
+    ================================================== -->
+    @*<div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+            <ol class="carousel-indicators"></ol>
+            <div class="carousel-inner">
+                <div class="item active">
+
+                    <img class="img-responsive" src="~/css/images/bg1_1.jpg" alt="First slide">
+
+                </div>
+
+            </div>
+
+        </div>*@
+
+
+    <div>
+
+
+
+        @RenderBody()
+
+
+
+    </div>
+
+    <br />
+
+
+    <div align="right" style="background-color:#000; opacity:0.7; color:#fff; padding-right:10px" class="footer navbar-fixed-bottom">&copy; @DateTime.Now.Year &nbsp;&nbsp;<a target="_blank" style="color:#fff;text-decoration:none" href="https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&to=cdphe_healthinformatics@state.co.us"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Colorado Health Informatics Data Systems</a></div>
+
+
+
+    @*<div style="height:500px; width:100%;border-top-style:solid; border-top: thick solid #9c9494;border-top-width:5px; background-color:#666;color:#fff">*@
+        @*<br />
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <div align="center"><h2 style="color:#fff;font-family:'Roboto';"><span class="glyphicon glyphicon-facetime-video"></span>&nbsp;Training</h2></div>
+                <div align="center"><hr /></div>
+
+                <div class="row">
+                    <div class="col-md-2"><img src="~/Content/images/youtube.png" /></div>
+                    <div style="padding-top:10px" class="col-md-10"><h4 style="color:#fff;font-family:'Roboto';">eCaST Training Video Series</h4></div>
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div align="center"><h2 style="color:#fff;font-family:'Roboto';"><span class="glyphicon glyphicon-user"></span>&nbsp;Support</h2></div>
+                <div align="center"><hr /></div>
+
+
+                <div class="row">
+
+                    <div style="padding-top:10px" class="col-md-12"><h4 style="color:#fff;font-family:'Roboto';">eCaST Help Desk Number: (303) 692-6256</h4></div>
+
+                    <div style="padding-top:10px" class="col-md-12"><h4 style="color:#fff;font-family:'Roboto';">iCare Data System Help Desk Number: (303) 692-6256</h4></div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div align="center"><h2 style="color:#fff;font-family:'Roboto';"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;FAQs</h2></div>
+                <div align="center"><hr /></div>
+
+                <div class="row">
+
+                    <div style="padding-top:10px" class="col-md-12"><h4 style="color:#fff;font-family:'Roboto';">How do I gain access to an application?</h4></div>
+
+
+                </div>
+
+
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+        <div class="hidden-sm hidden-xs" style="vertical-align:baseline">
+
+            <br />
+            <br />
+            <br />
+
+            <div style="padding-right:12px" align="right"><a target="_blank" href="https://www.colorado.gov/cdphe"><img src="~/Content/images/cphi.png" /></a></div>
+
+
+        </div>*@
+
+
+
+    @*</div>*@
+
+
+
+
+    <script>
+
+
+
+
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-65083906-1', 'auto');
+        ga('send', 'pageview');
+
+
+     
+
+    </script>
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jquerycustom")
+    @RenderSection("scripts", required: false)
+
+
+    <script type="text/javascript">
+
+        //paste this code under the head tag or in a separate js file.
+        // Wait for window load
+        $(window).load(function () {
+            // Animate loader off screen
+            $(".se-pre-con").fadeOut("slow");
+        });
+
+
+    </script>
+
+
+</body>
+</html>
+
+
+@*<script type="text/javascript">
+
+    $(function () {
+
+
+        $("#LoginButton").click(function () {
+
+            $('#Login1Section').load('@Url.Action("Login", "Account")');
+
+        });
+
+
+    });
+
+
+
+
+</script>*@
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        $('#LoginModal').on('shown.bs.modal', function () {
+            $(this).find('.modal-dialog').css({
+                //width: 'auto',
+                width: '92%',
+                height: 'auto',
+                'max-height': '100%'
+            });
+        });
+
+
+
+
+
+    });
+
+   
+</script>
+
+
+

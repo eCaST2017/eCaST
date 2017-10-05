@@ -1,0 +1,270 @@
+﻿@using Microsoft.AspNet.Identity
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Description"
+          content="" />
+    <meta name="Keywords" content="" />
+    <title>@ViewBag.Title - Health Informatics Data Systems</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href='https://fonts.googleapis.com/css?family=Roboto:700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Sonsie+One' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+   
+    <style type="text/css">
+        body {
+            background-color: #fff;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .boxshadow {
+    
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, .5);
+   
+    
+}
+
+
+.img-circle {
+    border-radius: 50%;
+}
+
+   /* Paste this css to your style sheet file or under head tag */
+/* This only works with JavaScript, 
+if it's not present, don't show loader */
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url(../../Content/images/loader-64x/Preloader_2.gif) center no-repeat #fff;
+}
+
+
+
+    </style>
+
+
+
+  
+</head>
+<body>
+    <div class="se-pre-con"></div>
+    <div style="background-color:#f7f7f6" id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-fixed-top boxshadow" role="navigation" style="margin-bottom: 0; border-bottom-color:#fff;border-bottom-width:1px;">
+            <div style="border-bottom-width:5px; border-bottom-color:#9c9494" class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <br />
+
+                @*@if (ViewBag.FTLoggedIn != true)
+                {*@
+
+                    <span><img src="~/Content/images/iconCL2.png" />&nbsp;<span style="color:#666; font-family: 'Roboto', sans-serif; font-size:18px;">Health Informatics Data Systems</span></span>
+                    
+                @*}
+                else
+                {*@
+
+                    
+                    @*<a style="text-decoration:none;" href="@Url.Action("Manage","Dashboards")">
+                        <img src="~/Content/images/iconCL2.png" />&nbsp;<span style="color:#666; font-family: 'Roboto', sans-serif; font-size:18px;">Health Informatics Data Systems</span>
+                    </a>*@
+
+                  
+
+                @*}*@
+            </div>
+
+
+            <!-- /.navbar-header -->
+            <ul class="nav navbar-top-links navbar-right hidden-xs">
+
+
+                @if (ViewBag.LoginUserCheck == true)
+                {
+
+                  
+                  
+                   
+                    <li>
+
+                        <a style="border-radius:5px; cursor:pointer" id="StopImpersonationButton" data-toggle="modal" data-target="#StopImpersonationModal">
+                            <span style="color:red;font-weight:bold"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;Stop Impersonation </span>
+                        </a>
+
+
+
+                    </li>
+                    
+                
+
+
+                }
+
+
+                <li class="dropdown">
+                    <a style="font-size:24px;color:#ccc;" href='@Url.Action("Edit", new { Controller = "UserProfiles", id = User.Identity.GetUserId() })'>
+
+
+
+                     <img class="img-circle" style="width:30px;height:30px" src="@Html.Raw(ViewBag.ProfilePic)" />
+
+
+
+
+                    </a>
+
+
+                </li>
+
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a style="font-size:20px;color:#ccc; opacity:0.5" class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span style="color:red" class="glyphicon glyphicon-remove-circle"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            @*<a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>*@
+                            @Html.Partial("_LoginPartial")
+                        </li>
+                        @*<li>
+                                <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            </li>*@
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+
+
+            <div id="NavBarContainer"></div>
+
+
+
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div style="background-color:#fff" id="page-wrapper">
+            @RenderBody()
+        </div>
+
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- Add Request Modal -->
+    <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="myModalLabel">Create</h3>
+                </div>
+                <div id="RequestContainer" class="modal-body">
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+
+
+    <div class="modal fade" id="StopImpersonationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="myModalLabel">Stop Impersonation </h3>
+                </div>
+
+                <div id="StopImpersonationContainer"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jquerycustom")
+    @RenderSection("scripts", required: false)
+
+
+</body>
+</html>
+
+
+<script type="text/javascript">
+
+    //paste this code under the head tag or in a separate js file.
+    // Wait for window load
+    $(window).load(function () {
+        // Animate loader off screen
+        $(".se-pre-con").fadeOut("slow");
+    });
+
+
+</script>
+
+<script type="text/javascript">
+
+
+
+    $(function () {
+
+
+        $('#NavBarContainer').load('@Url.Action("_ProfileNavBar", "Dashboards")');
+
+
+
+
+
+    });
+
+</script>
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+
+        $("#StopImpersonationButton").click(function () {
+
+
+            $('#StopImpersonationContainer').load('@Url.Action("StopImpersonation", "UserProfiles", new { id = @ViewBag.UserName })');
+
+
+
+        });
+
+
+    });
+
+</script>
+
+
+
+

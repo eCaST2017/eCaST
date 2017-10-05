@@ -1,0 +1,11 @@
+@model EncaustiCreations.Models.Screen
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+ @Html.Raw(HttpUtility.HtmlDecode(Model.ScreenContent))
+
+   
+

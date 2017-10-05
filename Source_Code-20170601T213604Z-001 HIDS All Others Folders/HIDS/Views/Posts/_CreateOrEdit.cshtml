@@ -1,0 +1,1306 @@
+@model CTL.ViewModels.PostViewModel
+@using Kendo.Mvc
+
+<style type="text/css">
+
+      .select2-container .select2-choice {
+    height: 34px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background-color: #fff;
+    background-image: none;
+    background: #f5f2f2;
+}
+
+
+.select2-container .select2-choice .select2-chosen { margin-top: 4px }
+.select2-container .select2-choice abbr { top: 13px }
+.select2-container .select2-choice,
+.select2-container .select2-choice .select2-arrow {
+    -webkit-border-radius: 0;
+    border-radius: 0px;
+    border-color: #ccc;
+}
+ 
+.select2-container .select2-choice .select2-arrow {
+    background-color: #fafafa;
+    background-image: none;
+    background: #fafafa;
+    width: 22px;
+}
+ 
+.select2-container .select2-choice .select2-arrow b>span { margin: 4px 0 0 6px }
+.select2-container.select2-container-active .select2-choice { border-color: #91acce }
+.select2-container.select2-dropdown-open .select2-choice { border-bottom-color: #ccc }
+.select2-drop {
+    -webkit-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+ 
+.select2-drop:not(.select2-drop-above) { margin-top: -3px }
+.select2-drop .select2-results { max-height: 300px }
+.select2-drop .select2-results li {
+    line-height: inherit;
+    margin: 0;
+    padding: 0;
+}
+ 
+.select2-search { margin: 4px 0 }
+.select2-search input,
+.select2-search input:focus {
+    background-color: #fff;
+    background-image: none;
+    background: #fff;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border: none;
+}
+
+    .select2-container.form-control {
+        border: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        padding: 0;
+    }
+
+
+</style>
+
+@*@Html.Hidden("OptionsUrl", (SelectList)@ViewBag.Options)*@
+
+<div class="row">
+  <div class="col-md-2">
+      
+      
+   Posting Start Date
+      @Html.ValidationMessageFor(model => model.OpenDate, null, new { @class = "text-danger" })
+
+
+  </div>
+  <div class="col-md-3">
+      
+      @Html.TextBoxFor(model => model.OpenDate)
+   
+
+
+
+  </div>
+  <div class="col-md-2">
+      
+    Posting End Date
+      @Html.ValidationMessageFor(model => model.ExpirationDate)
+
+  </div>
+  <div class="col-md-3">
+      
+     @Html.EditorFor(model => model.ExpirationDate)
+   
+
+
+  </div>
+    <div class="col-md-2">
+
+       @Html.EditorFor(model => model.Active)&nbsp;&nbsp;Active
+        @Html.ValidationMessageFor(model => model.Active)
+
+    </div>
+</div>
+<br />
+
+
+<div class="row">
+
+    <div class="col-md-2">
+
+       Type of Posting
+        @Html.ValidationMessageFor(model => model.PostTypeID)
+
+    </div>
+    <div class="col-md-8">
+
+        @Html.DropDownListFor(model => model.PostTypeID, ((IEnumerable<CTL.Models.PostType>)ViewBag.PossiblePostTypes).Select(option => new SelectListItem
+    {
+        //Text = Html.DisplayTextFor(_ => option).ToString(),
+        Text = option.PostTypeName,
+        Value = option.PostTypeID.ToString(),
+        Selected = (Model != null) && (option.PostTypeID == Model.PostTypeID)
+    }), "Choose...")
+       
+
+
+        </div>
+
+
+    </div>
+
+<br />
+
+<div class="row">
+    <div class="col-md-2">
+
+
+        Opportunity Start Date
+
+
+
+    </div>
+    <div class="col-md-4">
+
+        @Html.TextBoxFor(model => model.OpportunityOpenDate)
+        @Html.ValidationMessageFor(model => model.OpportunityOpenDate)
+
+
+
+    </div>
+    <div class="col-md-2">
+
+        Opportunity End Date
+
+
+    </div>
+    <div class="col-md-4">
+
+        @Html.EditorFor(model => model.OpportunityExpirationDate)
+        @Html.ValidationMessageFor(model => model.OpportunityExpirationDate)
+
+
+    </div>
+</div>
+<br />
+
+
+<hr />
+
+<div class="editor-label">
+   @* @Html.LabelFor(model => model.PostTitle)*@
+    Opportunity Description
+</div>
+<br />
+<div class="editor-field">
+    @Html.TextAreaFor(model => model.PostTitle, new { @style="width:90%" })
+    @Html.ValidationMessageFor(model => model.PostTitle)
+</div>
+
+<hr />
+
+
+<div class="editor-label">
+    @*@Html.LabelFor(model => model.PostContent)*@
+    Goal and Purpose
+</div>
+<br />
+
+<div>
+
+    @Html.TextAreaFor(model => model.PostContent, new { @style = "width:90%;" })
+
+@*@(Html.Kendo().Editor()
+      .Name("PostContent")
+      .HtmlAttributes(new { style = "width: 90%;height:90px" })
+    .ImageBrowser(imageBrowser => imageBrowser
+    .Image("~/Content/UserFiles/Images/{0}")    
+    .Read("Read", "ImageBrowser")
+    .Create("Create", "ImageBrowser")
+    .Destroy("Destroy", "ImageBrowser")
+    .Upload("Upload", "ImageBrowser")
+    .Thumbnail("Thumbnail", "ImageBrowser"))
+)*@
+
+</div>
+ @*@(Html.Kendo().EditorFor(model => model.PostContent).Name("PostContent")
+    .HtmlAttributes(new { style = "width:100%;height:600px;margin-left:20px;" }).Tools(tools => tools
+          .SubScript()
+          .SuperScript()
+          .ViewHtml())
+
+    )*@
+
+    @Html.ValidationMessageFor(model => model.PostContent)
+
+
+
+@*<div class="editor-field">
+    @Html.TextAreaFor(model => model.PostContent)
+    @Html.ValidationMessageFor(model => model.PostContent)
+</div>*@
+
+
+@*<div class="editor-label">
+    @Html.LabelFor(model => model.ExpirationDate)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.ExpirationDate)
+    @Html.ValidationMessageFor(model => model.ExpirationDate)
+</div>*@
+
+
+<hr />
+<div class="editor-label">
+
+    Focus Area
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+
+
+
+        *Select the focus areas in which you would like this post to be categorized 
+
+
+
+    </div>
+    <br />
+    </div>
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="input-group btn-group">
+
+
+            @Html.DropDownList("testFA", (SelectList)ViewData["OptionListFA"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+           @*&nbsp; <input type="checkbox" id="checkboxFA">Select All*@
+            <input type="hidden" id="selectedIDsFA" />
+
+
+
+        </div>
+
+
+
+    </div>
+
+</div>
+<br />
+
+<div id="MoreInfoSection" style="display:none">
+    <div class="editor-label">
+
+        <h3 style="font-family: 'Lato', sans-serif;">More of what I like</h3>
+    </div>
+    <br />
+
+
+
+    <div id="WomenMoreInfoSection" style="display:none">
+
+        <div class="row">
+            <div class="col-md-2">
+
+
+                Women's focus Areas
+
+
+
+            </div>
+            <div class="col-md-4">
+
+                <div class="input-group btn-group">
+
+
+                    @Html.DropDownList("testFMW", (SelectList)ViewData["OptionListFMW"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+                    <input type="hidden" id="selectedIDsFMW" />
+
+
+
+                </div>
+
+
+                <div>
+                    <input type="checkbox" id="checkboxFMW">
+                    Select All
+
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+        <br />
+
+    </div>
+
+
+    <div id="YouthMoreInfoSection" style="display:none">
+
+        <div class="row">
+            <div class="col-md-2">
+
+
+                Youth focus Areas
+
+
+
+            </div>
+            <div class="col-md-4">
+
+                <div class="input-group btn-group">
+
+
+                    @Html.DropDownList("testFMY", (SelectList)ViewData["OptionListFMY"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+                    <input type="hidden" id="selectedIDsFMY" />
+
+
+
+                </div>
+
+
+                <div>
+                    <input type="checkbox" id="checkboxFMY">
+                    Select All
+
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+        <br />
+
+    </div>
+
+    <div id="YoungChildrenMoreInfoSection" style="display:none">
+
+        <div class="row">
+            <div class="col-md-2">
+
+
+                Young Children focus Areas
+
+
+
+            </div>
+            <div class="col-md-4">
+
+                <div class="input-group btn-group">
+
+
+                    @Html.DropDownList("testFMYC", (SelectList)ViewData["OptionListFMYC"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+                    <input type="hidden" id="selectedIDsFMYC" />
+
+
+
+                </div>
+
+
+                <div>
+                    <input type="checkbox" id="checkboxFMYC">
+                    Select All
+
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+        <br />
+
+    </div>
+
+
+</div>
+
+
+
+<hr />
+<div class="editor-label">
+   
+   Opportunity Details
+</div>
+<br />
+
+<div class="row">
+  <div class="col-md-2">
+      
+      
+    Meeting Times
+
+
+
+  </div>
+  <div class="col-md-4">
+      
+          <div class="input-group btn-group">
+							
+     
+               @Html.DropDownList("testMT", (SelectList)ViewData["OptionListMT"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add"  })
+            
+                    <input type="checkbox" id="checkboxMT" >Select All
+ <input type="hidden" id="selectedIDsMT"/>
+
+
+
+            </div>
+     
+     
+
+  </div>
+  
+</div>
+<br />
+
+<div class="row">
+  <div class="col-md-2">
+      
+      
+    Meeting Format
+
+
+
+  </div>
+  <div class="col-md-4">
+      
+          <div class="input-group btn-group">
+							
+     
+               @Html.DropDownList("testMF", (SelectList)ViewData["OptionListMF"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add"  })
+            
+                    <input type="checkbox" id="checkboxMF" >Select All
+ <input type="hidden" id="selectedIDsMF"/>
+
+
+
+            </div>
+     
+     
+
+  </div>
+  
+</div>
+<br />
+
+<div class="row">
+  <div class="col-md-2">
+      
+      
+    Expected Deliverables
+
+
+
+  </div>
+  <div class="col-md-4">
+      
+          <div class="input-group btn-group">
+							
+     
+               @Html.DropDownList("testED", (SelectList)ViewData["OptionListED"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add"  })
+            
+                    <input type="checkbox" id="checkboxED" >Select All
+ <input type="hidden" id="selectedIDsED"/>
+
+
+
+            </div>
+     
+     
+
+  </div>
+  
+</div>
+<br />
+<div class="row">
+  <div class="col-md-2">
+      
+      
+    Compensation
+
+
+
+  </div>
+  <div class="col-md-4">
+      
+          <div class="input-group btn-group">
+							
+     
+               @Html.DropDownList("testCER", (SelectList)ViewData["OptionListCER"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add"  })
+            
+                    <input type="checkbox" id="checkboxCER" >Select All
+ <input type="hidden" id="selectedIDsCER"/>
+
+
+
+            </div>
+     
+     
+
+  </div>
+  
+</div>
+<hr />
+
+<div class="editor-label">
+   
+    Core Competencies
+</div>
+<br />
+
+<div class="row">
+  <div class="col-md-2">
+      
+      
+    Skills
+
+
+
+  </div>
+  <div class="col-md-4">
+      
+          <div class="input-group btn-group">
+							
+     
+               @Html.DropDownList("test", (SelectList)ViewData["OptionList"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add"  })
+            
+ <input type="checkbox" id="checkbox" >Select All
+ <input type="hidden" id="selectedIDs"/>
+
+
+
+            </div>
+     
+     
+
+  </div>
+  
+</div>
+<br />
+
+<div class="row">
+  <div class="col-md-2">
+      
+      
+    Knowledge
+
+
+
+  </div>
+  <div class="col-md-4">
+      
+          <div class="input-group btn-group">
+							
+     
+               @Html.DropDownList("testK", (SelectList)ViewData["OptionListK"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add"  })
+            
+         <input type="checkbox" id="checkboxK" >Select All
+ <input type="hidden" id="selectedIDsK"/>
+
+
+
+            </div>
+     
+     
+
+  </div>
+  
+</div>
+<br />
+<div class="row">
+  <div class="col-md-2">
+      
+      
+    Abilities
+
+
+
+  </div>
+  <div class="col-md-4">
+      
+          <div class="input-group btn-group">
+							
+     
+               @Html.DropDownList("testA", (SelectList)ViewData["OptionListA"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add"  })
+            
+               <input type="checkbox" id="checkboxA" >Select All
+ <input type="hidden" id="selectedIDsA"/>
+
+
+
+            </div>
+     
+     
+
+  </div>
+  
+</div>
+<br />
+
+
+<hr />
+
+<div class="editor-label">
+   
+    Location
+</div>
+<br />
+
+<div class="row">
+  <div class="col-md-2">
+      
+      
+    County(ies)
+
+
+
+  </div>
+  <div class="col-md-4">
+      
+          <div class="input-group btn-group">
+							
+     
+               @Html.DropDownList("testC", (SelectList)ViewData["OptionListCounty"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add"  })
+            
+                    <input type="checkbox" id="checkboxC" >Select All
+ <input type="hidden" id="selectedIDsC"/>
+
+
+
+            </div>
+     
+     
+
+  </div>
+  
+</div>
+<br />
+
+
+@Html.Hidden("Youth")
+@Html.Hidden("YoungChildren")
+@Html.Hidden("Women")
+@Html.Hidden("FocusAreas")
+@Html.Hidden("MeetingTimes")
+@Html.Hidden("MeetingFormat")
+@Html.Hidden("ExpectedDeliveries")
+@Html.Hidden("Compensation")
+@Html.Hidden("Skills")
+@Html.Hidden("Knowledge")
+@Html.Hidden("Abilities")
+@Html.Hidden("Counties")
+@Html.Hidden("DateUpdated")
+@Html.Hidden("UpdatedBy")
+@Html.Hidden("DateCreated")
+@Html.Hidden("CreatedBy")
+
+
+
+
+
+
+    <script type="text/javascript">
+
+
+        $(function () {
+
+
+            $('#PostContent').redactor();
+
+
+        });
+
+
+
+    $(function () {
+
+
+        $('#Active').prop('checked', true);
+
+        //var OptionsUrl = $("#OptionsUrl").val();
+
+        var data = '@ViewBag.OptionsS';
+        //var data = OptionsUrl;
+
+        //Make an array
+        var dataarray = data.split(",");
+
+        // Set the value
+        $("#test").val(dataarray);
+
+
+        var test = $('#test');
+        $(test).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("test").onchange = function () {
+
+            var ids = $(test).val();
+            $('#selectedIDs').val(ids);
+
+        };
+
+
+        $("#checkbox").click(function () {
+            if ($("#checkbox").is(':checked')) {
+                $("#test > option").prop("selected", "selected");
+                $("#test").trigger("change");
+            } else {
+                $("#test > option").removeAttr("selected");
+                $("#test").trigger("change");
+            }
+        });
+
+
+
+        //Make an array
+        var dataarrayFMW = data.split(",");
+
+        // Set the value
+        $("#testFMW").val(dataarrayFMW);
+
+
+        var testFMW = $('#testFMW');
+        $(testFMW).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testFMW").onchange = function () {
+
+            var idsFMW = $(testFMW).val();
+            $('#selectedIDsFMW').val(idsFMW);
+
+        };
+
+        $("#checkboxFMW").click(function () {
+            if ($("#checkboxFMW").is(':checked')) {
+                $("#testFMW > option").prop("selected", "selected");
+                $("#testFMW").trigger("change");
+            } else {
+                $("#testFMW > option").removeAttr("selected");
+                $("#testFMW").trigger("change");
+            }
+        });
+
+
+        //Make an array
+        var dataarrayFMY = data.split(",");
+
+        // Set the value
+        $("#testFMY").val(dataarrayFMY);
+
+
+        var testFMY = $('#testFMY');
+        $(testFMY).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testFMY").onchange = function () {
+
+            var idsFMY = $(testFMY).val();
+            $('#selectedIDsFMY').val(idsFMY);
+
+        };
+
+        $("#checkboxFMY").click(function () {
+            if ($("#checkboxFMY").is(':checked')) {
+                $("#testFMY > option").prop("selected", "selected");
+                $("#testFMY").trigger("change");
+            } else {
+                $("#testFMY > option").removeAttr("selected");
+                $("#testFMY").trigger("change");
+            }
+        });
+
+
+        //Make an array
+        var dataarrayFMYC = data.split(",");
+
+        // Set the value
+        $("#testFMYC").val(dataarrayFMY);
+
+
+        var testFMYC = $('#testFMYC');
+        $(testFMYC).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testFMYC").onchange = function () {
+
+            var idsFMYC = $(testFMYC).val();
+            $('#selectedIDsFMYC').val(idsFMYC);
+
+        };
+
+        $("#checkboxFMYC").click(function () {
+            if ($("#checkboxFMYC").is(':checked')) {
+                $("#testFMYC > option").prop("selected", "selected");
+                $("#testFMYC").trigger("change");
+            } else {
+                $("#testFMYC > option").removeAttr("selected");
+                $("#testFMYC").trigger("change");
+            }
+        });
+
+
+        var dataFA = '@ViewBag.OptionsFA';
+
+        //Make an array
+        var dataarrayFA = dataFA.split(",");
+
+        // Set the value
+        $("#testFA").val(dataarrayFA);
+
+
+        var testFA = $("#testFA");
+        $(testFA).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testFA").onchange = function () {
+
+            var idsFA = $(testFA).val();
+            $('#selectedIDsFA').val(idsFA);
+
+
+            var x = [];
+            $('#testFA :selected').each(function (i, selected) {
+
+                x.push($(selected).val());
+
+            });
+
+
+            if ($.inArray('45', x) > -1) {
+
+
+                $("#MoreInfoSection").css("display", "block");
+                $("#WomenMoreInfoSection").css("display", "block");
+
+
+            }
+
+            else {
+
+
+
+                $("#WomenMoreInfoSection").css("display", "none");
+
+
+            };
+
+            if ($.inArray('49', x) > -1) {
+
+
+                $("#MoreInfoSection").css("display", "block");
+                $("#YoungChildrenMoreInfoSection").css("display", "block");
+
+
+            }
+
+            else {
+
+
+                $("#YoungChildrenMoreInfoSection").css("display", "none");
+
+
+            };
+
+            if ($.inArray('50', x) > -1) {
+
+
+                $("#MoreInfoSection").css("display", "block");
+                $("#YouthMoreInfoSection").css("display", "block");
+
+
+            }
+
+            else {
+
+
+
+                $("#YouthMoreInfoSection").css("display", "none");
+
+
+            };
+
+
+            if ($.inArray('50', x) > -1 || $.inArray('49', x) > -1 || $.inArray('45', x) > -1) {
+
+                $("#MoreInfoSection").css("display", "block");
+
+            }
+            else {
+
+
+                $("#MoreInfoSection").css("display", "none");
+
+            }
+
+
+
+
+        };
+
+
+        //$("#checkboxFA").click(function () {
+        //    if ($("#checkboxFA").is(':checked')) {
+        //        $("#testFA > option").prop("selected", "selected");
+        //        $("#testFA").trigger("change");
+        //    } else {
+        //        $("#testFA > option").removeAttr("selected");
+        //            $("#testFA").trigger("change");
+        //        }
+        //    });
+
+
+
+            var data = '@ViewBag.OptionsK';
+
+        //Make an array
+        var dataarrayK = data.split(",");
+
+        // Set the value
+        $("#testK").val(dataarrayK);
+
+
+        var testK = $('#testK');
+        $(testK).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testK").onchange = function () {
+
+            var idsK = $(testK).val();
+            $('#selectedIDsK').val(idsK);
+
+        };
+
+
+        $("#checkboxK").click(function () {
+            if ($("#checkboxK").is(':checked')) {
+                $("#testK > option").prop("selected", "selected");
+                $("#testK").trigger("change");
+            } else {
+                $("#testK > option").removeAttr("selected");
+                $("#testK").trigger("change");
+            }
+        });
+
+
+        var data = '@ViewBag.OptionsA';
+
+        //Make an array
+        var dataarrayA = data.split(",");
+
+        // Set the value
+        $("#testA").val(dataarrayA);
+
+
+        var testA = $('#testA');
+        $(testA).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testA").onchange = function () {
+
+            var idsA = $(testA).val();
+            $('#selectedIDsA').val(idsA);
+
+        };
+
+
+        $("#checkboxA").click(function () {
+            if ($("#checkboxA").is(':checked')) {
+                $("#testA > option").prop("selected", "selected");
+                $("#testA").trigger("change");
+            } else {
+                $("#testA > option").removeAttr("selected");
+                $("#testA").trigger("change");
+            }
+        });
+
+
+        var data = '@ViewBag.OptionsC';
+
+        //Make an array
+        var dataarrayC = data.split(",");
+
+        // Set the value
+        $("#testC").val(dataarrayC);
+
+
+        var testC = $('#testC');
+        $(testC).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testC").onchange = function () {
+
+            var idsC = $(testC).val();
+            $('#selectedIDsC').val(idsC);
+
+        };
+
+
+
+        $("#checkboxC").click(function () {
+            if ($("#checkboxC").is(':checked')) {
+                $("#testC > option").prop("selected", "selected");
+                $("#testC").trigger("change");
+            } else {
+                $("#testC > option").removeAttr("selected");
+                $("#testC").trigger("change");
+            }
+        });
+
+
+        var data = '@ViewBag.OptionsMT';
+
+        //Make an array
+        var dataarrayMT = data.split(",");
+
+        // Set the value
+        $("#testMT").val(dataarrayMT);
+
+
+        var testMT = $('#testMT');
+        $(testMT).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testMT").onchange = function () {
+
+            var idsMT = $(testMT).val();
+            $('#selectedIDsMT').val(idsMT);
+
+        };
+
+
+
+        $("#checkboxMT").click(function () {
+            if ($("#checkboxMT").is(':checked')) {
+                $("#testMT > option").prop("selected", "selected");
+                $("#testMT").trigger("change");
+            } else {
+                $("#testMT > option").removeAttr("selected");
+                $("#testMT").trigger("change");
+            }
+        });
+
+
+        var data = '@ViewBag.OptionsMF';
+
+        //Make an array
+        var dataarrayMF = data.split(",");
+
+        // Set the value
+        $("#testMF").val(dataarrayMF);
+
+
+        var testMF = $('#testMF');
+        $(testMF).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testMF").onchange = function () {
+
+            var idsMF = $(testMF).val();
+            $('#selectedIDsMF').val(idsMF);
+
+        };
+
+
+
+        $("#checkboxMF").click(function () {
+            if ($("#checkboxMF").is(':checked')) {
+                $("#testMF > option").prop("selected", "selected");
+                $("#testMF").trigger("change");
+            } else {
+                $("#testMF > option").removeAttr("selected");
+                $("#testMF").trigger("change");
+            }
+        });
+
+
+        var data = '@ViewBag.OptionsED';
+
+        //Make an array
+        var dataarrayED = data.split(",");
+
+        // Set the value
+        $("#testED").val(dataarrayED);
+
+
+        var testED = $('#testED');
+        $(testED).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testED").onchange = function () {
+
+            var idsED = $(testED).val();
+            $('#selectedIDsED').val(idsED);
+
+        };
+
+
+
+        $("#checkboxED").click(function () {
+            if ($("#checkboxED").is(':checked')) {
+                $("#testED > option").prop("selected", "selected");
+                $("#testED").trigger("change");
+            } else {
+                $("#testED > option").removeAttr("selected");
+                $("#testED").trigger("change");
+            }
+        });
+
+
+        var data = '@ViewBag.OptionsCER';
+
+        //Make an array
+        var dataarrayCER = data.split(",");
+
+        // Set the value
+        $("#testCER").val(dataarrayCER);
+
+
+        var testCER = $('#testCER');
+        $(testCER).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testCER").onchange = function () {
+
+            var idsCER = $(testCER).val();
+            $('#selectedIDsCER').val(idsCER);
+
+        };
+
+
+
+        $("#checkboxCER").click(function () {
+            if ($("#checkboxCER").is(':checked')) {
+                $("#testCER > option").prop("selected", "selected");
+                $("#testCER").trigger("change");
+            } else {
+                $("#testCER > option").removeAttr("selected");
+                $("#testCER").trigger("change");
+            }
+        });
+
+
+
+
+
+    });
+
+
+
+    $(function () {
+
+
+        $("#AddPostButton").click(function () {
+
+
+            //Add Focus Areas
+            var outFA = document.getElementById('selectedIDsFA').value;
+            document.getElementById("FocusAreas").value = outFA;
+
+            //Add Meeting Times
+            var outMT = document.getElementById('selectedIDsMT').value;
+            document.getElementById("MeetingTimes").value = outMT;
+
+            //Add Meeting Format
+            var outMF = document.getElementById('selectedIDsMF').value;
+            document.getElementById("MeetingFormat").value = outMF;
+
+            //Add Expected Deliverables
+            var outED = document.getElementById('selectedIDsED').value;
+            document.getElementById("ExpectedDeliveries").value = outED;
+
+            //Add Compensation
+            var outCER = document.getElementById('selectedIDsCER').value;
+            document.getElementById("Compensation").value = outCER;
+
+            //Add Skills
+            var out = document.getElementById('selectedIDs').value;
+            document.getElementById("Skills").value = out;
+
+            //Add Knowledge
+            var outK = document.getElementById('selectedIDsK').value;
+            document.getElementById("Knowledge").value = outK;
+
+            //Add Abilities
+            var outA = document.getElementById('selectedIDsA').value;
+            document.getElementById("Abilities").value = outA;
+
+            //Add Counties
+            var outC = document.getElementById('selectedIDsC').value;
+            document.getElementById("Counties").value = outC;
+
+            //Add Women
+            var outFMW = document.getElementById('selectedIDsFMW').value;
+            document.getElementById("Women").value = outFMW;
+
+            //Add Youth
+            var outFMY = document.getElementById('selectedIDsFMY').value;
+            document.getElementById("Youth").value = outFMY;
+
+            //Add Young Children
+            var outFMYC = document.getElementById('selectedIDsFMYC').value;
+            document.getElementById("YoungChildren").value = outFMYC;
+
+
+        });
+
+
+    });
+
+
+    $(document).ready(function () {
+
+        $("#PostTypeID").select2({ width: "30%" });
+
+        $("#OpenDate").kendoDatePicker();
+        $("#ExpirationDate").kendoDatePicker();
+
+        $("#OpportunityOpenDate").kendoDatePicker();
+        $("#OpportunityExpirationDate").kendoDatePicker();
+
+
+    });
+
+
+
+
+    </script>

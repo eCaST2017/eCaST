@@ -1,0 +1,301 @@
+﻿@model IEnumerable<CTL.ViewModels.PostViewModel>
+
+@{
+    ViewBag.Title = "Posts";
+}
+
+
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            /* Initialise the DataTable */
+            var oTable = $('#example1').dataTable({
+                "oLanguage": {
+                    "sSearch": "Search:"
+                },
+                "bPaginate": false ,
+                "bSort": false,
+                "aaSorting": [[0, "asc"]],
+                "bAutoWidth": false,
+                //"iDisplayLength": 5,
+
+                @*fnDrawCallback: function () {
+
+                    $("#example1 tbody tr").click(function () {
+
+                        //get position of the selected row
+                        var position = oTable.fnGetPosition(this);
+
+                        //value of the first column (can be hidden)
+                        var id00 = oTable.fnGetData(position)[0];
+
+                        //redirect
+                        var targetUrl = '@Url.Action("Details", "Posts")';
+
+                        targetUrl = targetUrl + '?id=' + id00;
+                        document.location.href = targetUrl;
+
+
+                    });
+                },*@
+                //"aoColumnDefs": [{ "bVisible": false, "aTargets": [0] }]
+            });
+
+           
+        });
+</script>
+
+
+
+<style type="text/css">
+    table.dataTable td.sorting_1 {
+        background-color: transparent;
+        border: 1px lightgrey;
+    }
+
+    table.dataTable td {
+        background-color: transparent;
+        border: 1px lightgrey;
+    }
+
+    table.dataTable tr.odd {
+        background-color: transparent;
+        border: 1px lightgrey;
+    }
+
+    table.dataTable tr.even {
+        background-color: transparent;
+        border: 1px lightgrey;
+    }
+
+
+    /*
+    Max width before this PARTICULAR table gets nasty
+    This query will take effect for any screen smaller than 760px
+    and also iPads specifically.
+    */
+    @@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+        /* Force table to not be like tables anymore */
+        table, thead, tbody, th, td, tr {
+            display: block;
+        }
+            /* Hide table headers (but not display: none;, for accessibility) */
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+        tr {
+            border: 1px solid #ccc;
+        }
+
+        td {
+            /* Behave  like a "row" */
+            border: none;
+            border-bottom: 1px solid #eee;
+            left: 100px;
+            position: relative;
+            padding-left: 50%;
+        }
+
+            td:before {
+                /* Now like a table header */
+                position: absolute;
+                /* Top/left values mimic padding */
+                top: 4px;
+                left: -100px;
+                width: 45%;
+                padding-right: 0px;
+                white-space: nowrap;
+            }
+            /*
+        Label the data
+        */
+            td:nth-of-type(1):before {
+                content: "";
+            }
+
+            td:nth-of-type(2):before {
+                content: "";
+            }
+
+             td:nth-of-type(3):before {
+                content: "";
+            }
+
+            td:nth-of-type(4):before {
+                content: "Closes";
+            }
+
+            td:nth-of-type(5):before {
+                content: "Opened";
+            }
+
+           
+    }
+</style>
+
+
+<div style="padding-left:10px"><h3 style="font-family: 'Lato', sans-serif;color:#35a923;padding-bottom:0px">Available Opportunites</h3></div>
+<hr style="border-top: dashed 1px; color:grey; margin:0px" />
+<br />
+<div style="width:98%">
+    <table style="width:100%; font-family: 'Lato', sans-serif;color:#3a53c7;font-size:16px" id="example1">
+        <thead>
+            <tr style="background-color:#fff;height:0px">
+
+                @*<th style="height:0px"></th>*@
+                <th style="color:white;height:0px">
+                    Title
+                </th>
+
+                <th style="color:white;height:0px">
+                    Organization
+                </th>
+
+
+                <th>
+
+                </th>
+
+                @* <th>
+                        Last Name
+                    </th>*@
+                <th style="color:#ccc;background-color:transparent">
+                    Closes
+                </th>
+                @*<th>
+                        Organization
+                    </th>*@
+                <th style="color:#ccc;background-color:transparent">
+                    Opened
+                </th>
+
+
+                @*    <th style="color:white">
+                        Posted By
+                    </th>*@
+
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                @*<td>@item.PostID</td>*@
+                <td>
+
+
+                    <a id='PostDetailButton_@item.PostID' style="text-decoration:none;color:#35a923; cursor:pointer" data-toggle="modal" data-target="#PostD_@item.PostID"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;@item.PostTitle</a>
+
+
+
+                    <!-- Detail Modal -->
+                    <div class="modal fade" id="PostD_@item.PostID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title" id="myModalLabel">@item.PostTitle </h3>
+                                </div>
+
+                                <div id="PostDetailContainer_@item.PostID"></div>
+
+                                @*   @{ Html.RenderAction("_DeleteTest", "PatientInformation", new { id = @ViewBag.CCID, id2 = @ViewBag.SiteID, id3 = @ViewBag.ScreeningTypeID, id4 = @ViewBag.CLID, id5 = @ViewBag.EnrollID, id6 = @ViewBag.ScreeningID, id7 = @item.ScreenProcedureID });}*@
+
+                                <div class="modal-footer">
+                                    <button type="button" id="PostCloseButton" class="btn btn-default" data-dismiss="modal">Close</button><br /><br />
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <script type="text/javascript">
+
+                        $(function () {
+
+
+                            $("#PostDetailButton_@item.PostID").click(function () {
+
+
+                                $('#PostDetailContainer_@item.PostID').load('@Url.Action("Details", "Posts", new { id = @item.PostID })');
+
+
+
+                            });
+
+
+                            $('#PostD_@item.PostID').on('shown.bs.modal', function () {
+                                $(this).find('.modal-dialog').css({
+                                    //width: 'auto',
+                                    width: '92%',
+                                    height: 'auto',
+                                    'max-height': '100%'
+                                });
+                            });
+
+
+
+                        });
+
+                    </script>
+
+
+
+
+                </td>
+
+                <td>@item.OrganizationName</td>
+
+                <td>
+                    <div> @{ Html.RenderAction("_AttributeDetail", "Posts", new { id = @item.PostID, id2 = 9 });}</div>
+                </td>
+
+
+                <td>
+                    <b> @(((DateTime)item.ExpirationDate).ToString("MM/dd/yyyy"))</b>
+                </td>
+
+
+                <td>
+                    @(((DateTime)item.DateCreated).ToString("MM/dd/yyyy"))
+                </td>
+
+
+                @*  <td>
+                        @item.CreatedBy
+                    </td>*@
+
+            </tr>
+        }
+
+    </table>
+
+    <br />
+    <br />
+    <br />
+    </div>
+   
+  
+<div class="modal fade" id="AddPostModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 style="font-family:'Lato', sans-serif; font-size:28px" class="modal-title" id="myModalLabel">Add Opportunity</h4>
+                                </div>
+                                <div class="modal-body">
+
+                                    <div id="PostSection"></div>
+                                    
+                                  
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+

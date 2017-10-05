@@ -1,0 +1,109 @@
+@model CTL.Models.Content
+
+@{
+    ViewBag.Title = "Create";
+}
+
+ <table style="width:26%"><tr>
+        
+        
+        <td style="vertical-align:middle; font-size:36px">@Html.ActionLink(" ", "Manage", new { Controller= "Dashboards" }, new { @class = "icon-arrow-left-3 fg-darker"})</td>
+        
+        
+        <td><h2>Create</h2></td></tr></table>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        
+
+		@Html.Partial("_CreateOrEdit", Model)
+
+        <div class="editor-label">
+    @Html.LabelFor(model => model.ContentBody)
+</div>
+<div class="editor-field">
+
+
+     @Html.TextAreaFor(model => model.ContentBody, new { @class="ContentBody" }) 
+
+@*@{
+              
+               Html.Kendo().EditorFor(model => model.ContentBody)
+                           .Name("ContentBody")
+                           .Encode(true)
+.HtmlAttributes(new { style = "width:100%;height:600px;margin-left:20px;" 
+
+})
+                           .Tools(tools => tools
+                               .Clear()
+.ViewHtml()
+                               .Bold().Italic().Separator()
+                               .InsertOrderedList().InsertUnorderedList
+
+().Separator()
+                               .Indent().Outdent()
+                           )
+                           .Render();
+              }*@
+
+    @Html.ValidationMessageFor(model => model.ContentBody)
+</div>
+
+@*<div class="editor-label">
+    @Html.LabelFor(model => model.ContentFooter)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.ContentFooter)
+    @Html.ValidationMessageFor(model => model.ContentFooter)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Active)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Active)
+    @Html.ValidationMessageFor(model => model.Active)
+</div>*@
+
+<div style="color:White" class="editor">
+
+            
+            @Html.Hidden("DateUpdated", (DateTime?)ViewBag.DateUpdated)
+             @Html.Hidden("DateCreated", (DateTime?)ViewBag.DateCreated)
+             @Html.Hidden("UpdatedBy", (string)ViewBag.UpdatedBy)
+              @Html.Hidden("CreatedBy", (string)ViewBag.CreatedBy)
+
+        </div>
+
+      
+    </fieldset>
+}
+
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        //jQuery('.ProjectDescription').ckeditor();
+
+        jQuery('.ContentBody').ckeditor({
+
+            filebrowserBrowseUrl: '@Url.Content("~/ckeditor/ckfinder/ckfinder.html")',
+            filebrowserImageBrowseUrl: '@Url.Content("~/ckeditor/ckfinder/ckfinder.html?type=Images")',
+            filebrowserFlashBrowseUrl: '@Url.Content("~/ckeditor/ckfinder/ckfinder.html?type=Flash")',
+            filebrowserUploadUrl: '@Url.Content("~/ckeditor/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Files")',
+            filebrowserImageUploadUrl: '@Url.Content("~/ckeditor/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Images")',
+            filebrowserFlashUploadUrl: '@Url.Content("~/ckeditor/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Flash")'
+
+        });
+
+
+    });
+
+</script>
+
+
+

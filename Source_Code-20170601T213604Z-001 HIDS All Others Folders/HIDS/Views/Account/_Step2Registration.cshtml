@@ -1,0 +1,237 @@
+﻿@model CTL.Models.RegisterViewModel
+
+
+@Html.Hidden("StepID", 2)
+@Html.Hidden("ProgramID",(int?)ViewBag.ProgramID)
+@Html.Hidden("AgencySiteID", (int?)ViewBag.AgencySiteID)
+@Html.Hidden("SiteAccess")
+@Html.Hidden("AgencySiteAccess", (string)ViewBag.AgencySiteAccess)
+@Html.Hidden("Id",(string)ViewBag.UserId)
+@Html.Hidden("ResultsCCount", (int?)ViewBag.ResultsCCount)
+@Html.Hidden("ResultsTCount", (int?)ViewBag.ResultsTCount)
+@Html.Hidden("ResultsRCount", (int?)ViewBag.ResultsRCount)
+
+<div align="center">
+
+    <div class="w3-card-2" style="padding-left:30px;width:94%;text-align:left">
+        <br />
+        <div style="display:block" id="UserSection">
+
+            @*@if (Request.IsAuthenticated)
+                {*@
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+
+                        <h3 style="font-family: 'Roboto', sans-serif;color:#666"><span class="glyphicon glyphicon-user"></span>&nbsp;Role for @ViewBag.ProgramName</h3>
+
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+
+
+
+                <div class="col-md-12">
+
+               
+                         @Html.DropDownList("RoleBinID", null, new { style = "font-size:20px" })
+                    @Html.ValidationMessageFor(m => m.RoleBinID)
+
+
+                </div>
+            </div>
+                <br />
+
+                        @*}*@
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+
+                        <h3 style="font-family: 'Roboto', sans-serif;color:#666"><span class="glyphicon glyphicon-th-list"></span>&nbsp;Site Access for @ViewBag.ProgramName</h3>
+
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+
+               
+
+                <div class="col-md-12">
+
+                    @Html.DropDownList("testFMW", (SelectList)ViewData["OptionListF"], new { @id = "testFMW_" + @ViewBag.ProgramID, @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+
+
+                    <input type="hidden" id="selectedIDsFMW_@ViewBag.ProgramID" />
+
+                    <div>
+                        <input type="checkbox" id="checkboxFMW_@ViewBag.ProgramID">
+                        Select All
+
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <hr />
+        <div style="padding-left:30px">
+
+
+            <div style="padding-right:30px" align="right">
+
+                @if (!Request.IsAuthenticated)
+                {
+
+                    <a style="text-decoration:none" href='@Url.Action("Index", new { Controller = "Home" })'>
+
+
+                        <span class="btn btn-primary">Return to Home</span>
+
+                    </a>
+
+
+                }
+                else
+                {
+
+                    <a style="text-decoration:none" href='@Url.Action("Edit","UserProfiles", new { id = @ViewBag.Id, id2 = "" })'>
+
+
+                        <span class="btn btn-primary">Return to Profile</span>
+
+                    </a>
+
+
+                }
+
+                @*<input id="Proceed2Button" class="btn btn-warning" type="submit" value="< Last Step" />*@
+                <input id="Proceed3Button" class="btn btn-success" type="submit" value="Next Step >" />
+
+            </div>
+
+        </div>
+
+        <br />
+        <br />
+
+
+    </div>
+
+   
+
+    </div>
+
+
+
+    <script type="text/javascript">
+
+
+    $("#Proceed2Button").click(function () {
+
+
+        $("#StepContainer").hide("slide", { direction: "left" }, 500);
+
+        $("#StepContainer").show(500);
+        $("#StepContainer").load("@Url.Action("_Step1Registration","Account")", { 'id': 1 },
+           function (response, status, xhr) {
+               if (status == "error") {
+
+               }
+
+           });
+
+
+    });
+
+    $("#Proceed3Button").click(function (e) {
+
+        //Add Sites
+        var out = document.getElementById('selectedIDsFMW_@ViewBag.ProgramID').value;
+            document.getElementById("SiteAccess").value = out;
+
+            // Validation
+
+            var iStopSub = 0;
+            var sErr = "Please correct the following issues:\n\n";
+
+
+            if ($("#selectedIDsFMW_@ViewBag.ProgramID").val() == "") {
+                iStopSub = 1;
+                sErr += "-Please enter at least 1 site.\n";
+            }
+
+
+
+            if (iStopSub != 0) {
+                alert(sErr);
+                e.preventDefault();
+
+            }
+
+
+
+
+
+
+
+        });
+
+
+</script>
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+        var data = '@ViewBag.Options';
+
+        //Make an array
+        var dataarrayFMW = data.split(",");
+
+        // Set the value
+        $("#testFMW_@ViewBag.ProgramID").val(dataarrayFMW);
+        $('#selectedIDsFMW_@ViewBag.ProgramID').val(dataarrayFMW);
+
+        var testFMW = $('#testFMW_@ViewBag.ProgramID');
+        $(testFMW).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("testFMW_@ViewBag.ProgramID").onchange = function () {
+
+            var idsFMW = $(testFMW).val();
+            $('#selectedIDsFMW_@ViewBag.ProgramID').val(idsFMW);
+
+        };
+
+
+        $("#checkboxFMW_@ViewBag.ProgramID").click(function () {
+            if ($("#checkboxFMW_@ViewBag.ProgramID").is(':checked')) {
+                $("#testFMW_@ViewBag.ProgramID > option").prop("selected", "selected");
+                $("#testFMW_@ViewBag.ProgramID").trigger("change");
+            } else {
+                $("#testFMW_@ViewBag.ProgramID > option").removeAttr("selected");
+                $("#testFMW_@ViewBag.ProgramID").trigger("change");
+            }
+        });
+
+
+
+
+    });
+
+
+</script>

@@ -1,0 +1,235 @@
+﻿@model EncaustiCreations.ViewModels.UserProfileViewModel
+@{
+    ViewBag.Title = "Partner Profile";
+}
+
+@*@foreach (var item in Model)
+    {
+
+
+*@
+
+<style type="text/css">
+
+    body {
+        padding-bottom: 40px;
+        padding-top: 0px;
+    }
+
+    .sidebar-nav-fixed {
+        /*width: 10%;*/
+    }
+       html, body {
+  height: 100%;
+}
+
+body {
+  padding: 50px 0 0 0;
+}
+
+.navbar-toggle {
+  float: left;
+  margin-left: 15px;
+}
+
+@@media (min-width: 0) {
+  .navbar-toggle {
+    display: block; /* force showing the toggle */
+  }
+}
+
+    @@media (min-width: 992px) {
+        body {
+            padding: 0;
+        }
+
+        .navbar {
+            right: auto;
+            background: none;
+            border: none;
+        }
+    }
+          
+#offCanvasLink a:link { font-size:16px;color:#fff;text-decoration:none; opacity:0.5 }
+#offCanvasLink a:visited { font-size:16px;color:#fff;text-decoration:none }
+#offCanvasLink a:hover { font-size:16px;color:#fff;text-decoration:none; opacity:0.9 }
+#offCanvasLink a:active { font-size:16px;color:#fff;text-decoration:none }
+
+
+
+</style>
+
+
+
+<div style="background-color:#302c2c; color:#fff; opacity:0.7" class="navmenu navmenu-default navmenu-fixed-left offcanvas">
+      <div style="padding-left:12px;padding-bottom:6px" id="offCanvasLink"> <a id="NameLink" style="font-size:20px" class="navmenu-brand" href="#">@Model.FirstName @Model.LastName</a></div>
+      <ul class="nav navmenu-nav">
+        <li><a href="../navmenu/">@Html.Raw(Model.profilePic)</a></li>
+       
+        <li>
+            <div style="padding-left:12px;padding-bottom:6px" id="offCanvasLink"><a id="ProfileLink" data-toggle="modal" data-target="#editModal" href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;Profile</a></div>
+        </li>
+
+           <li><div style="padding-left:12px;padding-bottom:6px" id="offCanvasLink"><a id="cpLink"  href="#"><span class="glyphicon glyphicon-ok-sign"></span>&nbsp;Change Password</a></div></li>
+
+          <li>
+
+             <div style="padding-left:12px;padding-bottom:6px" id="offCanvasLink"> <a id="OrgLink" href="#" ><span class="glyphicon glyphicon-briefcase"></span>&nbsp;My Organization</a></div>
+
+          </li>
+      </ul>
+    
+    </div>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".navmenu" data-canvas="body">
+       
+         @*  <span class="icon-bar" style="font-size:8px">profile</span>*@
+           <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+
+
+<div class="alert alert-default">
+    
+
+   
+
+
+    <div class="btn-group">
+  <button  class="btn btn-info" id="NameLinkInline" type="button">Connection Dashboard</button>
+  <button  id="ProfileLinkInline" type="button" class="btn btn-default">My Profile</button>
+  <button   id="OrgLinkInline" type="button" class="btn btn-default">@ViewBag.OName</button>
+</div>
+
+       
+
+    </div>
+    
+ 
+
+<div >
+    <div class="row">
+   
+      
+
+      @*  @{ Html.RenderAction("AccountControl", "Dashboards", new { id = ViewBag.UID });}*@
+
+          <div id="accountControlSection"></div>
+
+    </div>
+    <!--/row-->
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        $(".btn-group > .btn").click(function () {
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+
+
+        $('#accountControlSection').load('@Url.Action("AccountControl", "Dashboards", new { id = @ViewBag.UID })');
+
+    });
+
+    $("#NameLink").click(function () {
+
+        $('#accountControlSection').load('@Url.Action("AccountControl", "Dashboards", new { id = @ViewBag.UID })');
+
+    });
+
+    $("#NameLinkInline").click(function () {
+
+        $('#accountControlSection').load('@Url.Action("AccountControl", "Dashboards", new { id = @ViewBag.UID })');
+
+      });
+
+    $("#ProfileLink").click(function () {
+
+        $('#accountControlSection').load('@Url.Action("Edit", "UserProfiles", new { id = @Model.UserId, id2 = "User" })');
+
+    });
+
+    $("#ProfileLinkInline").click(function () {
+
+        $('#accountControlSection').load('@Url.Action("Edit", "UserProfiles", new { id = @Model.UserId, id2 = "User" })');
+
+      });
+
+    $("#cpLink").click(function () {
+
+        $('#accountControlSection').load('@Url.Action("Manage", "Account")');
+
+    });
+
+    $("#OrgLink").click(function () {
+
+        $('#accountControlSection').load('@Url.Action("Details", "Organizations", new { id = @Model.OrganizationID })');
+
+    });
+
+    $("#OrgLinkInline").click(function () {
+
+        $('#accountControlSection').load('@Url.Action("Details", "Organizations", new { id = @Model.OrganizationID })');
+
+      });
+
+
+</script>
+
+
+<!-- Modal -->
+                    @*<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 style="font-family:'Segoe UI Light'; font-size:28px" class="modal-title" id="myModalLabel">Edit Profile</h4>
+                                </div>
+                                <div class="modal-body">
+                                  
+                                      @{ Html.RenderAction("Edit", "UserProfiles", new { id = Model.UserId, id2 = "User" });}
+
+
+                                    <div class="modal-footer">
+
+                            <div style="width:100%">
+
+
+
+                                <div style="float:right; padding-top:24px">
+
+                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" id="UpdateProfileButton" class="btn btn-success" data-dismiss="modal">Update</button>
+
+
+
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>*@
+
+
+
+    

@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="WHModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProgramCode" Type="varchar" MaxLength="3" />
+          <Property Name="SiteID" Type="int" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="50" />
+          <Property Name="SuffixID" Type="int" />
+          <Property Name="GenderID" Type="int" />
+          <Property Name="Patient" Type="bit" />
+          <Property Name="AKALastName" Type="varchar" MaxLength="50" />
+          <Property Name="AKAMiddleName" Type="varchar" MaxLength="50" />
+          <Property Name="AKAFirstName" Type="varchar" MaxLength="50" />
+          <Property Name="DOB" Type="smalldatetime" Nullable="false" />
+          <Property Name="OriginCountry" Type="varchar" MaxLength="3" />
+          <Property Name="EthnicityHispanic" Type="int" />
+          <Property Name="LanguageSpokenID" Type="int" />
+          <Property Name="Notes" Type="varchar(max)" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="DateStatus" Type="smalldatetime" />
+          <Property Name="Deceased" Type="bit" />
+          <Property Name="DateDeceased" Type="smalldatetime" />
+          <Property Name="SourceID" Type="int" />
+          <Property Name="DateUpdated" Type="smalldatetime" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EthnicityID" Type="int" />
+          <Property Name="DateEnrollment" Type="datetime" />
+          <Property Name="MaidenName" Type="varchar" MaxLength="50" />
+          <Property Name="EthnicityConfidential" Type="bit" />
+          <Property Name="NoSSN" Type="int" />
+          <Property Name="LimitedEnglish" Type="bit" />
+          <Property Name="ResponsibleParty" Type="bit" />
+          <Property Name="InterpreterNeeded" Type="int" />
+          <Property Name="InactiveReasonID" Type="int" />
+          <Property Name="DeidentifiedID" Type="int" />
+        </EntityType>
+        <EntityContainer Name="WHModelStoreContainer">
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="WH" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WHModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProgramCode" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="SiteID" Type="Int32" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SuffixID" Type="Int32" />
+          <Property Name="GenderID" Type="Int32" />
+          <Property Name="Patient" Type="Boolean" />
+          <Property Name="AKALastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AKAMiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AKAFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="OriginCountry" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="EthnicityHispanic" Type="Int32" />
+          <Property Name="LanguageSpokenID" Type="Int32" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="DateStatus" Type="DateTime" Precision="0" />
+          <Property Name="Deceased" Type="Boolean" />
+          <Property Name="DateDeceased" Type="DateTime" Precision="0" />
+          <Property Name="SourceID" Type="Int32" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EthnicityID" Type="Int32" />
+          <Property Name="DateEnrollment" Type="DateTime" Precision="3" />
+          <Property Name="MaidenName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EthnicityConfidential" Type="Boolean" />
+          <Property Name="NoSSN" Type="Int32" />
+          <Property Name="LimitedEnglish" Type="Boolean" />
+          <Property Name="ResponsibleParty" Type="Boolean" />
+          <Property Name="InterpreterNeeded" Type="Int32" />
+          <Property Name="InactiveReasonID" Type="Int32" />
+          <Property Name="DeidentifiedID" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="WHEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="People" EntityType="Self.Person" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WHModelStoreContainer" CdmEntityContainer="WHEntities">
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="WHModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="ProgramCode" ColumnName="ProgramCode" />
+                <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="SuffixID" ColumnName="SuffixID" />
+                <ScalarProperty Name="GenderID" ColumnName="GenderID" />
+                <ScalarProperty Name="Patient" ColumnName="Patient" />
+                <ScalarProperty Name="AKALastName" ColumnName="AKALastName" />
+                <ScalarProperty Name="AKAMiddleName" ColumnName="AKAMiddleName" />
+                <ScalarProperty Name="AKAFirstName" ColumnName="AKAFirstName" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="OriginCountry" ColumnName="OriginCountry" />
+                <ScalarProperty Name="EthnicityHispanic" ColumnName="EthnicityHispanic" />
+                <ScalarProperty Name="LanguageSpokenID" ColumnName="LanguageSpokenID" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DateStatus" ColumnName="DateStatus" />
+                <ScalarProperty Name="Deceased" ColumnName="Deceased" />
+                <ScalarProperty Name="DateDeceased" ColumnName="DateDeceased" />
+                <ScalarProperty Name="SourceID" ColumnName="SourceID" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="EthnicityID" ColumnName="EthnicityID" />
+                <ScalarProperty Name="DateEnrollment" ColumnName="DateEnrollment" />
+                <ScalarProperty Name="MaidenName" ColumnName="MaidenName" />
+                <ScalarProperty Name="EthnicityConfidential" ColumnName="EthnicityConfidential" />
+                <ScalarProperty Name="NoSSN" ColumnName="NoSSN" />
+                <ScalarProperty Name="LimitedEnglish" ColumnName="LimitedEnglish" />
+                <ScalarProperty Name="ResponsibleParty" ColumnName="ResponsibleParty" />
+                <ScalarProperty Name="InterpreterNeeded" ColumnName="InterpreterNeeded" />
+                <ScalarProperty Name="InactiveReasonID" ColumnName="InactiveReasonID" />
+                <ScalarProperty Name="DeidentifiedID" ColumnName="DeidentifiedID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

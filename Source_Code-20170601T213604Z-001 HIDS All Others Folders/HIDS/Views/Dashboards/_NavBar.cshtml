@@ -1,0 +1,290 @@
+﻿
+<style type="text/css">
+
+    a:link {
+    color: #666;
+}
+
+a:visited {
+    color: #666;
+}
+
+a:hover {
+   color: #333;
+}
+
+a:active {
+    color: #666;
+}
+
+
+
+</style>
+
+
+@if (ViewBag.FTLoggedIn == true) { 
+
+<br />
+<br />
+<div style="z-index:999;" class="navbar-default sidebar breadcrumb" role="navigation">
+    <div class="sidebar-nav navbar-collapse breadcrumb">
+    
+        <ul class="nav" id="side-menu">
+           
+
+        @if (ViewBag.RoleID == 1)
+        {
+
+
+            <li>
+                <a id="dashboardLink" style="text-decoration:none;" href="@Url.Action("Manage", "Dashboards")">
+
+                    <span class="glyphicon glyphicon-cog"></span>&nbsp;Dashboard
+
+                </a>
+            </li>
+
+            <li style="border-width:1px">
+                <a id="ApplicationButton0" href="#"><i style="color:#666" class="fa fa-tasks fa-fw"></i> Applications</a>
+            </li>
+
+            <li style="border-width:1px">
+                <a id="UsersButton0" href="#"><i style="color:#666" class="fa fa-group fa-fw"></i> Users <div class="pull-right"><span style="background-color:orange" class="badge">@ViewBag.MyRequestCount</span></div></a>
+            </li>
+
+
+            <li style="border-width:1px">
+                <a id="AgencyButton0" href="#"><i style="color:#666" class="fa fa-share-alt fa-fw"></i> Agency Management <div class="pull-right"><span style="background-color:red" class="badge">@ViewBag.RequestCount</span></div></a>
+            </li>
+
+            <li style="border-width:1px">
+                <a id="ToolsButton0" href="#"><i style="color:#666" class="fa fa-cogs fa-fw"></i> System Configuration <div class="pull-right"><span style="background-color:orange" class="badge">@ViewBag.MyRequestCount</span></div></a>
+            </li>
+
+
+        }
+        else
+        {
+
+            <li>
+
+                <a id="dashboardLink" style="text-decoration:none;" href="@Url.Action("Manage", "Dashboards")">
+
+                    <span class="glyphicon glyphicon-cog"></span>&nbsp;Dashboard
+
+                </a>
+            </li>
+
+            <li style="border-width:1px">
+                <a id="ApplicationButton0" href="#"><i style="color:#666" class="fa fa-tasks fa-fw"></i> Applications</a>
+            </li>
+
+
+            @*if (ViewBag.RoleID == 6)
+            {
+
+
+                <li style="border-width:1px">
+                    <a id="SupportButton0" href="#"><i style="color:#666" class="fa fa-support fa-fw"></i> Support Requests <div class="pull-right"><span style="background-color:orange" class="badge">@ViewBag.MyRequestCount</span></div></a>
+                </li>
+
+
+
+
+                <li style="border-width:1px">
+                    <a id="AgencyButton0" href="#"><i style="color:#666" class="fa fa-share-alt fa-fw"></i> Agency Management <div class="pull-right"><span style="background-color:red" class="badge">@ViewBag.RequestCount</span></div></a>
+                </li>
+
+
+            }*@
+            if (ViewBag.RoleID == 13 || ViewBag.RoleID == 6 || ViewBag.RoleID == 3)
+            {
+
+
+                <li style="border-width:1px">
+                    <a id="UsersButton0" href="#"><i style="color:#666" class="fa fa-group fa-fw"></i> Users <div class="pull-right"><span style="background-color:orange" class="badge">@ViewBag.MyRequestCount</span></div></a>
+                </li>
+
+
+                <li style="border-width:1px">
+                    <a id="AgencyButton0" href="#"><i style="color:#666" class="fa fa-share-alt fa-fw"></i> Agency Management <div class="pull-right"><span style="background-color:red" class="badge">@ViewBag.RequestCount</span></div></a>
+                </li>
+
+                <li style="border-width:1px">
+                    <a id="SupportButton0" href="#"><i style="color:#666" class="fa fa-support fa-fw"></i> Support Requests <div class="pull-right"><span style="background-color:orange" class="badge">@ViewBag.MyRequestCount</span></div></a>
+                </li>
+
+
+            }
+            @*else if (ViewBag.RoleID == 3)
+            {
+
+                <li style="border-width:1px">
+                    <a id="SupportButton0" href="#"><i style="color:#666" class="fa fa-support fa-fw"></i> Support Requests <div class="pull-right"><span style="background-color:orange" class="badge">@ViewBag.MyRequestCount</span></div></a>
+                </li>
+
+                   <li style="border-width:1px">
+                    <a id="AgencyButton0" href="#"><i style="color:#666" class="fa fa-share-alt fa-fw"></i> Agency Management <div class="pull-right"><span style="background-color:red" class="badge">@ViewBag.RequestCount</span></div></a>
+                 </li>
+
+            }*@
+
+
+            else if (ViewBag.RoleID == 2)
+            {
+
+
+                <li style="border-width:1px">
+                    <a id="SupportButton0" href="#"><i style="color:#666" class="fa fa-support fa-fw"></i> Support Requests <div class="pull-right"><span style="background-color:orange" class="badge">@ViewBag.MyRequestCount</span></div></a>
+                </li>
+
+
+                <li style="border-width:1px">
+                    <a id="ProfileButton0" href="@Url.Action("Edit", "UserProfiles", new { id = ViewBag.UserID })"><i style="color:#666" class="fa fa-user fa-fw"></i> My Profile <div class="pull-right"><span style="background-color:red" class="badge">@ViewBag.RequestCount</span></div></a>
+                </li>
+
+
+
+
+            }
+
+
+            if (ViewBag.RoleID == 13 || ViewBag.RoleID == 6 || ViewBag.RoleID == 3)
+            {
+
+
+            <li style="border-width:1px">
+                <a id="ToolsButton0" href="#"><i style="color:#666" class="fa fa-cogs fa-fw"></i> System Configuration <div class="pull-right"><span style="background-color:orange" class="badge">@ViewBag.MyRequestCount</span></div></a>
+            </li>
+
+
+            }
+            else
+            {
+
+                <li style="border-width:1px">
+                    <a id="PreferencesButton0" href="#"><i style="color:#666" class="fa fa-cogs fa-fw"></i> System Preferences <div class="pull-right"><span style="background-color:orange" class="badge">@ViewBag.MyRequestCount</span></div></a>
+                </li>
+
+            }
+
+
+        }
+
+        </ul>
+
+
+       
+
+
+        </div>
+    <!-- /.sidebar-collapse -->
+</div>
+
+    
+}
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+
+
+
+        $("#UsersButton0").click(function () {
+            $(".se-pre-con").fadeIn("slow");
+            $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+            $("#ContentContainer").load("@Url.Action("_ActiveUserProfiles", "UserProfiles")",
+                                             function (response, status, xhr) {
+                                                 if (status == "error") {
+                                                     //   alert("An error occurred while loading the results.");
+                                                 }
+                                                 $("#ContentContainer").show(500);
+                                                 $(".se-pre-con").fadeOut("slow");
+                                             });
+
+
+
+        });
+
+
+        $("#ApplicationButton0").click(function () {
+
+            $(".se-pre-con").fadeIn("slow");
+            $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+            $("#ContentContainer").load("@Url.Action("Index", "Applications")",
+                                             function (response, status, xhr) {
+                                                 if (status == "error") {
+                                                     //   alert("An error occurred while loading the results.");
+                                                 }
+                                                 $("#ContentContainer").show(500);
+                                                 $(".se-pre-con").fadeOut("slow");
+                                             });
+        });
+
+
+
+        $("#AgencyButton0").click(function () {
+
+            $(".se-pre-con").fadeIn("slow");
+            $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+            $("#ContentContainer").load("@Url.Action("Index", "AgencySites")",
+                                             function (response, status, xhr) {
+                                                 if (status == "error") {
+                                                     //   alert("An error occurred while loading the results.");
+                                                 }
+                                                 $("#ContentContainer").show(500);
+                                                 $(".se-pre-con").fadeOut("slow");
+                                             });
+        });
+
+
+
+        $("#SupportButton0").click(function () {
+
+            $(".se-pre-con").fadeIn("slow");
+            $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+            $("#ContentContainer").load("@Url.Action("Index", "Requests", new { id = @ViewBag.UserID })",
+                                             function (response, status, xhr) {
+                                                 if (status == "error") {
+                                                     //   alert("An error occurred while loading the results.");
+                                                 }
+                                                 $("#ContentContainer").show(500);
+                                                 $(".se-pre-con").fadeOut("slow");
+                                             });
+        });
+
+        $("#PreferencesButton0").click(function () {
+
+            $(".se-pre-con").fadeIn("slow");
+            $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+            $("#ContentContainer").load("@Url.Action("Details", "UserProfiles", new { id = @ViewBag.UserID })",
+                                             function (response, status, xhr) {
+                                                 if (status == "error") {
+                                                     //   alert("An error occurred while loading the results.");
+                                                 }
+                                                 $("#ContentContainer").show(500);
+                                                 $(".se-pre-con").fadeOut("slow");
+                                             });
+        });
+
+        $("#ToolsButton0").click(function () {
+
+            $(".se-pre-con").fadeIn("slow");
+            $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+            $("#ContentContainer").load("@Url.Action("Details", "UserProfiles", new { id = @ViewBag.UserID })",
+                                             function (response, status, xhr) {
+                                                 if (status == "error") {
+                                                     //   alert("An error occurred while loading the results.");
+                                                 }
+                                                 $("#ContentContainer").show(500);
+                                                 $(".se-pre-con").fadeOut("slow");
+                                             });
+        });
+
+
+    });
+
+
+</script>

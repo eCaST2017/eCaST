@@ -1,0 +1,28 @@
+@model CTL.Models.UserProfile
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+   @using (Ajax.BeginForm("Create", "Organizations", new AjaxOptions
+        {
+            InsertionMode = InsertionMode.InsertBefore, 
+            HttpMethod = "POST",
+            OnSuccess = "updateSuccess"
+        }, new { @id = "addUSERForm" }))
+    {
+       
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>UserProfile</legend>
+
+		@Html.Partial("_CreateOrEdit", Model)
+
+    </fieldset>
+}
+
+
+
+

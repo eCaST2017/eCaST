@@ -1,0 +1,521 @@
+﻿@model CTL.Models.SubContractor
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h3>@Model.SubContractorName</h3>
+
+@using (Html.BeginForm("_EditSubContractorF", "Clinics", FormMethod.Post, new { id = "EditSubContractorForm_" + @Model.SubContractorID + @ViewBag.ProgramID + @ViewBag.CancerTypeBinID }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+    @Html.Hidden("ClinicID", (int?)@ViewBag.ClinicID)
+    @Html.Hidden("SubContractorID", (int?)Model.SubContractorID)
+
+    <div style="padding-left:6px">
+        <br />
+        <div class="row">
+            <div class="col-md-2">Name</div>
+            <div class="col-md-7">@Html.TextBoxFor(model => model.SubContractorName, new { @style = "width: 100%; font-size:14px", @placeholder = "Enter a Facility Name", @class = "form-control" }) @Html.ValidationMessageFor(model => model.SubContractorName)</div>
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Active) &nbsp;Active @Html.ValidationMessageFor(model => model.Active)
+            </div>
+
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">@Html.LabelFor(model => model.Address)</div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                @Html.TextAreaFor(model => model.Address, new { @style = "width: 94%", @placeholder = "Enter a Facility Address", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Address)
+            </div>
+
+        </div>
+
+        <br />
+        <div class="row">
+            <div class="col-md-2">
+
+                City
+            </div>
+
+            <div class="col-md-10">
+
+                @Html.DropDownListFor(model => model.CityBinID, ((IEnumerable<CTL.ViewModels.AssignedCityData>)ViewBag.PossibleCityBins).Select(option => new SelectListItem
+           {
+               Text = option.CityBinName,
+               Value = option.CityBinID.ToString(),
+               Selected = (Model != null) && (option.CityBinID == @ViewBag.CityBinID)
+           }), "Choose...", new { @id = "EditFacCityBinID_" + @Model.SubContractorID + @ViewBag.ProgramID + @ViewBag.CancerTypeBinID })
+                @Html.ValidationMessageFor(model => model.CityBinID)
+
+
+            </div>
+
+        </div>
+        <br />
+
+
+        <div class="row">
+            <div class="col-md-2">
+
+                State
+            </div>
+
+            <div class="col-md-10">
+
+                @Html.DropDownListFor(model => model.StateBinID, ((IEnumerable<CTL.ViewModels.AssignedStateData>)ViewBag.PossibleStateBins).Select(option => new SelectListItem
+      {
+          Text = option.StateBinName,
+          Value = option.StateBinID.ToString(),
+          Selected = (Model != null) && (option.StateBinID == @ViewBag.StateBinID)
+      }), "Choose...", new { @id = "EditFacStateBinID_" + @Model.SubContractorID + @ViewBag.ProgramID + @ViewBag.CancerTypeBinID })
+                @Html.ValidationMessageFor(model => model.StateBinID)
+
+
+            </div>
+
+        </div>
+        <br />
+
+        <div class="row">
+            <div class="col-md-2">
+
+                @Html.LabelFor(model => model.ZipCode)
+            </div>
+
+            <div class="col-md-10">
+
+                @Html.TextBoxFor(model => model.ZipCode, new { @style = "font-size:14px", @placeholder = "Enter Zipcode", @class = "form-control cep" })
+                @Html.ValidationMessageFor(model => model.ZipCode)
+
+
+            </div>
+
+        </div>
+        <br />
+
+        <div class="row">
+            <div class="col-md-2">
+
+                County
+            </div>
+
+            <div class="col-md-10">
+
+                @Html.DropDownListFor(model => model.CountyBinID, ((IEnumerable<CTL.ViewModels.AssignedCountyData>)ViewBag.PossibleCountyBins).Select(option => new SelectListItem
+  {
+      Text = option.CountyBinName,
+      Value = option.CountyBinID.ToString(),
+      Selected = (Model != null) && (option.CountyBinID == ViewBag.CountyBinID)
+  }), "Choose...", new { @id = "EditFacCountyBinID_" + @Model.SubContractorID + @ViewBag.ProgramID + @ViewBag.CancerTypeBinID })
+                @Html.ValidationMessageFor(model => model.CountyBinID)
+
+
+            </div>
+
+        </div>
+
+
+        @if (@ViewBag.ProviderCheck == true)
+        {
+
+            <br />
+
+
+            <div>Endoscopic Providers (Select all that apply):</div>
+            <br />
+
+            <div class="input-group btn-group">
+
+
+                @Html.DropDownList("test", (SelectList)ViewData["OptionList"], new { @class = "NewCssdropdown", multiple = "", @id = "PROVSELECT_" + @Model.SubContractorID + @ViewBag.ProgramID + @ViewBag.CancerTypeBinID })
+
+
+                <input type="hidden" id="selectedIDsPROV_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID" />
+
+
+
+
+            </div>
+
+
+            <br />
+
+
+            <div>Pathology Providers (Select all that apply):</div>
+            <br />
+
+            <div class="input-group btn-group">
+
+
+                @Html.DropDownList("testPATH", (SelectList)ViewData["OptionListPATH"], new { @class = "NewCssdropdown", multiple = "", @id = "PATHPROVSELECT_" + @Model.SubContractorID + @ViewBag.ProgramID + @ViewBag.CancerTypeBinID })
+
+
+                <input type="hidden" id="selectedIDsPATHPROV_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID" />
+
+
+
+
+            </div>
+
+
+
+            @Html.Hidden("PathProviderList")
+            @Html.Hidden("ProviderList")
+            @Html.Hidden("SubContractorID", (int?)@ViewBag.SubContractorID)
+
+            <script type="text/javascript">
+
+             $(function () {
+
+                 var data = '@ViewBag.Options';
+
+          //Make an array
+          var dataarray = data.split(",");
+
+          // Set the value
+          $('#PROVSELECT_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID').val(dataarray);
+                     $('#selectedIDsPROV_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID').val(dataarray);
+
+
+          var test = $('#PROVSELECT_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID');
+          $(test).select2({
+              width: "300px"
+          });
+
+
+          document.getElementById("PROVSELECT_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").onchange = function () {
+
+                         var ids = $(test).val();
+                         $('#selectedIDsPROV_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID').val(ids);
+
+                     };
+
+
+
+      });
+
+
+             $(function () {
+
+                 var data = '@ViewBag.OptionsPath';
+
+                   //Make an array
+                   var dataarray = data.split(",");
+
+                   // Set the value
+                   $('#PATHPROVSELECT_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID').val(dataarray);
+                   $('#selectedIDsPATHPROV_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID').val(dataarray);
+
+
+                   var test = $('#PATHPROVSELECT_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID');
+                   $(test).select2({
+                       width: "300px"
+                   });
+
+
+                   document.getElementById("PATHPROVSELECT_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").onchange = function () {
+
+              var ids = $(test).val();
+              $('#selectedIDsPATHPROV_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID').val(ids);
+
+          };
+
+
+
+               });
+
+
+
+            </script>
+
+
+
+        }
+
+
+
+        @if (@ViewBag.ContractCheck > 0)
+        {
+
+            <br />
+
+
+            <div>Cardiovascular Providers (Select all that apply):</div>
+            <br />
+
+            <div class="input-group btn-group">
+
+
+                @Html.DropDownList("testC", (SelectList)ViewData["OptionList"], new { @class = "NewCssdropdown", multiple = "", @id = "PROVSELECTC_" + @Model.SubContractorID + @ViewBag.ProgramID + @ViewBag.CancerTypeBinID })
+
+
+                <input type="hidden" id="selectedIDsPROVC_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID" />
+
+
+            </div>
+
+            @Html.Hidden("ProviderListC")
+
+            <script type="text/javascript">
+
+             $(function () {
+
+                 var data = '@ViewBag.OptionsC';
+
+                 //Make an array
+                 var dataarray = data.split(",");
+
+                 // Set the value
+                 $('#PROVSELECTC_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID').val(dataarray);
+          $('#selectedIDsPROVC_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID').val(dataarray);
+
+
+                 var test = $('#PROVSELECTC_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID');
+                 $(test).select2({
+                     width: "300px"
+                 });
+
+
+                 document.getElementById("PROVSELECTC_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").onchange = function () {
+
+              var ids = $(test).val();
+              $('#selectedIDsPROVC_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID').val(ids);
+
+          };
+
+
+             });
+
+
+
+            </script>
+
+
+
+        }
+
+
+
+
+
+
+    </div>
+
+
+    <div class="modal-footer">
+        <button type="button" id="EditSubCloseButton" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" id="EditSubButton_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID" class="btn btn-success">Save</button>
+    </div>
+}
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+    $("#EditFacCityBinID_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").select2({ width: "30%" });
+    $("#EditFacStateBinID_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").select2({ width: "30%" });
+    $("#EditFacCountyBinID_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").select2({ width: "30%" });
+
+
+
+
+</script>
+
+
+<script type="text/javascript">
+
+
+    $("#EditSubButton_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").click(function () {
+
+
+        if ('@ViewBag.ContractCheck' > 0) {
+
+
+            //Add Cardio Providers
+            var outC = document.getElementById('selectedIDsPROVC_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID').value;
+            document.getElementById("ProviderListC").value = outC;
+
+
+        }
+
+
+        if ('@ViewBag.ProviderCheck' == "True") {
+
+            //Add Endoscopic Providers
+            var out = document.getElementById('selectedIDsPROV_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID').value;
+            document.getElementById("ProviderList").value = out;
+
+            //Add Pathology Providers
+            var outP = document.getElementById('selectedIDsPATHPROV_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID').value;
+        document.getElementById("PathProviderList").value = outP;
+
+
+
+        }
+
+
+
+
+
+
+
+    });
+
+
+
+    $(function () {
+
+
+        var checkCityFieldSelected = function () {
+            return $("EditFacCityBinID_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").val() != -1;
+        };
+
+        var checkStateFieldSelected = function () {
+            return $("EditFacStateBinID_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").val() != -1;
+        };
+
+        var checkCountyFieldSelected = function () {
+            return $("EditFacCountyBinID_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").val() != -1;
+        };
+
+
+
+        $("#EditSubContractorForm_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").validate({
+            rules: {
+
+                SubContractorName: {
+
+                    required: true
+
+                },
+                Address: {
+
+                    required: true
+
+                },
+                CityBinID: {
+
+                    required: { depends: checkCityFieldSelected }
+
+
+                },
+                StateBinID: {
+
+                    required: { depends: checkStateFieldSelected }
+
+                },
+                CountyBinID: {
+
+                    required: { depends: checkCountyFieldSelected }
+
+                },
+                ZipCode: {
+
+                    required: true
+
+                }
+
+
+            },
+            messages: {
+
+                SubContractorName: {
+                    required: "Please enter a facility name"
+
+                },
+                Address: {
+                    required: "Please enter an address"
+
+                },
+                CityBinID: {
+                    required: "Please enter a value for city"
+
+                },
+                StateBinID: {
+                    required: "Please enter a value for state"
+
+                },
+                CountyBinID: {
+                    required: "Please enter a value for county"
+
+                },
+                ZipCode: {
+                    required: "Please enter a value for zipcode"
+
+                }
+
+            }
+
+        });
+
+        $('#EditSubContractorForm_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID').on("submit", function (evtAC) {
+            evtAC.preventDefault();
+            if ($('#EditSubContractorForm_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID').valid()) {
+                $.ajax({
+
+                    url: $("#EditSubContractorForm_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").attr('action'),
+                    type: $("#EditSubContractorForm_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#EditSubContractorForm_@Model.SubContractorID@ViewBag.ProgramID@ViewBag.CancerTypeBinID").serialize(),
+                    success: function (data) {
+
+
+                        var subname = data.Modified;
+                        var clinicid = data.Modified2;
+
+
+                        $('#ProgramListSection').load('@Url.Action("_ProgramList", "Clinics")', { id: clinicid });
+
+
+
+
+                        toastr.success('You have successfully updated the ' + subname + ' facility contact information.')
+
+
+
+
+                        //$('#myModal').modal('hide')
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+
+                    }
+
+                });
+            }
+
+        });
+
+
+
+
+     });
+
+
+
+</script>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $('.ClinicPhone').mask('(999) 999-9999? x99999');
+        $('.cep').mask('99999');
+    });
+
+
+
+</script>

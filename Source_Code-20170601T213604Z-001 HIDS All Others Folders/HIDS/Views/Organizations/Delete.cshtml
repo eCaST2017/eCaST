@@ -1,0 +1,101 @@
+@model CTL.Models.Organization
+
+@{
+    ViewBag.Title = "Delete Organization";
+}
+
+@using (Html.BeginForm("_DeleteOrgF", "Organizations", FormMethod.Post, new { id = "DeleteOrganizationForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+<div style="padding-left:12px">
+<fieldset>
+    <legend>Delete this Organization?</legend>
+
+
+    <table style="width:100%;padding:2px"><tr>
+    
+    <td>
+        Organization
+        </td>
+
+        <td>
+        @Html.HiddenFor(x=>x.OrganizationID)
+            @Html.HiddenFor(x => x.OrganizationID)
+        @Model.OrganizationName
+        
+        </td>
+
+        
+
+        </tr>
+
+     
+        </table>
+   
+</fieldset>
+    </div>
+
+<div class="modal-footer">
+    <div style="float:right">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="DeleteOrganizationButton" type="submit" class="btn btn-danger">Remove</button>
+    </div>
+</div>
+    
+    
+}
+
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+
+        $('#DeleteOrganizationForm').on("submit", function (e) {
+            e.preventDefault();
+
+            if ($('#DeleteOrganizationForm').valid()) {
+                $.ajax({
+
+                    url: $("#DeleteOrganizationForm").attr('action'),
+                    type: $("#DeleteOrganizationForm").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#DeleteOrganizationForm").serialize(),
+                    success: function (data) {
+
+                        var organizationname = data.Modified;
+                        var organizationid = data.Modified2;
+                        //var orgid = data.Modified3;
+
+                        var hash = 'org';
+                        $('#ActiveOrganizationContainer').load('@Url.Action("_ActiveOrganizations", "Organizations")');
+                        $('.nav-tabs a[href=' + hash + ']').tab('show');
+
+
+                            toastr.warning('You have successfully deleted ' + organizationname + '.')
+
+
+                        $('#DeleteOrgModal_' + organizationid).modal('hide')
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+
+
+
+                    }
+
+                });
+            }
+
+        });
+
+
+    });
+
+
+</script>
+

@@ -1,0 +1,323 @@
+@model CTL.ViewModels.UserProfileViewModel
+
+<style type="text/css">
+    input.big {
+        height: 2.1em;
+        width: 2.1em;
+    }
+</style>
+
+
+@using (Html.BeginForm("_UpdateAppSettings", "UserProfiles", FormMethod.Post, new { id = "UpdateAppSettingsForm" }))
+{
+
+    @Html.Hidden("Id", (string)ViewBag.UserID)
+    @Html.Hidden("Dashboard")
+
+<div class="w3-card-2">
+    <div style="background-color:#999" class="panel-heading w3-card-2">
+
+
+        @if (ViewBag.RoleID == 2 || ViewBag.RoleID == 6)
+        { 
+
+        <span style="color:#fff;font-family: 'Roboto', sans-serif; font-size:16px"><i style="color:#fff" class="fa fa-tasks fa-fw"></i>&nbsp;System Preferences</span>
+
+        }
+        else
+        {
+
+            <span style="color:#fff;font-family: 'Roboto', sans-serif; font-size:16px"><i style="color:#fff" class="fa fa-tasks fa-fw"></i>&nbsp;System Configuration</span>
+
+
+        }
+
+    </div>
+    <!-- /.panel-heading -->
+    <div style="background-color:#fff" class="panel-body">
+
+
+        <div style="font-family:'Roboto', sans-serif">
+           
+            <div style="padding:20px" class="w3-card-2" id="DefaultApplicationContainer">
+
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        <h3><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Default Application Settings</h3>
+
+                    </div>
+
+                </div>
+                <hr />
+
+                <div>
+
+                    <div class="pull-left" style="padding-top:0px;"><input class="big" type="checkbox" id="DashboardChkBox"></div>
+                    <div style="padding-top:2px"><h4 style="font-family: 'Roboto', sans-serif;color:#666">&nbsp;&nbsp;Home Currently Set To Dashboard (Uncheck to set application)</h4></div>
+
+                </div>
+
+
+                <div id="ApplicationContainer" style="display:none">
+                    <br />
+                    <div class="row">
+
+
+                        <div style="display:none" id="checkContainer" class="col-md-1"><span style="color:#5eb224;font-size:36px" class="glyphicon glyphicon-ok"></span></div>
+
+
+                            <div class="col-md-4">
+
+
+                                Select your default Application (this will log you directly into this application) <i>*NOTE: After setting, the next time you login you will be taken to your default application</i>
+
+
+                            </div>
+
+                            <div class="col-md-4">
+
+
+                                @Html.DropDownList("CurrentApplicationID", null, new { style = "font-size:20px" })
+                                @Html.ValidationMessageFor(m => m.CurrentApplicationID)
+
+
+                            </div>
+
+
+
+                        </div>
+                   
+
+                    </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12"><button class="btn btn-default" type="submit">Save</button></div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+      @if (ViewBag.RoleID == 1 || ViewBag.RoleID == 13)
+      {
+
+<br />
+
+    <div class="w3-card-2" style="font-family:'Roboto', sans-serif; padding:20px">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <h3><span class="glyphicon glyphicon-cog"></span>&nbsp;Program Settings</h3>
+
+            </div>
+
+        </div>
+        <hr />
+
+        <div id="ProgramContainer"></div>
+
+
+    </div>
+
+    <br />
+
+
+
+    <div class="w3-card-2" style="font-family:'Roboto', sans-serif; padding:20px">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <h3><span class="glyphicon glyphicon-cog"></span>&nbsp;User Activity</h3>
+
+            </div>
+
+        </div>
+        <hr />
+
+
+        <div>
+
+            @if (ViewBag.RoleID != 2)
+        {
+
+                <div id="UserFeedContainer"></div>
+
+
+        }
+
+        </div>
+
+        </div>
+
+
+
+        }
+
+    </div>
+</div>
+
+}
+
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+
+        //var userfeed =  "$('#UserFeedContainer').load('/UserProfiles/_UserProfilesFeed')"
+        //setInterval(userfeed, 10); // every 10 sec
+
+        var autoRefresh = true;
+        var autoRefreshInterval = 1000 * 5;   //mili seconds (set to 5 seconds)
+
+
+        $('#UserFeedContainer').load('@Url.Action("_UserProfilesFeed", "UserProfiles")');
+
+        var refresh = function () {
+            if (autoRefresh) {
+                $('#UserFeedContainer').load('@Url.Action("_UserProfilesFeed", "UserProfiles")');
+            }
+            setTimeout(refresh, autoRefreshInterval);
+        };
+
+        refresh();
+
+    });
+
+
+</script>
+
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+
+
+        if ('@ViewBag.RoleID' == 1 || '@ViewBag.RoleID' == 13)
+        {
+
+
+            $("#ProgramContainer").load("@Url.Action("Index","Programs")",
+                                        function (response, status, xhr) {
+                                            if (status == "error") {
+
+                                            }
+
+                                        });
+
+
+        }
+
+
+        if ('@Model.Dashboard' == 'True') {
+
+
+            $('#DashboardChkBox').prop('checked', true);
+            $("#ApplicationContainer").css("display", "none");
+        }
+        else {
+
+            $('#DashboardChkBox').prop('checked', false);
+            $("#ApplicationContainer").css("display", "block");
+            $("#checkContainer").css("display", "block");
+        }
+
+
+        @*if ('@Model.CurrentApplicationID' == null) {
+
+
+            $("#ApplicationContainer").css("display", "none");
+
+        }
+        else {
+
+
+            $("#ApplicationContainer").css("display", "block");
+
+        }*@
+
+    });
+
+
+    $("#DashboardChkBox").click(function () {
+
+
+        if ($("#DashboardChkBox").is(':checked')) {
+
+
+            $("#ApplicationContainer").css("display", "none");
+
+        }
+        else {
+
+            
+            $("#ApplicationContainer").css("display", "block");
+
+
+        }
+
+
+    });
+
+
+
+    $('#UpdateAppSettingsForm').on("submit", function (evt44) {
+        //$("#UpdateProfileButton").click(function (evt44) {
+        evt44.preventDefault();
+
+        if ($("#DashboardChkBox").is(':checked')) {
+
+
+            $('#Dashboard').val(true);
+
+        }
+        else {
+
+            $('#Dashboard').val(false);
+
+        }
+
+      
+            $.ajax({
+
+                url: $("#UpdateAppSettingsForm").attr('action'),
+                type: $("#UpdateAppSettingsForm").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#UpdateAppSettingsForm").serialize(),
+                success: function (data) {
+
+                    var userid = data.Modified;
+                   
+                    $("#ContentContainer").load("@Url.Action("Details", "UserProfiles")", { 'id': userid },
+                                            function (response, status, xhr) {
+                                                if (status == "error") {
+                                                    //   alert("An error occurred while loading the results.");
+                                                }
+                                               
+                                            });
+
+                    toastr.success('You have successfully updated your default application settings.')
+
+                 
+
+                }
+
+            });
+      
+    });
+
+
+</script>

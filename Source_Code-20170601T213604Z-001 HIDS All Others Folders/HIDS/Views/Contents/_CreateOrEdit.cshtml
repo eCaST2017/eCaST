@@ -1,0 +1,171 @@
+@model CTL.Models.Content
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+
+
+<table style="font-size:22px">
+    
+    <tr>
+        
+        <td>
+
+            @Html.LabelFor(model => model.ContentTitle)
+        </td>
+        
+        <td colspan="3">
+
+             @Html.TextBoxFor(model => model.ContentTitle, new { @style = "width:600px" })&nbsp; <input type="submit" value="Save" />
+    @Html.ValidationMessageFor(model => model.ContentTitle)
+
+        </td>
+
+
+    </tr>
+
+    <tr>
+        
+        <td>
+            @Html.LabelFor(model => model.Active)
+
+        </td>
+        
+        <td>
+             @Html.EditorFor(model => model.Active)
+
+        </td>
+
+        
+        <td>
+            Parent Page? @Html.CheckBoxFor(model => model.IsMainPage, new { @id = "IsMainPage" })
+
+        </td>
+        
+        <td>
+              
+            Secure Content? @Html.EditorFor(model => model.IsSecure)
+
+        </td>
+
+
+
+    </tr>
+
+    <tr>
+        
+        
+        <td colspan="4">
+
+         @*   @if(@ViewBag.IMP == true)
+            {    *@
+
+
+              <div id="subPagesContainer" style="display:none">
+
+
+        <div style="padding-top:2px" class="editor-label">
+     Sub Pages 
+</div>
+
+          
+
+  @Html.Hidden("IdHolder", (int?)ViewBag.IdHolder)
+<div class="editor-field">
+            <table style="width: 100%" id="CheckBoxList1">
+                <tr>
+                    @{
+                        int cnt = 0;
+                        List<CTL.ViewModels.AssignedContents> contents = ViewBag.Contents;
+                        
+                  
+                        foreach (var content in contents) {
+                            if (cnt++ % 3 == 0) {
+                                @:  </tr> <tr> 
+                            }
+                            @: <td> 
+                                <input type="checkbox" 
+                                       id="chkTag@(content.ContentID)" 
+                                       class="requiredText"
+                                       name="selectedContents" 
+                                       value="@content.ContentID" 
+                                       @(Html.Raw(content.Assigned ? "checked=\"checked\"" : "")) /> 
+                                @content.ContentID @:&nbsp; @content.ContentName
+                            @:</td>
+                        }
+                        @: </tr>
+                    }
+            </table>
+        </div>
+
+                </div>
+                
+         @*   }*@
+
+        </td>
+
+    </tr>
+
+
+</table>
+
+
+
+@section Scripts{
+
+<script type="text/javascript">
+   
+    $(function () {
+        $(".adminLink").button();
+      
+        
+    });
+
+
+    $(function () {
+
+
+        if ($('#IsMainPage').attr('checked')) {
+
+            $("#subPagesContainer").css("display", "block");
+        }
+        else {
+
+            $("#subPagesContainer").css("display", "none");
+
+        }
+
+        //$(document).ready(function () {
+        //    $("#IsMainPage").click(function () {
+        //        $("#subPagesContainer").toggle();
+        //    });
+
+        //});
+
+        $(function () {
+
+
+            if ($("#IsMainPage").is(':checked')) {
+                $("#subPagesContainer").show();
+            } else {
+                $("#subPagesContainer").hide();
+            }
+
+        });
+
+        $("#IsMainPage").change(function () {
+            if ($(this).is(':checked')) {
+                $("#subPagesContainer").show();
+            } else {
+                $("#subPagesContainer").hide();
+            }
+        });
+
+
+       
+
+    });
+
+
+        </script>
+
+    }

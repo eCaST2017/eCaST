@@ -1,0 +1,65 @@
+@model IEnumerable<EncaustiCreations.Models.Screen>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            ScreenName
+        </th>
+        <th>
+            Active
+        </th>
+        <th>
+            DateUpdated
+        </th>
+        <th>
+            UpdatedBy
+        </th>
+        <th>
+            DateCreated
+        </th>
+        <th>
+            CreatedBy
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ScreenID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ScreenID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ScreenID })
+        </td>
+        <td>
+			@item.ScreenName
+        </td>
+        <td>
+			@item.Active
+        </td>
+        <td>
+			@String.Format("{0:g}", item.DateUpdated)
+        </td>
+        <td>
+			@item.UpdatedBy
+        </td>
+        <td>
+			@String.Format("{0:g}", item.DateCreated)
+        </td>
+        <td>
+			@item.CreatedBy
+        </td>
+    </tr>
+}
+
+</table>
+
+

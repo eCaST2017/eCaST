@@ -1,0 +1,106 @@
+﻿@model CTL.Models.AgencySite
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+
+    <div class="w3-card-2">
+        <div style="background-color:#666" class="panel-heading w3-card-2">
+            <span style="color:#fff;font-family: 'Roboto', sans-serif; font-size:16px"><i style="color:#fff" class="fa fa-share-alt fa-fw"></i>&nbsp;@Model.AgencySiteName</span>
+
+            @if (ViewBag.RoleID == 1 || ViewBag.RoleID == 13 || ViewBag.RoleID == 3)
+            {
+
+            <div class="pull-right"><button id="EditAgencyButton" type="button" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i>Edit Agency</button>&nbsp;<button id="CancelAgencyButton" type="button" class="btn btn-default btn-sm"><i class="fa fa-arrow-circle-o-left"></i> Return to Agencies</button></div>
+
+            }
+
+        </div>
+        <!-- /.panel-heading -->
+        <div style="background-color:#fff" class="panel-body">
+
+
+
+
+            <div id="SiteContainer"></div>
+
+            @if (ViewBag.ConCount > 0) { 
+
+            <div id="ContractContainer"></div>
+                
+                
+            }
+
+
+            </div>
+
+
+        </div>
+
+
+
+         
+          
+
+<script type="text/javascript">
+
+
+
+    $(function () {
+
+        $(".se-pre-con").fadeIn("slow");
+        $("#SiteContainer").load("@Url.Action("Index", "Sites", new { id = @Model.AgencySiteID })",
+                                         function (response, status, xhr) {
+                                             if (status == "error") {
+                                                 //   alert("An error occurred while loading the results.");
+                                             }
+
+                                         });
+
+        $("#ContractContainer").load("@Url.Action("Index", "Contracts", new { id = @Model.AgencySiteID })",
+                                         function (response, status, xhr) {
+                                             if (status == "error") {
+                                                 //   alert("An error occurred while loading the results.");
+                                             }
+
+                                             $(".se-pre-con").fadeOut("slow");
+                                         });
+
+
+    });
+
+
+    $("#CancelAgencyButton").click(function () {
+
+            
+        $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+        $(".se-pre-con").fadeIn("slow");
+        $("#ContentContainer").load("@Url.Action("Index", "AgencySites")",
+                                         function (response, status, xhr) {
+                                             if (status == "error") {
+                                                 //   alert("An error occurred while loading the results.");
+                                             }
+                                             $("#ContentContainer").show(500);
+                                             $(".se-pre-con").fadeOut("slow");
+                                         });
+    });
+
+
+    $("#EditAgencyButton").click(function () {
+
+            
+        $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+        $(".se-pre-con").fadeIn("slow");
+        $("#ContentContainer").load("@Url.Action("Details", "AgencySites", new { id = Model.AgencySiteID })",
+                                         function (response, status, xhr) {
+                                             if (status == "error") {
+                                                 //   alert("An error occurred while loading the results.");
+                                             }
+                                             $("#ContentContainer").show(500);
+                                             $(".se-pre-con").fadeOut("slow");
+                                         });
+    });
+
+</script>

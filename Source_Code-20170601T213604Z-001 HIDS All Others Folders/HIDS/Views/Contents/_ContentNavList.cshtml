@@ -1,0 +1,231 @@
+﻿@model IEnumerable<CTL.ViewModels.ContentViewModel>
+
+ 
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<ul class="nav navbar-nav">
+   
+    @foreach (var item in Model)
+{
+
+    <li style="padding-top:6px">
+
+        @if (item.SubContentCount > 0)
+        {
+
+
+
+            <a class="dropdown-toggle" data-toggle="dropdown" style="text-decoration: none; color: #1472b7; font-family: 'Lato', sans-serif; font-size: 16px; padding-top: 10px; z-index: 999; " href="@Url.Action("Details", new { id=item.ContentID })"> @item.ContentTitle<b class="caret"></b></a>
+
+
+            { Html.RenderAction("_SubContentList", "Contents", new { id = item.ContentID }); }
+
+
+        }
+        else
+        {
+
+            <a style="text-decoration: none; color: #1472b7; font-size: 16px; font-family: 'Lato', sans-serif; padding-top: 10px; z-index: 999; " href="@Url.Action("Details", new { id=item.ContentID })"> @item.ContentTitle</a>
+
+
+        }
+
+
+    </li>
+
+
+
+
+}
+
+   @*<li class="active"><a href="#">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">More<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li class="dropdown-header">Nav header</li>
+            <li><a href="#">Separated link</a></li>
+            <li><a href="#">One more separated link</a></li>
+        </ul>
+    </li>*@
+
+    <li style="padding-top:8px">
+
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @style = "Height:12px" }))
+        {
+
+
+
+            @Html.AntiForgeryToken()
+            @Html.Partial("_LogOnPartial")
+
+        }
+
+
+
+    </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   @*<table style="background-color: transparent; width: 100%;border:none"><tr>
+       
+         @if(Request.IsAuthenticated) {
+       
+       <td style="vertical-align:bottom; width:5%; border:none">
+
+     
+        @if(@ViewBag.RoleID == 1){
+
+          
+            @Html.ActionLink(" ", "Manage", new { Controller = "Dashboards"}, new { @class = "icon-dashboard fg-white", @style="font-size:50px"}) 
+            
+        }
+        
+        
+        else
+        
+        {
+            
+           
+         
+              @Html.ActionLink(" ", "UserAccount", new { Controller = "Dashboards", id = @ViewBag.UserID}, new { @class = "icon-user-2 fg-white", @style="font-size:50px"}) 
+            
+               
+        }
+          
+       
+    
+              </td>
+             
+             
+             
+         }
+
+       
+else {
+             
+         }
+             
+       
+       <td style="padding-bottom: 0px; border: none">
+
+
+                    <nav class="horizontal-menu">
+
+   <ul> 
+
+@foreach (var item in Model) {
+    
+    
+        <li>
+
+            @if (item.SubContentCount > 0){
+
+
+                if (item.ContentID == 6)
+                {
+                    
+                      if (Request.IsAuthenticated)
+                      {
+
+                           <a class="dropdown-toggle" style="text-decoration: none; color: #1472b7; font-family: 'Lato', sans-serif; font-size:24px; padding-top: 10px; z-index: 999" href="@Url.Action("Details", new { id=item.ContentID })"> @item.ContentTitle</a>
+        
+
+                            { Html.RenderAction("_SubContentList", "Contents", new { id = item.ContentID });}
+
+
+
+                      }
+                      else{
+                          
+                          
+                            <a style="text-decoration: none; color: #1472b7; font-size: 24px; font-family: 'Lato', sans-serif; padding-top: 10px; z-index: 999; " href="@Url.Action("Details", new { id=item.ContentID })"> @item.ContentTitle</a>
+        
+
+              
+                          
+                      }
+                    
+
+                }
+                
+                else{
+                
+      
+             <a class="dropdown-toggle" style="text-decoration: none; color: #1472b7; font-family: 'Lato', sans-serif; font-size: 24px; padding-top: 10px; z-index: 999; " href="@Url.Action("Details", new { id=item.ContentID })"> @item.ContentTitle</a>
+        
+
+            { Html.RenderAction("_SubContentList", "Contents", new { id = item.ContentID });}
+
+
+            
+            }
+            
+            
+            
+            }
+            else{
+                
+                 <a style="text-decoration: none; color: #1472b7; font-size: 24px; font-family: 'Lato', sans-serif; padding-top: 10px; z-index: 999; " href="@Url.Action("Details", new { id=item.ContentID })"> @item.ContentTitle</a>
+       
+                
+            }
+
+
+        </li>
+       
+    
+}
+
+     
+  
+</ul>
+        </nav>
+
+ </td></tr></table>*@
+
+
+
+
+
+        
+        
+      
+        
+     
+        
+        
+
+
+@*<script type="text/javascript">
+   
+    $(function () {
+        $(".adminLink").button();
+      
+        
+    });
+        
+        </script>*@

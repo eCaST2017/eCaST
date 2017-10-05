@@ -1,0 +1,257 @@
+@model CTL.ViewModels.PostViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<style type="text/css">
+
+.error {
+
+        color:red;
+
+    }
+ 
+
+
+
+</style>
+
+@using (Html.BeginForm("_AddPostF", "Posts", FormMethod.Post, new { id = "AddTPostForm" }))
+{
+
+    @Html.AntiForgeryToken()
+      @Html.ValidationSummary(true)
+    
+        @Html.Hidden("UserId", (int?)ViewBag.UserId)
+        @Html.Hidden("OrgID", (int?)ViewBag.OrgID)
+		@Html.Partial("_CreateOrEdit", Model)
+        
+      <div class="modal-footer">
+      <div style="float:right">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button id="AddPostButton" type="submit" class="btn btn-success">Add</button>
+      </div>
+      </div>
+      
+}
+
+
+
+
+
+<script type="text/javascript">
+
+
+ 
+
+    $(function () {
+
+
+        var postTypeFieldSelected = function () {
+            return $("PostTypeID").val() != -1;
+        };
+
+
+        $("#AddTPostForm").validate({
+            rules: {
+
+                OpenDate: {
+                    //required: { depends: checkTestFieldSelected }
+                    required: true
+
+                },
+                ExpirationDate: {
+                   
+                    required: true
+
+                },
+                PostTypeID: {
+                    required: { depends: postTypeFieldSelected },
+                    //range: [10, 200]
+                    //required: true
+
+                },
+                OpportunityOpenDate: {
+                    
+                   required: true
+
+                },
+                OpportunityExpirationDate: {
+                    
+                    required: true
+
+                },
+                PostTitle: {
+
+                    required: true
+
+                },
+                PostContent: {
+                   
+                   required: true
+
+                },
+                //HDLCholesterolBinID: {
+                //    required: { depends: checkHDLFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //LDLCholesterolBinID: {
+                //    required: { depends: checkFAFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //TriglyceridesBinID: {
+                //    required: { depends: checkFAFieldSelected },
+                //    range: [10, 600]
+                //    //required: true
+
+                //},
+
+                //GlucoseBinID: {
+                //    required: { depends: checkGluFieldSelected },
+                //    //range: [10, 600]
+                //    //required: true
+
+                //},
+                //A1CPercentageBinID: {
+                //    required: { depends: checkA1CFieldSelected }
+
+
+                //},
+                //WorkupStatusBinID: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupStatusDate: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupResultBinID: {
+                //    required: { depends: checkWorkupResultFieldSelected }
+
+
+                //}
+
+
+            },
+            messages: {
+
+                OpenDate: {
+                    required: "Please enter a posting opening date"
+
+                },
+                ExpirationDate: {
+                    required: "Please enter a posting expiration date"
+
+                },
+                PostTypeID: {
+                    required: "Please enter a post type"
+
+                },
+                OpportunityOpenDate: {
+                    required: "Please enter an opening opportunity date"
+
+                },
+                OpportunityExpirationDate: {
+                    required: "Please enter a expiring opportunity date "
+
+                },
+                PostTitle: {
+                    required: "Please enter an opportunity description"
+
+                },
+                PostContent: {
+                    required: "Please enter a goal and purpose for this opportunity"
+
+                },
+                //LDLCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the LDL Cholesterol Value"
+
+                //},
+
+                //TriglyceridesBinID: {
+
+                //    required: "Please enter a value greater than 0 for the Triglycerides Value"
+
+                //},
+                //GlucoseBinID: {
+
+                //    required: "Please enter a value greater than 0 for the Glucose Value"
+
+                //},
+
+                //A1CPercentageBinID: {
+
+                //    required: "Please enter a value for the A1C Percentage Value"
+
+                //},
+                //WorkupStatusBinID: {
+
+                //    required: "Please enter a value for Workup Status"
+
+                //},
+                //WorkupStatusDate: {
+
+                //    required: "Please enter a value for Workup Status Date"
+
+                //},
+                //WorkupResultBinID: {
+
+                //    required: "Please enter a value for Workup Result"
+
+                //}
+
+            }
+        });
+
+
+       // $("#AddPostButton").click(function (e) { e.preventDefault(); })
+
+
+        $('#AddTPostForm').on("submit", function (e) {
+            e.preventDefault();
+            
+            if ($('#AddTPostForm').valid()) {
+                $.ajax({
+
+                    url: $("#AddTPostForm").attr('action'),
+                    type: $("#AddTPostForm").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#AddTPostForm").serialize(),
+                    success: function (data) {
+
+                        var posttitle = data.Modified;
+                        var userid = data.Modified2;
+                        var orgid = data.Modified3;
+                        
+
+                        
+                        $('#PostListContainer').load('@Url.Action("_PostList", "Posts")', { id: orgid });
+
+                            toastr.success('You have successfully added ' + posttitle + ' as a new post.')
+
+                      
+                        //$('#myModal').modal('hide')
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+
+                    }
+
+                });
+            }
+
+        });
+
+
+    });
+
+
+    </script>
+
+    

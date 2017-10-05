@@ -1,0 +1,59 @@
+﻿@model CTL.Models.Dashboard
+@using CTL.Models
+
+@{
+    ViewBag.Title = "DashBoard";
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+
+
+<br />
+<div id="TileBarContainer"></div>
+<br />
+<div id="ContentContainer"></div>
+
+
+@section Scripts {
+
+<script type="text/javascript">
+
+    window.onbeforeunload = function () {
+
+        document.getElementById('logoutForm').submit();
+
+    };
+
+    @*$('#TileBarContainer').load('@Url.Action("_TileBar", "Dashboards")');
+    $('#ContentContainer').load('@Url.Action("Index", "Applications")');*@
+
+
+
+    $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+    $("#ContentContainer").load("@Url.Action("Index", "Applications")",
+    function (response, status, xhr) {
+        if (status == "error") {
+            //   alert("An error occurred while loading the results.");
+        }
+        $("#ContentContainer").show(500);
+    });
+
+   $("#TileBarContainer").hide("slide", { direction: "right" }, 500);
+    $("#TileBarContainer").load("@Url.Action("_TileBar", "Dashboards")",
+    function (response, status, xhr) {
+        if (status == "error") {
+            //   alert("An error occurred while loading the results.");
+        }
+       // 
+       
+        $("#TileBarContainer").show(500);
+    });
+
+</script>
+
+
+
+
+
+    }
+
+

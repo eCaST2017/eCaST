@@ -1,0 +1,302 @@
+﻿@model CTL.ViewModels.AgencySiteViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm("_UpdateAgencyF", "AgencySites", FormMethod.Post, new { id = "UpdateAgencyForm0" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+    <div class="w3-card-2">
+        <div style="background-color:#666" class="panel-heading w3-card-2">
+           
+            @if (ViewBag.RoleID == 1 || ViewBag.RoleID == 13 || ViewBag.RoleID == 3)
+            { 
+                
+             <span style="color:#fff;font-family: 'Roboto', sans-serif; font-size:16px"><i style="color:#fff" class="fa fa-plus-circle fa-fw"></i>&nbsp;Edit Agency</span>
+             <div class="pull-right"><button id="CancelUpdateAgencyButton" type="button" class="btn btn-default btn-sm"><i class="fa fa-arrow-circle-o-left"></i> Return to Agencies</button></div>
+
+                
+            }
+
+        </div>
+        <!-- /.panel-heading -->
+        <div style="background-color:#fff" class="panel-body">
+
+
+
+
+            <div id="AgencyInfoContainer"></div>
+
+
+
+
+        </div>
+
+
+    </div>
+
+    <br />
+    <div align="right"><button class="btn btn-success" id="UpdateAgencyButton" type="submit"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Update</button></div>
+
+    
+    @Html.HiddenFor(x => x.AgencySiteID)
+    @Html.HiddenFor(x => x.Active)
+    
+}
+
+
+
+<script type="text/javascript">
+
+
+
+    $(function () {
+
+
+        $("#AgencyInfoContainer").load("@Url.Action("_AgencyInfo", "AgencySites", new { id = ViewBag.AgencySiteID })",
+                                         function (response, status, xhr) {
+                                             if (status == "error") {
+                                                 //   alert("An error occurred while loading the results.");
+                                             }
+
+
+                                         });
+
+    });
+
+
+
+    $(function () {
+
+
+
+
+        $("#CancelUpdateAgencyButton").click(function () {
+
+
+            $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+            $(".se-pre-con").fadeIn("slow");
+            $("#ContentContainer").load("@Url.Action("Index", "AgencySites")",
+                                             function (response, status, xhr) {
+                                                 if (status == "error") {
+                                                     //   alert("An error occurred while loading the results.");
+                                                 }
+                                                 $("#ContentContainer").show(500);
+                                                 $(".se-pre-con").fadeOut("slow");
+                                             });
+        });
+
+    });
+
+
+
+    $("#UpdateAgencyButton").click(function (e) {
+
+        //Add Program
+        //var out = document.getElementById('selectedIDsPROGRAM').value;
+        //document.getElementById("ProgramName").value = out;
+
+        var iStopSub = 0;
+        var sErr = "Please correct the following issues:\n\n";
+
+        //if ($("#selectedIDsPROGRAM").val() == "") {
+        //    iStopSub = 1;
+        //    sErr += "-Please select at least 1 program.\n";
+        //}
+
+        var iAgencySiteName = $("#AgencySiteName").val();
+
+        if (iAgencySiteName == "") {
+
+            iStopSub = 1;
+            sErr += "You must enter an Agency Site Name" + "\n";
+
+        }
+
+        var iAddress = $("#Address").val();
+
+        if (iAddress == "") {
+
+            iStopSub = 1;
+            sErr += "You must enter an Address" + "\n";
+
+        }
+
+        //var iSecondaryAddress = $("#SecondaryAddress").val();
+
+        //if (iSecondaryAddress == "") {
+
+        //    iStopSub = 1;
+        //    sErr += "You must enter an Secondary Address" + "\n";
+
+        //}
+
+        var iCityBinID = $("#CityBinID option:selected").val();
+
+        if (iCityBinID < 1) {
+            iStopSub = 1;
+            sErr += "You must enter a city" + "\n";
+
+        }
+
+        var iStateBinID = $("#StateBinID option:selected").val();
+
+        if (iStateBinID < 1) {
+            iStopSub = 1;
+            sErr += "You must enter a state" + "\n";
+
+        }
+
+        var iCountyCodeBinID = $("#CountyCodeBinID option:selected").val();
+
+        if (iCountyCodeBinID < 1) {
+            iStopSub = 1;
+            sErr += "You must enter a county served" + "\n";
+
+        }
+
+        var iZipCode = $("#ZipCode").val();
+
+        if (iZipCode == "") {
+
+            iStopSub = 1;
+            sErr += "You must enter an Zipcode" + "\n";
+
+        }
+
+
+        var iMailAddress = $("#MailAddress").val();
+
+        if (iMailAddress == "") {
+
+            iStopSub = 1;
+            sErr += "You must enter an Mail Address" + "\n";
+
+        }
+
+        //var iSecondaryMailAddress = $("#SecondaryMailAddress").val();
+
+        //if (iSecondaryMailAddress == "") {
+
+        //    iStopSub = 1;
+        //    sErr += "You must enter an Secondary Mail Address" + "\n";
+
+        //}
+
+        var iMailCityBinID = $("#MailCityBinID option:selected").val();
+
+        if (iMailCityBinID < 1) {
+            iStopSub = 1;
+            sErr += "You must enter a mailing city" + "\n";
+
+        }
+
+        var iMailStateBinID = $("#MailStateBinID option:selected").val();
+
+        if (iMailStateBinID < 1) {
+            iStopSub = 1;
+            sErr += "You must enter a mailing state" + "\n";
+
+        }
+
+
+        var iMailZipCode = $("#MailZipCode").val();
+
+        if (iMailZipCode == "") {
+
+            iStopSub = 1;
+            sErr += "You must enter an Mail Zipcode" + "\n";
+
+        }
+
+        var iPhone = $("#Phone").val();
+
+        if (iPhone == "") {
+
+            iStopSub = 1;
+            sErr += "You must enter a Phone Number" + "\n";
+
+        }
+
+        //var iFax = $("#Fax").val();
+
+        //if (iFax == "") {
+
+        //    iStopSub = 1;
+        //    sErr += "You must enter a Fax" + "\n";
+
+        //}
+
+        //var iFEIN = $("#FEIN").val();
+
+        //if (iFEIN == "") {
+
+        //    iStopSub = 1;
+        //    sErr += "You must enter a FEIN Number" + "\n";
+
+        //}
+
+
+        //var iWebsite = $("#Website").val();
+
+        //if (iWebsite == "") {
+
+        //    iStopSub = 1;
+        //    sErr += "You must enter a Website Address" + "\n";
+
+        //}
+
+        if (iStopSub != 0) {
+            alert(sErr);
+            e.preventDefault();
+
+        }
+
+
+    });
+
+
+
+    $('#UpdateAgencyForm0').on("submit", function (evt) {
+
+        evt.preventDefault();
+
+        if ($('#UpdateAgencyForm0').valid()) {
+
+            $("#UpdateAgencyButton").prop("disabled", true);
+
+            $.ajax({
+                url: $("#UpdateAgencyForm0").attr('action'),
+                type: $("#UpdateAgencyForm0").attr('method'),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: $("#UpdateAgencyForm0").serialize(),
+                success: function (data) {
+
+
+                    var agencysiteid = data.Modified;
+                    $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+                    $(".se-pre-con").fadeIn("slow");
+                   // $('#ContentContainer').load('@Url.Action("Edit", "AgencySites")', { id: agencysiteid });
+                    $('#ContentContainer').load('@Url.Action("Index", "AgencySites")');
+                    $("#ContentContainer").show(500);
+                    $(".se-pre-con").fadeOut("slow");
+
+
+
+
+                }
+            });
+        }
+
+    });
+
+
+
+
+
+</script>

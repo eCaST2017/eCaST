@@ -1,0 +1,194 @@
+﻿@model CTL.ViewModels.AgencyRoleViewModel
+
+@using (Html.BeginForm("_UpdateAgencyRolesF", "AgencyContacts", FormMethod.Post, new { id = "UpdateAgencyRolesForm_" + @ViewBag.SiteID + @ViewBag.ProgramID + @ViewBag.AgencyRoleBinID }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div style="padding-left:10px">
+        <br />
+        <div>Personnel (Select all that apply):</div>
+        <br />
+
+        <div class="input-group btn-group">
+
+
+            @Html.DropDownList("testPer", (SelectList)ViewData["OptionList"], new { @class = "NewCssdropdown", multiple = "", @id = "testPer_" + @ViewBag.SiteID + @ViewBag.ProgramID + @ViewBag.AgencyRoleBinID })
+
+
+
+
+            <input type="hidden" id="selectedIDs_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID" />
+
+            @Html.Hidden("UserList")
+            @Html.Hidden("SiteID", (int?)@ViewBag.SiteID)
+            @Html.Hidden("ProgramID", (int?)@ViewBag.ProgramID)
+            @Html.Hidden("AgencyRoleBinID", (int?)@ViewBag.AgencyRoleBinID)
+
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" id="AgencyCloseButton_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID" class="btn btn-default">Close</button>
+        <button type="submit" id="AgencyButton_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID" class="btn btn-success">Update</button>
+    </div>
+
+}
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+
+        $("#AgencyCloseButton_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID").click(function () {
+
+            $('#PersonnelList_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID').load('@Html.Raw(Url.Action("_PersonnelList", "AgencyContacts", new { id = @ViewBag.SiteID, id2 = @ViewBag.ProgramID, id3 = @ViewBag.AgencyRoleBinID }))');
+            $("#EditAgencyButton_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID").css("display", "block");
+
+        });
+
+        $("#AgencyButton_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID").click(function (e) {
+
+            //Add SubContractor
+            var out = document.getElementById('selectedIDs_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID').value;
+            document.getElementById("UserList").value = out;
+
+
+            if ('@ViewBag.AgencyRoleBinID' == 50) {
+
+                var iStopSub = 0;
+                var sErr = "Please correct the following issues:\n\n";
+                if ($('#testPer_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID :selected').length > 1) {
+
+                  
+
+                 
+                        iStopSub = 1;
+                        sErr += "You cannot have more than 1 Fiscal Payment Coordinator for this Agency " + "\n";
+
+
+                }
+
+                if (iStopSub != 0) {
+                    alert(sErr);
+                    e.preventDefault();
+
+                }
+
+            }
+
+            @*var x = [];
+            $('#testPer_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID :selected').each(function (i, selected) {
+
+                x.push($(selected).val());
+
+            });
+
+
+            if ($.inArray('50', x) > -1) {
+
+                alert('TEST');
+
+            }*@
+
+
+
+
+
+        });
+
+        @*document.getElementById("testPer_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID").onchange = function () {
+
+            var idsF = $(testPer_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID).val();
+            $('#selectedIDs_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID').val(idsF);
+
+            var x = [];
+            $('#testPer_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID :selected').each(function (i, selected) {
+
+                x.push($(selected).val());
+
+            });
+
+
+            if ($.inArray('50', x) > -1) {
+
+                alert('TEST');
+
+            }
+
+        }*@
+
+        $(function () {
+
+            var data = '@ViewBag.Options';
+
+            //Make an array
+            var dataarray = data.split(",");
+
+            // Set the value
+            $("#testPer_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID").val(dataarray);
+            $('#selectedIDs_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID').val(dataarray);
+
+
+            var test = $('#testPer_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID');
+            $(test).select2({
+                width: "300px"
+            });
+
+
+            document.getElementById("testPer_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID").onchange = function () {
+
+                var ids = $(test).val();
+                $('#selectedIDs_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID').val(ids);
+
+            };
+
+
+
+        });
+
+        $('#UpdateAgencyRolesForm_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID').on("submit", function (evt44) {
+            evt44.preventDefault();
+            if ($('#UpdateAgencyRolesForm_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID').valid()) {
+                $.ajax({
+
+                    url: $("#UpdateAgencyRolesForm_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID").attr('action'),
+                    type: $("#UpdateAgencyRolesForm_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#UpdateAgencyRolesForm_@ViewBag.SiteID@ViewBag.ProgramID@ViewBag.AgencyRoleBinID").serialize(),
+                    success: function (data) {
+
+                        var clinicid = data.Modified;
+
+
+                        $('#ProgramListSection').load('@Url.Action("_ProgramManagement", "Programs", new { id = ViewBag.SiteID })');
+
+                        toastr.success('You have successfully updated the program roles.')
+
+
+
+                    }
+
+                });
+            }
+
+        });
+
+
+
+
+    });
+
+
+</script>
+
+
+
+
+
+
+
+

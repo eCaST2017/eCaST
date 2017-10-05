@@ -1,0 +1,122 @@
+﻿@model CTL.Models.Contract
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Contract</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencySiteID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AgencySiteID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoutingNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoutingNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FiscalYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FiscalYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateFYStart)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateFYStart)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateFYEnd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateFYEnd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ObjectCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ObjectCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RateState)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RateState)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RateFederal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RateFederal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateUpdated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdateBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

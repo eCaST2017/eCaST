@@ -1,0 +1,13 @@
+﻿@model CTL.ViewModels.PostViewModel
+
+@{
+    ViewBag.Title = "Followers";
+}
+
+
+<div><h4>@Model.PostTitle - <span style="color:#aeaeae; font-style:italic">Closes: @((@Model.ExpirationDate).ToString("MM/dd/yyyy"))</span></h4></div>
+
+
+@{ Html.RenderAction("_UserFollowList", "Posts", new { id = @Model.PostID });}
+
+

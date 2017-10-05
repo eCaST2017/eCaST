@@ -1,0 +1,243 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+
+
+<style type="text/css">
+
+    .grad {
+  background: -webkit-linear-gradient(white, lightgrey); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(white, lightgrey); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(white, lightgrey); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(white, lightgrey); /* Standard syntax */
+
+
+}
+
+body{
+overflow-x: hidden;
+overflow-y: scroll;
+}
+
+
+.img-responsive {  display: block;  height: auto;  max-width: 100%; }
+
+
+  .thumbnailH {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .thumbnailE {
+        position: relative;
+        overflow: hidden;
+    }
+
+
+    .thumbnailPO {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .caption {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: rgba(66, 139, 202, 0.75);
+        width: 100%;
+        height: 100%;
+        padding: 2%;
+        display: none;
+        text-align: left;
+        color: #fff !important;
+        z-index: 2;
+    }
+
+    .captionE {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: rgba(57, 181, 74, 0.75);
+        width: 100%;
+        height: 100%;
+        padding: 2%;
+        display: none;
+        text-align: left;
+        color: #fff !important;
+        z-index: 2;
+    }
+
+
+    .captionPO {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: rgba(247, 148, 30, 0.75);
+        width: 100%;
+        height: 100%;
+        padding: 2%;
+        display: none;
+        text-align: left;
+        color: #fff !important;
+        z-index: 2;
+    }
+
+
+
+
+</style>
+
+
+
+
+<div style="padding-left:12px;" id="TilesContainer">
+
+
+ 
+
+    <div class="row">
+
+       
+
+        <div class="col-md-4">
+
+
+            <div style="padding-right:10px" id="Login1Section"></div>
+
+
+        </div>
+
+        <div class="col-md-8">
+
+           
+           
+            <div style="padding-right:10px" id="TilesSection"></div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+</div>
+
+
+@*<div class="visible-xs visible-sm">
+
+    <div class="alert alert-info">
+    <div><h3>Health Informatics Data Systems</h3></div>
+    <div><h4>Our Partnering Programs include: Women's Wellness Connection(eCaST),Family Planning(iCare),Children and Youth with Special Health Care Needs(CDS) and Newborn Hearing/Metabolic Screening(IDS)</h4></div>
+    
+    </div>
+
+ <div id="Login2Section"></div>
+
+
+</div>*@
+
+
+
+    @section Scripts {
+
+<script type="text/javascript">
+
+
+    window.onbeforeunload = function () {
+
+        document.getElementById('logoutForm').submit();
+
+    };
+
+
+    $(function () {
+
+
+        $("#Login2Section").load("@Url.Action("LoginInline", "Account")",
+       function (response, status, xhr) {
+           if (status == "error") {
+               //   alert("An error occurred while loading the results.");
+           }
+       });
+
+
+
+        $("#TilesSection").hide("slide", { direction: "right" }, 500);
+        $("#TilesSection").load("@Url.Action("_Tiles", "Home")",
+        function (response, status, xhr) {
+            if (status == "error") {
+                //   alert("An error occurred while loading the results.");
+            }
+            $("#TilesSection").show(500);
+        });
+
+
+
+        $("#Login1Section").hide("slide", { direction: "right" }, 500);
+        $("#Login1Section").load("@Url.Action("LoginInline", "Account")",
+        function (response, status, xhr) {
+            if (status == "error") {
+                //   alert("An error occurred while loading the results.");
+            }
+            $("#Login1Section").show(500);
+        });
+
+
+
+       
+    });
+
+
+
+    $(function () {
+       
+
+        $('.thumbnailH').hover(
+            function () {
+                $(this).find('.caption').slideDown(250); //.fadeIn(250)
+
+            },
+            function () {
+                $(this).find('.caption').slideUp(250); //.fadeOut(205)
+
+            }
+        );
+
+        $('.thumbnailE').hover(
+            function () {
+
+                $(this).find('.captionE').slideDown(250); //.fadeIn(250)
+
+            },
+            function () {
+
+                $(this).find('.captionE').slideUp(250); //.fadeOut(205)
+
+            }
+        );
+
+        $('.thumbnailPO').hover(
+            function () {
+
+                $(this).find('.captionPO').slideDown(250); //.fadeIn(250)
+            },
+            function () {
+
+                $(this).find('.captionPO').slideUp(250); //.fadeOut(205)
+            }
+        );
+
+
+
+    });
+
+  
+</script>
+
+
+
+    }

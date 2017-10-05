@@ -1,0 +1,268 @@
+﻿@model CTL.ViewModels.PostViewModel
+
+@{
+    ViewBag.Title = "Award Opportunity";
+}
+
+
+@using (Html.BeginForm("_AwardPostF", "Posts", FormMethod.Post, new { id = "AwardTPostForm" }))
+{
+
+    
+     @Html.Hidden("UserId", (int?)ViewBag.UserId)
+     @Html.Hidden("OrgID", (int?)ViewBag.OrgID)
+    @Html.Hidden("PostID", @Model.PostID)
+     @Html.Hidden("PostTitle", @Model.PostTitle)
+
+<div style="padding-left:10px">
+
+    <br />
+
+    <div><h4><span style="color:#aeaeae; font-style:italic">Closed: @((@Model.ExpirationDate).ToString("MM/dd/yyyy"))</span></h4></div>
+
+
+    <div><h4>This opportunity has been awarded to:</h4></div>
+
+   
+
+    <div class="editor-field">
+          @Html.DropDownListFor(model => model.AwardedId, ((IEnumerable<CTL.Models.ApplicationUser>)ViewBag.PossibleUsers).Select(option => new SelectListItem
+                          {
+                              //Text = Html.DisplayTextFor(_ => option).ToString(),
+                              Text = option.FirstName + " " + option.LastName,
+                              Value = option.Id.ToString(),
+                              Selected = (Model != null) && (option.Id == Model.AwardedId)
+                          }), "Choose...")
+        @Html.ValidationMessageFor(model => model.AwardedId)
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" id="PostCloseAwardButton" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="AddAwardButton" type="submit" class="btn btn-success">Award Opportunity</button>
+    </div>
+
+</div>
+
+    
+}
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#AwardedId").select2({ width: "30%" });
+
+       
+    });
+
+</script>
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+
+        $("#AwardTPostForm").validate({
+            rules: {
+
+                //TestDate: {
+                //    //required: { depends: checkTestFieldSelected }
+                //    required: true
+
+                //},
+                //SystolicBinID1: {
+                //    required: { depends: checkSys1FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //DiastolicBinID1: {
+                //    required: { depends: checkDia1FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //SystolicBinID2: {
+                //    required: { depends: checkSys2FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //DiastolicBinID2: {
+                //    required: { depends: checkDia2FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //TotalCholesterolBinID: {
+                //    required: { depends: checkTCFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //HDLCholesterolBinID: {
+                //    required: { depends: checkHDLFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //LDLCholesterolBinID: {
+                //    required: { depends: checkFAFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //TriglyceridesBinID: {
+                //    required: { depends: checkFAFieldSelected },
+                //    range: [10, 600]
+                //    //required: true
+
+                //},
+
+                //GlucoseBinID: {
+                //    required: { depends: checkGluFieldSelected },
+                //    //range: [10, 600]
+                //    //required: true
+
+                //},
+                //A1CPercentageBinID: {
+                //    required: { depends: checkA1CFieldSelected }
+
+
+                //},
+                //WorkupStatusBinID: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupStatusDate: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupResultBinID: {
+                //    required: { depends: checkWorkupResultFieldSelected }
+
+
+                //}
+
+
+            },
+            messages: {
+
+                //TestDate: {
+                //    required: "Please select a test date"
+
+                //},
+                //SystolicBinID1: {
+                //    required: "Please enter a value greater than 0 for the Systolic Value"
+
+                //},
+                //DiastolicBinID1: {
+                //    required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                //},
+                //SystolicBinID2: {
+                //    required: "Please enter a value greater than 0 for the Systolic Value"
+
+                //},
+                //DiastolicBinID2: {
+                //    required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                //},
+                //TotalCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the Total Cholesterol Value"
+
+                //},
+                //HDLCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the HDL Cholesterol Value"
+
+                //},
+                //LDLCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the LDL Cholesterol Value"
+
+                //},
+
+                //TriglyceridesBinID: {
+
+                //    required: "Please enter a value greater than 0 for the Triglycerides Value"
+
+                //},
+                //GlucoseBinID: {
+
+                //    required: "Please enter a value greater than 0 for the Glucose Value"
+
+                //},
+
+                //A1CPercentageBinID: {
+
+                //    required: "Please enter a value for the A1C Percentage Value"
+
+                //},
+                //WorkupStatusBinID: {
+
+                //    required: "Please enter a value for Workup Status"
+
+                //},
+                //WorkupStatusDate: {
+
+                //    required: "Please enter a value for Workup Status Date"
+
+                //},
+                //WorkupResultBinID: {
+
+                //    required: "Please enter a value for Workup Result"
+
+                //}
+
+            }
+        });
+
+
+        // $("#AddPostButton").click(function (e) { e.preventDefault(); })
+
+
+        $('#AwardTPostForm').on("submit", function (e) {
+            e.preventDefault();
+
+            if ($('#AwardTPostForm').valid()) {
+                $.ajax({
+
+                    url: $("#AwardTPostForm").attr('action'),
+                    type: $("#AwardTPostForm").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#AwardTPostForm").serialize(),
+                    success: function (data) {
+
+                        var posttitle = data.Modified;
+                        var userid = data.Modified2;
+                        var orgid = data.Modified3;
+
+
+
+                        $('#PostListContainer').load('@Url.Action("_PostList", "Posts")', { id: orgid });
+
+                        toastr.success('You have successfully awarded ' + posttitle + '.')
+
+
+                        //$('#myModal').modal('hide')
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+
+                    }
+
+                });
+            }
+
+        });
+
+
+    });
+
+
+</script>

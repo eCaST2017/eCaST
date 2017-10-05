@@ -1,0 +1,101 @@
+@model IEnumerable<CTL.Models.Organization>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            OrganizationName
+        </th>
+        <th>
+            MailingAddress
+        </th>
+        <th>
+            CityName
+        </th>
+        <th>
+            ZipCode
+        </th>
+        <th>
+            Active
+        </th>
+        <th>
+            DateUpdated
+        </th>
+        <th>
+            UpdatedBy
+        </th>
+        <th>
+            DateCreated
+        </th>
+        <th>
+            CreatedBy
+        </th>
+        <th>
+            StateBins
+        </th>
+        <th>
+            Requests
+        </th>
+        <th>
+            UserProfiles
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.OrganizationID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.OrganizationID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.OrganizationID })
+        </td>
+        <td>
+			@item.OrganizationName
+        </td>
+        <td>
+			@item.MailingAddress
+        </td>
+        <td>
+			@item.CityName
+        </td>
+        <td>
+			@item.ZipCode
+        </td>
+        <td>
+			@item.Active
+        </td>
+        <td>
+			@String.Format("{0:g}", item.DateUpdated)
+        </td>
+        <td>
+			@item.UpdatedBy
+        </td>
+        <td>
+			@String.Format("{0:g}", item.DateCreated)
+        </td>
+        <td>
+			@item.CreatedBy
+        </td>
+        <td>
+			@Html.DisplayTextFor(_ => item.StateBins).ToString()
+        </td>
+        <td>
+			@(item.Requests == null ? "None" : item.Requests.Count.ToString())
+        </td>
+        <td>
+			@(item.UserProfiles == null ? "None" : item.UserProfiles.Count.ToString())
+        </td>
+    </tr>
+}
+
+</table>
+
+

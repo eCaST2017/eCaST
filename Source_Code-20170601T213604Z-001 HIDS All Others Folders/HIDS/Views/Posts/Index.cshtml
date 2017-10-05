@@ -1,0 +1,73 @@
+@model IEnumerable<CTL.Models.Post>
+
+@{
+    ViewBag.Title = "Available Opportunities";
+}
+
+@*@{ Html.RenderAction("_ExternalPostList", "Posts"); }*@
+
+<div id="ExternalPostContainer"></div>
+
+
+@section Scripts{
+
+
+    <script type="text/javascript">
+
+
+        $(function () {
+
+
+            $('#ExternalPostContainer').load('@Url.Action("_ExternalPostList", "Posts")');
+
+
+
+            });
+
+
+
+    var images = [
+"../../Content/images/pic8.jpg"
+
+    ];
+
+
+    var index = 0, oldIndex;
+
+    //$(document).ready(function () {
+
+    $(function () {
+
+
+
+        // Call backstretch for the first time,
+        // In this case, I"m settings speed of 500ms for a fadeIn effect between images.
+        index = Math.floor((Math.random() * images.length));
+        $.backstretch(images[index], {
+            speed: 1000
+        });
+
+        // Set an interval that increments the index and sets the new image
+        // Note: The fadeIn speed set above will be inherited
+        //
+
+        //setInterval(function () {
+        //    oldIndex = index;
+        //    while (oldIndex == index) {
+        //        index = Math.floor((Math.random() * images.length));
+        //    }
+        //    $.backstretch(images[index]);
+        //}, 5000);
+
+        // A little script for preloading all of the images
+        // It"s not necessary, but generally a good idea
+        $(images).each(function () {
+            $("<img />")[0].src = this;
+        });
+
+    });
+
+    </script>
+
+
+}

@@ -1,0 +1,608 @@
+﻿@model CTL.ViewModels.SiteViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@using (Html.BeginForm("_UpdateSiteDetailF", "Sites", FormMethod.Post, new { id = "UpdateSiteDetailForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+    <div class="w3-card-2">
+        <div style="background-color:#999" class="panel-heading w3-card-2">
+            <span style="color:#fff;font-family: 'Roboto', sans-serif; font-size:16px"><i style="color:#fff" class="fa fa-map-marker fa-fw"></i>&nbsp;Edit @Model.SiteName</span>
+
+
+            <div class="pull-right"><button id="ReturnDashButton" type="button" class="btn btn-default btn-sm">Return to Dashboard</button></div>
+
+
+
+
+        </div>
+        <!-- /.panel-heading -->
+        <div style="background-color:#fff" class="panel-body">
+
+
+            @Html.Hidden("SiteID", (int?)@ViewBag.SiteID)
+
+
+            <div style="padding-left:10px">
+
+                <div class="row">
+                    <div class="col-md-2">
+
+                        Agency
+
+                    </div>
+
+                    <div class="col-md-10">
+
+                        @Html.DropDownListFor(model => model.AgencySiteID, ((IEnumerable<CTL.Models.AgencySite>)ViewBag.PossibleAgencySites).Select(option => new SelectListItem
+{
+    Text = option.AgencySiteName,
+    Value = option.AgencySiteID.ToString(),
+    Selected = (Model != null) && (option.AgencySiteID == Model.AgencySiteID)
+}), "Choose...", new { @id = "AgencySiteID" })
+                        @Html.ValidationMessageFor(model => model.AgencySiteID)
+
+
+                    </div>
+
+                </div>
+                <br />
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>Programs (Select all that apply): &nbsp;<input type="checkbox" id="checkboxPROGRAM">Select All</div>
+                    </div>
+
+                </div>
+                <br />
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        @Html.DropDownList("ProgramList", (SelectList)ViewData["OptionList"], new { @class = "NewCssdropdown", multiple = "", @id = "ProgramList" })
+                        @Html.ValidationMessageFor(model => model.ProgramName)
+                        <input type="hidden" id="selectedIDsPROGRAM" />
+
+                        @Html.Hidden("ProgramName")
+
+
+                    </div>
+                    <br />
+                </div>
+                <br />
+
+
+                @*<div class="row">
+                    <div class="col-md-12">
+                        <div>Services Offered (Select all that apply): &nbsp;<input type="checkbox" id="checkboxSER">Select All</div>
+                    </div>
+
+                </div>
+                <br />
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        @Html.DropDownList("ServiceList", (SelectList)ViewData["OptionListSER"], new { @class = "NewCssdropdown", multiple = "", @id = "ServiceList" })
+                        @Html.ValidationMessageFor(model => model.ServiceList)
+                        <input type="hidden" id="selectedIDsSER" />
+
+                        @Html.Hidden("ServiceName")
+
+
+                    </div>
+                    <br />
+                    <br />
+                </div>*@
+                
+
+                <div class="row">
+                    <div class="col-md-2">Site Name</div>
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(model => model.SiteName, new { @style = "width: 94%", @placeholder = "Enter a Site Name", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.SiteName)
+                    </div>
+                    <div class="col-md-3">
+                        @Html.CheckBoxFor(model => model.Active, new { @id = "Active" }) &nbsp;Active @Html.ValidationMessageFor(model => model.Active)
+                    </div>
+
+                    @Html.HiddenFor(model => model.Active)
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-2">Geo Location</div>
+                    <div class="col-md-5">
+
+                       @Html.TextBoxFor(model => model.Latitude, new { @style = "width: 94%", @placeholder = "Enter a Latitude", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Latitude)
+                    </div>
+
+                    <div class="col-md-5">
+
+                    @Html.TextBoxFor(model => model.Longitude, new { @style = "width: 94%", @placeholder = "Enter a Longitude", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Longitude)
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-2">Address</div>
+                    <div class="col-md-10">@Html.TextBoxFor(model => model.Address, new { @style = "width: 94%;", @placeholder = "Enter Address", @class = "form-control" }) @Html.ValidationMessageFor(model => model.Address)</div>
+
+                </div>
+                <br />
+
+                <div class="row">
+                    <div class="col-md-2">Secondary Address</div>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.SecondaryAddress, new { @style = "width: 94%;", @placeholder = "Secondary Address", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.SecondaryAddress)
+                    </div>
+                </div>
+                <br />
+
+                <div class="row">
+                    <div class="col-md-2">
+
+                        City
+                    </div>
+
+                    <div class="col-md-10">
+
+                        @Html.DropDownListFor(model => model.CityBinID, ((IEnumerable<CTL.ViewModels.AssignedCityData>)ViewBag.PossibleCityBins).Select(option => new SelectListItem
+{
+    Text = option.CityBinName,
+    Value = option.CityBinID.ToString(),
+    Selected = (Model != null) && (option.CityBinID == Model.CityBinID)
+}), "Choose...", new { @id = "CityBinID" })
+                        @Html.ValidationMessageFor(model => model.CityBinID)
+
+
+                    </div>
+
+                </div>
+                <br />
+
+                <div class="row">
+                    <div class="col-md-2">
+
+                        State
+                    </div>
+
+                    <div class="col-md-10">
+
+                        @Html.DropDownListFor(model => model.StateBinID, ((IEnumerable<CTL.ViewModels.AssignedStateData>)ViewBag.PossibleStateBins).Select(option => new SelectListItem
+{
+    Text = option.StateBinName,
+    Value = option.StateBinID.ToString(),
+    Selected = (Model != null) && (option.StateBinID == Model.StateBinID)
+}), "Choose...", new { @id = "StateBinID" })
+                        @Html.ValidationMessageFor(model => model.StateBinID)
+
+
+                    </div>
+
+                </div>
+                <br />
+
+
+
+                <div class="row">
+                    <div class="col-md-2">
+
+                        County Served
+                    </div>
+
+                    <div class="col-md-10">
+
+                        @Html.DropDownListFor(model => model.CountyCodeBinID, ((IEnumerable<CTL.ViewModels.AssignedCountyData>)ViewBag.PossibleCountyBins).Select(option => new SelectListItem
+ {
+     Text = option.CountyBinName,
+     Value = option.CountyBinID.ToString(),
+     Selected = (Model != null) && (option.CountyBinID == Model.CountyCodeBinID)
+ }), "Choose...", new { @id = "CountyCodeBinID" })
+                        @Html.ValidationMessageFor(model => model.CountyCodeBinID)
+
+
+                    </div>
+
+                </div>
+                <br />
+
+                <div class="row">
+                    <div class="col-md-2">Zip Code</div>
+                    <div class="col-md-10">@Html.TextBoxFor(model => model.ZipCode, new { @style = "width: 94%;", @placeholder = "Enter Zip Code", @class = "form-control cep" }) @Html.ValidationMessageFor(model => model.ZipCode)</div>
+
+                </div>
+                <br />
+
+                @*<div class="row">
+                    <div class="col-md-2">Secondary Zip Code</div>
+                    <div class="col-md-10">@Html.TextBoxFor(model => model.ZipCode, new { @style = "width: 94%;", @placeholder = "Enter Zip Code", @class = "form-control cep" }) @Html.ValidationMessageFor(model => model.ZipCode)</div>
+
+                </div>
+                <br />*@
+
+
+         
+
+                <div class="row">
+                    <div class="col-md-2">Phone</div>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Phone, new { @style = "width: 94%;", @placeholder = "Phone Number", @class = "form-control ClinicPhone" })
+                        @Html.ValidationMessageFor(model => model.Phone)
+                    </div>
+
+
+                </div>
+                <br />
+
+
+                <div class="row">
+                    <div class="col-md-2">Referral Phone</div>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.ReferralPhone, new { @style = "width: 94%;", @placeholder = "Referral Phone Number", @class = "form-control ClinicPhone" })
+                        @Html.ValidationMessageFor(model => model.ReferralPhone)
+                    </div>
+
+
+                </div>
+                <br />
+
+
+
+                <div class="row">
+                    <div class="col-md-2">Fax</div>
+                    <div class="col-md-10">@Html.TextBoxFor(model => model.Fax, new { @style = "width: 94%;", @placeholder = "Enter Fax", @class = "form-control ClinicPhone" }) @Html.ValidationMessageFor(model => model.Fax)</div>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-2">Website</div>
+                    <div class="col-md-10">
+
+                        @Html.TextBoxFor(model => model.Website, new { @style = "width: 94%", @placeholder = "Enter a Website", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Website)
+                    </div>
+
+                </div>
+                <br />
+
+                <div class="modal-footer">
+                    @*<button type="button" id="ClinicEditCloseButton" class="btn btn-default" data-dismiss="modal">Close</button>*@
+
+                    @if (@ViewBag.RoleName != "SiteAdmin")
+                    {
+                        <button type="button" id="SiteCloseButton" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" id="SiteEditButton" class="btn btn-success">Update</button>
+
+    }
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        </div>
+
+
+        }
+
+
+        <script type="text/javascript">
+
+
+            $(function () {
+
+                $("#AgencySiteID").select2({ width: "90%" });
+                $("#CityBinID").select2({ width: "90%" });
+                $("#StateBinID").select2({ width: "90%" });
+                $("#CountyCodeBinID").select2({ width: "90%" });
+
+            });
+
+
+            $(function () {
+
+                var data = '@ViewBag.Options';
+
+                //Make an array
+                var dataarray = data.split(",");
+
+                // Set the value
+                $("#ProgramList").val(dataarray);
+                $('#selectedIDsPROGRAM').val(dataarray);
+
+
+                var test = $('#ProgramList');
+                $(test).select2({
+                    width: "300px"
+                });
+
+                $("#checkboxPROGRAM").click(function () {
+                    if ($("#checkboxPROGRAM").is(':checked')) {
+                        $("#ProgramList > option").prop("selected", "selected");
+                        // $("#AgencySelect").attr('size', '3');
+                        $("#ProgramList").trigger("change");
+                    } else {
+                        $("#ProgramList > option").removeAttr("selected");
+                        //$('#AgencySelect').attr("readonly", false);
+                        $("#ProgramList").trigger("change");
+
+                    }
+                });
+
+
+                document.getElementById("ProgramList").onchange = function () {
+
+                    var ids = $(test).val();
+                    $('#selectedIDsPROGRAM').val(ids);
+
+                };
+
+
+
+            });
+
+          
+        </script>
+
+        <script type="text/javascript">
+
+
+           
+            $("#ReturnDashButton").click(function () {
+
+                $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+                $(".se-pre-con").fadeIn("slow");
+                $("#ContentContainer").load("@Url.Action("Edit", "AgencySites", new { id = ViewBag.AgencySiteID })",
+                                                 function (response, status, xhr) {
+                                                     if (status == "error") {
+                                                         //   alert("An error occurred while loading the results.");
+                                                     }
+                                                     $("#ContentContainer").show(500);
+                                                     $(".se-pre-con").fadeOut("slow");
+                                                 });
+
+            });
+
+
+            $("#SiteCloseButton").click(function () {
+
+
+                $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+                $(".se-pre-con").fadeIn("slow");
+                $("#ContentContainer").load("@Url.Action("Edit", "AgencySites", new { id = ViewBag.AgencySiteID })",
+                                                 function (response, status, xhr) {
+                                                     if (status == "error") {
+                                                         //   alert("An error occurred while loading the results.");
+                                                     }
+                                                     $("#ContentContainer").show(500);
+                                                     $(".se-pre-con").fadeOut("slow");
+                                                 });
+
+            });
+
+        </script>
+
+
+
+        <script type="text/javascript">
+
+
+    $(function () {
+
+
+
+        $("#SiteEditButton").click(function (e) {
+
+            //Add SubContractor
+            var out = document.getElementById('selectedIDsPROGRAM').value;
+            document.getElementById("ProgramName").value = out;
+
+            //Add SubContractor
+            var out = document.getElementById('selectedIDsPROGRAM').value;
+            document.getElementById("ProgramName").value = out;
+
+            var iStopSub = 0;
+            var sErr = "Please correct the following issues:\n\n";
+
+            if ($("#selectedIDsPROGRAM").val() == "") {
+                iStopSub = 1;
+                sErr += "-Please select at least 1 program.\n";
+            }
+
+            var iSiteName = $("#SiteName").val();
+
+            if (iSiteName == "") {
+
+                iStopSub = 1;
+                sErr += "You must enter an Site Name" + "\n";
+
+            }
+
+            //var iLatitude = $("#Latitude").val();
+
+            //if (iLatitude == "") {
+
+            //    iStopSub = 1;
+            //    sErr += "You must enter a Latitude" + "\n";
+
+            //}
+
+            //var iLongitude = $("#Longitude").val();
+
+            //if (iLongitude == "") {
+
+            //    iStopSub = 1;
+            //    sErr += "You must enter a Longitude" + "\n";
+
+            //}
+
+            //var iAddress = $("#Address").val();
+
+            //if (iAddress == "") {
+
+            //    iStopSub = 1;
+            //    sErr += "You must enter an Address" + "\n";
+
+            //}
+
+            //var iSecondaryAddress = $("#SecondaryAddress").val();
+
+            //if (iSecondaryAddress == "") {
+
+            //    iStopSub = 1;
+            //    sErr += "You must enter an Secondary Address" + "\n";
+
+            //}
+
+            var iCityBinID = $("#CityBinID option:selected").val();
+
+            if (iCityBinID < 1) {
+                iStopSub = 1;
+                sErr += "You must enter a city" + "\n";
+
+            }
+
+            var iStateBinID = $("#StateBinID option:selected").val();
+
+            if (iStateBinID < 1) {
+                iStopSub = 1;
+                sErr += "You must enter a state" + "\n";
+
+            }
+
+
+            var iCountyCodeBinID = $("#CountyCodeBinID option:selected").val();
+
+            if (iCountyCodeBinID < 1) {
+                iStopSub = 1;
+                sErr += "You must enter a county served" + "\n";
+
+            }
+
+            //var iZipCode = $("#ZipCode").val();
+
+            //if (iZipCode == "") {
+
+            //    iStopSub = 1;
+            //    sErr += "You must enter an Zipcode" + "\n";
+
+            //}
+
+            //var iPhone = $("#Phone").val();
+
+            //if (iPhone == "") {
+
+            //    iStopSub = 1;
+            //    sErr += "You must enter a Phone Number" + "\n";
+
+            //}
+
+            //var iReferralPhone = $("#ReferralPhone").val();
+
+            //if (iReferralPhone == "") {
+
+            //    iStopSub = 1;
+            //    sErr += "You must enter a Referral Phone Number" + "\n";
+
+            //}
+
+            //var iFax = $("#Fax").val();
+
+            //if (iFax == "") {
+
+            //    iStopSub = 1;
+            //    sErr += "You must enter a Fax" + "\n";
+
+            //}
+
+
+            //var iWebsite = $("#Website").val();
+
+            //if (iWebsite == "") {
+
+            //    iStopSub = 1;
+            //    sErr += "You must enter a Website Address" + "\n";
+
+            //}
+
+            if (iStopSub != 0) {
+                alert(sErr);
+                e.preventDefault();
+
+            }
+
+
+        });
+
+
+
+        $('#UpdateSiteDetailForm').on("submit", function (evt44) {
+            evt44.preventDefault();
+            if ($('#UpdateSiteDetailForm').valid()) {
+                $.ajax({
+
+                    url: $("#UpdateSiteDetailForm").attr('action'),
+                    type: $("#UpdateSiteDetailForm").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#UpdateSiteDetailForm").serialize(),
+                    success: function (data) {
+
+                        var siteid = data.Modified;
+                        var sitename = data.Modified2;
+                        var status = data.Modified3;
+
+                        $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+                        $(".se-pre-con").fadeIn("slow");
+                        // $('#ContentContainer').load('@Url.Action("Edit", "Sites")',{ id: siteid});
+                        $('#ContentContainer').load('@Url.Action("Index", "AgencySites")');
+                        $("#ContentContainer").show(500);
+                        $(".se-pre-con").fadeOut("slow");
+
+                        if (status == "passed") {
+
+                            toastr.success('You have successfully added ' + sitename + ' as a new site.')
+
+                        }
+                        else {
+
+
+                            toastr.warning('Unable to add site: ' + sitename + ' - Site with the same name already exists.')
+
+
+                        }
+
+
+
+                    }
+
+                });
+            }
+
+        });
+
+
+
+
+    });
+
+
+    $(document).ready(function () {
+        $('.ClinicPhone').mask('(999) 999-9999? x99999');
+        $('.cep').mask('99999');
+    });
+
+
+        </script>

@@ -1,0 +1,408 @@
+﻿@model CTL.Models.ApplicationUser
+
+
+
+@using (Html.BeginForm("_ActivateUserF", "UserProfiles", FormMethod.Post, new { id = "ActivateUserForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.Hidden("UserId", (string)ViewBag.AUserID)
+    @Html.Hidden("UserName", (string)ViewBag.AUserName)
+     @Html.Hidden("Active", (bool)ViewBag.Activate)
+
+
+    <div style="padding-left:12px">
+
+
+        <div><h3 style="font-family: 'Roboto', sans-serif;color:#666"><span class="glyphicon glyphicon-user"></span>&nbsp;Personal Information:</h3></div>
+       
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div style="padding:12px;width:90%" class="w3-card-2">
+
+                    <div> <h3>@Model.FirstName @Model.LastName</h3> </div>
+
+                    <div> <h3>@Model.Email</h3> </div>
+
+                    <div> <h3>@Model.TelephoneNumber</h3> </div>
+
+                    </div>
+
+
+                </div>
+
+        </div>
+       
+        <br />
+
+        @if (ViewBag.RoleBinID == 3 || ViewBag.RoleBinID == 13 || ViewBag.RoleBinID == 39)
+        { 
+
+        <div><h3 style="font-family: 'Roboto', sans-serif;color:#666"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Role Requested :</h3></div>
+        <br />
+
+        <div style="width:90%" id="ProgramRoleContainer_@Model.Id"></div>
+
+        }
+        else
+        {
+
+            <div><h3 style="font-family: 'Roboto', sans-serif;color:#666"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Programs/Sites Selected :</h3></div>
+            <br />
+
+            <div style="width:90%" id="ProgramContainer_@Model.Id"></div>
+
+        }
+
+        <div class="modal-footer">
+            <div style="float:right">
+
+                <button type="button" id="ActivateCloseButton" class="btn btn-default">Close</button>
+                <a id="ChangeAccessButton" style="text-decoration:none;color:#fff" class="btn btn-info" href="@Url.Action("Edit", "UserProfiles", new { id = @Model.Id })">Change Access</a>
+                    <button id="ActivateButton" type="submit" class="btn btn-success">Activate</button>
+
+
+</div>
+        </div>
+
+    </div>
+
+}
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+
+        $("#ActivateCloseButton").click(function () {
+
+
+            $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+            
+
+            $("#ContentContainer").load("@Url.Action("_ActiveUserProfiles","UserProfiles")",
+                                      function (response, status, xhr) {
+                                          if (status == "error") {
+
+                                          }
+
+
+                                          $("#ContentContainer").show(500);
+
+                                      });
+
+        });
+
+
+    });
+
+
+    </script>
+
+    <script type="text/javascript">
+
+
+    $(function () {
+
+
+        if ('@ViewBag.RoleBinID' == 3 || '@ViewBag.RoleBinID' == 13 || '@ViewBag.RoleBinID' == 39) {
+
+                $("#ProgramRoleContainer_@Model.Id").load("@Url.Action("_ProgramRoleList","Programs")", { 'id': '@Model.Id' },
+               function (response, status, xhr) {
+                   if (status == "error") {
+
+                   }
+
+
+               });
+
+
+        }
+        else {
+
+
+            $("#ProgramContainer_@Model.Id").load("@Url.Action("_ProgramList","Programs")", { 'id': '@Model.Id' },
+            function (response, status, xhr) {
+                if (status == "error") {
+
+                }
+
+
+            });
+
+
+
+        }
+
+    });
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+
+
+    $(function () {
+
+
+        $("#ActivateUserForm").validate({
+            rules: {
+
+                //TestDate: {
+                //    //required: { depends: checkTestFieldSelected }
+                //    required: true
+
+                //},
+                //SystolicBinID1: {
+                //    required: { depends: checkSys1FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //DiastolicBinID1: {
+                //    required: { depends: checkDia1FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //SystolicBinID2: {
+                //    required: { depends: checkSys2FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //DiastolicBinID2: {
+                //    required: { depends: checkDia2FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //TotalCholesterolBinID: {
+                //    required: { depends: checkTCFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //HDLCholesterolBinID: {
+                //    required: { depends: checkHDLFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //LDLCholesterolBinID: {
+                //    required: { depends: checkFAFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //TriglyceridesBinID: {
+                //    required: { depends: checkFAFieldSelected },
+                //    range: [10, 600]
+                //    //required: true
+
+                //},
+
+                //GlucoseBinID: {
+                //    required: { depends: checkGluFieldSelected },
+                //    //range: [10, 600]
+                //    //required: true
+
+                //},
+                //A1CPercentageBinID: {
+                //    required: { depends: checkA1CFieldSelected }
+
+
+                //},
+                //WorkupStatusBinID: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupStatusDate: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupResultBinID: {
+                //    required: { depends: checkWorkupResultFieldSelected }
+
+
+                //}
+
+
+            },
+            messages: {
+
+                //TestDate: {
+                //    required: "Please select a test date"
+
+                //},
+                //SystolicBinID1: {
+                //    required: "Please enter a value greater than 0 for the Systolic Value"
+
+                //},
+                //DiastolicBinID1: {
+                //    required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                //},
+                //SystolicBinID2: {
+                //    required: "Please enter a value greater than 0 for the Systolic Value"
+
+                //},
+                //DiastolicBinID2: {
+                //    required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                //},
+                //TotalCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the Total Cholesterol Value"
+
+                //},
+                //HDLCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the HDL Cholesterol Value"
+
+                //},
+                //LDLCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the LDL Cholesterol Value"
+
+                //},
+
+                //TriglyceridesBinID: {
+
+                //    required: "Please enter a value greater than 0 for the Triglycerides Value"
+
+                //},
+                //GlucoseBinID: {
+
+                //    required: "Please enter a value greater than 0 for the Glucose Value"
+
+                //},
+
+                //A1CPercentageBinID: {
+
+                //    required: "Please enter a value for the A1C Percentage Value"
+
+                //},
+                //WorkupStatusBinID: {
+
+                //    required: "Please enter a value for Workup Status"
+
+                //},
+                //WorkupStatusDate: {
+
+                //    required: "Please enter a value for Workup Status Date"
+
+                //},
+                //WorkupResultBinID: {
+
+                //    required: "Please enter a value for Workup Result"
+
+                //}
+
+            }
+        });
+
+
+        // $("#AddPostButton").click(function (e) { e.preventDefault(); })
+
+
+        $('#ActivateUserForm').on("submit", function (e) {
+            e.preventDefault();
+
+            if ($('#ActivateUserForm').valid()) {
+                $.ajax({
+
+                    url: $("#ActivateUserForm").attr('action'),
+                    type: $("#ActivateUserForm").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#ActivateUserForm").serialize(),
+                    success: function (data) {
+
+                        var username = data.Modified;
+                        var userid = data.Modified2;
+                        var orgid = data.Modified3;
+
+
+                        $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+                        $("#ContentContainer").load("@Url.Action("_ActiveUserProfiles", "UserProfiles")",
+                                                         function (response, status, xhr) {
+                                                             if (status == "error") {
+                                                                 //   alert("An error occurred while loading the results.");
+                                                             }
+                                                             $("#ContentContainer").show(500);
+                                                         });
+
+
+
+                        $("#TileBarContainer").hide("slide", { direction: "right" }, 500);
+                        $("#TileBarContainer").load("@Url.Action("_TileBar", "Dashboards")",
+                        function (response, status, xhr) {
+                            if (status == "error") {
+                                //   alert("An error occurred while loading the results.");
+                            }
+                            // 
+       
+                            $("#TileBarContainer").show(500);
+                        });
+
+
+                        // $('#ContentContainer').load('@Url.Action("_ActiveUserProfiles", "UserProfiles")');
+                       // url = '@Url.Action("Manage", "Dashboards")';
+                        //url = url.replace('_userid_', encodeURIComponent(userid));
+                        // location.href = url;
+
+                        @*$("#ContentContainer").hide("slide", { direction: "right" }, 500);
+                       
+
+                        $("#ContentContainer").load("@Url.Action("_ActiveUserProfiles","UserProfiles")",
+                                                                   function (response, status, xhr) {
+                                                                       if (status == "error") {
+
+                                                                       }
+                                                                       $("#ContentContainer").show(500);
+                                                                   });*@
+
+
+
+                          //  toastr.success('The user has been successfully activated.')
+
+
+                        //$('#myModal').modal('hide')
+                        //$('body').removeClass('modal-open');
+                        //$('.modal-backdrop').remove();
+
+                    }
+
+                });
+            }
+
+        });
+
+
+    });
+
+
+</script>

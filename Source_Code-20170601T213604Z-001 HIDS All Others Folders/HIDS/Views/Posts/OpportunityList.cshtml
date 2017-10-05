@@ -1,0 +1,308 @@
+﻿@model IEnumerable<CTL.ViewModels.PostViewModel>
+
+
+
+
+
+<script type="text/javascript">
+   
+
+    $(document).ready(function () {
+        /* Initialise the DataTable */
+        var oTable = $('#exampleOp').dataTable({
+            "oLanguage": {
+                "sSearch": "Search:"
+            },
+            "bPaginate": false,
+            "bSort": false,
+            "bAutoWidth": false,
+            //"aoColumnDefs": [{ "bVisible": false, "aTargets": [0] }]
+        });
+
+      
+    });
+</script>
+
+
+    
+    
+<style type="text/css">
+    table.dataTable td.sorting_1 {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+
+    table.dataTable td {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+
+    table.dataTable tr.odd {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+
+    table.dataTable tr.even {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+
+
+  
+</style>
+
+
+
+
+
+<div style="width:100%">
+        <!--Main Content-->
+                 <h3 style="font-family: 'Lato', sans-serif;color:#3a53c7;padding-left:20px" >Find Opportunities</h3>
+                 <hr />
+   
+
+                
+	<div style="padding-left:20px" class="container"></div>
+
+
+    </div>
+        
+
+       
+
+<div id="holder1">
+    <table style="width:100%; font-family: 'Lato', sans-serif;color:#3a53c7;" cellpadding="0" cellspacing="0" border="0" id="exampleOp">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                @*<th></th>*@
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+
+
+
+            <tr>
+
+
+                <td style="color:#ccc; width:0px; font-size:14px; border:none">
+
+
+                  @*  @item.PostTypeName*@
+                   
+                    
+                    <div align="center">
+                     @Html.Raw(item.OrgPic)
+                    </div>
+
+                </td>
+
+                <td style="border:none">
+
+
+                    <div class="alert alert-default">
+
+                        <div data-role="listview">
+                            <div class="list marked" style="text-decoration:none" data-toggle="modal" data-target="#@item.PostID" href="#">
+
+
+                                @*@if (item.IsFollowed > 0) { 
+
+                                <div class="alert alert-info">You are currently following this opportunity.</div>
+
+                                }*@
+
+
+                                <div style="width:100%" class="list-content">
+
+
+                                    <div class="row">
+                                       
+
+                                        <div class="col-md-12">
+
+
+
+
+                                            <div><h3>@item.PostTitle</h3></div>
+
+
+                                            <div style="font-size:medium;width:96%;overflow-x: auto;" >
+
+                                                @Html.Raw(item.PostContent)
+
+
+                                            </div>
+
+                                            <div>
+
+
+                                                <div> @{ Html.RenderAction("_AttributeDetail", "Posts", new { id = @item.PostID, id2 = 9 });}</div>
+
+                                            </div>
+
+
+                                            <div style="font-size:medium" >
+                                              
+                                                <div>Closes: @*@item.ExpirationDate*@  @(((DateTime)item.ExpirationDate).ToString("MM/dd/yyyy")) </div> 
+                                            
+                                            
+                                            </div>
+
+                                           
+
+
+                                            <br />
+                                            <div align="right">
+
+                                                <ul class="nav nav-pills nav-stacked ">
+
+
+                                                 
+
+
+                                                    <li>
+                                                        <a id ="PostDetailButton_@item.PostID" href="#">
+
+                                                            <span class="glyphicon glyphicon-eye-open"></span>View/<span class="glyphicon glyphicon-random"></span>&nbsp;Follow
+                                                        </a>
+                                                    </li>
+                                                    
+
+                                                  @*  <li class="active">
+                                                        <a href="#">
+                                                            <span class="badge pull-right">2</span>
+                                                            Messages
+                                                        </a>
+                                                    </li>*@
+
+
+
+
+                                                </ul>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="@item.PostID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 style="width:100%; font-family: 'Lato', sans-serif;color:#3a53c7;" class="modal-title" id="myModalLabel">@item.PostTitle</h4>
+                                </div>
+                                <div class="modal-body">
+
+                                    <div id="PostDetailContainer_@item.PostID"></div>
+
+
+                                    <script type="text/javascript">
+
+                                $(function () {
+
+
+                            $("#PostDetailButton_@item.PostID").click(function () {
+
+
+                         $('#PostDetailContainer_@item.PostID').load('@Url.Action("Details", "Posts", new { id = @item.PostID })');
+
+
+
+                                    });
+
+                                    $('#@item.PostID').on('shown.bs.modal', function () {
+                                        $(this).find('.modal-dialog').css({
+                                            //width: 'auto',
+                                            width: '92%',
+                                            height: 'auto',
+                                            'max-height': '100%'
+                                        });
+                                    });
+                                
+                                                });
+
+                                    </script>
+
+
+
+                                  
+                                    <div class="modal-footer">
+
+                                        <div style="width:100%">
+
+                                         
+
+                                            @*<div style="padding-top:24px">
+
+                                                <ul class="nav nav-pills nav-stacked">
+
+
+                                                    <li class="active">
+                                                       
+                                                        
+                                                         <a href="#" data-dismiss="modal">
+
+                                                            Follow Opportunity
+                                                        </a>
+
+
+
+                                                    </li>
+
+
+                                                </ul>
+
+
+
+
+
+
+                                            </div>*@
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" id="PostCloseButton" class="btn btn-default" data-dismiss="modal">Close</button><br /><br />
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                     <div style="width:100%"><hr style="height:1px;border:none;color:#ccc;background-color:#ccc;" /></div>
+
+
+                </td>
+
+            </tr>
+
+        }
+    </table>
+    <br />
+</div>

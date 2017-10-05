@@ -1,0 +1,14 @@
+﻿@model IEnumerable<CTL.ViewModels.CancerTypeViewModel>
+
+
+@Html.Hidden("listUrlF", Url.Action("_FacilityInfo", "SubContractors"))
+
+@foreach (var item in Model)
+{
+
+
+
+    <div>@Html.Raw(item.FacilityList)</div>
+
+
+}

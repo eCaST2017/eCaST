@@ -1,0 +1,61 @@
+@model IEnumerable<EncaustiCreations.Models.Report>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            Report Title
+        </th>
+      
+        <th>
+            Active
+        </th>
+        <th>
+            Last Updated 
+        </th>
+        <th>
+            Updated By
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ReportID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ReportID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ReportID })
+        </td>
+        <td>
+			@item.ReportTitle
+        </td>
+      
+        <td>
+			@item.Active
+        </td>
+        <td>
+			@String.Format("{0:g}", item.DateUpdated)
+        </td>
+        <td>
+			@item.UpdatedBy
+        </td>
+        <td>
+			@String.Format("{0:g}", item.DateCreated)
+        </td>
+        <td>
+			@item.CreatedBy
+        </td>
+    </tr>
+}
+
+</table>
+
+

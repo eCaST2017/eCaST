@@ -1,0 +1,239 @@
+@model CTL.ViewModels.OrganizationViewModel
+
+@{
+    ViewBag.Title = "Details";
+    
+}
+
+
+<br />
+<div class="alert alert-default">
+    <div class="alert alert-info">
+
+
+        <div class="btn-group">
+            @*<button class="btn btn-info" id="NameLinkInline" type="button">Connection Dashboard</button>*@
+
+            <a style="text-decoration:none" href='@Url.Action("UserAccount", new { Controller = "Dashboards", id = ViewBag.UID })'>
+                <span class="btn btn-default">My Dashboard</span>
+            </a>
+
+
+            @*<button id="ProfileLinkInline" type="button" class="btn btn-default">My Profile</button>*@
+            <a style="text-decoration:none" href='@Url.Action("Edit", new { Controller = "UserProfiles", id = ViewBag.UID })'>
+                <span class="btn btn-default">My Profile</span>
+            </a>
+
+
+
+
+            <a style="text-decoration:none" href='@Url.Action("Details", new { Controller = "Organizations", id = ViewBag.OID })'>
+                <span class="btn btn-info">@ViewBag.OName</span>
+            </a>
+        </div>
+
+    </div>
+    <br />
+
+
+
+    <div>
+
+        @*<div style="width:100%;border-radius:5px;background-color:#449b21; color:#fff; padding:12px; opacity:0.7; font-size:20px" ><span class="glyphicon glyphicon-briefcase"></span>&nbsp;My Organization</div>
+
+            <br />*@
+
+        <h3 style="font-family: 'Lato', sans-serif;color:#3a53c7;padding-left:20px"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;Organization Dashboard</h3>
+        <hr />
+
+        <div>
+
+
+
+            <div>
+
+
+
+                <div class="row">
+                    <div class="col-md-3">
+
+                        <a href="@Url.Action("Edit", "Organizations", new { id = @Model.OrganizationID })">
+
+
+
+
+
+                            @Html.Raw(Model.OrgPic)
+
+
+                        </a>
+                        </div>
+
+                    <div class="col-md-9">
+
+                        <a style="text-decoration:none" href="@Url.Action("Edit", "Organizations", new { id = @Model.OrganizationID })">
+
+                            <div class="display-field"><h3 style="font-family: 'Lato', sans-serif;color:#3a53c7;">@Model.OrganizationName</h3></div>
+                            <div class="display-field"><h4 style="font-family: 'Lato', sans-serif;color:#3a53c7;"><i>Location:</i>&nbsp;@Model.MailingAddress&nbsp;@Model.CityName&nbsp;@Model.ZipCode,@Model.StateBinName &nbsp;<span class="glyphicon glyphicon-pencil"></span></h4></div>
+
+
+                        </a>
+                    </div>
+
+                    </div>
+
+
+                     
+
+                    </div>
+
+                </div>
+
+                <hr />
+
+                <ul id="orgTab" class="nav nav-tabs">
+
+                    <li class="active">
+                        <a href="#post">
+
+                            <span class="badge pull-right">@ViewBag.OpCount</span>&nbsp;&nbsp;
+                            <span style="padding-right:6px">Opportunities</span>
+
+
+                        </a>
+
+                    </li>
+
+                    <li>
+                        <a href="#member">
+
+                            <span class="badge pull-right">@ViewBag.MemberCount</span>&nbsp;&nbsp;
+                            <span style="padding-right:6px"> Organization Members</span>
+
+
+                        </a>
+
+                    </li>
+
+
+
+                </ul>
+
+                <div style="background-color:#fff" id='content' class="tab-content">
+                    <div class="tab-pane active" id="post">
+
+                        <div style="width:96%">
+                            <br />
+
+                            @*@{ Html.RenderAction("_PostList", "Posts", new { id = @Model.OrganizationID });}*@
+                            <div id="PostListContainer"></div>
+
+
+                        </div>
+
+                        <br />
+
+                    </div>
+
+
+
+
+
+                    <div class="tab-pane" id="member">
+
+                        <div>
+                            <br />
+
+                            @*@{ Html.RenderAction("MemberList", "UserProfiles");}*@
+
+                            <div id="MemberListContainer"></div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+    </div>
+
+    @section Scripts {
+
+        <script type="text/javascript">
+
+
+            $(document).ready(function () {
+
+
+                $('#PostListContainer').load('@Url.Action("_PostList", "Posts", new { id = @Model.OrganizationID })');
+
+                $('#MemberListContainer').load('@Url.Action("MemberList", "UserProfiles", new { id = @Model.OrganizationID })');
+
+            });
+
+
+
+            $('#orgTab a').click(function (e) {
+                e.preventDefault()
+                $(this).tab('show')
+
+            })
+
+
+        </script>
+
+
+<script type="text/javascript">
+
+
+
+    var images = [
+"../../Content/images/pic8.jpg"
+
+    ];
+
+
+    var index = 0, oldIndex;
+
+    //$(document).ready(function () {
+
+    $(function () {
+
+
+
+        // Call backstretch for the first time,
+        // In this case, I"m settings speed of 500ms for a fadeIn effect between images.
+        index = Math.floor((Math.random() * images.length));
+        $.backstretch(images[index], {
+            speed: 1000
+        });
+
+        // Set an interval that increments the index and sets the new image
+        // Note: The fadeIn speed set above will be inherited
+        //
+
+        //setInterval(function () {
+        //    oldIndex = index;
+        //    while (oldIndex == index) {
+        //        index = Math.floor((Math.random() * images.length));
+        //    }
+        //    $.backstretch(images[index]);
+        //}, 5000);
+
+        // A little script for preloading all of the images
+        // It"s not necessary, but generally a good idea
+        $(images).each(function () {
+            $("<img />")[0].src = this;
+        });
+
+    });
+
+</script>
+
+
+
+    }
+
+
+
+

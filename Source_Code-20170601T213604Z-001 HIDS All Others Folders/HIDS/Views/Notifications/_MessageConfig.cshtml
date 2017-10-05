@@ -1,0 +1,558 @@
+﻿@model CTL.ViewModels.NotificationViewModel
+
+@using (Html.BeginForm("_SendNotificationF", "Notifications", FormMethod.Post, new { id = "SendNotificationForm" }))
+    {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+<div class="row">
+    <div class="col-md-2">
+
+
+        To
+
+
+
+    </div>
+    <div class="col-md-4">
+
+        <div class="input-group btn-group">
+
+
+            @Html.DropDownList("to", (SelectList)ViewData["OptionListTO"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+            <br />
+            <input type="checkbox" id="checkboxTO">Select All
+            <input type="hidden" id="selectedIDsTO" />
+
+
+
+        </div>
+
+
+
+    </div>
+
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-2">
+
+
+        CC
+
+
+
+    </div>
+    <div class="col-md-4">
+
+        <div class="input-group btn-group">
+
+
+            @Html.DropDownList("cc", (SelectList)ViewData["OptionListTO"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+            <br />
+            <input type="checkbox" id="checkboxCC">Select All
+            <input type="hidden" id="selectedIDsCC" />
+
+
+
+        </div>
+
+
+
+    </div>
+
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-2">
+
+
+        BCC
+
+
+
+    </div>
+    <div class="col-md-4">
+
+        <div class="input-group btn-group">
+
+
+            @Html.DropDownList("bcc", (SelectList)ViewData["OptionListTO"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+            <br />
+            <input type="checkbox" id="checkboxBCC">Select All
+            <input type="hidden" id="selectedIDsBCC" />
+
+
+
+        </div>
+
+
+
+    </div>
+
+</div>
+
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+
+
+        Subject
+
+
+
+    </div>
+
+</div>
+
+
+
+<div>
+
+
+    @Html.TextAreaFor(model => model.PostSubject, new { @style = "width:75%;height:50px" })
+
+    @Html.ValidationMessageFor(model => model.PostSubject)
+
+
+
+</div>
+
+
+
+
+
+<br />
+<div class="row">
+    <div class="col-md-12">
+
+
+        Notification
+
+
+
+    </div>
+</div>
+
+
+
+<div>
+
+    @Html.TextAreaFor(model => model.PostBody, new { @style = "width:100%;height:500px" })
+    @Html.ValidationMessageFor(model => model.PostBody)
+
+
+</div>
+
+
+
+
+
+
+<div class="modal-footer">
+    <div style="float:right">
+        <a style="text-decoration:none" href='@Url.Action("Manage", new { Controller = "Dashboards" })'>
+            <span class="btn btn-default">Cancel</span>
+        </a>
+       
+        
+        <button id="SendNotificationButton" type="submit" class="btn btn-success">Send Notification</button>
+
+    </div>
+</div>
+
+
+@Html.Hidden("From")
+@Html.Hidden("ToField")
+@Html.Hidden("CarbonCopy")
+@Html.Hidden("BlindCarbonCopy")
+
+
+}
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        //$('#PostSubject').redactor();
+        $('#PostBody').redactor();
+
+
+    });
+
+
+    $(function () {
+
+        var data = '@ViewBag.OptionsTO';
+        //var data = OptionsUrl;
+
+        //Make an array
+        var dataarray = data.split(",");
+
+        // Set the value
+        $("#to").val(dataarray);
+
+
+        var test = $('#to');
+        $(test).select2({
+
+            width: "900px"
+        });
+
+
+        document.getElementById("to").onchange = function () {
+
+            var ids = $(test).val();
+            $('#selectedIDsTO').val(ids);
+
+        };
+
+
+        $("#checkboxTO").click(function () {
+            if ($("#checkboxTO").is(':checked')) {
+                $("#to > option").prop("selected", "selected");
+                $("#to").trigger("change");
+            } else {
+                $("#to > option").removeAttr("selected");
+                $("#to").trigger("change");
+            }
+        });
+
+
+        //Make an array
+        var dataarrayCC = data.split(",");
+
+        // Set the value
+        $("#cc").val(dataarrayCC);
+
+
+        var testCC = $('#cc');
+        $(testCC).select2({
+
+            width: "900px"
+        });
+
+
+        document.getElementById("cc").onchange = function () {
+
+            var idsCC = $(testCC).val();
+            $('#selectedIDsCC').val(idsCC);
+
+        };
+
+
+        $("#checkboxCC").click(function () {
+            if ($("#checkboxCC").is(':checked')) {
+                $("#cc > option").prop("selected", "selected");
+                $("#cc").trigger("change");
+            } else {
+                $("#cc > option").removeAttr("selected");
+                $("#cc").trigger("change");
+            }
+        });
+
+
+        //Make an array
+        var dataarrayBCC = data.split(",");
+
+        // Set the value
+        $("#bcc").val(dataarrayBCC);
+
+
+        var testBCC = $('#bcc');
+        $(testBCC).select2({
+
+            width: "900px"
+        });
+
+
+        document.getElementById("bcc").onchange = function () {
+
+            var idsBCC = $(testBCC).val();
+            $('#selectedIDsBCC').val(idsBCC);
+
+        };
+
+
+        $("#checkboxBCC").click(function () {
+            if ($("#checkboxBCC").is(':checked')) {
+                $("#bcc > option").prop("selected", "selected");
+                $("#bcc").trigger("change");
+            } else {
+                $("#bcc > option").removeAttr("selected");
+                $("#bcc").trigger("change");
+            }
+        });
+
+
+    });
+
+
+    $(function () {
+
+
+        $("#SendNotificationButton").click(function () {
+
+
+            //Add To
+            var outTo = document.getElementById('selectedIDsTO').value;
+            document.getElementById("ToField").value = outTo;
+
+            //Add CarbonCopy
+            var outCc = document.getElementById('selectedIDsCC').value;
+            document.getElementById("CarbonCopy").value = outCc;
+
+            //Add BlindCarbonCopy
+            var outBCc = document.getElementById('selectedIDsBCC').value;
+            document.getElementById("BlindCarbonCopy").value = outBCc;
+
+
+
+        });
+
+
+    });
+
+
+
+
+</script>
+
+
+<script type="text/javascript">
+
+
+    //$(function () {
+
+    //    $("#SendNotificationButton").click(function () {
+
+    //        var emails = $('#selectedIDsTO').val();
+    //        var emailsCC = $('#selectedIDsCC').val();
+    //        var emailsBCC = $('#selectedIDsBCC').val();
+    //        var subject = $("#PostSubject").val();
+    //        var body = $("#PostBody").val();
+
+    //        $("#SendNotificationButton").attr("target", "_blank");
+    //        $("#SendNotificationButton").attr("href", "https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=" + emails + "&cc=" + emailsCC + "&bcc=" + emailsBCC + "&su=" + subject + "&body=" + body);
+
+
+
+    //    });
+
+    //});
+
+
+ 
+    $(function () {
+
+
+        $("#SendNotificationForm").validate({
+            rules: {
+
+                //FirstName: {
+                //    //required: { depends: checkTestFieldSelected }
+                //    required: true
+
+                //},
+                //SystolicBinID1: {
+                //    required: { depends: checkSys1FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //DiastolicBinID1: {
+                //    required: { depends: checkDia1FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //SystolicBinID2: {
+                //    required: { depends: checkSys2FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //DiastolicBinID2: {
+                //    required: { depends: checkDia2FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //TotalCholesterolBinID: {
+                //    required: { depends: checkTCFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //HDLCholesterolBinID: {
+                //    required: { depends: checkHDLFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //LDLCholesterolBinID: {
+                //    required: { depends: checkFAFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //TriglyceridesBinID: {
+                //    required: { depends: checkFAFieldSelected },
+                //    range: [10, 600]
+                //    //required: true
+
+                //},
+
+                //GlucoseBinID: {
+                //    required: { depends: checkGluFieldSelected },
+                //    //range: [10, 600]
+                //    //required: true
+
+                //},
+                //A1CPercentageBinID: {
+                //    required: { depends: checkA1CFieldSelected }
+
+
+                //},
+                //WorkupStatusBinID: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupStatusDate: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupResultBinID: {
+                //    required: { depends: checkWorkupResultFieldSelected }
+
+
+                //}
+
+
+            },
+            messages: {
+
+                //FirstName: {
+                //    required: "Please enter your first name"
+
+                //}
+                //SystolicBinID1: {
+                //    required: "Please enter a value greater than 0 for the Systolic Value"
+
+                //},
+                //DiastolicBinID1: {
+                //    required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                //},
+                //SystolicBinID2: {
+                //    required: "Please enter a value greater than 0 for the Systolic Value"
+
+                //},
+                //DiastolicBinID2: {
+                //    required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                //},
+                //TotalCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the Total Cholesterol Value"
+
+                //},
+                //HDLCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the HDL Cholesterol Value"
+
+                //},
+                //LDLCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the LDL Cholesterol Value"
+
+                //},
+
+                //TriglyceridesBinID: {
+
+                //    required: "Please enter a value greater than 0 for the Triglycerides Value"
+
+                //},
+                //GlucoseBinID: {
+
+                //    required: "Please enter a value greater than 0 for the Glucose Value"
+
+                //},
+
+                //A1CPercentageBinID: {
+
+                //    required: "Please enter a value for the A1C Percentage Value"
+
+                //},
+                //WorkupStatusBinID: {
+
+                //    required: "Please enter a value for Workup Status"
+
+                //},
+                //WorkupStatusDate: {
+
+                //    required: "Please enter a value for Workup Status Date"
+
+                //},
+                //WorkupResultBinID: {
+
+                //    required: "Please enter a value for Workup Result"
+
+                //}
+
+            }
+        });
+
+        $('#SendNotificationForm').on("submit", function (evt44) {
+            //$("#UpdateProfileButton").click(function (evt44) {
+            evt44.preventDefault();
+
+            //if ($('#PrivacyAgreement').is(':checked')) {
+            //    $('#UpdateUserProfileForm').valid()
+
+
+
+            if ($('#SendNotificationForm').valid()) {
+                $.ajax({
+
+                    url: $("#SendNotificationForm").attr('action'),
+                    type: $("#SendNotificationForm").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#SendNotificationForm").serialize(),
+                    success: function (data) {
+
+                        var notificationid = data.Modified;
+
+                        $('#MessageConfigContainer').load('@Url.Action("_MessageConfig", "Notifications")');
+
+                        toastr.success('You have successfully sent a notification.')
+
+                        //$('#myModal').modal('hide')
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+
+                    }
+
+                });
+            }
+            else {
+
+
+                //$("#AgreementMeesage").css("display", "block");
+                alert("You must agree with terms and conditions");
+
+            }
+        });
+
+
+
+
+    });
+
+
+
+
+</script>

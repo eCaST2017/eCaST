@@ -1,0 +1,1472 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="eCaSTBillingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AgencySiteID" Type="int" />
+          <Property Name="AgencySiteName" Type="varchar" MaxLength="255" />
+          <Property Name="ContactTypeID" Type="int" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="bigint" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="PhoneExtension" Type="int" />
+          <Property Name="Fax" Type="bigint" />
+          <Property Name="DateUpdated" Type="smalldatetime" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="DateCreated" Type="smalldatetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Contract">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AgencySiteID" Type="int" />
+          <Property Name="RoutingNumber" Type="varchar" MaxLength="50" />
+          <Property Name="FiscalYear" Type="int" Nullable="false" />
+          <Property Name="DateFYStart" Type="smalldatetime" />
+          <Property Name="DateFYEnd" Type="smalldatetime" />
+          <Property Name="ObjectCode" Type="varchar" MaxLength="50" />
+          <Property Name="TypeID" Type="int" Nullable="false" />
+          <Property Name="RateState" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="RateFederal" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DateUpdated" Type="smalldatetime" Nullable="false" />
+          <Property Name="UpdateBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateCreated" Type="smalldatetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Contract_CancerTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContractID" Type="int" />
+          <Property Name="CancerTypeID" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'eCaSTBilling.dbo.CONVERSION_Contract$' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="CONVERSION_Contract$">
+          <Property Name="ID" Type="nvarchar" MaxLength="255" />
+          <Property Name="AgencyID" Type="float" />
+          <Property Name="RoutingNumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="FiscalYear" Type="nvarchar" MaxLength="255" />
+          <Property Name="DateFYStart" Type="datetime" />
+          <Property Name="DateFYEnd" Type="datetime" />
+          <Property Name="ObjectCode" Type="float" />
+          <Property Name="TypeID" Type="float" />
+          <Property Name="RateState" Type="float" />
+          <Property Name="RateFederal" Type="float" />
+          <Property Name="DateUpdated" Type="smalldatetime" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'eCaSTBilling.dbo.CONVERSION_Sheet1$' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="CONVERSION_Sheet1$">
+          <Property Name="AgencySiteID" Type="float" />
+          <Property Name="AgencySiteName" Type="nvarchar" MaxLength="255" />
+          <Property Name="ContactTypeID" Type="float" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="255" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="255" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" />
+          <Property Name="PhoneExtension" Type="nvarchar" MaxLength="255" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'eCaSTBilling.dbo.CONVERSION_Sheet2$' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="CONVERSION_Sheet2$">
+          <Property Name="AgencySiteID" Type="float" />
+          <Property Name="AgencySiteName" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
+        <EntityType Name="DD_BillingPaid">
+          <Key>
+            <PropertyRef Name="BillingPaidBinID" />
+          </Key>
+          <Property Name="BillingPaidBinID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BillingPaidBinName" Type="varchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'eCaSTBilling.dbo.DD_ContactTypes' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="DD_ContactTypes">
+          <Property Name="ID" Type="int" />
+          <Property Name="ContactType" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+        <EntityType Name="DD_ContractTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="ProgramBinID" Type="int" />
+          <Property Name="StateRatio" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="FederalRatio" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DateStart" Type="smalldatetime" />
+          <Property Name="DateEnd" Type="smalldatetime" />
+          <Property Name="StateAccount" Type="varchar" MaxLength="50" />
+          <Property Name="FederalAccount" Type="varchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="DD_DetailType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DetailType" Type="varchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="DD_LedgerTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="Active" Type="int" />
+        </EntityType>
+        <EntityType Name="DD_LevelRate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FiscalYear" Type="int" />
+          <Property Name="ContractTypeID" Type="int" />
+          <Property Name="CancerTypeID" Type="int" Nullable="false" />
+          <Property Name="BillingLevelID" Type="int" />
+          <Property Name="Description" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="DD_ProcedureRate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProcedureMethodBinID" Type="int" />
+          <Property Name="FiscalYear" Type="int" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="CPTCodeUsed" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FiscalYear">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ContractTypeID" Type="int" />
+          <Property Name="FiscalYear" Type="int" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContractID" Type="int" />
+          <Property Name="FiscalYear" Type="int" />
+          <Property Name="DateFrom" Type="smalldatetime" Nullable="false" />
+          <Property Name="DateTo" Type="smalldatetime" Nullable="false" />
+          <Property Name="DatePosted" Type="smalldatetime" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="InvoiceDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvoiceID" Type="int" Nullable="false" />
+          <Property Name="ClientID" Type="int" />
+          <Property Name="DetailTypeID" Type="int" />
+          <Property Name="DetailID" Type="int" />
+          <Property Name="CancerTypeID" Type="int" />
+          <Property Name="BillingLevelID" Type="int" />
+          <Property Name="DateLastService" Type="datetime" />
+          <Property Name="FederalAllocation" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="StateAllocation" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MasterLedger">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContractID" Type="int" />
+          <Property Name="ContractTypeID" Type="int" />
+          <Property Name="LedgerTypeID" Type="int" />
+          <Property Name="InvoiceID" Type="int" />
+          <Property Name="FiscalYear" Type="int" />
+          <Property Name="Debit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Credit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DateCreated" Type="smalldatetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PercentFiscalYear">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FiscalYear" Type="int" Nullable="false" />
+          <Property Name="DateOfBillRun" Type="datetime" />
+          <Property Name="PercentOfFiscalYear" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="ContractTypeID" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'eCaSTBilling.dbo.TempMam2016' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="TempMam2016">
+          <Property Name="screeningid" Type="int" />
+          <Property Name="invoicedetailid" Type="int" />
+          <Property Name="federalallocation" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="stateallocation" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="totalallocation" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>-->
+        <Function Name="f90Day_BreastClosure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="90Day_BreastClosure" />
+        <Function Name="CopyOf_Report_ScreeningBudgetTracking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+          <Parameter Name="ContractType" Type="int" Mode="In" />
+          <Parameter Name="FiscalYear" Type="int" Mode="In" />
+          <Parameter Name="PercentFiscalYear" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="CopyOf_Report_ScreeningBudgetTracking_dbg" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+          <Parameter Name="ContractType" Type="int" Mode="In" />
+          <Parameter Name="FiscalYear" Type="int" Mode="In" />
+          <Parameter Name="PercentFiscalYear" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="DeleteBill" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DateBill" Type="smalldatetime" Mode="In" />
+          <Parameter Name="ContractType" Type="int" Mode="In" />
+          <Parameter Name="Agency" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="eCaST_Get_FiscalYear_StartDate_By_Agency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FiscalYear" Type="int" Mode="In" />
+          <Parameter Name="AgencySiteID" Type="int" Mode="In" />
+          <Parameter Name="ContractTypeID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="eCaST_Get_Percent_ContractTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="eCaST_Get_Percent_FiscalYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FiscalYear" Type="int" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+          <Parameter Name="ContractType" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Insert_MasterLedger" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ContractID" Type="int" Mode="In" />
+          <Parameter Name="ContractTypeID" Type="int" Mode="In" />
+          <Parameter Name="InvoiceID" Type="int" Mode="In" />
+          <Parameter Name="FiscalYear" Type="int" Mode="In" />
+          <Parameter Name="UserID" Type="varchar" Mode="In" />
+          <Parameter Name="intKeyID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="Insert_MasterLedger_BACKUP_X" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ContractID" Type="int" Mode="In" />
+          <Parameter Name="ContractTypeID" Type="int" Mode="In" />
+          <Parameter Name="InvoiceID" Type="int" Mode="In" />
+          <Parameter Name="FiscalYear" Type="int" Mode="In" />
+          <Parameter Name="UserID" Type="varchar" Mode="In" />
+          <Parameter Name="intKeyID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="MasterBilling" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Agency" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ContractType" Type="varchar(max)" Mode="In" />
+          <Parameter Name="CFiscalYear" Type="int" Mode="In" />
+          <Parameter Name="DateEnd" Type="smalldatetime" Mode="In" />
+          <Parameter Name="UserID" Type="varchar" Mode="In" />
+          <Parameter Name="YearEnd" Type="bit" Mode="In" />
+          <Parameter Name="intKeyID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="MasterCleanDuplicateInvoices" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="intKeyID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="MasterCleanDuplicateScreens" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="intKeyID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="MasterCleanNegative" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="intKeyID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="MasterProcedures" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Agency" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ContractType" Type="varchar(max)" Mode="In" />
+          <Parameter Name="DetailTypeID" Type="int" Mode="In" />
+          <Parameter Name="CFiscalYear" Type="int" Mode="In" />
+          <Parameter Name="DateEnd" Type="smalldatetime" Mode="In" />
+          <Parameter Name="UserID" Type="varchar" Mode="In" />
+          <Parameter Name="intKeyID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="MasterProcedures_Backup_12162015" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Agency" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ContractType" Type="varchar(max)" Mode="In" />
+          <Parameter Name="DetailTypeID" Type="int" Mode="In" />
+          <Parameter Name="CFiscalYear" Type="int" Mode="In" />
+          <Parameter Name="DateEnd" Type="smalldatetime" Mode="In" />
+          <Parameter Name="UserID" Type="varchar" Mode="In" />
+          <Parameter Name="intKeyID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="MasterScreening" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Agency" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ContractType" Type="varchar(max)" Mode="In" />
+          <Parameter Name="DetailTypeID" Type="int" Mode="In" />
+          <Parameter Name="CFiscalYear" Type="int" Mode="In" />
+          <Parameter Name="DateEnd" Type="smalldatetime" Mode="In" />
+          <Parameter Name="UserID" Type="varchar" Mode="In" />
+          <Parameter Name="intKeyID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="MasterScreening_BK_X" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Agency" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ContractType" Type="varchar(max)" Mode="In" />
+          <Parameter Name="DetailTypeID" Type="int" Mode="In" />
+          <Parameter Name="DateEnd" Type="smalldatetime" Mode="In" />
+          <Parameter Name="UserID" Type="varchar" Mode="In" />
+          <Parameter Name="intKeyID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="Procedure_Rules" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClientID" Type="int" Mode="In" />
+          <Parameter Name="ProcedureID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Report_Clients_Served_Bundled_Reimbursement_Level" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StartDate" Type="smalldatetime" Mode="In" />
+          <Parameter Name="EndDate" Type="smalldatetime" Mode="In" />
+          <Parameter Name="State" Type="bit" Mode="In" />
+          <Parameter Name="SiteList" Type="varchar" Mode="In" />
+          <Parameter Name="ClinicIDs" Type="varchar" Mode="In" />
+          <Parameter Name="ContractType" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="Report_GrantActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Agency" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ContractType" Type="varchar(max)" Mode="In" />
+          <Parameter Name="DateEnd" Type="smalldatetime" Mode="In" />
+          <Parameter Name="FiscalYear" Type="int" Mode="In" />
+          <Parameter Name="ClientLevel" Type="int" Mode="In" />
+          <Parameter Name="UserID" Type="varchar" Mode="In" />
+          <Parameter Name="intKeyID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="Report_GrantActivityWeb" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Agency" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ContractType" Type="varchar(max)" Mode="In" />
+          <Parameter Name="DateStart" Type="smalldatetime" Mode="In" />
+          <Parameter Name="DateEnd" Type="smalldatetime" Mode="In" />
+          <Parameter Name="FiscalYear" Type="int" Mode="In" />
+          <Parameter Name="ClientLevel" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Report_GrantActivityWebFull" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ContractType" Type="varchar(max)" Mode="In" />
+          <Parameter Name="DateStart" Type="smalldatetime" Mode="In" />
+          <Parameter Name="DateEnd" Type="smalldatetime" Mode="In" />
+          <Parameter Name="FiscalYear" Type="int" Mode="In" />
+          <Parameter Name="ClientLevel" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Report_ScreeningBudgetTracking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+          <Parameter Name="ContractID" Type="int" Mode="In" />
+          <Parameter Name="FiscalYear" Type="int" Mode="In" />
+          <Parameter Name="PercentFiscalYear" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="Report_ScreeningBudgetTrackingWeb" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+          <Parameter Name="ContractType" Type="int" Mode="In" />
+          <Parameter Name="FiscalYear" Type="int" Mode="In" />
+          <Parameter Name="PercentFiscalYear" Type="numeric" Mode="In" />
+          <Parameter Name="AgencyID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Report_ScreeningBudgetTrackingWeb_APP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+          <Parameter Name="ContractType" Type="int" Mode="In" />
+          <Parameter Name="FiscalYear" Type="int" Mode="In" />
+          <Parameter Name="PercentFiscalYear" Type="decimal" Mode="In" />
+          <Parameter Name="AgencyID" Type="int" Mode="In" />
+          <Parameter Name="StateStaff" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="Reset_BillingLevels" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DateEnd" Type="smalldatetime" Mode="In" />
+          <Parameter Name="CFiscalYear" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Return_SelectedItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ItemValue" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="Screening_Rules" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClientID" Type="int" Mode="In" />
+          <Parameter Name="ScreeningID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Set_Adjustments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClientID" Type="int" Mode="In" />
+          <Parameter Name="ContractID" Type="int" Mode="In" />
+          <Parameter Name="CancerTypeID" Type="int" Mode="In" />
+          <Parameter Name="InvoiceID" Type="int" Mode="In" />
+          <Parameter Name="DetailTypeID" Type="int" Mode="In" />
+          <Parameter Name="DetailID" Type="int" Mode="In" />
+          <Parameter Name="SetRate" Type="decimal" Mode="In" />
+          <Parameter Name="Rate" Type="decimal" Mode="InOut" />
+        </Function>
+        <Function Name="Set_Adjustments_CCGP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Set_Allocations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ContractID" Type="int" Mode="In" />
+          <Parameter Name="ContractTypeID" Type="int" Mode="In" />
+          <Parameter Name="InvoiceID" Type="int" Mode="In" />
+          <Parameter Name="Rate" Type="decimal" Mode="In" />
+          <Parameter Name="Paid" Type="int" Mode="InOut" />
+          <Parameter Name="RateFederal" Type="decimal" Mode="InOut" />
+          <Parameter Name="RateState" Type="decimal" Mode="InOut" />
+        </Function>
+        <Function Name="Update_ScreeningAlreadyPaid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CFiscalYear" Type="int" Mode="In" />
+          <Parameter Name="intKeyID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="Update_ScreeningPaid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ScreeningID" Type="int" Mode="In" />
+          <Parameter Name="Paid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Update_ScreeningProcedurePaid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ScreenProcedureID" Type="int" Mode="In" />
+          <Parameter Name="Paid" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="eCaSTBillingModelStoreContainer">
+          <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contract" EntityType="Self.Contract" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contract_CancerTypes" EntityType="Self.Contract_CancerTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DD_BillingPaid" EntityType="Self.DD_BillingPaid" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DD_ContractTypes" EntityType="Self.DD_ContractTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DD_DetailType" EntityType="Self.DD_DetailType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DD_LedgerTypes" EntityType="Self.DD_LedgerTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DD_LevelRate" EntityType="Self.DD_LevelRate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DD_ProcedureRate" EntityType="Self.DD_ProcedureRate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FiscalYear" EntityType="Self.FiscalYear" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvoiceDetail" EntityType="Self.InvoiceDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MasterLedger" EntityType="Self.MasterLedger" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PercentFiscalYear" EntityType="Self.PercentFiscalYear" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="eCaSTBillingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AgencySiteID" Type="Int32" />
+          <Property Name="AgencySiteName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ContactTypeID" Type="Int32" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="Int64" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneExtension" Type="Int32" />
+          <Property Name="Fax" Type="Int64" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Contract">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AgencySiteID" Type="Int32" />
+          <Property Name="RoutingNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FiscalYear" Type="Int32" Nullable="false" />
+          <Property Name="DateFYStart" Type="DateTime" Precision="0" />
+          <Property Name="DateFYEnd" Type="DateTime" Precision="0" />
+          <Property Name="ObjectCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <Property Name="RateState" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="RateFederal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Contract_CancerTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContractID" Type="Int32" />
+          <Property Name="CancerTypeID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="DD_BillingPaid">
+          <Key>
+            <PropertyRef Name="BillingPaidBinID" />
+          </Key>
+          <Property Name="BillingPaidBinID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BillingPaidBinName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="DD_ContractTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProgramBinID" Type="Int32" />
+          <Property Name="StateRatio" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FederalRatio" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DateStart" Type="DateTime" Precision="0" />
+          <Property Name="DateEnd" Type="DateTime" Precision="0" />
+          <Property Name="StateAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FederalAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="DD_DetailType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DetailType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="DD_LedgerTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Int32" />
+        </EntityType>
+        <EntityType Name="DD_LevelRate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FiscalYear" Type="Int32" />
+          <Property Name="ContractTypeID" Type="Int32" />
+          <Property Name="CancerTypeID" Type="Int32" Nullable="false" />
+          <Property Name="BillingLevelID" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="DD_ProcedureRate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcedureMethodBinID" Type="Int32" />
+          <Property Name="FiscalYear" Type="Int32" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="CPTCodeUsed" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="FiscalYear">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ContractTypeID" Type="Int32" />
+          <Property Name="FiscalYear1" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContractID" Type="Int32" />
+          <Property Name="FiscalYear" Type="Int32" />
+          <Property Name="DateFrom" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateTo" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DatePosted" Type="DateTime" Precision="0" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="InvoiceDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceID" Type="Int32" Nullable="false" />
+          <Property Name="ClientID" Type="Int32" />
+          <Property Name="DetailTypeID" Type="Int32" />
+          <Property Name="DetailID" Type="Int32" />
+          <Property Name="CancerTypeID" Type="Int32" />
+          <Property Name="BillingLevelID" Type="Int32" />
+          <Property Name="DateLastService" Type="DateTime" Precision="3" />
+          <Property Name="FederalAllocation" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="StateAllocation" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MasterLedger">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContractID" Type="Int32" />
+          <Property Name="ContractTypeID" Type="Int32" />
+          <Property Name="LedgerTypeID" Type="Int32" />
+          <Property Name="InvoiceID" Type="Int32" />
+          <Property Name="FiscalYear" Type="Int32" />
+          <Property Name="Debit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Credit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PercentFiscalYear">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FiscalYear" Type="Int32" Nullable="false" />
+          <Property Name="DateOfBillRun" Type="DateTime" Precision="3" />
+          <Property Name="PercentOfFiscalYear" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="ContractTypeID" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="eCaSTBillingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Contacts" EntityType="Self.Contact" />
+          <EntitySet Name="Contracts" EntityType="Self.Contract" />
+          <EntitySet Name="Contract_CancerTypes" EntityType="Self.Contract_CancerTypes" />
+          <EntitySet Name="DD_BillingPaid" EntityType="Self.DD_BillingPaid" />
+          <EntitySet Name="DD_ContractTypes" EntityType="Self.DD_ContractTypes" />
+          <EntitySet Name="DD_DetailType" EntityType="Self.DD_DetailType" />
+          <EntitySet Name="DD_LedgerTypes" EntityType="Self.DD_LedgerTypes" />
+          <EntitySet Name="DD_LevelRate" EntityType="Self.DD_LevelRate" />
+          <EntitySet Name="DD_ProcedureRate" EntityType="Self.DD_ProcedureRate" />
+          <EntitySet Name="FiscalYears" EntityType="Self.FiscalYear" />
+          <EntitySet Name="Invoices" EntityType="Self.Invoice" />
+          <EntitySet Name="InvoiceDetails" EntityType="Self.InvoiceDetail" />
+          <EntitySet Name="MasterLedgers" EntityType="Self.MasterLedger" />
+          <EntitySet Name="PercentFiscalYears" EntityType="Self.PercentFiscalYear" />
+          <FunctionImport Name="f90Day_BreastClosure" />
+          <FunctionImport Name="CopyOf_Report_ScreeningBudgetTracking">
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ContractType" Mode="In" Type="Int32" />
+            <Parameter Name="FiscalYear" Mode="In" Type="Int32" />
+            <Parameter Name="PercentFiscalYear" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="CopyOf_Report_ScreeningBudgetTracking_dbg">
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ContractType" Mode="In" Type="Int32" />
+            <Parameter Name="FiscalYear" Mode="In" Type="Int32" />
+            <Parameter Name="PercentFiscalYear" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteBill" ReturnType="Collection(Int32)">
+            <Parameter Name="DateBill" Mode="In" Type="DateTime" />
+            <Parameter Name="ContractType" Mode="In" Type="Int32" />
+            <Parameter Name="Agency" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="eCaST_Get_FiscalYear_StartDate_By_Agency" ReturnType="Collection(DateTime)">
+            <Parameter Name="FiscalYear" Mode="In" Type="Int32" />
+            <Parameter Name="AgencySiteID" Mode="In" Type="Int32" />
+            <Parameter Name="ContractTypeID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="eCaST_Get_Percent_ContractTypes" ReturnType="Collection(eCaSTBillingModel.eCaST_Get_Percent_ContractTypes_Result)" />
+          <FunctionImport Name="eCaST_Get_Percent_FiscalYear" ReturnType="Collection(Decimal)">
+            <Parameter Name="FiscalYear" Mode="In" Type="Int32" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ContractType" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Insert_MasterLedger">
+            <Parameter Name="ContractID" Mode="In" Type="Int32" />
+            <Parameter Name="ContractTypeID" Mode="In" Type="Int32" />
+            <Parameter Name="InvoiceID" Mode="In" Type="Int32" />
+            <Parameter Name="FiscalYear" Mode="In" Type="Int32" />
+            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="intKeyID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Insert_MasterLedger_BACKUP_X">
+            <Parameter Name="ContractID" Mode="In" Type="Int32" />
+            <Parameter Name="ContractTypeID" Mode="In" Type="Int32" />
+            <Parameter Name="InvoiceID" Mode="In" Type="Int32" />
+            <Parameter Name="FiscalYear" Mode="In" Type="Int32" />
+            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="intKeyID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MasterBilling">
+            <Parameter Name="Agency" Mode="In" Type="String" />
+            <Parameter Name="ContractType" Mode="In" Type="String" />
+            <Parameter Name="CFiscalYear" Mode="In" Type="Int32" />
+            <Parameter Name="DateEnd" Mode="In" Type="DateTime" />
+            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="YearEnd" Mode="In" Type="Boolean" />
+            <Parameter Name="intKeyID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MasterCleanDuplicateInvoices">
+            <Parameter Name="intKeyID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MasterCleanDuplicateScreens">
+            <Parameter Name="intKeyID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MasterCleanNegative">
+            <Parameter Name="intKeyID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MasterProcedures">
+            <Parameter Name="Agency" Mode="In" Type="String" />
+            <Parameter Name="ContractType" Mode="In" Type="String" />
+            <Parameter Name="DetailTypeID" Mode="In" Type="Int32" />
+            <Parameter Name="CFiscalYear" Mode="In" Type="Int32" />
+            <Parameter Name="DateEnd" Mode="In" Type="DateTime" />
+            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="intKeyID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MasterProcedures_Backup_12162015">
+            <Parameter Name="Agency" Mode="In" Type="String" />
+            <Parameter Name="ContractType" Mode="In" Type="String" />
+            <Parameter Name="DetailTypeID" Mode="In" Type="Int32" />
+            <Parameter Name="CFiscalYear" Mode="In" Type="Int32" />
+            <Parameter Name="DateEnd" Mode="In" Type="DateTime" />
+            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="intKeyID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MasterScreening">
+            <Parameter Name="Agency" Mode="In" Type="String" />
+            <Parameter Name="ContractType" Mode="In" Type="String" />
+            <Parameter Name="DetailTypeID" Mode="In" Type="Int32" />
+            <Parameter Name="CFiscalYear" Mode="In" Type="Int32" />
+            <Parameter Name="DateEnd" Mode="In" Type="DateTime" />
+            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="intKeyID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MasterScreening_BK_X">
+            <Parameter Name="Agency" Mode="In" Type="String" />
+            <Parameter Name="ContractType" Mode="In" Type="String" />
+            <Parameter Name="DetailTypeID" Mode="In" Type="Int32" />
+            <Parameter Name="DateEnd" Mode="In" Type="DateTime" />
+            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="intKeyID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Procedure_Rules">
+            <Parameter Name="ClientID" Mode="In" Type="Int32" />
+            <Parameter Name="ProcedureID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Report_Clients_Served_Bundled_Reimbursement_Level" ReturnType="Collection(eCaSTBillingModel.Report_Clients_Served_Bundled_Reimbursement_Level_Result)">
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="State" Mode="In" Type="Boolean" />
+            <Parameter Name="SiteList" Mode="In" Type="String" />
+            <Parameter Name="ClinicIDs" Mode="In" Type="String" />
+            <Parameter Name="ContractType" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Report_GrantActivity" ReturnType="Collection(eCaSTBillingModel.Report_GrantActivity_Result)">
+            <Parameter Name="Agency" Mode="In" Type="String" />
+            <Parameter Name="ContractType" Mode="In" Type="String" />
+            <Parameter Name="DateEnd" Mode="In" Type="DateTime" />
+            <Parameter Name="FiscalYear" Mode="In" Type="Int32" />
+            <Parameter Name="ClientLevel" Mode="In" Type="Int32" />
+            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="intKeyID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Report_GrantActivityWeb" ReturnType="Collection(eCaSTBillingModel.Report_GrantActivityWeb_Result)">
+            <Parameter Name="Agency" Mode="In" Type="String" />
+            <Parameter Name="ContractType" Mode="In" Type="String" />
+            <Parameter Name="DateStart" Mode="In" Type="DateTime" />
+            <Parameter Name="DateEnd" Mode="In" Type="DateTime" />
+            <Parameter Name="FiscalYear" Mode="In" Type="Int32" />
+            <Parameter Name="ClientLevel" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Report_GrantActivityWebFull" ReturnType="Collection(eCaSTBillingModel.Report_GrantActivityWebFull_Result)">
+            <Parameter Name="ContractType" Mode="In" Type="String" />
+            <Parameter Name="DateStart" Mode="In" Type="DateTime" />
+            <Parameter Name="DateEnd" Mode="In" Type="DateTime" />
+            <Parameter Name="FiscalYear" Mode="In" Type="Int32" />
+            <Parameter Name="ClientLevel" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Report_ScreeningBudgetTracking">
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ContractID" Mode="In" Type="Int32" />
+            <Parameter Name="FiscalYear" Mode="In" Type="Int32" />
+            <Parameter Name="PercentFiscalYear" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="Report_ScreeningBudgetTrackingWeb">
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ContractType" Mode="In" Type="Int32" />
+            <Parameter Name="FiscalYear" Mode="In" Type="Int32" />
+            <Parameter Name="PercentFiscalYear" Mode="In" Type="Decimal" />
+            <Parameter Name="AgencyID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Report_ScreeningBudgetTrackingWeb_APP" ReturnType="Collection(eCaSTBillingModel.Report_ScreeningBudgetTrackingWeb_APP_Result)">
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ContractType" Mode="In" Type="Int32" />
+            <Parameter Name="FiscalYear" Mode="In" Type="Int32" />
+            <Parameter Name="PercentFiscalYear" Mode="In" Type="Decimal" />
+            <Parameter Name="AgencyID" Mode="In" Type="Int32" />
+            <Parameter Name="StateStaff" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="Reset_BillingLevels">
+            <Parameter Name="DateEnd" Mode="In" Type="DateTime" />
+            <Parameter Name="CFiscalYear" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Return_SelectedItems">
+            <Parameter Name="ItemValue" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Screening_Rules">
+            <Parameter Name="ClientID" Mode="In" Type="Int32" />
+            <Parameter Name="ScreeningID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Set_Adjustments" ReturnType="Collection(Decimal)">
+            <Parameter Name="ClientID" Mode="In" Type="Int32" />
+            <Parameter Name="ContractID" Mode="In" Type="Int32" />
+            <Parameter Name="CancerTypeID" Mode="In" Type="Int32" />
+            <Parameter Name="InvoiceID" Mode="In" Type="Int32" />
+            <Parameter Name="DetailTypeID" Mode="In" Type="Int32" />
+            <Parameter Name="DetailID" Mode="In" Type="Int32" />
+            <Parameter Name="SetRate" Mode="In" Type="Decimal" />
+            <Parameter Name="Rate" Mode="InOut" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="Set_Adjustments_CCGP">
+            <Parameter Name="UserID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Set_Allocations" ReturnType="Collection(Int32)">
+            <Parameter Name="ContractID" Mode="In" Type="Int32" />
+            <Parameter Name="ContractTypeID" Mode="In" Type="Int32" />
+            <Parameter Name="InvoiceID" Mode="In" Type="Int32" />
+            <Parameter Name="Rate" Mode="In" Type="Decimal" />
+            <Parameter Name="Paid" Mode="InOut" Type="Int32" />
+            <Parameter Name="RateFederal" Mode="InOut" Type="Decimal" />
+            <Parameter Name="RateState" Mode="InOut" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="Update_ScreeningAlreadyPaid">
+            <Parameter Name="CFiscalYear" Mode="In" Type="Int32" />
+            <Parameter Name="intKeyID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Update_ScreeningPaid">
+            <Parameter Name="ScreeningID" Mode="In" Type="Int32" />
+            <Parameter Name="Paid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Update_ScreeningProcedurePaid">
+            <Parameter Name="ScreenProcedureID" Mode="In" Type="Int32" />
+            <Parameter Name="Paid" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="eCaST_Get_Percent_ContractTypes_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ProgramBinID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Report_Clients_Served_Bundled_Reimbursement_Level_Result">
+          <Property Type="String" Name="AgencySiteName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ClinicName" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="BreastScreenings" Nullable="false" />
+          <Property Type="Int32" Name="B1" Nullable="false" />
+          <Property Type="Int32" Name="B2" Nullable="false" />
+          <Property Type="Int32" Name="B3" Nullable="false" />
+          <Property Type="Int32" Name="B4" Nullable="false" />
+          <Property Type="Int32" Name="B5" Nullable="false" />
+          <Property Type="Int32" Name="B6" Nullable="false" />
+          <Property Type="Int32" Name="B7" Nullable="false" />
+          <Property Type="Int32" Name="B8" Nullable="false" />
+          <Property Type="Int32" Name="CervicalScreenigs" Nullable="false" />
+          <Property Type="Int32" Name="C1" Nullable="false" />
+          <Property Type="Int32" Name="C2" Nullable="false" />
+          <Property Type="Int32" Name="C3" Nullable="false" />
+          <Property Type="Int32" Name="C4" Nullable="false" />
+          <Property Type="Int32" Name="C5" Nullable="false" />
+          <Property Type="Int32" Name="C7" Nullable="false" />
+          <Property Type="Int32" Name="C8" Nullable="false" />
+          <Property Type="Int32" Name="CardioVascularScreenings" Nullable="false" />
+          <Property Type="Int32" Name="W1" Nullable="false" />
+          <Property Type="Int32" Name="W2" Nullable="false" />
+          <Property Type="Int32" Name="W3" Nullable="false" />
+          <Property Type="Int32" Name="W4" Nullable="false" />
+          <Property Type="Int32" Name="W5" Nullable="false" />
+          <Property Type="Int32" Name="W6" Nullable="false" />
+          <Property Type="Int32" Name="W7" Nullable="false" />
+          <Property Type="Int32" Name="W8" Nullable="false" />
+          <Property Type="Int32" Name="W9" Nullable="false" />
+          <Property Type="Int32" Name="W10" Nullable="false" />
+          <Property Type="Int32" Name="ColorectalScreenings" Nullable="false" />
+          <Property Type="Int32" Name="R1" Nullable="false" />
+          <Property Type="Int32" Name="R2" Nullable="false" />
+          <Property Type="Int32" Name="R3" Nullable="false" />
+          <Property Type="Int32" Name="R4" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Report_GrantActivity_Result">
+          <Property Type="DateTime" Name="BillingDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="ContractType" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AgencySiteName" Nullable="true" />
+          <Property Type="String" Name="AgencyLegalName" Nullable="true" />
+          <Property Type="String" Name="FEIN" Nullable="true" />
+          <Property Type="String" Name="MailAddress" Nullable="true" />
+          <Property Type="String" Name="Address" Nullable="true" />
+          <Property Type="String" Name="CityBinName" Nullable="true" />
+          <Property Type="String" Name="StateCode" Nullable="true" />
+          <Property Type="Int32" Name="ZipCode" Nullable="true" />
+          <Property Type="Int32" Name="MailZipCode" Nullable="true" />
+          <Property Type="String" Name="FiscalContactFirst" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FiscalContactLast" Nullable="true" MaxLength="50" />
+          <Property Type="Int64" Name="FiscalPhone" Nullable="true" />
+          <Property Type="String" Name="FiscalEmail" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="ContactStart" Nullable="true" Precision="16" />
+          <Property Type="DateTime" Name="ContractEnd" Nullable="true" Precision="16" />
+          <Property Type="String" Name="ContractID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PayableObjectCode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="InvoiceNumber" Nullable="false" />
+          <Property Type="DateTime" Name="InvoicePosted" Nullable="true" Precision="16" />
+          <Property Type="Int32" Name="ClientID" Nullable="true" />
+          <Property Type="String" Name="ClientLastName" Nullable="true" />
+          <Property Type="String" Name="ClientFirstName" Nullable="true" />
+          <Property Type="DateTime" Name="ClientDOB" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="DateLastProcedure" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="BillingLevel" Nullable="true" />
+          <Property Type="Int32" Name="CancerTypeID" Nullable="true" />
+          <Property Type="Decimal" Name="Payment" Nullable="true" Precision="19" Scale="2" />
+          <Property Type="String" Name="COFERSFederal" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="COFERSState" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="TotalGrantPayment" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Decimal" Name="FederalTotal" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Decimal" Name="StateTotal" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="String" Name="FederalAccount" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="StateAccount" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="Report_GrantActivityWeb_Result">
+          <Property Type="DateTime" Name="BillingDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="ContractType" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AgencySiteName" Nullable="true" />
+          <Property Type="String" Name="AgencyLegalName" Nullable="true" />
+          <Property Type="String" Name="FEIN" Nullable="true" />
+          <Property Type="String" Name="MailAddress" Nullable="true" />
+          <Property Type="String" Name="Address" Nullable="true" />
+          <Property Type="String" Name="CityBinName" Nullable="true" />
+          <Property Type="String" Name="StateCode" Nullable="true" />
+          <Property Type="Int32" Name="ZipCode" Nullable="true" />
+          <Property Type="Int32" Name="MailZipCode" Nullable="true" />
+          <Property Type="String" Name="FiscalContactFirst" Nullable="true" />
+          <Property Type="String" Name="FiscalContactLast" Nullable="true" />
+          <Property Type="String" Name="FiscalPhone" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="FiscalEmail" Nullable="true" />
+          <Property Type="DateTime" Name="ContactStart" Nullable="true" Precision="16" />
+          <Property Type="DateTime" Name="ContractEnd" Nullable="true" Precision="16" />
+          <Property Type="String" Name="ContractID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PayableObjectCode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="InvoiceNumber" Nullable="false" />
+          <Property Type="DateTime" Name="InvoicePosted" Nullable="true" Precision="16" />
+          <Property Type="Int32" Name="ClientID" Nullable="true" />
+          <Property Type="String" Name="ClientLastName" Nullable="true" />
+          <Property Type="String" Name="ClientFirstName" Nullable="true" />
+          <Property Type="DateTime" Name="ClientDOB" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="DateLastProcedure" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="BillingLevel" Nullable="true" />
+          <Property Type="Int32" Name="CancerTypeID" Nullable="true" />
+          <Property Type="Decimal" Name="Payment" Nullable="true" Precision="19" Scale="2" />
+          <Property Type="String" Name="COFERSFederal" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="COFERSState" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="TotalGrantPayment" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Decimal" Name="FederalTotal" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Decimal" Name="StateTotal" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="String" Name="FederalAccount" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="StateAccount" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="Report_GrantActivityWebFull_Result">
+          <Property Type="DateTime" Name="BillingDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="ContractType" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AgencySiteName" Nullable="true" />
+          <Property Type="String" Name="AgencyLegalName" Nullable="true" />
+          <Property Type="String" Name="FEIN" Nullable="true" />
+          <Property Type="String" Name="MailAddress" Nullable="true" />
+          <Property Type="String" Name="Address" Nullable="true" />
+          <Property Type="String" Name="CityBinName" Nullable="true" />
+          <Property Type="String" Name="StateCode" Nullable="true" />
+          <Property Type="Int32" Name="ZipCode" Nullable="true" />
+          <Property Type="Int32" Name="MailZipCode" Nullable="true" />
+          <Property Type="String" Name="FiscalContactFirst" Nullable="true" />
+          <Property Type="String" Name="FiscalContactLast" Nullable="true" />
+          <Property Type="String" Name="FiscalPhone" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="FiscalEmail" Nullable="true" />
+          <Property Type="DateTime" Name="ContactStart" Nullable="true" Precision="16" />
+          <Property Type="DateTime" Name="ContractEnd" Nullable="true" Precision="16" />
+          <Property Type="String" Name="ContractID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PayableObjectCode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="InvoiceNumber" Nullable="false" />
+          <Property Type="DateTime" Name="InvoicePosted" Nullable="true" Precision="16" />
+          <Property Type="Int32" Name="ClientID" Nullable="true" />
+          <Property Type="String" Name="ClientLastName" Nullable="true" />
+          <Property Type="String" Name="ClientFirstName" Nullable="true" />
+          <Property Type="DateTime" Name="ClientDOB" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="DateLastProcedure" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="BillingLevel" Nullable="true" />
+          <Property Type="Int32" Name="CancerTypeID" Nullable="true" />
+          <Property Type="Decimal" Name="Payment" Nullable="true" Precision="19" Scale="2" />
+          <Property Type="String" Name="COFERSFederal" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="COFERSState" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="TotalGrantPayment" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Decimal" Name="FederalTotal" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Decimal" Name="StateTotal" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="String" Name="FederalAccount" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="StateAccount" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="Report_ScreeningBudgetTrackingWeb_APP_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="ContractID" Nullable="true" />
+          <Property Type="String" Name="ContractType" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="ScreenCapAmount" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="TotalPaidAmount" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="PercentFY" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="PercentSpent" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Diff" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="BreastScreeningsCount" Nullable="true" />
+          <Property Type="Decimal" Name="BreastTotalSpent" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="CPB" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="CervicalScreeningsCount" Nullable="true" />
+          <Property Type="Decimal" Name="CervicalTotalSpent" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="CPC" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="WomenCount" Nullable="true" />
+          <Property Type="Decimal" Name="CPW" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Estimate" Nullable="true" Precision="18" Scale="0" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="eCaSTBillingModelStoreContainer" CdmEntityContainer="eCaSTBillingEntities">
+          <EntitySetMapping Name="Contacts">
+            <EntityTypeMapping TypeName="eCaSTBillingModel.Contact">
+              <MappingFragment StoreEntitySet="Contact">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AgencySiteID" ColumnName="AgencySiteID" />
+                <ScalarProperty Name="AgencySiteName" ColumnName="AgencySiteName" />
+                <ScalarProperty Name="ContactTypeID" ColumnName="ContactTypeID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneExtension" ColumnName="PhoneExtension" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contracts">
+            <EntityTypeMapping TypeName="eCaSTBillingModel.Contract">
+              <MappingFragment StoreEntitySet="Contract">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AgencySiteID" ColumnName="AgencySiteID" />
+                <ScalarProperty Name="RoutingNumber" ColumnName="RoutingNumber" />
+                <ScalarProperty Name="FiscalYear" ColumnName="FiscalYear" />
+                <ScalarProperty Name="DateFYStart" ColumnName="DateFYStart" />
+                <ScalarProperty Name="DateFYEnd" ColumnName="DateFYEnd" />
+                <ScalarProperty Name="ObjectCode" ColumnName="ObjectCode" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="RateState" ColumnName="RateState" />
+                <ScalarProperty Name="RateFederal" ColumnName="RateFederal" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contract_CancerTypes">
+            <EntityTypeMapping TypeName="eCaSTBillingModel.Contract_CancerTypes">
+              <MappingFragment StoreEntitySet="Contract_CancerTypes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+                <ScalarProperty Name="CancerTypeID" ColumnName="CancerTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DD_BillingPaid">
+            <EntityTypeMapping TypeName="eCaSTBillingModel.DD_BillingPaid">
+              <MappingFragment StoreEntitySet="DD_BillingPaid">
+                <ScalarProperty Name="BillingPaidBinID" ColumnName="BillingPaidBinID" />
+                <ScalarProperty Name="BillingPaidBinName" ColumnName="BillingPaidBinName" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DD_ContractTypes">
+            <EntityTypeMapping TypeName="eCaSTBillingModel.DD_ContractTypes">
+              <MappingFragment StoreEntitySet="DD_ContractTypes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ProgramBinID" ColumnName="ProgramBinID" />
+                <ScalarProperty Name="StateRatio" ColumnName="StateRatio" />
+                <ScalarProperty Name="FederalRatio" ColumnName="FederalRatio" />
+                <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+                <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+                <ScalarProperty Name="StateAccount" ColumnName="StateAccount" />
+                <ScalarProperty Name="FederalAccount" ColumnName="FederalAccount" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DD_DetailType">
+            <EntityTypeMapping TypeName="eCaSTBillingModel.DD_DetailType">
+              <MappingFragment StoreEntitySet="DD_DetailType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DetailType" ColumnName="DetailType" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DD_LedgerTypes">
+            <EntityTypeMapping TypeName="eCaSTBillingModel.DD_LedgerTypes">
+              <MappingFragment StoreEntitySet="DD_LedgerTypes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DD_LevelRate">
+            <EntityTypeMapping TypeName="eCaSTBillingModel.DD_LevelRate">
+              <MappingFragment StoreEntitySet="DD_LevelRate">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FiscalYear" ColumnName="FiscalYear" />
+                <ScalarProperty Name="ContractTypeID" ColumnName="ContractTypeID" />
+                <ScalarProperty Name="CancerTypeID" ColumnName="CancerTypeID" />
+                <ScalarProperty Name="BillingLevelID" ColumnName="BillingLevelID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DD_ProcedureRate">
+            <EntityTypeMapping TypeName="eCaSTBillingModel.DD_ProcedureRate">
+              <MappingFragment StoreEntitySet="DD_ProcedureRate">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ProcedureMethodBinID" ColumnName="ProcedureMethodBinID" />
+                <ScalarProperty Name="FiscalYear" ColumnName="FiscalYear" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CPTCodeUsed" ColumnName="CPTCodeUsed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FiscalYears">
+            <EntityTypeMapping TypeName="eCaSTBillingModel.FiscalYear">
+              <MappingFragment StoreEntitySet="FiscalYear">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ContractTypeID" ColumnName="ContractTypeID" />
+                <ScalarProperty Name="FiscalYear1" ColumnName="FiscalYear" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="eCaSTBillingModel.Invoice">
+              <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+                <ScalarProperty Name="FiscalYear" ColumnName="FiscalYear" />
+                <ScalarProperty Name="DateFrom" ColumnName="DateFrom" />
+                <ScalarProperty Name="DateTo" ColumnName="DateTo" />
+                <ScalarProperty Name="DatePosted" ColumnName="DatePosted" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceDetails">
+            <EntityTypeMapping TypeName="eCaSTBillingModel.InvoiceDetail">
+              <MappingFragment StoreEntitySet="InvoiceDetail">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="DetailTypeID" ColumnName="DetailTypeID" />
+                <ScalarProperty Name="DetailID" ColumnName="DetailID" />
+                <ScalarProperty Name="CancerTypeID" ColumnName="CancerTypeID" />
+                <ScalarProperty Name="BillingLevelID" ColumnName="BillingLevelID" />
+                <ScalarProperty Name="DateLastService" ColumnName="DateLastService" />
+                <ScalarProperty Name="FederalAllocation" ColumnName="FederalAllocation" />
+                <ScalarProperty Name="StateAllocation" ColumnName="StateAllocation" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MasterLedgers">
+            <EntityTypeMapping TypeName="eCaSTBillingModel.MasterLedger">
+              <MappingFragment StoreEntitySet="MasterLedger">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+                <ScalarProperty Name="ContractTypeID" ColumnName="ContractTypeID" />
+                <ScalarProperty Name="LedgerTypeID" ColumnName="LedgerTypeID" />
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="FiscalYear" ColumnName="FiscalYear" />
+                <ScalarProperty Name="Debit" ColumnName="Debit" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PercentFiscalYears">
+            <EntityTypeMapping TypeName="eCaSTBillingModel.PercentFiscalYear">
+              <MappingFragment StoreEntitySet="PercentFiscalYear">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="FiscalYear" ColumnName="FiscalYear" />
+                <ScalarProperty Name="DateOfBillRun" ColumnName="DateOfBillRun" />
+                <ScalarProperty Name="PercentOfFiscalYear" ColumnName="PercentOfFiscalYear" />
+                <ScalarProperty Name="ContractTypeID" ColumnName="ContractTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="f90Day_BreastClosure" FunctionName="eCaSTBillingModel.Store.f90Day_BreastClosure" />
+          <FunctionImportMapping FunctionImportName="CopyOf_Report_ScreeningBudgetTracking" FunctionName="eCaSTBillingModel.Store.CopyOf_Report_ScreeningBudgetTracking" />
+          <FunctionImportMapping FunctionImportName="CopyOf_Report_ScreeningBudgetTracking_dbg" FunctionName="eCaSTBillingModel.Store.CopyOf_Report_ScreeningBudgetTracking_dbg" />
+          <FunctionImportMapping FunctionImportName="DeleteBill" FunctionName="eCaSTBillingModel.Store.DeleteBill" />
+          <FunctionImportMapping FunctionImportName="eCaST_Get_FiscalYear_StartDate_By_Agency" FunctionName="eCaSTBillingModel.Store.eCaST_Get_FiscalYear_StartDate_By_Agency" />
+          <FunctionImportMapping FunctionImportName="eCaST_Get_Percent_ContractTypes" FunctionName="eCaSTBillingModel.Store.eCaST_Get_Percent_ContractTypes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="eCaSTBillingModel.eCaST_Get_Percent_ContractTypes_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ProgramBinID" ColumnName="ProgramBinID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="eCaST_Get_Percent_FiscalYear" FunctionName="eCaSTBillingModel.Store.eCaST_Get_Percent_FiscalYear" />
+          <FunctionImportMapping FunctionImportName="Insert_MasterLedger" FunctionName="eCaSTBillingModel.Store.Insert_MasterLedger" />
+          <FunctionImportMapping FunctionImportName="Insert_MasterLedger_BACKUP_X" FunctionName="eCaSTBillingModel.Store.Insert_MasterLedger_BACKUP_X" />
+          <FunctionImportMapping FunctionImportName="MasterBilling" FunctionName="eCaSTBillingModel.Store.MasterBilling" />
+          <FunctionImportMapping FunctionImportName="MasterCleanDuplicateInvoices" FunctionName="eCaSTBillingModel.Store.MasterCleanDuplicateInvoices" />
+          <FunctionImportMapping FunctionImportName="MasterCleanDuplicateScreens" FunctionName="eCaSTBillingModel.Store.MasterCleanDuplicateScreens" />
+          <FunctionImportMapping FunctionImportName="MasterCleanNegative" FunctionName="eCaSTBillingModel.Store.MasterCleanNegative" />
+          <FunctionImportMapping FunctionImportName="MasterProcedures" FunctionName="eCaSTBillingModel.Store.MasterProcedures" />
+          <FunctionImportMapping FunctionImportName="MasterProcedures_Backup_12162015" FunctionName="eCaSTBillingModel.Store.MasterProcedures_Backup_12162015" />
+          <FunctionImportMapping FunctionImportName="MasterScreening" FunctionName="eCaSTBillingModel.Store.MasterScreening" />
+          <FunctionImportMapping FunctionImportName="MasterScreening_BK_X" FunctionName="eCaSTBillingModel.Store.MasterScreening_BK_X" />
+          <FunctionImportMapping FunctionImportName="Procedure_Rules" FunctionName="eCaSTBillingModel.Store.Procedure_Rules" />
+          <FunctionImportMapping FunctionImportName="Report_Clients_Served_Bundled_Reimbursement_Level" FunctionName="eCaSTBillingModel.Store.Report_Clients_Served_Bundled_Reimbursement_Level">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="eCaSTBillingModel.Report_Clients_Served_Bundled_Reimbursement_Level_Result">
+                <ScalarProperty Name="AgencySiteName" ColumnName="AgencySiteName" />
+                <ScalarProperty Name="ClinicName" ColumnName="ClinicName" />
+                <ScalarProperty Name="BreastScreenings" ColumnName="BreastScreenings" />
+                <ScalarProperty Name="B1" ColumnName="B1" />
+                <ScalarProperty Name="B2" ColumnName="B2" />
+                <ScalarProperty Name="B3" ColumnName="B3" />
+                <ScalarProperty Name="B4" ColumnName="B4" />
+                <ScalarProperty Name="B5" ColumnName="B5" />
+                <ScalarProperty Name="B6" ColumnName="B6" />
+                <ScalarProperty Name="B7" ColumnName="B7" />
+                <ScalarProperty Name="B8" ColumnName="B8" />
+                <ScalarProperty Name="CervicalScreenigs" ColumnName="CervicalScreenigs" />
+                <ScalarProperty Name="C1" ColumnName="C1" />
+                <ScalarProperty Name="C2" ColumnName="C2" />
+                <ScalarProperty Name="C3" ColumnName="C3" />
+                <ScalarProperty Name="C4" ColumnName="C4" />
+                <ScalarProperty Name="C5" ColumnName="C5" />
+                <ScalarProperty Name="C7" ColumnName="C7" />
+                <ScalarProperty Name="C8" ColumnName="C8" />
+                <ScalarProperty Name="CardioVascularScreenings" ColumnName="CardioVascularScreenings" />
+                <ScalarProperty Name="W1" ColumnName="W1" />
+                <ScalarProperty Name="W2" ColumnName="W2" />
+                <ScalarProperty Name="W3" ColumnName="W3" />
+                <ScalarProperty Name="W4" ColumnName="W4" />
+                <ScalarProperty Name="W5" ColumnName="W5" />
+                <ScalarProperty Name="W6" ColumnName="W6" />
+                <ScalarProperty Name="W7" ColumnName="W7" />
+                <ScalarProperty Name="W8" ColumnName="W8" />
+                <ScalarProperty Name="W9" ColumnName="W9" />
+                <ScalarProperty Name="W10" ColumnName="W10" />
+                <ScalarProperty Name="ColorectalScreenings" ColumnName="ColorectalScreenings" />
+                <ScalarProperty Name="R1" ColumnName="R1" />
+                <ScalarProperty Name="R2" ColumnName="R2" />
+                <ScalarProperty Name="R3" ColumnName="R3" />
+                <ScalarProperty Name="R4" ColumnName="R4" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Report_GrantActivity" FunctionName="eCaSTBillingModel.Store.Report_GrantActivity">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="eCaSTBillingModel.Report_GrantActivity_Result">
+                <ScalarProperty Name="BillingDate" ColumnName="BillingDate" />
+                <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+                <ScalarProperty Name="AgencySiteName" ColumnName="AgencySiteName" />
+                <ScalarProperty Name="AgencyLegalName" ColumnName="AgencyLegalName" />
+                <ScalarProperty Name="FEIN" ColumnName="FEIN" />
+                <ScalarProperty Name="MailAddress" ColumnName="MailAddress" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CityBinName" ColumnName="CityBinName" />
+                <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="MailZipCode" ColumnName="MailZipCode" />
+                <ScalarProperty Name="FiscalContactFirst" ColumnName="FiscalContactFirst" />
+                <ScalarProperty Name="FiscalContactLast" ColumnName="FiscalContactLast" />
+                <ScalarProperty Name="FiscalPhone" ColumnName="FiscalPhone" />
+                <ScalarProperty Name="FiscalEmail" ColumnName="FiscalEmail" />
+                <ScalarProperty Name="ContactStart" ColumnName="ContactStart" />
+                <ScalarProperty Name="ContractEnd" ColumnName="ContractEnd" />
+                <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+                <ScalarProperty Name="PayableObjectCode" ColumnName="PayableObjectCode" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="InvoicePosted" ColumnName="InvoicePosted" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="ClientLastName" ColumnName="ClientLastName" />
+                <ScalarProperty Name="ClientFirstName" ColumnName="ClientFirstName" />
+                <ScalarProperty Name="ClientDOB" ColumnName="ClientDOB" />
+                <ScalarProperty Name="DateLastProcedure" ColumnName="DateLastProcedure" />
+                <ScalarProperty Name="BillingLevel" ColumnName="BillingLevel" />
+                <ScalarProperty Name="CancerTypeID" ColumnName="CancerTypeID" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="COFERSFederal" ColumnName="COFERSFederal" />
+                <ScalarProperty Name="COFERSState" ColumnName="COFERSState" />
+                <ScalarProperty Name="TotalGrantPayment" ColumnName="TotalGrantPayment" />
+                <ScalarProperty Name="FederalTotal" ColumnName="FederalTotal" />
+                <ScalarProperty Name="StateTotal" ColumnName="StateTotal" />
+                <ScalarProperty Name="FederalAccount" ColumnName="FederalAccount" />
+                <ScalarProperty Name="StateAccount" ColumnName="StateAccount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Report_GrantActivityWeb" FunctionName="eCaSTBillingModel.Store.Report_GrantActivityWeb">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="eCaSTBillingModel.Report_GrantActivityWeb_Result">
+                <ScalarProperty Name="BillingDate" ColumnName="BillingDate" />
+                <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+                <ScalarProperty Name="AgencySiteName" ColumnName="AgencySiteName" />
+                <ScalarProperty Name="AgencyLegalName" ColumnName="AgencyLegalName" />
+                <ScalarProperty Name="FEIN" ColumnName="FEIN" />
+                <ScalarProperty Name="MailAddress" ColumnName="MailAddress" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CityBinName" ColumnName="CityBinName" />
+                <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="MailZipCode" ColumnName="MailZipCode" />
+                <ScalarProperty Name="FiscalContactFirst" ColumnName="FiscalContactFirst" />
+                <ScalarProperty Name="FiscalContactLast" ColumnName="FiscalContactLast" />
+                <ScalarProperty Name="FiscalPhone" ColumnName="FiscalPhone" />
+                <ScalarProperty Name="FiscalEmail" ColumnName="FiscalEmail" />
+                <ScalarProperty Name="ContactStart" ColumnName="ContactStart" />
+                <ScalarProperty Name="ContractEnd" ColumnName="ContractEnd" />
+                <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+                <ScalarProperty Name="PayableObjectCode" ColumnName="PayableObjectCode" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="InvoicePosted" ColumnName="InvoicePosted" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="ClientLastName" ColumnName="ClientLastName" />
+                <ScalarProperty Name="ClientFirstName" ColumnName="ClientFirstName" />
+                <ScalarProperty Name="ClientDOB" ColumnName="ClientDOB" />
+                <ScalarProperty Name="DateLastProcedure" ColumnName="DateLastProcedure" />
+                <ScalarProperty Name="BillingLevel" ColumnName="BillingLevel" />
+                <ScalarProperty Name="CancerTypeID" ColumnName="CancerTypeID" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="COFERSFederal" ColumnName="COFERSFederal" />
+                <ScalarProperty Name="COFERSState" ColumnName="COFERSState" />
+                <ScalarProperty Name="TotalGrantPayment" ColumnName="TotalGrantPayment" />
+                <ScalarProperty Name="FederalTotal" ColumnName="FederalTotal" />
+                <ScalarProperty Name="StateTotal" ColumnName="StateTotal" />
+                <ScalarProperty Name="FederalAccount" ColumnName="FederalAccount" />
+                <ScalarProperty Name="StateAccount" ColumnName="StateAccount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Report_GrantActivityWebFull" FunctionName="eCaSTBillingModel.Store.Report_GrantActivityWebFull">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="eCaSTBillingModel.Report_GrantActivityWebFull_Result">
+                <ScalarProperty Name="BillingDate" ColumnName="BillingDate" />
+                <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+                <ScalarProperty Name="AgencySiteName" ColumnName="AgencySiteName" />
+                <ScalarProperty Name="AgencyLegalName" ColumnName="AgencyLegalName" />
+                <ScalarProperty Name="FEIN" ColumnName="FEIN" />
+                <ScalarProperty Name="MailAddress" ColumnName="MailAddress" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CityBinName" ColumnName="CityBinName" />
+                <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="MailZipCode" ColumnName="MailZipCode" />
+                <ScalarProperty Name="FiscalContactFirst" ColumnName="FiscalContactFirst" />
+                <ScalarProperty Name="FiscalContactLast" ColumnName="FiscalContactLast" />
+                <ScalarProperty Name="FiscalPhone" ColumnName="FiscalPhone" />
+                <ScalarProperty Name="FiscalEmail" ColumnName="FiscalEmail" />
+                <ScalarProperty Name="ContactStart" ColumnName="ContactStart" />
+                <ScalarProperty Name="ContractEnd" ColumnName="ContractEnd" />
+                <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+                <ScalarProperty Name="PayableObjectCode" ColumnName="PayableObjectCode" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="InvoicePosted" ColumnName="InvoicePosted" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="ClientLastName" ColumnName="ClientLastName" />
+                <ScalarProperty Name="ClientFirstName" ColumnName="ClientFirstName" />
+                <ScalarProperty Name="ClientDOB" ColumnName="ClientDOB" />
+                <ScalarProperty Name="DateLastProcedure" ColumnName="DateLastProcedure" />
+                <ScalarProperty Name="BillingLevel" ColumnName="BillingLevel" />
+                <ScalarProperty Name="CancerTypeID" ColumnName="CancerTypeID" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="COFERSFederal" ColumnName="COFERSFederal" />
+                <ScalarProperty Name="COFERSState" ColumnName="COFERSState" />
+                <ScalarProperty Name="TotalGrantPayment" ColumnName="TotalGrantPayment" />
+                <ScalarProperty Name="FederalTotal" ColumnName="FederalTotal" />
+                <ScalarProperty Name="StateTotal" ColumnName="StateTotal" />
+                <ScalarProperty Name="FederalAccount" ColumnName="FederalAccount" />
+                <ScalarProperty Name="StateAccount" ColumnName="StateAccount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Report_ScreeningBudgetTracking" FunctionName="eCaSTBillingModel.Store.Report_ScreeningBudgetTracking" />
+          <FunctionImportMapping FunctionImportName="Report_ScreeningBudgetTrackingWeb" FunctionName="eCaSTBillingModel.Store.Report_ScreeningBudgetTrackingWeb" />
+          <FunctionImportMapping FunctionImportName="Report_ScreeningBudgetTrackingWeb_APP" FunctionName="eCaSTBillingModel.Store.Report_ScreeningBudgetTrackingWeb_APP">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="eCaSTBillingModel.Report_ScreeningBudgetTrackingWeb_APP_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+                <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+                <ScalarProperty Name="ScreenCapAmount" ColumnName="ScreenCapAmount" />
+                <ScalarProperty Name="TotalPaidAmount" ColumnName="TotalPaidAmount" />
+                <ScalarProperty Name="PercentFY" ColumnName="PercentFY" />
+                <ScalarProperty Name="PercentSpent" ColumnName="PercentSpent" />
+                <ScalarProperty Name="Diff" ColumnName="Diff" />
+                <ScalarProperty Name="BreastScreeningsCount" ColumnName="BreastScreeningsCount" />
+                <ScalarProperty Name="BreastTotalSpent" ColumnName="BreastTotalSpent" />
+                <ScalarProperty Name="CPB" ColumnName="CPB" />
+                <ScalarProperty Name="CervicalScreeningsCount" ColumnName="CervicalScreeningsCount" />
+                <ScalarProperty Name="CervicalTotalSpent" ColumnName="CervicalTotalSpent" />
+                <ScalarProperty Name="CPC" ColumnName="CPC" />
+                <ScalarProperty Name="WomenCount" ColumnName="WomenCount" />
+                <ScalarProperty Name="CPW" ColumnName="CPW" />
+                <ScalarProperty Name="Estimate" ColumnName="Estimate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Reset_BillingLevels" FunctionName="eCaSTBillingModel.Store.Reset_BillingLevels" />
+          <FunctionImportMapping FunctionImportName="Return_SelectedItems" FunctionName="eCaSTBillingModel.Store.Return_SelectedItems" />
+          <FunctionImportMapping FunctionImportName="Screening_Rules" FunctionName="eCaSTBillingModel.Store.Screening_Rules" />
+          <FunctionImportMapping FunctionImportName="Set_Adjustments" FunctionName="eCaSTBillingModel.Store.Set_Adjustments" />
+          <FunctionImportMapping FunctionImportName="Set_Adjustments_CCGP" FunctionName="eCaSTBillingModel.Store.Set_Adjustments_CCGP" />
+          <FunctionImportMapping FunctionImportName="Set_Allocations" FunctionName="eCaSTBillingModel.Store.Set_Allocations" />
+          <FunctionImportMapping FunctionImportName="Update_ScreeningAlreadyPaid" FunctionName="eCaSTBillingModel.Store.Update_ScreeningAlreadyPaid" />
+          <FunctionImportMapping FunctionImportName="Update_ScreeningPaid" FunctionName="eCaSTBillingModel.Store.Update_ScreeningPaid" />
+          <FunctionImportMapping FunctionImportName="Update_ScreeningProcedurePaid" FunctionName="eCaSTBillingModel.Store.Update_ScreeningProcedurePaid" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

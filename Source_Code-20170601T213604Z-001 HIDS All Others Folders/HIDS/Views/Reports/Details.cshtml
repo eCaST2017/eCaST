@@ -1,0 +1,38 @@
+@model EncaustiCreations.Models.Report
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Report</legend>
+
+    <div class="display-label">ReportTitle</div>
+    <div class="display-field">@Model.ReportTitle</div>
+
+    <div class="display-label">ReportDesc</div>
+    <div class="display-field">@Model.ReportDesc</div>
+
+    <div class="display-label">Active</div>
+    <div class="display-field">@Model.Active</div>
+
+    <div class="display-label">DateUpdated</div>
+    <div class="display-field">@String.Format("{0:g}", Model.DateUpdated)</div>
+
+    <div class="display-label">UpdatedBy</div>
+    <div class="display-field">@Model.UpdatedBy</div>
+
+    <div class="display-label">DateCreated</div>
+    <div class="display-field">@String.Format("{0:g}", Model.DateCreated)</div>
+
+    <div class="display-label">CreatedBy</div>
+    <div class="display-field">@Model.CreatedBy</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ReportID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+

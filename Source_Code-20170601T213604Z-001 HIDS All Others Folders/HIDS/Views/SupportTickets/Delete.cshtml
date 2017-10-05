@@ -1,0 +1,32 @@
+@model EncaustiCreations.Models.SupportTicket
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>SupportTicket</legend>
+
+    <div class="display-label">SupportTicketEmail</div>
+    <div class="display-field">@Model.SupportTicketEmail</div>
+
+    <div class="display-label">SupportTicketTitle</div>
+    <div class="display-field">@Model.SupportTicketTitle</div>
+
+    <div class="display-label">SupportTicketContent</div>
+    <div class="display-field">@Model.SupportTicketContent</div>
+
+    <div class="display-label">Active</div>
+    <div class="display-field">@Model.Active</div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+
+

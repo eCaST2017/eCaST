@@ -1,0 +1,37 @@
+@model EncaustiCreations.Models.Screen
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.ScreenName)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.ScreenName)
+    @Html.ValidationMessageFor(model => model.ScreenName)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.ScreenContent)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.ScreenContent)
+    @Html.ValidationMessageFor(model => model.ScreenContent)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Active)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Active)
+    @Html.ValidationMessageFor(model => model.Active)
+</div>
+
+<div style="color:White" class="editor">
+
+            
+            @Html.Hidden("DateUpdated", (DateTime?)ViewBag.DateUpdated)
+             @Html.Hidden("DateCreated", (DateTime?)ViewBag.DateCreated)
+             @Html.Hidden("UpdatedBy", (string)ViewBag.UpdatedBy)
+              @Html.Hidden("CreatedBy", (string)ViewBag.CreatedBy)
+
+        </div>

@@ -1,0 +1,267 @@
+﻿@model IEnumerable<CTL.ViewModels.AgencySearchCriteria>
+
+@{
+    ViewBag.Title = "Agency Sites";
+}
+
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        oTable =
+          $('#AgencyList').dataTable({
+              "bPaginate": false,
+              "oLanguage": {
+                  "sSearch": "<i class='fa fa-filter fa-fw'></i> Filter: "
+              }
+          });
+    });
+</script>
+
+
+<style type="text/css">
+    label, div {
+        color: #666;
+    }
+
+
+    #AgencyList td.sorting_1 {
+        background-color: #fff;
+        border: 1px lightgrey;
+    }
+    /*table.dataTable td{ background-color: aliceblue;  border:1px lightgrey;}*/
+    #AgencyList tr {
+        background-color: #fff;
+        color: #666;
+    }
+
+        #AgencyList tr:nth-child(even) {
+            background-color: #f7f7f6;
+        }
+</style>
+
+@if (ViewBag.RoleID == 1 || ViewBag.RoleID == 13 || ViewBag.RoleID == 3)
+{
+
+    <div class="pull-right"><button class="btn btn-success btn-lg" id="EmailButton"><i class="fa fa-envelope"></i>&nbsp;Create Email</button></div>
+
+}
+
+<br />
+<br />
+<br />
+<div class="w3-card-2">
+    <div style="background-color:#666" class="panel-heading w3-card-2">
+        <span style="color:#fff;font-family: 'Roboto', sans-serif; font-size:16px"><i style="color:#fff" class="fa fa-share-alt fa-fw"></i>&nbsp;Agencies &nbsp;<span style="font-size:18px;background-color:#fff;color:#0F9D58" class="badge">@ViewBag.AgencyCount</span></span>
+
+        @if (ViewBag.RoleID == 1 || ViewBag.RoleID == 13 )
+        {
+
+        <div class="pull-right"><button id="AddAgencyButton" type="button" class="btn btn-default btn-sm">Add Agency</button></div>
+
+
+        }
+
+    </div>
+    <!-- /.panel-heading -->
+    <div style="background-color:#fff" class="panel-body">
+
+
+
+        <table style="width:100%;font-size:14px" id="AgencyList">
+            <thead>
+                <tr style="background-color:#f7f7f6;">
+                    @*<th>ID</th>*@
+                    <th>
+                       
+                    </th>
+                    <th>Program(s)</th>
+                    <th>Status</th>
+                    
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                  
+                    <td>
+
+
+                        @if (item.Active == false)
+                        {
+
+
+                        <button class="btn btn-default" id="EditAgencyInfoButton_@item.AgencySiteID"><i class=" fa fa-pencil"></i> @item.AgencySiteID @item.AgencySiteName </button>
+
+                     
+
+                        <script type="text/javascript">
+
+
+
+                            $(function () {
+
+                                $("#EditAgencyInfoButton_@item.AgencySiteID").click(function () {
+
+
+                                    $('#EditAgencyInfoContainer_@item.AgencySiteID').load('@Url.Action("Details", "AgencySites", new { id = @item.AgencySiteID })');
+
+
+                                });
+
+
+                            
+
+
+                            });
+
+                        </script>
+
+                            
+                        }
+                        else { 
+
+                        <a style="width:100%;text-align:left" class="btn btn-default" href="#" id="AgencyDashboardButton_@item.AgencySiteID"> <i class=" fa fa-dashboard"></i>  @item.AgencySiteName </a>
+
+                       
+
+                           
+                            <script type="text/javascript">
+
+                                $(function () {
+
+                                    $("#AgencyDashboardButton_@item.AgencySiteID").click(function () {
+
+
+                                        $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+                                        $(".se-pre-con").fadeIn("slow");
+                                        $("#ContentContainer").load("@Url.Action("Edit", "AgencySites", new { id = @item.AgencySiteID })",
+                                                                        function (response, status, xhr) {
+                                                                            if (status == "error") {
+                                                                                //   alert("An error occurred while loading the results.");
+                                                                            }
+
+
+                                                                            $("#ContentContainer").show(500);
+                                                                            $(".se-pre-con").fadeOut("slow");
+                                                                        });
+
+
+
+
+                                    });
+
+                                });
+
+                            </script>
+                            
+                        
+                        
+
+                        }
+
+
+                       </td>
+                    <td><span>@string.Join(",", item.RoleAList.ToArray())</span></td>
+                    <td>
+
+                        @if (item.Active == true)
+                        {
+
+
+                            <span style="color:#0F9D58"><i class="fa fa-check-circle"></i> Activated</span>
+
+                        }
+                        else
+                        {
+
+                            <span style="color:#ff0000"><i class="fa fa-warning"></i> Inactive</span>
+
+
+                        }
+
+
+
+
+                    </td>
+                  
+                </tr>
+    }
+
+        </table>
+
+
+    </div>
+</div>
+
+
+
+<!-- Add Agency Modal -->
+<div class="modal fade" id="AddAgencyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div style="text-align:left" class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="myModalLabel">Add Agency</h2>
+            </div>
+
+            <div id="AddAgencyContainer"></div>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+
+
+    $(function () {
+
+        $("#AddAgencyButton").click(function () {
+
+
+            $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+            $(".se-pre-con").fadeIn("slow");
+            $("#ContentContainer").load("@Url.Action("Create", "AgencySites")",
+                        function (response, status, xhr) {
+                              if (status == "error") {
+                                  //   alert("An error occurred while loading the results.");
+                                  }
+
+
+                              $("#ContentContainer").show(500);
+                              $(".se-pre-con").fadeOut("slow");
+
+                          });
+
+
+        });
+
+    });
+
+
+    $("#EmailButton").click(function () {
+
+
+            $("#EmailButton").css("display", "none");
+            $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+            $("#ContentContainer").load("@Url.Action("_EmailBuilder", "Sites")",
+                                             function (response, status, xhr) {
+                                                 if (status == "error") {
+                                                     //   alert("An error occurred while loading the results.");
+                                                 }
+                                                 $("#ContentContainer").show(500);
+                                             });
+
+
+
+       
+              
+    });
+
+
+
+    </script>

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<CTL.ViewModels.SiteListViewModel>
+
+@{
+    ViewBag.Title = "Sites";
+}
+
+
+
+<ul>
+
+
+@foreach (var item in Model)
+{
+
+    <li style="list-style:none">
+
+        <div id="SiteList_@item.ProgramID"></div>
+
+
+        <script type="text/javascript">
+
+
+
+            $("#SiteList_@item.ProgramID").load("@Url.Action("_SiteList","Sites")", { 'id': @item.ProgramID },
+            function (response, status, xhr) {
+                if (status == "error") {
+                                          
+                }
+                                   
+
+            });
+
+
+
+
+
+        </script>
+
+
+
+
+
+    </li>
+    
+    
+}
+
+
+</ul>

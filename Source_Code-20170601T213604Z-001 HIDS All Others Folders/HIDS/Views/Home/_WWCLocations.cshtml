@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "_WWCLocations";
+}
+
+
+
+<div class="row">
+
+    <div class="col-md-12">
+
+
+
+        <div id="tableauViz" style="height:800px; width:100%" \></div>
+
+
+    </div>
+
+
+</div>
+
+
+@section Scripts{
+
+<script type="text/javascript">
+
+    // Initialise the viz to hold the workbook
+    function initializeViz() {
+
+        var placeholderDiv = document.getElementById("tableauViz");
+
+
+        var url = "https://cohealthviz.dphe.state.co.us/t/HealthInformaticsPublic/views/WWCClinicsV3/Dashboard1";
+
+
+        var options = {
+
+            onFirstInteractive: function () {
+
+                viz.refreshDataAsync();
+            }
+        };
+        viz = new tableauSoftware.Viz(placeholderDiv, url, options);
+
+    }
+</script>
+
+<script type='text/javascript'>
+    //Initialize the viz after the div is created
+    initializeViz();
+</script>
+
+
+    }

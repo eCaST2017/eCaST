@@ -1,0 +1,497 @@
+﻿@model IEnumerable<CTL.ViewModels.PostViewModel>
+
+@{
+    ViewBag.Title = "Posts";
+}
+
+<script type="text/javascript" charset="utf-8">
+     $(document).ready(function () {
+         oTable = $('#PostList').dataTable({
+             //"bJQueryUI": true,
+             "sPaginationType": "full_numbers",
+             //"aaSorting": [[1, "desc"]]
+         });
+     });
+		</script>
+
+<style type="text/css">
+  
+    
+    table.dataTable td.sorting_1 {
+            background-color: white;
+            border-top: 1px #666;
+            border: 2px #666;
+        }
+
+        table.dataTable td {
+            background-color: white;
+            border-top: 1px #666;
+            border: 1px #666;
+        }
+
+        table.dataTable tr.odd {
+            background-color: white;
+            border-top: 1px #666;
+            border: 1px #666;
+        }
+
+        table.dataTable tr.even {
+            background-color: white;
+            border-top: 1px #666;
+            border: 1px #666;
+        }
+
+
+    /*
+    Max width before this PARTICULAR table gets nasty
+    This query will take effect for any screen smaller than 760px
+    and also iPads specifically.
+    */
+    @@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+        /* Force table to not be like tables anymore */
+        table, thead, tbody, th, td, tr {
+            display: block;
+        }
+            /* Hide table headers (but not display: none;, for accessibility) */
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+        tr {
+            border: 1px solid #ccc;
+        }
+
+        td {
+            /* Behave  like a "row" */
+            border: none;
+            border-bottom: 1px solid #eee;
+            left: 100px;
+            position: relative;
+            padding-left: 50%;
+        }
+
+            td:before {
+                /* Now like a table header */
+                position: absolute;
+                /* Top/left values mimic padding */
+                top: 4px;
+                left: -100px;
+                width: 45%;
+                padding-right: 0px;
+                white-space: nowrap;
+            }
+            /*
+        Label the data
+        */
+            td:nth-of-type(1):before {
+                content: "";
+            }
+
+            td:nth-of-type(2):before {
+                content: "";
+            }
+
+            td:nth-of-type(3):before {
+                content: "Closes";
+            }
+
+            td:nth-of-type(4):before {
+                content: "Opened";
+            }
+    }
+</style>
+
+
+<fieldset>
+
+   <br />
+
+<div align="right">  <a style="text-decoration:none; color:#fff;font-size:14px;font-family: 'Lato', sans-serif;" data-toggle="modal" data-target="#AddPostModal" href="#">
+
+         <span class="btn btn-success">Add Opportunity Posting </span>
+     </a></div>
+
+    <br />
+    
+<div>
+    <table style="width:100%;font-size:14px" class="table table-striped table-bordered" id="PostList">
+        <thead>
+            <tr>
+
+
+                <th>
+                    Opportunites
+                </th>
+
+                <th>
+                    Status
+                </th>
+
+                <th>
+                    Focus Area(s)
+                </th>
+                <th>
+                    Expiration Date
+                </th>
+                @*<th>
+                        Organization
+                    </th>*@
+                <th>
+                    Posted On
+                </th>
+
+
+                <th>
+                    Posted By
+                </th>
+
+                <th style="color:white"></th>
+
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+
+                <td style="background-color:#fff">
+                    @item.PostTitle
+                </td>
+
+                <td>
+                   @if (item.Active == true)
+                   {
+                       
+                       <span>Open</span>
+
+                   }
+                   else
+                   {
+
+                    <span>Expired</span>
+
+                   }
+                </td>
+
+                <td>
+                    <div> @{ Html.RenderAction("_AttributeDetail", "Posts", new { id = @item.PostID, id2 = 9 });}</div>
+                </td>
+                <td>
+                    @(((DateTime)item.ExpirationDate).ToString("MM/dd/yyyy"))
+                </td>
+                @*   <td>
+                        @item.OrganizationName
+                    </td>*@
+
+                <td>
+                    @(((DateTime)item.DateCreated).ToString("MM/dd/yyyy"))
+                </td>
+
+
+                <td>
+                    @item.CreatedBy
+                </td>
+
+                <td style="background-color:#fff; width:25%">
+
+
+                    @*<a id="edit1Link" style="text-decoration:none" class="edit1Link" href="@Url.Action("_Following", "Posts", new { id = item.PostID })">
+
+
+                            <span class="btn btn-info" style="font-size:14px"><span class="glyphicon glyphicon-user"></span>&nbsp;<span style="background-color:#ff0000" class="badge">@item.PostFollowersCount</span></span>
+                        </a>*@
+
+
+                    <a id='PostFollowButton_@item.PostID' style="text-decoration:none;color:#35a923; cursor:pointer" title="View followers of this opportunity" data-toggle="modal" data-target="#PostF_@item.PostID">
+
+                        @*<span class="glyphicon glyphicon-eye-open"></span>&nbsp;@item.PostTitle*@
+                        <span class="btn btn-info" style="font-size:14px"><span class="glyphicon glyphicon-user"></span>&nbsp;<span style="background-color:#ff0000" class="badge">@item.PostFollowersCount</span></span>
+
+                    </a>
+
+
+
+                    <!-- Detail Modal -->
+                    <div class="modal fade" id="PostF_@item.PostID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title" id="myModalLabel">@item.PostTitle </h3>
+                                </div>
+
+                                <div id="PostFollowContainer_@item.PostID"></div>
+
+                                @*   @{ Html.RenderAction("_DeleteTest", "PatientInformation", new { id = @ViewBag.CCID, id2 = @ViewBag.SiteID, id3 = @ViewBag.ScreeningTypeID, id4 = @ViewBag.CLID, id5 = @ViewBag.EnrollID, id6 = @ViewBag.ScreeningID, id7 = @item.ScreenProcedureID });}*@
+
+                                <div class="modal-footer">
+                                    <button type="button" id="PostCloseButton" class="btn btn-default" data-dismiss="modal">Close</button><br /><br />
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <script type="text/javascript">
+
+                        $(function () {
+
+
+                            $("#PostFollowButton_@item.PostID").click(function () {
+
+
+                                $('#PostFollowContainer_@item.PostID').load('@Url.Action("_Following", "Posts", new { id = @item.PostID })');
+
+
+
+                            });
+
+
+                            $('#PostF_@item.PostID').on('shown.bs.modal', function () {
+                                $(this).find('.modal-dialog').css({
+                                    //width: 'auto',
+                                    width: '92%',
+                                    height: 'auto',
+                                    'max-height': '100%'
+                                });
+                            });
+
+
+
+                        });
+
+                    </script>
+
+
+
+                    @if (@item.ExpirationDate < DateTime.Now)
+                    {
+
+
+                        <a id='PostAwardButton_@item.PostID' style="text-decoration:none;color:#35a923; cursor:pointer" data-toggle="modal" title="Award this opportunity" data-target="#PostAW_@item.PostID">
+
+                            @*<span class="glyphicon glyphicon-eye-open"></span>&nbsp;@item.PostTitle*@
+
+                            @if (@item.AwardedId == null)
+                            {
+
+                                <span class="btn btn-success" style="font-size:14px"><span class="glyphicon glyphicon-cog"></span></span>
+
+                            }
+                            else
+                            {
+
+                                <span class="btn btn-success" style="font-size:14px"><span class="glyphicon glyphicon-star"></span></span>
+
+
+                            }
+
+                        </a>
+
+
+
+            <!-- Detail Modal -->
+                        <div class="modal fade" id="PostAW_@item.PostID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="myModalLabel">@item.PostTitle </h3>
+                                    </div>
+
+                                    <div id="PostAwardContainer_@item.PostID"></div>
+
+                                    @*   @{ Html.RenderAction("_DeleteTest", "PatientInformation", new { id = @ViewBag.CCID, id2 = @ViewBag.SiteID, id3 = @ViewBag.ScreeningTypeID, id4 = @ViewBag.CLID, id5 = @ViewBag.EnrollID, id6 = @ViewBag.ScreeningID, id7 = @item.ScreenProcedureID });}*@
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <script type="text/javascript">
+
+                            $(function () {
+
+
+                                $("#PostAwardButton_@item.PostID").click(function () {
+
+
+                                    $('#PostAwardContainer_@item.PostID').load('@Url.Action("_AwardPost", "Posts", new { id = @item.PostID })');
+
+
+
+                                });
+
+
+                                $('#PostAW_@item.PostID').on('shown.bs.modal', function () {
+                                    $(this).find('.modal-dialog').css({
+                                        //width: 'auto',
+                                        width: '92%',
+                                        height: 'auto',
+                                        'max-height': '100%'
+                                    });
+                                });
+
+
+                            });
+
+                        </script>
+
+
+
+
+
+
+                    }
+
+                    else
+                    {
+                        <a id='PostEditButton_@item.PostID' style="text-decoration:none;color:#35a923; cursor:pointer" title="Edit this opportunity" data-toggle="modal" data-target="#PostE_@item.PostID">
+
+                            @*<span class="glyphicon glyphicon-eye-open"></span>&nbsp;@item.PostTitle*@
+                            <span class="btn btn-success" style="font-size:14px"><span class="glyphicon glyphicon-pencil"></span></span>
+
+                        </a>
+
+
+
+            <!-- Detail Modal -->
+                        <div class="modal fade" id="PostE_@item.PostID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="myModalLabel">@item.PostTitle </h3>
+                                    </div>
+
+                                    <div id="PostEditContainer_@item.PostID"></div>
+
+                                    @*   @{ Html.RenderAction("_DeleteTest", "PatientInformation", new { id = @ViewBag.CCID, id2 = @ViewBag.SiteID, id3 = @ViewBag.ScreeningTypeID, id4 = @ViewBag.CLID, id5 = @ViewBag.EnrollID, id6 = @ViewBag.ScreeningID, id7 = @item.ScreenProcedureID });}*@
+
+                                    <div class="modal-footer">
+                                        <button type="button" id="PostCloseEditButton" class="btn btn-default" data-dismiss="modal">Close</button><br /><br />
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <script type="text/javascript">
+
+                            $(function () {
+
+
+                                $("#PostEditButton_@item.PostID").click(function () {
+
+
+                                    $('#PostEditContainer_@item.PostID').load('@Url.Action("Edit", "Posts", new { id = @item.PostID })');
+
+
+
+                                });
+
+
+                                $('#PostE_@item.PostID').on('shown.bs.modal', function () {
+                                    $(this).find('.modal-dialog').css({
+                                        //width: 'auto',
+                                        width: '92%',
+                                        height: 'auto',
+                                        'max-height': '100%'
+                                    });
+                                });
+
+
+                            });
+
+                        </script>
+
+
+                    }
+
+
+
+
+                    <a id="notification1Link" style="text-decoration:none" title="Configure email for this post" class="notification1Link" href="@Url.Action("Create", "Notifications", new { id = item.PostID })">
+
+
+                        <span class="btn btn-warning" style="font-size:14px"><span class="glyphicon glyphicon-share-alt"></span></span>
+                    </a>
+
+                    <a id="delete1Link" style="text-decoration:none" class="delete1Link" title="Delete this opportunity" href="@Url.Action("Delete", "Posts", new { id = item.PostID })">
+
+
+                        <span class="btn btn-danger" style="font-size:14px"><span class="glyphicon glyphicon-trash"></span></span>
+                    </a>
+
+
+
+                </td>
+
+            </tr>
+        }
+
+    </table>
+    </div>
+    </fieldset>
+  
+
+<div class="modal fade" id="AddPostModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 style="font-family: 'Lato', sans-serif;color:#3a53c7;" class=" modal-title" id="myModalLabel">Add Opportunity</h4>
+                                </div>
+                                <div class="modal-body">
+
+                                    <div id="PostSection"></div>
+
+                                    @*@{ Html.RenderAction("Create", "Posts");}*@
+                                    
+                                  
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+
+        $('#PostSection').load('@Url.Action("Create", "Posts")');
+
+
+        $('#AddPostModal').on('shown.bs.modal', function () {
+            $(this).find('.modal-dialog').css({
+                //width: 'auto',
+                width: '92%',
+                height: 'auto',
+                'max-height': '100%'
+            });
+        });
+
+
+    });
+
+
+  
+
+
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.tool').tooltip();
+        //$('.btn').popover();
+
+    }); //END $(document).ready()
+
+</script>

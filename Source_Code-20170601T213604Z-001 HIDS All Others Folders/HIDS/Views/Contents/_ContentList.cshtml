@@ -1,0 +1,128 @@
+﻿@model IEnumerable<CTL.Models.Content>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript" charset="utf-8">
+     $(document).ready(function () {
+         oTable = $('#PageList').dataTable({
+             //"bJQueryUI": true,
+             "sPaginationType": "full_numbers",
+             //"aaSorting": [[1, "desc"]]
+         });
+     });
+		</script>
+
+<style type="text/css">
+
+#PageList td.sorting_1{ background-color:white; border:1px lightgrey; }
+/*table.dataTable td{ background-color: aliceblue;  border:1px lightgrey;}*/
+#PageList tr{ background-color:white }
+#PageList tr:nth-child(even)  { background-color: #f6f0f0;  }
+
+    </style>
+
+
+<fieldset>
+
+  @*  <div align="right">
+
+     <a class="edit1LinkCO" style="text-decoration:none; color:#fff;font-size:14px" href="@Url.Action("Create", "Contents")">
+     
+         <span class="btn btn-success">Add Page</span></a>
+
+        
+        </div>
+    <br />*@
+
+<div class="demo_jui">
+<table style="width:100%; font-size:14px" id="PageList">
+    
+    <thead>
+        <tr style="background-color:#ccc">
+        <th></th>
+        <th style="color:white">
+            Page Title
+        </th>
+      @*  <th>
+            ContentBody
+        </th>*@
+       @* <th>
+            ContentFooter
+        </th>*@
+        <th style="color:white">
+            Active
+        </th>
+    </tr>
+        </thead>
+
+@foreach (var item in Model) {
+    <tr>
+        <td style="border:none; width:20%">
+            
+
+                <a style="text-decoration:none" class="edit1LinkCO" href="@Url.Action("Edit", "Contents", new { id = item.ContentID })"> 
+
+
+                    <span class="btn btn-success" style="font-size:14px">Edit</span>
+</a> 
+
+
+
+
+         @*   @Html.ActionLink(" ", "Edit", new { id=item.ContentID }, new { @class = "icon-pencil fg-darker small" }) *@
+
+
+
+@*              <a id="details1LinkCO" style="text-decoration:none" class="details1LinkCO" href="@Url.Action("Details", "Contents", new { id = item.ContentID })"> 
+
+
+                     <span class="icon-pencil fg-darker" style="font-size:18px"> </span>
+</a> 
+
+
+
+            @Html.ActionLink(" ", "Details", new { id=item.ContentID }, new { @class = "icon-eye fg-darker" }) *@
+
+
+
+         @*      <a style="text-decoration:none" class="delete1LinkCO" href="@Url.Action("Delete", "Contents", new { id = item.ContentID })"> 
+
+
+                   <span class="btn btn-danger" style="font-size:14px">Delete</span>
+</a> *@
+
+
+
+          @*  @Html.ActionLink(" ", "Delete", new { id=item.ContentID }, new { @class = " icon-remove fg-darker " })*@
+        </td>
+        <td>
+			@item.ContentTitle
+        </td>
+       @* <td>
+			@item.ContentBody
+        </td>*@
+      @*  <td>
+			@item.ContentFooter
+        </td>*@
+        <td>
+			@item.Active
+        </td>
+    </tr>
+}
+
+</table>
+    </div>
+    </fieldset>
+
+
+     <script type="text/javascript">
+   
+    
+        $(".edit1LinkCO").button();
+        $(".details1LinkCO").button();
+        $(".delete1LinkCO").button();
+        $(".new1LinkCO").button();
+
+        </script>

@@ -1,0 +1,136 @@
+﻿@model IEnumerable<CTL.ViewModels.UserProfileViewModel>
+
+
+<script type="text/javascript" charset="utf-8">
+
+
+    $(document).ready(function () {
+        /* Initialise the DataTable */
+        var oTable = $('#FollowList_@ViewBag.PostID').dataTable({
+            "oLanguage": {
+                "sSearch": "Search:"
+            },
+            "bPaginate": false,
+            "bSort": false,
+            "bAutoWidth": false,
+            //"aoColumnDefs": [{ "bVisible": false, "aTargets": [0] }]
+        });
+
+    });
+</script>
+
+
+
+<style type="text/css">
+    table.dataTable td.sorting_1 {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+
+    table.dataTable td {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+
+    table.dataTable tr.odd {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+
+    table.dataTable tr.even {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+</style>
+
+
+<table style="font-family: 'Lato', sans-serif;color:#3a53c7;" cellpadding="0" cellspacing="0" border="0" id="FollowList_@ViewBag.PostID">
+    <thead>
+        <tr>
+           
+            <th></th>
+            @*<th></th>*@
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+
+
+
+        <tr>
+
+
+           
+
+            <td style="border:none">
+
+
+                <div class="alert alert-default">
+
+                    <div data-role="listview">
+                        <div class="list marked" style="text-decoration:none" data-toggle="modal" data-target="#@item.Id" href="#">
+
+
+
+                            <div style="width:100%" class="list-content">
+
+
+                                <div class="row">
+                                    <div class="col-md-5">
+
+                                        <div style="width:50px;height:50px" align="center">  @Html.Raw(item.profilePic)</div>
+
+                                    </div>
+
+                                    <div class="col-md-7">
+
+
+
+
+                                        <div><h3>@item.FirstName @item.LastName</h3></div>
+
+
+                                        <div style="font-size:medium" class="form-group">
+                                            <label style="padding-right:6px" for="UserName">Organization:</label>
+                                            @item.OrganizationName
+                                        </div>
+
+
+                                        <div style="font-size:medium" class="form-group">
+                                            <label style="padding-right:6px" for="UserName">Contact Info:</label>
+                                            <div>Phone: @item.TelephoneNumber</div> <div> Email: @item.UserName</div>
+                                        </div>
+
+
+
+
+                                      
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <div style="width:100%"><hr style="height:1px;border:none;color:#ccc;background-color:#ccc;" /></div>
+
+
+            </td>
+
+
+
+
+
+        </tr>
+
+    }
+</table>
+

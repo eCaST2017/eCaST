@@ -1,0 +1,405 @@
+﻿@model IEnumerable<CTL.ViewModels.UserProfileViewModel>
+
+@{
+    ViewBag.Title = "Active Members";
+}
+
+<script type="text/javascript" charset="utf-8">
+     $(document).ready(function () {
+         oTable = $('#UserFeedList').dataTable({
+             "bPaginate": false,
+             bFilter: false,
+             bInfo: false,
+             bSort: false
+             //"bJQueryUI": true,
+             //"sPaginationType": "full_numbers",
+             //"aaSorting": [[1, "desc"]]
+         });
+
+        // oTable.fnSort([[4, 'desc']]); // Sort by first column descending
+
+     });
+		</script>
+
+<style type="text/css">
+
+
+     .bg_mask {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            margin-top: 0px;
+            width: 981px;
+            height: 610px;
+            background : url("img_dot_white.jpg") center;
+            z-index: 0;
+            visibility: hidden;
+        } 
+
+        .frontlayer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: 70px 140px 175px 140px;
+            padding : 30px;
+            width: 700px;
+            height: 400px;
+            background-color: orange;
+            visibility: hidden;
+            border: 1px solid black;
+            z-index: 1;
+        } 
+
+
+
+     label, div {
+        color: #666;
+    }
+
+
+ #UserFeedList td.sorting_1 {
+        background-color: transparent;
+        border: 1px lightgrey;
+    }
+    /*table.dataTable td{ background-color: aliceblue;  border:1px lightgrey;}*/
+    #UserFeedList tr {
+        background-color: transparent;
+        color: #666;
+    }
+
+        #UserFeedList tr:nth-child(even) {
+            background-color: transparent;
+        }
+
+
+        .img-circle {
+    border-radius: 50%;
+}
+
+
+        .user-avatar {
+  position: relative
+}
+
+.status {
+  position: absolute;
+  left: 21px;
+  bottom: -10px;
+     -webkit-border-radius:8px;
+    -moz-border-radius:8px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    width:16px;
+    height:16px;
+    background-color:lawngreen;
+}
+
+
+
+
+    </style>
+
+
+   
+
+
+
+
+    <table style="width:100%;  font-size:14px" id="UserFeedList">
+        <thead>
+            <tr style="background-color:#f7f7f6;">
+                @*<th ></th>*@
+                @*<th > Profile Updated</th>*@
+                <th>
+
+                </th>
+
+                @*<th >
+                        Email
+                    </th>
+
+
+                    <th>
+                       Access
+                    </th>
+                    <th>
+                       Status
+                    </th>*@
+
+
+                @*<th></th>*@
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+
+
+                    @*@if (item.CurrentlyLoggedIn == true)
+                    {*@
+
+                        <div class="user-avatar">
+
+                            @*<a href="http://dphe338/Authenticated/SignalRChat/Home/Chat/@ViewBag.UserID" onclick="javascript:window.open('http://dphe338/Authenticated/SignalRChat/Home/Chat/@ViewBag.UserID','Windows','width=650,height=350,toolbar=no,menubar=no,scrollbars=yes,resizable=yes,location=no,directories=no,status=no');return false" )">*@
+
+                                <img class="img-circle" style="width:30px;height:30px" src="@Html.Raw(item.profilePic)" /><span style="color:#333; font-size:medium"> @item.FirstName </span>
+
+                            @*</a>*@
+
+                            <div class="status"></div>
+                            
+                        </div>
+                  
+                    <br />
+                    @*}*@
+                    @*else
+                    {
+                        <span style="width:30px">
+                            <a id="edit1Link" style="text-decoration:none" class="edit1Link" href="@Url.Action("Edit", "UserProfiles", new { id = item.Id })">
+
+                                <img class="img-circle" style="width:30px;height:30px" src="@Html.Raw(item.profilePic)" /><span style="color:#333; font-size:medium"> @item.FirstName </span>
+
+                            </a>
+                        </span>
+
+                    }*@
+
+
+
+
+
+
+                </td>
+
+
+            </tr>
+        }
+
+    </table>
+
+<br />
+
+
+    
+
+
+    @*<div class="modal fade" id="EmailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                      <h4 style="font-family:'Roboto', sans-serif; font-size:28px" class="modal-title" id="myModalLabel">Send Message</h4>
+                                  </div>
+                                  <div class="modal-body">
+
+                                      <div id="EmailSection"></div>
+
+
+                                  </div>
+
+                                    <div class="modal-footer">
+        <div style="float:right">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="AddPostButton" type="submit" class="btn btn-success">Send</button>
+        </div>
+        </div>
+
+
+                              </div>
+                          </div>
+
+                      </div>*@
+
+
+    @section Scripts{
+
+
+
+        <script type="text/javascript">
+
+
+
+            $(document).ready(function () {
+
+
+
+                $('#EmailSection').load('@Url.Action("Create", "Messages")');
+                $('[data-toggle="tooltip"]').tooltip();
+
+
+            });
+
+        </script>
+
+
+
+
+        <script type="text/javascript">
+
+            var linkObj4;
+            $(function () {
+
+
+                $('#createDialogUSER').dialog({
+                    autoOpen: false,
+                    width: 900,
+                    height: 400,
+                    resizable: true,
+                    modal: true,
+                    buttons: {
+                        "Add": function () {
+                            $("#update-message").html(''); //make sure there is nothing on the message before we continue
+                            $("#addUSERForm").submit();
+
+                        },
+                        "Cancel": function () {
+                            $(this).dialog("close");
+                        }
+
+
+
+                    }
+                });
+
+                $(".createLinkUSER").click(function () {
+                    //change the title of the dialog
+                    linkObj4 = $(this);
+                    var dialogDiv = $('#createDialogUSER');
+                    var viewUrl = linkObj4.attr('href');
+                    $.get(viewUrl, function (data) {
+                        dialogDiv.html(data);
+                        //validation
+                        var $form = $("#addUSERForm");
+                        // Unbind existing validation
+                        //$form.unbind();
+                        //$form.data("validator", null);
+                        // Check document for changes
+                        //$.validator.unobtrusive.parse(document);
+                        // Re add validation with changes
+                        //$form.validate($form.data("unobtrusiveValidation").options);
+                        //open dialog
+                        dialogDiv.dialog('open');
+                    });
+                    return false;
+                });
+
+            });
+
+
+
+            var linkObj;
+            $(function () {
+                $(".edit1Link").button();
+                $(".detailsLink").button();
+                $(".createLinkUSER").button();
+                //$(".delete1Link").button();
+                $(".passwordLink").button();
+
+                $('#update1Dialog').dialog({
+                    autoOpen: false,
+                    width: 950,
+                    height: 840,
+                    resizable: true,
+                    modal: true,
+                    buttons: {
+                        "Update": function () {
+                            $("#update-message").html(''); //make sure there is nothing on the message before we continue
+                            $("#updateUserForm").submit();
+
+                        },
+                        "Cancel": function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+
+                $(".edit1Link").click(function () {
+                    //change the title of the dialog
+                    linkObj = $(this);
+                    var dialogDiv = $('#update1Dialog');
+                    var viewUrl = linkObj.attr('href');
+                    $.get(viewUrl, function (data) {
+                        dialogDiv.html(data);
+                        //validation
+                        var $form = $("#updateCarForm");
+                        // Unbind existing validation
+                        //$form.unbind();
+                        //$form.data("validator", null);
+                        // Check document for changes
+                        //$.validator.unobtrusive.parse(document);
+                        // Re add validation with changes
+                        //$form.validate($form.data("unobtrusiveValidation").options);
+                        //open dialog
+                        dialogDiv.dialog('open');
+                    });
+                    return false;
+                });
+
+
+            });
+
+
+            var linkObj3;
+            $(function () {
+                $(".delete1Link").button();
+
+                $('#delete1Dialog').dialog({
+                    autoOpen: false,
+                    width: 900,
+                    height: 400,
+                    resizable: true,
+                    modal: true,
+                    buttons: {
+                        "Delete": function () {
+                            $("#update-message").html(''); //make sure there is nothing on the message before we continue
+                            $("#deleteUserForm").submit();
+
+                        },
+                        "Cancel": function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+
+                $(".delete1Link").click(function () {
+                    //change the title of the dialog
+                    linkObj3 = $(this);
+                    var dialogDiv = $('#delete1Dialog');
+                    var viewUrl = linkObj3.attr('href');
+                    $.get(viewUrl, function (data) {
+                        dialogDiv.html(data);
+                        //open dialog
+                        dialogDiv.dialog('open');
+                    });
+                    return false;
+                });
+
+            });
+
+            function updateSuccess(data) {
+                if (data.Success == true) {
+                    //we update the table's info
+                    var parent = linkObj.closest("tr");
+                    parent.find(".carName").html(data.Object.Name);
+                    parent.find(".carDescription").html(data.Object.Description);
+                    //now we can close the dialog
+                    $('#delete1Dialog').dialog('close');
+                    //twitter type notification
+                    $('#commonMessage').html("Update Complete");
+                    $('#commonMessage').delay(400).slideDown(400).delay(3000).slideUp(400);
+                }
+                else {
+                    $("#update-message").html(data.ErrorMessage);
+                    $("#update-message").show();
+                }
+            }
+
+        </script>
+    }

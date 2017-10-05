@@ -1,0 +1,548 @@
+﻿@model CTL.ViewModels.NotificationViewModel
+
+@using (Html.BeginForm("_EmailNotificationF", "Notifications", FormMethod.Post, new { id = "EmailNotificationForm" }))
+{
+<div><h3 style="font-family: 'Lato', sans-serif;color:#3a53c7;padding-left:20px">Configure Notification for @ViewBag.PostTitle Opportunity</h3></div>
+
+
+<div class="alert alert-info">
+
+
+    <div class="btn-group">
+        @*<button class="btn btn-info" id="NameLinkInline" type="button">Connection Dashboard</button>*@
+
+        <a style="text-decoration:none" href='@Url.Action("UserAccount", new { Controller = "Dashboards", id = ViewBag.UID })'>
+            <span class="btn btn-default">My Dashboard</span>
+        </a>
+
+
+        @*<button id="ProfileLinkInline" type="button" class="btn btn-default">My Profile</button>*@
+        <a style="text-decoration:none" href='@Url.Action("Edit", new { Controller = "UserProfiles", id = ViewBag.UID })'>
+            <span class="btn btn-default">My Profile</span>
+        </a>
+
+
+
+
+        <a style="text-decoration:none" href='@Url.Action("Details", new { Controller = "Organizations", id = ViewBag.OID })'>
+            <span class="btn btn-default">@ViewBag.OName</span>
+        </a>
+
+
+        <a style="text-decoration:none" href='#'>
+            <span class="btn btn-warning">Notification Settings</span>
+        </a>
+
+    </div>
+
+</div>
+<br />
+
+
+
+
+@*<div class="row">
+        <div class="col-md-2">
+
+
+            From
+
+
+
+        </div>
+        <div class="col-md-4">
+
+            <div class="input-group btn-group">
+
+
+
+                @ViewBag.From
+
+
+            </div>
+
+
+
+        </div>
+
+    </div>*@
+
+<br />
+<div class="row">
+    <div class="col-md-2">
+
+
+        To
+
+
+
+    </div>
+    <div class="col-md-8">
+
+        <div class="input-group btn-group">
+
+            @Html.HiddenFor(x => x.PostID)
+            @Html.DropDownList("to", (SelectList)ViewData["OptionListTO"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+            <br />
+            <input type="checkbox" id="checkboxTO">Select All
+            <input type="hidden" id="selectedIDsTO" />
+
+
+
+        </div>
+
+
+
+    </div>
+
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-2">
+
+
+        CC
+
+
+
+    </div>
+    <div class="col-md-8">
+
+        <div class="input-group btn-group">
+
+
+            @Html.DropDownList("cc", (SelectList)ViewData["OptionListTO"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+            <br />
+            <input type="checkbox" id="checkboxCC">Select All
+            <input type="hidden" id="selectedIDsCC" />
+
+
+
+        </div>
+
+
+
+    </div>
+
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-2">
+
+
+        BCC
+
+
+
+    </div>
+    <div class="col-md-8">
+
+        <div class="input-group btn-group">
+
+
+            @Html.DropDownList("bcc", (SelectList)ViewData["OptionListTO"], new { @class = "NewCssdropdown", multiple = "", @placeholder = "Click to Add" })
+            <br />
+            <input type="checkbox" id="checkboxBCC">Select All
+            <input type="hidden" id="selectedIDsBCC" />
+
+
+
+        </div>
+
+
+
+    </div>
+
+</div>
+
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+
+
+        Subject
+
+
+
+    </div>
+
+</div>
+
+
+
+<div>
+
+
+    @Html.TextAreaFor(model => model.PostSubject, new { @style = "width:75%;height:50px" })
+
+    @Html.ValidationMessageFor(model => model.PostSubject)
+
+
+
+</div>
+
+
+
+
+
+<br />
+<div class="row">
+    <div class="col-md-12">
+
+       <h2>Notification Summary</h2> 
+
+    </div>
+</div>
+
+<hr />
+
+<div>
+    
+    <h3> @ViewBag.PostTitle</h3>
+
+    @*@Html.TextAreaFor(model => model.PostBody, new { @style = "width:100%;height:500px" })
+        @Html.ValidationMessageFor(model => model.PostBody)*@
+</div>
+<br />
+
+<div>
+    <div><h4>Goal and Purpose</h4></div>
+   <span>@*@ViewBag.PostBody*@
+    
+    @Html.Raw(Model.PostBody)
+    
+    
+    </span>
+
+    @*@Html.TextAreaFor(model => model.PostBody, new { @style = "width:100%;height:500px" })
+        @Html.ValidationMessageFor(model => model.PostBody)*@
+</div>
+<br />
+<div><h4>Focus Areas</h4></div>
+<div>
+
+    <span>@Model.FocusAreas</span>
+
+   
+</div>
+
+<br />
+<div><h4>Meeting Times</h4></div>
+<div>
+
+    <span>@Model.MeetingTimes</span>
+
+
+</div>
+
+<br />
+<div><h4>Meeting Format</h4></div>
+<div>
+
+    <span>@Model.MeetingFormat</span>
+
+
+</div>
+
+<br />
+<div><h4>Expected Deliverables</h4></div>
+<div>
+
+    <span>@Model.ExpectedDeliveries</span>
+
+
+</div>
+
+<br />
+<div><h4>Compensation</h4></div>
+<div>
+
+    <span>@Model.Compensation</span>
+
+</div>
+
+<br />
+<div><h4>Skills</h4></div>
+<div>
+
+    <span>@Model.Skills</span>
+
+</div>
+
+
+<br />
+<div><h4>Knowledge</h4></div>
+<div>
+
+    <span>@Model.Knowledge</span>
+
+</div>
+
+<br />
+<div><h4>Abilities</h4></div>
+<div>
+
+    <span>@Model.Abilities</span>
+
+</div>
+
+<br />
+<div><h4>Counties</h4></div>
+<div>
+
+    <span>@Model.Counties</span>
+
+</div>
+
+
+<div class="modal-footer">
+    <div style="float:right">
+        <a style="text-decoration:none" href='@Url.Action("Details", new { Controller = "Organizations", id = ViewBag.OID})'><span class="btn btn-default">Cancel</span> </a>
+        <button class="btn btn-success" type="submit" id="SendNotificationButton">Send Notification</button>
+    </div>
+</div>
+
+
+
+
+@Html.Hidden("From")
+@Html.Hidden("ToField")
+@Html.Hidden("CarbonCopy")
+@Html.Hidden("BlindCarbonCopy")
+
+
+}
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(
+       function () {
+
+           $("#PostSubject").val('@ViewBag.PostTitle');
+           @*$("#PostBody").val('@ViewBag.PostBody');*@
+
+       }
+   );
+
+
+
+    //$(function () {
+
+    //    $("#SendNotificationButton").click(function () {
+
+    //        var emails = $('#selectedIDsTO').val();
+    //        var emailsCC = $('#selectedIDsCC').val();
+    //        var emailsBCC = $('#selectedIDsBCC').val();
+    //        var subject = $("#PostSubject").val();
+    //        var body = $("#PostBody").val();
+
+    //        $("#SendNotificationButton").attr("target", "_blank");
+    //        $("#SendNotificationButton").attr("href", "https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=" + emails + "&cc=" + emailsCC + "&bcc=" + emailsBCC + "&su=" + "FAMILY LEADERSHIP OPPORTUNITY:" + subject + "&body=" + body);
+
+
+
+    //    });
+
+    //});
+
+
+
+
+    $(function () {
+
+
+        //$('#PostSubject').wysiwyg();
+
+        //var OptionsUrl = $("#OptionsUrl").val();
+
+        var data = '@ViewBag.OptionsTO';
+        //var data = OptionsUrl;
+
+        //Make an array
+        var dataarray = data.split(",");
+
+        // Set the value
+        $("#to").val(dataarray);
+
+
+        var test = $('#to');
+        $(test).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("to").onchange = function () {
+
+            var ids = $(test).val();
+            $('#selectedIDsTO').val(ids);
+
+        };
+
+
+        $("#checkboxTO").click(function () {
+            if ($("#checkboxTO").is(':checked')) {
+                $("#to > option").prop("selected", "selected");
+                $("#to").trigger("change");
+            } else {
+                $("#to > option").removeAttr("selected");
+                $("#to").trigger("change");
+            }
+        });
+
+
+        //Make an array
+        var dataarrayCC = data.split(",");
+
+        // Set the value
+        $("#cc").val(dataarrayCC);
+
+
+        var testCC = $('#cc');
+        $(testCC).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("cc").onchange = function () {
+
+            var idsCC = $(testCC).val();
+            $('#selectedIDsCC').val(idsCC);
+
+        };
+
+
+        $("#checkboxCC").click(function () {
+            if ($("#checkboxCC").is(':checked')) {
+                $("#cc > option").prop("selected", "selected");
+                $("#cc").trigger("change");
+            } else {
+                $("#cc > option").removeAttr("selected");
+                $("#cc").trigger("change");
+            }
+        });
+
+
+
+        var dataBCC = '@ViewBag.OptionsBCC';
+
+        //Make an array
+        var dataarrayBCC = dataBCC.split(",");
+
+        // Set the value
+        $("#bcc").val(dataarrayBCC);
+
+
+        var testBCC = $('#bcc');
+        $(testBCC).select2({
+
+            width: "300px"
+        });
+
+
+        document.getElementById("bcc").onchange = function () {
+
+            var idsBCC = $(testBCC).val();
+            $('#selectedIDsBCC').val(idsBCC);
+
+        };
+
+
+        $("#checkboxBCC").click(function () {
+            if ($("#checkboxBCC").is(':checked')) {
+                $("#bcc > option").prop("selected", "selected");
+                $("#bcc").trigger("change");
+            } else {
+                $("#bcc > option").removeAttr("selected");
+                $("#bcc").trigger("change");
+            }
+        });
+
+
+    });
+
+
+
+</script>
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+
+
+
+        $('#EmailNotificationForm').on("submit", function (e) {
+            e.preventDefault();
+
+            if ($('#EmailNotificationForm').valid()) {
+                $.ajax({
+
+                    url: $("#EmailNotificationForm").attr('action'),
+                    type: $("#EmailNotificationForm").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#EmailNotificationForm").serialize(),
+                    success: function (data) {
+
+                        var postid = data.Modified;
+                        var orgid = data.Modified2;
+                        //var orgid = data.Modified3;
+
+                        //$('#NotificationContainer').load('@Url.Action("_NotificationBuilder", "Notifications")', { id: postid });
+
+                        window.location.href = '@Url.Action("Details", "Organizations")' + "/" + orgid;
+
+                        toastr.success('You have successfully sent the' + posttitle + 'notification.')
+
+
+                        //$('#myModal').modal('hide')
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+
+                    }
+
+                });
+            }
+
+        });
+
+
+    });
+
+
+
+    $(function () {
+
+
+        $("#SendNotificationButton").click(function () {
+
+
+            //Add To
+            var outTo = document.getElementById('selectedIDsTO').value;
+            document.getElementById("ToField").value = outTo;
+
+            //Add CarbonCopy
+            var outCc = document.getElementById('selectedIDsCC').value;
+            document.getElementById("CarbonCopy").value = outCc;
+
+            //Add BlindCarbonCopy
+            var outBCc = document.getElementById('selectedIDsBCC').value;
+            document.getElementById("BlindCarbonCopy").value = outBCc;
+
+
+
+        });
+
+
+    });
+
+
+</script>

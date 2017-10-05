@@ -1,0 +1,297 @@
+﻿@model IEnumerable<CTL.ViewModels.OrganizationsViewModel>
+
+@{
+    ViewBag.Title = "Active Organizations";
+}
+
+<script type="text/javascript" charset="utf-8">
+     $(document).ready(function () {
+         oTable = $('#ActiveOrgList').dataTable({
+             //"bJQueryUI": true,
+             "sPaginationType": "full_numbers",
+             //"aaSorting": [[1, "desc"]]
+         });
+     });
+		</script>
+
+<style type="text/css">
+
+#ActiveOrgList td.sorting_1{ background-color:white; border:1px lightgrey; }
+/*table.dataTable td{ background-color: aliceblue;  border:1px lightgrey;}*/
+#ActiveOrgList tr{ background-color:white }
+#ActiveOrgList tr:nth-child(even)  { background-color: #f6f0f0;  }
+
+    </style>
+
+<fieldset>
+
+   @* <div align="right">
+     <a class="createLinkORG" style="text-decoration:none; color:#fff;font-size:14px" href="@Url.Action("Create", "Organizations")">
+
+         <span class="btn btn-success">Add Organization</span>
+     </a>
+
+        </div>
+    <br />*@
+ <div align="right"><button data-toggle="modal" data-target="#AddOrgModal" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add Organization</button></div>
+ <br />       
+<div class="demo_jui">
+<table style="width:100%; font-size:14px" id="ActiveOrgList">
+    <thead>
+    <tr style="background-color:#ccc">
+        <th></th>
+        <th style="color:white">
+           Organization
+        </th>
+        <th style="color:white">
+            Mailing Address
+        </th>
+        <th style="color:white">
+            City
+        </th>
+        <th style="color:white">
+            Zip Code
+        </th>
+        <th style="color:white">
+            Active
+        </th>
+       
+    </tr>
+        </thead>
+@foreach (var item in Model) {
+    <tr>
+        <td style="border:none">
+           
+
+            <a id="dashLinkORG" style="text-decoration:none" class="dashLinkORG" href="@Url.Action("Details", "Organizations", new { id = item.OrganizationID })">
+
+
+                <span class="btn btn-info" style="font-size:14px">Dashboard</span>
+            </a>
+
+            <a id="editLinkORG" style="text-decoration:none" class="dashLinkORG" href="@Url.Action("Edit", "Organizations", new { id = item.OrganizationID })">
+
+
+                <span class="btn btn-success" style="font-size:14px">Edit</span>
+            </a>
+            
+          @*  <a id="editLinkORG_@item.OrganizationID" style="text-decoration:none" data-toggle="modal" data-target="#EditOrgModal_@item.OrganizationID" href="#">
+
+
+                <span class="btn btn-success" style="font-size:14px">Edit</span>
+            </a>
+
+
+            <!-- Edit Org Modal -->
+            <div class="modal fade" id="EditOrgModal_@item.OrganizationID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 style="color:#4a6ddc; font-family: 'Lato', sans-serif;" class="modal-title" id="myModalLabel">Edit Organization</h3>
+                        </div>
+
+                        <div id="EditOrgContainer_@item.OrganizationID"></div>
+                       
+
+                    </div>
+
+
+                </div>
+            </div>
+
+            <script type="text/javascript">
+
+
+                $(function () {
+
+
+                    $("#editLinkORG_@item.OrganizationID").click(function () {
+
+
+                        $('#EditOrgContainer_@item.OrganizationID').load('@Url.Action("Edit", "Organizations", new { id = @item.OrganizationID })');
+
+
+                    });
+
+                });
+
+
+            </script> *@
+
+
+
+
+            <a id="deleteLinkORG_@item.OrganizationID" style="text-decoration:none" data-toggle="modal" data-target="#DeleteOrgModal_@item.OrganizationID" href="#">
+
+
+                <span class="btn btn-danger" style="font-size:14px">Delete</span>
+            </a> 
+            
+            <!-- Remove Org Modal -->
+            <div class="modal fade" id="DeleteOrgModal_@item.OrganizationID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 style="color:#4a6ddc; font-family: 'Lato', sans-serif;" class="modal-title" id="myModalLabel">Are you sure you want to delete this organization?</h3>
+                        </div>
+
+                        <div id="DeleteOrgContainer_@item.OrganizationID"></div>
+                        @*@{Html.RenderAction("Delete", "Births", new { id = item.BirthID });}*@
+
+                    </div>
+
+
+                </div>
+            </div>
+
+            <script type="text/javascript">
+
+
+    $(function () {
+
+
+        $("#deleteLinkORG_@item.OrganizationID").click(function () {
+
+
+            $('#DeleteOrgContainer_@item.OrganizationID').load('@Url.Action("Delete", "Organizations", new { id = @item.OrganizationID })');
+
+
+        });
+
+    });
+
+
+</script>
+
+
+
+
+
+
+            
+             @*@Html.ActionLink("Edit", "Edit", new { id=item.OrganizationID }, new { @class = "editLinkORG" }) 
+          
+            @Html.ActionLink("Delete", "Delete", new { id=item.OrganizationID }, new { @class = "deleteLinkORG" })*@
+        </td>
+        <td>
+			@item.OrganizationName
+        </td>
+        <td>
+			@item.MailingAddress
+        </td>
+        <td>
+			@item.CityName
+        </td>
+        <td>
+			@item.ZipCode
+        </td>
+        <td>
+
+            @if (item.Active == false)
+            {
+
+                <a id='ActivateOrgButton_@item.OrganizationID' style="text-decoration:none;color:#35a923; cursor:pointer" data-toggle="modal" data-target="#ActivateO_@item.OrganizationID"><span class="btn btn-warning">Activate</span></a>
+
+
+            <!-- Detail Modal -->
+                <div class="modal fade" id="ActivateO_@item.OrganizationID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="myModalLabel">@item.OrganizationName </h3>
+                            </div>
+
+                            <div id="ActivateOrgContainer_@item.OrganizationID"></div>
+
+                            @*   @{ Html.RenderAction("_DeleteTest", "PatientInformation", new { id = @ViewBag.CCID, id2 = @ViewBag.SiteID, id3 = @ViewBag.ScreeningTypeID, id4 = @ViewBag.CLID, id5 = @ViewBag.EnrollID, id6 = @ViewBag.ScreeningID, id7 = @item.ScreenProcedureID });}*@
+
+                        </div>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+
+                    $(function () {
+
+
+                        $("#ActivateOrgButton_@item.OrganizationID").click(function () {
+
+
+                            $('#ActivateOrgContainer_@item.OrganizationID').load('@Url.Action("_Activate", "Organizations", new { id = @item.OrganizationID })');
+
+
+
+                        });
+
+
+
+
+
+                    });
+
+                </script>
+
+
+            }
+
+
+        </td>
+
+    </tr>
+}
+
+</table>
+    </div>
+    </fieldset>
+
+
+<div class="modal fade" id="AddOrgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 style="font-family:'Lato', sans-serif" class="modal-title" id="myModalLabel">Add Organization</h4>
+            </div>
+            <div class="modal-body">
+
+                <div id="OrganizationSection"></div>
+
+
+            </div>
+
+         
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+    <script type="text/javascript">
+
+
+
+    $(function () {
+
+
+        $('#OrganizationSection').load('@Url.Action("_AddOrganization", "Organizations")');
+
+
+
+        $('#AddOrgModal').on('shown.bs.modal', function () {
+            $(this).find('.modal-dialog').css({
+                //width: 'auto',
+                width: '92%',
+                height: 'auto',
+                'max-height': '100%'
+            });
+        });
+
+
+ });
+
+    </script>
+
+

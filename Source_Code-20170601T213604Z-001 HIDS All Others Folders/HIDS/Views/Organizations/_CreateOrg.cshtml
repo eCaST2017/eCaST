@@ -1,0 +1,521 @@
+﻿@model CTL.Models.Organization
+
+
+<style type="text/css">
+    .clearfix {
+        *zoom: 1;
+    }
+
+        .clearfix:before,
+        .clearfix:after {
+            display: table;
+            content: "";
+            line-height: 0;
+        }
+
+        .clearfix:after {
+            clear: both;
+        }
+
+    .hide-text {
+        font: 0/0 a;
+        color: transparent;
+        text-shadow: none;
+        background-color: transparent;
+        border: 0;
+    }
+
+    .input-block-level {
+        display: block;
+        width: 100%;
+        min-height: 30px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .btn-file {
+        overflow: hidden;
+        position: relative;
+        vertical-align: middle;
+    }
+
+        .btn-file > input {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            opacity: 0;
+            filter: alpha(opacity=0);
+            transform: translate(-300px, 0) scale(4);
+            font-size: 23px;
+            direction: ltr;
+            cursor: pointer;
+        }
+
+    .fileupload {
+        margin-bottom: 9px;
+    }
+
+        .fileupload .uneditable-input {
+            display: inline-block;
+            margin-bottom: 0px;
+            vertical-align: middle;
+            cursor: text;
+        }
+
+        .fileupload .thumbnail {
+            overflow: hidden;
+            display: inline-block;
+            margin-bottom: 5px;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+            .fileupload .thumbnail > img {
+                display: inline-block;
+                vertical-align: middle;
+                max-height: 100%;
+            }
+
+        .fileupload .btn {
+            vertical-align: middle;
+        }
+
+    .fileupload-exists .fileupload-new,
+    .fileupload-new .fileupload-exists {
+        display: none;
+    }
+
+    .fileupload-inline .fileupload-controls {
+        display: inline;
+    }
+
+    .fileupload-new .input-group .btn-file {
+        -webkit-border-radius: 0 3px 3px 0;
+        -moz-border-radius: 0 3px 3px 0;
+        border-radius: 0 3px 3px 0;
+    }
+
+    .thumbnail-borderless .thumbnail {
+        border: none;
+        padding: 0;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .fileupload-new.thumbnail-borderless .thumbnail {
+        border: 1px solid #ddd;
+    }
+
+    .control-group.warning .fileupload .uneditable-input {
+        color: #a47e3c;
+        border-color: #a47e3c;
+    }
+
+    .control-group.warning .fileupload .fileupload-preview {
+        color: #a47e3c;
+    }
+
+    .control-group.warning .fileupload .thumbnail {
+        border-color: #a47e3c;
+    }
+
+    .control-group.error .fileupload .uneditable-input {
+        color: #b94a48;
+        border-color: #b94a48;
+    }
+
+    .control-group.error .fileupload .fileupload-preview {
+        color: #b94a48;
+    }
+
+    .control-group.error .fileupload .thumbnail {
+        border-color: #b94a48;
+    }
+
+    .control-group.success .fileupload .uneditable-input {
+        color: #468847;
+        border-color: #468847;
+    }
+
+    .control-group.success .fileupload .fileupload-preview {
+        color: #468847;
+    }
+
+    .control-group.success .fileupload .thumbnail {
+        border-color: #468847;
+    }
+</style>
+
+
+
+@using (Html.BeginForm("_CreateOrgF", "Organizations", FormMethod.Post, new { id = "CreateOrgForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @*@Html.Partial("_CreateOrEdit", Model)*@
+
+
+    @*<div><h3>@Model.OrganizationName Contact Information</h3></div>*@
+
+
+    <br />
+    <div class="row">
+
+        <div class="col-md-3">
+
+            <div class="fileupload fileupload-new" data-provides="fileupload">
+                <div class="fileupload-preview thumbnail" style="width: 200px; height: 200px;">
+
+                    @*@Html.Raw(Model.OrgPic)*@
+                </div>
+                <div>
+                    <span class="btn btn-default btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file"></span>
+                    <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.OrganizationName)
+
+        </div>
+
+        <div class="col-md-9">
+
+            @Html.TextBoxFor(model => model.OrganizationName, new { @class = "form-control" })&nbsp;@Html.CheckBoxFor(model => model.Active) Active
+            @Html.ValidationMessageFor(model => model.Active)
+            @Html.ValidationMessageFor(model => model.OrganizationName)
+
+        </div>
+
+
+    </div>
+    <br />
+    <div class="row">
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.MailingAddress)
+
+        </div>
+
+        <div class="col-md-9">
+
+            @Html.TextBoxFor(model => model.MailingAddress, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MailingAddress)
+
+        </div>
+
+
+    </div>
+    <br />
+
+    <div class="row">
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.CityName)
+
+        </div>
+
+        <div class="col-md-9">
+
+            @Html.TextBoxFor(model => model.CityName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CityName)
+
+        </div>
+
+
+    </div>
+    <br />
+    <div class="row">
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.ZipCode)
+
+        </div>
+
+        <div class="col-md-9">
+
+            @Html.TextBoxFor(model => model.ZipCode, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ZipCode)
+
+        </div>
+
+
+    </div>
+    <br />
+    <div class="row">
+
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.StateBinID)
+
+        </div>
+
+        <div class="col-md-9">
+
+            @Html.DropDownListFor(model => model.StateBinID, ((IEnumerable<CTL.Models.StateBin>)ViewBag.PossibleStateBins).Select(option => new SelectListItem
+            {
+                //Text = Html.DisplayTextFor(_ => option).ToString(),
+                Text = option.StateBinName,
+                Value = option.StateBinID.ToString(),
+                Selected = (Model != null) && (option.StateBinID == Model.StateBinID)
+            }), "Choose...", new { @id = "StateBinID", @class = "input-control select" })
+            @Html.ValidationMessageFor(m => m.StateBinID)
+
+
+        </div>
+
+    </div>
+
+
+
+    <div style="color:White" class="editor">
+
+        @*@Html.Hidden("DateUpdated", (DateTime?)ViewBag.DateUpdated)
+        @Html.Hidden("DateCreated", (DateTime?)ViewBag.DateCreated)
+        @Html.Hidden("UpdatedBy", (string)ViewBag.UpdatedBy)
+        @Html.Hidden("CreatedBy", (string)ViewBag.CreatedBy)*@
+        @*@Html.HiddenFor(model => model.OrganizationID)*@
+
+    </div>
+
+
+    <div class="modal-footer">
+        <div style="float:right">
+            <a style="text-decoration:none" href='@Url.Action("Details", new { Controller = "Organizations", id = Model.OrganizationID})'><span class="btn btn-default">Cancel</span> </a>
+            <button id="AddOrgButton" type="submit" class="btn btn-success">Update</button>
+        </div>
+    </div>
+
+
+
+
+}
+
+
+<script type="text/javascript">
+
+
+
+
+    $(function () {
+
+        $('#Active').attr('checked', 'checked');
+        $("#StateBinID").select2({ width: "70%" });
+
+        $("#CreateOrgForm").validate({
+            rules: {
+
+                //TestDate: {
+                //    //required: { depends: checkTestFieldSelected }
+                //    required: true
+
+                //},
+                //SystolicBinID1: {
+                //    required: { depends: checkSys1FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //DiastolicBinID1: {
+                //    required: { depends: checkDia1FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //SystolicBinID2: {
+                //    required: { depends: checkSys2FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //DiastolicBinID2: {
+                //    required: { depends: checkDia2FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //TotalCholesterolBinID: {
+                //    required: { depends: checkTCFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //HDLCholesterolBinID: {
+                //    required: { depends: checkHDLFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //LDLCholesterolBinID: {
+                //    required: { depends: checkFAFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //TriglyceridesBinID: {
+                //    required: { depends: checkFAFieldSelected },
+                //    range: [10, 600]
+                //    //required: true
+
+                //},
+
+                //GlucoseBinID: {
+                //    required: { depends: checkGluFieldSelected },
+                //    //range: [10, 600]
+                //    //required: true
+
+                //},
+                //A1CPercentageBinID: {
+                //    required: { depends: checkA1CFieldSelected }
+
+
+                //},
+                //WorkupStatusBinID: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupStatusDate: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupResultBinID: {
+                //    required: { depends: checkWorkupResultFieldSelected }
+
+
+                //}
+
+
+            },
+            messages: {
+
+                //TestDate: {
+                //    required: "Please select a test date"
+
+                //},
+                //SystolicBinID1: {
+                //    required: "Please enter a value greater than 0 for the Systolic Value"
+
+                //},
+                //DiastolicBinID1: {
+                //    required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                //},
+                //SystolicBinID2: {
+                //    required: "Please enter a value greater than 0 for the Systolic Value"
+
+                //},
+                //DiastolicBinID2: {
+                //    required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                //},
+                //TotalCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the Total Cholesterol Value"
+
+                //},
+                //HDLCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the HDL Cholesterol Value"
+
+                //},
+                //LDLCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the LDL Cholesterol Value"
+
+                //},
+
+                //TriglyceridesBinID: {
+
+                //    required: "Please enter a value greater than 0 for the Triglycerides Value"
+
+                //},
+                //GlucoseBinID: {
+
+                //    required: "Please enter a value greater than 0 for the Glucose Value"
+
+                //},
+
+                //A1CPercentageBinID: {
+
+                //    required: "Please enter a value for the A1C Percentage Value"
+
+                //},
+                //WorkupStatusBinID: {
+
+                //    required: "Please enter a value for Workup Status"
+
+                //},
+                //WorkupStatusDate: {
+
+                //    required: "Please enter a value for Workup Status Date"
+
+                //},
+                //WorkupResultBinID: {
+
+                //    required: "Please enter a value for Workup Result"
+
+                //}
+
+            }
+        });
+
+
+       // $("#AddPostButton").click(function (e) { e.preventDefault(); })
+
+
+        $('#CreateOrgForm').on("submit", function (e) {
+            e.preventDefault();
+
+            if ($('#CreateOrgForm').valid()) {
+                $.ajax({
+
+                    url: $("#CreateOrgForm").attr('action'),
+                    type: $("#CreateOrgForm").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#CreateOrgForm").serialize(),
+                    success: function (data) {
+
+                        var username = data.Modified;
+                        var userid = data.Modified2;
+                        var orgid = data.Modified3;
+
+
+
+                        $('#ActiveOrganizationContainer').load('@Url.Action("_ActiveOrganizations", "Organizations")');
+
+                            toastr.success('The organization has been successfully created.')
+
+
+                        //$('#myModal').modal('hide')
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+
+                    }
+
+                });
+            }
+
+        });
+
+
+    });
+
+
+</script>

@@ -1,0 +1,166 @@
+﻿@model CTL.ViewModels.UserProfileViewModel
+@{
+    ViewBag.Title = "Partner Profile";
+}
+
+<style type="text/css">
+
+.selected img{opacity:0.5}
+.h5{margin-bottom:10px}
+
+
+
+</style>
+
+
+
+<h3 style="font-family:'Segoe UI Light';padding-left:20px" >Connection Dashboard</h3>
+<hr />
+<!--/span-->
+<div class="col-md-12">
+
+
+     <ul id="myTab" class="nav nav-tabs">
+  <li class="active"><a href="#fl">
+      
+     
+                    <span class="badge pull-right">@ViewBag.FLCount</span>&nbsp;&nbsp;
+                   <span style="padding-right:6px"> Family Leaders</span>
+             
+
+
+                     </a></li>
+  <li><a href="#ops">
+      
+       <span class="badge pull-right">@ViewBag.PostCount</span>&nbsp;&nbsp;
+                   <span style="padding-right:6px"> Opportunities</span>
+      
+      </a></li>
+
+         <li><a href="#orgs">
+      
+       <span class="badge pull-right">@ViewBag.OrgCount</span>&nbsp;&nbsp;
+                   <span style="padding-right:6px"> Organizations</span>
+      
+      </a></li>
+
+
+  <li><a href="#messages">
+      
+        <span class="badge pull-right">0</span>&nbsp;&nbsp;
+                   <span style="padding-right:6px"> Messages</span>
+
+
+
+
+      </a></li>
+</ul>
+
+    <div id='content' class="tab-content">
+      <div class="tab-pane active" id="fl">
+       
+     
+            
+        
+     
+        @{ Html.RenderAction("MemberList", "UserProfiles");}
+   
+
+
+      </div>
+
+        <div class="tab-pane" id="ops">
+           
+            
+      
+
+       
+            
+              @{ Html.RenderAction("OpportunityList", "Posts");}
+
+
+       
+    </div>
+
+
+
+
+   
+
+
+         <div class="tab-pane" id="orgs">
+        
+         
+     
+               @* Organizations Here*@
+        @{ Html.RenderAction("_OrganizationList", "Organizations");}
+  
+
+
+      </div>
+      <div class="tab-pane" id="messages">
+
+            <div class="alert alert-default">
+        <!--Main Content-->
+      @*  <ul class="nav nav-pills nav-stacked" style="max-width:100%;">
+            <li class="active">
+                <a href="#">
+                    <span class="badge pull-right">3</span>
+                    Messages
+                </a>
+            </li>
+           
+
+        </ul>*@
+
+                    <h3 style="font-family:'Segoe UI Light';padding-left:20px" >My Messages</h3>
+                 <hr />
+
+
+                <div>You currently have (0) Messages</div>
+     
+    </div>
+
+
+
+
+
+      </div>
+
+
+        </div>
+</div>
+<!--/span-->
+
+<!--/span-->
+
+<script type="text/javascript">
+$('#myTab a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+
+})
+
+
+
+
+// handles the carousel thumbnails
+$('[id^=carousel-selector-]').click(function () {
+    var id_selector = $(this).attr("id");
+    var id = id_selector.substr(id_selector.length - 1);
+    id = parseInt(id);
+    $('#myCarousel').carousel(id);
+    $('[id^=carousel-selector-]').removeClass('selected');
+    $(this).addClass('selected');
+});
+
+// when the carousel slides, auto update
+$('#myCarousel').on('slid', function (e) {
+    var id = $('.item.active').data('slide-number');
+    id = parseInt(id);
+    $('[id^=carousel-selector-]').removeClass('selected');
+    $('[id^=carousel-selector-' + id + ']').addClass('selected');
+});
+
+
+</script>

@@ -1,0 +1,656 @@
+@model CTL.ViewModels.OrganizationViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<style type="text/css">
+
+
+    body{
+
+
+    background-color:#fff;
+
+}
+
+
+
+       .select2-container .select2-choice {
+    height: 34px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background-color: #fff;
+    background-image: none;
+    background: #f5f2f2;
+}
+
+
+.select2-container .select2-choice .select2-chosen { margin-top: 4px }
+.select2-container .select2-choice abbr { top: 13px }
+.select2-container .select2-choice,
+.select2-container .select2-choice .select2-arrow {
+    -webkit-border-radius: 0;
+    border-radius: 0px;
+    border-color: #ccc;
+}
+ 
+.select2-container .select2-choice .select2-arrow {
+    background-color: #fafafa;
+    background-image: none;
+    background: #fafafa;
+    width: 22px;
+}
+ 
+.select2-container .select2-choice .select2-arrow b>span { margin: 4px 0 0 6px }
+.select2-container.select2-container-active .select2-choice { border-color: #91acce }
+.select2-container.select2-dropdown-open .select2-choice { border-bottom-color: #ccc }
+.select2-drop {
+    -webkit-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+ 
+.select2-drop:not(.select2-drop-above) { margin-top: -3px }
+.select2-drop .select2-results { max-height: 300px }
+.select2-drop .select2-results li {
+    line-height: inherit;
+    margin: 0;
+    padding: 0;
+}
+ 
+.select2-search { margin: 4px 0 }
+.select2-search input,
+.select2-search input:focus {
+    background-color: #fff;
+    background-image: none;
+    background: #fff;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border: none;
+}
+
+    .select2-container.form-control {
+        border: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        padding: 0;
+    }
+
+
+
+
+    .clearfix {
+        *zoom: 1;
+    }
+
+        .clearfix:before,
+        .clearfix:after {
+            display: table;
+            content: "";
+            line-height: 0;
+        }
+
+        .clearfix:after {
+            clear: both;
+        }
+
+    .hide-text {
+        font: 0/0 a;
+        color: transparent;
+        text-shadow: none;
+        background-color: transparent;
+        border: 0;
+    }
+
+    .input-block-level {
+        display: block;
+        width: 100%;
+        min-height: 30px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .btn-file {
+        overflow: hidden;
+        position: relative;
+        vertical-align: middle;
+    }
+
+        .btn-file > input {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            opacity: 0;
+            filter: alpha(opacity=0);
+            transform: translate(-300px, 0) scale(4);
+            font-size: 23px;
+            direction: ltr;
+            cursor: pointer;
+        }
+
+    .fileupload {
+        margin-bottom: 9px;
+    }
+
+        .fileupload .uneditable-input {
+            display: inline-block;
+            margin-bottom: 0px;
+            vertical-align: middle;
+            cursor: text;
+        }
+
+        .fileupload .thumbnail {
+            overflow: hidden;
+            display: inline-block;
+            margin-bottom: 5px;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+            .fileupload .thumbnail > img {
+                display: inline-block;
+                vertical-align: middle;
+                max-height: 100%;
+            }
+
+        .fileupload .btn {
+            vertical-align: middle;
+        }
+
+    .fileupload-exists .fileupload-new,
+    .fileupload-new .fileupload-exists {
+        display: none;
+    }
+
+    .fileupload-inline .fileupload-controls {
+        display: inline;
+    }
+
+    .fileupload-new .input-group .btn-file {
+        -webkit-border-radius: 0 3px 3px 0;
+        -moz-border-radius: 0 3px 3px 0;
+        border-radius: 0 3px 3px 0;
+    }
+
+    .thumbnail-borderless .thumbnail {
+        border: none;
+        padding: 0;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .fileupload-new.thumbnail-borderless .thumbnail {
+        border: 1px solid #ddd;
+    }
+
+    .control-group.warning .fileupload .uneditable-input {
+        color: #a47e3c;
+        border-color: #a47e3c;
+    }
+
+    .control-group.warning .fileupload .fileupload-preview {
+        color: #a47e3c;
+    }
+
+    .control-group.warning .fileupload .thumbnail {
+        border-color: #a47e3c;
+    }
+
+    .control-group.error .fileupload .uneditable-input {
+        color: #b94a48;
+        border-color: #b94a48;
+    }
+
+    .control-group.error .fileupload .fileupload-preview {
+        color: #b94a48;
+    }
+
+    .control-group.error .fileupload .thumbnail {
+        border-color: #b94a48;
+    }
+
+    .control-group.success .fileupload .uneditable-input {
+        color: #468847;
+        border-color: #468847;
+    }
+
+    .control-group.success .fileupload .fileupload-preview {
+        color: #468847;
+    }
+
+    .control-group.success .fileupload .thumbnail {
+        border-color: #468847;
+    }
+</style>
+
+
+@*@using (Ajax.BeginForm("Edit", "Organizations", new AjaxOptions
+        {
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "POST",
+            OnSuccess = "updateSuccess"
+        }, new { @id = "updateORGForm" }))
+    {*@
+
+
+@*@Html.ValidationSummary(true)*@
+
+
+
+@using (Html.BeginForm("_UpdateOrgPic", "Organizations", FormMethod.Post, new { id = "UpdateOrgPicForm", enctype = "multipart/form-data" }))
+{
+
+    @Html.HiddenFor(X => X.OrganizationID)
+
+
+    <br />
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="fileupload fileupload-new" data-provides="fileupload">
+                <div class="fileupload-preview thumbnail" style="width: 200px; height: 200px;">
+
+                    @Html.Raw(Model.OrgPic)
+                </div>
+                <div>
+                    
+                    <input type="file" id="file00" name="file00" /><br /> <button id="UpdateOrgPicButton" type="submit" class="btn btn-success">Update</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <br />
+
+
+   
+
+}
+
+
+
+
+
+
+@using (Html.BeginForm("_EditOrgF", "Organizations", FormMethod.Post, new { id = "EditOrganizationForm" }))
+{
+
+
+<div style="padding-left:12px">
+    <div><h3>@Model.OrganizationName</h3></div>
+
+    <div class="row">
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.OrganizationName)
+
+        </div>
+
+        <div class="col-md-9">
+
+            @Html.TextBoxFor(model => model.OrganizationName, new { @class = "form-control" })&nbsp;@Html.CheckBoxFor(model => model.Active) Active
+            @Html.ValidationMessageFor(model => model.Active)
+            @Html.ValidationMessageFor(model => model.OrganizationName)
+
+        </div>
+
+
+    </div>
+    <br />
+
+    <div class="row">
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.OrganizationSubName)
+
+        </div>
+
+        <div class="col-md-9">
+
+            @Html.TextBoxFor(model => model.OrganizationSubName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.OrganizationSubName)
+
+        </div>
+
+
+    </div>
+    <br />
+
+    <div class="row">
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.MailingAddress)
+
+        </div>
+
+        <div class="col-md-9">
+
+            @Html.TextBoxFor(model => model.MailingAddress, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MailingAddress)
+
+        </div>
+
+
+    </div>
+    <br />
+
+    <div class="row">
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.CityName)
+
+        </div>
+
+        <div class="col-md-9">
+
+            @Html.TextBoxFor(model => model.CityName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CityName)
+
+        </div>
+
+
+    </div>
+    <br />
+    <div class="row">
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.ZipCode)
+
+        </div>
+
+        <div class="col-md-9">
+
+            @Html.TextBoxFor(model => model.ZipCode, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ZipCode)
+
+        </div>
+
+
+    </div>
+    <br />
+    <div class="row">
+
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.StateBinID)
+
+        </div>
+
+        <div class="col-md-9">
+
+            @Html.DropDownListFor(model => model.StateBinID, ((IEnumerable<CTL.Models.StateBin>)ViewBag.PossibleStateBins).Select(option => new SelectListItem
+            {
+                //Text = Html.DisplayTextFor(_ => option).ToString(),
+                Text = option.StateBinName,
+                Value = option.StateBinID.ToString(),
+                Selected = (Model != null) && (option.StateBinID == Model.StateBinID)
+            }), "Choose...", new { @id = "StateBinID", @class = "input-control select" })
+            @Html.ValidationMessageFor(m => m.StateBinID)
+
+
+        </div>
+
+    </div>
+
+
+
+    <div style="color:White" class="editor">
+
+        @Html.Hidden("DateUpdated", (DateTime?)ViewBag.DateUpdated)
+        @Html.Hidden("DateCreated", (DateTime?)ViewBag.DateCreated)
+        @Html.Hidden("UpdatedBy", (string)ViewBag.UpdatedBy)
+        @Html.Hidden("CreatedBy", (string)ViewBag.CreatedBy)
+        @Html.HiddenFor(model => model.OrganizationID)
+
+    </div>
+</div>
+    
+    
+    
+    
+@*<div class="modal-footer">
+    <div style="float:right">
+        <a style="text-decoration:none" href='@Url.Action("Details", new { Controller = "Organizations", id = Model.OrganizationID})'><span class="btn btn-default">Cancel</span> </a>
+        <button id="AddOrgButton" type="submit" class="btn btn-success">Update</button>
+    </div>
+</div>*@
+
+<div class="modal-footer">
+    <div style="float:right">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="EditOrganizationButton" type="submit" class="btn btn-success">Update</button>
+    </div>
+</div>
+
+}
+
+
+@section Scripts{
+
+<script type="text/javascript">
+
+
+    $("#StateBinID").select2({ width: "60%" });
+
+    $(function () {
+
+
+        $("#EditOrganizationForm").validate({
+            rules: {
+
+                OrganizationName: {
+
+                    required: true
+
+                },
+                MailingAddress: {
+
+                    required: true
+
+                },
+                //DiastolicBinID1: {
+                //    required: { depends: checkDia1FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //SystolicBinID2: {
+                //    required: { depends: checkSys2FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //DiastolicBinID2: {
+                //    required: { depends: checkDia2FieldSelected },
+                //    range: [10, 200]
+                //    //required: true
+
+                //},
+                //TotalCholesterolBinID: {
+                //    required: { depends: checkTCFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //HDLCholesterolBinID: {
+                //    required: { depends: checkHDLFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //LDLCholesterolBinID: {
+                //    required: { depends: checkFAFieldSelected },
+                //    range: [10, 300]
+                //    //required: true
+
+                //},
+                //TriglyceridesBinID: {
+                //    required: { depends: checkFAFieldSelected },
+                //    range: [10, 600]
+                //    //required: true
+
+                //},
+
+                //GlucoseBinID: {
+                //    required: { depends: checkGluFieldSelected },
+                //    //range: [10, 600]
+                //    //required: true
+
+                //},
+                //A1CPercentageBinID: {
+                //    required: { depends: checkA1CFieldSelected }
+
+
+                //},
+                //WorkupStatusBinID: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupStatusDate: {
+                //    required: { depends: checkWorkupFieldSelected }
+
+
+                //},
+                //WorkupResultBinID: {
+                //    required: { depends: checkWorkupResultFieldSelected }
+
+
+                //}
+
+
+            },
+            messages: {
+
+                OrganizationName: {
+                    required: "Please enter an organization name"
+
+                },
+                MailingAddress: {
+                    required: "Please enter a mailing address"
+
+                },
+                //DiastolicBinID1: {
+                //    required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                //},
+                //SystolicBinID2: {
+                //    required: "Please enter a value greater than 0 for the Systolic Value"
+
+                //},
+                //DiastolicBinID2: {
+                //    required: "Please enter a value greater than 0 for the Diastolic Value"
+
+                //},
+                //TotalCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the Total Cholesterol Value"
+
+                //},
+                //HDLCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the HDL Cholesterol Value"
+
+                //},
+                //LDLCholesterolBinID: {
+                //    required: "Please enter a value greater than 0 for the LDL Cholesterol Value"
+
+                //},
+
+                //TriglyceridesBinID: {
+
+                //    required: "Please enter a value greater than 0 for the Triglycerides Value"
+
+                //},
+                //GlucoseBinID: {
+
+                //    required: "Please enter a value greater than 0 for the Glucose Value"
+
+                //},
+
+                //A1CPercentageBinID: {
+
+                //    required: "Please enter a value for the A1C Percentage Value"
+
+                //},
+                //WorkupStatusBinID: {
+
+                //    required: "Please enter a value for Workup Status"
+
+                //},
+                //WorkupStatusDate: {
+
+                //    required: "Please enter a value for Workup Status Date"
+
+                //},
+                //WorkupResultBinID: {
+
+                //    required: "Please enter a value for Workup Result"
+
+                //}
+
+            }
+        });
+
+
+        // $("#AddPostButton").click(function (e) { e.preventDefault(); })
+
+
+        $('#EditOrganizationForm').on("submit", function (e) {
+            e.preventDefault();
+
+            if ($('#EditOrganizationForm').valid()) {
+                $.ajax({
+
+                    url: $("#EditOrganizationForm").attr('action'),
+                    type: $("#EditOrganizationForm").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#EditOrganizationForm").serialize(),
+                    success: function (data) {
+
+                        var organizationname = data.Modified;
+                        var organizationid = data.Modified2;
+                        //var orgid = data.Modified3;
+
+                        var hash = 'org';
+                        $('#ActiveOrganizationContainer').load('@Url.Action("_ActiveOrganizations", "Organizations")');
+                        $('.nav-tabs a[href=' + hash + ']').tab('show');
+
+
+                        toastr.success('You have successfully updated ' + organizationname + '.')
+
+
+                        //$('#myModal').modal('hide')
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+
+                    }
+
+                });
+            }
+
+        });
+
+
+    });
+
+
+</script>
+
+
+
+}

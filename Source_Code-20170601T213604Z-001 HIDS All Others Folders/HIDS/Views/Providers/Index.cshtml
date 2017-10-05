@@ -1,0 +1,190 @@
+﻿@model IEnumerable<CTL.ViewModels.ProviderViewModel>
+
+@{
+    ViewBag.Title = "Providers";
+}
+
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        oTable =
+          $('#ProviderList').dataTable({
+              "bPaginate": false,
+              "oLanguage": {
+                  "sSearch": "<i class='fa fa-filter fa-fw'></i> Filter: "
+              }
+          });
+    });
+</script>
+
+
+<style type="text/css">
+    label, div {
+        color: #666;
+    }
+
+
+    #ProviderList td.sorting_1 {
+        background-color: #fff;
+        border: 1px lightgrey;
+    }
+    /*table.dataTable td{ background-color: aliceblue;  border:1px lightgrey;}*/
+    #ProviderList tr {
+        background-color: #fff;
+        color: #666;
+    }
+
+        #ProviderList tr:nth-child(even) {
+            background-color: #f7f7f6;
+        }
+</style>
+
+
+
+
+<div>
+    <div style="background-color:#999" class="panel-heading w3-card-2">
+        <span style="color:#fff;font-family: 'Roboto', sans-serif; font-size:16px"><i style="color:#fff" class="fa fa-users fa-fw"></i>&nbsp;Providers &nbsp;<span style="font-size:18px;background-color:#fff;color:#0F9D58" class="badge">@ViewBag.ProviderCount</span></span>
+
+        @if (ViewBag.RoleID == 1 || ViewBag.RoleID == 13)
+        {
+
+            <div class="pull-right"><button id="AddSiteButton" type="button" class="btn btn-default btn-sm">Add Provider</button></div>
+
+
+        }
+
+    </div>
+    <!-- /.panel-heading -->
+    <div style="background-color:#fff" class="panel-body">
+
+
+
+        <table style="width:100%;  font-size:14px" id="ProviderList">
+            <thead>
+                <tr style="background-color:#f7f7f6;">
+                    <th>ID</th>
+                    <th>
+                        Provider Name
+                    </th>
+                    
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @item.ProviderID
+                    </td>
+                    <td>
+                        @item.ProviderName
+                    </td>
+                 
+                    <td>
+
+                        @if (item.Active == true)
+                        {
+
+
+                            <span>Activated</span>
+
+                        }
+                        else
+                        {
+
+                            <span>Inactive</span>
+
+
+                        }
+
+
+
+
+                    </td>
+                    <td style="width:38%; text-align:right">
+
+
+                        <button type="button" class="btn btn-default" id="EditProviderInfoButton_@item.ProviderID">Edit Info</button>
+
+
+
+                        <script type="text/javascript">
+
+
+
+                            $(function () {
+
+                                $("#EditProviderInfoButton_@item.ProviderID").click(function () {
+
+
+                                 //   $('#EditSiteInfoContainer_@item.ProviderID').load('@Url.Action("Details", "Sites", new { id = @item.ProviderID })');
+                                    $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+                                    $(".se-pre-con").fadeIn("slow");
+                                    $("#ContentContainer").load("@Url.Action("Details", "Providers", new { id = @item.ProviderID })",
+                                                                    function (response, status, xhr) {
+                                                                        if (status == "error") {
+                                                                            //   alert("An error occurred while loading the results.");
+                                                                        }
+
+
+                                                                        $("#ContentContainer").show(500);
+                                                                        $(".se-pre-con").fadeOut("slow");
+
+                                                                    });
+
+                                });
+
+                            });
+
+                        </script>
+
+
+                    
+
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+
+
+
+    $(function () {
+
+        $("#AddProviderButton").click(function () {
+
+
+
+            $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+            $(".se-pre-con").fadeIn("slow");
+            $("#ContentContainer").load("@Url.Action("Create", "Providers", new { id = @ViewBag.AgencySiteID })",
+                                             function (response, status, xhr) {
+                                                 if (status == "error") {
+                                                     //   alert("An error occurred while loading the results.");
+                                                 }
+                                                 $("#ContentContainer").show(500);
+                                                 $(".se-pre-con").fadeOut("slow");
+                                             });
+
+        });
+
+    });
+
+
+
+
+
+
+</script>

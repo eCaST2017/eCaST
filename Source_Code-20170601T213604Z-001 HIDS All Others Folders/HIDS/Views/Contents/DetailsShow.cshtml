@@ -1,0 +1,28 @@
+﻿@model CTL.Models.Content
+@using CTL.Models
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div style="width:100%">
+
+    <div style="float:left">
+  
+    <div class="display-field">@Model.ContentTitle</div>
+
+    
+    <div class="display-field">@Model.ContentBody</div>
+
+
+        </div>
+
+    <div style="float:right">
+
+          @{ Html.RenderAction("_ProductsShowList", "Products");}
+
+    </div>
+   
+    </div>
+

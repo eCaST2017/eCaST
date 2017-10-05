@@ -1,0 +1,301 @@
+﻿@model IEnumerable<CTL.ViewModels.RequestViewModel>
+
+@{
+    ViewBag.Title = "CMT Requests";
+}
+
+<style type="text/css">
+    table.dataTable td.sorting_1 {
+        background-color: white;
+        border-top: 1px #666;
+        border: 2px #666;
+    }
+
+    table.dataTable td {
+        background-color: white;
+        border-top: 1px #666;
+        border: 1px #666;
+    }
+
+    table.dataTable tr.odd {
+        background-color: white;
+        border-top: 1px #666;
+        border: 1px #666;
+    }
+
+    table.dataTable tr.even {
+        background-color: white;
+        border-top: 1px #666;
+        border: 1px #666;
+    }
+
+    .statusBlack {
+        color: black;
+    }
+
+    .statusRed {
+        color: red;
+    }
+
+    .statusBlue {
+        color: blue;
+    }
+
+    .statusGreen {
+        color: green;
+    }
+
+    .statusOrange {
+        color: darkred;
+    }
+</style>
+
+
+
+
+
+        <div class="demo_jui">
+            <table style="width:100%" class="table table-striped table-bordered" id="PendingRequestList">
+                <thead>
+                    <tr>
+                        <th>
+                            Tracker #
+                        </th>
+
+                        <th>
+                            Request Date
+                        </th>
+                        <th>
+                            Duration Open
+                        </th>
+                     
+                        <th>
+                            Request Title
+                        </th>
+
+                        <th>
+                            Initial Request
+                        </th>
+
+                        <th>
+                            Type
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                       
+
+                        @if (ViewBag.RoleBinID == 1 || ViewBag.RoleBinID == 13)
+                        {
+
+                            <th>Agency Contact</th>
+
+                        }
+                        else
+                        {
+
+                            <th>Support Contact</th>
+
+                        }
+
+                     
+
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+
+                            <a class="btn btn-default" href="#" id="RequestButton_@item.RequestID"><i class="fa fa-eye"></i>&nbsp;@item.RequestID</a>
+
+                            <script type="text/javascript">
+
+
+                                $("#RequestButton_@item.RequestID").click(function () {
+
+
+                                    $("#ContentContainer").hide("slide", { direction: "right" }, 500);
+                                    $("#ContentContainer").load("@Url.Action("Edit", "Requests", new { id = item.RequestID })",
+                                                                     function (response, status, xhr) {
+                                                                         if (status == "error") {
+                                                                             //   alert("An error occurred while loading the results.");
+                                                                         }
+                                                                         $("#ContentContainer").show(500);
+                                                                     });
+                                });
+
+
+
+                            </script>
+
+
+
+                        </td>
+
+                        <td>
+
+                            @Html.DisplayFor(modelItem => item.RequestDateActual)
+
+                       
+                        </td>
+
+                       
+                        <td class="UpdateDates">
+
+
+                            @if (item.StateName == "In Progress")
+                            {
+
+                                <script type="text/javascript">
+
+                                $(document).ready(function () {
+
+
+                                    function relativeTime(time) {
+
+                                        var period = new Date(time);
+                                        var delta = new Date() - period;
+
+                                        if (delta <= 10000) {   // Less than 10 seconds ago
+                                            return 'Just now';
+                                        }
+
+                                        var units = null;
+
+                                        var conversions = {
+                                            millisecond: 1,     // ms -> ms
+                                            second: 1000,   // ms -> sec
+                                            minute: 60,         // sec -> min
+                                            hour: 60,       // min -> hour
+                                            day: 24,        // hour -> day
+                                            month: 30,      // day -> month (roughly)
+                                            year: 12            // month -> year
+                                        };
+
+                                        for (var key in conversions) {
+                                            if (delta < conversions[key]) {
+                                                break;
+                                            }
+                                            else {
+                                                units = key;
+                                                delta = delta / conversions[key];
+                                            }
+                                        }
+
+                                        delta = Math.floor(delta);
+                                        if (delta !== 1) { units += 's'; }
+                                        return [delta, units, "ago"].join(' ');
+
+                                    }
+
+                                    var wallTimeStamp = '@item.RequestDateActual';
+
+                                    var relativeTimeValue = relativeTime(wallTimeStamp);
+
+                                    $('#relativeTime@(item.RequestID)').text(relativeTimeValue);
+                                });
+
+                                </script>
+
+                                <span title="@item.RequestDateActual" id="relativeTime@(item.RequestID)"></span>
+
+
+                            }
+                            else
+                            {
+
+                                <span>- -</span>
+
+                            }
+
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RequestTitle)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RequestTrackerComment)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RequestTrackerTypeName)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StateName)
+                        </td>
+
+                        <td>@item.UserName</td>
+
+                    </tr>
+                }
+
+            </table>
+        </div>
+   
+<script type="text/javascript" charset="utf-8">
+
+   
+    $(document).ready(function () {
+        oTable =
+           $('#PendingRequestList').dataTable({
+               "aaSorting": [[5, "asc"]],
+               //"bJQueryUI": true,
+               "aLengthMenu": [[25, 50, 100, 250, 500, -1], [25, 50, 100, 250, 500, "All"]],
+               "bSortClasses": false,
+
+               //"sPaginationType": "full_numbers",
+               "bPaginate": false,
+               "bStateSave": true,
+               //"fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull)
+               //{ $('td', nRow).closest('tr').css('background', aData[5] == "Medium" ? '#ffd9cc' : '#d9ffff'); return nRow; },
+               "fnDrawCallback": function (oSettings) {
+                   //for (var i = 0, iLen = oSettings.aoData.length ; i < iLen ; i++) {
+                   //    var status = oSettings.aoData[i]._aData[5];
+                   //    var colorCSS;
+                   //    if (status == 'Low') {
+                   //        colorCSS = 'statusGreen';
+                   //    } else if (status === 'Medium') {
+                   //        colorCSS = 'statusBlue';
+                   //    } else if (status === 'High') {
+                   //        colorCSS = 'statusRed';
+                   //    } else if (status === 'Urgent') {
+                   //        colorCSS = 'statusOrange';
+                   //    } else {
+                   //        colorCSS = 'statusBlack';
+                   //    }
+                   //    oSettings.aoData[i].nTr.className += " " + colorCSS;
+                   //}
+
+
+                   $(".editLink").button();
+                   $(".detailsLink").button();
+                   $(".createLink").button();
+                   $(".deleteLink").button();
+
+               },
+               //"aoColumnDefs": [{
+               //    "bVisible": false,
+               //    "aTargets": [2]
+               //}],
+               "oLanguage": { "sSearch": "Filter: " }
+           }); $('#example_filter label input:text').focus();
+
+
+
+        oTable.fnSort([[6, 'desc']]); // Sort by first column descending
+
+    });
+
+
+
+
+
+
+</script>
+

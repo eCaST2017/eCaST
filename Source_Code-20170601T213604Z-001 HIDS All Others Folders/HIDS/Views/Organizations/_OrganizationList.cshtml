@@ -1,0 +1,358 @@
+﻿@model IEnumerable<CTL.ViewModels.OrganizationViewModel>
+
+<script type="text/javascript" charset="utf-8">
+    
+
+    $(document).ready(function () {
+        /* Initialise the DataTable */
+        var oTable = $('#exampleOrg').dataTable({
+            "oLanguage": {
+                "sSearch": "Search:"
+            },
+            "bPaginate": false,
+            "bSort": false,
+            "bAutoWidth": false,
+            //"aoColumnDefs": [{ "bVisible": false, "aTargets": [0] }]
+        });
+
+       
+    });
+</script>
+
+<style type="text/css">
+    table.dataTable td.sorting_1 {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+
+    table.dataTable td {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+
+    table.dataTable tr.odd {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+
+    table.dataTable tr.even {
+        background-color: white;
+        border: 1px lightgrey;
+    }
+</style>
+
+
+<div style="width:100%;">
+        <!--Main Content-->
+                 <h3 style="font-family: 'Lato', sans-serif;color:#3a53c7;padding-left:20px" >Find Organizations</h3>
+                 <hr />
+   
+
+                
+	<div style="padding-left:20px" class="container">
+
+		
+		
+	@*<div class="bs-example">
+    <div class="row">
+      <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+      <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+         <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+      <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+         <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+      <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+         <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+      <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+         <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+      <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+         <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+      <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+         <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+      <div class="col-xs-6 col-md-1">
+        <a style="padding:4px" href="#" class="thumbnail">
+          <img style="width:50px;height:50px" src="http://www.jscottweb.com/acnm/Images/profile.jpg" alt="Generic placeholder thumbnail">
+        </a>
+      </div>
+    </div>
+  </div>*@<!-- /.bs-example -->
+
+
+    </div><!-- /.container -->
+
+
+
+
+       
+    
+    </div>
+        
+
+        
+   
+
+          @*    <div style="width:100%;border-radius:5px;background-color:#449b21; color:#fff; padding:12px; opacity:0.7; font-size:20px" ><span class="glyphicon glyphicon-search"></span>&nbsp;Find Opportunities</div>
+
+          <br />*@
+
+<div id="holder1">
+    <table style="width:100%; font-family: 'Lato', sans-serif;color:#3a53c7;" cellpadding="0" cellspacing="0" border="0" id="exampleOrg">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                @*<th></th>*@
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+
+
+
+            <tr>
+
+
+                <td style="color:#ccc; width:0px; font-size:14px; border:none">
+
+
+                    @*  @item.PostTypeName*@
+
+
+                    <div align="center">
+                        @Html.Raw(item.OrgPic)
+                    </div>
+
+                </td>
+
+                <td style="border:none">
+
+
+                    <div class="alert alert-default">
+
+                        <div data-role="listview">
+                            <div class="list marked" style="text-decoration:none" data-toggle="modal" data-target="#Org_@item.OrganizationID" href="#">
+
+
+
+                                <div style="width:100%" class="list-content">
+
+
+                                    <div class="row">
+
+
+                                        <div class="col-md-12">
+
+
+
+
+                                            <div><h3>@item.OrganizationName</h3></div>
+
+
+                                            <div style="font-size:medium">
+
+                                                Address: @item.MailingAddress
+
+
+                                            </div>
+
+
+                                            <div style="font-size:medium">
+
+                                                <div>City: @item.CityName, @item.StateBinName @item.ZipCode</div>
+
+
+                                            </div>
+
+
+
+
+                                            @*<br />
+                                            <div align="right">
+
+                                                <ul class="nav nav-pills nav-stacked ">
+
+
+                                                  
+                                                    <li>
+                                                        <a href="#">
+
+                                                           <span class="glyphicon glyphicon-eye-open"></span>&nbsp; View/Contact
+                                                        </a>
+                                                    </li>
+
+
+                                              
+
+
+
+
+                                                </ul>
+
+                                            </div>*@
+                                        </div>
+
+                                    </div>
+
+
+
+                                    @*<div style="float:left;">
+
+
+                                            @Html.Raw(item.profilePic)
+
+
+                                        </div>
+
+                                        <div style="float:right; width:60%;font-family:'Lato', sans-serif">
+                                            <span class="list-title"><h2 style="font-family:'Lato', sans-serif">@item.FirstName @item.LastName</h2> </span>
+                                            <span> @item.OrganizationName </span>
+                                            <div style="vertical-align:bottom" align="right">
+
+                                                @Html.ActionLink("Connect","Connect","UserProfiles", new { @class = "btn btn-info", @style="color:#fff" })
+
+                                            </div>
+                                        </div>*@
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="Org_@item.OrganizationID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 style="font-family:'Lato', sans-serif; font-size:28px" class="modal-title" id="myModalLabel">@item.OrganizationName</h4>
+                                </div>
+                                <div class="modal-body">
+
+
+                                    <div>
+
+
+
+                                        Address:  @item.MailingAddress
+
+                                    </div>
+
+
+
+                                    <div>
+                                        City:  @item.CityName
+                                    </div>
+                                    <div class="modal-footer">
+
+                                        <div style="width:100%">
+
+
+
+                                            <div style="padding-top:24px">
+
+                                                <ul class="nav nav-pills nav-stacked">
+
+
+                                                    <li class="active">
+                                                        <a href="#" data-dismiss="modal">
+
+                                                            Follow Organization
+                                                        </a>
+                                                    </li>
+
+
+                                                </ul>
+
+
+
+
+
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div style="width:100%"><hr style="height:1px;border:none;color:#ccc;background-color:#ccc;" /></div>
+
+
+                </td>
+
+
+
+
+                @*  <td>@item.groupName</td>
+                    <td><a href="@item.linkPath" target="_blank">@item.linkDisplayName</a></td>
+                    <td>@item.description</td>*@
+            </tr>
+
+        }
+    </table>
+    <br />
+</div>

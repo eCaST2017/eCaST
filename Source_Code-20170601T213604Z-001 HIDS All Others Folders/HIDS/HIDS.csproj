@@ -1,0 +1,2102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BA90AC9D-3719-446D-995B-6EE23E00A378}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CTL</RootNamespace>
+    <AssemblyName>CTL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Kendo.Mvc, Version=2013.1.319.340, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\eCaST\eCaST\eCaST\bin\Kendo.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.1.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.1.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing">
+      <HintPath>..\packages\ZXing.Net.0.14.0.1\lib\net40\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation">
+      <HintPath>..\packages\ZXing.Net.0.14.0.1\lib\net40\zxing.presentation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.0.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.0.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.0.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.2.1.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.2.1.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.2.1.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.2.1.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AgencyContactsController.cs" />
+    <Compile Include="Controllers\AgencySitesController.cs" />
+    <Compile Include="Controllers\ApplicationsController.cs" />
+    <Compile Include="Controllers\ContractsController.cs" />
+    <Compile Include="Controllers\DashboardsController.cs" />
+    <Compile Include="Controllers\DDCancerTypeBinsController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImageBrowserController.cs" />
+    <Compile Include="Controllers\NoticesController.cs" />
+    <Compile Include="Controllers\ProgramsController.cs" />
+    <Compile Include="Controllers\ProvidersController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\RequestsController.cs" />
+    <Compile Include="Controllers\RequestTrackersController.cs" />
+    <Compile Include="Controllers\RoleBinsController.cs" />
+    <Compile Include="Controllers\SitesController.cs" />
+    <Compile Include="Controllers\SubContractorsController.cs" />
+    <Compile Include="Controllers\UserProfilesController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409171614597_DateChange.cs" />
+    <Compile Include="Migrations\201409171614597_DateChange.Designer.cs">
+      <DependentUpon>201409171614597_DateChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409181415590_NotificationChange.cs" />
+    <Compile Include="Migrations\201409181415590_NotificationChange.Designer.cs">
+      <DependentUpon>201409181415590_NotificationChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409201157263_NotificationChange1.cs" />
+    <Compile Include="Migrations\201409201157263_NotificationChange1.Designer.cs">
+      <DependentUpon>201409201157263_NotificationChange1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409202224075_UserProfilePostsChange.cs" />
+    <Compile Include="Migrations\201409202224075_UserProfilePostsChange.Designer.cs">
+      <DependentUpon>201409202224075_UserProfilePostsChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410241626413_PrivacyAgreementChange.cs" />
+    <Compile Include="Migrations\201410241626413_PrivacyAgreementChange.Designer.cs">
+      <DependentUpon>201410241626413_PrivacyAgreementChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410271748040_AwardedPostChange.cs" />
+    <Compile Include="Migrations\201410271748040_AwardedPostChange.Designer.cs">
+      <DependentUpon>201410271748040_AwardedPostChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410311129253_GraduatedBinChange.cs" />
+    <Compile Include="Migrations\201410311129253_GraduatedBinChange.Designer.cs">
+      <DependentUpon>201410311129253_GraduatedBinChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410311258306_ProfileChange.cs" />
+    <Compile Include="Migrations\201410311258306_ProfileChange.Designer.cs">
+      <DependentUpon>201410311258306_ProfileChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501281832411_PhoneChange.cs" />
+    <Compile Include="Migrations\201501281832411_PhoneChange.Designer.cs">
+      <DependentUpon>201501281832411_PhoneChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502042010014_OpDateChange.cs" />
+    <Compile Include="Migrations\201502042010014_OpDateChange.Designer.cs">
+      <DependentUpon>201502042010014_OpDateChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507121423566_DemographicsChange.cs" />
+    <Compile Include="Migrations\201507121423566_DemographicsChange.Designer.cs">
+      <DependentUpon>201507121423566_DemographicsChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507131349578_UserDumpChange.cs" />
+    <Compile Include="Migrations\201507131349578_UserDumpChange.Designer.cs">
+      <DependentUpon>201507131349578_UserDumpChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508060337283_StripChange.cs" />
+    <Compile Include="Migrations\201508060337283_StripChange.Designer.cs">
+      <DependentUpon>201508060337283_StripChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508311421017_BigChange.cs" />
+    <Compile Include="Migrations\201508311421017_BigChange.Designer.cs">
+      <DependentUpon>201508311421017_BigChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508311517589_AdditionalChange.cs" />
+    <Compile Include="Migrations\201508311517589_AdditionalChange.Designer.cs">
+      <DependentUpon>201508311517589_AdditionalChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509011919347_RoleAppChange.cs" />
+    <Compile Include="Migrations\201509011919347_RoleAppChange.Designer.cs">
+      <DependentUpon>201509011919347_RoleAppChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccessSite_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountCompromised.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountCompromisedDetail_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountCompromisedListing_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountDeleted.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AgencyContact.cs" />
+    <Compile Include="Models\AgencyContactClinics.cs" />
+    <Compile Include="Models\AgencySite.cs" />
+    <Compile Include="Models\Application.cs" />
+    <Compile Include="Models\ApplicationDivision.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ApplicationPath_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ApplicationRolePrograms.cs" />
+    <Compile Include="Models\App_ApplicationVariables_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\App_DropDown_Result.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\App_ProgramBySite_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\App_ProgramDropdown_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\App_ProgramListing_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\App_ProgramList_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\App_SiteVariables_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\App_UserVariables_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Applications.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Membership.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Membership_GetPasswordWithFormat_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Membership_GetPassword_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Membership_GetUserByName_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Membership_GetUserByUserId_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Paths.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_PersonalizationAllUsers.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_PersonalizationPerUser.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Profile.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Profile_GetProperties_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Roles.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_SchemaVersions.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Users.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_UsersInRoles.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_UsersInRoles_RemoveUsersFromRoles_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_WebEvent_Events.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Asset.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CleanUser_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Client.cs">
+      <DependentUpon>ECAST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ClinicalCycle.cs">
+      <DependentUpon>ECAST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CMT.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CMT.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CMT.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CMT.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CMT.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CodeList_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Dashboard.cs" />
+    <Compile Include="Models\DataSystemUpdate.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DDAgencyRoleBin.cs">
+      <DependentUpon>HIDS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DDAgencyRoleTypeBin.cs">
+      <DependentUpon>HIDS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DDCancerTypeBin.cs">
+      <DependentUpon>ECAST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Contact.cs">
+      <DependentUpon>ECASTBILLING.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Contract.cs">
+      <DependentUpon>ECASTBILLING.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ContractTypeRoles.cs" />
+    <Compile Include="Models\Contract_CancerTypes.cs">
+      <DependentUpon>ECASTBILLING.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DDCityBin.cs">
+      <DependentUpon>HIDS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DDCountyBin.cs">
+      <DependentUpon>HIDS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DDNoticeTypeBin.cs" />
+    <Compile Include="Models\DDStateBin.cs">
+      <DependentUpon>HIDS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DD_AccountErrors.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DD_AgencyFunction.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DD_AgencyType.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DD_BillingPaid.cs">
+      <DependentUpon>ECASTBILLING.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DD_ContractTypes.cs">
+      <DependentUpon>ECASTBILLING.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DD_Counties.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DD_DetailType.cs">
+      <DependentUpon>ECASTBILLING.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DD_DisolutionDecreeType.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DD_LedgerTypes.cs">
+      <DependentUpon>ECASTBILLING.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DD_LevelRate.cs">
+      <DependentUpon>ECASTBILLING.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DD_MaritalCeremonyType.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DD_MaritalPartiesRelated.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DD_MaritalRecordType.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DD_MaritalStatus.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DD_ProcedureRate.cs">
+      <DependentUpon>ECASTBILLING.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DD_SecurityQuestion.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DD_States.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DirectoryBrowser.cs" />
+    <Compile Include="Models\Division.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DocumentDownload.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DropDown_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ECAST.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ECAST.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ECAST.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ECAST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ECAST.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ECAST.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ECASTBILLING.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ECASTBILLING.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ECASTBILLING.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ECASTBILLING.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ECASTBILLING.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ECASTBILLING.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\eCaST_Get_Percent_ContractTypes_Result.cs">
+      <DependentUpon>ECASTBILLING.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EdmMetadata.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntryType.cs" />
+    <Compile Include="Models\FileBrowserEntry.cs" />
+    <Compile Include="Models\FiscalYear.cs">
+      <DependentUpon>ECASTBILLING.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FitImageResizer.cs" />
+    <Compile Include="Models\GanttDependency.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GanttResource.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GanttResourceAssignment.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GanttTask.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAccess_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetActive_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAllSecurityQs_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetApplicationProgram_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetApplications_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetApplication_ByName_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetApplication_ByProgramID_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetCertificateDataP_Result.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetCertificateData_Result.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetDataSystemUpdates_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetDocumentDownloadList_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetDocumentDownload_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetErrors_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetError_Detail_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetFileDownload_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetImportantMessage_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetInvalidCredentialAttempts_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetInvalidCredentials_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetInvalidUsernameBreakdown_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetProgramAccess_2_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetProgramAccess_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetProgramsActive_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetPrograms_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetProgram_ByCode_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetProgram_ByName_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetRoles_All_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetRoles_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetSecurityQuestions_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetSiteAccessAll_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetSiteAccess_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetSiteAccess_Selected_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetSites_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetThirdPartyFileList_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetUserInfo_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetUserIsOnline_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetUsername_PIN_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetUserProgramRequest_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetUserRoles_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetUsersCurrentActivity_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetUserSites_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetUser_ByName_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GridBroadcastNavigation_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GridDataSystemUpdates_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GridDocumentDownload_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GridThirdPartyFiles_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HIADMIN.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HIADMIN.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HIADMIN.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HIADMIN.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HIADMIN.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HIDS.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HIDS.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HIDS.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HIDS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HIDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HIDS.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ImageSize.cs" />
+    <Compile Include="Models\ImportantMessage.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InvalidLogin.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Invoice.cs">
+      <DependentUpon>ECASTBILLING.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InvoiceDetail.cs">
+      <DependentUpon>ECASTBILLING.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\JsonStandardResponse.cs" />
+    <Compile Include="Models\AgencySiteProgramSites.cs" />
+    <Compile Include="Models\ManageUserRolesSearch_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ManageUserRoles_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MasterLedger.cs">
+      <DependentUpon>ECASTBILLING.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Module.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModuleApplication.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MRG.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MRG.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MRG.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MRG.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MRG.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NESTMissingProcedure.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_Activity.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_Communication.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_DD_ActivityLevels.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_DD_ActivityTypes.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_DD_AuthorizationCodes.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_DD_ProviderTypes.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_DD_ResultTypes.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_DD_StageStatus.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_DD_TransactionDirections.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_DD_TransactionStatus.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_DD_TransactionTypes.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_Get_VR_DeathsStructure_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_IB_Xml1_Existing_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_IB_Xml8_GetInBoundFileList_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_IB_Xml9_PendingInBoundToProcess_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_InBoundTranSummary_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_OBTrans_GetConversions_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_OBTrans_GetTransActivities_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_OBTrans_GetTrans_App_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_OB_PrepareTrans_GetCountByPgm_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_OutBoundTranSummary_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_Transaction.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_ValueConversion.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NEST_VitalRecords_Deaths.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Notice.cs" />
+    <Compile Include="Models\Notification.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PercentFiscalYear.cs">
+      <DependentUpon>ECASTBILLING.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Person.cs">
+      <DependentUpon>WH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Priority.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Program.cs" />
+    <Compile Include="Models\Project.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProjectApplication.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProjectSubApplication.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProjectType.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Provider.cs" />
+    <Compile Include="Models\ProviderProfile.cs" />
+    <Compile Include="Models\ProviderProfileProviders.cs" />
+    <Compile Include="Models\ProviderSubContractors.cs" />
+    <Compile Include="Models\QANote.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QANotesQualityAssurance.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QualityAssurance.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QualityAssuranceRequest.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Release.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ReleaseApplication.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report.cs" />
+    <Compile Include="Models\Report_Clients_Served_Bundled_Reimbursement_Level_Result.cs">
+      <DependentUpon>ECASTBILLING.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report_GrantActivityWebFull_Result.cs">
+      <DependentUpon>ECASTBILLING.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report_GrantActivityWeb_Result.cs">
+      <DependentUpon>ECASTBILLING.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report_GrantActivity_Result.cs">
+      <DependentUpon>ECASTBILLING.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report_ScreeningBudgetTrackingWeb_APP_Result.cs">
+      <DependentUpon>ECASTBILLING.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Request.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequestAction.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequestActionType.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequestClient.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequestMode.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequestPerson.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequestProgram.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequestProject.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequestReleas.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequestReport.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequestScreening.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequestsDUMP.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequestTracker.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequestType.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequestTypeApplication.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequestTypeNotification.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequestTypeSubApplication.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ReturnUserEmailAddress_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RoleAgencySites.cs" />
+    <Compile Include="Models\RoleBin.cs" />
+    <Compile Include="Models\RoleProgramUserProfiles.cs" />
+    <Compile Include="Models\Screening.cs">
+      <DependentUpon>ECAST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Site.cs" />
+    <Compile Include="Models\SiteDivision.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SiteRoleProgramUserProfiles.cs" />
+    <Compile Include="Models\State.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubApplication.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubApplicationApplication.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubContractor.cs" />
+    <Compile Include="Models\SubContractorClinics.cs" />
+    <Compile Include="Models\tblDissolutionAudit.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblDissolutionData.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblMarriageAudit.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblMarriageData.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblMarriageFileUpload.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblMarriageFileUploadData.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblMarriageFTPFilesToProcess.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblMarriagePrintLog.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblMarriageSearchLog.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblUserAccount.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblUserCountyAccess.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblUserPermission.cs">
+      <DependentUpon>MRG.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThirdPartyFile.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThumbnailCreator.cs" />
+    <Compile Include="Models\UsedPassword.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserIdApplication.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserIdRequest.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserIdSubApplication.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserIPAddress.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserListingAccountApproval_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserListingSearch_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserListing_Result.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserOption.cs">
+      <DependentUpon>CMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserProfile.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserProfileSites.cs" />
+    <Compile Include="Models\UserRoleProgram.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UsersCurrentActivity.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_aspnet_Applications.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_aspnet_MembershipUsers.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_aspnet_Profiles.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_aspnet_Roles.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_aspnet_Users.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_aspnet_UsersInRoles.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_aspnet_WebPartState_Paths.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_aspnet_WebPartState_Shared.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_aspnet_WebPartState_User.cs">
+      <DependentUpon>HIADMIN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WH.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WH.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WH.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WH.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WH.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QRHandler.ashx.cs">
+      <DependentUpon>QRHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\AgencyContactViewModel.cs" />
+    <Compile Include="ViewModels\AgencyRoleViewModel.cs" />
+    <Compile Include="ViewModels\AgencySearchCriteria.cs" />
+    <Compile Include="ViewModels\AgencySiteViewModel.cs" />
+    <Compile Include="ViewModels\ApplicationViewModel.cs" />
+    <Compile Include="ViewModels\AssignedCityData.cs" />
+    <Compile Include="ViewModels\AssignedContents.cs" />
+    <Compile Include="ViewModels\AssignedCountyData.cs" />
+    <Compile Include="ViewModels\AssignedStateData.cs" />
+    <Compile Include="ViewModels\CancerTypeViewModel.cs" />
+    <Compile Include="ViewModels\ClientViewModel.cs" />
+    <Compile Include="ViewModels\NoticeViewModel.cs" />
+    <Compile Include="ViewModels\ProgramViewModel.cs" />
+    <Compile Include="ViewModels\ProviderViewModel.cs" />
+    <Compile Include="ViewModels\RequestTrackerViewModel.cs" />
+    <Compile Include="ViewModels\RequestViewModel.cs" />
+    <Compile Include="ViewModels\ScreeningViewModel.cs" />
+    <Compile Include="ViewModels\SiteListViewModel.cs" />
+    <Compile Include="ViewModels\SiteViewModel.cs" />
+    <Compile Include="ViewModels\SubContractorViewModel.cs" />
+    <Compile Include="ViewModels\UserProfileViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\DataTables-1.9.4\docs\media\css\doc.css" />
+    <Content Include="Content\DataTables-1.9.4\docs\media\css\shCore.css" />
+    <Content Include="Content\DataTables-1.9.4\docs\media\css\shThemeDataTables.css" />
+    <Content Include="Content\DataTables-1.9.4\docs\media\images\arrow.jpg" />
+    <Content Include="Content\DataTables-1.9.4\docs\media\images\arrow.png" />
+    <Content Include="Content\DataTables-1.9.4\docs\media\images\extended.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\AutoFill\media\css\AutoFill.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\AutoFill\media\docs\media\css\doc.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\AutoFill\media\docs\media\css\shCore.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\AutoFill\media\docs\media\css\shThemeDataTables.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\AutoFill\media\docs\media\images\arrow.jpg" />
+    <Content Include="Content\DataTables-1.9.4\extras\AutoFill\media\docs\media\images\arrow.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\AutoFill\media\docs\media\images\extended.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\AutoFill\media\images\filler.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\ColReorder\media\css\ColReorder.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\ColReorder\media\docs\media\css\doc.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\ColReorder\media\docs\media\css\shCore.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\ColReorder\media\docs\media\css\shThemeDataTables.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\ColReorder\media\docs\media\images\arrow.jpg" />
+    <Content Include="Content\DataTables-1.9.4\extras\ColReorder\media\docs\media\images\arrow.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\ColReorder\media\docs\media\images\extended.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\ColReorder\media\images\insert.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\ColVis\media\css\ColVis.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\ColVis\media\css\ColVisAlt.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\ColVis\media\docs\media\css\doc.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\ColVis\media\docs\media\css\shCore.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\ColVis\media\docs\media\css\shThemeDataTables.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\ColVis\media\docs\media\images\arrow.jpg" />
+    <Content Include="Content\DataTables-1.9.4\extras\ColVis\media\docs\media\images\arrow.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\ColVis\media\docs\media\images\extended.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\ColVis\media\images\button.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\FixedColumns\docs\media\css\doc.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\FixedColumns\docs\media\css\shCore.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\FixedColumns\docs\media\css\shThemeDataTables.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\FixedColumns\docs\media\images\arrow.jpg" />
+    <Content Include="Content\DataTables-1.9.4\extras\FixedColumns\docs\media\images\arrow.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\FixedColumns\docs\media\images\extended.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\Scroller\media\css\dataTables.scroller.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\Scroller\media\docs\media\css\doc.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\Scroller\media\docs\media\css\shCore.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\Scroller\media\docs\media\css\shThemeDataTables.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\Scroller\media\docs\media\images\arrow.jpg" />
+    <Content Include="Content\DataTables-1.9.4\extras\Scroller\media\docs\media\images\arrow.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\Scroller\media\docs\media\images\extended.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\Scroller\media\images\loading-background.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\css\TableTools.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\css\TableTools_JUI.css" />
+    <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\images\background.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\images\collection.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\images\collection_hover.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\images\copy.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\images\copy_hover.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\images\csv.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\images\csv_hover.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\images\pdf.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\images\pdf_hover.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\images\print.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\images\print_hover.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\images\psd\collection.psd" />
+    <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\images\psd\copy document.psd" />
+    <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\images\psd\file_types.psd" />
+    <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\images\psd\printer.psd" />
+    <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\images\xls.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\images\xls_hover.png" />
+    <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\swf\copy_csv_xls.swf" />
+    <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\swf\copy_csv_xls_pdf.swf" />
+    <Content Include="Content\DataTables-1.9.4\media\css\demo_page.css" />
+    <Content Include="Content\DataTables-1.9.4\media\css\demo_table.css" />
+    <Content Include="Content\DataTables-1.9.4\media\css\demo_table_jui.css" />
+    <Content Include="Content\DataTables-1.9.4\media\css\jquery.dataTables.css" />
+    <Content Include="Content\DataTables-1.9.4\media\css\jquery.dataTables_themeroller.css" />
+    <Content Include="Content\DataTables-1.9.4\media\images\back_disabled.png" />
+    <Content Include="Content\DataTables-1.9.4\media\images\back_enabled.png" />
+    <Content Include="Content\DataTables-1.9.4\media\images\back_enabled_hover.png" />
+    <Content Include="Content\DataTables-1.9.4\media\images\favicon.ico" />
+    <Content Include="Content\DataTables-1.9.4\media\images\forward_disabled.png" />
+    <Content Include="Content\DataTables-1.9.4\media\images\forward_enabled.png" />
+    <Content Include="Content\DataTables-1.9.4\media\images\forward_enabled_hover.png" />
+    <Content Include="Content\DataTables-1.9.4\media\images\Sorting icons.psd" />
+    <Content Include="Content\DataTables-1.9.4\media\images\sort_asc.png" />
+    <Content Include="Content\DataTables-1.9.4\media\images\sort_asc_disabled.png" />
+    <Content Include="Content\DataTables-1.9.4\media\images\sort_both.png" />
+    <Content Include="Content\DataTables-1.9.4\media\images\sort_desc.png" />
+    <Content Include="Content\DataTables-1.9.4\media\images\sort_desc_disabled.png" />
+    <Content Include="Content\dataTables.bootstrap.css" />
+    <Content Include="Content\Default\editor.png" />
+    <Content Include="Content\Default\imagebrowser.png" />
+    <Content Include="Content\Default\loading-image.gif" />
+    <Content Include="Content\Default\loading.gif" />
+    <Content Include="Content\Default\slider-h.gif" />
+    <Content Include="Content\Default\slider-v.gif" />
+    <Content Include="Content\Default\sprite%402x.png" />
+    <Content Include="Content\Default\sprite.png" />
+    <Content Include="Content\dropzone.css" />
+    <Content Include="Content\images\CDPHE.png" />
+    <Content Include="Content\images\CDPHEThumb.png" />
+    <Content Include="Content\images\cphi.png" />
+    <Content Include="Content\images\family.png" />
+    <Content Include="Content\images\family2.png" />
+    <Content Include="Content\images\fb.png" />
+    <Content Include="Content\images\fltiseal.png" />
+    <Content Include="Content\images\HIDS.png" />
+    <Content Include="Content\images\iconCL2.png" />
+    <Content Include="Content\images\loader-64x\Preloader_1.gif" />
+    <Content Include="Content\images\loader-64x\Preloader_2.gif" />
+    <Content Include="Content\images\loader-64x\Preloader_3.gif" />
+    <Content Include="Content\images\loader-64x\Preloader_4.gif" />
+    <Content Include="Content\images\loader-64x\Preloader_5.gif" />
+    <Content Include="Content\images\loader-64x\Preloader_6.gif" />
+    <Content Include="Content\images\loader-64x\Preloader_7.gif" />
+    <Content Include="Content\images\pic1.jpg" />
+    <Content Include="Content\images\pic2.jpg" />
+    <Content Include="Content\images\pic3.jpg" />
+    <Content Include="Content\images\pic4.jpg" />
+    <Content Include="Content\images\pic5.png" />
+    <Content Include="Content\images\pic6.JPG" />
+    <Content Include="Content\images\pic7.jpg" />
+    <Content Include="Content\images\pic8.jpg" />
+    <Content Include="Content\images\social.png" />
+    <Content Include="Content\images\tw.png" />
+    <Content Include="Content\images\youtube.png" />
+    <Content Include="Content\images\yt.png" />
+    <Content Include="Content\jasny-bootstrap.css" />
+    <Content Include="Content\kendo\2013.1.319\Black\editor.png" />
+    <Content Include="Content\kendo\2013.1.319\Black\imagebrowser.png" />
+    <Content Include="Content\kendo\2013.1.319\Black\loading-image.gif" />
+    <Content Include="Content\kendo\2013.1.319\Black\loading.gif" />
+    <Content Include="Content\kendo\2013.1.319\Black\slider-h.gif" />
+    <Content Include="Content\kendo\2013.1.319\Black\slider-v.gif" />
+    <Content Include="Content\kendo\2013.1.319\Black\sprite%402x.png" />
+    <Content Include="Content\kendo\2013.1.319\Black\sprite.png" />
+    <Content Include="Content\kendo\2013.1.319\BlueOpal\editor.png" />
+    <Content Include="Content\kendo\2013.1.319\BlueOpal\imagebrowser.png" />
+    <Content Include="Content\kendo\2013.1.319\BlueOpal\loading-image.gif" />
+    <Content Include="Content\kendo\2013.1.319\BlueOpal\loading.gif" />
+    <Content Include="Content\kendo\2013.1.319\BlueOpal\slider-h.gif" />
+    <Content Include="Content\kendo\2013.1.319\BlueOpal\slider-v.gif" />
+    <Content Include="Content\kendo\2013.1.319\BlueOpal\sprite%402x.png" />
+    <Content Include="Content\kendo\2013.1.319\BlueOpal\sprite.png" />
+    <Content Include="Content\kendo\2013.1.319\Bootstrap\editor.png" />
+    <Content Include="Content\kendo\2013.1.319\Bootstrap\imagebrowser.png" />
+    <Content Include="Content\kendo\2013.1.319\Bootstrap\loading-image.gif" />
+    <Content Include="Content\kendo\2013.1.319\Bootstrap\loading.gif" />
+    <Content Include="Content\kendo\2013.1.319\Bootstrap\slider-h.gif" />
+    <Content Include="Content\kendo\2013.1.319\Bootstrap\slider-v.gif" />
+    <Content Include="Content\kendo\2013.1.319\Bootstrap\sprite%402x.png" />
+    <Content Include="Content\kendo\2013.1.319\Bootstrap\sprite.png" />
+    <Content Include="Content\kendo\2013.1.319\Default\editor.png" />
+    <Content Include="Content\kendo\2013.1.319\Default\imagebrowser.png" />
+    <Content Include="Content\kendo\2013.1.319\Default\loading-image.gif" />
+    <Content Include="Content\kendo\2013.1.319\Default\loading.gif" />
+    <Content Include="Content\kendo\2013.1.319\Default\slider-h.gif" />
+    <Content Include="Content\kendo\2013.1.319\Default\slider-v.gif" />
+    <Content Include="Content\kendo\2013.1.319\Default\sprite%402x.png" />
+    <Content Include="Content\kendo\2013.1.319\Default\sprite.png" />
+    <Content Include="Content\kendo\2013.1.319\HighContrast\editor.png" />
+    <Content Include="Content\kendo\2013.1.319\HighContrast\imagebrowser.png" />
+    <Content Include="Content\kendo\2013.1.319\HighContrast\loading-image.gif" />
+    <Content Include="Content\kendo\2013.1.319\HighContrast\loading.gif" />
+    <Content Include="Content\kendo\2013.1.319\HighContrast\slider-h.gif" />
+    <Content Include="Content\kendo\2013.1.319\HighContrast\slider-v.gif" />
+    <Content Include="Content\kendo\2013.1.319\HighContrast\sprite%402x.png" />
+    <Content Include="Content\kendo\2013.1.319\HighContrast\sprite.png" />
+    <Content Include="Content\kendo\2013.1.319\images\back.png" />
+    <Content Include="Content\kendo\2013.1.319\kendo.black.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.blueopal.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.bootstrap.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.common.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.dataviz.black.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.dataviz.blueopal.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.dataviz.bootstrap.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.dataviz.default.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.dataviz.highcontrast.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.dataviz.metro.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.dataviz.metroblack.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.dataviz.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.dataviz.moonlight.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.dataviz.silver.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.dataviz.uniform.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.default.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.highcontrast.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.metro.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.metroblack.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.mobile.all.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.mobile.android4.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.mobile.blackberry.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.mobile.ios.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.mobile.meego.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.mobile.wp8.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.moonlight.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.rtl.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.silver.min.css" />
+    <Content Include="Content\kendo\2013.1.319\kendo.uniform.min.css" />
+    <Content Include="Content\kendo\2013.1.319\MetroBlack\editor.png" />
+    <Content Include="Content\kendo\2013.1.319\MetroBlack\imagebrowser.png" />
+    <Content Include="Content\kendo\2013.1.319\MetroBlack\loading-image.gif" />
+    <Content Include="Content\kendo\2013.1.319\MetroBlack\loading.gif" />
+    <Content Include="Content\kendo\2013.1.319\MetroBlack\slider-h.gif" />
+    <Content Include="Content\kendo\2013.1.319\MetroBlack\slider-v.gif" />
+    <Content Include="Content\kendo\2013.1.319\MetroBlack\sprite%402x.png" />
+    <Content Include="Content\kendo\2013.1.319\MetroBlack\sprite.png" />
+    <Content Include="Content\kendo\2013.1.319\Metro\editor.png" />
+    <Content Include="Content\kendo\2013.1.319\Metro\imagebrowser.png" />
+    <Content Include="Content\kendo\2013.1.319\Metro\loading-image.gif" />
+    <Content Include="Content\kendo\2013.1.319\Metro\loading.gif" />
+    <Content Include="Content\kendo\2013.1.319\Metro\slider-h.gif" />
+    <Content Include="Content\kendo\2013.1.319\Metro\slider-v.gif" />
+    <Content Include="Content\kendo\2013.1.319\Metro\sprite%402x.png" />
+    <Content Include="Content\kendo\2013.1.319\Metro\sprite.png" />
+    <Content Include="Content\kendo\2013.1.319\Moonlight\editor.png" />
+    <Content Include="Content\kendo\2013.1.319\Moonlight\imagebrowser.png" />
+    <Content Include="Content\kendo\2013.1.319\Moonlight\loading-image.gif" />
+    <Content Include="Content\kendo\2013.1.319\Moonlight\loading.gif" />
+    <Content Include="Content\kendo\2013.1.319\Moonlight\slider-h.gif" />
+    <Content Include="Content\kendo\2013.1.319\Moonlight\slider-v.gif" />
+    <Content Include="Content\kendo\2013.1.319\Moonlight\sprite%402x.png" />
+    <Content Include="Content\kendo\2013.1.319\Moonlight\sprite.png" />
+    <Content Include="Content\kendo\2013.1.319\Silver\editor.png" />
+    <Content Include="Content\kendo\2013.1.319\Silver\imagebrowser.png" />
+    <Content Include="Content\kendo\2013.1.319\Silver\loading-image.gif" />
+    <Content Include="Content\kendo\2013.1.319\Silver\loading.gif" />
+    <Content Include="Content\kendo\2013.1.319\Silver\slider-h.gif" />
+    <Content Include="Content\kendo\2013.1.319\Silver\slider-v.gif" />
+    <Content Include="Content\kendo\2013.1.319\Silver\sprite%402x.png" />
+    <Content Include="Content\kendo\2013.1.319\Silver\sprite.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\brushed-metal.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\dots1.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\dots10.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\dots11.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\dots12.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\dots13.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\dots2.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\dots3.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\dots4.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\dots5.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\dots6.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\dots7.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\dots8.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\dots9.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\glass-lighter.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\glass.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\highlight.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\hsv-gradient.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\hue.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\leather1.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\leather2.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\noise.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\stripe1.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\stripe2.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\stripe3.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\stripe4.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\stripe5.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\stripe6.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\transparency.png" />
+    <Content Include="Content\kendo\2013.1.319\textures\transtexture.png" />
+    <Content Include="Content\kendo\2013.1.319\Uniform\editor.png" />
+    <Content Include="Content\kendo\2013.1.319\Uniform\imagebrowser.png" />
+    <Content Include="Content\kendo\2013.1.319\Uniform\loading-image.gif" />
+    <Content Include="Content\kendo\2013.1.319\Uniform\loading.gif" />
+    <Content Include="Content\kendo\2013.1.319\Uniform\slider-h.gif" />
+    <Content Include="Content\kendo\2013.1.319\Uniform\slider-v.gif" />
+    <Content Include="Content\kendo\2013.1.319\Uniform\sprite%402x.png" />
+    <Content Include="Content\kendo\2013.1.319\Uniform\sprite.png" />
+    <Content Include="Content\redactor\redactor-iframe.css" />
+    <Content Include="Content\redactor\redactor.css" />
+    <Content Include="Content\sb-admin-2.css" />
+    <Content Include="Content\select2.css" />
+    <Content Include="Content\select2.png" />
+    <Content Include="Content\themes\base\images\animated-overlay.gif" />
+    <Content Include="Content\themes\base\images\busy.gif" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.menu.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.spinner.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\jquery.ui.tooltip.css" />
+    <Content Include="Content\themes\base\minified\images\animated-overlay.gif" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.menu.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.spinner.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\UploadedFolder\placeholder.html" />
+    <Content Include="Content\UploadedFolder\userpic.jpg" />
+    <Content Include="Content\w3.css" />
+    <Content Include="css\images\acceptpayments.png" />
+    <Content Include="css\images\bg1.jpg" />
+    <Content Include="css\images\bg1_1.jpg" />
+    <Content Include="css\images\bg1_S.jpg" />
+    <Content Include="css\images\bg2.jpg" />
+    <Content Include="css\images\bg2_2.jpg" />
+    <Content Include="css\images\bg3.jpg" />
+    <Content Include="css\images\bg4.png" />
+    <Content Include="css\images\bg4_4.jpg" />
+    <Content Include="css\images\bgBlank.jpg" />
+    <Content Include="css\images\bgBlank.png" />
+    <Content Include="css\images\brianmedley.png" />
+    <Content Include="css\images\calogo.png" />
+    <Content Include="css\images\crossdevice.png" />
+    <Content Include="css\images\greggscott.png" />
+    <Content Include="css\images\meetingmanagement.png" />
+    <Content Include="css\images\pop_1.png" />
+    <Content Include="css\images\pop_2.png" />
+    <Content Include="css\images\pop_3.png" />
+    <Content Include="css\images\smalllogo.png" />
+    <Content Include="css\images\smalllogo2.png" />
+    <Content Include="css\images\smalllogoXS.png" />
+    <Content Include="favicon.ico" />
+    <Content Include="font-awesome-4.1.0\css\font-awesome.css" />
+    <Content Include="font-awesome-4.1.0\css\font-awesome.min.css" />
+    <Content Include="font-awesome-4.1.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Models\CMT.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CMT.edmx</DependentUpon>
+      <LastGenOutput>CMT.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\CMT.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CMT.edmx</DependentUpon>
+      <LastGenOutput>CMT.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ECAST.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ECAST.edmx</DependentUpon>
+      <LastGenOutput>ECAST.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ECAST.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ECAST.edmx</DependentUpon>
+      <LastGenOutput>ECAST.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ECASTBILLING.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ECASTBILLING.edmx</DependentUpon>
+      <LastGenOutput>ECASTBILLING.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ECASTBILLING.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ECASTBILLING.edmx</DependentUpon>
+      <LastGenOutput>ECASTBILLING.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\HIADMIN.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HIADMIN.edmx</DependentUpon>
+      <LastGenOutput>HIADMIN.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\HIADMIN.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HIADMIN.edmx</DependentUpon>
+      <LastGenOutput>HIADMIN.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\HIDS.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HIDS.edmx</DependentUpon>
+      <LastGenOutput>HIDS.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\HIDS.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HIDS.edmx</DependentUpon>
+      <LastGenOutput>HIDS.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\MRG.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MRG.edmx</DependentUpon>
+      <LastGenOutput>MRG.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\MRG.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MRG.edmx</DependentUpon>
+      <LastGenOutput>MRG.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\WH.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WH.edmx</DependentUpon>
+      <LastGenOutput>WH.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\WH.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WH.edmx</DependentUpon>
+      <LastGenOutput>WH.cs</LastGenOutput>
+    </Content>
+    <Content Include="reports\colorado-logo.jpg" />
+    <Content Include="Scripts\app\app.js" />
+    <Content Include="Content\kendo\2013.1.319\images\KendoUI.ttf" />
+    <Content Include="Content\kendo\2013.1.319\images\KendoUI.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="font-awesome-4.1.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="font-awesome-4.1.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="font-awesome-4.1.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="font-awesome-4.1.0\fonts\FontAwesome.otf" />
+    <Content Include="font-awesome-4.1.0\less\bordered-pulled.less" />
+    <Content Include="font-awesome-4.1.0\less\core.less" />
+    <Content Include="font-awesome-4.1.0\less\fixed-width.less" />
+    <Content Include="font-awesome-4.1.0\less\font-awesome.less" />
+    <Content Include="font-awesome-4.1.0\less\icons.less" />
+    <Content Include="font-awesome-4.1.0\less\larger.less" />
+    <Content Include="font-awesome-4.1.0\less\list.less" />
+    <Content Include="font-awesome-4.1.0\less\mixins.less" />
+    <Content Include="font-awesome-4.1.0\less\path.less" />
+    <Content Include="font-awesome-4.1.0\less\rotated-flipped.less" />
+    <Content Include="font-awesome-4.1.0\less\spinning.less" />
+    <Content Include="font-awesome-4.1.0\less\stacked.less" />
+    <Content Include="font-awesome-4.1.0\less\variables.less" />
+    <Content Include="font-awesome-4.1.0\scss\font-awesome.scss" />
+    <Content Include="font-awesome-4.1.0\scss\_bordered-pulled.scss" />
+    <Content Include="font-awesome-4.1.0\scss\_core.scss" />
+    <Content Include="font-awesome-4.1.0\scss\_fixed-width.scss" />
+    <Content Include="font-awesome-4.1.0\scss\_icons.scss" />
+    <Content Include="font-awesome-4.1.0\scss\_larger.scss" />
+    <Content Include="font-awesome-4.1.0\scss\_list.scss" />
+    <Content Include="font-awesome-4.1.0\scss\_mixins.scss" />
+    <Content Include="font-awesome-4.1.0\scss\_path.scss" />
+    <Content Include="font-awesome-4.1.0\scss\_rotated-flipped.scss" />
+    <Content Include="font-awesome-4.1.0\scss\_spinning.scss" />
+    <Content Include="font-awesome-4.1.0\scss\_stacked.scss" />
+    <Content Include="font-awesome-4.1.0\scss\_variables.scss" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <EntityDeploy Include="Models\ECASTBILLING.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ECASTBILLING.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ECASTBILLING.edmx.diagram">
+      <DependentUpon>ECASTBILLING.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\ECAST.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ECAST.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ECAST.edmx.diagram">
+      <DependentUpon>ECAST.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\HIADMIN.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>HIADMIN.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\HIADMIN.edmx.diagram">
+      <DependentUpon>HIADMIN.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\HIDS.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>HIDS.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\HIDS.edmx.diagram">
+      <DependentUpon>HIDS.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\MRG.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MRG.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\MRG.edmx.diagram">
+      <DependentUpon>MRG.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\CMT.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CMT.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\CMT.edmx.diagram">
+      <DependentUpon>CMT.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\WH.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>WH.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\WH.edmx.diagram">
+      <DependentUpon>WH.edmx</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\CTL_09_17_14.pubxml" />
+    <Content Include="Scripts\bootstrap-button.js" />
+    <Content Include="Scripts\bootstrap-fileupload.js" />
+    <Content Include="Scripts\bootstrap-wysiwyg.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\DataTables-1.9.4\docs\media\js\doc.js" />
+    <Content Include="Scripts\DataTables-1.9.4\docs\media\js\jquery.js" />
+    <Content Include="Scripts\DataTables-1.9.4\docs\media\js\shBrushJScript.js" />
+    <Content Include="Scripts\DataTables-1.9.4\docs\media\js\shCore.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\AutoFill\media\docs\media\js\doc.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\AutoFill\media\docs\media\js\jquery.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\AutoFill\media\docs\media\js\shBrushJScript.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\AutoFill\media\docs\media\js\shCore.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\AutoFill\media\js\AutoFill.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\AutoFill\media\js\AutoFill.min.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\AutoFill\media\js\AutoFill.min.js.gz" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\ColReorder\media\docs\media\js\doc.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\ColReorder\media\docs\media\js\jquery.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\ColReorder\media\docs\media\js\shBrushJScript.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\ColReorder\media\docs\media\js\shCore.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\ColReorder\media\js\ColReorder.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\ColReorder\media\js\ColReorder.min.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\ColReorder\media\js\ColReorder.min.js.gz" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\ColVis\media\docs\media\js\doc.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\ColVis\media\docs\media\js\jquery.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\ColVis\media\docs\media\js\shBrushJScript.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\ColVis\media\docs\media\js\shCore.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\ColVis\media\js\ColVis.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\ColVis\media\js\ColVis.min.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\ColVis\media\js\ColVis.min.js.gz" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\FixedColumns\docs\media\js\doc.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\FixedColumns\docs\media\js\jquery.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\FixedColumns\docs\media\js\shBrushJScript.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\FixedColumns\docs\media\js\shCore.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\FixedColumns\media\js\FixedColumns.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\FixedColumns\media\js\FixedColumns.min.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\FixedColumns\media\js\FixedColumns.min.js.gz" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\Scroller\media\docs\media\js\doc.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\Scroller\media\docs\media\js\jquery.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\Scroller\media\docs\media\js\shBrushJScript.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\Scroller\media\docs\media\js\shCore.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\Scroller\media\js\dataTables.scroller.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\Scroller\media\js\dataTables.scroller.min.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\Scroller\media\js\dataTables.scroller.min.js.gz" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\TableTools\media\js\TableTools.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\TableTools\media\js\TableTools.min.js" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\TableTools\media\js\TableTools.min.js.gz" />
+    <Content Include="Scripts\DataTables-1.9.4\extras\TableTools\media\js\ZeroClipboard.js" />
+    <Content Include="Scripts\DataTables-1.9.4\media\js\jquery.dataTables.js" />
+    <Content Include="Scripts\DataTables-1.9.4\media\js\jquery.dataTables.min.js" />
+    <Content Include="Scripts\DataTables-1.9.4\media\js\jquery.js" />
+    <Content Include="Scripts\dataTables.bootstrap.js" />
+    <Content Include="Scripts\dropzone.js" />
+    <Content Include="Scripts\imagemanager.js" />
+    <Content Include="Scripts\jasny-bootstrap.js" />
+    <None Include="Properties\PublishProfiles\HIDS.pubxml" />
+    <Content Include="QRHandler.ashx" />
+    <None Include="Scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="Scripts\jquery-2.0.3.js" />
+    <Content Include="Scripts\jquery-2.0.3.min.js" />
+    <Content Include="Scripts\jquery-2.0.3.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.10.0.js" />
+    <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
+    <Content Include="Scripts\jquery-ui.unobtrusive-2.2.0.js" />
+    <Content Include="Scripts\jquery-ui.unobtrusive-2.2.0.min.js" />
+    <Content Include="Scripts\jquery.backstretch.min.js" />
+    <Content Include="Scripts\jquery.hotkeys.js" />
+    <Content Include="Scripts\jquery.maskedinput.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jQueryRotate.js" />
+    <Content Include="Scripts\kendo\2013.1.319\jquery.min.js" />
+    <None Include="Scripts\kendo\2013.1.319\kendo.all-vsdoc.js" />
+    <None Include="Scripts\kendo\2013.1.319\kendo.all.min.intellisense.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.all.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.aspnetmvc.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.autocomplete.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.binder.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.calendar.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.colorpicker.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.columnmenu.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.combobox.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.core.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.data.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.data.odata.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.data.xml.min.js" />
+    <None Include="Scripts\kendo\2013.1.319\kendo.dataviz-vsdoc.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.dataviz.chart.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.dataviz.core.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.dataviz.gauge.min.js" />
+    <None Include="Scripts\kendo\2013.1.319\kendo.dataviz.min.intellisense.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.dataviz.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.dataviz.sparkline.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.dataviz.stock.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.dataviz.svg.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.dataviz.themes.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.dataviz.vml.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.datepicker.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.datetimepicker.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.draganddrop.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.dropdownlist.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.editable.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.editor.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.filtermenu.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.fx.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.grid.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.groupable.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.imagebrowser.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.list.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.listview.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.menu.min.js" />
+    <None Include="Scripts\kendo\2013.1.319\kendo.mobile-vsdoc.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.mobile.actionsheet.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.mobile.application.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.mobile.button.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.mobile.buttongroup.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.mobile.listview.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.mobile.loader.min.js" />
+    <None Include="Scripts\kendo\2013.1.319\kendo.mobile.min.intellisense.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.mobile.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.mobile.modalview.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.mobile.navbar.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.mobile.pane.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.mobile.popover.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.mobile.scroller.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.mobile.scrollview.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.mobile.shim.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.mobile.splitview.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.mobile.switch.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.mobile.tabstrip.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.mobile.view.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.multiselect.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.numerictextbox.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.pager.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.panelbar.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.popup.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.reorderable.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.resizable.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.router.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.selectable.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.slider.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.sortable.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.splitter.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.tabstrip.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.timepicker.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.tooltip.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.touch.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.treeview.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.upload.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.userevents.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.validator.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.view.min.js" />
+    <None Include="Scripts\kendo\2013.1.319\kendo.web-vsdoc.js" />
+    <None Include="Scripts\kendo\2013.1.319\kendo.web.min.intellisense.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.web.min.js" />
+    <Content Include="Scripts\kendo\2013.1.319\kendo.window.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\plugins\dataTables\dataTables.bootstrap.js" />
+    <Content Include="Scripts\plugins\dataTables\jquery.dataTables.js" />
+    <Content Include="Scripts\plugins\flot\excanvas.min.js" />
+    <Content Include="Scripts\plugins\flot\flot-data.js" />
+    <Content Include="Scripts\plugins\flot\jquery.flot.js" />
+    <Content Include="Scripts\plugins\flot\jquery.flot.pie.js" />
+    <Content Include="Scripts\plugins\flot\jquery.flot.resize.js" />
+    <Content Include="Scripts\plugins\flot\jquery.flot.tooltip.min.js" />
+    <Content Include="Scripts\plugins\metisMenu\metisMenu.js" />
+    <Content Include="Scripts\plugins\metisMenu\metisMenu.min.js" />
+    <Content Include="Scripts\plugins\morris\morris-data.js" />
+    <Content Include="Scripts\plugins\morris\morris.js" />
+    <Content Include="Scripts\plugins\morris\morris.min.js" />
+    <Content Include="Scripts\plugins\morris\raphael.min.js" />
+    <Content Include="Scripts\redactor\redactor.js" />
+    <Content Include="Scripts\redactor\redactor.min.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\sb-admin-2.js" />
+    <Content Include="Scripts\select2.js" />
+    <Content Include="Scripts\tableau_v8.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
+    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Dashboards\AccountControlUser.cshtml" />
+    <Content Include="Views\Dashboards\Create.cshtml" />
+    <Content Include="Views\Dashboards\Delete.cshtml" />
+    <Content Include="Views\Dashboards\Details.cshtml" />
+    <Content Include="Views\Dashboards\Edit.cshtml" />
+    <Content Include="Views\Dashboards\Index.cshtml" />
+    <Content Include="Views\Dashboards\Manage.cshtml" />
+    <Content Include="Views\Dashboards\PasswordChangeSuccess.cshtml" />
+    <Content Include="Views\Dashboards\UserAccount.cshtml" />
+    <Content Include="Views\Dashboards\_CreateOrEdit.cshtml" />
+    <Content Include="Views\Dashboards\_PartialProducts.cshtml" />
+    <Content Include="Views\UserProfiles\ContactList.cshtml" />
+    <Content Include="Views\UserProfiles\Create.cshtml" />
+    <Content Include="Views\UserProfiles\Delete.cshtml" />
+    <Content Include="Views\UserProfiles\Details.cshtml" />
+    <Content Include="Views\UserProfiles\Edit.cshtml" />
+    <Content Include="Views\UserProfiles\Index.cshtml" />
+    <Content Include="Views\UserProfiles\MemberList.cshtml" />
+    <Content Include="Views\UserProfiles\PartnerList.cshtml" />
+    <Content Include="Views\UserProfiles\_ActiveAdministrators.cshtml" />
+    <Content Include="Views\UserProfiles\_ActiveStudents.cshtml" />
+    <Content Include="Views\UserProfiles\_ActiveUserProfiles.cshtml" />
+    <Content Include="Views\UserProfiles\_CreateOrEdit.cshtml" />
+    <Content Include="Views\Home\Success.cshtml" />
+    <Content Include="Views\UserProfiles\AllMemberList.cshtml" />
+    <Content Include="Views\UserProfiles\_Activate.cshtml" />
+    <Content Include="Views\UserProfiles\_Assign.cshtml" />
+    <Content Include="Views\UserProfiles\_Profile.cshtml" />
+    <Content Include="Views\Shared\_PageLayout.cshtml" />
+    <Content Include="Views\Dashboards\_TileBar.cshtml" />
+    <Content Include="Views\Dashboards\_NavBar.cshtml" />
+    <Content Include="Views\Applications\Create.cshtml" />
+    <Content Include="Views\Applications\Delete.cshtml" />
+    <Content Include="Views\Applications\Details.cshtml" />
+    <Content Include="Views\Applications\Edit.cshtml" />
+    <Content Include="Views\Applications\Index.cshtml" />
+    <Content Include="Views\Shared\_RegisterLayout.cshtml" />
+    <Content Include="Views\AgencySites\Create.cshtml" />
+    <Content Include="Views\AgencySites\Delete.cshtml" />
+    <Content Include="Views\AgencySites\Details.cshtml" />
+    <Content Include="Views\AgencySites\Edit.cshtml" />
+    <Content Include="Views\AgencySites\Index.cshtml" />
+    <Content Include="Views\Sites\Create.cshtml" />
+    <Content Include="Views\Sites\Delete.cshtml" />
+    <Content Include="Views\Sites\Details.cshtml" />
+    <Content Include="Views\Sites\Edit.cshtml" />
+    <Content Include="Views\Sites\Index.cshtml" />
+    <Content Include="Views\Sites\_Sites.cshtml" />
+    <Content Include="Views\Sites\_SiteList.cshtml" />
+    <Content Include="Views\UserProfiles\LoginUser.cshtml" />
+    <Content Include="Views\UserProfiles\StopImpersonation.cshtml" />
+    <Content Include="Views\Account\_Step1Registration.cshtml" />
+    <Content Include="Views\Account\_Step2Registration.cshtml" />
+    <Content Include="Views\Account\_Step3Registration.cshtml" />
+    <Content Include="Views\Programs\Create.cshtml" />
+    <Content Include="Views\Programs\Delete.cshtml" />
+    <Content Include="Views\Programs\Details.cshtml" />
+    <Content Include="Views\Programs\Edit.cshtml" />
+    <Content Include="Views\Programs\Index.cshtml" />
+    <Content Include="Views\Programs\_ProgramList.cshtml" />
+    <Content Include="Views\Sites\_SiteListing.cshtml" />
+    <Content Include="Views\Account\AccountPending.cshtml" />
+    <Content Include="Views\Account\ResetPasswordInline.cshtml" />
+    <Content Include="Views\Requests\Create.cshtml" />
+    <Content Include="Views\Requests\Delete.cshtml" />
+    <Content Include="Views\Requests\Details.cshtml" />
+    <Content Include="Views\Requests\Edit.cshtml" />
+    <Content Include="Views\Requests\Index.cshtml" />
+    <Content Include="Views\Shared\_ProfileLayout.cshtml" />
+    <Content Include="Views\Dashboards\_ProfileNavBar.cshtml" />
+    <Content Include="Views\UserProfiles\_UserProfilesFeed.cshtml" />
+    <Content Include="Views\Home\_Tiles.cshtml" />
+    <Content Include="Views\Account\_ProgramPartial.cshtml" />
+    <Content Include="Views\Programs\_ProgramRoleList.cshtml" />
+    <Content Include="Views\Programs\_ProgramListing.cshtml" />
+    <Content Include="Views\Account\RedirectToApp.cshtml" />
+    <Content Include="Views\Contracts\Create.cshtml" />
+    <Content Include="Views\Contracts\Delete.cshtml" />
+    <Content Include="Views\Contracts\Details.cshtml" />
+    <Content Include="Views\Contracts\Edit.cshtml" />
+    <Content Include="Views\Contracts\Index.cshtml" />
+    <Content Include="Views\Notices\Create.cshtml" />
+    <Content Include="Views\Notices\Delete.cshtml" />
+    <Content Include="Views\Notices\Details.cshtml" />
+    <Content Include="Views\Notices\Edit.cshtml" />
+    <Content Include="Views\Notices\Index.cshtml" />
+    <Content Include="Views\Programs\_ProgramManagement.cshtml" />
+    <Content Include="Views\DDCancerTypeBins\Create.cshtml" />
+    <Content Include="Views\DDCancerTypeBins\Delete.cshtml" />
+    <Content Include="Views\DDCancerTypeBins\Details.cshtml" />
+    <Content Include="Views\DDCancerTypeBins\Edit.cshtml" />
+    <Content Include="Views\DDCancerTypeBins\Index.cshtml" />
+    <Content Include="Views\RoleBins\Create.cshtml" />
+    <Content Include="Views\RoleBins\Delete.cshtml" />
+    <Content Include="Views\RoleBins\Details.cshtml" />
+    <Content Include="Views\RoleBins\Edit.cshtml" />
+    <Content Include="Views\RoleBins\Index.cshtml" />
+    <Content Include="Views\DDCancerTypeBins\_CancerTypeList.cshtml" />
+    <Content Include="Views\RoleBins\_AgencyRoleList.cshtml" />
+    <Content Include="Views\SubContractors\Create.cshtml" />
+    <Content Include="Views\SubContractors\Delete.cshtml" />
+    <Content Include="Views\SubContractors\Details.cshtml" />
+    <Content Include="Views\SubContractors\Edit.cshtml" />
+    <Content Include="Views\SubContractors\Index.cshtml" />
+    <Content Include="Views\AgencyContacts\Create.cshtml" />
+    <Content Include="Views\AgencyContacts\Delete.cshtml" />
+    <Content Include="Views\AgencyContacts\Details.cshtml" />
+    <Content Include="Views\AgencyContacts\Edit.cshtml" />
+    <Content Include="Views\AgencyContacts\Index.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordInitial.cshtml" />
+    <Content Include="Views\SubContractors\_FacilityEdit.cshtml" />
+    <Content Include="Views\SubContractors\_FacilityList.cshtml" />
+    <Content Include="Views\AgencyContacts\_PersonnelList.cshtml" />
+    <Content Include="Views\RequestTrackers\Create.cshtml" />
+    <Content Include="Views\RequestTrackers\Delete.cshtml" />
+    <Content Include="Views\RequestTrackers\Details.cshtml" />
+    <Content Include="Views\RequestTrackers\Edit.cshtml" />
+    <Content Include="Views\RequestTrackers\Index.cshtml" />
+    <Content Include="Views\RequestTrackers\_TrackerList.cshtml" />
+    <Content Include="Views\Sites\_EmailBuilder.cshtml" />
+    <Content Include="Views\Sites\_AddSite.cshtml" />
+    <Content Include="Views\Home\_WWCLocations.cshtml" />
+    <Content Include="Views\Providers\Create.cshtml" />
+    <Content Include="Views\Providers\Delete.cshtml" />
+    <Content Include="Views\Providers\Details.cshtml" />
+    <Content Include="Views\Providers\Edit.cshtml" />
+    <Content Include="Views\Providers\Index.cshtml" />
+    <Content Include="Views\AgencySites\_AgencyInfo.cshtml" />
+    <Content Include="Views\AgencyContacts\_ContactInfo.cshtml" />
+    <Content Include="Views\AgencyContacts\_PersonnelEdit.cshtml" />
+    <Content Include="Views\SubContractors\_FacilityInfo.cshtml" />
+    <Content Include="Views\Account\_Step4Registration.cshtml" />
+    <Content Include="Views\UserProfiles\_ExternalApprovalCheck.cshtml" />
+    <Content Include="Views\Account\LoginInline.cshtml" />
+    <Content Include="Views\Requests\_RequestList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Assets\" />
+    <Folder Include="Authenticated\" />
+    <Folder Include="Content\jHtmlArea\" />
+    <Folder Include="Scripts\kendo\2013.1.514\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201409171614597_DateChange.resx">
+      <DependentUpon>201409171614597_DateChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409181415590_NotificationChange.resx">
+      <DependentUpon>201409181415590_NotificationChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409201157263_NotificationChange1.resx">
+      <DependentUpon>201409201157263_NotificationChange1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409202224075_UserProfilePostsChange.resx">
+      <DependentUpon>201409202224075_UserProfilePostsChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410241626413_PrivacyAgreementChange.resx">
+      <DependentUpon>201410241626413_PrivacyAgreementChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410271748040_AwardedPostChange.resx">
+      <DependentUpon>201410271748040_AwardedPostChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410311129253_GraduatedBinChange.resx">
+      <DependentUpon>201410311129253_GraduatedBinChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410311258306_ProfileChange.resx">
+      <DependentUpon>201410311258306_ProfileChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501281832411_PhoneChange.resx">
+      <DependentUpon>201501281832411_PhoneChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502042010014_OpDateChange.resx">
+      <DependentUpon>201502042010014_OpDateChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507121423566_DemographicsChange.resx">
+      <DependentUpon>201507121423566_DemographicsChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507131349578_UserDumpChange.resx">
+      <DependentUpon>201507131349578_UserDumpChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508060337283_StripChange.resx">
+      <DependentUpon>201508060337283_StripChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508311421017_BigChange.resx">
+      <DependentUpon>201508311421017_BigChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508311517589_AdditionalChange.resx">
+      <DependentUpon>201508311517589_AdditionalChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509011919347_RoleAppChange.resx">
+      <DependentUpon>201509011919347_RoleAppChange.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51281</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:49674/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

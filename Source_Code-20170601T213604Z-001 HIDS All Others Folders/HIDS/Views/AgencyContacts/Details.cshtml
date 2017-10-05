@@ -1,0 +1,238 @@
+﻿@model CTL.Models.AgencyContact
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+@using (Html.BeginForm("_EditAgencyContactF", "AgencyContacts", FormMethod.Post, new { id = "EditAgencyContactsForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.Hidden("AgencyContactID", (int?)ViewBag.AgencyContactID)
+    @Html.Hidden("ClinicID", (int?)ViewBag.ClinicID)
+
+
+    <div style="padding-left:6px">
+
+
+        <div class="row">
+            <div class="col-md-4">First Name</div>
+            <div class="col-md-8">@Html.TextBoxFor(model => model.FirstName, new { @style = "width: 94%;", @placeholder = "Enter First Name", @class = "form-control" }) @Html.ValidationMessageFor(model => model.FirstName)</div>
+
+
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-4">Last Name</div>
+            <div class="col-md-8">@Html.TextBoxFor(model => model.LastName, new { @style = "width: 94%;", @placeholder = "Enter Last Name", @class = "form-control" }) @Html.ValidationMessageFor(model => model.LastName)</div>
+
+        </div>
+
+
+        <br />
+        <div class="row">
+            <div class="col-md-12">@Html.LabelFor(model => model.Title)</div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                @Html.TextAreaFor(model => model.Title, new { @style = "width: 94%", @placeholder = "Enter a Title", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Title)
+            </div>
+
+        </div>
+
+        <br />
+
+        <div class="row">
+            <div class="col-md-4">Phone #</div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.Phone, new { @style = "width: 94%", @placeholder = "Enter a Phone #", @class = "form-control ClinicPhone" })
+                @Html.ValidationMessageFor(model => model.Phone)
+            </div>
+
+        </div>
+
+        <br />
+
+
+        <div class="row">
+            <div class="col-md-4">Fax #</div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.Fax, new { @style = "width: 94%", @placeholder = "Enter a Fax #", @class = "form-control ClinicPhone" })
+                @Html.ValidationMessageFor(model => model.Fax)
+            </div>
+
+        </div>
+
+        <br />
+
+        <div class="row">
+            <div class="col-md-4">Email Address</div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.Email, new { @style = "width: 94%", @placeholder = "Enter an Email Address", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+
+        </div>
+
+        <br />
+
+
+        <div class="row">
+            <div class="col-md-4">Last motivational interview training</div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.MITrainingDate, new { @style = "width: 94%", @placeholder = "Training Date" })
+                @Html.ValidationMessageFor(model => model.MITrainingDate)
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" id="AgencyEditConCloseButton" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" id="AgencyEditContactButton" class="btn btn-success">Save</button>
+    </div>
+
+
+}
+
+
+<script type="text/javascript">
+
+
+
+    $(function () {
+
+
+        $("#EditAgencyContactsForm").validate({
+            rules: {
+
+                FirstName: {
+
+                    required: true
+
+                },
+                LastName: {
+
+                    required: true
+
+                },
+                Title: {
+
+                    required: false
+
+
+                },
+                Phone: {
+
+                    required: true
+
+
+                },
+                //Fax: {
+
+                //    required: true
+
+
+                //},
+                Email: {
+
+                    required: true
+
+
+                }
+
+
+            },
+            messages: {
+
+                FirstName: {
+                    required: "Please enter a first name"
+
+                },
+                LastName: {
+                    required: "Please enter a last name"
+
+                },
+                Title: {
+                    required: "Please enter a title"
+
+                },
+                Phone: {
+                    required: "Please enter a phone number"
+
+                },
+                //Fax: {
+                //    required: "Please enter a fax"
+
+                //},
+                Email: {
+                    required: "Please enter a email"
+
+                }
+
+            }
+
+        });
+
+        $('#EditAgencyContactsForm').on("submit", function (evtAC) {
+            evtAC.preventDefault();
+            if ($('#EditAgencyContactsForm').valid()) {
+                $.ajax({
+
+                    url: $("#EditAgencyContactsForm").attr('action'),
+                    type: $("#EditAgencyContactsForm").attr('method'),
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    data: $("#EditAgencyContactsForm").serialize(),
+                    success: function (data) {
+
+                        var contactname = data.Modified;
+                        var clinicid = data.Modified2;
+
+
+                        $('#ProgramListSection').load('@Url.Action("_ProgramList", "Clinics")', { id: clinicid });
+
+
+
+                        toastr.success('You have successfully updated ' + contactname + ' profile information.')
+
+
+                        //$('#myModal').modal('hide')
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+
+                    }
+
+                });
+            }
+
+        });
+
+
+
+
+  });
+
+
+
+</script>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $("#MITrainingDate").kendoDatePicker({ max: new Date() });
+        $('.ClinicPhone').mask('(999) 999-9999? x99999');
+        $('.cep').mask('99999');
+    });
+
+
+
+</script>
